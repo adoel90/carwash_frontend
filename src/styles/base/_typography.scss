@@ -9,10 +9,10 @@ $heading-offsets: (
 	h5: $h5,
 	h6: $h6
 );
-@each $heading in $heading-offsets {
+@each $heading, $value in $heading-offsets {
 	.#{$heading},
 	#{$heading} {
-		font-size: $heading;
+		font-size: $value;
 		margin: 0;
 	}
 }

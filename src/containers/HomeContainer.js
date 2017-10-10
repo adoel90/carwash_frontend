@@ -2,7 +2,7 @@ import React from 'react';
 
 class HomeContainer extends React.Component {
 	render() {
-		return null;
+		return <h1 className="flex">TES</h1>
 	}
 }
 

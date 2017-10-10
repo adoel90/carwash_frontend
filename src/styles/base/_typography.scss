@@ -1,14 +1,19 @@
 //------------------------------------------------------------------
 //	##	Headings
 //------------------------------------------------------------------
-$heading-offset: h1 h2 h3 h4 h5 h6;
-@each $heading in $heading-offset {
+$heading-offsets: (
+	h1: $h1,
+	h2: $h2,
+	h3: $h3,
+	h4: $h4,
+	h5: $h5,
+	h6: $h6
+);
+@each $heading in $heading-offsets {
 	.#{$heading},
 	#{$heading} {
-		@include font {
-			@include font-heading($heading);
-			margin: 0;
-		}
+		font-size: $heading;
+		margin: 0;
 	}
 }
 

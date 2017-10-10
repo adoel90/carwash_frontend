@@ -100,27 +100,11 @@
 //
 //-------------------------------------------------------------------------
 /*/
-/*	A mixin container for you who prefer encapsulating font related
+/*	A mixin container for those who prefer encapsulating font related
 /*	style properties.
 /*/
 @mixin font {
 	@content;
-}
-
-/*/
-/*	Font Weight
-/*
-/*	A specialized mixin for declaring font weight. See the list of
-/*	font-weights to determine whether the declared font weight is
-/*	valid or not. (See $font-weights in variables file).
-/*/
-
-@mixin font-weight($font-weight) {
-	@if map-has-key($font-weights, $font-weight) {
-		$font-weight: map-get($font-weights, $font-weight);
-	}
-
-	font-weight: $font-weight;
 }
 
 /*/
@@ -138,6 +122,22 @@
 	@include compute-font-size($font-size);
 }
 
+/*/
+/*	Font Weight
+/*
+/*	A specialized mixin for declaring font weight. See the list of
+/*	font-weights to determine whether the declared font weight is
+/*	valid or not. (See $font-weights in variables file).
+/*/
+@mixin font-weight($font-weight) {
+	@if map-has-key($font-weights, $font-weight) {
+		$font-weight: map-get($font-weights, $font-weight);
+	}
+
+	font-weight: $font-weight;
+}
+
+
 @mixin compute-font-size($font-size) {
 	@if(unitless($font-size)) { // if unitless, defaults to px.
 		font-size: $font-size + px; // for old browsers, e.g: IE legacy versions.
@@ -150,23 +150,23 @@
 	}
 }
 
-@mixin font-heading($heading) {
-	$font-headings: (
-		h1: $h1,
-		h2: $h2,
-		h3: $h3,
-		h4: $h4,
-		h5: $h5,
-		h6: $h6
-	);
-
-	@if map-has-key($font-headings, $heading) {
-		$heading: map-get($font-headings, $heading);
-	}
-
-	@include font-size($heading);
-	// font-size: $heading;
-}
+// @mixin font-heading($heading) {
+// 	$font-headings: (
+// 		h1: $h1,
+// 		h2: $h2,
+// 		h3: $h3,
+// 		h4: $h4,
+// 		h5: $h5,
+// 		h6: $h6
+// 	);
+//
+// 	@if map-has-key($font-headings, $heading) {
+// 		$heading: map-get($font-headings, $heading);
+// 	}
+//
+// 	@include font-size($heading);
+// 	// font-size: $heading;
+// }
 
 ///------------------------------------------------------------------------
 //

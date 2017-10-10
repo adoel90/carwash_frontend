@@ -1,0 +1,98 @@
+.container {
+	position: relative;
+	width: 100%;
+	margin: 0 auto;
+	padding-right: $spacer;
+	padding-left: $spacer;
+
+	@include media(phone) {
+		max-width: breakpoint(phone);
+	}
+
+	@include media(tablet) {
+		max-width: breakpoint(tablet);
+	}
+
+	@include media(desktop) {
+		max-width: breakpoint(desktop);
+	}
+
+	@include media(large-desktop) {
+		max-width: breakpoint(large-desktop);
+	}
+}
+
+.row {
+	@include flexbox;
+	@include flex-wrap(wrap);
+	margin-left: ($spacer * -1);
+	margin-right: ($spacer * -1);
+
+	> [class*=column-] {
+		padding-left: $spacer;
+		padding-right: $spacer;
+	}
+
+	&.row--no-gutters {
+		margin: 0;
+
+		> [class*=column-] {
+			padding: 0;
+		}
+	}
+}
+
+
+
+.column {
+	@include flex(1 0 auto);
+}
+
+/*/
+ *	Creates the basic grid columns for automatic flex layout.
+/*/
+@for $i from 1 through 12 {
+	.column-#{$i} {
+		$calculated-width: (100/12) * $i + %;
+		@include flex(0 0 $calculated-width);
+		max-width: $calculated-width;
+	}
+}
+
+/*/
+ *	Creates more advanced grid columns that are categorized within breakpoints.
+ *	You can change the breakpoints inside variables scss file.
+ *
+ *	Usage: .column-{bp}-{offset}
+/*/
+@for $i from 1 through 12 {
+	$calculated-width: (100/12) * $i + %;
+
+	.column-xl-#{$i} {
+		@include media(large-desktop) {
+			@include flex(1 0 $calculated-width);
+			max-width: $calculated-width;
+		}
+	}
+
+	.column-lg-#{$i} {
+		@include media(desktop) {
+			@include flex(1 0 $calculated-width);
+			max-width: $calculated-width;
+		}
+	}
+
+	.column-md-#{$i} {
+		@include media(tablet) {
+			@include flex(1 0 $calculated-width);
+			max-width: $calculated-width;
+		}
+	}
+
+	.column-sm-#{$i} {
+		@include media(phone) {
+			@include flex(1 0 $calculated-width);
+			max-width: $calculated-width;
+		}
+	}
+}

@@ -1,0 +1,20 @@
+.sidebar {
+	&.sidebar--main {
+		@include relative;
+		width: 5em;
+		background-color: gray(1700);
+	}
+
+	.sidebar-inner {
+		@include fixed {
+			top: 0;
+		}
+
+		height: 100vh;
+		width: 5em;
+	}
+
+	.sidebar-container {
+
+	}
+}

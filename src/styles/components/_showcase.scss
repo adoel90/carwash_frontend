@@ -1,0 +1,113 @@
+.showcase-list {
+	@include flexbox;
+	@include flex-direction(column);
+
+	.showcase {
+		margin-bottom: 10em;
+	}
+}
+
+.showcase {
+	@include relative;
+	height: 35em;
+
+	.showcase__photo {
+		@include relative;
+		height: 100%;
+		width: 100%;
+		overflow: hidden;
+		z-index: 500;
+
+		> img {
+			object-fit: cover;
+			object-position: center;
+			height: 100%;
+			width: 100%;
+			@include transition(all 5s $transition-primary);
+			@include absolute {
+				top: 0;
+				left: 0;
+			}
+		}
+
+		&:after {
+			content: "";
+			@include transition(all 500ms $transition-primary);
+			@include absolute {
+				top: 0;
+				left: 0;
+			}
+			height: 100%;
+			width: 100%;
+			background-color: rgba(gray(1700), 0.5);
+		}
+	}
+
+	.showcase__detail {
+		@include absolute {
+			top: 0;
+			left: 0;
+		}
+		padding: 5em;
+		height: 100%;
+		width: 100%;
+		z-index: 600;
+
+		.showcase__stacks {
+			.showcase__stack {
+				padding: 0 5px;
+			}
+		}
+
+		.showcase__title {
+			color: primary-color(base);
+		}
+	}
+
+	&:hover {
+		.showcase__photo {
+			> img {
+				@include transform(scale(1.2));
+				@include transition(all 10s $transition-primary);
+			}
+
+			&:after {
+				background-color: rgba(gray(1700), 0.9);
+			}
+		}
+
+	}
+
+	&.showcase--rounded {
+		@include border-radius(map-get($border-radius, base));
+	}
+
+	&.showcase--has-decoration {
+		@include relative;
+		@include transition(all 500ms $transition-primary);
+		@include transform(translate(-25px, -25px));
+		z-index: 500;
+
+		&:before {
+			content: "";
+			height: 100%;
+			width: 100%;
+			z-index: 400;
+			background-color: gray(1600);
+			@include transition(all 1000ms $transition-primary);
+			@include transform(translate(50px, 50px));
+			@include absolute {
+				top: 0;
+				left: 0;
+			}
+		}
+
+		&:hover {
+			@include transform(translate(25px, 25px));
+
+			&:before {
+				@include transform(translate(-25px, -25px));
+			}
+		}
+	}
+}

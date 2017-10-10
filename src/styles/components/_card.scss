@@ -1,0 +1,87 @@
+.card {
+	@include relative;
+
+	&.card--featured-card {
+		.card__content {
+			@include absolute {
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+			}
+
+			z-index: 600;
+		}
+	}
+
+	&.card--has-decoration {
+		.card__image {
+			z-index: 500;
+		}
+
+		.card__decoration {
+			z-index: 400;
+		}
+	}
+
+	&.card--image-overlay {
+		@include relative;
+
+		.card__image {
+			@include relative;
+			height: 30em;
+			overflow: hidden;
+
+			> img {
+				object-fit: cover;
+				object-position: center;
+				height: 100%;
+				width: 100%;
+				@include absolute {
+					top: 0;
+					left: 0;
+					right: 0;
+					bottom: 0;
+				}
+			}
+		}
+	}
+
+	.card__decoration {
+		@include absolute {
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+		}
+
+		@include transform(translate(30px, -30px));
+		border: solid 1px primary-color(base);
+		background-size: cover;
+		background-position: center;
+		z-index: 400;
+	}
+
+	// .card-image {
+	// 	@include relative;
+	//
+	// 	&.card-image--overlay {
+	// 		height: 30em;
+	// 		overflow: hidden;
+	//
+	// 		> img {
+	// 			object-fit: cover;
+	// 			object-position: center;
+	// 			height: 100%;
+	// 			width: 100%;
+	// 			@include absolute {
+	// 				top: 0;
+	// 				left: 0;
+	// 				right: 0;
+	// 				bottom: 0;
+	// 			}
+	// 		}
+	//
+	// 	}
+	// }
+}

@@ -1,0 +1,22 @@
+.flex {
+	@include flexbox;
+}
+
+.flex-column {
+	@include flex-direction(column);
+}
+
+.flex-row {
+	@include flex-direction(row);
+}
+
+$flex-positions: flex-start center flex-end space-between;
+@each $position in $flex-positions {
+	.justify-content--#{$position} {
+		@include justify-content($position);
+	}
+
+	.align-items--#{$position} {
+		@include align-items($position);
+	}
+}

@@ -1,0 +1,48 @@
+@function tint($color, $percentage) {
+	@return mix(white, $color, $percentage);
+}
+
+@function shade($color, $percentage) {
+	@return mix(black, $color, $percentage);
+}
+
+@function strip-unit($number) {
+	@if type-of($number) == 'number' and not unitless($number) {
+		@return $number / ($number * 0 + 1);
+	}
+
+	@return $number;
+}
+
+@function breakpoint($key: phone) {
+	@return map-get($breakpoints, $key);
+}
+
+@function border-radius($value: base) {
+	@return map-get($border-radius, $value);
+}
+
+@function primary-color($key: base) {
+	@return map-get($color-primary, $key);
+}
+
+@function secondary-color($key: base) {
+	@return map-get($color-secondary, $key);
+}
+
+@function gray($key: "white") {
+	@return map-get($grays, $key);
+}
+
+@function ui-color($key: "primary") {
+	@return map-get($ui-colors, $key);
+}
+
+@function calculateRem($font-size) {
+	$rem: $font-size / 16px;
+	@return $rem * 1rem;
+}
+
+@function letter-spacing($key: base) {
+	@return map-get($letter-spacing, $key);
+}

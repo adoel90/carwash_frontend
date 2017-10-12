@@ -1,21 +1,23 @@
 //------------------------------------------------------------------
 //	##	Headings
 //------------------------------------------------------------------
-$heading-offsets: (
-	h1: $h1,
-	h2: $h2,
-	h3: $h3,
-	h4: $h4,
-	h5: $h5,
-	h6: $h6
-);
-@each $heading, $value in $heading-offsets {
-	.#{$heading},
-	#{$heading} {
-		font-size: $value;
-		margin: 0;
+@for $i from 1 through 6 {
+	@each $heading, $value in $headings {
+		.#{$heading},
+		h#{$i} {
+			font-size: $value;
+			margin: 0;
+		}
 	}
 }
+
+// @each $heading, $value in $headings {
+// 	.#{$heading},
+// 	#{$heading} {
+// 		font-size: $value;
+// 		margin: 0;
+// 	}
+// }
 
 /*/
 /*	Display Headings
@@ -23,7 +25,7 @@ $heading-offsets: (
 /*	Traditional heading elements are designed to work best in the
 /*	meat of your page content. When you need a heading to stand out,
 /*	consider using a display heading—a larger, slightly more opinionated
-/*	heading style.
+/*	heading style. Use this to force a text element to stand out.
 /*/
 .display {
 	@include font-weight(light);

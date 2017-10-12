@@ -1,7 +1,6 @@
 .button {
 	@include transition(all 200ms ease-in-out);
 	@include user-select(none);
-	font-family: $font-family-sans-serif-secondary;
 	white-space: nowrap;
 	vertical-align: middle;
 	background: none;

@@ -44,7 +44,8 @@
 
 
 
-.column {
+.column,
+.column-auto {
 	@include flex(1 0 auto);
 }
 

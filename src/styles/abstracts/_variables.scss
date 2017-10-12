@@ -12,14 +12,12 @@
 //
 $font-family-sans-serif				: 'HK Grotesk', Helvetica, Arial, sans-serif;
 // $font-family-sans-serif			: 'Circular Std', Helvetica, Arial, sans-serif;
-$font-family-sans-serif-secondary	: 'Montserrat', Helvetica, Arial, sans-serif;
 $font-family-serif					: Georgia, 'Times New Roman', Times, serif;
 $font-family-monospace				: Menlo, Monaco, Consolas, 'Courier New', monospace;
 
 //
-//	Font Size
+//	Font Sizes
 //
-
 $font-size-base			: 18px;
 $font-size-large		: ceil(($font-size-base * 1.25)) !default;
 $font-size-x-large		: ceil(($font-size-base * 1.75)) !default;
@@ -30,15 +28,15 @@ $font-size-small		: ceil(($font-size-base * 0.85)) !default;
 $font-size-x-small		: ceil(($font-size-base * 0.75)) !default;
 
 $font-sizes: (
-	base: $font-size-base,
-	large: $font-size-large,
-	x-large: $font-size-x-large,
-	xx-large: $font-size-xx-large,
-	xxx-large: $font-size-xxx-large,
-	xxxx-large: $font-size-xxxx-large,
-	small: $font-size-small,
-	x-small: $font-size-x-small
-);
+	base		: $font-size-base,
+	large		: $font-size-large,
+	x-large		: $font-size-x-large,
+	xx-large	: $font-size-xx-large,
+	xxx-large	: $font-size-xxx-large,
+	xxxx-large	: $font-size-xxxx-large,
+	small		: $font-size-small,
+	x-small		: $font-size-x-small
+) !default;
 
 //
 //	Font Weight
@@ -65,65 +63,74 @@ $font-weights: (
 	extra-ultra: 900
 );
 
-//
-//	Headings
-//
-$h1: $font-size-xxx-large;
-$h2: $font-size-xx-large;
-$h3: $font-size-x-large;
-$h4: $font-size-large;
-$h5: $font-size-base;
-$h6: $font-size-small;
+/**
+/*	Headings
+/*/
+$headings: (
+	heading-1: $font-size-xxxx-large,
+	heading-2: $font-size-xxx-large,
+	heading-3: $font-size-xx-large,
+	heading-4: $font-size-x-large,
+	heading-5: $font-size-large,
+	heading-6: $font-size-base
+) !default;
 
-//
-//	Line Height
-//
+/**
+/*	Line Height
+/*/
 $line-height-base	: 1.75 !default;
 
-//
-//	Letter Spacing
-//
+/**
+/*	Letter Spacing
+/*/
 $letter-spacing-small: 1px;
 $letter-spacing-base: 2px;
 $letter-spacing-large: 4px;
 
 $letter-spacing: () !default;
 $letter-spacing: map-merge((
-	small: $letter-spacing-small,
-	base: $letter-spacing-base,
-	large: $letter-spacing-large
+	small: 1px,
+	base: 2px,
+	large: 4px
 ), $letter-spacing);
 
 //---------------------------------------------------------------------
 //
-//	##	Colors
+//	Colors
 //
-//		Below is the variable defintion of colors which are used in
-//		components throughout the project.
+//	Below is the variable defintion of colors which are used in
+//	components throughout the project.
 //
 //---------------------------------------------------------------------
-//
-//	Gold Color Pallete (Primary Color Pallete)
-//
-//	The main color used within the project that defines the brand.
-//	Used for primary CTA buttons, heading colors, etc.
-//
+/*/
+/*	Blue Color Pallete (Primary Color Pallete)
+/*
+/*	The main color used within the project that defines the brand.
+/*	Used for primary CTA buttons, heading colors, etc.
+/*/
+$iceberg					: #71B9D8;	// Lightest
+$maximum-blue				: #43A3CA;	// Lighter
+$cyan-cornflower-blue		: #158DBC;	// Base
+$sea-blue					: #117196;	// Darker
+$blue-sapphire				: #0D5570;	// Darkest
 
-$dark-khaki				: #B2AB6B;	// Lightest
-$aztec-gold				: #A8A058;  // Lighter
-$metallic-sunburst		: #9E9545;	// Base
-$old-moss-green			: #8E863E;	// Darker
-$spanish-bistre			: #7E7737;	// Darkest
+/*/
+/*	Yellow Color Pallete (Secondary Color Pallete)
+/*/
+$orange-yellow	: #FCD068;
+$saffron		: #FAC036;
+$ucla-gold		: #F8B004;
+$vivid-amber	: #C68C04;
+$gamboge-orange	: #946804;
 
-$color-primary: () !default;
-$color-primary: map-merge((
-	base: $metallic-sunburst,
-	100: $dark-khaki,
-	200: $aztec-gold,
-	300: $metallic-sunburst,
-	400: $old-moss-green,
-	500: $spanish-bistre
-), $color-primary);
+$primary-shades: (
+	base: $cyan-cornflower-blue,
+	100: $iceberg,
+	200: $maximum-blue,
+	300: $cyan-cornflower-blue,
+	400: $sea-blue,
+	500: $blue-sapphire
+) !default;
 
 //
 //	Blue Color Pallete (Secondary Color)
@@ -131,22 +138,15 @@ $color-primary: map-merge((
 //	A completely contrasting color accent from primary color. Used in different
 //	areas where the primary color does not reside.
 //
-$blueberry			: #4B76F4;
-$cornflower-blue	: tint($blueberry, 18%);
-$jordy-blue			: tint($blueberry, 32%);
-$han-blue			: shade($blueberry, 18%);
-$cyan-cobalt-blue	: shade($blueberry, 32%);
+$secondary-shades: (
+	base: $ucla-gold,
+	100: $orange-yellow,
+	200: $saffron,
+	300: $ucla-gold,
+	400: $vivid-amber,
+	500: $gamboge-orange
+) !default;
 
-$color-secondary: () !default;
-$color-secondary: map-merge((
-	100: $cornflower-blue,
-	200: $jordy-blue,
-	base: $blueberry,
-	300: $han-blue,
-	400: $cyan-cobalt-blue
-), $color-secondary);
-
-//
 //	Red Color Pallete
 //
 $old-rose			: #CA817B;	// Lightest shade
@@ -163,16 +163,6 @@ $liver				: #6E2520; 	// Darkest shade
 //	colored shades that are used in decorative components such as
 //	background, border colors, etc.
 //
-
-// $antiflash-white	: #F2F3F3;
-// $platinum			: #E8EAEA;
-// $silver				: #BBC0C1;
-// $spanish-gray		: #8D9799;
-// $cadet				: #606D70;
-// $charcoal			: #334447;
-// $eerie-black		: #051A1E;
-// $rich-black			: #030F11;
-// $black				: #000000;
 
 $white				: #FFFFFF;
 $isabelline			: #EBF2EC;
@@ -197,39 +187,38 @@ $black				: #000000;
 
 $grays: () !default;
 $grays: map-merge((
-	base: $feldgrau,
-	white: $white,
-	100: $isabelline,
-	200: $gainsboro,
-	300: $pastel-gray,
-	400: $ash-grey,
-	500: $silver-chalice,
-	600: $spanish-gray,
-	700: $mummy-tomb,
-	800: $aurometalsaurus,
-	900: $cadet,
-	1000: $feldgrau,	// Base Gray
-	1100: $outer-space,
-	1200: $arsenic,
-	1300: $onyx,
-	1400: $gunmetal,
-	1500: $charleston-green,
-	1600: $eerie-black,
-	1700: $licorice,
-	1800: $smoky-black,
-	black: $black
+	base	: $feldgrau,
+	white	: $white,
+	100		: $isabelline,
+	200		: $gainsboro,
+	300		: $pastel-gray,
+	400		: $ash-grey,
+	500		: $silver-chalice,
+	600		: $spanish-gray,
+	700		: $mummy-tomb,
+	800		: $aurometalsaurus,
+	900		: $cadet,
+	1000	: $feldgrau,	// Base Gray
+	1100	: $outer-space,
+	1200	: $arsenic,
+	1300	: $onyx,
+	1400	: $gunmetal,
+	1500	: $charleston-green,
+	1600	: $eerie-black,
+	1700	: $licorice,
+	1800	: $smoky-black,
+	black	: $black
 ), $grays);
 
 
 //	# Theme Colors
-$theme-colors: () !default;
-$theme-colors: map-merge((
-	"primary": $metallic-sunburst,
-	"secondary": $blueberry,
-	"success": green,
-	"danger": $sweet-brown,
-	"warning": yellow,
-), $theme-colors);
+$theme-colors: (
+	primary		: $cyan-cornflower-blue,
+	secondary	: blue,
+	success		: green,
+	danger		: red,
+	warning		: yellow,
+) !default;
 
 
 ///--------------------------------------------------------------------
@@ -252,7 +241,7 @@ $spacers: (
 
 //---------------------------------------------------------------------
 //
-//	##	Containers
+//	Containers
 //
 //	Define the maximum width of container class for different screen
 //	sizes.
@@ -277,10 +266,10 @@ $containers: (
 //
 //---------------------------------------------------------------------
 $breakpoints: (
-	phone: 576px,
-	tablet: 768px,
-	desktop: 992px,
-	large-desktop: 1200px
+	phone			: 576px,
+	tablet			: 768px,
+	desktop			: 992px,
+	large-desktop	: 1200px
 ) !default;
 
 
@@ -292,14 +281,13 @@ $breakpoints: (
 /*/
 /*	Border Radius
 /*/
-$border-radius: () !default;
-$border-radius: map-merge((
+$border-radius: (
 	small: 2px,
 	base: 4px,
 	large: 10px,
 	rounded-edge: 20px,
 	round: 100%
-), $border-radius);
+) !default;
 
 //---------------------------------------------------------------------
 //

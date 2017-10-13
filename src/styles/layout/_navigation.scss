@@ -3,20 +3,15 @@ nav {}
 .navigation {
 
 	&.main-navigation {
-		@include fixed {
-			top: 4em;
-			left: 0;
-			right: 0;
-		}
 		background-color: gray(1500);
 
-		.navigation-list {
+		.navigation__list {
 			@include flexbox {
 				@include flex-direction(row);
 				@include justify-content(center);
 			}
 
-			.navigation-item {
+			.navigation__item {
 				> a {
 					@include transition(all 250ms $transition-primary);
 					@include flexbox {
@@ -26,6 +21,26 @@ nav {}
 					height: 4em;
 					padding: 0 30px;
 					color: secondary-color(500);
+
+					&.is-active {
+						@include relative;
+						@include transition(all 250ms $transition-primary);
+						@include font-weight(medium);
+						color: secondary-color(300);
+
+						&:before {
+							content: "";
+							@include absolute {
+								bottom: 20%;
+								left: 50%;
+							}
+							@include border-radius(map-get($border-radius, round));
+							height: 5px;
+							width: 5px;
+							background-color: secondary-color(300);
+						}
+
+					}
 
 					&:hover {
 						color: secondary-color(300);

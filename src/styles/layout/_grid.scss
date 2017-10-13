@@ -5,13 +5,13 @@
 	padding-right: $spacer;
 	padding-left: $spacer;
 
-	@include media(phone) {
-		max-width: breakpoint(phone);
-	}
-
-	@include media(tablet) {
-		max-width: breakpoint(tablet);
-	}
+	// @include media(phone) {
+	// 	max-width: breakpoint(phone);
+	// }
+	//
+	// @include media(tablet) {
+	// 	max-width: breakpoint(tablet);
+	// }
 
 	@include media(desktop) {
 		max-width: breakpoint(desktop);

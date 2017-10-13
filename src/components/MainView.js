@@ -1,17 +1,15 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
-import HomeContainer from '../containers/HomeContainer';
-import LandingContainer from '../containers/LandingContainer';
-import ServicesContainer from '../containers/ServicesContainer';
+import SelfServiceContainer from '../containers/SelfServiceContainer';
 
 class MainView extends React.Component {
 	render() {
 		return (
 			<Switch>
-				<Route name="landing" exact path='/' component={ LandingContainer } />
-				<Route name="services" path='/services' component={ ServicesContainer } />
-				{/* <Route name="home" path='/' component={ HomeContainer } /> */}
+				<Route name="dashboard" path='/self-service' component={ SelfServiceContainer } />
+				<Route name="self-service" path='/self-service' component={ SelfServiceContainer } />
+				<Redirect from="/" to="self-service" />
 			</Switch>
 		)
 	}

@@ -1,13 +1,12 @@
 //------------------------------------------------------------------
 //	##	Headings
 //------------------------------------------------------------------
-@for $i from 1 through 6 {
-	@each $heading, $value in $headings {
-		.#{$heading},
-		h#{$i} {
-			font-size: $value;
-			margin: 0;
-		}
+
+@each $heading, $value in $headings {
+	.#{$heading},
+	#{$heading} {
+		font-size: $value;
+		margin: 0;
 	}
 }
 

@@ -1,16 +1,16 @@
 import React from 'react';
 import MainHeader from './components/MainHeader';
-import MainNavigation from './components/MainNavigation';
+import MainSubheader from './components/MainSubheader';
 import MainView from './components/MainView';
 
 class App extends React.Component {
 	render() {
 		return (
-			<main>
+			<div>
 				<MainHeader />
-				<MainNavigation />
+				<MainSubheader />
 				<MainView />
-			</main>
+			</div>
 		);
 	}
 }

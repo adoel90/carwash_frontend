@@ -1,12 +1,12 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import NavLink from '../components/NavLink';
 
 class MainNavigation extends React.Component {
 	constructor() {
 		super();
 		this.state = {
 			navigationList: [
-				{ name: 'Layanan Cuci Mobil', path: '/carwash' },
+				{ name: 'Layanan Self-Service', path: '/self-service' },
 				{ name: 'Profile', path: '/profile' },
 				{ name: 'Settings', path: '/settings' }
 			]
@@ -14,10 +14,10 @@ class MainNavigation extends React.Component {
 		this.renderNavigationItem = this.renderNavigationItem.bind(this);
 	}
 
-	renderNavigationItem = (navigation) => {
+	renderNavigationItem = (navigation, i) => {
 		return (
-			<li className="navigation-item">
-				<Link to={navigation.path}>{navigation.name}</Link>
+			<li className="navigation__item" key={i}>
+				<NavLink to={navigation.path}>{navigation.name}</NavLink>
 			</li>
 		)
 	}
@@ -29,7 +29,7 @@ class MainNavigation extends React.Component {
 
 		return (
 			<nav className="navigation main-navigation">
-				<ul className="navigation-list">
+				<ul className="navigation__list">
 					{ navigationList.map(this.renderNavigationItem) }
 				</ul>
 			</nav>

@@ -11,15 +11,17 @@ export default class Login extends React.Component {
                             <span> 805 carwarsh</span>
                         </h3>
 
-                        <form className="vertical-form">
+                        <form className="form-vertical">
                             <div className="form-group">
-                                <input type="text" className="form-contol" placeholder="Username" />
+                                <input type="text" className="form-control no-border" placeholder="Username" />
                             </div>
                             <div className="form-group">
-                                <input type="password" className="form-contol" placeholder="Password" />
+                                <input type="password" className="form-control no-border" placeholder="Password" />
                             </div>
 
-                            <button type="submit" className="button button--darkslategray">Sign in</button>
+                            <div className="form-button">
+                                <button type="submit" className="button button--darkslategray button--full">Sign in</button>
+                            </div>
                         </form>
                     </div>
                     <div className="sideright-login">

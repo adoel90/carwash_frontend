@@ -9,6 +9,7 @@
 
 	.page-heading {
 		@include relative;
+		margin-bottom: 20px;
 
 		.heading-subtitle {
 			@include relative;

@@ -1,0 +1,34 @@
+.topup--card {
+    @include flexbox {
+        align-items: center;
+    }
+    padding: 10px;
+    border-radius: 4px;
+    background-color: #ddd;
+
+    .topup--icon {
+        color: $sea-blue;
+        i {
+            font-size: 100px;
+        }
+    }
+    .topup--description {
+        margin-left: 10px;
+        color: $gunmetal;
+
+        h2 {
+            font-size: 28px;
+            font-weight: 500;
+        }
+    }
+}
+
+.topup--saldo {
+    background-color: #ddd;
+    padding: 10px;
+    border-radius: 4px;
+
+    .topup--identity {
+        line-height: $line-height-base;
+    }
+}

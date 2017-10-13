@@ -1,0 +1,38 @@
+nav {}
+
+.navigation {
+
+	&.main-navigation {
+		@include fixed {
+			top: 4em;
+			left: 0;
+			right: 0;
+		}
+		background-color: gray(1500);
+
+		.navigation-list {
+			@include flexbox {
+				@include flex-direction(row);
+				@include justify-content(center);
+			}
+
+			.navigation-item {
+				> a {
+					@include transition(all 250ms $transition-primary);
+					@include flexbox {
+						@include align-items(center);
+						@include justify-content(center);
+					}
+					height: 4em;
+					padding: 0 30px;
+					color: secondary-color(500);
+
+					&:hover {
+						color: secondary-color(300);
+					}
+				}
+			}
+		}
+
+	}
+}

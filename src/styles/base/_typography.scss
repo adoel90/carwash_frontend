@@ -59,6 +59,8 @@ small {
 //------------------------------------------------------------------
 a {
 	cursor: pointer;
+	color: inherit;
+	text-decoration: none;
 
 	&.link {
 		@include relative;

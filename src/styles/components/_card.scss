@@ -1,87 +1,41 @@
 .card {
 	@include relative;
+	@include border-radius(base);
+	@include flexbox;
+	@include flex-direction(column);
+	min-height: 30em;
+	background-color: gray(100);
+	box-shadow: map-get($box-shadow, base);
+	overflow: hidden;
 
-	&.card--featured-card {
-		.card__content {
-			@include absolute {
-				top: 0;
-				left: 0;
-				right: 0;
-				bottom: 0;
-			}
+	.card__container {
+		@include flexbox;
+		@include flex-direction(column);
+		@include flex(1 1 auto);
+		padding: $spacer;
 
-			z-index: 600;
+		> * {
+			margin-bottom: $spacer * .5;
 		}
 	}
 
-	&.card--has-decoration {
-		.card__image {
-			z-index: 500;
-		}
-
-		.card__decoration {
-			z-index: 400;
-		}
-	}
-
-	&.card--image-overlay {
+	.card__heading {
 		@include relative;
+		text-align: center;
 
-		.card__image {
-			@include relative;
-			height: 30em;
-			overflow: hidden;
+		.card__title {
+			@include font-weight(medium);
+		}
 
-			> img {
-				object-fit: cover;
-				object-position: center;
-				height: 100%;
-				width: 100%;
-				@include absolute {
-					top: 0;
-					left: 0;
-					right: 0;
-					bottom: 0;
-				}
-			}
+		.card__price {
+			@include font-weight(semibold);
+			color: primary-color(base);
 		}
 	}
 
-	.card__decoration {
-		@include absolute {
-			top: 0;
-			left: 0;
-			right: 0;
-			bottom: 0;
-		}
-
-		@include transform(translate(30px, -30px));
-		border: solid 1px primary-color(base);
-		background-size: cover;
-		background-position: center;
-		z-index: 400;
+	.card__content {
+		@include flex(1 1 100%);
 	}
 
-	// .card-image {
-	// 	@include relative;
-	//
-	// 	&.card-image--overlay {
-	// 		height: 30em;
-	// 		overflow: hidden;
-	//
-	// 		> img {
-	// 			object-fit: cover;
-	// 			object-position: center;
-	// 			height: 100%;
-	// 			width: 100%;
-	// 			@include absolute {
-	// 				top: 0;
-	// 				left: 0;
-	// 				right: 0;
-	// 				bottom: 0;
-	// 			}
-	// 		}
-	//
-	// 	}
-	// }
+
 }

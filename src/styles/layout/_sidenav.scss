@@ -18,28 +18,24 @@
 				@include font-weight(semibold);
 				background-color: gray(100);
 				padding: $spacer * .25;
+				color: gray(600);
 				text-align: center;
 				height: 10em;
 				width: 10em;
 
 				&.is-active {
 					border-bottom: solid 5px secondary-color(base);
+					color: gray(1800);
 				}
 			}
 
 			&:hover {
 				box-shadow: map-get($box-shadow, large);
-
-				> a {
-				}
 			}
 
 			/*/
 			/*	Adds top margin to the first sidenav item.
 			/*/
-			&:nth-of-type(1) {
-				margin-top: $spacer * .5;
-			}
 		}
 	}
 }

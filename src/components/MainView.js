@@ -10,6 +10,7 @@ class MainView extends React.Component {
 				<Route name="dashboard" path='/self-service' component={ SelfServiceContainer } />
 				<Route name="self-service" path='/self-service' component={ SelfServiceContainer } />
 				<Redirect from="/" to="self-service" />
+				<Redirect from="/self-service" to="/self-service/car-wash" />
 			</Switch>
 		)
 	}

@@ -10,7 +10,7 @@ class Carwash extends React.Component {
 
 	renderItem = (item, i) => {
 		return (
-			<div className="column-6 padding-top-3 padding-bottom-3">
+			<div className="column-6 padding-top-2 padding-bottom-2">
 				<Card key={i} data={item} />
 			</div>
 		)

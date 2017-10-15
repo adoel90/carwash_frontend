@@ -14,6 +14,9 @@ class Card extends React.Component {
 							<Currency value={this.props.data.price} />
 						</h3>
 					</div>
+					<figure className="card__image">
+						<img src={this.props.data.photo} />
+					</figure>
 					<div className="card__content">
 						<p className="card__description">{this.props.data.description}</p>
 					</div>

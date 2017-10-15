@@ -1,4 +1,5 @@
 import React from 'react';
+import Currency from '../components/Currency';
 
 class Card extends React.Component {
 	render() {
@@ -9,7 +10,9 @@ class Card extends React.Component {
 				<div className="card__container">
 					<div className="card__heading">
 						<h5 className="card__title">{this.props.data.name}</h5>
-						<h3 className="card__price">{this.props.data.price}</h3>
+						<h3 className="card__price">
+							<Currency value={this.props.data.price} />
+						</h3>
 					</div>
 					<div className="card__content">
 						<p className="card__description">{this.props.data.description}</p>

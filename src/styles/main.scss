@@ -25,7 +25,8 @@
 	'./components/figure',
 	'./components/badges',
 	'./components/images',
-	'./components/showcase';
+	'./components/showcase',
+	'./components/forms';
 
 /**
 **	Layout
@@ -44,4 +45,5 @@
 **	Views
 */
 @import
-	"./views/home";
+	"./views/home",
+	"./views/login";

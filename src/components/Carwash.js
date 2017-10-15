@@ -20,8 +20,10 @@ class Carwash extends React.Component {
 	render() {
 		return (
 			<div id="car-wash">
-				<h4 className="fw-semibold">Jenis Layanan</h4>
-				<p>Silahkan pilih jenis layanan yang diinginkan.</p>
+				<div className="padding-bottom-3">
+					<h4 className="fw-semibold">Jenis Layanan</h4>
+					<p>Silahkan pilih jenis layanan yang diinginkan.</p>
+				</div>
 				<CardList>
 					{this.props.services.map(this.renderItem)}
 				</CardList>

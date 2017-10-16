@@ -1,41 +1,28 @@
 import React from 'react';
-import MainHeaderLogo from './MainHeaderLogo';
-import MainHeaderNavigation from './MainHeaderNavigation';
 
 class MainHeader extends React.Component {
 	constructor() {
 		super();
 		this.state = {
-			logo: '805 Carwash',
-			navigations: [
-				{ name: 'Layanan Car Wash', link: '/services' },
-				{ name: 'Profile', link: '/profile' }
-			]
+			logoText: '805 Carwash'
 		}
 	}
 
 	render() {
 		return (
-			<header className="header">
-				<div className="main-header">
-					<div className="header__container container">
-						<div className="row">
-							<div className="header__block column-3">
-								<MainHeaderLogo
-									text={this.state.logo}
-								/>
+			<header className="header main-header">
+				<div className="header__container container">
+					<div className="row">
+						<div className="header__block column-3">
+							<div className="header__logo">
+								<span className="heading-6 tt-uppercase fw-bold ls-base">{ this.state.logoText }</span>
 							</div>
-							<div className="header__block column-auto">
+						</div>
+						<div className="header__block column-auto">
+							<div className="header__user">
 
 							</div>
 						</div>
-					</div>
-				</div>
-				<div className="sub-header">
-					<div className="header__container container">
-						<MainHeaderNavigation
-							navigations={this.state.navigations}
-						/>
 					</div>
 				</div>
 			</header>

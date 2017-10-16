@@ -13,6 +13,7 @@
 	@each $theme, $color in $theme-colors {
 		&.button--#{$theme} {
 			background-color: $color;
+			color: gray(100);
 		}
 	}
 

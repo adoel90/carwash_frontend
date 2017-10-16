@@ -185,6 +185,10 @@
 /*/
 
 @mixin border-radius($value) {
+	@if map-has-key($border-radius, $value) {
+		$value: map-get($border-radius, $value);
+	}
+
 	@include prefix(border-radius, $value, webkit moz ms o);
 }
 

@@ -67,12 +67,12 @@ $font-weights: (
 /*	Headings
 /*/
 $headings: (
-	heading-1: $font-size-xxxx-large,
-	heading-2: $font-size-xxx-large,
-	heading-3: $font-size-xx-large,
-	heading-4: $font-size-x-large,
-	heading-5: $font-size-large,
-	heading-6: $font-size-base
+	h1: $font-size-xxxx-large,
+	h2: $font-size-xxx-large,
+	h3: $font-size-xx-large,
+	h4: $font-size-x-large,
+	h5: $font-size-large,
+	h6: $font-size-base
 ) !default;
 
 /**
@@ -287,6 +287,15 @@ $border-radius: (
 	large: 10px,
 	rounded-edge: 20px,
 	round: 100%
+) !default;
+
+/*/
+/*	Box Shadow
+/*/
+$box-shadow: (
+	small: (0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)),
+	base: (0 3px 6px rgba(0,0,0,0.05), 0 3px 6px rgba(0,0,0,0.05)),
+	large: (0 10px 20px rgba(0,0,0,0.1), 0 6px 6px rgba(0,0,0,0.1))
 ) !default;
 
 //---------------------------------------------------------------------

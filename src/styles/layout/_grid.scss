@@ -2,16 +2,16 @@
 	position: relative;
 	width: 100%;
 	margin: 0 auto;
-	padding-right: $spacer;
-	padding-left: $spacer;
+	padding-right: $spacer * .5;
+	padding-left: $spacer * .5;
 
-	@include media(phone) {
-		max-width: breakpoint(phone);
-	}
-
-	@include media(tablet) {
-		max-width: breakpoint(tablet);
-	}
+	// @include media(phone) {
+	// 	max-width: breakpoint(phone);
+	// }
+	//
+	// @include media(tablet) {
+	// 	max-width: breakpoint(tablet);
+	// }
 
 	@include media(desktop) {
 		max-width: breakpoint(desktop);
@@ -25,12 +25,12 @@
 .row {
 	@include flexbox;
 	@include flex-wrap(wrap);
-	margin-left: ($spacer * -1);
-	margin-right: ($spacer * -1);
+	margin-left: ($spacer * -.5);
+	margin-right: ($spacer * -.5);
 
 	> [class*=column-] {
-		padding-left: $spacer;
-		padding-right: $spacer;
+		padding-left: $spacer * .5;
+		padding-right: $spacer * .5;
 	}
 
 	&.row--no-gutters {

@@ -6,7 +6,7 @@ export default class Cashier extends React.Component {
             <section className="page-section">
                 <div className="page-container">
                     <div className="page-heading">
-                        <h1>Pendaftaran</h1>
+                        <h4>Pendaftaran</h4>
                     </div>
                     <div className="page-content">
                         <form className="form-inline">

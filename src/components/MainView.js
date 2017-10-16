@@ -12,12 +12,9 @@ class MainView extends React.Component {
 	render() {
 		return (
 			<Switch>
-				<Route name="landing" exact path='/' component={ LandingContainer } />
 				<Route name="login" path='/login' component={ LoginContainer } />
 				<Route name="cashier" path='/cashier' component={ CashierContainer } />
 				<Route name="topup" path='/topup' component={ TopupContainer } />
-				<Route name="home" path='/home' component={ HomeContainer } />
-				<Route name="dashboard" path='/self-service' component={ SelfServiceContainer } />
 				<Route name="self-service" path='/self-service' component={ SelfServiceContainer } />
 				<Redirect from="/" to="self-service" />
 				<Redirect from="/self-service" to="/self-service/car-wash" />

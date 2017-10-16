@@ -8,6 +8,7 @@ class MainNavigation extends React.Component {
 			navigationList: [
 				{ name: 'Layanan Self-Service', path: '/self-service' },
 				{ name: 'Profile', path: '/profile' },
+				{ name: 'Cashier', path: '/cashier' },
 				{ name: 'Settings', path: '/settings' }
 			]
 		}

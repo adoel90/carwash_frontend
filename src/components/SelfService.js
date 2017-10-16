@@ -26,6 +26,7 @@ class SelfService extends React.Component {
 					</MainSidebar>
 					<MainContent>
 						<Route name='car-wash' path={`${match.url}/car-wash`} component={CarwashContainer} />
+						<Redirect from="/self-service" to="/self-service/car-wash" />
 					</MainContent>
 				</div>
 			</main>

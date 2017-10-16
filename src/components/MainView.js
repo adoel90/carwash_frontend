@@ -16,7 +16,7 @@ class MainView extends React.Component {
 				<Route name="login" path='/login' component={ LoginContainer } />
 				<Route name="cashier" path='/cashier' component={ CashierContainer } />
 				<Route name="topup" path='/topup' component={ TopupContainer } />
-				<Route name="home" path='/' component={ HomeContainer } />
+				<Route name="home" path='/home' component={ HomeContainer } />
 				<Route name="dashboard" path='/self-service' component={ SelfServiceContainer } />
 				<Route name="self-service" path='/self-service' component={ SelfServiceContainer } />
 				<Redirect from="/" to="self-service" />

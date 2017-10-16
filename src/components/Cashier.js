@@ -1,7 +1,20 @@
 import React from 'react';
+import { Route, Redirect } from 'react-router-dom';
 
-export default class Cashier extends React.Component {
+import MainSidebar from '../components/MainSidebar';
+import MainSidenav from '../components/MainSidenav';
+import MainContent from '../components/MainContent';
+
+class Cashier extends React.Component {
+    constructor() {
+        super();
+    }
+
     render() {
+        const {
+            match
+        } = this.props;
+
         return(
             <section className="page-section">
                 <div className="page-container">
@@ -35,3 +48,5 @@ export default class Cashier extends React.Component {
         )
     }
 }
+
+export default Cashier;

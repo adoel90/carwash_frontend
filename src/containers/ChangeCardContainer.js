@@ -1,8 +1,7 @@
 import React from 'react';
+import ChangeCard from '../components/ChangeCard';
 
-import Topup from '../components/Topup';
-
-export default class TopupContainer extends React.Component {
+class ChangeCardContainer extends React.Component {
     constructor() {
         super();
 
@@ -18,10 +17,11 @@ export default class TopupContainer extends React.Component {
             ]
         }
     }
-
     render() {
         return(
-            <Topup {...this.state} />
+            <ChangeCard {...this.state} />
         )
     }
 }
+
+export default ChangeCardContainer;

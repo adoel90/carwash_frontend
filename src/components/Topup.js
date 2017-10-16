@@ -1,6 +1,22 @@
 import React from 'react';
 
-export default class Topup extends React.Component {
+class Topup extends React.Component {
+    constructor() {
+        super();
+        this.userDetail = this.userDetail.bind(this);
+    }
+
+    userDetail = (item) => {
+        return(
+            <div className="topup--identity" key="item.id">
+                <h5 className="heading-5">{item.name}</h5>
+                <p>{item.email}</p>
+                <p>{item.phone}</p>
+                <p>{item.address}</p>
+            </div>
+        )
+    }
+
     render() {
         return(
             <div id="topup">
@@ -8,7 +24,7 @@ export default class Topup extends React.Component {
                     <h4 className="fw-semibold">Topup</h4>
                 </div>
                 <div className="card card__form">
-                    <div className="topup--card">
+                    {/* <div className="topup--card">
                         <div className="topup--icon">
                             <i className="material-icons">credit_card</i>
                         </div>
@@ -17,14 +33,9 @@ export default class Topup extends React.Component {
                             <hr />
                             <p>*Untuk melanjutkan proses topup kartu Anda</p>
                         </div>
-                    </div>
-                    {/* <div className="topup--saldo">
-                        <div className="topup--identity">
-                            <h3 className="heading-5">John Doe</h3>
-                            <p>johndoe@gmail.com</p>
-                            <p>+628211977XXXX</p>
-                            <p>Jl. Kelapa gading, Jakarta Utara</p>
-                        </div>
+                    </div> */}
+                    <div className="topup--saldo">
+                        {this.props.users.map(this.userDetail)}
 
                         <form className="form-inline">
                             <div className="form-input">
@@ -38,9 +49,11 @@ export default class Topup extends React.Component {
                                 <button type="submit" className="button button--primary">Daftar</button>
                             </div>
                         </form>
-                    </div> */}
+                    </div>
                 </div>
             </div>
         )
     }
 }
+
+export default Topup;

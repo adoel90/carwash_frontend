@@ -7,6 +7,7 @@ import MainContent from '../components/MainContent';
 
 import RegisterContainer from '../containers/RegisterContainer';
 import TopupContainer from '../containers/TopupContainer';
+import ChangeCardContainer from '../containers/ChangeCardContainer';
 
 class Cashier extends React.Component {
     constructor() {
@@ -27,6 +28,7 @@ class Cashier extends React.Component {
 					<MainContent>
                         <Route name='cashier' path={`${match.url}/register`} component={RegisterContainer} />
                         <Route name='cashier' path={`${match.url}/topup`} component={TopupContainer} />
+                        <Route name='cashier' path={`${match.url}/change-card`} component={ChangeCardContainer} />
 					</MainContent>
 				</div>
 			</main>

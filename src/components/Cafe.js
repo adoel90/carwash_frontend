@@ -8,6 +8,7 @@ import MainContent from '../components/MainContent';
 import MainSidenav from '../components/MainSidenav';
 
 import CafeLunch from '../components/CafeLunch';
+import CafeDinner from '../components/CafeDinner';
 
 class Cafe extends React.Component {
 	constructor() {
@@ -27,6 +28,7 @@ class Cafe extends React.Component {
 					</MainSidebar>
 					<MainContent>
 						<Route name='lunch' path={`${match.url}/lunch`} component={CafeLunch} />
+						<Route name='dinner' path={`${match.url}/dinner`} component={CafeDinner} />
 					</MainContent>
 				</MainContainer>
 			</main>

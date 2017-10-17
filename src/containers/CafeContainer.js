@@ -7,7 +7,8 @@ class CafeContainer extends React.Component {
 		super();
 		this.state = {
 			sidenavItems: [
-				{ id: 1, title: 'Lunch', path: '/lunch' }
+				{ title: 'Cafe Siang', path: '/cafe/lunch' },
+				{ title: 'Cafe Malam', path: '/cafe/dinner' }
 			]
 		}
 	}

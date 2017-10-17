@@ -22,6 +22,7 @@ class SelfService extends React.Component {
 						<MainSidenav items={this.props.sidenavItems} />
 					</MainSidebar>
 					<MainContent>
+						<Redirect from={`${match.url}`} to={`${match.url}/car-wash`} />
 						<Route name='car-wash' path={`${match.url}/car-wash`} component={CarwashContainer} />
 					</MainContent>
 				</MainContainer>

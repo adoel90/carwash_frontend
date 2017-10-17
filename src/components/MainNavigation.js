@@ -4,15 +4,18 @@ import NavLink from '../components/NavLink';
 class MainNavigation extends React.Component {
 	constructor() {
 		super();
+		this.renderNavigationItem = this.renderNavigationItem.bind(this);
 		this.state = {
 			navigationList: [
-				{ name: 'Layanan Self-Service', path: '/self-service' },
+				{ name: 'Layanan Self-Service', path: '/self-service' },,
+				{ name: 'Profil Saya', path: '/profile' },
+
 				{ name: 'Kasir', path: '/cashier' },
-				{ name: 'Profile', path: '/profile' },
+				{ name: 'Cafe', path: '/cafe' },
+
 				{ name: 'Settings', path: '/settings' }
 			]
 		}
-		this.renderNavigationItem = this.renderNavigationItem.bind(this);
 	}
 
 	renderNavigationItem = (navigation, i) => {

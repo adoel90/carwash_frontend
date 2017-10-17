@@ -15,7 +15,7 @@ class Cashier extends React.Component {
 			match
 		} = this.props;
 
-		return(
+		return (
 			<section className="page-section">
 				<div className="page-container">
 					<div className="page-heading">

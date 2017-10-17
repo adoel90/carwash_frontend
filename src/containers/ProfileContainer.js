@@ -6,7 +6,9 @@ class ProfileContainer extends React.Component {
 		super();
 		this.state = {
 			sidenavItems: [
-				{ title: 'Informasi Akun', path: '/profile/account' }
+				{ title: 'Akun Saya', path: '/profile/account' },
+				{ title: 'Daftar Transaksi', path: '/profile/transactions' },
+				{ title: 'Rewards', path: '/profile/rewards' }
 			]
 		}
 	}

@@ -3,6 +3,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 
 import LoginContainer from '../containers/LoginContainer';
 import SelfServiceContainer from '../containers/SelfServiceContainer';
+import CafeContainer from '../containers/CafeContainer';
 import CashierContainer from '../containers/CashierContainer';
 import ProfileContainer from '../containers/ProfileContainer';
 
@@ -12,6 +13,7 @@ class MainView extends React.Component {
 			<Switch>
 				<Route name="login" path='/login' component={ LoginContainer } />
 				<Route name="self-service" path='/self-service' component={ SelfServiceContainer } />
+				<Route name="cafe" path='/cafe' component={ CafeContainer } />
 				<Route name="cashier" path='/cashier' component={ CashierContainer } />
 				<Route name="profile" path='/profile' component={ ProfileContainer } />
 			</Switch>

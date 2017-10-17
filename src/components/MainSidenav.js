@@ -19,7 +19,6 @@ class MainSidenav extends React.Component {
 
 	render() {
 		return (
-
 			<nav className="sidenav">
 				<ul className="sidenav__list">
 					{ this.props.items.map(this.renderSidenavItem) }

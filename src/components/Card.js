@@ -22,7 +22,7 @@ class Card extends React.Component {
 					</div>
 					<div className="card__footer">
 						<button className="button button--primary button--full">
-							<span className="tt-uppercase fw-bold ls-base">Pilih Layanan</span>
+							<small className="tt-uppercase fw-bold ls-base">Pilih Layanan</small>
 						</button>
 					</div>
 				</div>

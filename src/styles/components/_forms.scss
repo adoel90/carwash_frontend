@@ -4,19 +4,32 @@ form {}
 
 	.form-group {
 		@include relative;
+		@include flexbox;
+		@include flex-direction(row);
+		@include align-items(center);
 		padding-bottom: $spacer * .5;
 
+		label {
+			width: 25%;
+			text-align: right;
+			padding-right: $spacer * .5;
+		}
+
 		.form-control {
-			display: block;
+			@include transition(all 500ms $transition-primary);
 			@include border-radius(small);
+			display: block;
 			width: 100%;
 			border: solid 1px gray(300);
 			padding: $spacer * .25;
 
-
 			&:disabled,
 			&:read-only {
 				background-color: gray(300);
+			}
+
+			&:focus {
+				border: solid 1px primary-color(base);
 			}
 		}
 	}

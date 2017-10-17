@@ -25,7 +25,7 @@ class Carwash extends React.Component {
 					<p>Silahkan pilih jenis layanan yang diinginkan.</p>
 				</div>
 				<CardList>
-					{this.props.services.map(this.renderItem)}
+					{ this.props.services.map(this.renderItem) }
 				</CardList>
 			</div>
 		);

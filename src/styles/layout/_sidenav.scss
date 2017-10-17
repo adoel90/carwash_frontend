@@ -15,7 +15,7 @@
 				@include justify-content(center);
 				@include border-radius(base);
 				@include font-weight(semibold);
-				background-color: gray(100);
+				background-color: shade(gray(100), 4.5%);
 				padding: $spacer * .25;
 				color: gray(600);
 				text-align: center;
@@ -24,6 +24,7 @@
 
 				&.is-active {
 					border-bottom: solid 5px secondary-color(base);
+					background-color: gray(100);
 					color: gray(1800);
 				}
 			}

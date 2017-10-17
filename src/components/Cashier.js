@@ -10,14 +10,14 @@ import TopupContainer from '../containers/TopupContainer';
 import ChangeCardContainer from '../containers/ChangeCardContainer';
 
 class Cashier extends React.Component {
-    constructor() {
-        super();
-    }
+	constructor() {
+		super();
+	}
 
-    render() {
-        const {
-            match
-        } = this.props;
+	render() {
+		const {
+			match
+		} = this.props;
 
         return(
             <main id="cashier" className="main">

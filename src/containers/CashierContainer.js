@@ -1,5 +1,4 @@
 import React from 'react';
-
 import Cashier from '../components/Cashier';
 
 class CashierContainer extends React.Component {

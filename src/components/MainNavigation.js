@@ -6,8 +6,8 @@ class MainNavigation extends React.Component {
 		super();
 		this.state = {
 			navigationList: [
-				{ name: 'Kasir', path: '/cashier' },
 				{ name: 'Layanan Self-Service', path: '/self-service' },
+				{ name: 'Kasir', path: '/cashier' },
 				{ name: 'Profile', path: '/profile' },
 				{ name: 'Settings', path: '/settings' }
 			]

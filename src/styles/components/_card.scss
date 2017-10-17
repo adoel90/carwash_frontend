@@ -51,5 +51,8 @@
 		padding: $spacer * .5;
 	}
 
-
+	&.card__form {
+		padding: 20px;
+		min-height: auto;
+	}
 }

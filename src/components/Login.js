@@ -6,10 +6,10 @@ export default class Login extends React.Component {
             <section className="login-container">
                 <div className="content-login">
                     <div className="sideleft-login">
-                        <h3>
-                            <i class="material-icons">local_car_wash</i>
-                            <span> 805 carwarsh</span>
-                        </h3>
+                        <i className="material-icons">local_car_wash</i>
+                        <h4>
+                            805 carwarsh
+                        </h4>
 
                         <form className="form-vertical">
                             <div className="form-group">

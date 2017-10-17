@@ -9,10 +9,10 @@ class Card extends React.Component {
 			<div className="card">
 				<div className="card__container">
 					<div className="card__heading">
-						<h5 className="card__title">{this.props.data.name}</h5>
-						<h3 className="card__price">
+						<h6 className="card__title">{this.props.data.name}</h6>
+						<h4 className="card__price">
 							<Currency value={this.props.data.price} />
-						</h3>
+						</h4>
 					</div>
 					<figure className="card__image">
 						<img src={this.props.data.photo} />

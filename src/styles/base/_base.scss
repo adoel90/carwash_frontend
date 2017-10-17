@@ -25,15 +25,11 @@
 		@include flexbox;
 		@include flex(1 1 100%);
 		@extend .container;
+		padding: $spacer 0;
+	}
 
-		> .sidebar {
-			margin: $spacer 0;
-			width: 12.5em;
-		}
-
-		> .main-content {
-			width: 100%;
-			margin: $spacer;
-		}
+	.main-content {
+		width: 100%;
+		margin: 0 $spacer;
 	}
 }

@@ -6,10 +6,9 @@ import MainSidenav from '../components/MainSidenav';
 import MainContainer from '../components/MainContainer';
 import MainContent from '../components/MainContent';
 
-import CarwashContainer from '../containers/CarwashContainer';
+import ProfileAccount from '../components/ProfileAccount';
 
-
-class SelfService extends React.Component {
+class Profile extends React.Component {
 	render() {
 		const {
 			match
@@ -22,12 +21,13 @@ class SelfService extends React.Component {
 						<MainSidenav items={this.props.sidenavItems} />
 					</MainSidebar>
 					<MainContent>
-						<Route name='car-wash' path={`${match.url}/car-wash`} component={CarwashContainer} />
+						<Route name='account' path={`${match.url}/account`} component={ProfileAccount} />
+						<Redirect from={`${match.url}`} to={`${match.url}/account`} />
 					</MainContent>
 				</MainContainer>
 			</main>
-		)
+		);
 	}
 }
 
-export default SelfService;
+export default Profile;

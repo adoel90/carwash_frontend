@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Redirect, IndexRedirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import PropsRoute from '../components/PropsRoute';
 
 import MainSidebar from '../components/MainSidebar';
@@ -23,8 +23,10 @@ class SelfService extends React.Component {
 			<PropsRoute
 				key={i}
 				name={category.name}
-				path={`${match.url} + category.name`}
-				component={ () => <SelfServiceCategory category={category} services={this.props.services} /> }
+				path={`${match.url}/${category.name}`}
+				component={SelfServiceCategory}
+				category={category}
+				services={this.props.services}
 			/>
 		)
 	};
@@ -40,8 +42,7 @@ class SelfService extends React.Component {
 					</MainSidebar>
 					<MainContent>
 						{ this.props.categories.map(this.renderCategoryRoute) }
-						{/* <Redirect from="/*" to={`${match.url}/car-wash`} /> */}
-						{/* <Route name='car-wash' path={`${match.url}/car-wash`} component={CarwashContainer} /> */}
+						<Redirect from="/*" to={`${match.url}/${this.props.categories[0].name}`} />
 					</MainContent>
 				</MainContainer>
 			</main>

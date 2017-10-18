@@ -2,7 +2,6 @@ import React from 'react';
 import PageBlock from '../components/PageBlock';
 
 import Form from '../components/Form';
-import FormGroup from '../components/FormGroup';
 import FormText from '../components/FormText';
 
 class ProfileAccount extends React.Component {

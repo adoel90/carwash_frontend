@@ -13,7 +13,7 @@ class Card extends React.Component {
 						</h4>
 					</div>
 					<figure className="card__image">
-						<img src={this.props.data.photo} />
+						<img src={this.props.data.photo} alt={this.props.data.name} />
 					</figure>
 					<div className="card__content">
 						<p className="card__description">{this.props.data.description}</p>

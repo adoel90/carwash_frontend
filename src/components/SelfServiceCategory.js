@@ -6,23 +6,28 @@ import Card from '../components/Card';
 class SelfServiceCategory extends React.Component {
 	constructor() {
 		super();
-		this.renderServiceCard = this.renderServiceCard.bind(this);
+		this.renderService = this.renderService.bind(this);
 	}
 
-	renderServiceCard = () => {
-		this.props.services
+	renderService = () => {
+		return this.props.services
 			.filter((service) => {
-				return service.category === this.props.category.name
+				return service.category === this.props.category.name;
 			})
 			.map((service, i) => {
-				console.log(service);
-			})
+				const card = {
+					name: service.name,
+					photo: service.photo,
+					description: service.description,
+					price: service.price
+				}
 
-		// return (
-		// 	<div key={i} className="column-6 padding-top-2 padding-bottom-2">
-		// 		<Card data={service} />
-		// 	</div>
-		// )
+				return (
+					<div key={i} className="column-6 padding-top-2 padding-bottom-2">
+						<Card data={card} />
+					</div>
+				)
+			})
 	}
 
 	render() {
@@ -33,7 +38,7 @@ class SelfServiceCategory extends React.Component {
 					<p>Silahkan pilih jenis layanan yang diinginkan.</p>
 				</div>
 				<CardList>
-					{ this.renderServiceCard() }
+					{ this.renderService() }
 				</CardList>
 			</div>
 		);

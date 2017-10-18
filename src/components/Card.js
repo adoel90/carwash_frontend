@@ -3,8 +3,6 @@ import Currency from '../components/Currency';
 
 class Card extends React.Component {
 	render() {
-		console.log(this.props.data);
-
 		return (
 			<div className="card">
 				<div className="card__container">

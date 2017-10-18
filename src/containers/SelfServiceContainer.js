@@ -5,10 +5,17 @@ class SelfServiceContainer extends React.Component {
 	constructor() {
 		super();
 		this.state = {
-			sidenavItems: [
-				{ title: 'Cuci Mobil', path: '/self-service/car-wash' },
-				{ title: 'Salon Mobil', path: '/self-service/car-saloon' },
-				{ title: 'Cek Saldo', path: '/self-service/check-balance' }
+			categories: [
+				{
+					id: 1,
+					name: 'car-wash',
+					title: 'Cuci Mobil'
+				},
+				{
+					id: 2,
+					name: 'car-saloon',
+					title: 'Salon Mobil'
+				}
 			]
 		}
 	}

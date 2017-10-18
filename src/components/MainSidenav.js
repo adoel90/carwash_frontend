@@ -8,9 +8,11 @@ class MainSidenav extends React.Component {
 	}
 
 	renderSidenavItem = (item, i) => {
+		console.log(this.props);
+
 		return (
 			<li className="sidenav__item" key={i}>
-				<NavLink to={item.path}>
+				<NavLink to={`${this.props.basePath}/${item.name}`}>
 					{ item.title }
 				</NavLink>
 			</li>

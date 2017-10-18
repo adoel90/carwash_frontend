@@ -16,6 +16,7 @@ class MainView extends React.Component {
 				<Route name="profile" path='/profile' component={ ProfileContainer } />
 				<Route name="cashier" path='/cashier' component={ CashierContainer } />
 				<Route name="cafe" path='/cafe' component={ CafeContainer } />
+				<Redirect from="/*" to="self-service" />
 			</Switch>
 		)
 	}

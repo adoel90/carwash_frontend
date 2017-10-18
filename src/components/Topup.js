@@ -1,5 +1,10 @@
 import React from 'react';
 
+import PageBlock from './PageBlock';
+import Form from './Form';
+import FormText from './FormText';
+import FormButton from './FormButton';
+
 class Topup extends React.Component {
     constructor() {
         super();
@@ -9,7 +14,7 @@ class Topup extends React.Component {
     userDetail = (item) => {
         return(
             <div className="topup--identity" key="item.id">
-                <h5 className="heading-5">{item.name}</h5>
+                <h5 className="fw-semibold">{item.name}</h5>
                 <p>{item.email}</p>
                 <p>{item.phone}</p>
                 <p>{item.address}</p>
@@ -20,10 +25,10 @@ class Topup extends React.Component {
     render() {
         return(
             <div id="topup">
-                <div className="padding-bottom-3">
+                <div className="padding-bottom-1">
                     <h4 className="fw-semibold">Topup</h4>
                 </div>
-                <div className="card card__form">
+                <PageBlock>
                     {/* <div className="topup--card">
                         <div className="topup--icon">
                             <i className="material-icons">credit_card</i>
@@ -35,22 +40,24 @@ class Topup extends React.Component {
                         </div>
                     </div> */}
                     <div className="topup--saldo">
-                        {this.props.users.map(this.userDetail)}
+                        <div className="padding-bottom-2">
+                            {this.props.users.map(this.userDetail)}
+                        </div>
 
-                        <form className="form-inline">
-                            <div className="form-input">
-                                <div className="input-group">
-                                    <span className="input-group-addon">Rp.</span>
-                                    <input type="number" className="form-control" placeholder="Nominal Saldo" />
+                        <Form>
+                            <div className="flex">
+                                <div className="padding-bottom-3 column-auto">
+                                    <FormText type="number" placeholder="Nominal Saldo" />
+                                </div>
+                                <div className="flex flex-row justify-content--flex-end margin-left-1">
+                                    <FormButton style="primary" type="submit" size="small">
+                                        <small className="fw-bold tt-uppercase ls-base">Isi Ulang</small>
+                                    </FormButton>
                                 </div>
                             </div>
-
-                            <div className="form-button">
-                                <button type="submit" className="button button--primary">Daftar</button>
-                            </div>
-                        </form>
+                        </Form>
                     </div>
-                </div>
+                </PageBlock>
             </div>
         )
     }

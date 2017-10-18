@@ -22,6 +22,7 @@ form {}
 			width: 100%;
 			border: solid 1px gray(300);
 			padding: $spacer * .25;
+			background-color: gray(100);
 
 			&:disabled,
 			&:read-only {

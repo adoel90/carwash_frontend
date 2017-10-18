@@ -13,17 +13,18 @@ import SelfServiceCategory from '../components/SelfServiceCategory';
 class SelfService extends React.Component {
 	constructor() {
 		super();
-		this.renderRoute = this.renderRoute.bind(this);
+		this.renderCategoryRoute = this.renderCategoryRoute.bind(this);
 	}
 
-	renderRoute = (route, i) => {
+	renderCategoryRoute = (category, i) => {
 		const { match } = this.props;
 
 		return (
 			<PropsRoute
-				name={route.name}
-				path={`${match.url} + route.name`}
-				component={ () => <SelfServiceCategory {...route} /> }
+				key={i}
+				name={category.name}
+				path={`${match.url} + category.name`}
+				component={ () => <SelfServiceCategory category={category} services={this.props.services} /> }
 			/>
 		)
 	};
@@ -38,7 +39,7 @@ class SelfService extends React.Component {
 						<MainSidenav items={ this.props.categories } basePath={match.path} />
 					</MainSidebar>
 					<MainContent>
-						{ this.props.categories.map(this.renderRoute) }
+						{ this.props.categories.map(this.renderCategoryRoute) }
 						{/* <Redirect from="/*" to={`${match.url}/car-wash`} /> */}
 						{/* <Route name='car-wash' path={`${match.url}/car-wash`} component={CarwashContainer} /> */}
 					</MainContent>

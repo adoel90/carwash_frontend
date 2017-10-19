@@ -17,7 +17,7 @@ class CafeCategory extends React.Component {
 			})
 			.map((item, i) => {
 				return (
-					<div className="column-6 padding-bottom-1 padding-top-2">
+					<div key={i} className="column-6 padding-bottom-1 padding-top-2">
 						<Card
 							title={item.name}
 							price={item.price}

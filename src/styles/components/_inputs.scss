@@ -1,0 +1,10 @@
+input,
+textarea {
+	font-size: inherit;
+	background: none;
+	border: solid 1px gray;
+
+	&:focus {
+		outline: none;
+	}
+}

@@ -1,0 +1,18 @@
+.topup--card {
+    @include flexbox {
+        align-items: center;
+    }
+
+    .topup--icon {
+        color: $sea-blue;
+    }
+    .topup--description {
+        margin-left: 20px;
+        width: 100%;
+
+        h2 {
+            font-size: 28px;
+            font-weight: 500;
+        }
+    }
+}

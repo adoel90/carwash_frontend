@@ -3,7 +3,7 @@
 	@include border-radius(base);
 	@include flexbox;
 	@include flex-direction(column);
-	min-height: 30em;
+	min-height: 20em;
 	background-color: gray(100);
 	box-shadow: map-get($box-shadow, base);
 	overflow: hidden;

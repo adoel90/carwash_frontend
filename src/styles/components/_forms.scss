@@ -1,7 +1,6 @@
 form {}
 
 .form {
-
 	.form-group {
 		@include relative;
 		@include flexbox;

@@ -6,16 +6,9 @@ class SelfServiceContainer extends React.Component {
 		super();
 		this.state = {
 			categories: [
-				{
-					id: 1,
-					name: 'car-wash',
-					title: 'Cuci Mobil'
-				},
-				{
-					id: 2,
-					name: 'car-saloon',
-					title: 'Salon Mobil'
-				}
+				{ name: 'car-wash', title: 'Cuci Mobil' },
+				{ name: 'car-saloon', title: 'Salon Mobil' },
+				{ name: 'repair', title: 'Bengkel' }
 			],
 			services: [
 				{

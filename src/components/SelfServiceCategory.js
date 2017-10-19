@@ -24,7 +24,13 @@ class SelfServiceCategory extends React.Component {
 
 				return (
 					<div key={i} className="column-6 padding-top-2 padding-bottom-2">
-						<Card data={card} />
+						<Card
+							title={service.name}
+							price={service.price}
+							photo={service.photo}
+							description={service.description}
+							buttonText="Pilih Layanan"
+						/>
 					</div>
 				)
 			})

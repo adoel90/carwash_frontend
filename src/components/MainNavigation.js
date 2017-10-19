@@ -13,7 +13,7 @@ class MainNavigation extends React.Component {
 				{ name: 'Kasir', path: '/cashier' },
 				{ name: 'Cafe', path: '/cafe' },
 
-				{ name: 'Settings', path: '/settings' }
+				{ name: 'Setting', path: '/setting' }
 			]
 		}
 	}

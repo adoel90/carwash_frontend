@@ -6,6 +6,7 @@ import SelfServiceContainer from '../containers/SelfServiceContainer';
 import CafeContainer from '../containers/CafeContainer';
 import CashierContainer from '../containers/CashierContainer';
 import ProfileContainer from '../containers/ProfileContainer';
+import SettingContainer from '../containers/SettingContainer';
 
 class MainView extends React.Component {
 	render() {
@@ -16,6 +17,7 @@ class MainView extends React.Component {
 				<Route name="profile" path='/profile' component={ ProfileContainer } />
 				<Route name="cashier" path='/cashier' component={ CashierContainer } />
 				<Route name="cafe" path='/cafe' component={ CafeContainer } />
+				<Route name="setting" path='/setting' component={ SettingContainer } />
 			</Switch>
 		)
 	}

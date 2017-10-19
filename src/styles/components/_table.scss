@@ -1,0 +1,28 @@
+.table {
+    @include relative;
+    width: 100%;
+
+    thead {
+        th {
+            border-right: 1px solid #aaa;
+            // border-bottom: 5px solid gray(100);
+            padding: 10px;
+        }
+        th:last-child {
+            border-right: none;
+        }
+    }
+
+    tbody {
+        border-top: 1px solid #aaa;
+        tr {
+            td {
+                padding: 10px;
+                &.center {
+                    display: flex;
+                    justify-content: center;
+                }
+            }
+        }
+    }
+}

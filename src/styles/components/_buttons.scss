@@ -19,6 +19,7 @@
 	}
 
 	$button-sizes: (
+		smallest: 5px 20px,
 		small: 10px 20px,
 		base: 15px 30px,
 		large: 25px 50px
@@ -66,5 +67,10 @@
 	&.button--darkslategray {
 		background-color: #3a3835;
 		color: #EFEFEF;
+	}
+
+	&.button--orange {
+		background-color: secondary-color(base);
+		color: gray(1500);
 	}
 }

@@ -5,29 +5,29 @@ import { connect } from 'react-redux';
 import { fetchServices } from '../actions/service.action';
 
 class ServiceTypeContainer extends React.Component {
-	componentDidMount = () => {
+	componentDidMount() {
 		this.props.fetchServices();
 	}
 
 	render() {
-		return this.props.asd.isLoaded
+		return this.props.service.isLoaded
 		? <ServiceType {...this.state} {...this.props} />
 		: null;
 	}
 }
 
 const mapStateToProps = (state, props) => {
-	const asd = state.service;
+	const service = state.service;
 
 	return {
-		asd
+		service
 	};
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-	const { type } = ownProps;
+	const { data } = ownProps;
 	const requiredData = {
-		type: type.id,
+		type: data.id,
 		limit: 10,
 		offset: 0
 	}

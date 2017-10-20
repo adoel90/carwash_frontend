@@ -5,11 +5,13 @@ import { connect } from 'react-redux';
 import { fetchServiceTypes } from '../actions/service.action.js';
 
 class ServiceContainer extends React.Component {
-	componentDidMount = () => {
+	componentDidMount() {
 		this.props.fetchServiceTypes();
 	}
 
 	render() {
+		console.log(this.props.service);
+
 		return this.props.service.isLoaded
 		? <Service {...this.state} {...this.props} />
 		: null;
@@ -21,10 +23,10 @@ const mapStateToProps = (state, props) => {
 
 	return {
 		service
-	};
+	}
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = (dispatch) => {
 	return {
 		fetchServiceTypes: () => dispatch(fetchServiceTypes())
 	}

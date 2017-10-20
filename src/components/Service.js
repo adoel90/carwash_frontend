@@ -25,7 +25,7 @@ class Service extends React.Component {
 				name={type.name}
 				path={`${match.url}/${path}`}
 				component={ServiceTypeContainer}
-				type={type}
+				data={type}
 			/>
 		)
 	};
@@ -45,7 +45,7 @@ class Service extends React.Component {
 				</MainSidebar>
 				<MainContent>
 					{ service.types.data.map(this.renderCategoryType) }
-					<Redirect from="/*" to={`${match.url}/${firstRoutePath}`} />
+					{/* <Redirect from="/*" to={`${match.url}/${firstRoutePath}`} /> */}
 				</MainContent>
 			</MainContainer>
 		)

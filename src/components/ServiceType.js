@@ -3,7 +3,9 @@ import ServiceItemList from '../components/ServiceItemList';
 
 class ServiceType extends React.Component {
 	render() {
-		console.log(this.props.asd.services.data);
+		const {
+			service
+		} = this.props;
 
 		return null;
 

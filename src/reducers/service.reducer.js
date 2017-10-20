@@ -1,6 +1,6 @@
 const initialState = {
-	services: {},
-	types: [],
+	items: {},
+	types: {},
 	isFetching: false,
 	isLoaded: false,
 	error: {}
@@ -18,7 +18,7 @@ const service = (state = initialState, action) => {
 		case "GET_SERVICES_FULFILLED": {
 			return {
 				...state,
-				services: action.payload,
+				items: action.payload,
 				isFething: false,
 				isLoaded: true
 			}
@@ -26,13 +26,14 @@ const service = (state = initialState, action) => {
 		case "GET_SERVICES_REJECTED": {
 			return {
 				...state,
-				services: [],
+				items: {},
 				isFetching: false,
 				isLoaded: false,
 				error: action.payload
 			}
 		}
 
+		//
 		case "GET_SERVICE_TYPE_REQUESTED": {
 			return {
 				...state,
@@ -53,15 +54,17 @@ const service = (state = initialState, action) => {
 		case "GET_SERVICE_TYPE_ERROR": {
 			return {
 				...state,
-				types: [],
+				types: {},
 				isFetching: false,
 				isLoaded: false,
 				error: action.payload
 			}
 		}
-	}
 
-	return state;
+		default: {
+			return state;
+		}
+	}
 }
 
 export default service;

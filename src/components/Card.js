@@ -2,17 +2,6 @@ import React from 'react';
 import Currency from '../components/Currency';
 
 class Card extends React.Component {
-	constructor() {
-		super();
-		this.renderCardDescription = this.renderCardDescription.bind(this);
-	}
-
-	renderCardDescription = () => {
-		return (
-			<p className="card__description">{this.props.description}</p>
-		)
-	}
-
 	render() {
 		return (
 			<div className="card">
@@ -27,7 +16,7 @@ class Card extends React.Component {
 						<img src={this.props.photo} alt={this.props.title} />
 					</figure>
 					<div className="card__content">
-						{ this.props.description && this.renderCardDescription() }
+						<p className="card__text">{this.props.text}</p>
 					</div>
 					<div className="card__footer">
 						<button className="button button--primary button--full">

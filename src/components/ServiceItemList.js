@@ -5,21 +5,19 @@ import Card from '../components/Card';
 class ServiceItemList extends React.Component {
 	constructor() {
 		super();
-		this.filterItemByCategory = this.filterItemByCategory.bind(this);
 		this.renderServiceItem = this.renderServiceItem.bind(this);
 	}
 
-	filterItemByCategory = (service) => {
-		return this.props.category.name === service.category;
-	}
+	renderServiceItem = (item, i) => {
+		console.log(item);
 
-	renderServiceItem = (service, i) => {
 		return (
 			<div className="column-6 padding-top-1 padding-bottom-1">
 				<Card
-					title={service.name}
-					photo={service.photo}
-					text={service.description}
+					title={item.name}
+					price={item.price}
+					photo={item.image}
+					text={item.description}
 					buttonText="Pilih Menu"
 				/>
 			</div>
@@ -27,12 +25,13 @@ class ServiceItemList extends React.Component {
 	}
 
 	render() {
+		const {
+			serviceList
+		} = this.props;
+
 		return (
 			<CardList>
-				{/* { this.props.services
-					.filter(this.filterItemByCategory)
-					.map(this.renderServiceItem)
-				} */}
+				{ serviceList.map(this.renderServiceItem) }
 			</CardList>
 		)
 	}

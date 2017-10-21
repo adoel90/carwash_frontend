@@ -2,15 +2,30 @@ import React from 'react';
 import Service from '../components/Service';
 
 import { connect } from 'react-redux';
-import { fetchServiceTypes } from '../actions/service.action.js';
+import { getServiceTypes } from '../actions/service.action.js';
 
 class ServiceContainer extends React.Component {
-	componentDidMount() {
-		this.props.fetchServiceTypes();
+	constructor() {
+		super();
+		this.addPathPropToTypes = this.addPathPropToTypes.bind(this);
+	}
+
+	addPathPropToTypes = () => {
+		this.props.serviceTypes.map((type, i) => {
+			type.path = type.name.replace(/\s+/g, '-').toLowerCase();
+		})
+	}
+
+	componentDidMount = () => {
+		this.props.getServiceTypes();
 	}
 
 	render() {
 		console.log(this.props.service);
+
+		if(this.props.service.isLoaded) {
+			this.addPathPropToTypes();
+		}
 
 		return this.props.service.isLoaded
 		? <Service {...this.state} {...this.props} />
@@ -20,27 +35,19 @@ class ServiceContainer extends React.Component {
 
 const mapStateToProps = (state, props) => {
 	const service = state.service;
+	const serviceTypes = state.service.types;
 
 	return {
-		service
+		service,
+		serviceTypes
 	}
 }
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		fetchServiceTypes: () => dispatch(fetchServiceTypes())
+		getServiceTypes: () => dispatch(getServiceTypes())
 	}
 }
-
-// const mergeProps = (stateProps, dispatchProps, ownProps) => {
-// 	const { dispatch } = dispatchProps;
-// 	const { service } = stateProps;
-//
-// 	return {
-// 		fetchServiceTypes: () => dispatch(fetchServiceTypes())
-// 	}
-// }
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(ServiceContainer);
 
@@ -48,8 +55,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(ServiceContainer);
 
 
 
-
-
+//
+//
 // this.state = {
 	// categories: [
 	// 	{ name: 'car-wash', title: 'Cuci Mobil' },

@@ -25,7 +25,7 @@ class Service extends React.Component {
 				name={type.name}
 				path={`${match.url}/${path}`}
 				component={ServiceTypeContainer}
-				data={type}
+				type={type}
 			/>
 		)
 	};
@@ -33,19 +33,20 @@ class Service extends React.Component {
 	render() {
 		const {
 			match,
-			service
+			service,
+			serviceTypes
 		} = this.props;
 
-		const firstRoutePath = service.types.data[0].name.replace(/\s+/g, '-').toLowerCase();
+		const firstRoutePath = serviceTypes[0].name.replace(/\s+/g, '-').toLowerCase();
 
 		return (
 			<MainContainer>
 				<MainSidebar>
-					<MainSidenav items={ service.types.data } basePath={match.path} />
+					<MainSidenav items={ serviceTypes } basePath={match.path} />
 				</MainSidebar>
-				<MainContent>
-					{ service.types.data.map(this.renderCategoryType) }
-					{/* <Redirect from="/*" to={`${match.url}/${firstRoutePath}`} /> */}
+				<MainContent>	
+					{ serviceTypes.map(this.renderCategoryType) }
+					<Redirect from="/*" to={`${match.url}/${firstRoutePath}`} />
 				</MainContent>
 			</MainContainer>
 		)

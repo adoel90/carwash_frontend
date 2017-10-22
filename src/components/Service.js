@@ -44,7 +44,7 @@ class Service extends React.Component {
 				<MainSidebar>
 					<MainSidenav items={ serviceTypes } basePath={match.path} />
 				</MainSidebar>
-				<MainContent>	
+				<MainContent>
 					{ serviceTypes.map(this.renderCategoryType) }
 					<Redirect from="/*" to={`${match.url}/${firstRoutePath}`} />
 				</MainContent>

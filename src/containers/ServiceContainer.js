@@ -21,8 +21,6 @@ class ServiceContainer extends React.Component {
 	}
 
 	render() {
-		console.log(this.props.service);
-
 		if(this.props.service.isLoaded) {
 			this.addPathPropToTypes();
 		}

@@ -1,0 +1,25 @@
+.search-bar {
+	@include relative;
+	display: block;
+
+	.search-bar-group {
+		@include flexbox;
+		@include flex-direction(row);
+		width: 100%;
+		background-color: gray(100);
+		@include border-radius(base);
+		overflow: hidden;
+
+		.search-bar-addon {
+			@include font-size(large);
+			background-color: primary-color(base);
+			padding: $spacer * .5 $spacer * .75;
+			color: gray(100);
+		}
+
+		.search-bar-control {
+			@include flex(1 1 100%);
+			padding: $spacer * .5;
+		}
+	}
+}

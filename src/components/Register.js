@@ -22,7 +22,7 @@ class Register extends React.Component {
 							<FormText type="textarea" label="Alamat" placeholder="Alamat" />
 						</div>
 						<div className="flex flex-row justify-content--flex-end">
-							<FormButton style="primary" type="submit" size="large">
+							<FormButton buttonStyle="primary" buttonType="submit" buttonSize="large">
 								<small className="fw-bold tt-uppercase ls-base">Daftarkan</small>
 							</FormButton>
 						</div>

@@ -51,6 +51,7 @@
     "test": "node scripts/test.js --env=jsdom"
   },
   "devDependencies": {
+    "axios": "^0.16.2",
     "node-sass": "^4.5.3",
     "react-intl": "^2.4.0",
     "react-logger": "^1.1.0",

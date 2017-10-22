@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-
 //	API Fetch
 const API_URL = 'https://swapi.co/api/people/';
 

@@ -8,7 +8,7 @@ class Currency extends React.Component {
 				value={this.props.value}
 				displayType={'text'}
 				thousandSeparator={true}
-				prefix={'Rp' + ' '}
+				prefix="Rp "
 			/>
 		)
 	}

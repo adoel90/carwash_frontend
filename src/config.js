@@ -1,0 +1,5 @@
+export const constant = {
+	API_PATH: 'http://128.199.227.10:3307/'
+}
+
+export const accessToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1X2lkIjoxLCJ1X25hbWUiOiJBZG1pbiIsInVfdXNlcm5hbWUiOiJhZG1pbiIsInVfZW1haWwiOiJhZG1pbkBlbWFpbC5jb20iLCJ1X3Bhc3N3b3JkIjoiN2MyMjJmYjI5MjdkODI4YWYyMmY1OTIxMzRlODkzMjQ4MDYzN2MwZCIsInVsX2lkIjoxLCJjcmVhdGVkX2F0IjoiMjAxNy0xMC0xOFQwNTo0MzozNy43NTBaIiwidXBkYXRlZF9hdCI6bnVsbCwiZGVsZXRlZF9hdCI6bnVsbCwidWxfbmFtZSI6IkFkbWluIn0.uNkUWoh5a6Ic5bQL3gyBVbU9P8leQntVmlfxu-yIOZI';

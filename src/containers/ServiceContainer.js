@@ -25,6 +25,8 @@ class ServiceContainer extends React.Component {
 			this.addPathPropToTypes();
 		}
 
+		console.log(this.props.service);
+
 		return this.props.service.isLoaded
 		? <Service {...this.state} {...this.props} />
 		: null;

@@ -14,7 +14,7 @@ class ServiceType extends React.Component {
 				<div id="category">
 					<div className="padding-bottom-1">
 						<h5 className="fw-semibold">Jenis Layanan</h5>
-						<p>Silahkan pilih jenis layanan yang diinginkan.</p>
+						<p className="clr-passive">Silahkan pilih jenis layanan yang diinginkan.</p>
 					</div>
 					<ServiceItemList
 						type={type}

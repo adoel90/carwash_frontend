@@ -15,7 +15,7 @@ export const getServiceList = (data) => {
 			.then((response) => {
 				dispatch({
 					type: GET_SERVICE_LIST_FULFILLED,
-					payload: response.data			
+					payload: response.data
 				})
 			})
 			.catch((error) => {

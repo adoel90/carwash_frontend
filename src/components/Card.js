@@ -12,7 +12,7 @@ class Card extends React.Component {
 							<Currency value={this.props.price} />
 						</h4>
 					</div>
-					<figure className="card__image">
+					<figure className="card__image figure">
 						<img src={this.props.photo} alt={this.props.title} />
 					</figure>
 					<div className="card__content">

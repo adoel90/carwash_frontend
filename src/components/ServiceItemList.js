@@ -12,7 +12,7 @@ class ServiceItemList extends React.Component {
 		console.log(item);
 
 		return (
-			<div className="column-6 padding-top-1 padding-bottom-1">
+			<div key={i} className="column-6 padding-top-1 padding-bottom-1">
 				<Card
 					title={item.name}
 					price={item.price}

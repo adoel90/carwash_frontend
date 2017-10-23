@@ -10,7 +10,6 @@ class ServiceType extends React.Component {
 	renderServiceItemList = () => {
 		const {
 			serviceList,
-			service,
 			type
 		} = this.props;
 
@@ -25,7 +24,6 @@ class ServiceType extends React.Component {
 	render() {
 		const {
 			serviceList,
-			service,
 			type
 		} = this.props;
 

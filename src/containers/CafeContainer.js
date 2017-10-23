@@ -12,8 +12,10 @@ class CafeContainer extends React.Component {
 	render() {
 		console.log(this.props);
 
-		return null;
-		// return <Cafe {...this.state} {...this.props} />
+		// return null;
+		return this.props.cafe.isLoaded
+		? <Cafe {...this.state} {...this.props} />
+		: null
 	}
 }
 

@@ -33,7 +33,6 @@ class Service extends React.Component {
 	render() {
 		const {
 			match,
-			service,
 			serviceTypes
 		} = this.props;
 

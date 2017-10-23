@@ -12,7 +12,7 @@ class ServiceContainer extends React.Component {
 
 	addPathPropToTypes = () => {
 		this.props.serviceTypes.map((type, i) => {
-			type.path = type.name.replace(/\s+/g, '-').toLowerCase();
+			return type.path = type.name.replace(/\s+/g, '-').toLowerCase();
 		})
 	}
 

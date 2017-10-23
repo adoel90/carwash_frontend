@@ -38,11 +38,11 @@ class Cafe extends React.Component {
 			<main id="cafe" className="main">
 				<MainContainer>
 					<MainSidebar>
-						<MainSidenav items={ this.props.categories } basePath={match.path} />
+						<MainSidenav items={ this.props.cafe.types } basePath={match.path} />
 					</MainSidebar>
 					<MainContent>
-						{ this.props.categories.map(this.renderCategoryRoute) }
-						<Redirect from="/*" to={`${match.url}/${this.props.categories[0].name}`} />
+						{ this.props.cafe.types.map(this.renderCategoryRoute) }
+						<Redirect from="/*" to={`${match.url}/${this.props.cafe.types[0].name}`} />
 					</MainContent>
 				</MainContainer>
 			</main>

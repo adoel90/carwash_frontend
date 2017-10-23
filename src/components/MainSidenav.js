@@ -20,10 +20,6 @@ class MainSidenav extends React.Component {
 	}
 
 	render() {
-		const {
-			items
-		} = this.props;
-
 		return (
 			<nav className="sidenav">
 				<ul className="sidenav__list">

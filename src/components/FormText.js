@@ -12,7 +12,7 @@ class FormText extends React.Component {
 	}
 
 	renderField = () => {
-		if(this.props.type != 'textarea') {
+		if(this.props.type !== 'textarea') {
 			return <input type={this.props.type} className="form-control" {...this.props} />
 		}
 		else {

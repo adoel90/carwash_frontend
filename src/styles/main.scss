@@ -12,8 +12,9 @@
 */
 @import
 	'./base/base',
-	'./base/animations',
 	'./base/reset',
+	'./base/animations',
+	'./base/iconography',
 	'./base/typography';
 
 /**
@@ -23,6 +24,7 @@
 	'./components/buttons',
 	'./components/card',
 	'./components/inputs',
+	'./components/search',
 	'./components/figure',
 	'./components/badges',
 	'./components/images',

@@ -1,5 +1,4 @@
 import React from 'react';
-import Sticky from '../components/Sticky';
 
 class MainSidebar extends React.Component {
 	render() {

@@ -7,7 +7,7 @@ class MainNavigation extends React.Component {
 		this.renderNavigationItem = this.renderNavigationItem.bind(this);
 		this.state = {
 			navigationList: [
-				{ name: 'Layanan Self-Service', path: '/self-service' },,
+				{ name: 'Layanan Self-Service', path: '/service' },
 				{ name: 'Profil Saya', path: '/profile' },
 
 				{ name: 'Kasir', path: '/cashier' },

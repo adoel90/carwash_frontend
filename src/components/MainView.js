@@ -11,16 +11,6 @@ import SettingContainer from '../containers/SettingContainer';
 class MainView extends React.Component {
 	render() {
 		return (
-<<<<<<< HEAD
-			<Switch>
-				<Route name="login" path='/login' component={ LoginContainer } />
-				<Route name="self-service" path='/self-service' component={ SelfServiceContainer } />
-				<Route name="profile" path='/profile' component={ ProfileContainer } />
-				<Route name="cashier" path='/cashier' component={ CashierContainer } />
-				<Route name="cafe" path='/cafe' component={ CafeContainer } />
-				<Route name="setting" path='/setting' component={ SettingContainer } />
-			</Switch>
-=======
 			<main className="main">
 				<Switch>
 					<Route name="login" path='/login' component={ LoginContainer } />
@@ -28,10 +18,10 @@ class MainView extends React.Component {
 					<Route name="profile" path='/profile' component={ ProfileContainer } />
 					<Route name="cashier" path='/cashier' component={ CashierContainer } />
 					<Route name="cafe" path='/cafe' component={ CafeContainer } />
+					<Route name="setting" path='/setting' component={ SettingContainer } />
 					<Redirect from="/*" to="service" />
 				</Switch>
 			</main>
->>>>>>> development
 		)
 	}
 }

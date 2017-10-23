@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 
 import MainSidebar from '../components/MainSidebar';
 import MainSidenav from '../components/MainSidenav';
@@ -16,24 +16,17 @@ class Cashier extends React.Component {
 		} = this.props;
 
 		return(
-			<main id="cashier" className="main">
-				<div className="main-container">
-					<MainSidebar>
-						<MainSidenav items={this.props.sidenavItems} />
-					</MainSidebar>
-					<MainContent>
-<<<<<<< HEAD
-                        <Route name='register' path={`${match.url}/register`} component={RegisterContainer} />
-                        <Route name='topup' path={`${match.url}/topup`} component={TopupContainer} />
-                        <Route name='change-card' path={`${match.url}/change-card`} component={ChangeCardContainer} />
-=======
-						<Route name='cashier' path={`${match.url}/register`} component={RegisterContainer} />
-						<Route name='cashier' path={`${match.url}/topup`} component={TopupContainer} />
-						<Route name='cashier' path={`${match.url}/change-card`} component={ChangeCardContainer} />
->>>>>>> development
-					</MainContent>
-				</div>
-			</main>
+			<div className="main-container">
+				<MainSidebar>
+					<MainSidenav items={this.props.sidenavItems} basePath={match.path} />
+				</MainSidebar>
+				<MainContent>
+					<Route name='cashier' path={`${match.url}/register`} component={RegisterContainer} />
+					<Route name='cashier' path={`${match.url}/topup`} component={TopupContainer} />
+					<Route name='cashier' path={`${match.url}/change-card`} component={ChangeCardContainer} />
+					<Redirect from={`${match.url}`} to={`${match.url}/register`} />
+				</MainContent>
+			</div>
 		)
 	}
 }

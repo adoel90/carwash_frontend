@@ -15,17 +15,15 @@ class Profile extends React.Component {
 		} = this.props;
 
 		return (
-			<main id="self-service" className="main">
-				<MainContainer>
-					<MainSidebar>
-						<MainSidenav items={this.props.sidenavItems} />
-					</MainSidebar>
-					<MainContent>
-						<Route name='account' path={`${match.url}/account`} component={ProfileAccount} />
-						<Redirect from={`${match.url}`} to={`${match.url}/account`} />
-					</MainContent>
-				</MainContainer>
-			</main>
+			<MainContainer>
+				<MainSidebar>
+					<MainSidenav items={this.props.sidenavItems} />
+				</MainSidebar>
+				<MainContent>
+					<Route name='account' path={`${match.url}/account`} component={ProfileAccount} />
+					<Redirect from={`${match.url}`} to={`${match.url}/account`} />
+				</MainContent>
+			</MainContainer>
 		);
 	}
 }

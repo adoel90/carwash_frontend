@@ -1,34 +1,32 @@
 import React from 'react';
 import Cafe from '../components/Cafe';
 
+import { connect } from 'react-redux';
+import { getCafeTypes } from '../actions/cafe.action.js';
+
 class CafeContainer extends React.Component {
-	constructor() {
-		super();
-		this.state = {
-			categories: [
-				{ title: 'Cafe Siang', name: 'lunch' },
-				{ title: 'Cafe Dinner', name: 'dinner' },
-			],
-			items: [
-				{
-					name: 'Nasi Goreng',
-					category: 'dinner',
-					price: '20000',
-					photo: 'https://us.123rf.com/450wm/lenyvavsha/lenyvavsha1509/lenyvavsha150900676/45819266-indonesian-nasi-goreng-with-chicken-shrimp-and-vegetables-close-up.jpg?ver=6'
-				},
-				{
-					name: 'Indomie Goreng',
-					category: 'lunch',
-					price: '20000',
-					photo: 'https://us.123rf.com/450wm/lenyvavsha/lenyvavsha1509/lenyvavsha150900676/45819266-indonesian-nasi-goreng-with-chicken-shrimp-and-vegetables-close-up.jpg?ver=6'
-				},
-			]
-		}
+	componentDidMount = () => {
+		this.props.getCafeTypes();
 	}
 
 	render() {
-		return <Cafe {...this.state} {...this.props} />
+		console.log(this.props);
+
+		return null;
+		// return <Cafe {...this.state} {...this.props} />
 	}
 }
 
-export default CafeContainer;
+const mapStateToProps = (state, props) => {
+	return {
+		cafe: state.cafe
+	}
+}
+
+const mapDispatchToProps = (dispatch) => {
+	return {
+		getCafeTypes: () => dispatch(getCafeTypes())
+	}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CafeContainer);

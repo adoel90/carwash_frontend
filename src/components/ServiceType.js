@@ -2,6 +2,24 @@ import React from 'react';
 import ServiceItemList from '../components/ServiceItemList';
 
 class ServiceType extends React.Component {
+	constructor() {
+		super();
+		this.renderServiceItemList = this.renderServiceItemList.bind(this);
+	}
+
+	renderServiceItemList = () => {
+		const {
+			serviceList
+		} = this.props;
+
+		return (
+			<ServiceItemList
+				type={type}
+				serviceList={serviceList}
+			/>
+		)
+	}
+
 	render() {
 		const {
 			serviceList,
@@ -16,10 +34,7 @@ class ServiceType extends React.Component {
 						<h5 className="fw-semibold">Jenis Layanan</h5>
 						<p className="clr-passive">Silahkan pilih jenis layanan yang diinginkan.</p>
 					</div>
-					<ServiceItemList
-						type={type}
-						serviceList={serviceList}
-					/>
+					{ this.renderServiceItemList() }
 				</div>
 			);
 		}

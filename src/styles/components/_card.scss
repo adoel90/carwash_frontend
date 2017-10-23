@@ -43,7 +43,7 @@
 
 	.card__content {
 		@include flex(1 1 100%);
-		min-height: 5em;
+		min-height: 7.5em;
 		padding: $spacer * .5;
 	}
 
@@ -51,6 +51,7 @@
 		padding: $spacer * .5;
 	}
 
+	//-
 	&.card__form {
 		padding: 20px;
 		min-height: auto;

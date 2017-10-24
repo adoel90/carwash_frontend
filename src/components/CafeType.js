@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import CafeMenuList from '../components/CafeMenuList';
+import SearchBar from '../components/SearchBar';
 
 class CafeType extends Component {
 	constructor() {
@@ -32,8 +33,9 @@ class CafeType extends Component {
 		return (
 			<div>
 				<div className="padding-bottom-1">
-					<h5 className="fw-semibold">Menu</h5>
-					<p className="clr-passive">Silahkan pilih menu yang diinginkan.</p>
+					<SearchBar 
+						placeholder="Cari menu..."
+					/>
 				</div>
 				{ cafeMenu ? this.renderCafeMenuList() : <p>Sebentar ya...</p> }
 			</div>

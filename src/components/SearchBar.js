@@ -1,13 +1,15 @@
 import React from 'react';
-import Button from '../components/Button';
+
+import Form from '../components/Form';
+import FormText from '../components/FormText';
 
 class SearchBar extends React.Component {
 	render() {
 		return (
-			<form className="search-bar">
+			<Form className="search-bar">
 				<div className="search-bar-group">
 					<div className="search-bar-addon">
-						{ this.props.addon }
+						<i className="fi flaticon flaticon-search-1"></i>
 					</div>
 					<input
 						type="text"
@@ -15,7 +17,7 @@ class SearchBar extends React.Component {
 						placeholder={this.props.placeholder}
 					/>
 				</div>
-			</form>
+			</Form>
 		)
 	}
 }

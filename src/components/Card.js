@@ -1,5 +1,6 @@
 import React from 'react';
 import Currency from '../components/Currency';
+import Button from '../components/Button';
 
 class Card extends React.Component {
 	render() {
@@ -19,9 +20,9 @@ class Card extends React.Component {
 						<p className="card__text">{this.props.text}</p>
 					</div>
 					<div className="card__footer">
-						<button className="button button--primary button--full">
+						<Button buttonType="button" buttonStyle="primary" buttonFull>
 							<small className="tt-uppercase fw-bold ls-base">{this.props.buttonText}</small>
-						</button>
+						</Button>
 					</div>
 				</div>
 			</div>

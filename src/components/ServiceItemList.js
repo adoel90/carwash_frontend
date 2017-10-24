@@ -18,7 +18,7 @@ class ServiceItemList extends React.Component {
 					price={item.price}
 					photo={item.image}
 					text={item.description}
-					buttonText="Pilih Menu"
+					buttonText="Pilih Layanan"
 				/>
 			</div>
 		)

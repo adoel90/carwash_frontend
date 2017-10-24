@@ -27,18 +27,15 @@ class ServiceType extends React.Component {
 			type
 		} = this.props;
 
-		if(serviceList) {
-			return (
-				<div id="category">
-					<div className="padding-bottom-1">
-						<h5 className="fw-semibold">Jenis Layanan</h5>
-						<p className="clr-passive">Silahkan pilih jenis layanan yang diinginkan.</p>
-					</div>
-					{ this.renderServiceItemList() }
+		return (
+			<div id="category">
+				<div className="padding-bottom-1">
+					<h5 className="fw-semibold">Jenis Layanan</h5>
+					<p className="clr-passive">Silahkan pilih jenis layanan yang diinginkan.</p>
 				</div>
-			);
-		}
-		return null;
+				{ serviceList ? this.renderServiceItemList() : <p>Sebentar ya...</p> }
+			</div>
+		)
 	}
 }
 

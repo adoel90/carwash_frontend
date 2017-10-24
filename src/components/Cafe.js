@@ -8,44 +8,48 @@ import MainSidebar from '../components/MainSidebar';
 import MainSidenav from '../components/MainSidenav';
 import MainContent from '../components/MainContent';
 
-import CafeCategory from '../components/CafeCategory';
+import CafeTypeContainer from '../containers/CafeTypeContainer';
 
 class Cafe extends React.Component {
 	constructor() {
 		super();
-		this.renderCategoryRoute = this.renderCategoryRoute;
+		this.renderCafeType = this.renderCafeType.bind(this);
 	}
 
-	renderCategoryRoute = (category, i) => {
+	renderCafeType = (type, i) => {
 		const { match } = this.props;
+		const path = type.name.replace(/\s+/g, '-').toLowerCase();
 
 		return (
 			<PropsRoute
 				key={i}
-				name={category.name}
-				path={`${match.url}/${category.name}`}
-				component={CafeCategory}
-				category={category}
-				items={this.props.items}
+				name={type.name}
+				path={`${match.url}/${path}`}
+				component={CafeTypeContainer}
+				type={type}
 			/>
 		)
 	}
 
 	render() {
-		const { match } = this.props;
+		const {
+			match,
+			cafe,
+			cafeTypes
+		} = this.props;
+
+		const firstRoutePath = cafeTypes[0].name.replace(/\s+/g, '-').toLowerCase();
 
 		return (
-			<main id="cafe" className="main">
-				<MainContainer>
-					<MainSidebar>
-						<MainSidenav items={ this.props.cafe.types } basePath={match.path} />
-					</MainSidebar>
-					<MainContent>
-						{ this.props.cafe.types.map(this.renderCategoryRoute) }
-						<Redirect from="/*" to={`${match.url}/${this.props.cafe.types[0].name}`} />
-					</MainContent>
-				</MainContainer>
-			</main>
+			<MainContainer>
+				<MainSidebar>
+					<MainSidenav items={ this.props.cafe.types } basePath={match.path} />
+				</MainSidebar>
+				<MainContent>
+					{ cafeTypes.map(this.renderCafeType) }
+					<Redirect from="/*" to={`${match.url}/${firstRoutePath}`} />
+				</MainContent>
+			</MainContainer>
 		)
 	}
 }

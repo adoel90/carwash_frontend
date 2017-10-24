@@ -10,9 +10,6 @@ class CafeContainer extends React.Component {
 	}
 
 	render() {
-		console.log(this.props);
-
-		// return null;
 		return this.props.cafe.isLoaded
 		? <Cafe {...this.state} {...this.props} />
 		: null
@@ -21,7 +18,8 @@ class CafeContainer extends React.Component {
 
 const mapStateToProps = (state, props) => {
 	return {
-		cafe: state.cafe
+		cafe: state.cafe,
+		cafeTypes: state.cafe.types
 	}
 }
 

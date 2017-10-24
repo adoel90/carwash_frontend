@@ -11,7 +11,7 @@ export const GET_CAFE_TYPES_REJECTED = "GET_CAFE_TYPES_REJECTED";
 export const getCafeMenu = (data) => {
 	return async dispatch => {
 		return axios
-			.get(`${config.constant.API_PATH}cafe/menu/list?accessToken=${config.accessToken}&cafe=${data.cafeType}&limit=${data.limit}&offset=${data.offset}`)
+			.get(`${config.constant.API_PATH}cafe/menu/list?accessToken=${config.accessToken}&cafe=${data.cafe}&limit=${data.limit}&offset=${data.offset}`)
 			.then((response) => {
 				dispatch({
 					type: GET_CAFE_MENU_FULFILLED,

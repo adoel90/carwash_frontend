@@ -12,10 +12,10 @@ import ServiceTypeContainer from '../containers/ServiceTypeContainer';
 class Service extends React.Component {
 	constructor() {
 		super();
-		this.renderCategoryType = this.renderCategoryType.bind(this);
+		this.renderServiceType = this.renderServiceType.bind(this);
 	}
 
-	renderCategoryType = (type, i) => {
+	renderServiceType = (type, i) => {
 		const { match } = this.props;
 		const path = type.name.replace(/\s+/g, '-').toLowerCase();
 
@@ -44,7 +44,7 @@ class Service extends React.Component {
 					<MainSidenav items={ serviceTypes } basePath={match.path} />
 				</MainSidebar>
 				<MainContent>
-					{ serviceTypes.map(this.renderCategoryType) }
+					{ serviceTypes.map(this.renderServiceType) }
 					<Redirect from="/*" to={`${match.url}/${firstRoutePath}`} />
 				</MainContent>
 			</MainContainer>

@@ -31,8 +31,7 @@ class CafeMenuList extends Component {
 			cafeMenuList
 		} = this.props;
 
-		// console.log(this.props);
-		// return null;
+
 		return (
 			<CardList>
 				{ cafeMenuList.map(this.renderCafeMenu) }

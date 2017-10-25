@@ -1,22 +1,17 @@
 import React from 'react';
-
-import Form from '../components/Form';
-import FormText from '../components/FormText';
+import classNames from 'classnames';
+import { Form, FormGroup } from '../components/Form';
+import { Input, InputGroup } from '../components/Input';
 
 class SearchBar extends React.Component {
 	render() {
 		return (
-			<Form className="search-bar">
-				<div className="search-bar-group">
-					<div className="search-bar-addon">
-						<i className="fi flaticon flaticon-search-1"></i>
-					</div>
-					<input
-						type="text"
-						className="search-bar-control"
-						placeholder={this.props.placeholder}
-					/>
-				</div>
+			<Form className={`search-bar`}>
+				<FormGroup row>
+					<InputGroup>
+						<Input type="text" placeholder="Cari menu..." />
+					</InputGroup>
+				</FormGroup>
 			</Form>
 		)
 	}

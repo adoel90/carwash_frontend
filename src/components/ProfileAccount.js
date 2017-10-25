@@ -1,16 +1,13 @@
 import React from 'react';
 import PageBlock from '../components/PageBlock';
 
-import Form from '../components/Form';
-import FormText from '../components/FormText';
-
 class ProfileAccount extends React.Component {
 	render() {
 		return (
 			<div id="profile-account">
 				<PageBlock>
 					<h5 className="fw-semibold padding-bottom-3">Profil Saya</h5>
-					<Form>
+					{/* <Form>
 						<FormText
 							label="Nama Lengkap"
 							placeholder="Nama member"
@@ -23,7 +20,7 @@ class ProfileAccount extends React.Component {
 							value="davidkurniakristiadi@gmail.com"
 							readonly="true"
 						/>
-					</Form>
+					</Form> */}
 				</PageBlock>
 			</div>
 		);

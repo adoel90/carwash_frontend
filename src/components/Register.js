@@ -1,9 +1,5 @@
 import React from 'react';
 import PageBlock from '../components/PageBlock';
-import Form from '../components/Form';
-import FormText from '../components/FormText';
-import FormButton from '../components/FormButton';
-
 
 class Register extends React.Component {
 	render() {
@@ -14,7 +10,7 @@ class Register extends React.Component {
 				</div>
 
 				<PageBlock>
-					<Form>
+					{/* <Form>
 						<div className="padding-bottom-3">
 							<FormText type="text" label="Nama lengkap" placeholder="Nama lengkap" />
 							<FormText type="text" label="Alamat email" placeholder="Alamat email" />
@@ -26,7 +22,7 @@ class Register extends React.Component {
 								<small className="fw-bold tt-uppercase ls-base">Daftarkan</small>
 							</FormButton>
 						</div>
-					</Form>
+					</Form> */}
 				</PageBlock>
 			</div>
 		)

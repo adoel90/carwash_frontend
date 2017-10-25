@@ -1,6 +1,7 @@
 .search-bar {
 	@include relative;
 	display: block;
+	background-color: gray(100);
 
 	.search-bar-group {
 		@include flexbox;

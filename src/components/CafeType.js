@@ -36,11 +36,9 @@ class CafeType extends Component {
 					<h5 className="fw-semibold">Daftar Menu</h5>
 					<p className="clr-passive">Pilih menu (bisa lebih dari 1) yang dipesan oleh customer.</p>
 				</div>
-				<div className="padding-bottom-2">
-					<SearchBar
-						placeholder="Pencarian cepat..."
-					/>
-				</div>
+				<SearchBar
+					placeholder="Pencarian cepat..."
+				/>
 				{ cafeMenu ? this.renderCafeMenuList() : <p>Sebentar ya...</p> }
 			</div>
 		);

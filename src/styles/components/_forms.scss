@@ -6,30 +6,35 @@ form {}
 		@include flexbox;
 		@include flex-direction(row);
 		@include align-items(center);
-		padding-bottom: $spacer * .5;
+		margin-bottom: $spacer * .5;
 
 		label {
 			width: 25%;
 			text-align: right;
 			padding-right: $spacer * .5;
 		}
+	}
 
-		.form-control {
-			@include transition(all 500ms $transition-primary);
-			@include border-radius(small);
-			display: block;
-			width: 100%;
-			border: solid 1px gray(300);
-			padding: $spacer * .25;
+	.input-group {
+		width: 100%;
+		height: 100%;
+	}
 
-			&:disabled,
-			&:read-only {
-				background-color: gray(300);
-			}
+	.form-control {
+		@include transition(all 500ms $transition-primary);
+		@include border-radius(small);
+		display: block;
+		width: 100%;
+		border: solid 1px gray(300);
+		padding: $spacer * .25;
 
-			&:focus {
-				border: solid 1px primary-color(base);
-			}
+		&:disabled,
+		&:read-only {
+			background-color: gray(300);
+		}
+
+		&:focus {
+			border: solid 1px primary-color(base);
 		}
 	}
 }

@@ -6,7 +6,7 @@ import { Input, InputGroup, InputGroupAddon } from '../components/Input';
 class SearchBar extends React.Component {
 	render() {
 		return (
-			<Form className={`search-bar`}>
+			<Form className="search-bar">
 				<InputGroup>
 					<InputGroupAddon>
 						<i className="fi flaticon flaticon-search-1"></i>

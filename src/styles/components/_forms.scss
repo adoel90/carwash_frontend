@@ -16,8 +16,28 @@ form {}
 	}
 
 	.input-group {
-		width: 100%;
-		height: 100%;
+		@include flexbox;
+		overflow: hidden;
+
+		> *:first-child {
+			border: solid 1px gray(300);
+			border-top-left-radius: border-radius(base);
+			border-bottom-left-radius: border-radius(base);
+			border-right: 0;
+		}
+
+		> *:last-child {
+			border-radius: 0;
+			border-top-right-radius: border-radius(base);
+			border-bottom-right-radius: border-radius(base);
+		}
+
+		.input-group-addon {
+			padding: $spacer * .5;
+			background-color: primary-color(base);
+			border: solid 1px primary-color(base);
+			color: gray(100);
+		}
 	}
 
 	.form-control {
@@ -26,6 +46,7 @@ form {}
 		display: block;
 		width: 100%;
 		border: solid 1px gray(300);
+		background-color: gray(100);
 		padding: $spacer * .25;
 
 		&:disabled,

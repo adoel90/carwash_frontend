@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import CafeMenuList from '../components/CafeMenuList';
 import SearchBar from '../components/SearchBar';
+import Heading from '../components/Heading';
 
 class CafeType extends Component {
 	constructor() {
@@ -28,15 +29,14 @@ class CafeType extends Component {
 			cafeMenu
 		} = this.props;
 
-		console.log(cafeMenu);
-
 		return (
 			<div>
-				<div className="padding-bottom-2">
+				<div className="heading padding-bottom-2">
 					<h5 className="fw-semibold">Daftar Menu</h5>
 					<p className="clr-passive">Pilih menu (bisa lebih dari 1) yang dipesan oleh customer.</p>
 				</div>
 				<SearchBar
+					className="padding-bottom-2"
 					placeholder="Pencarian cepat..."
 				/>
 				{ cafeMenu ? this.renderCafeMenuList() : <p>Sebentar ya...</p> }

@@ -40,6 +40,12 @@ $font-sizes: (
 ) !default;
 
 //
+//	Icon Sizes
+//
+$icon-size-base		: $font-size-large;
+$icon-size-large	: $font-size-x-large;
+
+//
 //	Font Weight
 //
 $font-weights: (

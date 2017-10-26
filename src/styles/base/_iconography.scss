@@ -1,5 +1,11 @@
 .icon {
-	
+	&.icon--base {
+		font-size: $icon-size-base;
+	}
+
+	&.icon--large {
+		font-size: $font-size-large;
+	}
 }
 
 /*

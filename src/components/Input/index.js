@@ -1,9 +1,9 @@
 import Input from './Input';
 import InputGroup from './InputGroup';
-import InputGroupAddon from './InputGroupAddon';
+import InputAddon from './InputAddon';
 
 export {
 	Input,
 	InputGroup,
-	InputGroupAddon
+	InputAddon
 };

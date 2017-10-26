@@ -1,6 +1,6 @@
 import React from 'react';
-import Currency from '../components/Currency';
-import Button from '../components/Button';
+import Currency from '../Currency';
+import Button from '../Button';
 
 class Card extends React.Component {
 	render() {

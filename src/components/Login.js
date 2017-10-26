@@ -1,34 +1,38 @@
 import React from 'react';
+import MainContainer from '../components/MainContainer';
 
 export default class Login extends React.Component {
-    render() {
-        return(
-            <section className="login-container">
-                <div className="content-login">
-                    <div className="sideleft-login">
-                        <i className="material-icons">local_car_wash</i>
-                        <h4>
-                            805 carwarsh
-                        </h4>
+	render() {
+		return (
+			<MainContainer>
+			</MainContainer>
 
-                        <form className="form-vertical">
-                            <div className="form-group">
-                                <input type="text" className="form-control no-border" placeholder="Username" />
-                            </div>
-                            <div className="form-group">
-                                <input type="password" className="form-control no-border" placeholder="Password" />
-                            </div>
-
-                            <div className="form-button">
-                                <button type="submit" className="button button--darkslategray button--full">Sign in</button>
-                            </div>
-                        </form>
-                    </div>
-                    <div className="sideright-login">
-                        <img src="https://static.wixstatic.com/media/b5a293_e16afca15fe343e79db0241a9c137285~mv2.png" />
-                    </div>
-                </div>
-            </section>
-        )
-    }
+			// <section className="login-container">
+			// 	<div className="content-login">
+			// 		<div className="sideleft-login">
+			// 			<i className="material-icons">local_car_wash</i>
+			// 			<h4>
+			// 				805 carwarsh
+			// 			</h4>
+			//
+			// 			<form className="form-vertical">
+			// 				<div className="form-group">
+			// 					<input type="text" className="form-control no-border" placeholder="Username" />
+			// 				</div>
+			// 				<div className="form-group">
+			// 					<input type="password" className="form-control no-border" placeholder="Password" />
+			// 				</div>
+			//
+			// 				<div className="form-button">
+			// 					<button type="submit" className="button button--darkslategray button--full">Sign in</button>
+			// 				</div>
+			// 			</form>
+			// 		</div>
+			// 		<div className="sideright-login">
+			// 			<img src="https://static.wixstatic.com/media/b5a293_e16afca15fe343e79db0241a9c137285~mv2.png" />
+			// 		</div>
+			// 	</div>
+			// </section>
+		)
+	}
 }

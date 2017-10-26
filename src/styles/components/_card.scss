@@ -7,6 +7,7 @@
 	background-color: gray(100);
 	box-shadow: map-get($box-shadow, base);
 	overflow: hidden;
+	border: solid 1px gray(300);
 
 	.card__container {
 		@include flexbox;

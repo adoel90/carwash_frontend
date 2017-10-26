@@ -29,7 +29,7 @@ class ServiceType extends React.Component {
 
 		return (
 			<div id="category">
-				<div className="padding-bottom-1">
+				<div className="heading padding-bottom-1">
 					<h5 className="fw-semibold">Jenis Layanan</h5>
 					<p className="clr-passive">Silahkan pilih jenis layanan yang diinginkan.</p>
 				</div>

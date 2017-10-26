@@ -1,37 +1,37 @@
 section.login-container {
-    @include relative;
-    height: 100vh;
+	@include relative;
+	height: 100vh;
 
-    .content-login {
-        @include flexbox;
-        height: 100%;
-        padding: 10px;
+	.content-login {
+		@include flexbox;
+		height: 100%;
+		padding: 10px;
 
-        .sideleft-login {
-            @include flexbox {
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-            }
-            width: 50em;
-            background-color: #158dbc;
-            color: #EFEFEF;
-            font-weight: 600;
-            text-transform: uppercase;
-            border-radius: 4px;
+		.sideleft-login {
+			@include flexbox {
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+			}
+			width: 50em;
+			background-color: #158dbc;
+			color: #EFEFEF;
+			font-weight: 600;
+			text-transform: uppercase;
+			border-radius: 4px;
 
-            h3 {
-                margin: 20px;
-            }
-        }
+			h3 {
+				margin: 20px;
+			}
+		}
 
-        .sideright-login {
-            @include flexbox {
-                align-items: center;
-                justify-content: center;
-            }
-            width: 100%;
-            padding: 0 0 0 10px;
-        }
-    }
+		.sideright-login {
+			@include flexbox {
+				align-items: center;
+				justify-content: center;
+			}
+			width: 100%;
+			padding: 0 0 0 10px;
+		}
+	}
 }

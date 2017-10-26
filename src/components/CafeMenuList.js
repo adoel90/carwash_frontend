@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-
-import Card from '../components/Card';
-import CardList from '../components/CardList';
+import { Card, CardList } from '../components/Card';
 
 class CafeMenuList extends Component {
 	constructor() {

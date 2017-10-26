@@ -15,6 +15,27 @@ form {}
 		}
 	}
 
+	//	Control class for input, textarea and alike
+	.form-control {
+		@include transition(all 500ms $transition-primary);
+		@include border-radius(small);
+		display: block;
+		width: 100%;
+		border: solid 1px gray(300);
+		background-color: gray(100);
+		padding: ($spacer * .5);
+
+		&:disabled,
+		&:read-only {
+			background-color: gray(300);
+		}
+
+		&:focus {
+			border: solid 1px primary-color(base);
+		}
+	}
+
+	//
 	.input-group {
 		@include flexbox;
 		overflow: hidden;
@@ -32,30 +53,11 @@ form {}
 			border-bottom-right-radius: border-radius(base);
 		}
 
-		.input-group-addon {
-			padding: $spacer * .5;
+		.input-addon {
+			padding: ($spacer * .5);
 			background-color: primary-color(base);
 			border: solid 1px primary-color(base);
 			color: gray(100);
-		}
-	}
-
-	.form-control {
-		@include transition(all 500ms $transition-primary);
-		@include border-radius(small);
-		display: block;
-		width: 100%;
-		border: solid 1px gray(300);
-		background-color: gray(100);
-		padding: $spacer * .25;
-
-		&:disabled,
-		&:read-only {
-			background-color: gray(300);
-		}
-
-		&:focus {
-			border: solid 1px primary-color(base);
 		}
 	}
 }

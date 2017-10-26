@@ -1,16 +1,25 @@
 import React from 'react';
 import classNames from 'classnames';
 import { Form, FormGroup } from '../components/Form';
-import { Input, InputGroup, InputGroupAddon } from '../components/Input';
+import { Input, InputGroup, InputAddon } from '../components/Input';
 
 class SearchBar extends React.Component {
 	render() {
+		const {
+			className
+		} = this.props;
+
+		const classes = classNames(
+			"search-bar",
+			className
+		)
+
 		return (
-			<Form className="search-bar">
+			<Form className={classes}>
 				<InputGroup>
-					<InputGroupAddon>
-						<i className="fi flaticon flaticon-search-1"></i>
-					</InputGroupAddon>
+					<InputAddon>
+						<i className="icon icon--base fi flaticon flaticon-search-1"></i>
+					</InputAddon>
 					<Input type="text" placeholder="Cari menu..." />
 				</InputGroup>
 			</Form>

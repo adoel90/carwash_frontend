@@ -53,6 +53,8 @@
     "axios": "^0.16.2",
     "classnames": "^2.2.5",
     "node-sass": "^4.5.3",
+    "react-cookie": "^2.1.1",
+    "react-cookies": "^0.1.0",
     "react-intl": "^2.4.0",
     "react-logger": "^1.1.0",
     "react-modal": "^3.0.4",

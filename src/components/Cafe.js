@@ -34,7 +34,6 @@ class Cafe extends React.Component {
 	render() {
 		const {
 			match,
-			cafe,
 			cafeTypes
 		} = this.props;
 

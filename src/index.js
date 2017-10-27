@@ -5,6 +5,7 @@ import './styles/main.scss';
 import '../node_modules/material-design-icons/iconfont/material-icons.css';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import { CookiesProvider } from 'react-cookie';
 import Store from './stores/config';
 import registerServiceWorker from './registerServiceWorker';
 
@@ -12,9 +13,11 @@ const rootElement = document.getElementById('root');
 
 ReactDOM.render(
 	<Provider store={Store}>
-		<BrowserRouter>
-			<App />
-		</BrowserRouter>
+		<CookiesProvider>
+			<BrowserRouter>
+				<App />
+			</BrowserRouter>
+		</CookiesProvider>
 	</Provider>,
 	rootElement);
 registerServiceWorker();

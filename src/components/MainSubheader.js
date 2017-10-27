@@ -3,11 +3,19 @@ import MainNavigation from '../components/MainNavigation';
 
 class MainSubheader extends React.Component {
 	render() {
-		return (
-			<div className="header sub-header">
-				<MainNavigation />
-			</div>
-		)
+		const {
+			isAuth
+		} = this.props;
+
+		if(isAuth) {
+			return (
+				<div className="header sub-header">
+					<MainNavigation />
+				</div>
+			)
+		}
+
+		return null;
 	}
 }
 

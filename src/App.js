@@ -37,7 +37,7 @@ class App extends React.Component {
 		return (
 			<div>
 				<MainHeader />
-				<MainSubheader />
+				<MainSubheader {...this.state} {...this.props} />
 				<MainView {...this.state} {...this.props} />
 			</div>
 		);

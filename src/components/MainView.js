@@ -1,6 +1,8 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
+import classNames from 'classnames';
+
 import { instanceOf } from 'prop-types';
 import { withCookies, Cookies } from 'react-cookie';
 import { AuthRoute } from '../components/Route';
@@ -14,9 +16,13 @@ import ProfileContainer from '../containers/ProfileContainer';
 class MainView extends React.Component {
 	render() {
 		const { isAuth, accessToken } = this.props;
+		const classes = classNames(
+			'main',
+			isAuth ? 'main--has-subheader' : null
+		)
 
 		return (
-			<main className="main">
+			<main className={classes}>
 				<Switch>
 					<Route name="login" path='/login' component={ LoginContainer } />
 					

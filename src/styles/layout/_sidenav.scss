@@ -5,32 +5,38 @@
 		@include flex-direction(column);
 
 		.sidenav__item {
+			@include relative;
 			@include transition(all 500ms $transition-primary);
 			margin-bottom: $spacer * .5;
-			box-shadow: map-get($box-shadow, base);
+			padding-top: 100%;
 
 			> a {
+				@include transition(all 500ms $transition-primary);
+				@include border-radius(base);
+				@include font-weight(semibold);
 				@include flexbox;
 				@include align-items(center);
 				@include justify-content(center);
-				@include border-radius(base);
-				@include font-weight(semibold);
-				background-color: shade(gray(100), 4.5%);
-				padding: $spacer * .25;
-				color: gray(600);
+				@include absolute {
+					top: 0;
+					left: 0;
+				}
+				box-shadow: map-get($box-shadow, base);
 				text-align: center;
-				height: 10em;
-				width: 10em;
+				color: gray(600);
+				background-color: shade(gray(100), 4.5%);
+				width: 100%;
+				height: 100%;
 
 				&.is-active {
 					border-bottom: solid 5px secondary-color(base);
 					background-color: gray(100);
 					color: gray(1800);
 				}
-			}
 
-			&:hover {
-				box-shadow: map-get($box-shadow, large);
+				&:hover {
+					box-shadow: map-get($box-shadow, large);
+				}
 			}
 
 			/*/

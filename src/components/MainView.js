@@ -11,32 +11,19 @@ import LoginContainer from '../containers/LoginContainer';
 import ServiceContainer from '../containers/ServiceContainer';
 import CafeContainer from '../containers/CafeContainer';
 import CashierContainer from '../containers/CashierContainer';
-import ProfileContainer from '../containers/ProfileContainer';
 
 class MainView extends React.Component {
 	render() {
 		const { isAuth, accessToken } = this.props;
-		const classes = classNames(
-			'main',
-			isAuth ? 'main--has-subheader' : null
-		)
 
 		return (
-			<main className={classes}>
-				<Switch>
-					<Route name="login" path='/login' component={ LoginContainer } />
-					
-					<AuthRoute auth={isAuth} name="service" path='/service' component={ ServiceContainer } />
-					<AuthRoute auth={isAuth} name="profile" path='/profile' component={ ProfileContainer } />
-					<AuthRoute auth={isAuth} name="cashier" path='/cashier' component={ CashierContainer } />
-					<AuthRoute auth={isAuth} name="cafe" path='/cafe' component={ CafeContainer } />
-
-					{/*<Route name="service" path='/service' component={ ServiceContainer } />
-					<Route name="profile" path='/profile' component={ ProfileContainer } />
-					<Route name="cashier" path='/cashier' component={ CashierContainer } />
-					<Route name="cafe" path='/cafe' component={ CafeContainer } />*/}
-				</Switch>
-			</main>
+			<Switch>
+				<Route name="login" path='/login' component={ LoginContainer } />
+				
+				<AuthRoute auth={isAuth} name="service" path='/service' component={ ServiceContainer } />
+				<AuthRoute auth={isAuth} name="cashier" path='/cashier' component={ CashierContainer } />
+				<AuthRoute auth={isAuth} name="cafe" path='/cafe' component={ CafeContainer } />
+			</Switch>
 		)
 	}
 }

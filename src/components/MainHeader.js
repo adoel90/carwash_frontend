@@ -4,7 +4,7 @@ class MainHeader extends React.Component {
 	constructor() {
 		super();
 		this.state = {
-			logoText: '805 Carwash'
+			logoText: 'Carwash 805'
 		}
 	}
 

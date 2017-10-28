@@ -14,6 +14,8 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 
+
+//
 .main {
 	@include flexbox;
 	@include flex-direction(column);
@@ -25,18 +27,9 @@
 		padding-top: 8em;
 	}
 
-	> *:not(:first-child) {
-		padding: $spacer 0;
-	}
-
-	.main-container {
-		@include flexbox;
-		@include flex(1 1 100%);
+	.main__container {
 		@extend .container;
-		padding: $spacer 0;
-	}
-
-	.main-content {
-		width: 100%;
+		background-color: red;
+		
 	}
 }

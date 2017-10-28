@@ -1,10 +1,26 @@
 import React from 'react';
+import classNames from 'classnames';
 
-const Button = ({buttonType, buttonStyle, buttonSize, buttonFull, children}) => {
+const Button = (props) => {
+	const {
+		buttonType,
+		buttonStyle,
+		buttonSize,
+		buttonFull,
+		children,
+		className,
+		...rest,
+	} = props;
+
+	const classes = classNames(
+		'button',
+		buttonStyle ? `button--${buttonStyle}` : null,
+		buttonSize ? `button--${buttonSize}` : null,
+		buttonFull ? 'button--full' : null
+	)
+
 	return (
-		<button 
-			type={buttonType} 
-			className={`button button--${buttonStyle} button--${buttonSize} ${buttonFull && 'button--full'} `}>
+		<button type={buttonType} className={classes}>
 			{ children }
 		</button>
 	)

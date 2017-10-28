@@ -1,21 +1,18 @@
 import React from 'react';
 import classNames from 'classnames';
 
-const FormGroup = (props) => {
+const Container = (props) => {
 	const {
-		row,
 		children,
-		className,
-		...rest
+		className
 	} = props;
 
 	const classes = classNames(
-		'form-group',
-		row ? 'form-group--row' : null,
+		'container',
 		className
-	)
+	);
 
 	return <div className={classes}>{children}</div>
 }
 
-export default FormGroup;
+export default Container;

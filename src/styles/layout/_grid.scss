@@ -55,7 +55,7 @@
 @for $i from 1 through 12 {
 	.column-#{$i} {
 		$calculated-width: (100/12) * $i + %;
-		@include flex(0 0 $calculated-width);
+		@include flex(1 0 $calculated-width);
 		max-width: $calculated-width;
 	}
 }

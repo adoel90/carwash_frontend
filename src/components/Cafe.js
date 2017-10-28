@@ -1,12 +1,11 @@
 import React from 'react';
 
 import { Redirect } from 'react-router-dom';
+import { Container, Row } from '../components/Grid';
+import { Page } from '../components/Page';
 import PropsRoute from '../components/PropsRoute';
 
-import MainContainer from '../components/MainContainer';
-import MainSidebar from '../components/MainSidebar';
 import MainSidenav from '../components/MainSidenav';
-import MainContent from '../components/MainContent';
 
 import CafeTypeContainer from '../containers/CafeTypeContainer';
 
@@ -40,15 +39,21 @@ class Cafe extends React.Component {
 		const firstRoutePath = cafeTypes[0].name.replace(/\s+/g, '-').toLowerCase();
 
 		return (
-			<MainContainer>
-				<MainSidebar>
-					<MainSidenav items={ this.props.cafe.types } basePath={match.path} />
-				</MainSidebar>
-				<MainContent>
-					{ cafeTypes.map(this.renderCafeType) }
-					<Redirect from="/*" to={`${match.url}/${firstRoutePath}`} />
-				</MainContent>
-			</MainContainer>
+			<main className="main">
+				<Container className="padding-top-3">
+					<Row>
+						<div className="column-2">
+							<aside className="sidebar">
+								<MainSidenav items={ this.props.cafe.types } basePath={match.path} />
+							</aside>
+						</div>
+						<div className="column-10">
+							{ cafeTypes.map(this.renderCafeType) }
+							<Redirect from="/*" to={`${match.url}/${firstRoutePath}`} />
+						</div>
+					</Row>
+				</Container>
+			</main>
 		)
 	}
 }

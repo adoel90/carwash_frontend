@@ -1,11 +1,9 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
-import PropsRoute from '../components/PropsRoute';
 
-import MainSidebar from '../components/MainSidebar';
+import PropsRoute from '../components/PropsRoute';
+import { Container, Row } from '../components/Grid';
 import MainSidenav from '../components/MainSidenav';
-import MainContainer from '../components/MainContainer';
-import MainContent from '../components/MainContent';
 
 import ServiceTypeContainer from '../containers/ServiceTypeContainer';
 
@@ -39,15 +37,21 @@ class Service extends React.Component {
 		const firstRoutePath = serviceTypes[0].name.replace(/\s+/g, '-').toLowerCase();
 
 		return (
-			<MainContainer>
-				<MainSidebar>
-					<MainSidenav items={ serviceTypes } basePath={match.path} />
-				</MainSidebar>
-				<MainContent>
-					{ serviceTypes.map(this.renderServiceType) }
-					<Redirect from="/*" to={`${match.url}/${firstRoutePath}`} />
-				</MainContent>
-			</MainContainer>
+			<main className="main">
+				<Container className="padding-top-3">
+					<Row>
+						<div className="column-2">
+							<aside className="sidebar">
+								<MainSidenav items={ serviceTypes } basePath={match.path} />
+							</aside>
+						</div>
+						<div className="column-10">
+							{ serviceTypes.map(this.renderServiceType) }
+							<Redirect from="/*" to={`${match.url}/${firstRoutePath}`} />
+						</div>
+					</Row>
+				</Container>
+			</main>
 		)
 	}
 }

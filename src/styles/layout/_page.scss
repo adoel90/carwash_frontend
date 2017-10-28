@@ -1,9 +1,14 @@
 .page-block {
+	@include border-radius(base);
 	background-color: gray(100);
 	min-height: 5em;
 	width: 100%;
 
 	.page-block__container {
 		padding: $spacer;
+	}
+
+	.page__heading {
+		margin-bottom: $spacer * .5;
 	}
 }

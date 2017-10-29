@@ -5,6 +5,15 @@ import { PageBlock, PageHeading, PageContent } from '../Page';
 import LoginForm from './LoginForm';
 
 class Login extends React.Component {
+	constructor() {
+		super();
+		this.handleAuthentication = this.handleAuthentication.bind(this);
+	}
+
+	handleAuthentication = () => {
+		console.log(this.state);
+	}
+
 	render() {
 		return (
 			<main className="main login">
@@ -13,10 +22,12 @@ class Login extends React.Component {
 						<div className="column-12 column-md-6">
 							<PageBlock primary>
 								<PageHeading className="ta-center">
-									<h5><span className="fw-semibold">Carwash 805</span> Admin Panel</h5>		
+									<h5><span className="fw-semibold">Carwash 805</span> Admin Panel</h5>
 								</PageHeading>
 								<PageContent>
-									<LoginForm />
+									<LoginForm
+										handleClick={this.handleAuthentication()}
+									/>
 								</PageContent>
 							</PageBlock>
 						</div>

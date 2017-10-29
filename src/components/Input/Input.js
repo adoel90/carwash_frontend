@@ -2,29 +2,62 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-const Input = (props, tag) => {
-	const {
-		className,
-		type,
-		rows,
-		...attributes
-	} = props;
+class Input extends React.Component {
+	// handleChange = (event) => {
+	// 	this.props.onChange(event);
+	// }
 
-	const classes = classNames(
-		className,
-		'form-control'
-	)
+	render() {
+		const {
+			className,
+			type,
+			rows,
+			value,
+			...attributes
+		} = this.props;
 
-	const fileInput = type === 'file';
-	const textareaInput = type === 'textarea';
-	const selectInput = type === 'select';
-	let Tag = textareaInput || selectInput ? type : 'input';
+		const classes = classNames(
+			className,
+			'form-control'
+		)
 
-	if(Tag === 'input') {
-		attributes.type = type;
+		const fileInput = type === 'file';
+		const textareaInput = type === 'textarea';
+		const selectInput = type === 'select';
+		let Tag = textareaInput || selectInput ? type : 'input';
+
+		if(Tag === 'input') {
+			attributes.type = type;
+		}
+
+		return <Tag {...attributes} className={classes} />;
 	}
-
-	return <Tag className={classes} {...attributes} />;
+//
+// const Input = (props, tag) => {
+//
+// 	const {
+// 		className,
+// 		type,
+// 		rows,
+// 		onChange,
+// 		...attributes
+// 	} = this.props;
+//
+// 	const classes = classNames(
+// 		className,
+// 		'form-control'
+// 	)
+//
+// 	const fileInput = type === 'file';
+// 	const textareaInput = type === 'textarea';
+// 	const selectInput = type === 'select';
+// 	let Tag = textareaInput || selectInput ? type : 'input';
+//
+// 	if(Tag === 'input') {
+// 		attributes.type = type;
+// 	}
+//
+// 	return <Tag className={classes} {...attributes} onChange={this.handleChange} />;
 }
 
 export default Input;

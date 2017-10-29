@@ -1,5 +1,5 @@
 import axios from 'axios';
-import * as config from '../config';
+import { constant } from '../config';
 
 export const REQUEST_CAFE_MENU = 'REQUEST_CAFE_MENU';
 export const GET_CAFE_MENU_FULFILLED = 'GET_CAFE_MENU_FULFILLED';
@@ -8,10 +8,10 @@ export const REQUEST_CAFE_TYPES = 'REQUEST_CAFE_TYPES';
 export const GET_CAFE_TYPES_FULFILLED = 'GET_CAFE_TYPES_FULFILLED';
 export const GET_CAFE_TYPES_REJECTED = "GET_CAFE_TYPES_REJECTED";
 
-export const getCafeMenu = (data) => {
+export const getCafeMenu = (data, accessToken) => {
 	return async dispatch => {
 		return axios
-			.get(`${config.constant.API_PATH}cafe/menu/list?accessToken=${config.accessToken}&cafe=${data.cafe}&limit=${data.limit}&offset=${data.offset}`)
+			.get(`${constant.API_PATH}cafe/menu/list?accessToken=${accessToken}&cafe=${data.cafe}&limit=${data.limit}&offset=${data.offset}`)
 			.then((response) => {
 				dispatch({
 					type: GET_CAFE_MENU_FULFILLED,
@@ -27,12 +27,12 @@ export const getCafeMenu = (data) => {
 	}
 }
 
-export const getCafeTypes = () => {
+export const getCafeTypes = (accessToken) => {
 	return async dispatch => {
 		dispatch({ type: REQUEST_CAFE_TYPES });
 
 		return axios
-			.get(`${config.constant.API_PATH}cafe/type?accessToken=${config.accessToken}`)
+			.get(`${constant.API_PATH}cafe/type?accessToken=${accessToken}`)
 			.then((response) => {
 				dispatch({
 					type: GET_CAFE_TYPES_FULFILLED,

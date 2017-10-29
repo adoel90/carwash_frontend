@@ -4,7 +4,8 @@ import classNames from 'classnames';
 const Container = (props) => {
 	const {
 		children,
-		className
+		className,
+		...rest
 	} = props;
 
 	const classes = classNames(
@@ -12,7 +13,7 @@ const Container = (props) => {
 		className
 	);
 
-	return <div className={classes}>{children}</div>
+	return <div className={classes} {...rest}>{children}</div>
 }
 
 export default Container;

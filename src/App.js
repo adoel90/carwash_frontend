@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { instanceOf } from 'prop-types';
-import { withCookies, Cookies, CookiesProvider } from 'react-cookie';
+import { withCookies, Cookies } from 'react-cookie';
 
 import MainHeader from './components/MainHeader';
 import MainSubheader from './components/MainSubheader';

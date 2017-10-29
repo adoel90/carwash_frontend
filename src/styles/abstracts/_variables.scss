@@ -222,10 +222,13 @@ $grays: map-merge((
 $theme-colors: (
 	primary		: $cyan-cornflower-blue,
 	secondary	: $ucla-gold,
-	passive		: $feldgrau,
+	passive 	: $mummy-tomb,
+	muted		: $silver-chalice,
 	success		: green,
 	danger		: red,
 	warning		: yellow,
+	light 		: $isabelline,
+	dark 		: $gunmetal
 ) !default;
 
 

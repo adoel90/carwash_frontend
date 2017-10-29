@@ -1,13 +1,18 @@
 import React from 'react';
+import classNames from 'classnames';
 
 const PageHeading = (props) => {
 	const {
 		children,
-		className,
-		...rest
+		className
 	} = props;
 
-	return <div className="page__heading">{children}</div>;
+	const classes = classNames(
+		'page__heading',
+		className
+	)
+
+	return <div className={classes}>{children}</div>;
 }
 
 export default PageHeading;

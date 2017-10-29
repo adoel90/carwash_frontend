@@ -2,4 +2,8 @@
 	.clr-#{$theme} {
 		color: $color;
 	}
+
+	.bg-#{$theme} {
+		background-color: $color;
+	}
 }

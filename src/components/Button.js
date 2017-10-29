@@ -3,24 +3,24 @@ import classNames from 'classnames';
 
 const Button = (props) => {
 	const {
-		buttonType,
 		buttonStyle,
 		buttonSize,
 		buttonFull,
 		children,
 		className,
-		...rest,
+		...rest
 	} = props;
 
 	const classes = classNames(
 		'button',
 		buttonStyle ? `button--${buttonStyle}` : null,
 		buttonSize ? `button--${buttonSize}` : null,
-		buttonFull ? 'button--full' : null
+		buttonFull ? 'button--full' : null,
+		className
 	)
 
 	return (
-		<button type={buttonType} className={classes}>
+		<button {...rest} className={classes}>
 			{ children }
 		</button>
 	)

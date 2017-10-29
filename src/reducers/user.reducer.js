@@ -31,9 +31,11 @@ const User = (state = initialState, action) => {
 				error: action.payload
 			}
 		}
-	}
 
-	return state;
+		default: {
+			return state;
+		}
+	}
 }
 
 export default User;

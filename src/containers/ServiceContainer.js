@@ -43,9 +43,11 @@ const mapStateToProps = (state, props) => {
 	}
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch, ownProps) => {
+	const { accessToken } = ownProps;
+
 	return {
-		getServiceTypes: () => dispatch(getServiceTypes())
+		getServiceTypes: () => dispatch(getServiceTypes(ownProps))
 	}
 }
 

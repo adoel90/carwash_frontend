@@ -2,7 +2,6 @@ import React from 'react';
 
 import { Redirect } from 'react-router-dom';
 import { Container, Row } from '../components/Grid';
-import { Page } from '../components/Page';
 import PropsRoute from '../components/PropsRoute';
 
 import MainSidenav from '../components/MainSidenav';
@@ -25,7 +24,7 @@ class Cafe extends React.Component {
 				name={type.name}
 				path={`${match.url}/${path}`}
 				component={CafeTypeContainer}
-				type={type}
+				typespe={type}
 			/>
 		)
 	}

@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 
 const Row = (props) => {
 	const {
@@ -6,7 +7,13 @@ const Row = (props) => {
 		className
 	} = props;
 
-	return <div className="row">{children}</div>
+	const classes = classNames(
+		'row',
+		className
+	)
+	
+
+	return <div className={classes}>{children}</div>
 }
 
 export default Row;

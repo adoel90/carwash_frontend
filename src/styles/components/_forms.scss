@@ -21,6 +21,10 @@ form {}
 				width: 100%;
 			}
 		}
+
+		&:last-of-type {
+			margin-bottom: $spacer * 1.5;
+		}
 	}
 
 	//	Control class for input, textarea and alike

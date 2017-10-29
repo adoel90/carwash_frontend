@@ -5,12 +5,14 @@ const PageBlock = (props) => {
 	const {
 		children,
 		className,
+		primary,
 		...rest
 	} = props;
 
 	const classes = classNames(
 		'page-block',
-		className
+		className,
+		primary ? 'page-block--primary' : null
 	)
 
 	return (

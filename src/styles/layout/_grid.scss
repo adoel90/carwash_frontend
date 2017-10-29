@@ -55,7 +55,7 @@
 @for $i from 1 through 12 {
 	.column-#{$i} {
 		$calculated-width: (100/12) * $i + %;
-		@include flex(1 0 $calculated-width);
+		@include flex(0 0 $calculated-width);
 		max-width: $calculated-width;
 	}
 }
@@ -71,28 +71,28 @@
 
 	.column-xl-#{$i} {
 		@include media(large-desktop) {
-			@include flex(1 0 $calculated-width);
+			@include flex(0 0 $calculated-width);
 			max-width: $calculated-width;
 		}
 	}
 
 	.column-lg-#{$i} {
 		@include media(desktop) {
-			@include flex(1 0 $calculated-width);
+			@include flex(0 0 $calculated-width);
 			max-width: $calculated-width;
 		}
 	}
 
 	.column-md-#{$i} {
 		@include media(tablet) {
-			@include flex(1 0 $calculated-width);
+			@include flex(0 0 $calculated-width);
 			max-width: $calculated-width;
 		}
 	}
 
 	.column-sm-#{$i} {
 		@include media(phone) {
-			@include flex(1 0 $calculated-width);
+			@include flex(0 0 $calculated-width);
 			max-width: $calculated-width;
 		}
 	}

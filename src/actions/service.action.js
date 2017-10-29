@@ -1,5 +1,5 @@
 import axios from 'axios';
-import * as config from '../config';
+import { constant } from '../config';
 
 export const REQUEST_SERVICE_LIST = 'REQUEST_SERVICE_LIST';
 export const GET_SERVICE_LIST_FULFILLED = 'GET_SERVICE_LIST_FULFILLED';
@@ -8,10 +8,10 @@ export const REQUEST_SERVICE_TYPES = 'REQUEST_SERVICE_TYPES';
 export const GET_SERVICE_TYPES_FULFILLED = 'GET_SERVICE_TYPES_FULFILLED';
 export const GET_SERVICE_TYPES_REJECTED = 'GET_SERVICE_TYPES_REJECTED';
 
-export const getServiceList = (data) => {
+export const getServiceList = (data, accessToken) => {
 	return async dispatch => {
 		return axios
-			.get(`${config.constant.API_PATH}service/list?accessToken=${config.accessToken}&type=${data.type}&limit=${data.limit}&offset=${data.offset}`)
+			.get(`${constant.API_PATH}service/list?accessToken=${accessToken}&type=${data.type}&limit=${data.limit}&offset=${data.offset}`)
 			.then((response) => {
 				dispatch({
 					type: GET_SERVICE_LIST_FULFILLED,
@@ -27,10 +27,10 @@ export const getServiceList = (data) => {
 	}
 }
 
-export const getServiceTypes = () => {
+export const getServiceTypes = (accessToken) => {
 	return async dispatch => {
 		return axios
-			.get(`${config.constant.API_PATH}service/type?accessToken=${config.accessToken}`)
+			.get(`${constant.API_PATH}service/type?accessToken=${accessToken}`)
 			.then((response) => {
 				dispatch({
 					type: GET_SERVICE_TYPES_FULFILLED,

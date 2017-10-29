@@ -1,10 +1,7 @@
 import React from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 
-import classNames from 'classnames';
-
-import { instanceOf } from 'prop-types';
-import { withCookies, Cookies } from 'react-cookie';
+import { withCookies } from 'react-cookie';
 import { AuthRoute } from '../components/Route';
 
 import LoginContainer from '../containers/LoginContainer';
@@ -14,7 +11,7 @@ import CashierContainer from '../containers/CashierContainer';
 
 class MainView extends React.Component {
 	render() {
-		const { isAuth, accessToken } = this.props;
+		const { isAuth } = this.props;
 
 		return (
 			<Switch>

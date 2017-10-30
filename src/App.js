@@ -12,9 +12,9 @@ class App extends React.Component {
 		super();
 		this.handleAccessToken = this.handleAccessToken.bind(this);
 		this.state = {
+			user: {},
 			accessToken: '',
-			isLoggedIn: false,
-			user: {}
+			isAuthenticated: false
 		}
 	}
 
@@ -25,18 +25,16 @@ class App extends React.Component {
 	handleAccessToken = () => {
 		const { cookies } = this.props;
 		const token = cookies.get('accessToken') || null;
-		const user = cookies.get('user') || null
+		const user = cookies.get('user') || null;
 
 		this.setState({
-			accessToken: token,
 			user: user,
-			isLoggedIn: token ? true : false
+			accessToken: token,
+			isAuthenticated: token ? true : false
 		})
 	}
 
 	render() {
-		console.log(this.state);
-
 		return (
 			<div>
 				<MainHeader />

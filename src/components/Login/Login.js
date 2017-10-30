@@ -9,7 +9,7 @@ class Login extends React.Component {
 		return (
 			<main className="main">
 				<Container className="padding-top-3 padding-bottom-3">
-					<Row>
+					<Row className="flex justify-content--center">
 						<div className="column-12 column-md-5">
 							<PageBlock primary>
 								<PageHeading className="ta-center">

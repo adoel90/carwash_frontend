@@ -4,10 +4,10 @@ import MainNavigation from '../components/MainNavigation';
 class MainSubheader extends React.Component {
 	render() {
 		const {
-			isAuth
+			isAuthenticated
 		} = this.props;
 
-		if(isAuth) {
+		if(isAuthenticated) {
 			return (
 				<div className="header sub-header">
 					<MainNavigation />

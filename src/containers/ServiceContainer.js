@@ -1,5 +1,7 @@
 import React from 'react';
 import Service from '../components/Service';
+import PropTypes from 'prop-types';
+import { withCookies, Cookies } from 'react-cookie';
 
 import { connect } from 'react-redux';
 import { getServiceTypes } from '../actions/service.action.js';
@@ -8,6 +10,30 @@ class ServiceContainer extends React.Component {
 	constructor() {
 		super();
 		this.addPathPropToTypes = this.addPathPropToTypes.bind(this);
+		this.handleAccessToken = this.handleAccessToken.bind(this);
+		this.state = {
+			user: {},
+			accessToken: '',
+			isAuthenticated: false
+		}
+	}
+
+	componentWillMount = () => {
+		this.handleAccessToken();
+	}
+
+	handleAccessToken = () => {
+		const { cookies, dispatch } = this.props;
+		const token = cookies.get('accessToken') || null;
+		const user = cookies.get('user') || null;
+
+		this.setState({
+			user: user,
+			accessToken: token,
+			isAuthenticated: token ? true : false
+		})
+
+		dispatch(getServiceTypes(token));
 	}
 
 	addPathPropToTypes = () => {
@@ -16,23 +42,23 @@ class ServiceContainer extends React.Component {
 		})
 	}
 
-	componentDidMount = () => {
-		this.props.getServiceTypes();
-	}
-
 	render() {
-		console.log(this.props);
+		const {
+			accessToken
+		} = this.props;
 
 		if(this.props.service.isLoaded) {
 			this.addPathPropToTypes();
 		}
 
-		console.log(this.props.service);
-
 		return this.props.service.isLoaded
 		? <Service {...this.state} {...this.props} />
 		: null;
 	}
+}
+
+ServiceContainer.PropTypes = {
+	cookies: PropTypes.instanceOf(Cookies).isRequired
 }
 
 const mapStateToProps = (state, props) => {
@@ -45,12 +71,12 @@ const mapStateToProps = (state, props) => {
 	}
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => {
-	const { accessToken } = ownProps;
+// const mapDispatchToProps = (dispatch, ownProps) => {
+// 	const { accessToken } = ownProps;
+//
+// 	return {
+// 		getServiceTypes: () => dispatch(getServiceTypes(accessToken))
+// 	}
+// }
 
-	return {
-		getServiceTypes: () => dispatch(getServiceTypes(accessToken))
-	}
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(ServiceContainer);
+export default withCookies(connect(mapStateToProps)(ServiceContainer));

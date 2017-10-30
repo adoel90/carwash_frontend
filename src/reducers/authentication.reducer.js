@@ -8,7 +8,7 @@ const initialState = {
 	accessToken: '',
 	user: {},
 	isLoggingIn: false,
-	isLoggedIn: false,
+	isAuthenticated: false,
 	error: {}
 }
 
@@ -25,7 +25,7 @@ const authentication = (state = initialState, action) => {
 			return {
 				...state,
 				isLoggedIn: true,
-				isLoggingIn: false,
+				isAuthenticated: false,
 				user: action.payload.user,
 				accessToken: action.payload.accessToken,
 			}
@@ -35,7 +35,7 @@ const authentication = (state = initialState, action) => {
 			return {
 				...state,
 				isLoggedIn: false,
-				isLoggingIn: false,
+				isAuthenticated: false,
 				user: {},
 				accessToken: '',
 				error: action.payload

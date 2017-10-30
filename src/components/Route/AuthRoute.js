@@ -5,14 +5,12 @@ class AuthRoute extends React.Component {
 	render() {
 		const {
 			component: Component,
-			auth,
+			isAuthenticated,
 			...rest
 		} = this.props;
 
 		const authenticate = (props) => {
-			console.log(props);
-
-			return auth
+			return isAuthenticated
 			? <Component {...props} />
 			: <Redirect to={{pathname: '/login', state: {from: props.location}}} />
 		}

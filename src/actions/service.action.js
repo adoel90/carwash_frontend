@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { constant } from '../config';
+import Cookies from 'universal-cookie';
 
 export const REQUEST_SERVICE_LIST = 'REQUEST_SERVICE_LIST';
 export const GET_SERVICE_LIST_FULFILLED = 'GET_SERVICE_LIST_FULFILLED';
@@ -28,6 +29,8 @@ export const getServiceList = (data, accessToken) => {
 }
 
 export const getServiceTypes = (accessToken) => {
+	console.log(accessToken);
+
 	return async dispatch => {
 		return axios
 			.get(`${constant.API_PATH}service/type?accessToken=${accessToken}`)

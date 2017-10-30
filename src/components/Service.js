@@ -37,7 +37,7 @@ class Service extends React.Component {
 		const firstRoutePath = serviceTypes[0].name.replace(/\s+/g, '-').toLowerCase();
 
 		return (
-			<main className="main">
+			<main className="main main--has-subheader">
 				<Container className="padding-top-3">
 					<Row>
 						<div className="column-2">

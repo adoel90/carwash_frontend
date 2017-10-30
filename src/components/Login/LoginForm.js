@@ -39,8 +39,6 @@ class LoginForm extends React.Component {
 		const { username, password } = this.state;
 		const { authentication, dispatch, cookies } = this.props;
 
-		console.log(this.props);
-
 		if(username && password) {
 			dispatch(login(username, password));
 		}
@@ -56,9 +54,7 @@ class LoginForm extends React.Component {
 		const {
 			authentication
 		} = this.props;
-
-		console.log(authentication);
-
+		
 		return (
 			<Form>
 				<FormGroup>

@@ -62,6 +62,10 @@
 	@return map-get($ui-colors, $key);
 }
 
+@function box-shadow($key: "base") {
+	@return map-get($box-shadow, $key);
+}
+
 /*/
 /*	Component-based Functions
 /*/

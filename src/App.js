@@ -13,26 +13,30 @@ class App extends React.Component {
 		this.handleAccessToken = this.handleAccessToken.bind(this);
 		this.state = {
 			accessToken: '',
-			isAuth: false,
-			userData: {}
+			isLoggedIn: false,
+			user: {}
 		}
 	}
 
-	componentDidMount = () => {
+	componentWillMount = () => {
 		this.handleAccessToken();
 	}
 
 	handleAccessToken = () => {
 		const { cookies } = this.props;
 		const token = cookies.get('accessToken') || null;
+		const user = cookies.get('user') || null
 
 		this.setState({
 			accessToken: token,
-			isAuth: token ? true : false
+			user: user,
+			isLoggedIn: token ? true : false
 		})
 	}
 
 	render() {
+		console.log(this.state);
+
 		return (
 			<div>
 				<MainHeader />

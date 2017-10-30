@@ -11,15 +11,21 @@ import CashierContainer from '../containers/CashierContainer';
 
 class MainView extends React.Component {
 	render() {
-		const { isAuth } = this.props;
+		const {
+			isLoggedIn,
+			accessToken
+		} = this.props;
+
+		console.log(this.props);
 
 		return (
 			<Switch>
 				<Route name="login" path='/login' component={ LoginContainer } />
-				
-				<AuthRoute auth={isAuth} name="service" path='/service' component={ ServiceContainer } />
-				<AuthRoute auth={isAuth} name="cashier" path='/cashier' component={ CashierContainer } />
-				<AuthRoute auth={isAuth} name="cafe" path='/cafe' component={ CafeContainer } />
+
+				<AuthRoute {...this.props} auth={isLoggedIn} name="service" path='/service' component={ ServiceContainer } />
+				<AuthRoute auth={isLoggedIn} name="cashier" path='/cashier' component={ CashierContainer } />
+				<AuthRoute auth={isLoggedIn} name="cafe" path='/cafe' component={ CafeContainer } />
+				<AuthRoute auth={isLoggedIn} path="/" />
 			</Switch>
 		)
 	}

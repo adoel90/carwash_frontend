@@ -21,6 +21,8 @@ class ServiceContainer extends React.Component {
 	}
 
 	render() {
+		console.log(this.props);
+
 		if(this.props.service.isLoaded) {
 			this.addPathPropToTypes();
 		}
@@ -47,7 +49,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 	const { accessToken } = ownProps;
 
 	return {
-		getServiceTypes: () => dispatch(getServiceTypes(ownProps))
+		getServiceTypes: () => dispatch(getServiceTypes(accessToken))
 	}
 }
 

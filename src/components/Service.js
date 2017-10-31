@@ -40,11 +40,9 @@ class Service extends React.Component {
 			<main className="main main--has-subheader">
 				<Container className="padding-top-3">
 					<Row>
-						<div className="column-2">
-							<aside className="sidebar">
-								<MainSidenav items={ serviceTypes } basePath={match.path} />
-							</aside>
-						</div>
+						<aside className="sidebar column-2">
+							<MainSidenav items={ serviceTypes } basePath={match.path} />
+						</aside>
 						<div className="column-10">
 							{ serviceTypes.map(this.renderServiceType) }
 							<Redirect from="/*" to={`${match.url}/${firstRoutePath}`} />

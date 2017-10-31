@@ -1,0 +1,23 @@
+.modal {
+	@include fixed {
+		top: 50%;
+		left: 50%;
+	}
+	@include transform(translate(-50%, -50%));
+	width: 10em;
+	height: 10em;
+	background-color: gray(100);
+	z-index: 5000;
+}
+
+.modal-backdrop {
+	@include fixed {
+		top: 0;
+		left: 0;
+	}
+
+	height: 100%;
+	width: 100%;
+	background-color: rgba(gray(1700), 0.7);
+	z-index: 4500;
+}

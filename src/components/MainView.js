@@ -1,8 +1,6 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-
-import { withCookies } from 'react-cookie';
-import { AuthRoute } from '../components/Route';
+import { PrivateRoute } from '../components/Route';
 
 import LoginContainer from '../containers/LoginContainer';
 import ServiceContainer from '../containers/ServiceContainer';
@@ -20,13 +18,12 @@ class MainView extends React.Component {
 		return (
 			<Switch>
 				<Route name="login" path='/login' component={ LoginContainer } />
-				<AuthRoute name="service" path='/service' component={ServiceContainer} isAuthenticated={isAuthenticated} />
-				<AuthRoute name="cashier" path='/cashier' component={CashierContainer} isAuthenticated={isAuthenticated} />
-				<AuthRoute name="cafe" path='/cafe' component={CafeContainer} isAuthenticated={isAuthenticated} />
-				<Redirect from="/" to="/login" />
+				<PrivateRoute name="service" path='/service' component={ServiceContainer} isAuthenticated={isAuthenticated} user={user} accessToken={accessToken} />
+				<PrivateRoute name="cashier" path='/cashier' component={CashierContainer} isAuthenticated={isAuthenticated} user={user} accessToken={accessToken} />
+				<PrivateRoute name="cafe" path='/cafe' component={CafeContainer} isAuthenticated={isAuthenticated} user={user} />
 			</Switch>
 		)
 	}
 }
 
-export default withCookies(MainView);
+export default MainView;

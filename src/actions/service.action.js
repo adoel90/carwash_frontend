@@ -29,8 +29,6 @@ export const getServiceList = (data, accessToken) => {
 }
 
 export const getServiceTypes = (accessToken) => {
-	console.log(accessToken);
-
 	return async dispatch => {
 		return axios
 			.get(`${constant.API_PATH}service/type?accessToken=${accessToken}`)

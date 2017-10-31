@@ -1,0 +1,12 @@
+export const OPEN_MODAL_REQUESTED = 'OPEN_MODAL_REQUESTED';
+export const OPEN_MODAL_FULFILLED = 'OPEN_MODAL_FULFILLED';
+export const OPEN_MODAL_REJECTED = 'OPEN_MODAL_REJECTED';
+export const CLOSE_MODAL_REQUESTED = 'CLOSE_MODAL_REQUESTED';
+export const CLOSE_MODAL_FULFILLED = 'CLOSE_MODAL_FULFILLED';
+export const CLOSE_MODAL_REJECTED = 'CLOSE_MODAL_REJECTED';
+
+export const openModal = () => {
+	return dispatch => {
+		dispatch({ type: OPEN_MODAL_REQUESTED });
+	}
+}

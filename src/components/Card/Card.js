@@ -1,13 +1,18 @@
 import React from 'react';
-import Currency from '../Currency';
-import Button from '../Button';
 
 class Card extends React.Component {
 	render() {
+		const {
+			children,
+			buttonClick
+		} = this.props;
+
 		return (
 			<div className="card">
 				<div className="card__container">
-					<div className="card__heading">
+					{ children }
+
+					{/* <div className="card__heading">
 						<h6 className="card__title">{this.props.title}</h6>
 						<h4 className="card__price">
 							<Currency value={this.props.price} />
@@ -20,10 +25,10 @@ class Card extends React.Component {
 						<p className="card__text">{this.props.text}</p>
 					</div>
 					<div className="card__footer">
-						<Button buttonType="button" buttonStyle="primary" buttonFull>
+						<Button buttonType="button" buttonStyle="primary" buttonFull onClick={buttonClick}>
 							<small className="tt-uppercase fw-bold ls-base">{this.props.buttonText}</small>
 						</Button>
-					</div>
+					</div> */}
 				</div>
 			</div>
 		)

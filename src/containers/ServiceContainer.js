@@ -10,32 +10,18 @@ class ServiceContainer extends React.Component {
 	constructor() {
 		super();
 		this.addPathPropToTypes = this.addPathPropToTypes.bind(this);
-		this.handleAccessToken = this.handleAccessToken.bind(this);
-		this.state = {
-			user: {},
-			accessToken: '',
-			isAuthenticated: false
-		}
 	}
 
-	componentWillMount = () => {
-		this.handleAccessToken();
+	componentDidMount = () => {
+		const { getServiceTypes } = this.props;
+
+		getServiceTypes();
 	}
 
-	handleAccessToken = () => {
-		const { cookies, dispatch } = this.props;
-		const token = cookies.get('accessToken') || null;
-		const user = cookies.get('user') || null;
-
-		this.setState({
-			user: user,
-			accessToken: token,
-			isAuthenticated: token ? true : false
-		})
-
-		dispatch(getServiceTypes(token));
-	}
-
+	//	#1
+	//	A temporary function to manually add a path props
+	//	to each service. Should be dismissed when Backend
+	//	provides this to each object item.
 	addPathPropToTypes = () => {
 		this.props.serviceTypes.map((type, i) => {
 			return type.path = type.name.replace(/\s+/g, '-').toLowerCase();
@@ -44,9 +30,11 @@ class ServiceContainer extends React.Component {
 
 	render() {
 		const {
+			user,
 			accessToken
 		} = this.props;
 
+		//	See #1
 		if(this.props.service.isLoaded) {
 			this.addPathPropToTypes();
 		}
@@ -55,10 +43,6 @@ class ServiceContainer extends React.Component {
 		? <Service {...this.state} {...this.props} />
 		: null;
 	}
-}
-
-ServiceContainer.PropTypes = {
-	cookies: PropTypes.instanceOf(Cookies).isRequired
 }
 
 const mapStateToProps = (state, props) => {
@@ -71,12 +55,14 @@ const mapStateToProps = (state, props) => {
 	}
 }
 
-// const mapDispatchToProps = (dispatch, ownProps) => {
-// 	const { accessToken } = ownProps;
-//
-// 	return {
-// 		getServiceTypes: () => dispatch(getServiceTypes(accessToken))
-// 	}
-// }
+const mapDispatchToProps = (dispatch, ownProps) => {
+	console.log(ownProps);
 
-export default withCookies(connect(mapStateToProps)(ServiceContainer));
+	const { accessToken } = ownProps;
+
+	return {
+		getServiceTypes: () => dispatch(getServiceTypes(accessToken))
+	}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ServiceContainer);

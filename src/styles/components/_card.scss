@@ -42,7 +42,7 @@
 		}
 	}
 
-	.card__content {
+	.card__body {
 		@include flex(1 1 100%);
 		min-height: 7.5em;
 		padding: $spacer * .5;
@@ -50,11 +50,5 @@
 
 	.card__footer {
 		padding: $spacer * .5;
-	}
-
-	//-
-	&.card__form {
-		padding: 20px;
-		min-height: auto;
 	}
 }

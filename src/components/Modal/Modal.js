@@ -52,8 +52,6 @@ class Modal extends React.Component {
 	}
 
 	destroy = () => {
-		console.log(123);
-
 		if(this._element) {
 			ReactDOM.unmountComponentAtNode(this._element);
 			document.body.removeChild(this._element);

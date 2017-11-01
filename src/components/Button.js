@@ -3,8 +3,9 @@ import classNames from 'classnames';
 
 const Button = (props) => {
 	const {
-		buttonStyle,
+		buttonTheme,
 		buttonSize,
+		buttonOutline,
 		buttonFull,
 		children,
 		className,
@@ -13,7 +14,7 @@ const Button = (props) => {
 
 	const classes = classNames(
 		'button',
-		buttonStyle ? `button--${buttonStyle}` : null,
+		buttonTheme ? `button--${buttonTheme}` : null,
 		buttonSize ? `button--${buttonSize}` : null,
 		buttonFull ? 'button--full' : null,
 		className

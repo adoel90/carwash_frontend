@@ -248,9 +248,59 @@
 	}
 
 	@else {
-		@error 'Device breakpoint not found in variables. Consider adding it!'
+		@error 'Device breakpoint not found in variables. Consider adding it!';
 	}
 }
+
+//
+//
+@mixin animation($value...) {
+	@include prefix(animation, $value, webkit moz ms);
+}
+
+// @mixin animation($animation, $fill-mode: forwards, $delay: null, $duration: null, $timing: linear) {
+// 	@include animation-delay($delay);
+// 	@include animation-duration($duration);
+// 	@include animation-name($animation);
+// 	@include animation-fill-mode($fill-mode);
+// 	@include animation-timing-function($timing);
+// }
+
+
+@mixin animation-delay($delay) {
+	@include prefix(animation-delay, $delay, webkit moz ms);
+}
+
+@mixin animation-duration($duration) {
+	@include prefix(animation-duration, $duration, webkit moz ms);
+}
+
+@mixin animation-name($animation) {
+	@include prefix(animation-name, $animation, webkit moz ms);
+}
+
+@mixin animation-fill-mode($fill-mode) {
+	@include prefix(animation-fill-mode, $fill-mode, webkit moz ms);
+}
+
+@mixin animation-timing-function($timing) {
+	@include prefix(animation-timing-function, $timing, webkit moz ms);
+}
+
+@mixin keyframes($animation) {
+	@-webkit-keyframes #{$animation} {
+		@content;
+	}
+
+	@-moz-keyframes #{$animation} {
+		@content;
+	}
+
+	@keyframes #{$animation} {
+		@content;
+	}
+}
+
 
 // Legacy mixin of 'media'
 //

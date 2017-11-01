@@ -21,7 +21,7 @@ class ServiceTypeContainer extends React.Component {
 		const {
 			cookies,
 			dispatch,
-			type 
+			type
 		} = this.props;
 		const accessToken = cookies.get('accessToken') || null;
 

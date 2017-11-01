@@ -1,5 +1,5 @@
 import React from 'react';
-import Cafe from '../components/Cafe';
+import { Cafe } from '../components/Cafe';
 
 import { connect } from 'react-redux';
 import { getCafeTypes } from '../actions/cafe.action.js';
@@ -23,9 +23,11 @@ const mapStateToProps = (state, props) => {
 	}
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch, ownProps) => {
+	const { accessToken } = ownProps;
+
 	return {
-		getCafeTypes: () => dispatch(getCafeTypes())
+		getCafeTypes: () => dispatch(getCafeTypes(accessToken))
 	}
 }
 

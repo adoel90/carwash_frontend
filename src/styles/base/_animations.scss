@@ -1,0 +1,32 @@
+@include keyframes(slideInDown) {
+	0% {
+		@include transform(translateY(-100%));
+	}
+
+	100% {
+		@include transform(translateY(0));
+	}
+}
+
+@include keyframes(scaleIn) {
+	0% {
+		@include transform(scale(0.9));
+	}
+
+	100% {
+		@include transform(scale(1));
+	}
+}
+
+@include keyframes(fadeIn) {
+	0% {
+		opacity: 0;
+	}
+
+	100% {
+		opacity: 1;
+	}
+}
+
+.slide-in-down { @include animation(slideInDown 250ms $transition-primary); }
+.scale-in { @include animation(scaleIn 250ms $transition-primary); }

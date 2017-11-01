@@ -1,0 +1,25 @@
+table {
+	&.table {
+		width: 100%;
+
+		thead {
+			border-bottom: solid 3px gray(300);
+
+			th {
+				@include font-weight(medium);
+				padding: $spacer * .5;
+			}
+		}
+
+		tbody {
+			tr {
+				border-bottom: solid 1px gray(300);
+			}
+
+			td {
+				text-align: center;
+				padding: $spacer * .5;
+			}
+		}
+	}
+}

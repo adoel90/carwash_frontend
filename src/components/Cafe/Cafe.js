@@ -1,12 +1,12 @@
 import React from 'react';
 
 import { Redirect } from 'react-router-dom';
-import { Container, Row } from '../components/Grid';
-import PropsRoute from '../components/PropsRoute';
+import { Container, Row } from '../Grid';
+import PropsRoute from '../PropsRoute';
 
-import MainSidenav from '../components/MainSidenav';
+import MainSidenav from '../MainSidenav';
 
-import CafeTypeContainer from '../containers/CafeTypeContainer';
+import CafeTypeContainer from '../../containers/CafeTypeContainer';
 
 class Cafe extends React.Component {
 	constructor() {
@@ -24,7 +24,8 @@ class Cafe extends React.Component {
 				name={type.name}
 				path={`${match.url}/${path}`}
 				component={CafeTypeContainer}
-				typespe={type}
+				type={type}
+				{...this.props}
 			/>
 		)
 	}
@@ -38,7 +39,7 @@ class Cafe extends React.Component {
 		const firstRoutePath = cafeTypes[0].name.replace(/\s+/g, '-').toLowerCase();
 
 		return (
-			<main className="main">
+			<main className="main main--has-subheader">
 				<Container className="padding-top-3">
 					<Row>
 						<div className="column-2">

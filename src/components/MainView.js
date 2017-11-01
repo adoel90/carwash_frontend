@@ -20,7 +20,7 @@ class MainView extends React.Component {
 				<Route name="login" path='/login' component={ LoginContainer } />
 				<PrivateRoute name="service" path='/service' component={ServiceContainer} isAuthenticated={isAuthenticated} user={user} accessToken={accessToken} />
 				<PrivateRoute name="cashier" path='/cashier' component={CashierContainer} isAuthenticated={isAuthenticated} user={user} accessToken={accessToken} />
-				<PrivateRoute name="cafe" path='/cafe' component={CafeContainer} isAuthenticated={isAuthenticated} user={user} />
+				<PrivateRoute name="cafe" path='/cafe' component={CafeContainer} isAuthenticated={isAuthenticated} user={user} accessToken={accessToken} />
 			</Switch>
 		)
 	}

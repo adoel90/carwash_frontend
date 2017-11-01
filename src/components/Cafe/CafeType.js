@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 
-import CafeMenuList from '../components/CafeMenuList';
-import SearchBar from '../components/SearchBar';
-import Heading from '../components/Heading';
+import { CafeMenuList } from '../Cafe';
+import SearchBar from '../SearchBar';
+import Heading from '../Heading';
+import Button from '../Button';
+
+import { Row } from '../Grid';
 
 class CafeType extends Component {
 	constructor() {
@@ -30,11 +33,20 @@ class CafeType extends Component {
 		} = this.props;
 
 		return (
-			<div>
-				<div className="heading padding-bottom-2">
-					<h5 className="fw-semibold">Daftar Menu</h5>
-					<p className="clr-passive">Pilih menu (bisa lebih dari 1) yang dipesan oleh customer.</p>
-				</div>
+			<div className="inner-view">
+				<Row>
+					<div className="column-8">
+						<div className="heading padding-bottom-2">
+							<h5 className="fw-semibold">Daftar Menu</h5>
+							<p className="clr-passive">Pilih menu (bisa lebih dari 1) yang dipesan oleh customer.</p>
+						</div>
+					</div>
+					<div className="column-4 flex justify-content--flex-end">
+						<div className="select-view">
+
+						</div>
+					</div>
+				</Row>
 				<SearchBar
 					className="padding-bottom-2"
 					placeholder="Pencarian cepat..."

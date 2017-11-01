@@ -7,7 +7,8 @@ import {
 	CardBody,
 	CardFooter
 } from '../components/Card';
-import { Modal, ModalHeader, ModalContent, ModalFooter } from '../components/Modal';
+import { Modal } from 'reactstrap';
+import { ModalHeader, ModalContent, ModalFooter } from '../components/Modal';
 import Button from '../components/Button';
 import Currency from '../components/Currency';
 
@@ -15,21 +16,38 @@ class ServiceItemList extends React.Component {
 	constructor(props) {
 		super(props);
 		this.renderServiceItem = this.renderServiceItem.bind(this);
+		// this.toggleModal = this.toggleModal.bind(this);
 		this.state = {
 			isModalOpen: false
 		}
 	}
 
-	toggleModal(i) {
+	// toggleModal = () => this.setState({ isModalOpen: !this.state.isModalOpen })
+
+	toggleModal = (key) => {
+		const {
+			isModalOpen
+		} = this.state;
+
 		this.setState({
 			isModalOpen: {
-				[i]: !this.state.isModalOpen
+				[key]: !isModalOpen
 			}
 		})
 	}
 
+	// toggleModal(key) {
+	// 	this.setState({
+	// 		isModalOpen: {
+	// 			[key]: !this.state.isModalOpen
+	// 		}
+	// 	})
+	// }
+
 	renderServiceItem = (item, i) => {
 		const { isModalOpen } = this.state;
+
+		console.log(i);
 
 		return (
 			<div key={i} className="column-6 padding-top-2 padding-bottom-2">
@@ -45,33 +63,33 @@ class ServiceItemList extends React.Component {
 						<p className="card__text">{item.description}</p>
 					</CardBody>
 					<CardFooter>
-						<Button buttonType="button" buttonStyle="primary" buttonFull onClick={this.toggleModal.bind(this, i)}>
+						<Button buttonType="button" buttonTheme="primary" buttonFull onClick={this.toggleModal.bind(this, i)}>
 							<small className="tt-uppercase fw-bold ls-base">Pilih</small>
 						</Button>
 					</CardFooter>
 
+					<Modal isOpen={this.state.isModalOpen[i]} toggle={this.toggleModal.bind(this, i)}>
+						<ModalHeader align="center">
+							<h5 className="fw-medium">Pembayaran: <span className="clr-primary fw-bold">{item.name}</span></h5>
+						</ModalHeader>
+						<ModalContent>
+							<div className="flex flex-column justify-content--center align-items--center ta-center">
+								<h3 className="fw-semibold clr-primary"><Currency value={item.price} /></h3>
+								<p>Anda memilih layanan {item.name}. Silahkan pilih bayar untuk melanjutkan.</p>
+							</div>
+						</ModalContent>
+						<ModalFooter>
+							<div className="flex justify-content--center">
+								<Button buttonTheme="danger" buttonOutline className="margin-right-2" onClick={this.toggleModal.bind(this, i)}>
+									<small className="fw-semibold ls-base tt-uppercase">Kembali</small>
+								</Button>
+								<Button buttonTheme="primary">
+									<small className="fw-semibold ls-base tt-uppercase">Bayar</small>
+								</Button>
+							</div>
+						</ModalFooter>
+					</Modal>
 				</Card>
-				<Modal isOpen={isModalOpen[i]} toggle={this.toggleModal.bind(this, i)}>
-					<ModalHeader>
-						<h5>Pembayaran</h5>
-					</ModalHeader>
-					<ModalContent>
-						<div className="flex flex-column justify-content--center align-items--center ta-center">
-							<h3 className="fw-semibold clr-primary"><Currency value={item.price} /></h3>
-							<p>Gesek kartu Anda untuk melanjutkan pembayaran dan tombol akan berubah menjadi biru. Selanjutnya tekan tombol biru untuk mencetak struk pembayaran</p>
-						</div>
-					</ModalContent>
-					<ModalFooter>
-						<div className="flex justify-content--center">
-							<Button buttonStyle="primary" onClick={this.toggleModal.bind(this, i)} className="margin-right-2">
-								<small className="fw-semibold ls-base tt-uppercase">Coba</small>
-							</Button>
-							<Button buttonStyle="primary" onClick={this.toggleModal.bind(this, i)}>
-								<small className="fw-semibold ls-base tt-uppercase">Bayar</small>
-							</Button>
-						</div>
-					</ModalFooter>
-				</Modal>
 			</div>
 		)
 	}
@@ -81,16 +99,10 @@ class ServiceItemList extends React.Component {
 			serviceList
 		} = this.props;
 
-		const {
-			isModalOpen
-		} = this.state;
-
 		return (
-			<div>
-				<CardList>
-					{ serviceList.map(this.renderServiceItem) }
-				</CardList>
-			</div>
+			<CardList>
+				{ serviceList.map(this.renderServiceItem) }
+			</CardList>
 		)
 	}
 }

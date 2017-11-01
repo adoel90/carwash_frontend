@@ -30,6 +30,18 @@
 	.main__container {
 		@extend .container;
 		background-color: red;
-		
+	}
+
+	.inner-view {
+		.inner-view-footer {
+			position: sticky;
+			bottom: 0;
+			height: 5em;
+			left: 0;
+			right: 0;
+			max-height: 100vh;
+			background-color: gray(200);
+			border-top: solid 1px gray(300);
+		}
 	}
 }

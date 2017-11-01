@@ -1,11 +1,19 @@
 import React from 'react';
+import classNames from 'classnames';
 
 const ModalHeader = (props) => {
 	const {
+		align,
+		className,
 		children
 	} = props;
 
-	return <div className="modal__header">{children}</div>
+	const classes = classNames(
+		'modal__header',
+		`ta-${align}`
+	)
+
+	return <div className={classes}>{children}</div>
 }
 
 export default ModalHeader;

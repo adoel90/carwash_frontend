@@ -20,10 +20,27 @@ class CafeMenuList extends Component {
 		this.renderCafeMenu = this.renderCafeMenu.bind(this);
 		this.toggleCartModal = this.toggleCartModal.bind(this);
 		this.renderCartMenuItem = this.renderCartMenuItem.bind(this);
+		this.calculateTotalPrice = this.calculateTotalPrice.bind(this);
 		this.state = {
 			isCartModalOpen: false,
-			cartMenu: []
+			cartMenu: [],
+			totalPrice: ''
 		}
+	}
+
+	calculateTotalPrice = () => {
+		const { cartMenu } = this.state;
+		let priceArr = [];
+
+		cartMenu.map((item) => {
+			priceArr.push(parseInt(item.price));
+		})
+
+		var sum = priceArr.reduce((a, b) => {
+			return a + b;
+		})
+
+		this.setState({ totalPrice: sum })
 	}
 
 	renderCartMenuItem = (item) => {
@@ -69,6 +86,7 @@ class CafeMenuList extends Component {
 
 	toggleCartModal = () => {
 		const { isCartModalOpen } = this.state;
+		this.calculateTotalPrice();
 
 		return this.setState({ isCartModalOpen: !isCartModalOpen})
 	}
@@ -134,7 +152,7 @@ class CafeMenuList extends Component {
 					</Button>
 					<Modal isOpen={this.state.isCartModalOpen} toggle={this.toggleCartModal}>
 						<ModalHeader align="center">
-							<h5 className="fw-semibold">Pembayaran</h5>
+							<h6 className="fw-semibold">Detail Pembayaran</h6>
 						</ModalHeader>
 						<ModalContent>
 							<Table>
@@ -149,6 +167,12 @@ class CafeMenuList extends Component {
 									{ cartMenu.map(this.renderCartMenuItem) }
 								</tbody>
 							</Table>
+							<div className="flex justify-content--space-between" style={{padding: '15px'}}>
+								<h6 className="fw-semibold">Total</h6>
+								<h5 className="clr-primary fw-semibold">
+									<Currency value={this.state.totalPrice} />
+								</h5>
+							</div>
 						</ModalContent>
 						<ModalFooter>
 							<div className="flex justify-content--space-between">

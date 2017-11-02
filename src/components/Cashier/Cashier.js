@@ -33,15 +33,8 @@ class Cashier extends React.Component {
 						</div>
 						<div className="column-10">
 							{subRoutes.map(this.renderSubRoutes)}
+							{/* <Redirect from={match.url} to={`${match.url}/${firstRoutePath}`} /> */}
 							<Redirect from={match.url} to={`${match.url}/${firstRoutePath}`} />
-
-
-							{/* <PropsRoute path={`${match.url}/pendaftaran-kartu`} component={CashierNewCard} />
-							<PropsRoute path={`${match.url}/isi-ulang`} component={CashierTopUp} />
-							<PropsRoute path={`${match.url}/ganti-kartu`} component={CashierChangeCard} /> */}
-
-							{/* { cafeTypes.map(this.renderCafeType) }
-							<Redirect from="/*" to={`${match.url}/${firstRoutePath}`} /> */}
 						</div>
 					</Row>
 				</Container>

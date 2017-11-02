@@ -6,6 +6,7 @@ import Cookies from 'universal-cookie';
 export const LOGIN_REQUESTED = 'LOGIN_REQUESTED';
 export const LOGIN_FULFILLED = 'LOGIN_FULFILLED';
 export const LOGIN_REJECTED = 'LOGIN_REJECTED';
+export const LOGOUT_FULFILLED = 'LOGOUT_FULFILLED';
 
 const cookies = new Cookies();
 
@@ -33,4 +34,14 @@ export const login = (username, password) => {
 	function handleRequest() { return { type: LOGIN_REQUESTED } };
 	function handleSuccess(data) { return { type: LOGIN_FULFILLED, payload: data } };
 	function handleError(error) { return { type: LOGIN_REJECTED, payload: error } };
+}
+
+export const logout = () => {
+	return async dispatch => {
+		cookies.remove('accessToken');
+		cookies.remove('user');
+		dispatch(handleLogout());
+	}
+
+	function handleLogout() { return { type: LOGOUT_FULFILLED } };
 }

@@ -1,7 +1,8 @@
 import {
 	LOGIN_REQUESTED,
 	LOGIN_FULFILLED,
-	LOGIN_REJECTED
+	LOGIN_REJECTED,
+	LOGOUT_FULFILLED,
 } from '../actions/user.action'
 
 const initialState = {
@@ -40,6 +41,16 @@ const authentication = (state = initialState, action) => {
 				user: {},
 				accessToken: '',
 				error: action.payload
+			}
+		}
+
+		case LOGOUT_FULFILLED: {
+			return {
+				...state,
+				isAuthenticated: false,
+				user: {},
+				accessToken: '',
+				error: {}
 			}
 		}
 

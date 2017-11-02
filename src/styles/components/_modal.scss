@@ -25,6 +25,7 @@ body {
 		height: 75%;
 		background-color: gray(100);
 		@include border-radius(base);
+		overflow: hidden;
 	}
 
 	.modal-content {
@@ -45,6 +46,7 @@ body {
 
 	.modal__header {
 		border-bottom: solid 1px gray(300);
+		background-color: gray(200);
 	}
 
 	.modal__content {

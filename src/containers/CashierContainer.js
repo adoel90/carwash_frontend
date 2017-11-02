@@ -1,23 +1,24 @@
 import React from 'react';
-import Cashier from '../components/Cashier';
+import { Cashier } from '../components/Cashier';
+import { CashierNewCard, CashierTopUp, CashierChangeCard } from '../components/Cashier';
 
 class CashierContainer extends React.Component {
-    constructor() {
-        super();
-
-        this.state = {
-            sidenavItems: [
-				{ title: 'Pendaftaran', path: '/cashier/register' },
-				{ title: 'Topup', path: '/cashier/topup' },
-				{ title: 'Ganti Kartu', path: '/cashier/change-card' }
+	constructor() {
+		super();
+		this.state = {
+			subRoutes: [
+				{ id: 1, name: 'Pendaftaran Kartu', component: CashierNewCard },
+				{ id: 2, name: 'Isi Ulang', component: CashierTopUp },
+				{ id: 3, name: 'Ganti Kartu', component: CashierChangeCard }
 			]
-        }
-    }
-    render() {
-        return(
-            <Cashier {...this.props} {...this.state} />
-        )
-    }
+		}
+	}
+
+	render() {
+		return (
+			<Cashier {...this.props} {...this.state} />
+		)
+	}
 }
 
 export default CashierContainer;

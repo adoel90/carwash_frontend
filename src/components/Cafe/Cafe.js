@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { Redirect } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 import { Container, Row } from '../Grid';
-import PropsRoute from '../PropsRoute';
+import { PropsRoute } from '../Route';
 
 import MainSidenav from '../MainSidenav';
 
@@ -37,6 +37,8 @@ class Cafe extends React.Component {
 		} = this.props;
 
 		const firstRoutePath = cafeTypes[0].name.replace(/\s+/g, '-').toLowerCase();
+
+		console.log(this.props);
 
 		return (
 			<main className="main main--has-subheader">

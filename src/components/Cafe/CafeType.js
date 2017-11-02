@@ -41,11 +41,6 @@ class CafeType extends Component {
 							<p className="clr-passive">Pilih menu (bisa lebih dari 1) yang dipesan oleh customer.</p>
 						</div>
 					</div>
-					<div className="column-4 flex justify-content--flex-end">
-						<div className="select-view">
-
-						</div>
-					</div>
 				</Row>
 				<SearchBar
 					className="padding-bottom-2"

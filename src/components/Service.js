@@ -1,7 +1,7 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 
-import PropsRoute from '../components/PropsRoute';
+import { PropsRoute } from '../components/Route';
 import { Container, Row } from '../components/Grid';
 import MainSidenav from '../components/MainSidenav';
 

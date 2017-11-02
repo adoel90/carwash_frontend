@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { constant } from '../config';
-import { createBrowserHistory } from 'history';
+import { push } from 'react-router-redux';
 import Cookies from 'universal-cookie';
 
 export const LOGIN_REQUESTED = 'LOGIN_REQUESTED';
@@ -22,7 +22,7 @@ export const login = (username, password) => {
 				dispatch(handleSuccess(response.data.data));
 				cookies.set('accessToken', response.data.data.accessToken, { path: '/' });
 				cookies.set('user', response.data.data.user, { path: '/' });
-				createBrowserHistory().push('/service');
+				// dispatch(push('admin/cafe'));
 			})
 			.catch((error) => {
 				dispatch(handleError(error))

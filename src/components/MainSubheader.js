@@ -4,13 +4,14 @@ import MainNavigation from '../components/MainNavigation';
 class MainSubheader extends React.Component {
 	render() {
 		const {
-			isAuthenticated
+			isAuthenticated,
+			user
 		} = this.props;
 
 		if(isAuthenticated) {
 			return (
 				<div className="header sub-header">
-					<MainNavigation />
+					<MainNavigation role={user.level} />
 				</div>
 			)
 		}

@@ -1,9 +1,8 @@
 import React from 'react';
 
 import { connect } from 'react-redux';
-import { Cookies } from 'react-cookie';
-import PropTypes from 'prop-types';
 import { login } from '../../actions/user.action.js';
+import PropTypes from 'prop-types';
 
 import { Form, FormGroup } from '../Form';
 import { Input, InputGroup, Label } from '../Input';
@@ -54,7 +53,7 @@ class LoginForm extends React.Component {
 		const {
 			authentication
 		} = this.props;
-		
+
 		return (
 			<Form>
 				<FormGroup>
@@ -81,16 +80,12 @@ class LoginForm extends React.Component {
 						onChange={this.handleChange}
 					/>
 				</FormGroup>
-				<Button type="submit" buttonStyle="dark" buttonFull onClick={this.handleSubmit} disabled={authentication.isLoggingIn || !username || !password}>
+				<Button type="submit" buttonTheme="dark" buttonFull onClick={this.handleSubmit} disabled={authentication.isLoggingIn || !username || !password}>
 					<small className="fw-semibold ls-base tt-uppercase">{authentication.isLoggingIn ? 'Tunggu sebentar...' : 'Masuk'}</small>
 				</Button>
 			</Form>
 		)
 	}
-}
-
-LoginForm.PropTypes = {
-	cookies: PropTypes.instanceOf(Cookies).isRequired
 }
 
 

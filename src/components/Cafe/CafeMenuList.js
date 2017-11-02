@@ -152,7 +152,7 @@ class CafeMenuList extends Component {
 					</Button>
 					<Modal isOpen={this.state.isCartModalOpen} toggle={this.toggleCartModal}>
 						<ModalHeader align="center">
-							<h6 className="fw-semibold">Detail Pembayaran</h6>
+							<h5 className="fw-semibold">Detail Pembayaran</h5>
 						</ModalHeader>
 						<ModalContent>
 							<Table>

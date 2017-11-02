@@ -5,16 +5,48 @@ class MainNavigation extends React.Component {
 	constructor() {
 		super();
 		this.renderNavigationItem = this.renderNavigationItem.bind(this);
+		this.handleNavigationList = this.handleNavigationList.bind(this);
 		this.state = {
-			navigationList: [
-				{ name: 'Layanan Self-Service', path: '/service' },
-				{ name: 'Profil Saya', path: '/profile' },
+			navigationList: []
+		}
+	}
 
-				{ name: 'Kasir', path: '/cashier' },
-				{ name: 'Cafe', path: '/cafe' },
+	componentDidMount = () => {
+		this.handleNavigationList();
+	}
 
-				{ name: 'Settings', path: '/settings' }
-			]
+	handleNavigationList = () => {
+		const { role } = this.props;
+
+		switch(role.id) {
+			case 1: {
+				this.setState({
+					navigationList: [
+						{ name: 'Dashboard', path: '/admin/dashboard' },
+						{ name: 'Pengaturan', path: '/admin/settings' },
+					]
+				})
+				break;
+			}
+			case 2: {
+				this.setState({
+					navigationList: [
+						{ name: 'Cafe', path: '/admin/cafe' },
+						{ name: 'Kasir', path: '/admin/cashier' },
+					]
+				})
+				break;
+			}
+			case 3: {
+				this.setState({
+					navigationList: [
+						{ name: 'Self-Service', path: '/customer/service' },
+					]
+				})
+			}
+			default: {
+				return null;
+			}
 		}
 	}
 

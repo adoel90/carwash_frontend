@@ -17,15 +17,16 @@ const authentication = (state = initialState, action) => {
 		case LOGIN_REQUESTED: {
 			return {
 				...state,
-				isLoggingIn: true
+				isLoggingIn: true,
+				isAuthenticated: false
 			}
 		}
 
 		case LOGIN_FULFILLED: {
 			return {
 				...state,
-				isLoggedIn: true,
-				isAuthenticated: false,
+				isLoggingIn: false,
+				isAuthenticated: true,
 				user: action.payload.user,
 				accessToken: action.payload.accessToken,
 			}
@@ -34,7 +35,7 @@ const authentication = (state = initialState, action) => {
 		case LOGIN_REJECTED: {
 			return {
 				...state,
-				isLoggedIn: false,
+				isLoggingIn: false,
 				isAuthenticated: false,
 				user: {},
 				accessToken: '',

@@ -9,32 +9,34 @@ class CashierNewCard extends Component {
 	constructor() {
 		super();
 		this.state = {
-			requiredData: {
-				fullname: '',
-				phone: '',
-				email: '',
-				address: ''
-			}
+			fullname: '',
+			phone: '',
+			email: '',
+			address: ''
 		}
 
 		this.handleChange = this.handleChange.bind(this);
 	}
 
-	handleChange = () => {
-		
+	handleChange = (e) => {
+		const target = e.target;
+		const value = target.type === 'checkbox' ? target.checkbox : target.value;
+		const name = target.name;
+
+		this.setState({
+			[name]: value
+		});
+
+		console.log(this.state);
 	}
 
 	render() {
-		const {
-			requiredData
-		} = this.state;
-
 		const {
 			fullname,
 			phone,
 			email,
 			address
-		} = requiredData
+		} = this.state
 
 		return (
 			<div className="inner-view">
@@ -42,7 +44,7 @@ class CashierNewCard extends Component {
 					<h5 className="fw-semibold">Pendaftaran Kartu Baru</h5>
 					<p className="clr-passive">Masukkan data customer baru dengan benar dan lengkap. Seluruh kolom harus diisi.</p>
 				</div>
-				<PageBlock>
+				<PageBlock className="margin-bottom-5">
 					<Form>
 						<FormGroup>
 							<Label htmlFor="">

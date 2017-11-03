@@ -51,10 +51,8 @@ class CashierTopUpForm extends Component {
 				</Row>
 				<Form onSubmit={this.handleTopup}>
 					<FormGroup>
-						<Label>
-							<small className="fw-semibold">Jumlah Saldo</small>
-						</Label>
-						<InputCurrency type="text" placeholder="Rp " />
+						<Label>Jumlah Saldo</Label>
+						<InputCurrency type="text" placeholder="Rp " autoFocus="true" />
 					</FormGroup>
 				</Form>
 			</ModalContent>
@@ -67,7 +65,8 @@ class CashierTopUpForm extends Component {
 		const { cardId } = this.state
 		const {
 			dispatch,
-			accessToken
+			accessToken,
+			member
 		} = this.props;
 
 		e.preventDefault();
@@ -75,6 +74,7 @@ class CashierTopUpForm extends Component {
 		const requiredData = {
 			card: cardId
 		}
+
 
 		dispatch(authenticateMember(requiredData, accessToken))
 			.then(() => {
@@ -103,9 +103,9 @@ class CashierTopUpForm extends Component {
 					<Label>No. Kartu Member</Label>
 					<InputGroup>
 						<Input type="number" placeholder="ID Customer" autoFocus="true" value={this.state.cardId} onChange={this.handleChange} selectOnFocus />
-						<Button type="button" buttonTheme="primary">
-							<small className="tt-uppercase fw-semibold ls-base">Isi Saldo</small>
-						</Button>
+						{/* <Button type="button" buttonTheme="primary" disabled={!member.data}>
+							<small className="tt-uppercase fw-semibold ls-base">{!member.data ? 'Kartu Tidak Terdeteksi' : 'Kartu Terdeteksi'}</small>
+						</Button> */}
 					</InputGroup>
 					{ member.error ? <small className="clr-danger">{member.error.message}</small> : null}
 				</FormGroup>

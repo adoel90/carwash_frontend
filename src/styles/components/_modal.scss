@@ -23,7 +23,6 @@ body {
 		@include transform(translate(-50%, -50%));
 		@include border-radius(base);
 		width: 65%;
-		height: 70%;
 		background-color: gray(100);
 		overflow: hidden;
 	}
@@ -41,7 +40,7 @@ body {
 	.modal__header,
 	.modal__content,
 	.modal__footer {
-		padding: ($spacer * .5);
+		padding: $spacer * .75;
 	}
 
 	.modal__header {
@@ -51,10 +50,11 @@ body {
 
 	.modal__content {
 		@include flex(1 1 auto);
+		overflow-y: scroll;
 	}
 
 	.modal__footer {
-		@include justify-content(flex-end);
+		// @include justify-content(flex-end);
 	}
 
 }

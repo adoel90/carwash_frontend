@@ -11,6 +11,7 @@ import { default as CardIcon } from '../../assets/icons/Business/credit-card-3.s
 import { default as CardIcon2 } from '../../assets/icons/Business/credit-card-4.svg';
 import NumberFormat from 'react-number-format';
 import Button from '../Button';
+import Currency from '../Currency';
 
 class CashierTopUpForm extends Component {
 	constructor() {
@@ -32,29 +33,44 @@ class CashierTopUpForm extends Component {
 
 		return (
 			<ModalContent>
-				<Row>
-					<div className="column-3">
+				<Row className="flex align-items--center">
+					<div className="column-3 flex flex-column align-items--center">
 						<img src={CardIcon} />
 					</div>
 					<div className="column-9">
-						<h4 className="fw-semibold">{member.data.name}</h4>
-						<h5>
-							<NumberFormat
-								displayType={'text'}
-								format="#### #### #### ####"
-								value={member.data.card.id}
-							/>
-						</h5>
-						<p>{member.data.email}</p>
-						<p>{member.data.address}</p>
+						<div className="padding-bottom-3">
+							<h4 className="fw-bold">{member.data.name}</h4>
+							<h5 className="fw-semibold">
+								<NumberFormat
+									displayType={'text'}
+									format="#### #### #### ####"
+									value={member.data.card.id}
+								/>
+							</h5>
+							<p>{member.data.email}</p>
+							<p>{member.data.address}</p>
+
+						</div>
+						<Form onSubmit={this.handleTopup}>
+							<FormGroup>
+								<Label className="fw-semibold">Saldo saat ini</Label>
+								<InputCurrency value={member.data.balance} readOnly="true" />
+							</FormGroup>
+							<FormGroup>
+								<Label className="fw-semibold">Jumlah Saldo yang Diinginkan</Label>
+								<InputCurrency type="text" placeholder="Rp " autoFocus="true" />
+							</FormGroup>
+							<FormGroup>
+								<Label className="fw-semibold">Metode Pembayaran</Label>
+								<Input type="select">
+									<option>Cash</option>
+									<option>Debit</option>
+									<option>Kredit</option>
+								</Input>
+							</FormGroup>
+						</Form>
 					</div>
 				</Row>
-				<Form onSubmit={this.handleTopup}>
-					<FormGroup>
-						<Label>Jumlah Saldo</Label>
-						<InputCurrency type="text" placeholder="Rp " autoFocus="true" />
-					</FormGroup>
-				</Form>
 			</ModalContent>
 		)
 	}
@@ -100,7 +116,7 @@ class CashierTopUpForm extends Component {
 		return (
 			<Form onSubmit={this.handleSubmit}>
 				<FormGroup>
-					<Label>No. Kartu Member</Label>
+					<Label className="fw-semibold">No. Kartu Member</Label>
 					<InputGroup>
 						<Input type="number" placeholder="ID Customer" autoFocus="true" value={this.state.cardId} onChange={this.handleChange} selectOnFocus />
 						{/* <Button type="button" buttonTheme="primary" disabled={!member.data}>
@@ -120,10 +136,6 @@ class CashierTopUpForm extends Component {
 						</Button>
 					</ModalFooter>
 				</Modal>
-				{/* <FormGroup>
-					<Label>Masukkan saldo yang diigininkan</Label>
-					<InputCurrency placeholder="Rp" />
-				</FormGroup> */}
 			</Form>
 		);
 	}

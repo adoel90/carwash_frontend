@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { logout } from '../actions/user.action.js';
+import { Redirect } from 'react-router-dom';
+import { userLogout } from '../actions/user.action.js';
 
 class LogoutContainer extends Component {
+	constructor() {
+		super();
+	}
+
 	componentDidMount = () => {
-		this.props.logout();
+		this.props.userLogout();
 	}
 
 	render() {
-		return null
+		return null;
 	}
 
 }
@@ -19,4 +24,4 @@ const mapDispatchToProps = (state) => {
 	}
 }
 
-export default connect(mapDispatchToProps, { logout })(LogoutContainer);
+export default connect(mapDispatchToProps, { userLogout })(LogoutContainer);

@@ -7,8 +7,8 @@ class CashierContainer extends React.Component {
 		super();
 		this.state = {
 			subRoutes: [
-				{ id: 1, name: 'Pendaftaran Kartu', component: CashierNewCard },
-				{ id: 2, name: 'Isi Ulang', component: CashierTopUp },
+				{ id: 1, name: 'Isi Ulang', component: CashierTopUp },
+				{ id: 2, name: 'Kartu Baru', component: CashierNewCard },
 				{ id: 3, name: 'Ganti Kartu', component: CashierChangeCard }
 			]
 		}

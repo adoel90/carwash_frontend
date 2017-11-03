@@ -1,27 +1,30 @@
 import {
-	CREATE_MEMBER_FULFILLED,
-	CREATE_MEMBER_REJECTED
-} from '../actions/member.action';
+	AUTHENTICATE_MEMBER_FULFILLED,
+	AUTHENTICATE_MEMBER_REJECTED
+} from '../actions/member.action'
 
 const initialState = {
-	user: {},
-	error: {}
+	data: null,
+	accessToken: '',
+	error: null
 }
 
 const member = (state = initialState, action) => {
 	switch(action.type) {
-		case CREATE_MEMBER_FULFILLED: {
+		case AUTHENTICATE_MEMBER_FULFILLED: {
 			return {
 				...state,
-				user: action.payload,
-				error: {}
+				data: action.payload.member,
+				accessToken: action.payload.accessToken,
+				error: null
 			}
 		}
 
-		case CREATE_MEMBER_REJECTED: {
+		case AUTHENTICATE_MEMBER_REJECTED: {
 			return {
 				...state,
-				user: {},
+				data: null,
+				accessToken: '',
 				error: action.payload
 			}
 		}

@@ -6,6 +6,15 @@ class Input extends React.Component {
 	// handleChange = (event) => {
 	// 	this.props.onChange(event);
 	// }
+	constructor() {
+		super();
+		this.handleFocus = this.handleFocus.bind(this);
+	}
+
+	handleFocus = (e) => {
+		e.preventDefault();
+		e.target.select();
+	}
 
 	render() {
 		const {
@@ -13,6 +22,7 @@ class Input extends React.Component {
 			type,
 			rows,
 			value,
+			selectOnFocus,
 			...attributes
 		} = this.props;
 
@@ -28,6 +38,10 @@ class Input extends React.Component {
 
 		if(Tag === 'input') {
 			attributes.type = type;
+		}
+
+		if(selectOnFocus) {
+			attributes.onFocus = this.handleFocus;
 		}
 
 		return <Tag {...attributes} className={classes} />;

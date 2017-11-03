@@ -21,10 +21,10 @@ body {
 			left: 50%;
 		}
 		@include transform(translate(-50%, -50%));
-		width: 75%;
-		height: 75%;
-		background-color: gray(100);
 		@include border-radius(base);
+		width: 65%;
+		height: 70%;
+		background-color: gray(100);
 		overflow: hidden;
 	}
 

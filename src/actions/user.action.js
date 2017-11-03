@@ -3,14 +3,14 @@ import { constant } from '../config';
 import { push } from 'react-router-redux';
 import Cookies from 'universal-cookie';
 
-export const LOGIN_REQUESTED = 'LOGIN_REQUESTED';
-export const LOGIN_FULFILLED = 'LOGIN_FULFILLED';
-export const LOGIN_REJECTED = 'LOGIN_REJECTED';
-export const LOGOUT_FULFILLED = 'LOGOUT_FULFILLED';
+export const USER_LOGIN_REQUESTED = 'USER_LOGIN_REQUESTED';
+export const USER_LOGIN_FULFILLED = 'USER_LOGIN_FULFILLED';
+export const USER_LOGIN_REJECTED = 'USER_LOGIN_REJECTED';
+export const USER_LOGOUT_FULFILLED = 'USER_LOGOUT_FULFILLED';
 
 const cookies = new Cookies();
 
-export const login = (username, password) => {
+export const userLogin = (username, password) => {
 	return async dispatch => {
 		dispatch(handleRequest());
 
@@ -23,7 +23,9 @@ export const login = (username, password) => {
 				dispatch(handleSuccess(response.data.data));
 				cookies.set('accessToken', response.data.data.accessToken, { path: '/' });
 				cookies.set('user', response.data.data.user, { path: '/' });
-				// dispatch(push('admin/cafe'));
+			})
+			.then(() => {
+				window.location.reload();
 			})
 			.catch((error) => {
 				dispatch(handleError(error))
@@ -31,17 +33,26 @@ export const login = (username, password) => {
 	}
 
 
-	function handleRequest() { return { type: LOGIN_REQUESTED } };
-	function handleSuccess(data) { return { type: LOGIN_FULFILLED, payload: data } };
-	function handleError(error) { return { type: LOGIN_REJECTED, payload: error } };
+	function handleRequest() { return { type: USER_LOGIN_REQUESTED } };
+	function handleSuccess(data) { return { type: USER_LOGIN_FULFILLED, payload: data } };
+	function handleError(error) { return { type: USER_LOGIN_REJECTED, payload: error } };
 }
 
-export const logout = () => {
-	return async dispatch => {
-		cookies.remove('accessToken');
-		cookies.remove('user');
-		dispatch(handleLogout());
+export const userLogout = () => {
+	return async (dispatch) => {
+		return Promise.resolve(dispatch(handleLogout()))
+			.then(() => {
+				cookies.remove('accessToken');
+				cookies.remove('user');
+			})
+			.then(() => {
+				window.location.reload();
+			})
 	}
 
-	function handleLogout() { return { type: LOGOUT_FULFILLED } };
+	function handleLogout() {
+		return {
+			type: USER_LOGOUT_FULFILLED
+		}
+	}
 }

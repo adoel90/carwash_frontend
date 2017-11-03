@@ -12,14 +12,23 @@ class MainView extends React.Component {
 		const {
 			isAuthenticated,
 			accessToken,
-			user
+			user,
+			match
 		} = this.props;
 
 		return (
 			<Switch>
 				<PropsRoute name="admin" path="/admin" component={AdminContainer} {...this.props} />
 				<PropsRoute name="customer" path="/customer" component={CustomerContainer} {...this.props} />
-				<Route name="logout" path="/logout" component={LogoutContainer} />
+				<PrivateRoute
+					name="logout"
+					path="/logout"
+					component={LogoutContainer}
+					isAuthenticated={isAuthenticated}
+					user={user}
+					accessToken={accessToken}
+					redirectTo={`admin/login`}
+				/>
 			</Switch>
 		)
 	}

@@ -10,8 +10,8 @@
 //
 //	Font Family
 //
-// $font-family-sans-serif				: 'HK Grotesk', Helvetica, Arial, sans-serif;
-$font-family-sans-serif			: 'Source Sans Pro', Helvetica, Arial, sans-serif;
+$font-family-sans-serif				: 'HK Grotesk', Helvetica, Arial, sans-serif;
+// $font-family-sans-serif			: 'Source Sans Pro', Helvetica, Arial, sans-serif;
 // $font-family-sans-serif			: 'Circular Std', Helvetica, Arial, sans-serif;
 $font-family-serif					: Georgia, 'Times New Roman', Times, serif;
 $font-family-monospace				: Menlo, Monaco, Consolas, 'Courier New', monospace;
@@ -42,8 +42,11 @@ $font-sizes: (
 //
 //	Icon Sizes
 //
-$icon-size-base		: $font-size-large;
-$icon-size-large	: $font-size-x-large;
+$icon-size-base			: $font-size-large;
+$icon-size-large		: $font-size-x-large;
+$icon-size-x-large		: $font-size-xx-large;
+$icon-size-xx-large		: $font-size-xxx-large;
+$icon-size-xxx-large	: $font-size-xxxx-large;
 
 //
 //	Font Weight

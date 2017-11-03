@@ -4,7 +4,11 @@
 	}
 
 	&.icon--large {
-		font-size: $font-size-large;
+		font-size: $icon-size-large;
+	}
+
+	&.icon--gigant {
+		font-size: $icon-size-xxx-large;
 	}
 }
 
@@ -24,16 +28,48 @@ Creation date: 22/06/2016 15:41
 	font-style: normal;
 }
 
+@font-face {
+	font-family: "Flaticon-Business";
+	src: url("../assets/fonts/Flaticon/Business.eot");
+	src: url("../assets/fonts/Flaticon/Business.eot?#iefix") format("embedded-opentype"),
+	url("../assets/fonts/Flaticon/Business.woff") format("woff"),
+	url("../assets/fonts/Flaticon/Business.ttf") format("truetype"),
+	url("../assets/fonts/Flaticon/Business.svg#Flaticon") format("svg");
+	font-weight: normal;
+	font-style: normal;
+}
+
+
 @media screen and (-webkit-min-device-pixel-ratio: 0) {
 	@font-face {
 		font-family: "Flaticon";
 		src: url("../assets/fonts/Flaticon/Flaticon.svg#Flaticon") format("svg");
+	}
+
+	@font-face {
+		font-family: "Flaticon-Business";
+		src: url("../assets/fonts/Flaticon/Business.svg#Business") format("svg");
 	}
 }
 
 .fi:before{
 	display: inline-block;
 	font-family: "Flaticon";
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	line-height: 1;
+	text-decoration: inherit;
+	text-rendering: optimizeLegibility;
+	text-transform: none;
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-font-smoothing: antialiased;
+	font-smoothing: antialiased;
+}
+
+.fi-b:before{
+	display: inline-block;
+	font-family: "Flaticon-Business";
 	font-style: normal;
 	font-weight: normal;
 	font-variant: normal;
@@ -807,3 +843,349 @@ $font-Flaticon-worldwide: "\f278";
 $font-Flaticon-worldwide-1: "\f279";
 $font-Flaticon-zoom-in: "\f27a";
 $font-Flaticon-zoom-out: "\f27b";
+
+
+
+// Business Pack
+
+.flaticon-business-atm:before { content: "\f100"; }
+.flaticon-business-atm-1:before { content: "\f101"; }
+.flaticon-business-atm-2:before { content: "\f102"; }
+.flaticon-business-bag:before { content: "\f103"; }
+.flaticon-business-bag-1:before { content: "\f104"; }
+.flaticon-business-bag-2:before { content: "\f105"; }
+.flaticon-business-bag-3:before { content: "\f106"; }
+.flaticon-business-bag-4:before { content: "\f107"; }
+.flaticon-business-bag-5:before { content: "\f108"; }
+.flaticon-business-bag-6:before { content: "\f109"; }
+.flaticon-business-bank:before { content: "\f10a"; }
+.flaticon-business-barbershop:before { content: "\f10b"; }
+.flaticon-business-barcode:before { content: "\f10c"; }
+.flaticon-business-barcode-1:before { content: "\f10d"; }
+.flaticon-business-basket:before { content: "\f10e"; }
+.flaticon-business-basket-1:before { content: "\f10f"; }
+.flaticon-business-basket-2:before { content: "\f110"; }
+.flaticon-business-box:before { content: "\f111"; }
+.flaticon-business-box-1:before { content: "\f112"; }
+.flaticon-business-box-2:before { content: "\f113"; }
+.flaticon-business-box-3:before { content: "\f114"; }
+.flaticon-business-briefcase:before { content: "\f115"; }
+.flaticon-business-briefcase-1:before { content: "\f116"; }
+.flaticon-business-calculator:before { content: "\f117"; }
+.flaticon-business-cart:before { content: "\f118"; }
+.flaticon-business-cart-1:before { content: "\f119"; }
+.flaticon-business-cart-10:before { content: "\f11a"; }
+.flaticon-business-cart-11:before { content: "\f11b"; }
+.flaticon-business-cart-12:before { content: "\f11c"; }
+.flaticon-business-cart-13:before { content: "\f11d"; }
+.flaticon-business-cart-14:before { content: "\f11e"; }
+.flaticon-business-cart-15:before { content: "\f11f"; }
+.flaticon-business-cart-16:before { content: "\f120"; }
+.flaticon-business-cart-17:before { content: "\f121"; }
+.flaticon-business-cart-2:before { content: "\f122"; }
+.flaticon-business-cart-3:before { content: "\f123"; }
+.flaticon-business-cart-4:before { content: "\f124"; }
+.flaticon-business-cart-5:before { content: "\f125"; }
+.flaticon-business-cart-6:before { content: "\f126"; }
+.flaticon-business-cart-7:before { content: "\f127"; }
+.flaticon-business-cart-8:before { content: "\f128"; }
+.flaticon-business-cart-9:before { content: "\f129"; }
+.flaticon-business-cashier:before { content: "\f12a"; }
+.flaticon-business-cashier-1:before { content: "\f12b"; }
+.flaticon-business-change:before { content: "\f12c"; }
+.flaticon-business-check:before { content: "\f12d"; }
+.flaticon-business-coin:before { content: "\f12e"; }
+.flaticon-business-coin-1:before { content: "\f12f"; }
+.flaticon-business-coin-10:before { content: "\f130"; }
+.flaticon-business-coin-2:before { content: "\f131"; }
+.flaticon-business-coin-3:before { content: "\f132"; }
+.flaticon-business-coin-4:before { content: "\f133"; }
+.flaticon-business-coin-5:before { content: "\f134"; }
+.flaticon-business-coin-6:before { content: "\f135"; }
+.flaticon-business-coin-7:before { content: "\f136"; }
+.flaticon-business-coin-8:before { content: "\f137"; }
+.flaticon-business-coin-9:before { content: "\f138"; }
+.flaticon-business-coins:before { content: "\f139"; }
+.flaticon-business-coins-1:before { content: "\f13a"; }
+.flaticon-business-crate:before { content: "\f13b"; }
+.flaticon-business-crate-1:before { content: "\f13c"; }
+.flaticon-business-crate-2:before { content: "\f13d"; }
+.flaticon-business-crate-3:before { content: "\f13e"; }
+.flaticon-business-crate-4:before { content: "\f13f"; }
+.flaticon-business-crate-5:before { content: "\f140"; }
+.flaticon-business-credit-card:before { content: "\f141"; }
+.flaticon-business-credit-card-1:before { content: "\f142"; }
+.flaticon-business-credit-card-2:before { content: "\f143"; }
+.flaticon-business-credit-card-3:before { content: "\f144"; }
+.flaticon-business-credit-card-4:before { content: "\f145"; }
+.flaticon-business-credit-card-5:before { content: "\f146"; }
+.flaticon-business-credit-card-6:before { content: "\f147"; }
+.flaticon-business-delivery-cart:before { content: "\f148"; }
+.flaticon-business-delivery-cart-1:before { content: "\f149"; }
+.flaticon-business-diagram:before { content: "\f14a"; }
+.flaticon-business-diagram-1:before { content: "\f14b"; }
+.flaticon-business-diagram-2:before { content: "\f14c"; }
+.flaticon-business-diagram-3:before { content: "\f14d"; }
+.flaticon-business-folder:before { content: "\f14e"; }
+.flaticon-business-folder-1:before { content: "\f14f"; }
+.flaticon-business-get-money:before { content: "\f150"; }
+.flaticon-business-graph:before { content: "\f151"; }
+.flaticon-business-graph-1:before { content: "\f152"; }
+.flaticon-business-graph-2:before { content: "\f153"; }
+.flaticon-business-graph-3:before { content: "\f154"; }
+.flaticon-business-graph-4:before { content: "\f155"; }
+.flaticon-business-graph-5:before { content: "\f156"; }
+.flaticon-business-graph-6:before { content: "\f157"; }
+.flaticon-business-graph-7:before { content: "\f158"; }
+.flaticon-business-graph-8:before { content: "\f159"; }
+.flaticon-business-grocery:before { content: "\f15a"; }
+.flaticon-business-grocery-1:before { content: "\f15b"; }
+.flaticon-business-insert-coin:before { content: "\f15c"; }
+.flaticon-business-investment:before { content: "\f15d"; }
+.flaticon-business-justice:before { content: "\f15e"; }
+.flaticon-business-justice-scale:before { content: "\f15f"; }
+.flaticon-business-megaphone:before { content: "\f160"; }
+.flaticon-business-money:before { content: "\f161"; }
+.flaticon-business-notes:before { content: "\f162"; }
+.flaticon-business-notes-1:before { content: "\f163"; }
+.flaticon-business-notes-2:before { content: "\f164"; }
+.flaticon-business-open:before { content: "\f165"; }
+.flaticon-business-pack:before { content: "\f166"; }
+.flaticon-business-pie-chart:before { content: "\f167"; }
+.flaticon-business-pie-chart-1:before { content: "\f168"; }
+.flaticon-business-pie-chart-2:before { content: "\f169"; }
+.flaticon-business-pie-chart-3:before { content: "\f16a"; }
+.flaticon-business-pie-chart-4:before { content: "\f16b"; }
+.flaticon-business-pie-chart-5:before { content: "\f16c"; }
+.flaticon-business-pie-chart-6:before { content: "\f16d"; }
+.flaticon-business-piggy-bank:before { content: "\f16e"; }
+.flaticon-business-piggy-bank-1:before { content: "\f16f"; }
+.flaticon-business-point-of-service:before { content: "\f170"; }
+.flaticon-business-poor:before { content: "\f171"; }
+.flaticon-business-presentation:before { content: "\f172"; }
+.flaticon-business-presentation-1:before { content: "\f173"; }
+.flaticon-business-presentation-10:before { content: "\f174"; }
+.flaticon-business-presentation-11:before { content: "\f175"; }
+.flaticon-business-presentation-12:before { content: "\f176"; }
+.flaticon-business-presentation-13:before { content: "\f177"; }
+.flaticon-business-presentation-14:before { content: "\f178"; }
+.flaticon-business-presentation-15:before { content: "\f179"; }
+.flaticon-business-presentation-16:before { content: "\f17a"; }
+.flaticon-business-presentation-17:before { content: "\f17b"; }
+.flaticon-business-presentation-18:before { content: "\f17c"; }
+.flaticon-business-presentation-19:before { content: "\f17d"; }
+.flaticon-business-presentation-2:before { content: "\f17e"; }
+.flaticon-business-presentation-3:before { content: "\f17f"; }
+.flaticon-business-presentation-4:before { content: "\f180"; }
+.flaticon-business-presentation-5:before { content: "\f181"; }
+.flaticon-business-presentation-6:before { content: "\f182"; }
+.flaticon-business-presentation-7:before { content: "\f183"; }
+.flaticon-business-presentation-8:before { content: "\f184"; }
+.flaticon-business-presentation-9:before { content: "\f185"; }
+.flaticon-business-price-tag:before { content: "\f186"; }
+.flaticon-business-price-tag-1:before { content: "\f187"; }
+.flaticon-business-price-tag-2:before { content: "\f188"; }
+.flaticon-business-price-tag-3:before { content: "\f189"; }
+.flaticon-business-price-tag-4:before { content: "\f18a"; }
+.flaticon-business-price-tag-5:before { content: "\f18b"; }
+.flaticon-business-price-tag-6:before { content: "\f18c"; }
+.flaticon-business-price-tag-7:before { content: "\f18d"; }
+.flaticon-business-price-tag-8:before { content: "\f18e"; }
+.flaticon-business-price-tag-9:before { content: "\f18f"; }
+.flaticon-business-receipt:before { content: "\f190"; }
+.flaticon-business-record:before { content: "\f191"; }
+.flaticon-business-rewind-time:before { content: "\f192"; }
+.flaticon-business-rich:before { content: "\f193"; }
+.flaticon-business-safebox:before { content: "\f194"; }
+.flaticon-business-safebox-1:before { content: "\f195"; }
+.flaticon-business-safebox-2:before { content: "\f196"; }
+.flaticon-business-safebox-3:before { content: "\f197"; }
+.flaticon-business-safebox-4:before { content: "\f198"; }
+.flaticon-business-stamp:before { content: "\f199"; }
+.flaticon-business-stamp-1:before { content: "\f19a"; }
+.flaticon-business-stand:before { content: "\f19b"; }
+.flaticon-business-store:before { content: "\f19c"; }
+.flaticon-business-store-1:before { content: "\f19d"; }
+.flaticon-business-store-2:before { content: "\f19e"; }
+.flaticon-business-store-3:before { content: "\f19f"; }
+.flaticon-business-strongbox:before { content: "\f1a0"; }
+.flaticon-business-suitcase:before { content: "\f1a1"; }
+.flaticon-business-suitcase-1:before { content: "\f1a2"; }
+.flaticon-business-suitcase-2:before { content: "\f1a3"; }
+.flaticon-business-time-is-money:before { content: "\f1a4"; }
+.flaticon-business-time-passing:before { content: "\f1a5"; }
+.flaticon-business-wallet:before { content: "\f1a6"; }
+.flaticon-business-wallet-1:before { content: "\f1a7"; }
+.flaticon-business-wallet-2:before { content: "\f1a8"; }
+.flaticon-business-yen:before { content: "\f1a9"; }
+
+$font-flaticon-business-atm: "\f100";
+$font-flaticon-business-atm-1: "\f101";
+$font-flaticon-business-atm-2: "\f102";
+$font-flaticon-business-bag: "\f103";
+$font-flaticon-business-bag-1: "\f104";
+$font-flaticon-business-bag-2: "\f105";
+$font-flaticon-business-bag-3: "\f106";
+$font-flaticon-business-bag-4: "\f107";
+$font-flaticon-business-bag-5: "\f108";
+$font-flaticon-business-bag-6: "\f109";
+$font-flaticon-business-bank: "\f10a";
+$font-flaticon-business-barbershop: "\f10b";
+$font-flaticon-business-barcode: "\f10c";
+$font-flaticon-business-barcode-1: "\f10d";
+$font-flaticon-business-basket: "\f10e";
+$font-flaticon-business-basket-1: "\f10f";
+$font-flaticon-business-basket-2: "\f110";
+$font-flaticon-business-box: "\f111";
+$font-flaticon-business-box-1: "\f112";
+$font-flaticon-business-box-2: "\f113";
+$font-flaticon-business-box-3: "\f114";
+$font-flaticon-business-briefcase: "\f115";
+$font-flaticon-business-briefcase-1: "\f116";
+$font-flaticon-business-calculator: "\f117";
+$font-flaticon-business-cart: "\f118";
+$font-flaticon-business-cart-1: "\f119";
+$font-flaticon-business-cart-10: "\f11a";
+$font-flaticon-business-cart-11: "\f11b";
+$font-flaticon-business-cart-12: "\f11c";
+$font-flaticon-business-cart-13: "\f11d";
+$font-flaticon-business-cart-14: "\f11e";
+$font-flaticon-business-cart-15: "\f11f";
+$font-flaticon-business-cart-16: "\f120";
+$font-flaticon-business-cart-17: "\f121";
+$font-flaticon-business-cart-2: "\f122";
+$font-flaticon-business-cart-3: "\f123";
+$font-flaticon-business-cart-4: "\f124";
+$font-flaticon-business-cart-5: "\f125";
+$font-flaticon-business-cart-6: "\f126";
+$font-flaticon-business-cart-7: "\f127";
+$font-flaticon-business-cart-8: "\f128";
+$font-flaticon-business-cart-9: "\f129";
+$font-flaticon-business-cashier: "\f12a";
+$font-flaticon-business-cashier-1: "\f12b";
+$font-flaticon-business-change: "\f12c";
+$font-flaticon-business-check: "\f12d";
+$font-flaticon-business-coin: "\f12e";
+$font-flaticon-business-coin-1: "\f12f";
+$font-flaticon-business-coin-10: "\f130";
+$font-flaticon-business-coin-2: "\f131";
+$font-flaticon-business-coin-3: "\f132";
+$font-flaticon-business-coin-4: "\f133";
+$font-flaticon-business-coin-5: "\f134";
+$font-flaticon-business-coin-6: "\f135";
+$font-flaticon-business-coin-7: "\f136";
+$font-flaticon-business-coin-8: "\f137";
+$font-flaticon-business-coin-9: "\f138";
+$font-flaticon-business-coins: "\f139";
+$font-flaticon-business-coins-1: "\f13a";
+$font-flaticon-business-crate: "\f13b";
+$font-flaticon-business-crate-1: "\f13c";
+$font-flaticon-business-crate-2: "\f13d";
+$font-flaticon-business-crate-3: "\f13e";
+$font-flaticon-business-crate-4: "\f13f";
+$font-flaticon-business-crate-5: "\f140";
+$font-flaticon-business-credit-card: "\f141";
+$font-flaticon-business-credit-card-1: "\f142";
+$font-flaticon-business-credit-card-2: "\f143";
+$font-flaticon-business-credit-card-3: "\f144";
+$font-flaticon-business-credit-card-4: "\f145";
+$font-flaticon-business-credit-card-5: "\f146";
+$font-flaticon-business-credit-card-6: "\f147";
+$font-flaticon-business-delivery-cart: "\f148";
+$font-flaticon-business-delivery-cart-1: "\f149";
+$font-flaticon-business-diagram: "\f14a";
+$font-flaticon-business-diagram-1: "\f14b";
+$font-flaticon-business-diagram-2: "\f14c";
+$font-flaticon-business-diagram-3: "\f14d";
+$font-flaticon-business-folder: "\f14e";
+$font-flaticon-business-folder-1: "\f14f";
+$font-flaticon-business-get-money: "\f150";
+$font-flaticon-business-graph: "\f151";
+$font-flaticon-business-graph-1: "\f152";
+$font-flaticon-business-graph-2: "\f153";
+$font-flaticon-business-graph-3: "\f154";
+$font-flaticon-business-graph-4: "\f155";
+$font-flaticon-business-graph-5: "\f156";
+$font-flaticon-business-graph-6: "\f157";
+$font-flaticon-business-graph-7: "\f158";
+$font-flaticon-business-graph-8: "\f159";
+$font-flaticon-business-grocery: "\f15a";
+$font-flaticon-business-grocery-1: "\f15b";
+$font-flaticon-business-insert-coin: "\f15c";
+$font-flaticon-business-investment: "\f15d";
+$font-flaticon-business-justice: "\f15e";
+$font-flaticon-business-justice-scale: "\f15f";
+$font-flaticon-business-megaphone: "\f160";
+$font-flaticon-business-money: "\f161";
+$font-flaticon-business-notes: "\f162";
+$font-flaticon-business-notes-1: "\f163";
+$font-flaticon-business-notes-2: "\f164";
+$font-flaticon-business-open: "\f165";
+$font-flaticon-business-pack: "\f166";
+$font-flaticon-business-pie-chart: "\f167";
+$font-flaticon-business-pie-chart-1: "\f168";
+$font-flaticon-business-pie-chart-2: "\f169";
+$font-flaticon-business-pie-chart-3: "\f16a";
+$font-flaticon-business-pie-chart-4: "\f16b";
+$font-flaticon-business-pie-chart-5: "\f16c";
+$font-flaticon-business-pie-chart-6: "\f16d";
+$font-flaticon-business-piggy-bank: "\f16e";
+$font-flaticon-business-piggy-bank-1: "\f16f";
+$font-flaticon-business-point-of-service: "\f170";
+$font-flaticon-business-poor: "\f171";
+$font-flaticon-business-presentation: "\f172";
+$font-flaticon-business-presentation-1: "\f173";
+$font-flaticon-business-presentation-10: "\f174";
+$font-flaticon-business-presentation-11: "\f175";
+$font-flaticon-business-presentation-12: "\f176";
+$font-flaticon-business-presentation-13: "\f177";
+$font-flaticon-business-presentation-14: "\f178";
+$font-flaticon-business-presentation-15: "\f179";
+$font-flaticon-business-presentation-16: "\f17a";
+$font-flaticon-business-presentation-17: "\f17b";
+$font-flaticon-business-presentation-18: "\f17c";
+$font-flaticon-business-presentation-19: "\f17d";
+$font-flaticon-business-presentation-2: "\f17e";
+$font-flaticon-business-presentation-3: "\f17f";
+$font-flaticon-business-presentation-4: "\f180";
+$font-flaticon-business-presentation-5: "\f181";
+$font-flaticon-business-presentation-6: "\f182";
+$font-flaticon-business-presentation-7: "\f183";
+$font-flaticon-business-presentation-8: "\f184";
+$font-flaticon-business-presentation-9: "\f185";
+$font-flaticon-business-price-tag: "\f186";
+$font-flaticon-business-price-tag-1: "\f187";
+$font-flaticon-business-price-tag-2: "\f188";
+$font-flaticon-business-price-tag-3: "\f189";
+$font-flaticon-business-price-tag-4: "\f18a";
+$font-flaticon-business-price-tag-5: "\f18b";
+$font-flaticon-business-price-tag-6: "\f18c";
+$font-flaticon-business-price-tag-7: "\f18d";
+$font-flaticon-business-price-tag-8: "\f18e";
+$font-flaticon-business-price-tag-9: "\f18f";
+$font-flaticon-business-receipt: "\f190";
+$font-flaticon-business-record: "\f191";
+$font-flaticon-business-rewind-time: "\f192";
+$font-flaticon-business-rich: "\f193";
+$font-flaticon-business-safebox: "\f194";
+$font-flaticon-business-safebox-1: "\f195";
+$font-flaticon-business-safebox-2: "\f196";
+$font-flaticon-business-safebox-3: "\f197";
+$font-flaticon-business-safebox-4: "\f198";
+$font-flaticon-business-stamp: "\f199";
+$font-flaticon-business-stamp-1: "\f19a";
+$font-flaticon-business-stand: "\f19b";
+$font-flaticon-business-store: "\f19c";
+$font-flaticon-business-store-1: "\f19d";
+$font-flaticon-business-store-2: "\f19e";
+$font-flaticon-business-store-3: "\f19f";
+$font-flaticon-business-strongbox: "\f1a0";
+$font-flaticon-business-suitcase: "\f1a1";
+$font-flaticon-business-suitcase-1: "\f1a2";
+$font-flaticon-business-suitcase-2: "\f1a3";
+$font-flaticon-business-time-is-money: "\f1a4";
+$font-flaticon-business-time-passing: "\f1a5";
+$font-flaticon-business-wallet: "\f1a6";
+$font-flaticon-business-wallet-1: "\f1a7";
+$font-flaticon-business-wallet-2: "\f1a8";
+$font-flaticon-business-yen: "\f1a9";

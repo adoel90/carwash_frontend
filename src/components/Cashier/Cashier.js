@@ -15,7 +15,7 @@ class Cashier extends React.Component {
 		const { match } = this.props;
 		const path = route.name.replace(/\s+/g, '-').toLowerCase();
 
-		return <PropsRoute path={`${match.url}/${path}`} component={route.component} />
+		return <PropsRoute path={`${match.url}/${path}`} component={route.component} {...this.props}/>
 	}
 
 	render() {

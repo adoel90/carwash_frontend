@@ -5,7 +5,8 @@ class Form extends React.Component {
 	render() {
 		const {
 			children,
-			className
+			className,
+			...rest
 		} = this.props;
 
 		const classes = classNames(
@@ -14,7 +15,7 @@ class Form extends React.Component {
 		)
 
 		return (
-			<form className={classes}>
+			<form className={classes} {...rest}>
 				{children}
 			</form>
 		);

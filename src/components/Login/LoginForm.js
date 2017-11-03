@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { connect } from 'react-redux';
-import { login } from '../../actions/user.action.js';
+import { userLogin } from '../../actions/user.action.js';
 import PropTypes from 'prop-types';
 
 import { Form, FormGroup } from '../Form';
@@ -39,7 +39,7 @@ class LoginForm extends React.Component {
 		const { authentication, dispatch, cookies } = this.props;
 
 		if(username && password) {
-			dispatch(login(username, password));
+			dispatch(userLogin(username, password));
 		}
 	}
 

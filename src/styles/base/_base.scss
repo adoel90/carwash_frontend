@@ -19,8 +19,8 @@
 .main {
 	@include flexbox;
 	@include flex-direction(column);
-	min-height: 100vh;
 	background-color: gray(200);
+	min-height: 100vh;
 	padding-top: 4em;
 
 	&.main--has-subheader {
@@ -39,7 +39,6 @@
 			height: 5em;
 			left: 0;
 			right: 0;
-			max-height: 100vh;
 			background-color: gray(200);
 			border-top: solid 1px gray(300);
 		}

@@ -37,6 +37,7 @@ form {}
 		background-color: gray(100);
 		font-size: inherit;
 		padding: ($spacer * .5);
+		-webkit-appearance: none;
 
 		&:disabled,
 		&:read-only {

@@ -1,10 +1,13 @@
 import {
 	AUTHENTICATE_MEMBER_FULFILLED,
-	AUTHENTICATE_MEMBER_REJECTED
+	AUTHENTICATE_MEMBER_REJECTED,
+	GET_MEMBER_LIST_FULFILLED,
+	GET_MEMBER_LIST_REJECTED
 } from '../actions/member.action'
 
 const initialState = {
 	data: null,
+	memberList: null,
 	accessToken: '',
 	error: null
 }
@@ -15,7 +18,6 @@ const member = (state = initialState, action) => {
 			return {
 				...state,
 				data: action.payload.member,
-				accessToken: action.payload.accessToken,
 				error: null
 			}
 		}
@@ -24,7 +26,22 @@ const member = (state = initialState, action) => {
 			return {
 				...state,
 				data: null,
-				accessToken: '',
+				error: action.payload
+			}
+		}
+
+		case GET_MEMBER_LIST_FULFILLED: {
+			return {
+				...state,
+				memberList: action.payload,
+				error: null
+			}
+		}
+
+		case GET_MEMBER_LIST_REJECTED: {
+			return {
+				...state,
+				memberList: null,
 				error: action.payload
 			}
 		}

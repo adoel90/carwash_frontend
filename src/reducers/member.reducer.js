@@ -2,7 +2,9 @@ import {
 	AUTHENTICATE_MEMBER_FULFILLED,
 	AUTHENTICATE_MEMBER_REJECTED,
 	GET_MEMBER_LIST_FULFILLED,
-	GET_MEMBER_LIST_REJECTED
+	GET_MEMBER_LIST_REJECTED,
+	CREATE_MEMBER_FULFILLED,
+	CREATE_MEMBER_REJECTED
 } from '../actions/member.action'
 
 const initialState = {
@@ -42,6 +44,22 @@ const member = (state = initialState, action) => {
 			return {
 				...state,
 				memberList: null,
+				error: action.payload
+			}
+		}
+
+		case CREATE_MEMBER_FULFILLED: {
+			return {
+				...state,
+				data: action.payload,
+				error: null
+			}
+		}
+
+		case CREATE_MEMBER_REJECTED: {
+			return {
+				...state,
+				data: null,
 				error: action.payload
 			}
 		}

@@ -40,12 +40,12 @@ body {
 	.modal__header,
 	.modal__content,
 	.modal__footer {
-		padding: $spacer * .75;
+		padding: $spacer * .5;
 	}
 
 	.modal__header {
 		border-bottom: solid 1px gray(300);
-		background-color: gray(200);
+		background-color: primary(base);
 	}
 
 	.modal__content {

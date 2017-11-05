@@ -6,7 +6,10 @@ import { Input, InputGroup, InputAddon } from '../components/Input';
 class SearchBar extends React.Component {
 	render() {
 		const {
-			className
+			placeholder,
+			className,
+			onSubmit,
+			onChange
 		} = this.props;
 
 		const classes = classNames(
@@ -15,12 +18,12 @@ class SearchBar extends React.Component {
 		)
 
 		return (
-			<Form className={classes}>
+			<Form onSubmit={onSubmit} className={classes}>
 				<InputGroup>
 					<InputAddon>
 						<i className="icon icon--base fi flaticon flaticon-search-1"></i>
 					</InputAddon>
-					<Input type="text" placeholder="Cari menu..." />
+					<Input type="text" placeholder={placeholder} onChange={onChange} />
 				</InputGroup>
 			</Form>
 		)

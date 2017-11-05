@@ -33,6 +33,8 @@ class Settings extends Component {
 			subroutes
 		} = this.props;
 
+		const firstRoutePath = subroutes[0].name.replace(/\s+/g, '-').toLowerCase();
+
 		return (
 			<main className="main main--has-subheader">
 				<Container className="padding-top-3">
@@ -44,6 +46,7 @@ class Settings extends Component {
 						</div>
 						<div className="column-10">
 							{ subroutes.map(this.renderSubroutes) }
+							<Redirect from={`${match.url}`} to={`${match.url}/${firstRoutePath}`} />
 						</div>
 					</Row>
 				</Container>

@@ -6,7 +6,7 @@ import { PrivateRoute } from '../components/Route';
 import LandingContainer from '../containers/LandingContainer';
 import ServiceContainer from '../containers/ServiceContainer';
 
-class Customer extends Component {
+class CustomerContainer extends Component {
 	render() {
 		const {
 			isAuthenticated,
@@ -24,7 +24,7 @@ class Customer extends Component {
 				/>
 				<PrivateRoute
 					name="service"
-					path='/service'
+					path={`${match.url}/service`}
 					component={ServiceContainer}
 					isAuthenticated={isAuthenticated}
 					user={user}
@@ -37,4 +37,4 @@ class Customer extends Component {
 
 }
 
-export default Customer;
+export default CustomerContainer;

@@ -20,7 +20,9 @@ class CashierTopUp extends Component {
 						</div>
 						<div className="column-9">
 							<div className="padding-bottom-2">
-								<h5 className="fw-semibold">Gesek kartu member pada Card Reader setelah itu isi saldo sesuai permintaan customer.</h5>
+								<h5 className="fw-semibold">
+									Silahkan gesek kartu member pada Card Reader yang telah tersedia.
+								</h5>
 							</div>
 							<CashierTopUpForm {...this.props} />
 						</div>

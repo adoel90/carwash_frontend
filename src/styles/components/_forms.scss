@@ -36,7 +36,7 @@ form {}
 		border: solid 1px gray(300);
 		background-color: gray(100);
 		font-size: inherit;
-		padding: ($spacer * .5);
+		padding: ($spacer * .25) ($spacer * .5);
 		-webkit-appearance: none;
 
 		&:disabled,
@@ -68,7 +68,7 @@ form {}
 		}
 
 		.input-addon {
-			padding: ($spacer * .5);
+			padding: ($spacer * .25) ($spacer * .5);
 			background-color: primary-color(base);
 			border: solid 1px primary-color(base);
 			color: gray(100);

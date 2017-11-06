@@ -18,7 +18,7 @@ class Cashier extends React.Component {
 		return (
 			<PropsRoute
 				key={i}
-				path={`${match.url}/${path}`} 
+				path={`${match.url}/${path}`}
 				component={route.component}
 				{...this.props}
 			/>

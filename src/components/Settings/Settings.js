@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 
 import { Container, Row } from '../Grid';
+import { PageBlock } from '../Page';
 import { PropsRoute } from '../Route';
 
 import MainSidenav from '../MainSidenav';
@@ -37,7 +38,7 @@ class Settings extends Component {
 
 		return (
 			<main className="main main--has-subheader">
-				<Container className="padding-top-3">
+				<Container className="padding-top-3 padding-bottom-3">
 					<Row>
 						<div className="column-2">
 							<aside className="sidebar">

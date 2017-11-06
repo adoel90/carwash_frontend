@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, Row } from '../components/Grid';
-import NavLink from '../components/NavLink';
+import { NavLink } from '../components/Nav';
 
 class MainHeader extends React.Component {
 	render() {

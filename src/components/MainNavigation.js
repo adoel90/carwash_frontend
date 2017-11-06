@@ -1,5 +1,5 @@
 import React from 'react';
-import NavLink from '../components/NavLink';
+import { Nav, NavItem, NavLink } from '../components/Nav';
 
 class MainNavigation extends React.Component {
 	constructor() {
@@ -52,9 +52,9 @@ class MainNavigation extends React.Component {
 
 	renderNavigationItem = (navigation, i) => {
 		return (
-			<li className="navigation__item" key={i}>
+			<NavItem key={i}>
 				<NavLink to={navigation.path}>{navigation.name}</NavLink>
-			</li>
+			</NavItem>
 		)
 	}
 
@@ -64,11 +64,9 @@ class MainNavigation extends React.Component {
 		} = this.state;
 
 		return (
-			<nav className="navigation main-navigation">
-				<ul className="navigation__list">
-					{ navigationList.map(this.renderNavigationItem) }
-				</ul>
-			</nav>
+			<Nav className="main-navigation">
+				{ navigationList.map(this.renderNavigationItem) }
+			</Nav>
 		)
 	}
 }

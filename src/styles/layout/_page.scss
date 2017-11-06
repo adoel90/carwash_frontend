@@ -3,6 +3,7 @@
 	background-color: gray(100);
 	min-height: 5em;
 	width: 100%;
+	overflow: hidden;
 
 	&.page-block--primary {
 		background-color: primary-color(base);

@@ -1,19 +1,26 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 class NavLink extends React.Component {
 	render() {
 		const {
-			route
+			to,
+			route,
+			className
 		} = this.context.router
 
-		// let isActive = this.props.to.includes(route.location.pathname);
 		let isActive = route.location.pathname.includes(this.props.to);
-		let className = isActive ? 'is-active' : '';
+
+		const classes = classNames(
+			'navigation__link',
+			isActive ? 'is-active' : null,
+			className
+		)
 
 		return (
-			<Link className={className} {...this.props}>
+			<Link className={classes} {...this.props}>
 				{this.props.children}
 			</Link>
 		)

@@ -1,6 +1,11 @@
 .sidebar {
-    position: sticky;
-    top: 10em;
-    min-height: calc(100vh - 10em);
-    overflow-y: scroll;
+	position: sticky;
+	top: 10em;
+	max-height: calc(100vh - 12.5em);
+	overflow-y: auto;
+
+	&::-webkit-scrollbar {
+		width: 0px;
+		background: transparent;
+	}
 }

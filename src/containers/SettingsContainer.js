@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { 
+import {
 	Settings,
-	SettingsMember, 
-	SettingsCard, 
-	SettingsService, 
-	SettingsCafe 
+	SettingsMember,
+	SettingsCard,
+	SettingsService,
+	SettingsCafe
 } from '../components/Settings';
 
 class SettingsContainer extends Component {
@@ -12,7 +12,7 @@ class SettingsContainer extends Component {
 		super();
 		this.state = {
 			subroutes: [
-				{ id: 1, name: 'Pengaturan Member', component: SettingsMember  },
+				{ id: 1, name: 'Pengaturan Member', component: SettingsMember },
 				{ id: 2, name: 'Pengaturan Kartu', component: SettingsCard },
 				{ id: 3, name: 'Pengaturan Service', component: SettingsService },
 				{ id: 4, name: 'Pengaturan Cafe', component: SettingsCafe }

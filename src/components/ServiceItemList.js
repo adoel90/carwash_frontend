@@ -9,7 +9,7 @@ import {
 } from '../components/Card';
 import { Modal } from 'reactstrap';
 import { ModalHeader, ModalContent, ModalFooter } from '../components/Modal';
-import Button from '../components/Button';
+import { Button } from '../components/Button';
 import Currency from '../components/Currency';
 
 class ServiceItemList extends React.Component {

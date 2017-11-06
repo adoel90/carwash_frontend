@@ -7,6 +7,9 @@ import {
 	SettingsCafe
 } from '../components/Settings';
 
+import SettingsServiceContainer from './SettingsServiceContainer';
+
+
 class SettingsContainer extends Component {
 	constructor() {
 		super();
@@ -14,7 +17,7 @@ class SettingsContainer extends Component {
 			subroutes: [
 				{ id: 1, name: 'Pengaturan Member', component: SettingsMember },
 				{ id: 2, name: 'Pengaturan Kartu', component: SettingsCard },
-				{ id: 3, name: 'Pengaturan Service', component: SettingsService },
+				{ id: 3, name: 'Pengaturan Service', component: SettingsServiceContainer },
 				{ id: 4, name: 'Pengaturan Cafe', component: SettingsCafe }
 			]
 		}

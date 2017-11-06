@@ -1,12 +1,12 @@
 .button-group {
 	@include flexbox;
 
-	&.button:first-of-type {
+	.button:first-of-type {
 		border-top-right-radius: 0;
 		border-bottom-right-radius: 0;
 	}
 
-	&.button:last-of-type {
+	.button:last-of-type {
 		border-top-left-radius: 0;
 		border-bottom-left-radius: 0;
 	}

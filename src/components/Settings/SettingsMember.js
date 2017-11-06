@@ -8,7 +8,7 @@ import { ModalHeader, ModalContent, ModalFooter } from '../Modal';
 import { Form, FormGroup } from '../Form';
 import { Input, Label } from '../Input';
 import SearchBar from '../SearchBar';
-import Button from '../Button';
+import { Button } from '../Button';
 
 import { PageBlock } from '../Page';
 import { Table } from 'reactstrap';

@@ -10,7 +10,7 @@ import { ModalHeader, ModalContent, ModalFooter } from '../Modal';
 import { default as CardIcon } from '../../assets/icons/Business/credit-card-3.svg';
 import { default as CardIcon2 } from '../../assets/icons/Business/credit-card-4.svg';
 import NumberFormat from 'react-number-format';
-import Button from '../Button';
+import { Button } from '../Button';
 import Currency from '../Currency';
 
 class CashierTopUpForm extends Component {

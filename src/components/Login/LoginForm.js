@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 
 import { Form, FormGroup } from '../Form';
 import { Input, InputGroup, Label } from '../Input';
-import Button from '../Button';
+import { Button } from '../Button';
 
 class LoginForm extends React.Component {
 	constructor() {

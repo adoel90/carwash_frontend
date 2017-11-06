@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { createNewMember } from '../../actions/member.action';
 
 import { Form, FormGroup } from '../Form';
 import { Input, Label } from '../Input';
 import { Modal } from 'reactstrap';
 import { ModalHeader, ModalContent, ModalFooter } from '../Modal';
-import { createNewMember } from '../../actions/member.action';
-import Button from '../Button';
+import { Button } from '../Button';
 
 
 class CashierNewCardForm extends Component {

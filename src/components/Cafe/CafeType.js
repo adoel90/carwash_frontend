@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { CafeMenuList } from '../Cafe';
 import SearchBar from '../SearchBar';
 import Heading from '../Heading';
-import Button from '../Button';
+import { Button } from '../Button';
 
 import { Row } from '../Grid';
 

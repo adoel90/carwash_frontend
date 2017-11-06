@@ -10,7 +10,7 @@ import {
 import { Modal } from 'reactstrap';
 import { ModalHeader, ModalContent, ModalFooter } from '../Modal';
 import { Table } from 'reactstrap';
-import Button from '../Button';
+import { Button } from '../Button';
 import Currency from '../Currency';
 import { CafeFooter } from '../Cafe';
 

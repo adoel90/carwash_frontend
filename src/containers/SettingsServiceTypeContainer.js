@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getServiceList } from '../actions/service.action';
-import { ServiceServiceType } from '../components/Settings/SettingsServiceType';
+import { SettingsServiceType } from '../components/Settings';
 
 class SettingsServiceTypeContainer extends Component {
+	componentDidMount = () => {
+		this.props.getServiceList();
+	}
+
 	render() {
 		return <SettingsServiceType {...this.props} {...this.state} />
 	}
@@ -18,8 +22,14 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
 	const { type, accessToken } = ownProps;
 
+	const requiredData = {
+		type: type.id,
+		limit: 10,
+		offset: 0
+	}
+
 	return {
-		getServiceList: () => dispatch(getServiceList(type, accessToken))
+		getServiceList: () => dispatch(getServiceList(requiredData, accessToken))
 	}
 }
 

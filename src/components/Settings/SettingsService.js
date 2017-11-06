@@ -26,7 +26,7 @@ class SettingsService extends Component {
 				<PropsRoute
 					path={`${match.url}/${i}`}
 					component={SettingsServiceTypeContainer}
-					type={type.id}
+					type={type}
 					{...this.props}
 				/>
 			</TabContent>

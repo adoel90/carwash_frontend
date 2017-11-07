@@ -17,6 +17,12 @@ class CustomerContainer extends Component {
 		this.handleRouteRedirect();
 	}
 
+	componentDidUpdate = (prevProps) => {
+		if(prevProps !== this.props) {
+			this.handleRouteRedirect();
+		}
+	}
+
 	handleRouteRedirect = () => {
 		const { isAuthenticated, match } = this.props;
 
@@ -51,6 +57,7 @@ class CustomerContainer extends Component {
 					accessToken={accessToken}
 					redirectTo={`${match.url}/landing`}
 				/>
+				<Redirect from={`${match.url}`} to={`${match.url}/landing`} />
 			</div>
 		);
 	}

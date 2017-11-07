@@ -14,10 +14,6 @@ class AdminContainer extends React.Component {
 		this.handleRouteRedirect = this.handleRouteRedirect.bind(this);
 	}
 
-	componentDidMount = () => {
-		this.handleRouteRedirect();
-	}
-
 	handleRouteRedirect = () => {
 		const { isAuthenticated, user, match } = this.props;
 
@@ -73,6 +69,8 @@ class AdminContainer extends React.Component {
 				/>
 
 				<Redirect from={`${match.url}`} to={`${match.url}/login`} />
+
+				{ this.handleRouteRedirect() }
 			</div>
 		);
 

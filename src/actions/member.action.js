@@ -4,6 +4,8 @@ import Cookies from 'universal-cookie';
 
 export const AUTHENTICATE_MEMBER_FULFILLED = 'AUTHENTICATE_MEMBER_FULFILLED';
 export const AUTHENTICATE_MEMBER_REJECTED = 'AUTHENTICATE_MEMBER_REJECTED';
+export const MEMBER_TOPUP_FULFILLED = 'MEMBER_TOPUP_FULFILLED';
+export const MEMBER_TOPUP_REJECTED = 'MEMBER_TOPUP_REJECTED';
 export const GET_MEMBER_LIST_FULFILLED = 'GET_MEMBER_LIST_FULFILLED';
 export const GET_MEMBER_LIST_REJECTED = 'GET_MEMBER_LIST_REJECTED';
 export const CREATE_MEMBER_FULFILLED = 'CREATE_MEMBER_FULFILLED';
@@ -27,6 +29,25 @@ export const authenticateMember = (data, accessToken) => {
 
 	function handleSuccess(data) { return { type: AUTHENTICATE_MEMBER_FULFILLED, payload: data }}
 	function handleError(data) { return { type: AUTHENTICATE_MEMBER_REJECTED, payload: data }}
+}
+
+export const memberTopup = (data, accessToken) => {
+	return async dispatch => {
+		axios
+			.post(`${constant.API_PATH}member/topup?accessToken=${accessToken}`, {
+				balance: data.topup
+			})
+			.then((response) => {
+				dispatch(handleSuccess(response));
+			})
+			.catch((error) => {
+				dispatch(handleError(error.response.data));
+			})
+	}
+
+	function handleSuccess(data) { return { type: MEMBER_TOPUP_FULFILLED, payload: data } }
+	function handleError(data) { return { type: MEMBER_TOPUP_REJECTED, payload: data } }
+
 }
 
 export const getMemberList = (data, accessToken) => {

@@ -1,17 +1,37 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-import { Route } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 import { PrivateRoute } from '../components/Route';
 
 import LandingContainer from '../containers/LandingContainer';
 import ServiceContainer from '../containers/ServiceContainer';
 
 class CustomerContainer extends Component {
+	constructor() {
+		super();
+		this.handleRouteRedirect = this.handleRouteRedirect.bind(this);
+	}
+
+	componentDidMount = () => {
+		this.handleRouteRedirect();
+	}
+
+	handleRouteRedirect = () => {
+		const { isAuthenticated, match } = this.props;
+
+		if(isAuthenticated) {
+			<Redirect from={`${match.url}`} to={`${match.url}/service`} />
+		} else {
+			return <Redirect from={`${match.url}`} to={`${match.url}/landing`} />
+		}
+	}
+
 	render() {
 		const {
 			isAuthenticated,
 			accessToken,
-			user,
+			member,
 			match
 		} = this.props;
 
@@ -19,7 +39,7 @@ class CustomerContainer extends Component {
 			<div>
 				<Route
 					name="landing"
-					path="/landing"
+					path={`${match.url}/landing`}
 					component={LandingContainer}
 				/>
 				<PrivateRoute
@@ -27,7 +47,7 @@ class CustomerContainer extends Component {
 					path={`${match.url}/service`}
 					component={ServiceContainer}
 					isAuthenticated={isAuthenticated}
-					user={user}
+					member={member}
 					accessToken={accessToken}
 					redirectTo={`${match.url}/landing`}
 				/>

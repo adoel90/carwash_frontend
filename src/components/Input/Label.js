@@ -9,6 +9,7 @@ const Label = (props) => {
 	} = props;
 
 	const classes = classNames(
+		'form-label',
 		className
 	)
 

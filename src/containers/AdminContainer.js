@@ -14,27 +14,20 @@ class AdminContainer extends React.Component {
 		this.handleRouteRedirect = this.handleRouteRedirect.bind(this);
 	}
 
+	componentDidMount = () => {
+		this.handleRouteRedirect();
+	}
+
 	handleRouteRedirect = () => {
 		const { isAuthenticated, user, match } = this.props;
 
 		if(!isAuthenticated) {
-			return <Route name="login" path={`${match.url}/login`} component={ LoginContainer } />
+			return <Redirect from={`${match.url}`} to={`${match.url}/login`} />
 		} else {
 			switch(user.level.id) {
-				case 1: {
-					return <Redirect to={`${match.url}/dashboard`} />
-
-					break;
-				}
-				case 2: {
-					return <Redirect to={`${match.url}/cafe`} />
-
-					break;
-				}
-
-				default: {
-					return null;
-				}
+				case 1: return <Redirect to={`${match.url}/dashboard`} />
+				case 2: return <Redirect to={`${match.url}/cafe`} />
+				default: return null;
 			}
 		}
 	}
@@ -50,6 +43,7 @@ class AdminContainer extends React.Component {
 
 		return (
 			<div>
+				<Route name="login" path={`${match.url}/login`} component={ LoginContainer } />
 				<PrivateRoute
 					name="cafe"
 					path={`${match.url}/cafe`}
@@ -79,8 +73,6 @@ class AdminContainer extends React.Component {
 				/>
 
 				<Redirect from={`${match.url}`} to={`${match.url}/login`} />
-
-				{ this.handleRouteRedirect() }
 			</div>
 		);
 

@@ -3,7 +3,7 @@ form {}
 .form {
 	.form-group {
 		@include relative;
-		margin-bottom: $spacer * .5;
+		margin-bottom: $spacer * .75;
 
 		&.form-group--row {
 			@include flexbox;
@@ -11,15 +11,20 @@ form {}
 			@include align-items(center);
 			@include justify-content(center);
 
-			> label {
+			> .form-label {
 				width: 25%;
 				text-align: right;
 				padding-right: $spacer * .5;
 			}
 
-			> input {
+			> .form-control {
 				width: 100%;
 			}
+		}
+
+		.form-label {
+			display: block;
+			margin-bottom: $spacer * .25;
 		}
 
 		&:last-of-type {
@@ -27,7 +32,6 @@ form {}
 		}
 	}
 
-	//	Control class for input, textarea and alike
 	.form-control {
 		@include transition(all 500ms $transition-primary);
 		@include border-radius(small);
@@ -36,8 +40,7 @@ form {}
 		border: solid 1px gray(300);
 		background-color: gray(100);
 		font-size: inherit;
-		padding: ($spacer * .25) ($spacer * .5);
-		-webkit-appearance: none;
+		padding: ($spacer * .4) ($spacer * .5);
 
 		&:disabled,
 		&:read-only {
@@ -53,6 +56,7 @@ form {}
 	.input-group {
 		@include flexbox;
 		overflow: hidden;
+		width: 100%;
 
 		> *:first-child {
 			border: solid 1px gray(300);
@@ -68,10 +72,18 @@ form {}
 		}
 
 		.input-addon {
-			padding: ($spacer * .25) ($spacer * .5);
+			padding: ($spacer * .4) ($spacer * .5);
 			background-color: primary-color(base);
 			border: solid 1px primary-color(base);
 			color: gray(100);
 		}
+	}
+
+	select.form-control {
+		-webkit-appearance: none;
+		appearance: none;
+		background-color: gray(100) !important;
+		background: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Cpath fill='%23333' d='M2 0L0 2h4zm0 5L0 3h4z'/%3E%3C/svg%3E") no-repeat right .75rem center;
+		background-size: 8px 10px;
 	}
 }

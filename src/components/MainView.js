@@ -27,7 +27,7 @@ class MainView extends React.Component {
 					isAuthenticated={isAuthenticated}
 					user={user}
 					accessToken={accessToken}
-					redirectTo={`admin/login`}
+					redirectTo="/"
 				/>
 			</Switch>
 		)

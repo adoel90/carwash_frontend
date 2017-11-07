@@ -22,13 +22,15 @@ class Input extends React.Component {
 			type,
 			rows,
 			value,
+			size,
 			selectOnFocus,
 			...attributes
 		} = this.props;
 
 		const classes = classNames(
 			className,
-			'form-control'
+			'form-control',
+			size ? `form-control--${size}` : null
 		)
 
 		const fileInput = type === 'file';

@@ -1,6 +1,8 @@
 import {
 	AUTHENTICATE_MEMBER_FULFILLED,
 	AUTHENTICATE_MEMBER_REJECTED,
+	MEMBER_TOPUP_FULFILLED,
+	MEMBER_TOPUP_REJECTED,
 	GET_MEMBER_LIST_FULFILLED,
 	GET_MEMBER_LIST_REJECTED,
 	CREATE_MEMBER_FULFILLED,
@@ -8,9 +10,9 @@ import {
 } from '../actions/member.action'
 
 const initialState = {
-	data: null,
-	memberList: null,
-	accessToken: '',
+	member: null,
+	list: null,
+	new: null,
 	error: null
 }
 
@@ -19,7 +21,7 @@ const member = (state = initialState, action) => {
 		case AUTHENTICATE_MEMBER_FULFILLED: {
 			return {
 				...state,
-				data: action.payload.member,
+				data: action.payload,
 				error: null
 			}
 		}
@@ -32,10 +34,23 @@ const member = (state = initialState, action) => {
 			}
 		}
 
+		case MEMBER_TOPUP_FULFILLED: {
+			return {
+				...state
+			}
+		}
+
+		case MEMBER_TOPUP_REJECTED: {
+			return {
+				...state,
+				error: action.payload
+			}
+		}
+
 		case GET_MEMBER_LIST_FULFILLED: {
 			return {
 				...state,
-				memberList: action.payload,
+				list: action.payload,
 				error: null
 			}
 		}
@@ -43,7 +58,7 @@ const member = (state = initialState, action) => {
 		case GET_MEMBER_LIST_REJECTED: {
 			return {
 				...state,
-				memberList: null,
+				list: null,
 				error: action.payload
 			}
 		}
@@ -51,7 +66,7 @@ const member = (state = initialState, action) => {
 		case CREATE_MEMBER_FULFILLED: {
 			return {
 				...state,
-				data: action.payload,
+				new: action.payload,
 				error: null
 			}
 		}
@@ -59,7 +74,7 @@ const member = (state = initialState, action) => {
 		case CREATE_MEMBER_REJECTED: {
 			return {
 				...state,
-				data: null,
+				new: null,
 				error: action.payload
 			}
 		}

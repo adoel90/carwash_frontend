@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 import { Modal } from 'reactstrap';
-import { authenticateMember } from '../../actions/member.action'
+import { authenticateMember, memberTopup } from '../../actions/member.action'
 import { Form, FormGroup } from '../Form';
-import { Input, InputGroup, InputCurrency, Label } from '../Input';
+import { Input, InputGroup, InputAddon, InputCurrency, Label } from '../Input';
 import { Row } from '../Grid';
 import { ModalHeader, ModalContent, ModalFooter } from '../Modal';
 import { default as CardIcon } from '../../assets/icons/Business/credit-card-3.svg';
@@ -18,61 +18,35 @@ class CashierTopUpForm extends Component {
 		super();
 		this.state = {
 			cardId: '',
+			topup: '',
 			isTopupModalOpen: false
 		}
 
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.handleChange = this.handleChange.bind(this);
 		this.handleScroll = this.handleScroll.bind(this);
+		this.handleTopup = this.handleTopup.bind(this);
 		this.toggleModal = this.toggleModal.bind(this);
 		this.renderMemberInfo = this.renderMemberInfo.bind(this);
 	}
 
-	renderMemberInfo = () => {
-		const { member } = this.props;
+	componentDidUpdate = () => {
+		console.log(this.state);
+	}
 
-		return (
-			<ModalContent>
-				<Row className="flex align-items--center">
-					<div className="column-3 flex flex-column align-items--center">
-						<img src={CardIcon} />
-					</div>
-					<div className="column-9">
-						<div className="padding-bottom-3">
-							<h4 className="fw-bold">{member.data.name}</h4>
-							<h5 className="fw-semibold">
-								<NumberFormat
-									displayType={'text'}
-									format="#### #### #### ####"
-									value={member.data.card.id}
-								/>
-							</h5>
-							<p>{member.data.email}</p>
-							<p>{member.data.address}</p>
+	handleTopup = (e) => {
+		const {
+			dispatch,
+			member
+		} = this.props;
 
-						</div>
-						<Form onSubmit={this.handleTopup}>
-							<FormGroup>
-								<Label className="fw-semibold">Saldo saat ini</Label>
-								<InputCurrency value={member.data.balance} readOnly="true" />
-							</FormGroup>
-							<FormGroup>
-								<Label className="fw-semibold">Jumlah Saldo yang Diinginkan</Label>
-								<InputCurrency type="text" placeholder="Rp " autoFocus="true" />
-							</FormGroup>
-							<FormGroup>
-								<Label className="fw-semibold">Metode Pembayaran</Label>
-								<Input type="select">
-									<option>Cash</option>
-									<option>Debit</option>
-									<option>Kredit</option>
-								</Input>
-							</FormGroup>
-						</Form>
-					</div>
-				</Row>
-			</ModalContent>
-		)
+		e.preventDefault();
+
+		const requiredData = {
+			topup: parseInt(this.state.topup)
+		}
+
+		dispatch(memberTopup(requiredData, member.data.accessToken))
 	}
 
 	toggleModal = () => { this.setState({ isTopupModalOpen: !this.state.isTopupModalOpen })}
@@ -91,7 +65,6 @@ class CashierTopUpForm extends Component {
 			card: cardId
 		}
 
-
 		dispatch(authenticateMember(requiredData, accessToken))
 			.then(() => {
 				this.toggleModal();
@@ -99,13 +72,68 @@ class CashierTopUpForm extends Component {
 	}
 
 	handleChange = (e) => {
+		const target = e.target;
+		const value = target.type === 'checkbox' ? target.checkbox : target.value;
+		const name = target.name;
+
 		this.setState({
-			cardId: e.target.value
-		})
+			[name]: value
+		});
 	}
 
 	handleScroll = (e) => {
 		e.preventDefault();
+	}
+
+	renderMemberInfo = () => {
+		const { member } = this.props;
+
+		return (
+			<ModalContent>
+				<Row className="flex align-items--center">
+					<div className="column-3 flex flex-column align-items--center">
+						<img src={CardIcon} />
+					</div>
+					<div className="column-9">
+						<div className="padding-bottom-3">
+							<h4 className="fw-semibold clr-primary">{member.data.member.name}</h4>
+							<h5 className="fw-semibold">
+								<NumberFormat
+									displayType={'text'}
+									format="#### #### #### ####"
+									value={member.data.member.card.id}
+								/>
+							</h5>
+							<p>{member.data.member.email}</p>
+							<p>{member.data.member.address}</p>
+						</div>
+					</div>
+				</Row>
+				<FormGroup row>
+					<Label className="fw-semibold">Saldo saat ini</Label>
+					<InputCurrency value={member.data.member.balance} readOnly="true" />
+				</FormGroup>
+				<FormGroup row>
+					<Label className="fw-semibold">Tambah Saldo</Label>
+					<InputGroup>
+						<InputAddon>
+							<small className="tt-uppercase fw-semibold ls-base">Rp</small>
+						</InputAddon>
+						<Input name="topup" type="text" placeholder="Masukkan jumlah saldo yang diinginkan" onChange={this.handleChange} autoFocus="true" required="required" />
+					</InputGroup>
+
+					{/* <InputCurrency name="balance" type="text" placeholder="Rp " onChange={this.handleChange} autoFocus="true" /> */}
+				</FormGroup>
+				<FormGroup row>
+					<Label className="fw-semibold">Pilih Metode Pembayaran</Label>
+					<Input type="select">
+						<option>Cash</option>
+						<option>Debit</option>
+						<option>Kredit</option>
+					</Input>
+				</FormGroup>
+			</ModalContent>
+		)
 	}
 
 	render() {
@@ -116,25 +144,23 @@ class CashierTopUpForm extends Component {
 		return (
 			<Form onSubmit={this.handleSubmit}>
 				<FormGroup>
-					<Label className="fw-semibold">No. Kartu Member</Label>
 					<InputGroup>
-						<Input type="number" placeholder="ID Customer" autoFocus="true" value={this.state.cardId} onChange={this.handleChange} selectOnFocus />
-						{/* <Button type="button" buttonTheme="primary" disabled={!member.data}>
-							<small className="tt-uppercase fw-semibold ls-base">{!member.data ? 'Kartu Tidak Terdeteksi' : 'Kartu Terdeteksi'}</small>
-						</Button> */}
+						<Input name="cardId" type="number" placeholder="Gesek kartu untuk mendapatkan informasi customer" autoFocus="true" value={this.state.cardId} onChange={this.handleChange} selectOnFocus />
 					</InputGroup>
 					{ member.error ? <small className="clr-danger">{member.error.message}</small> : null}
 				</FormGroup>
 				<Modal isOpen={this.state.isTopupModalOpen} toggle={this.toggleModal}>
-					<ModalHeader>
-						<h6 className="fw-semibold ta-center">Isi Ulang Saldo Customer</h6>
-					</ModalHeader>
-					{ member.data ? this.renderMemberInfo() : null }
-					<ModalFooter>
-						<Button buttonTheme="primary" buttonFull>
-							<small className="tt-uppercase fw-semibold ls-base">Isi Saldo</small>
-						</Button>
-					</ModalFooter>
+					<Form onSubmit={this.handleTopup}>
+						<ModalHeader>
+							<h6 className="fw-semibold ta-center">Isi Ulang Saldo Customer</h6>
+						</ModalHeader>
+						{ member.data ? this.renderMemberInfo() : null }
+						<ModalFooter>
+							<Button buttonTheme="primary" buttonFull>
+								<small className="tt-uppercase fw-semibold ls-base">Selesai & Print Struk</small>
+							</Button>
+						</ModalFooter>
+					</Form>
 				</Modal>
 			</Form>
 		);

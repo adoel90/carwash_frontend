@@ -3,19 +3,12 @@ import {
 	USER_LOGIN_FULFILLED,
 	USER_LOGIN_REJECTED,
 	USER_LOGOUT_FULFILLED,
-	USER_LOGOUT_REJECTED
+	USER_LOGOUT_REJECTED,
 } from '../actions/user.action'
-
-import {
-	AUTHENTICATE_MEMBER_FULFILLED,
-	AUTHENTICATE_MEMBER_REJECTED
-} from '../actions/member.action'
-
 
 const initialState = {
 	accessToken: '',
 	user: {},
-	member: {},
 	isLoggingIn: false,
 	isAuthenticated: false,
 	error: {}

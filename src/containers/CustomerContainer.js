@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 
 import { Route, Redirect } from 'react-router-dom';
 import { PrivateRoute } from '../components/Route';
+
+import MainHeader from '../components/MainHeader';
+import MainSubheader from '../components/MainSubheader';
+import MainContent from '../components/MainContent';
 
 import LandingContainer from '../containers/LandingContainer';
 import ServiceContainer from '../containers/ServiceContainer';
@@ -11,23 +14,21 @@ class CustomerContainer extends Component {
 	constructor() {
 		super();
 		this.handleRouteRedirect = this.handleRouteRedirect.bind(this);
-	}
-
-	componentDidMount = () => {
-		this.handleRouteRedirect();
-	}
-
-	componentDidUpdate = (prevProps) => {
-		if(prevProps !== this.props) {
-			this.handleRouteRedirect();
+		this.state = {
+			navigationItems: [
+				{ id: 1, name: 'Service', path: "/customer/service" }
+			]
 		}
 	}
 
 	handleRouteRedirect = () => {
-		const { isAuthenticated, match } = this.props;
+		const {
+			isAuthenticated,
+			match
+		} = this.props;
 
 		if(isAuthenticated) {
-			<Redirect from={`${match.url}`} to={`${match.url}/service`} />
+			return <Redirect from={`${match.url}`} to={`${match.url}/service`} />
 		} else {
 			return <Redirect from={`${match.url}`} to={`${match.url}/landing`} />
 		}
@@ -43,21 +44,26 @@ class CustomerContainer extends Component {
 
 		return (
 			<div>
-				<Route
-					name="landing"
-					path={`${match.url}/landing`}
-					component={LandingContainer}
-				/>
-				<PrivateRoute
-					name="service"
-					path={`${match.url}/service`}
-					component={ServiceContainer}
-					isAuthenticated={isAuthenticated}
-					member={member}
-					accessToken={accessToken}
-					redirectTo={`${match.url}/landing`}
-				/>
-				<Redirect from={`${match.url}`} to={`${match.url}/landing`} />
+				<MainHeader {...this.state} {...this.props} />
+				<MainSubheader {...this.state} {...this.props} />
+				<MainContent>
+					<Route
+						name="landing"
+						path={`${match.url}/landing`}
+						component={LandingContainer}
+					/>
+					<PrivateRoute
+						name="service"
+						path={`${match.url}/service`}
+						component={ServiceContainer}
+						isAuthenticated={isAuthenticated}
+						member={member}
+						accessToken={accessToken}
+						redirectTo={`${match.url}/landing`}
+					/>
+					<Redirect from={`${match.url}`} to={`${match.url}/landing`} />
+					{ this.handleRouteRedirect() }
+				</MainContent>
 			</div>
 		);
 	}

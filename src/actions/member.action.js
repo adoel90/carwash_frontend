@@ -13,14 +13,19 @@ export const CREATE_MEMBER_REJECTED = 'CREATE_MEMBER_REJECTED';
 
 const cookies = new Cookies();
 
-export const authenticateMember = (data, accessToken) => {
+export const authenticateMember = (data) => {
 	return async dispatch => {
 		axios
-			.post(`${constant.API_PATH}member/authenticate?accessToken=${accessToken}`, {
+			.post(`${constant.API_PATH}member/authenticate`, {
 				card: data.card
 			})
 			.then((response) => {
 				dispatch(handleSuccess(response.data.data));
+				cookies.set('accessToken', response.data.data.accessToken, { path: '/' });
+				cookies.set('member', response.data.data.member, { path: '/' });
+			})
+			.then(() => {
+				window.location.reload();
 			})
 			.catch((error) => {
 				dispatch(handleError(error.response.data))

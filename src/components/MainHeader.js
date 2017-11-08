@@ -3,6 +3,25 @@ import { Container, Row } from '../components/Grid';
 import { NavLink } from '../components/Nav';
 
 class MainHeader extends React.Component {
+	constructor() {
+		super();
+		this.renderHeaderProfile = this.renderHeaderProfile.bind(this);
+	}
+
+	renderHeaderProfile = () => {
+		const { match, isAuthenticated } = this.props;
+
+		if(isAuthenticated) {
+			return (
+				<div className="header-profile header__block">
+					<NavLink to="/logout">Keluar</NavLink>
+				</div>
+			)
+		}
+
+		return null;
+	}
+
 	render() {
 		const {
 			isAuthenticated,
@@ -11,8 +30,13 @@ class MainHeader extends React.Component {
 
 		return (
 			<header className="header main-header">
-				<Container>
-					<Row className="flex justify-content--space-between clr-light">
+				<Container className="main-header__container">
+					<div className="header-logo header__block">
+						<h6 className="header__logo">Carwash 805</h6>
+					</div>
+					{ this.renderHeaderProfile() }
+
+					{/* <Row className="flex justify-content--space-between clr-light">
 						<div className="header__block column-auto justify-content--flex-start">
 							<h6 className="tt-uppercase fw-bold ls-base">Carwash 805</h6>
 						</div>
@@ -22,10 +46,8 @@ class MainHeader extends React.Component {
 									? <NavLink to="/logout">Keluar</NavLink>
 									: null
 							}
-
-							{/* <a onClick={this.logout()}>Logout</a> */}
 						</div>
-					</Row>
+					</Row> */}
 				</Container>
 
 				{/* <div className="header__container container">

@@ -38,8 +38,6 @@ class Cafe extends React.Component {
 
 		const firstRoutePath = cafeTypes[0].name.replace(/\s+/g, '-').toLowerCase();
 
-		console.log(this.props);
-
 		return (
 			<main className="main main--has-subheader">
 				<Container className="padding-top-3">

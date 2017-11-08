@@ -25,8 +25,6 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-	console.log(ownProps);
-
 	const { accessToken, type } = ownProps;
 	const requiredData = {
 		cafe: type.id,

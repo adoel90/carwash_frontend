@@ -10,9 +10,11 @@ header {}
 			right: 0;
 		}
 		background-color: primary-color(base);
+		color: gray(100);
 
-		.header__logo {
-			color: gray(100);
+		.main-header__container {
+			@include flexbox;
+			@include justify-content(space-between);
 		}
 	}
 
@@ -22,13 +24,22 @@ header {}
 			left: 0;
 			right: 0;
 		}
+		height: 4em;
+		background-color: gray(1700);
+	}
+
+	/**/
+	.header-logo {
+		@include font-weight(700);
+		text-transform: uppercase;
+		letter-spacing: letter-spacing(large);
 	}
 
 	.header__block {
-		@include flexbox {
-			@include align-items(center);
-		}
+		@include flexbox;
+		@include align-items(center);
+		@include justify-content(center);
+		@include relative;
 		height: 4em;
 	}
-
 }

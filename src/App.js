@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 
 import { withCookies, Cookies } from 'react-cookie';
 
-import MainHeader from './components/MainHeader';
-import MainSubheader from './components/MainSubheader';
 import MainView from './components/MainView';
 
 class App extends React.Component {
@@ -12,7 +10,8 @@ class App extends React.Component {
 		super();
 		this.handleAccessToken = this.handleAccessToken.bind(this);
 		this.state = {
-			user: {},
+			user: null,
+			member: null,
 			accessToken: '',
 			isAuthenticated: false
 		}
@@ -25,10 +24,12 @@ class App extends React.Component {
 	handleAccessToken = () => {
 		const { cookies } = this.props;
 		const token = cookies.get('accessToken') || null;
-		const user = cookies.get('user') || null;
+		const user = Object.assign({}, cookies.get('user') || null);
+		const member = Object.assign({}, cookies.get('member') || null);
 
 		this.setState({
 			user: user,
+			member: member,
 			accessToken: token,
 			isAuthenticated: token ? true : false
 		})
@@ -36,11 +37,7 @@ class App extends React.Component {
 
 	render() {
 		return (
-			<div>
-				<MainHeader {...this.state} {...this.props} />
-				<MainSubheader {...this.state} {...this.props} />
-				<MainView {...this.state} {...this.props} />
-			</div>
+			<MainView {...this.state} {...this.props} />
 		);
 	}
 }

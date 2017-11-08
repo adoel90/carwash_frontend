@@ -8,7 +8,7 @@ import {
 
 const initialState = {
 	accessToken: '',
-	user: {},
+	user: null,
 	isLoggingIn: false,
 	isAuthenticated: false,
 	error: {}

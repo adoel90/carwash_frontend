@@ -63,7 +63,7 @@ class ServiceItemList extends React.Component {
 						<p className="card__text">{item.description}</p>
 					</CardBody>
 					<CardFooter>
-						<Button buttonType="button" buttonTheme="primary" buttonFull onClick={this.toggleModal.bind(this, i)}>
+						<Button type="button" buttonTheme="primary" buttonFull onClick={this.toggleModal.bind(this, i)}>
 							<small className="tt-uppercase fw-bold ls-base">Pilih</small>
 						</Button>
 					</CardFooter>

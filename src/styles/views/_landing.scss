@@ -1,0 +1,17 @@
+.landing {
+	@include relative;
+	@include flexbox;
+	height: 100%;
+	background-color: primary-color(base);
+
+	.landing__container {
+		@extend .container;
+		@include flex(1 1 100%);
+		@include flexbox;
+		@include flex-direction(column);
+		@include align-items(center);
+		@include justify-content(center);
+		color: gray(100);
+	}
+
+}

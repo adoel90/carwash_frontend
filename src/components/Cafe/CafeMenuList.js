@@ -122,7 +122,7 @@ class CafeMenuList extends Component {
 						<p className="card__text">{menu.description}</p>
 					</CardBody>
 					<CardFooter>
-						<Button buttonType="button" buttonTheme={menu.selected ? 'dark' : 'primary'} buttonFull onClick={this.selectMenu.bind(this, menu)}>
+						<Button type="button" buttonTheme={menu.selected ? 'dark' : 'primary'} buttonFull onClick={this.selectMenu.bind(this, menu)}>
 							<small className="tt-uppercase fw-bold ls-base">{menu.selected ? 'Terpilih' : 'Pilih Menu'}</small>
 						</Button>
 					</CardFooter>

@@ -17,6 +17,7 @@
 	background-color: gray(100);
 	min-height: 5em;
 	width: 100%;
+	box-shadow: map-get($box-shadow, base);
 	overflow: hidden;
 
 	&.page-block--primary {

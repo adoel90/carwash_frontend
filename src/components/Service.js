@@ -58,7 +58,7 @@ class Service extends React.Component {
 											<p className="clr-passive">Silahkan pilih layanan yang diinginkan.</p>
 										</div>
 										<div className="column-3 ta-center">
-											<small className="tt-uppercase ls-base clr-passive fw-semibold">Saldo Anda</small>
+											<h6 className="tt-uppercase ls-base clr-passive fw-semibold">Saldo Anda</h6>
 											<h5 className="fw-bold">
 												<Currency value={member.balance} />
 											</h5>

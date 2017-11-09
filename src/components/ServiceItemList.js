@@ -21,6 +21,8 @@ class ServiceItemList extends React.Component {
 		this.renderServiceItem = this.renderServiceItem.bind(this);
 		this.renderConfirmationModal = this.renderConfirmationModal.bind(this);
 		this.handleServiceTransaction = this.handleServiceTransaction.bind(this);
+		this.renderModalContent = this.renderModalContent.bind(this);
+		this.renderModalFooter = this.renderModalFooter.bind(this);
 		this.state = {
 			selectedService: {}
 		}
@@ -51,6 +53,60 @@ class ServiceItemList extends React.Component {
 		e.preventDefault();
 
 		this.props.handleServiceTransaction(selectedService.id);
+	}
+
+	renderModalContent = () => {
+		const { member } = this.props;
+		const { selectedService } = this.state;
+
+		if(member.balance > selectedService.price) {
+			return (
+				<ModalContent className="flex flex-column justify-content--center align-items--center ta-center">
+					<img style={{ width: '150px' }} src={CashierIcon} />
+					<h3 className="fw-semibold clr-primary"><Currency value={selectedService.price} /></h3>
+					{/* <p className="clr-success">Saldo Anda cukup untuk melakukan pembayaran.</p> */}
+					<p className="h6">Anda telah memilih layanan <span className="fw-semibold">{selectedService.name}</span>. <br /> Silahkan konfirmasi kembali pilihan Anda sebelum melanjutkan.</p>
+				</ModalContent>
+			)
+		}
+		else {
+			return (
+				<ModalContent className="flex flex-column justify-content--center align-items--center ta-center">
+					{/* <h3 className="fw-semibold clr-primary"><Currency value={selectedService.price} /></h3> */}
+					<h5 className="clr-danger">Maaf, saldo Anda tidak cukup untuk melakukan pembayaran. <br/> Silahkan lakukan top-up terlebih dahulu di kasir.</h5>
+				</ModalContent>
+			)
+		}
+	}
+
+	renderModalFooter = () => {
+		const { member } = this.props;
+		const { selectedService } = this.state;
+
+		if(member.balance > selectedService.price) {
+			return (
+				<ModalFooter>
+					<div className="flex">
+						<Button type="button" buttonTheme="danger" className="margin-right-2" onClick={this.toggleModal} buttonFull>
+							<small className="fw-semibold ls-base tt-uppercase">Batal</small>
+						</Button>
+						<Button type="submit" buttonTheme="primary" buttonFull>
+							<small className="fw-semibold ls-base tt-uppercase">Bayar</small>
+						</Button>
+					</div>
+				</ModalFooter>
+			)
+		} else {
+			return (
+				<ModalFooter>
+					<div className="flex">
+						<Button type="button" buttonTheme="danger" onClick={this.toggleModal} buttonFull>
+							<small className="fw-semibold ls-base tt-uppercase">Kembali</small>
+						</Button>
+					</div>
+				</ModalFooter>
+			)
+		}
 	}
 
 	renderServiceItem = (item, i) => {
@@ -90,22 +146,8 @@ class ServiceItemList extends React.Component {
 					<ModalHeader align="center">
 						<h5 className="fw-semibold">Pembayaran: <span className="clr-primary fw-bold">{selectedService.name}</span></h5>
 					</ModalHeader>
-					<ModalContent className="flex flex-column justify-content--center align-items--center ta-center">
-						<img style={{ width: '150px' }} src={CashierIcon} />
-						<h3 className="fw-semibold clr-primary"><Currency value={selectedService.price} /></h3>
-						{/* <p className="clr-success">Saldo Anda cukup untuk melakukan pembayaran.</p> */}
-						<p className="h6">Anda telah memilih layanan <span className="fw-semibold">{selectedService.name}</span>. <br /> Silahkan konfirmasi kembali pilihan Anda sebelum melanjutkan.</p>
-					</ModalContent>
-					<ModalFooter>
-						<div className="flex">
-							<Button type="button" buttonTheme="danger" className="margin-right-2" onClick={this.toggleModal} buttonFull>
-								<small className="fw-semibold ls-base tt-uppercase">Batal</small>
-							</Button>
-							<Button type="submit" buttonTheme="primary" buttonFull>
-								<small className="fw-semibold ls-base tt-uppercase">Bayar</small>
-							</Button>
-						</div>
-					</ModalFooter>
+					{this.renderModalContent()}
+					{this.renderModalFooter()}
 				</Form>
 			</Modal>
 		)

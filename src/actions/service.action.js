@@ -11,6 +11,8 @@ export const GET_SERVICE_TYPES_REJECTED = 'GET_SERVICE_TYPES_REJECTED';
 export const CREATE_SERVICE_TRANSACTION_FULFILLED = 'CREATE_SERVICE_TRANSACTION_FULFILLED';
 export const CREATE_SERVICE_TRANSACTION_REJECTED = 'CREATE_SERVICE_TRANSACTION_REJECTED';
 
+const cookies = new Cookies();
+
 export const getServiceList = (data, accessToken) => {
 	return async dispatch => {
 		return axios
@@ -56,7 +58,8 @@ export const createServiceTransaction = (data, accessToken) => {
 				service: data.service
 			})
 			.then((response) => {
-				dispatch(handleSuccess(response.data))
+				dispatch(handleSuccess(response.data));
+				cookies.set('member', response.data.data, { path: '/' });
 			})
 			.catch((error) => {
 				dispatch(handleError(error))

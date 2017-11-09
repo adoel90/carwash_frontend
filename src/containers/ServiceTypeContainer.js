@@ -28,7 +28,10 @@ class ServiceTypeContainer extends React.Component {
 			service: serviceId
 		}
 
-		dispatch(createServiceTransaction(requiredData, accessToken));
+		dispatch(createServiceTransaction(requiredData, accessToken))
+			.then(() => {
+				window.location.reload();
+			})
 	}
 
 	handleAccessToken = () => {

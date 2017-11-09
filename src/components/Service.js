@@ -1,6 +1,8 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 
+import { PageBlock } from '../components/Page';
+import Currency from '../components/Currency';
 import { PropsRoute } from '../components/Route';
 import { Container, Row } from '../components/Grid';
 import MainSidenav from '../components/MainSidenav';
@@ -24,6 +26,7 @@ class Service extends React.Component {
 				path={`${match.url}/${path}`}
 				component={ServiceTypeContainer}
 				type={type}
+				{...this.props}
 			/>
 		)
 	};
@@ -31,10 +34,13 @@ class Service extends React.Component {
 	render() {
 		const {
 			match,
+			member,
 			serviceTypes
 		} = this.props;
 
 		const firstRoutePath = serviceTypes[0].name.replace(/\s+/g, '-').toLowerCase();
+
+		console.log(member);
 
 		return (
 			<main className="main main--has-subheader">
@@ -44,6 +50,23 @@ class Service extends React.Component {
 							<MainSidenav items={ serviceTypes } basePath={match.path} />
 						</aside>
 						<div className="column-10">
+							<div className="heading padding-bottom-1">
+								<PageBlock>
+									<Row>
+										<div className="column-9">
+											<h5 className="fw-medium">Selamat datang, <span className="fw-semibold">{member.name}.</span></h5>
+											<p className="clr-passive">Silahkan pilih layanan yang diinginkan.</p>
+										</div>
+										<div className="column-3 ta-center">
+											<small className="tt-uppercase ls-base clr-passive fw-semibold">Saldo Anda</small>
+											<h5 className="fw-bold">
+												<Currency value={member.balance} />
+											</h5>
+										</div>
+									</Row>
+								</PageBlock>
+
+							</div>
 							{ serviceTypes.map(this.renderServiceType) }
 							<Redirect from="/*" to={`${match.url}/${firstRoutePath}`} />
 						</div>

@@ -31,10 +31,6 @@ class AdminContainer extends React.Component {
 		}
 	}
 
-	// componentDidUpdate = () => {
-	// 	console.log(this.state.navigationItems);
-	// }
-
 	handleNavigationItems = () => {
 		const { user } = this.props;
 		const level = user.level.id;

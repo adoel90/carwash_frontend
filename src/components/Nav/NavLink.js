@@ -11,6 +11,10 @@ class NavLink extends React.Component {
 			className
 		} = this.context.router
 
+		const {
+			children
+		} = this.props;
+
 		let isActive = route.location.pathname.includes(this.props.to);
 
 		const classes = classNames(
@@ -21,7 +25,7 @@ class NavLink extends React.Component {
 
 		return (
 			<Link className={classes} {...this.props}>
-				{this.props.children}
+				{children}
 			</Link>
 		)
 	}

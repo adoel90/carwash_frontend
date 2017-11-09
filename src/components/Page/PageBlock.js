@@ -3,6 +3,8 @@ import classNames from 'classnames';
 
 const PageBlock = (props) => {
 	const {
+		theme,
+		extension,
 		children,
 		className,
 		primary,
@@ -11,8 +13,9 @@ const PageBlock = (props) => {
 
 	const classes = classNames(
 		'page-block',
+		extension ? 'page-block--extension' : null,
 		className,
-		primary ? 'page-block--primary' : null
+		theme ? `page-block--${theme}` : null,
 	)
 
 	return (

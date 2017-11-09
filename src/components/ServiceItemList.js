@@ -11,43 +11,47 @@ import { Modal } from 'reactstrap';
 import { ModalHeader, ModalContent, ModalFooter } from '../components/Modal';
 import { Button } from '../components/Button';
 import Currency from '../components/Currency';
+import { Icon } from '../components/Icon';
+import { Form } from '../components/Form';
+import { default as CashierIcon } from '../assets/icons/Business/cashier.svg';
 
 class ServiceItemList extends React.Component {
-	constructor(props) {
-		super(props);
+	constructor() {
+		super();
 		this.renderServiceItem = this.renderServiceItem.bind(this);
-		// this.toggleModal = this.toggleModal.bind(this);
+		this.renderConfirmationModal = this.renderConfirmationModal.bind(this);
+		this.handleSubmit = this.handleSubmit.bind(this);
 		this.state = {
-			isModalOpen: false
+			selectedService: {}
 		}
 	}
 
-	// toggleModal = () => this.setState({ isModalOpen: !this.state.isModalOpen })
+	selectService = (item) => {
+		const { selectedService } = this.state;
 
-	toggleModal = (key) => {
+		this.setState({
+			selectedService: item
+		});
+
+		this.toggleModal();
+	}
+
+	toggleModal = () => {
 		const {
 			isModalOpen
 		} = this.state;
 
 		this.setState({
-			isModalOpen: {
-				[key]: !isModalOpen
-			}
+			isModalOpen: !isModalOpen
 		})
 	}
 
-	// toggleModal(key) {
-	// 	this.setState({
-	// 		isModalOpen: {
-	// 			[key]: !this.state.isModalOpen
-	// 		}
-	// 	})
-	// }
+	handleSubmit = () => {
+
+	}
 
 	renderServiceItem = (item, i) => {
 		const { isModalOpen } = this.state;
-
-		console.log(i);
 
 		return (
 			<div key={i} className="column-6 padding-top-2 padding-bottom-2">
@@ -63,34 +67,44 @@ class ServiceItemList extends React.Component {
 						<p className="card__text">{item.description}</p>
 					</CardBody>
 					<CardFooter>
-						<Button type="button" buttonTheme="primary" buttonFull onClick={this.toggleModal.bind(this, i)}>
+						<Button type="button" buttonTheme="primary" buttonFull onClick={this.selectService.bind(this, item)}>
 							<small className="tt-uppercase fw-bold ls-base">Pilih</small>
 						</Button>
 					</CardFooter>
-
-					<Modal isOpen={this.state.isModalOpen[i]} toggle={this.toggleModal.bind(this, i)}>
-						<ModalHeader align="center">
-							<h5 className="fw-medium">Pembayaran: <span className="clr-primary fw-bold">{item.name}</span></h5>
-						</ModalHeader>
-						<ModalContent>
-							<div className="flex flex-column justify-content--center align-items--center ta-center">
-								<h3 className="fw-semibold clr-primary"><Currency value={item.price} /></h3>
-								<p>Anda memilih layanan {item.name}. Silahkan pilih bayar untuk melanjutkan.</p>
-							</div>
-						</ModalContent>
-						<ModalFooter>
-							<div className="flex justify-content--center">
-								<Button buttonTheme="danger" buttonOutline className="margin-right-2" onClick={this.toggleModal.bind(this, i)}>
-									<small className="fw-semibold ls-base tt-uppercase">Kembali</small>
-								</Button>
-								<Button buttonTheme="primary">
-									<small className="fw-semibold ls-base tt-uppercase">Bayar</small>
-								</Button>
-							</div>
-						</ModalFooter>
-					</Modal>
 				</Card>
 			</div>
+		)
+	}
+
+	renderConfirmationModal = () => {
+		const {
+			selectedService
+		} = this.state;
+
+		return (
+			<Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
+				<Form onSubmit={this.handleSubmit}>
+					<ModalHeader align="center">
+						<h5 className="fw-semibold">Pembayaran: <span className="clr-primary fw-bold">{selectedService.name}</span></h5>
+					</ModalHeader>
+					<ModalContent className="flex flex-column justify-content--center align-items--center ta-center">
+						<img style={{ width: '150px' }} src={CashierIcon} />
+						<h3 className="fw-semibold clr-primary"><Currency value={selectedService.price} /></h3>
+						{/* <p className="clr-success">Saldo Anda cukup untuk melakukan pembayaran.</p> */}
+						<p className="h6">Anda telah memilih layanan <span className="fw-semibold">{selectedService.name}</span>. <br /> Silahkan konfirmasi kembali pilihan Anda sebelum melanjutkan.</p>
+					</ModalContent>
+					<ModalFooter>
+						<div className="flex">
+							<Button type="button" buttonTheme="danger" className="margin-right-2" onClick={this.toggleModal} buttonFull>
+								<small className="fw-semibold ls-base tt-uppercase">Batal</small>
+							</Button>
+							<Button type="submit" buttonTheme="primary" buttonFull>
+								<small className="fw-semibold ls-base tt-uppercase">Bayar</small>
+							</Button>
+						</div>
+					</ModalFooter>
+				</Form>
+			</Modal>
 		)
 	}
 
@@ -99,9 +113,14 @@ class ServiceItemList extends React.Component {
 			serviceList
 		} = this.props;
 
+		const {
+			selectedService
+		} = this.state;
+
 		return (
 			<CardList>
 				{ serviceList.map(this.renderServiceItem) }
+				{ this.renderConfirmationModal() }
 			</CardList>
 		)
 	}

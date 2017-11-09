@@ -91,15 +91,15 @@ class CafeMenuList extends Component {
 		return this.setState({ isCartModalOpen: !isCartModalOpen})
 	}
 
-	toggleModal = (key) => {
-		const { isModalOpen } = this.state;
-
-		return this.setState({
-			isModalOpen: {
-				[key]: !isModalOpen
-			}
-		})
-	}
+	// toggleModal = (key) => {
+	// 	const { isModalOpen } = this.state;
+	//
+	// 	return this.setState({
+	// 		isModalOpen: {
+	// 			[key]: !isModalOpen
+	// 		}
+	// 	})
+	// }
 
 	renderCafeMenu = (menu, i) => {
 		if(!menu.selected) {

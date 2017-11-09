@@ -8,6 +8,8 @@ export const GET_SERVICE_LIST_REJECTED = 'GET_SERVICE_LIST_REJECTED';
 export const REQUEST_SERVICE_TYPES = 'REQUEST_SERVICE_TYPES';
 export const GET_SERVICE_TYPES_FULFILLED = 'GET_SERVICE_TYPES_FULFILLED';
 export const GET_SERVICE_TYPES_REJECTED = 'GET_SERVICE_TYPES_REJECTED';
+export const CREATE_SERVICE_TRANSACTION_FULFILLED = 'CREATE_SERVICE_TRANSACTION_FULFILLED';
+export const CREATE_SERVICE_TRANSACTION_REJECTED = 'CREATE_SERVICE_TRANSACTION_REJECTED';
 
 export const getServiceList = (data, accessToken) => {
 	return async dispatch => {
@@ -45,4 +47,22 @@ export const getServiceTypes = (accessToken) => {
 				})
 			})
 	}
+}
+
+export const createServiceTransaction = (data) => {
+	return async dispatch => {
+		return axios
+			.post(`${constant.API_PATH}service/transaction/create?accessToken=${accessToken}`, {
+				service: data.service
+			})
+			.then((response) => {
+				dispatch(handleSuccess(response.data))
+			})
+			.error((error) => {
+				dispatch(handleError(error.data))
+			})
+	}
+
+	function handleSuccess(data) { return { type: CREATE_SERVICE_TRANSACTION_FULFILLED, payload: data } };
+	function handleError(error) { return { type: CREATE_SERVICE_TRANSACTION_REJECTED, payload: error } };
 }

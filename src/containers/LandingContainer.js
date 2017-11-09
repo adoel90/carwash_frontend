@@ -5,10 +5,6 @@ import { authenticateMember } from '../actions/member.action';
 import Landing from '../components/Landing';
 
 class LandingContainer extends React.Component {
-	componentDidUpdate = () => {
-		console.log(this.state.cardId);
-	}
-
 	constructor() {
 		super();
 		this.state = {
@@ -18,6 +14,11 @@ class LandingContainer extends React.Component {
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 	}
+
+	componentDidUpdate = (prevProps) => {
+		console.log(prevProps);
+	}
+
 
 	handleChange = (value) => {
 		this.setState({

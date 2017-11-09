@@ -18,7 +18,6 @@ class Landing extends React.Component {
 		document.addEventListener('keydown', this.handleKeyPress);
 		document.addEventListener('keyup', this.handleKeyPress);
 	}
-
 	handleSubmit = (e) => {
 		e.preventDefault();
 		this.props.handleSubmit();
@@ -32,7 +31,20 @@ class Landing extends React.Component {
 		this.props.handleChange(value);
 	}
 
+	componentDidUpdate = () => {
+		if(this.props.member.data) {
+			window.location.reload();
+		}
+
+		console.log(this.props.member);
+	}
+
 	render() {
+		const {
+			member,
+			match
+		} = this.props;
+
 		return (
 			<Form onSubmit={this.handleSubmit}>
 				<main className="main landing">
@@ -44,13 +56,12 @@ class Landing extends React.Component {
 							<Input
 								type="number"
 								name="cardId"
-								placeholder="Card ID"
 								onChange={this.handleChange}
 								autoFocus
 								selectOnFocus
 							/>
 						</FormGroup>
-						{/* <Button type="submit" buttonTheme="secondary" disabled="true">
+						{/* <Button type="button" buttonTheme="secondary" disabled="true">
 							<small className="tt-uppercase ls-base fw-semibold clr-dark">Kartu belum terdeteksi</small>
 						</Button> */}
 					</div>

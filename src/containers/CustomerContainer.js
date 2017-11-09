@@ -16,7 +16,8 @@ class CustomerContainer extends Component {
 		this.handleRouteRedirect = this.handleRouteRedirect.bind(this);
 		this.state = {
 			navigationItems: [
-				{ id: 1, name: 'Service', path: "/customer/service" }
+				{ id: 1, name: 'Pilih Servis', path: "/customer/service" },
+				{ id: 2, name: 'Profil Saya', path: "/customer/profile" }
 			]
 		}
 	}

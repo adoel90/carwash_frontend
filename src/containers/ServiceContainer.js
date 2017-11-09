@@ -30,7 +30,7 @@ class ServiceContainer extends React.Component {
 
 	render() {
 		const {
-			user,
+			member,
 			accessToken
 		} = this.props;
 
@@ -38,6 +38,8 @@ class ServiceContainer extends React.Component {
 		if(this.props.service.isLoaded) {
 			this.addPathPropToTypes();
 		}
+
+		console.log(member);
 
 		return this.props.service.isLoaded
 		? <Service {...this.state} {...this.props} />

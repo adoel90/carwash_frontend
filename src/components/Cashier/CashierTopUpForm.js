@@ -30,10 +30,6 @@ class CashierTopUpForm extends Component {
 		this.renderMemberInfo = this.renderMemberInfo.bind(this);
 	}
 
-	componentDidUpdate = () => {
-		console.log(this.state);
-	}
-
 	handleTopup = (e) => {
 		const {
 			dispatch,
@@ -45,13 +41,18 @@ class CashierTopUpForm extends Component {
 		const requiredData = {
 			topup: parseInt(this.state.topup)
 		}
-
+		
 		dispatch(memberTopup(requiredData, member.data.accessToken))
 	}
 
-	toggleModal = () => { this.setState({ isTopupModalOpen: !this.state.isTopupModalOpen })}
+	toggleModal = () => {
+		this.setState({
+			isTopupModalOpen: !this.state.isTopupModalOpen }
+		)}
 
 	handleSubmit = (e) => {
+		e.preventDefault();
+
 		const { cardId } = this.state
 		const {
 			dispatch,
@@ -59,16 +60,14 @@ class CashierTopUpForm extends Component {
 			member
 		} = this.props;
 
-		e.preventDefault();
-
 		const requiredData = {
 			card: cardId
 		}
 
-		dispatch(authenticateMember(requiredData, accessToken))
+		dispatch(authenticateMember(requiredData))
 			.then(() => {
 				this.toggleModal();
-			})
+			});
 	}
 
 	handleChange = (e) => {
@@ -127,9 +126,9 @@ class CashierTopUpForm extends Component {
 				<FormGroup row>
 					<Label className="fw-semibold">Pilih Metode Pembayaran</Label>
 					<Input type="select">
-						<option>Cash</option>
-						<option>Debit</option>
-						<option>Kredit</option>
+						<option value={1}>Cash</option>
+						<option value={2}>Debit</option>
+						<option value={3}>Kredit</option>
 					</Input>
 				</FormGroup>
 			</ModalContent>
@@ -142,13 +141,15 @@ class CashierTopUpForm extends Component {
 		} = this.props;
 
 		return (
-			<Form onSubmit={this.handleSubmit}>
-				<FormGroup>
-					<InputGroup>
-						<Input name="cardId" type="number" placeholder="Gesek kartu untuk mendapatkan informasi customer" autoFocus="true" value={this.state.cardId} onChange={this.handleChange} selectOnFocus />
-					</InputGroup>
-					{ member.error ? <small className="clr-danger">{member.error.message}</small> : null}
-				</FormGroup>
+			<div>
+				<Form onSubmit={this.handleSubmit}>
+					<FormGroup>
+						<InputGroup>
+							<Input name="cardId" type="number" placeholder="Gesek kartu untuk mendapatkan informasi customer" autoFocus="true" value={this.state.cardId} onChange={this.handleChange} selectOnFocus />
+						</InputGroup>
+						{ member.error ? <small className="clr-danger">{member.error.message}</small> : null}
+					</FormGroup>
+				</Form>
 				<Modal isOpen={this.state.isTopupModalOpen} toggle={this.toggleModal}>
 					<Form onSubmit={this.handleTopup}>
 						<ModalHeader>
@@ -156,13 +157,13 @@ class CashierTopUpForm extends Component {
 						</ModalHeader>
 						{ member.data ? this.renderMemberInfo() : null }
 						<ModalFooter>
-							<Button buttonTheme="primary" buttonFull>
+							<Button buttonType="button" buttonTheme="primary" buttonFull>
 								<small className="tt-uppercase fw-semibold ls-base">Selesai & Print Struk</small>
 							</Button>
 						</ModalFooter>
 					</Form>
 				</Modal>
-			</Form>
+			</div>
 		);
 	}
 }

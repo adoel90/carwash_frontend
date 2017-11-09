@@ -1,5 +1,10 @@
 import React from 'react';
 import ServiceItemList from '../components/ServiceItemList';
+import { PageBlock } from '../components/Page';
+import { Row } from '../components/Grid';
+import { Button } from '../components/Button';
+import Currency from '../components/Currency';
+import { default as WalletIcon } from '../assets/icons/Business/wallet-1.svg';
 
 class ServiceType extends React.Component {
 	constructor() {
@@ -24,16 +29,13 @@ class ServiceType extends React.Component {
 	render() {
 		const {
 			serviceList,
-			type
+			type,
+			member
 		} = this.props;
 
 		return (
-			<div id="category">
-				<div className="heading padding-bottom-1">
-					<h5 className="fw-semibold">Jenis Layanan</h5>
-					<p className="clr-passive">Silahkan pilih jenis layanan yang diinginkan.</p>
-				</div>
-				{ serviceList ? this.renderServiceItemList() : <p>Sebentar ya...</p> }
+			<div className="inner-view" id="category">
+				{ serviceList ? this.renderServiceItemList() : null }
 			</div>
 		)
 	}

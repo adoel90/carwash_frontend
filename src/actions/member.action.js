@@ -24,9 +24,6 @@ export const authenticateMember = (data) => {
 				cookies.set('accessToken', response.data.data.accessToken, { path: '/' });
 				cookies.set('member', response.data.data.member, { path: '/' });
 			})
-			.then(() => {
-				window.location.reload();
-			})
 			.catch((error) => {
 				dispatch(handleError(error.response.data))
 			})

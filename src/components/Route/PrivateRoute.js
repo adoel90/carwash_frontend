@@ -8,13 +8,14 @@ class PrivateRoute extends React.Component {
 			isAuthenticated,
 			redirectTo,
 			accessToken,
+			member,
 			user,
 			...rest
 		} = this.props;
 
 		const authenticateRoute = (props) => {
 			return isAuthenticated
-			? <Component {...props} accessToken={accessToken} user={user} />
+			? <Component {...props} accessToken={accessToken} user={user} member={member} />
 			: <Redirect to={{pathname: redirectTo, state: {from: props.location}}} />
 		}
 

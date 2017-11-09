@@ -49,7 +49,7 @@ export const getServiceTypes = (accessToken) => {
 	}
 }
 
-export const createServiceTransaction = (data) => {
+export const createServiceTransaction = (data, accessToken) => {
 	return async dispatch => {
 		return axios
 			.post(`${constant.API_PATH}service/transaction/create?accessToken=${accessToken}`, {
@@ -58,8 +58,8 @@ export const createServiceTransaction = (data) => {
 			.then((response) => {
 				dispatch(handleSuccess(response.data))
 			})
-			.error((error) => {
-				dispatch(handleError(error.data))
+			.catch((error) => {
+				dispatch(handleError(error))
 			})
 	}
 

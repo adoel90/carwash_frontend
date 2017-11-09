@@ -22,6 +22,7 @@ class ServiceType extends React.Component {
 			<ServiceItemList
 				type={type}
 				serviceList={serviceList}
+				{...this.props}
 			/>
 		)
 	}

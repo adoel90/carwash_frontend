@@ -20,7 +20,7 @@ class ServiceItemList extends React.Component {
 		super();
 		this.renderServiceItem = this.renderServiceItem.bind(this);
 		this.renderConfirmationModal = this.renderConfirmationModal.bind(this);
-		this.handleSubmit = this.handleSubmit.bind(this);
+		this.handleServiceTransaction = this.handleServiceTransaction.bind(this);
 		this.state = {
 			selectedService: {}
 		}
@@ -46,8 +46,11 @@ class ServiceItemList extends React.Component {
 		})
 	}
 
-	handleSubmit = () => {
+	handleServiceTransaction = (e) => {
+		const { selectedService } = this.state;
+		e.preventDefault();
 
+		this.props.handleServiceTransaction(selectedService.id);
 	}
 
 	renderServiceItem = (item, i) => {
@@ -83,7 +86,7 @@ class ServiceItemList extends React.Component {
 
 		return (
 			<Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
-				<Form onSubmit={this.handleSubmit}>
+				<Form onSubmit={this.handleServiceTransaction}>
 					<ModalHeader align="center">
 						<h5 className="fw-semibold">Pembayaran: <span className="clr-primary fw-bold">{selectedService.name}</span></h5>
 					</ModalHeader>

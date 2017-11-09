@@ -4,12 +4,16 @@ import PropTypes from 'prop-types';
 import { withCookies, Cookies } from 'react-cookie';
 
 import { connect } from 'react-redux';
-import { getServiceList } from '../actions/service.action';
+import {
+	getServiceList,
+	createServiceTransaction
+} from '../actions/service.action';
 
 class ServiceTypeContainer extends React.Component {
 	constructor() {
 		super();
 		this.handleAccessToken = this.handleAccessToken.bind(this);
+		this.handleServiceTransaction = this.handleServiceTransaction.bind(this);
 	}
 
 	componentWillMount() {
@@ -17,13 +21,23 @@ class ServiceTypeContainer extends React.Component {
 		// this.props.getServiceList();
 	}
 
+	handleServiceTransaction = (serviceId) => {
+		const { dispatch, accessToken } = this.props;
+
+		const requiredData = {
+			service: serviceId
+		}
+
+		dispatch(createServiceTransaction(requiredData, accessToken));
+	}
+
 	handleAccessToken = () => {
 		const {
-			cookies,
+			accessToken,
+			member,
 			dispatch,
 			type
 		} = this.props;
-		const accessToken = cookies.get('accessToken') || null;
 
 		const requiredData = {
 			type: type.id,
@@ -36,7 +50,11 @@ class ServiceTypeContainer extends React.Component {
 
 	render() {
 		return this.props.service.isLoaded
-		? <ServiceType {...this.state} {...this.props} />
+		? <ServiceType
+			{...this.state}
+			{...this.props}
+			handleServiceTransaction={this.handleServiceTransaction}
+		/>
 		: null;
 	}
 }

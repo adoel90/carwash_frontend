@@ -8,7 +8,9 @@ import {
 	CREATE_SERVICE_FULFILLED,
 	CREATE_SERVICE_REJECTED,
 	CREATE_SERVICE_TRANSACTION_FULFILLED,
-	CREATE_SERVICE_TRANSACTION_REJECTED
+	CREATE_SERVICE_TRANSACTION_REJECTED,
+	UPDATE_SERVICE_FULFILLED,
+	UPDATE_SERVICE_REJECTED,
 } from '../actions/service.action';
 
 const initialState = {
@@ -102,7 +104,23 @@ const service = (state = initialState, action) => {
 		case CREATE_SERVICE_TRANSACTION_FULFILLED: {
 			return {
 				...state,
-				service: null,
+				service: {},
+				error: action.payload
+			}
+		}
+
+		case UPDATE_SERVICE_FULFILLED: {
+			return {
+				...state,
+				service: action.payload,
+				error: {}
+			}
+		}
+
+		case UPDATE_SERVICE_REJECTED: {
+			return {
+				...state,
+				service: {},
 				error: action.payload
 			}
 		}

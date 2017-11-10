@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
 	getServiceList,
-	createNewService
+	createNewService,
+	updateService
 } from '../actions/service.action';
 import { SettingsServiceType } from '../components/Settings';
 
@@ -14,7 +15,7 @@ class SettingsServiceTypeContainer extends Component {
 		this.handlePhotoChange = this.handlePhotoChange.bind(this);
 		this.handleInputChange = this.handleInputChange.bind(this);
 		this.handleNewService = this.handleNewService.bind(this);
-		// this.handleEditService = this.handleEditService.bind(this);
+		this.handleEditService = this.handleEditService.bind(this);
 
 		this.state = {
 			isModalOpen: {
@@ -52,15 +53,21 @@ class SettingsServiceTypeContainer extends Component {
 	}
 
 	toggleEditServiceModal = (item) => {
+
+		if(!this.state.isModalOpen.editService) {
+			this.setState({
+				menu: {
+					id: item.id,
+					name: item.name,
+					price: item.price,
+					description: item.description
+				}
+			})
+		}
+
 		this.setState({
-			menu: {
-				id: item.id,
-				name: item.name,
-				price: item.price,
-				description: item.description
-			},
 			isModalOpen: {
-				editService: item
+				editService: !this.state.isModalOpen.editService
 			}
 		})
 	}
@@ -97,6 +104,29 @@ class SettingsServiceTypeContainer extends Component {
 		// this.setState({
 		// 	image: data
 		// })
+	}
+
+	handleEditService = () => {
+		const {
+			dispatch,
+			accessToken
+		} = this.props;
+
+		const {
+			menu 
+		} = this.state;
+
+		const requiredData = {
+			id: menu.id,
+			name: menu.name,
+			price: parseInt(menu.price),
+			description: menu.description
+		}
+
+		dispatch(updateService(requiredData, accessToken))
+			.then(() => {
+				window.location.reload();
+			})
 	}
 
 	handleNewService = () => {

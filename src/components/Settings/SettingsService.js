@@ -70,33 +70,3 @@ class SettingsService extends Component {
 }
 
 export default SettingsService;
-
-{/* <PageBlock>
-	<Table>
-		<thead>
-			<tr>
-				<th>Nama Menu</th>
-				<th>Harga (dalam Rp)</th>
-				<th>Deskripsi</th>
-				<th>Aksi</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td>Mie Goreng</td>
-				<td>45.000</td>
-				<td>Mie Goreng dengan taburan bawang goreng lezat tersaji dalam 3 varian rasa.</td>
-				<td className="flex">
-					<ButtonGroup>
-						<Button buttonTheme="primary" buttonSize="small">
-							<small className="tt-uppercase fw-semibold ls-base">Ubah</small>
-						</Button>
-						<Button buttonTheme="danger" buttonSize="small">
-							<small className="tt-uppercase fw-semibold ls-base">Hapus</small>
-						</Button>
-					</ButtonGroup>
-				</td>
-			</tr>
-		</tbody>
-	</Table>
-</PageBlock> */}

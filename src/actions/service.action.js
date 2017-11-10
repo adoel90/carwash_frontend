@@ -10,6 +10,8 @@ export const GET_SERVICE_TYPES_FULFILLED = 'GET_SERVICE_TYPES_FULFILLED';
 export const GET_SERVICE_TYPES_REJECTED = 'GET_SERVICE_TYPES_REJECTED';
 export const CREATE_SERVICE_FULFILLED = 'CREATE_SERVICE_FULFILLED';
 export const CREATE_SERVICE_REJECTED = 'CREATE_SERVICE_REJECTED';
+export const UPDATE_SERVICE_FULFILLED = 'UPDATE_SERVICE_FULFILLED';
+export const UPDATE_SERVICE_REJECTED = 'UPDATE_SERVICE_REJECTED';
 export const CREATE_SERVICE_TRANSACTION_FULFILLED = 'CREATE_SERVICE_TRANSACTION_FULFILLED';
 export const CREATE_SERVICE_TRANSACTION_REJECTED = 'CREATE_SERVICE_TRANSACTION_REJECTED';
 
@@ -75,6 +77,27 @@ export const createNewService = (data, accessToken) => {
 
 	function handleSuccess(data) { return { type: CREATE_SERVICE_FULFILLED, payload: data } }
 	function handleError(data) { return { type: CREATE_SERVICE_REJECTED, payload: data } }
+}
+
+export const updateService = (data, accessToken) => {
+	return async dispatch => {
+		return axios
+			.put(`${constant.API_PATH}service/update?accessToken=${accessToken}`, {
+				id: data.id,
+				name: data.name,
+				price: data.price,
+				description: data.description
+			})
+			.then((response) => {
+				dispatch(handleSuccess(response.data));
+			})
+			.catch((error) => {
+				dispatch(handleError(error));
+			})
+	}
+
+	function handleSuccess(data) { return { type: UPDATE_SERVICE_FULFILLED, payload: data}}
+	function handleError(data) { return { type: UPDATE_SERVICE_REJECTED, payload: data }}
 }
 
 export const createServiceTransaction = (data, accessToken) => {

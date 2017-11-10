@@ -14,13 +14,15 @@ class SettingsServiceType extends Component {
 		super();
 		this.renderTable = this.renderTable.bind(this);
 		this.renderTableBody = this.renderTableBody.bind(this);
-		this.renderModal = this.renderModal.bind(this);
+		this.renderNewServiceModal = this.renderNewServiceModal.bind(this);
+		this.renderEditServiceModal = this.renderEditServiceModal.bind(this);
 		this.handleChange = this.handleChange.bind(this);
 
 		this.renderPhotoPreview = this.renderPhotoPreview.bind(this);
 		this.handlePhotoPreviewClick = this.handlePhotoPreviewClick.bind(this);
 
 		this.handlePhotoChange = this.handlePhotoChange.bind(this);
+		this.handleEditServiceSubmit = this.handleEditServiceSubmit.bind(this);
 		this.handleNewServiceSubmit = this.handleNewServiceSubmit.bind(this);
 	}
 
@@ -28,9 +30,13 @@ class SettingsServiceType extends Component {
 		this.props.toggleEditServiceModal(item);
 	}
 
+	handleEditServiceSubmit = (e) => {
+		e.preventDefault();
+		this.props.handleEditService();
+	}
+
 	handleNewServiceSubmit = (e) => {
 		e.preventDefault();
-
 		this.props.handleNewService();
 	}
 
@@ -50,7 +56,7 @@ class SettingsServiceType extends Component {
 	renderPhotoPreview = () => {
 		if(!this.props.menu.image) {
 			return (
-				<Button type="button" className="flex flex-column align-items--center justify-content--center" onClick={this.handleClick}>
+				<Button type="button" className="flex flex-column align-items--center justify-content--center" onClick={this.handlePhotoPreviewClick}>
 					<i className="fi flaticon-photo-camera icon icon--gigant clr-passive"></i>
 					<small className="tt-uppercase ls-base fw-semibold clr-passive">Tambah Foto</small>
 				</Button>
@@ -59,7 +65,7 @@ class SettingsServiceType extends Component {
 		else {
 			return (
 				<div className="flex flex-column align-items--center justify-content--center" style={{ height: '300px', width: '100%'}}>
-					<figure className="figure margin-bottom-3" style={{ width: '100%'}} onClick={this.handleClick}>
+					<figure className="figure margin-bottom-3" style={{ width: '100%'}} onClick={this.handlePhotoPreviewClick}>
 						<img src={this.props.menu.image} />
 					</figure>
 					<small className="tt-uppercase ls-base fw-semibold clr-passive">Ubah Foto</small>
@@ -68,8 +74,77 @@ class SettingsServiceType extends Component {
 		}
 	}
 
+	renderEditServiceModal = () => {
+		const {
+			menu,
+			type,
+			isModalOpen,
+			toggleEditServiceModal
+		} = this.props;
 
-	renderModal = () => {
+		return (
+			<Modal isOpen={isModalOpen.editService} toggle={toggleEditServiceModal}>
+				<ModalHeader align="center">
+					<h6 className="fw-semibold">Ubah menu: <span className="fw-semibold clr-primary">{type.name}</span></h6>
+				</ModalHeader>
+				<Form onSubmit={this.handleEditServiceSubmit}>
+					<ModalContent>
+						<FormGroup row>
+							<Label>
+								<small className="fw-semibold tt-uppercase ls-base">Nama Menu</small>
+							</Label>
+							<Input
+								type="text"
+								name="name"
+								placeholder="Masukkan nama menu"
+								onChange={this.handleChange}
+								value={menu.name}
+								required="true"
+							/>
+						</FormGroup>
+						<FormGroup row>
+							<Label>
+								<small className="fw-semibold tt-uppercase ls-base">Harga</small>
+							</Label>
+							<InputGroup>
+								<InputAddon>
+									<small className="fw-semibold tt-uppercase ls-base">Rp</small>
+								</InputAddon>
+								<Input
+									type="text"
+									name="price"
+									placeholder="Masukkan harga menu"
+									onChange={this.handleChange}
+									value={menu.price}
+									required="true"
+								/>
+							</InputGroup>
+						</FormGroup>
+						<FormGroup row>
+							<Label>
+								<small className="fw-semibold tt-uppercase ls-base">Deskripsi</small>
+							</Label>
+							<Input
+								type="textarea"
+								name="description"
+								placeholder="Masukkan deskripsi menu"
+								onChange={this.handleChange}
+								value={menu.description}
+								required="true"
+							/>
+						</FormGroup>
+					</ModalContent>
+					<ModalFooter>
+						<Button buttonTheme="primary" buttonSize="small" buttonFull>
+							<small className="fw-semibold tt-uppercase ls-base">Selesai</small>
+						</Button>
+					</ModalFooter>
+				</Form>
+			</Modal>
+		)
+	}
+
+	renderNewServiceModal = () => {
 		const {
 			menu,
 			type,
@@ -231,7 +306,8 @@ class SettingsServiceType extends Component {
 						<small className="fw-semibold tt-uppercase ls-base">Tambah Menu</small>
 					</Button>
 				</PageBlock>
-				{this.renderModal()}
+				{this.renderNewServiceModal()}
+				{this.renderEditServiceModal()}
 			</PageBlockGroup>
 		)
 	}

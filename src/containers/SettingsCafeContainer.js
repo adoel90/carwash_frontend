@@ -7,11 +7,17 @@ class SettingsCafeContainer extends React.Component {
 	}
 
 	render() {
-		return <SettingsCafe 
+		return <SettingsCafe
 			{...this.state} 
 			{...this.props}
 		/>
 	}
 }
 
-export default SettingsCafeContainer;
+const mapStateToProps = (state) => {
+	return {
+		cafe: state.cafe
+	}
+}
+
+export default connect(mapStateToProps)(SettingsCafeContainer);

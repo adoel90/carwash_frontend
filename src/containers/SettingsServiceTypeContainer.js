@@ -9,14 +9,20 @@ import { SettingsServiceType } from '../components/Settings';
 class SettingsServiceTypeContainer extends Component {
 	constructor() {
 		super();
-		this.toggleModal = this.toggleModal.bind(this);
+		this.toggleNewServiceModal = this.toggleNewServiceModal.bind(this);
+		this.toggleEditServiceModal = this.toggleEditServiceModal.bind(this);
 		this.handlePhotoChange = this.handlePhotoChange.bind(this);
 		this.handleInputChange = this.handleInputChange.bind(this);
 		this.handleNewService = this.handleNewService.bind(this);
+		// this.handleEditService = this.handleEditService.bind(this);
 
 		this.state = {
-			isModalOpen: false,
+			isModalOpen: {
+				newService: false,
+				editService: false
+			},
 			menu: {
+				id: '',
 				name: '',
 				price: '',
 				description: '',
@@ -37,8 +43,26 @@ class SettingsServiceTypeContainer extends Component {
 		dispatch(getServiceList(requiredData, accessToken))
 	}
 
-	toggleModal = () => {
-		this.setState({ isModalOpen: !this.state.isModalOpen })
+	toggleNewServiceModal = () => {
+		this.setState({
+			isModalOpen: {
+				newService: !this.state.isModalOpen.newService
+			}
+		})
+	}
+
+	toggleEditServiceModal = (item) => {
+		this.setState({
+			menu: {
+				id: item.id,
+				name: item.name,
+				price: item.price,
+				description: item.description
+			},
+			isModalOpen: {
+				editService: item
+			}
+		})
 	}
 
 	handleInputChange = (e) => {
@@ -107,10 +131,12 @@ class SettingsServiceTypeContainer extends Component {
 			{...this.props}
 			{...this.state}
 			isModalOpen={isModalOpen}
-			toggleModal={this.toggleModal}
+			toggleNewServiceModal={this.toggleNewServiceModal}
+			toggleEditServiceModal={this.toggleEditServiceModal}
 			handleInputChange={this.handleInputChange}
 			handlePhotoChange={this.handlePhotoChange}
 			handleNewService={this.handleNewService}
+			handleEditService={this.handleEditService}
 		/>
 	}
 }

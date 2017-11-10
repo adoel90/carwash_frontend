@@ -15,14 +15,20 @@ class SettingsServiceType extends Component {
 		this.renderTable = this.renderTable.bind(this);
 		this.renderTableBody = this.renderTableBody.bind(this);
 		this.renderModal = this.renderModal.bind(this);
-		this.renderPhotoPreview = this.renderPhotoPreview.bind(this);
-		this.handleClick = this.handleClick.bind(this);
 		this.handleChange = this.handleChange.bind(this);
-		this.handleFileChange = this.handleFileChange.bind(this);
-		this.handleSubmit = this.handleSubmit.bind(this);
+
+		this.renderPhotoPreview = this.renderPhotoPreview.bind(this);
+		this.handlePhotoPreviewClick = this.handlePhotoPreviewClick.bind(this);
+
+		this.handlePhotoChange = this.handlePhotoChange.bind(this);
+		this.handleNewServiceSubmit = this.handleNewServiceSubmit.bind(this);
 	}
 
-	handleSubmit = (e) => {
+	toggleEditServiceModal = (item) => {
+		this.props.toggleEditServiceModal(item);
+	}
+
+	handleNewServiceSubmit = (e) => {
 		e.preventDefault();
 
 		this.props.handleNewService();
@@ -32,11 +38,11 @@ class SettingsServiceType extends Component {
 		this.props.handleInputChange(e);
 	}
 
-	handleFileChange = (e) => {
+	handlePhotoChange = (e) => {
 		this.props.handlePhotoChange(e.target.files);
 	}
 
-	handleClick = () => {
+	handlePhotoPreviewClick = () => {
 		const photoInput = ReactDOM.findDOMNode(this.photoInput);
 		photoInput.click();
 	}
@@ -68,16 +74,15 @@ class SettingsServiceType extends Component {
 			menu,
 			type,
 			isModalOpen,
-			toggleModal,
-			handleSubmit
+			toggleNewServiceModal
 		} = this.props;
 
 		return (
-			<Modal isOpen={isModalOpen} toggle={toggleModal}>
+			<Modal isOpen={isModalOpen.newService} toggle={toggleNewServiceModal}>
 				<ModalHeader align="center">
 					<h6 className="fw-semibold">Tambah menu: <span className="clr-primary fw-bold">{type.name}</span></h6>
 				</ModalHeader>
-				<Form onSubmit={this.handleSubmit}>
+				<Form onSubmit={this.handleNewServiceSubmit}>
 					<ModalContent>
 						<Row>
 							<div className="column-4 flex-column flex align-items--center justify-content--center">
@@ -86,7 +91,7 @@ class SettingsServiceType extends Component {
 									name="photo"
 									type="file"
 									ref={(input) => this.photoInput = input }
-									onChange={(e) => this.handleFileChange(e)}
+									onChange={(e) => this.handlePhotoChange(e)}
 									style={{display: 'none'}}
 									readOnly
 								/>
@@ -162,7 +167,7 @@ class SettingsServiceType extends Component {
 				<td>{item.price}</td>
 				<td>{item.description}</td>
 				<td>
-					<Button buttonTheme="secondary" buttonSize="small">
+					<Button buttonTheme="secondary" buttonSize="small" onClick={this.toggleEditServiceModal.bind(this, item)}>
 						<small className="clr-dark fw-semibold tt-uppercase ls-base">Ubah</small>
 					</Button>
 				</td>
@@ -213,7 +218,7 @@ class SettingsServiceType extends Component {
 		const {
 			service,
 			serviceList,
-			toggleModal
+			toggleNewServiceModal
 		} = this.props;
 
 		return (
@@ -222,7 +227,7 @@ class SettingsServiceType extends Component {
 					{this.renderTable()}
 				</PageBlock>
 				<PageBlock extension>
-					<Button buttonTheme="primary" buttonFull onClick={toggleModal}>
+					<Button type="button" buttonTheme="primary" buttonFull onClick={toggleNewServiceModal}>
 						<small className="fw-semibold tt-uppercase ls-base">Tambah Menu</small>
 					</Button>
 				</PageBlock>

@@ -24,7 +24,7 @@ class Input extends React.Component {
 			value,
 			size,
 			selectOnFocus,
-			...attributes
+			...attributes,
 		} = this.props;
 
 		const classes = classNames(
@@ -46,7 +46,7 @@ class Input extends React.Component {
 			attributes.onFocus = this.handleFocus;
 		}
 
-		return <Tag {...attributes} className={classes} />;
+		return <Tag {...attributes} {...this.props} className={classes} />;
 	}
 //
 // const Input = (props, tag) => {

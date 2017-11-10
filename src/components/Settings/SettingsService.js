@@ -11,14 +11,14 @@ class SettingsService extends Component {
 	constructor() {
 		super();
 		this.state = {
-			activeTab: 1
+			activeTab: 0
 		}
 
 		this.renderTabNav = this.renderTabNav.bind(this);
-		this.renderSubroutes = this.renderSubroutes.bind(this);
+		this.renderTabContent = this.renderTabContent.bind(this);
 	}
 
-	renderSubroutes = (type, i) => {
+	renderTabContent = (type, i) => {
 		const { match } = this.props;
 
 		return (
@@ -54,18 +54,16 @@ class SettingsService extends Component {
 
 		return (
 			<div className="inner-view">
-				<div className="padding-bottom-2">
+				<div className="flex justify-content--space-between padding-bottom-2">
 					<h5 className="fw-semibold">Daftar Service</h5>
-				</div>
-				<div className="flex justify-content--space-between">
-					<Nav tabs className="flex justify-content--space-between">
-						{service.types.length ? service.types.map(this.renderTabNav) : null }
-					</Nav>
-					<Button buttonTheme="primary" buttonSize="small">
-						<small className="fw-semibold tt-uppercase ls-base">Tambah Submenu</small>
+					<Button type="button" buttonTheme="primary" buttonSize="small">
+						<small className="fw-semibold tt-uppercase ls-base">Tambah Daftar Layanan</small>
 					</Button>
 				</div>
-				{ service.types.length ? service.types.map(this.renderSubroutes) : null }
+				<Nav tabs className="flex justify-content--space-between">
+					{service.types.length ? service.types.map(this.renderTabNav) : null }
+				</Nav>
+				{ service.types.length ? service.types.map(this.renderTabContent) : null }
 			</div>
 		);
 	}

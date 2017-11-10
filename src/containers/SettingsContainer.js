@@ -16,9 +16,8 @@ class SettingsContainer extends Component {
 		this.state = {
 			subroutes: [
 				{ id: 1, name: 'Pengaturan Member', component: SettingsMember },
-				{ id: 2, name: 'Pengaturan Kartu', component: SettingsCard },
-				{ id: 3, name: 'Pengaturan Service', component: SettingsServiceContainer },
-				{ id: 4, name: 'Pengaturan Cafe', component: SettingsCafe }
+				{ id: 2, name: 'Pengaturan Service', component: SettingsServiceContainer },
+				{ id: 3, name: 'Pengaturan Cafe', component: SettingsCafe }
 			]
 		}
 	}

@@ -1,27 +1,233 @@
 import React, { Component } from 'react';
-import { PageBlock } from '../Page';
-import { Table } from 'reactstrap';
+import ReactDOM from 'react-dom';
+import { PageBlockGroup, PageBlock } from '../Page';
+import { Modal, Table } from 'reactstrap';
+import { Button } from '../Button';
+import { ModalHeader, ModalContent, ModalFooter } from '../Modal';
+import { Form, FormGroup } from '../Form';
+import { Input, InputGroup, InputAddon, InputCurrency, Label } from '../Input';
+import { Row } from '../Grid';
+import SearchBar from '../SearchBar';
 
 class SettingsServiceType extends Component {
+	constructor() {
+		super();
+		this.renderTable = this.renderTable.bind(this);
+		this.renderTableBody = this.renderTableBody.bind(this);
+		this.renderModal = this.renderModal.bind(this);
+		this.renderPhotoPreview = this.renderPhotoPreview.bind(this);
+		this.handleClick = this.handleClick.bind(this);
+		this.handleChange = this.handleChange.bind(this);
+		this.handleFileChange = this.handleFileChange.bind(this);
+		this.handleSubmit = this.handleSubmit.bind(this);
+	}
 
-	render() {
+	handleSubmit = (e) => {
+		e.preventDefault();
+
+		this.props.handleNewService();
+	}
+
+	handleChange = (e) => {
+		this.props.handleInputChange(e);
+	}
+
+	handleFileChange = (e) => {
+		this.props.handlePhotoChange(e.target.files);
+	}
+
+	handleClick = () => {
+		const photoInput = ReactDOM.findDOMNode(this.photoInput);
+		photoInput.click();
+	}
+
+	renderPhotoPreview = () => {
+		if(!this.props.menu.image) {
+			return (
+				<Button type="button" className="flex flex-column align-items--center justify-content--center" onClick={this.handleClick}>
+					<i className="fi flaticon-photo-camera icon icon--gigant clr-passive"></i>
+					<small className="tt-uppercase ls-base fw-semibold clr-passive">Tambah Foto</small>
+				</Button>
+			)
+		}
+		else {
+			return (
+				<div className="flex flex-column align-items--center justify-content--center" style={{ height: '300px', width: '100%'}}>
+					<figure className="figure margin-bottom-3" style={{ width: '100%'}} onClick={this.handleClick}>
+						<img src={this.props.menu.image} />
+					</figure>
+					<small className="tt-uppercase ls-base fw-semibold clr-passive">Ubah Foto</small>
+				</div>
+			)
+		}
+	}
+
+
+	renderModal = () => {
 		const {
-			service
+			menu,
+			type,
+			isModalOpen,
+			toggleModal,
+			handleSubmit
 		} = this.props;
 
 		return (
-			<PageBlock>
-				<Table>
-					<thead>
-						<tr>
-							<th>Nama Menu</th>
-							<th>Harga</th>
-							<th>Deskripsi</th>
-							<th>Action</th>
-						</tr>
-					</thead>
-				</Table>
-			</PageBlock>
+			<Modal isOpen={isModalOpen} toggle={toggleModal}>
+				<ModalHeader align="center">
+					<h6 className="fw-semibold">Tambah menu: <span className="clr-primary fw-bold">{type.name}</span></h6>
+				</ModalHeader>
+				<Form onSubmit={this.handleSubmit}>
+					<ModalContent>
+						<Row>
+							<div className="column-4 flex-column flex align-items--center justify-content--center">
+								{this.renderPhotoPreview()}
+								<Input
+									name="photo"
+									type="file"
+									ref={(input) => this.photoInput = input }
+									onChange={(e) => this.handleFileChange(e)}
+									style={{display: 'none'}}
+									readOnly
+								/>
+							</div>
+							<div className="column-8">
+								<FormGroup>
+									<Label>
+										<small className="fw-semibold tt-uppercase ls-base">Nama Menu</small>
+									</Label>
+									<Input
+										name="name"
+										type="text"
+										placeholder="Masukkan nama menu baru"
+										onChange={this.handleChange}
+										value={menu.name}
+										required="true"
+									/>
+								</FormGroup>
+								<FormGroup>
+									<Label>
+										<small className="fw-semibold tt-uppercase ls-base">Harga Menu</small>
+									</Label>
+									<InputGroup>
+										<InputAddon>
+											<small className="fw-semibold tt-uppercase ls-base">Rp</small>
+										</InputAddon>
+										<Input
+											type="text"
+											name="price"
+											placeholder="Harga Menu"
+											value={menu.price}
+											onChange={this.handleChange}
+											required="true"
+										/>
+									</InputGroup>
+									{/* <Input name="name" type="text" placeholder="Masukkan nama menu baru" /> */}
+								</FormGroup>
+								<FormGroup>
+									<Label>
+										<small className="fw-semibold tt-uppercase ls-base">Deskripsi</small>
+									</Label>
+									<Input
+										name="description"
+										type="textarea"
+										value={menu.description}
+										onChange={this.handleChange}
+										placeholder="Masukkan deskripsi menu"
+									/>
+								</FormGroup>
+								{/* <FormGroup>
+									<Label>
+										<small className="fw-semibold tt-uppercase ls-base">Unggah Foto</small>
+									</Label>
+									<input type="file" />
+								</FormGroup> */}
+							</div>
+						</Row>
+					</ModalContent>
+					<ModalFooter>
+						<Button buttonTheme="primary" buttonFull>
+							<small className="fw-semibold tt-uppercase ls-base">Selesai</small>
+						</Button>
+					</ModalFooter>
+				</Form>
+			</Modal>
+		)
+	}
+
+	renderTableBody = (item, i) => {
+		return (
+			<tr>
+				<td>{item.name}</td>
+				<td>{item.price}</td>
+				<td>{item.description}</td>
+				<td>
+					<Button buttonTheme="secondary" buttonSize="small">
+						<small className="clr-dark fw-semibold tt-uppercase ls-base">Ubah</small>
+					</Button>
+				</td>
+			</tr>
+		)
+	}
+
+	renderTable = () => {
+		let {
+			type,
+			service,
+			serviceList
+		} = this.props;
+
+		if(service.isFetching) {
+			return null;
+		}
+
+		if(serviceList) {
+			if(serviceList.length) {
+				return (
+					<Table className="margin-bottom-3">
+						<thead className="thead--primary">
+							<tr>
+								<th>Nama Menu</th>
+								<th>Harga</th>
+								<th>Deskripsi</th>
+								<th>Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							{ serviceList.map(this.renderTableBody) }
+						</tbody>
+					</Table>
+				)
+			} else {
+				return (
+					<div className="flex justify-content--center flex-column ta-center">
+						<i className="fi flaticon-warning icon icon--gigant clr-danger"></i>
+						<p>Maaf, sistem tidak dapat menemukan daftar menu untuk <span className="fw-semibold">{type.name}</span>. <br /> Silahkan klik tombol di bawah untuk menambahkan menu baru.</p>
+					</div>
+				)
+			}
+		}
+	}
+
+	render() {
+		const {
+			service,
+			serviceList,
+			toggleModal
+		} = this.props;
+
+		return (
+			<PageBlockGroup>
+				<PageBlock>
+					{this.renderTable()}
+				</PageBlock>
+				<PageBlock extension>
+					<Button buttonTheme="primary" buttonFull onClick={toggleModal}>
+						<small className="fw-semibold tt-uppercase ls-base">Tambah Menu</small>
+					</Button>
+				</PageBlock>
+				{this.renderModal()}
+			</PageBlockGroup>
 		)
 	}
 

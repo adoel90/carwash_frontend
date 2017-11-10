@@ -177,7 +177,7 @@ class SettingsMember extends React.Component {
 					/>
 				</div>
 				<Table>
-					<thead>
+					<thead className="thead--primary">
 						<tr>
 							{ this.state.tableHeadings.map(this.renderTableHeadings) }
 						</tr>

@@ -62,10 +62,14 @@ nav {}
 			padding: ($spacer * .5) ($spacer);
 			overflow: hidden;
 			border-bottom: none;
+			color: gray(700);
 
 			&.is-active {
+				@include font-weight(semibold);
 				border-top: solid 3px secondary-color(base);
 				background-color: gray(100);
+				color: gray(1700);
+				margin-top: -3px;
 
 				&:first-of-type {
 					border-top-left-radius: border-radius(base);

@@ -1,10 +1,12 @@
 import {
-	REQUEST_SERVICE_TYPES,
-	GET_SERVICE_TYPES_FULFILLED,
-	GET_SERVICE_TYPES_REJECTED,
-	REQUEST_SERVICE_LIST,
+	GET_SERVICE_LIST_REQUESTED,
 	GET_SERVICE_LIST_FULFILLED,
 	GET_SERVICE_LIST_REJECTED,
+	GET_SERVICE_TYPES_REQUESTED,
+	GET_SERVICE_TYPES_FULFILLED,
+	GET_SERVICE_TYPES_REJECTED,
+	CREATE_SERVICE_FULFILLED,
+	CREATE_SERVICE_REJECTED,
 	CREATE_SERVICE_TRANSACTION_FULFILLED,
 	CREATE_SERVICE_TRANSACTION_REJECTED
 } from '../actions/service.action';
@@ -12,7 +14,7 @@ import {
 const initialState = {
 	list: {},
 	types: {},
-	service: null,
+	service: {},
 	isFetching: false,
 	isLoaded: false,
 	error: {}
@@ -20,7 +22,7 @@ const initialState = {
 
 const service = (state = initialState, action) => {
 	switch(action.type) {
-		case REQUEST_SERVICE_LIST: {
+		case GET_SERVICE_LIST_REQUESTED: {
 			return {
 				...state,
 				isFetching: true,
@@ -46,7 +48,7 @@ const service = (state = initialState, action) => {
 		}
 
 		//
-		case REQUEST_SERVICE_TYPES: {
+		case GET_SERVICE_TYPES_REQUESTED: {
 			return {
 				...state,
 				isFetching: true,
@@ -69,6 +71,22 @@ const service = (state = initialState, action) => {
 				types: {},
 				isFetching: false,
 				isLoaded: false,
+				error: action.payload
+			}
+		}
+
+		case CREATE_SERVICE_FULFILLED: {
+			return {
+				...state,
+				service: action.payload,
+				error: null
+			}
+		}
+
+		case CREATE_SERVICE_REJECTED: {
+			return {
+				...state,
+				service: null,
 				error: action.payload
 			}
 		}

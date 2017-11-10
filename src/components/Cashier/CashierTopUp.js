@@ -11,7 +11,7 @@ class CashierTopUp extends Component {
 			<div className="inner-view">
 				<div className="padding-bottom-2">
 					<h5 className="fw-semibold">Isi Ulang Saldo</h5>
-					{/* <p className="clr-passive">Masukkan data customer baru dengan benar dan lengkap. Seluruh kolom harus diisi.</p> */}
+					<p className="clr-passive">Isi ulang saldo customer disini dengan mengikuti instruksi yang telah disediakan.</p>
 				</div>
 				<PageBlock className="margin-bottom-5">
 					<Row className="flex flex-row align-items--center">

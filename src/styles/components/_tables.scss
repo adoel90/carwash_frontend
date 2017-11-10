@@ -10,8 +10,13 @@ table {
 		thead {
 			border-bottom: solid 3px gray(300);
 
+			&.thead--primary {
+				background-color: primary-color(base);
+				color: gray(100);
+			}
+
 			th {
-				@include font-weight(bold);
+				@include font-weight(semibold);
 				vertical-align: middle;
 				padding: $spacer * .5;
 			}

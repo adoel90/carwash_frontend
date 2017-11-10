@@ -16,7 +16,7 @@ class AdminContainer extends React.Component {
 	constructor() {
 		super();
 		this.handleNavigationItems = this.handleNavigationItems.bind(this);
-		this.handleRouteRedirect = this.handleRouteRedirect.bind(this);
+		this.handleRedirect = this.handleRedirect.bind(this);
 
 		this.state = {
 			navigationItems: []
@@ -39,7 +39,6 @@ class AdminContainer extends React.Component {
 			case 1: {
 				this.setState({
 					navigationItems: [
-						{ name: 'Dashboard', path: '/admin/dashboard' },
 						{ name: 'Pengaturan', path: '/admin/settings' },
 					]
 				})
@@ -48,7 +47,7 @@ class AdminContainer extends React.Component {
 			case 2: {
 				this.setState({
 					navigationItems: [
-						{ name: 'Cafe', path: '/admin/cafe' },
+						{ name: 'Kafe', path: '/admin/cafe' },
 						{ name: 'Kasir', path: '/admin/cashier' },
 					]
 				})
@@ -62,7 +61,7 @@ class AdminContainer extends React.Component {
 	}
 
 
-	handleRouteRedirect = () => {
+	handleRedirect = () => {
 		const {
 			isAuthenticated,
 			user,
@@ -73,7 +72,7 @@ class AdminContainer extends React.Component {
 			return <Redirect from={`${match.url}`} to={`${match.url}/login`} />
 		} else {
 			switch(user.level.id) {
-				case 1: return <Redirect to={`${match.url}/dashboard`} />
+				case 1: return <Redirect to={`${match.url}/settings`} />
 				case 2: return <Redirect to={`${match.url}/cafe`} />
 				default: return null;
 			}
@@ -125,7 +124,7 @@ class AdminContainer extends React.Component {
 
 					<Redirect from={`${match.url}`} to={`${match.url}/login`} />
 
-					{ this.handleRouteRedirect() }
+					{ this.handleRedirect() }
 				</MainContent>
 			</div>
 		);

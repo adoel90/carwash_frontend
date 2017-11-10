@@ -21,7 +21,7 @@
 		padding: $spacer * .5;
 
 		.card__title {
-			@include font-weight(medium);
+			@include font-weight(semibold);
 		}
 
 		.card__price {
@@ -44,7 +44,7 @@
 
 	.card__body {
 		@include flex(1 1 100%);
-		min-height: 7.5em;
+		min-height: 5em;
 		padding: $spacer * .5;
 	}
 

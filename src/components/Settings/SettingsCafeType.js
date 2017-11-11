@@ -1,50 +1,44 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { PageBlockGroup, PageBlock } from '../Page';
+import { PageBlock, PageBlockGroup } from '../Page';
 import { Modal, Table } from 'reactstrap';
-import { Button } from '../Button';
 import { ModalHeader, ModalContent, ModalFooter } from '../Modal';
 import { Form, FormGroup } from '../Form';
-import { Input, InputGroup, InputAddon, InputCurrency, Label } from '../Input';
+import { Input, InputGroup, InputAddon, Label } from '../Input';
+import { Button } from '../Button';
 import { Row } from '../Grid';
-import SearchBar from '../SearchBar';
 
-class SettingsServiceType extends Component {
+class SettingsCafeType extends Component {
 	constructor() {
 		super();
+		this.toggleNewMenuModal = this.toggleNewMenuModal.bind(this);
+
 		this.handleChange = this.handleChange.bind(this);
 		this.handlePhotoPreviewClick = this.handlePhotoPreviewClick.bind(this);
 		this.handlePhotoChange = this.handlePhotoChange.bind(this);
-		this.handleEditServiceSubmit = this.handleEditServiceSubmit.bind(this);
-		this.handleNewServiceSubmit = this.handleNewServiceSubmit.bind(this);
+		this.handleEditMenuSubmit = this.handleEditMenuSubmit.bind(this);
+		this.handleNewMenuSubmit = this.handleNewMenuSubmit.bind(this);
+
 		this.renderTable = this.renderTable.bind(this);
 		this.renderTableBody = this.renderTableBody.bind(this);
-		this.renderNewServiceModal = this.renderNewServiceModal.bind(this);
-		this.renderEditServiceModal = this.renderEditServiceModal.bind(this);
 		this.renderPhotoPreview = this.renderPhotoPreview.bind(this);
+		this.renderNewMenuModal = this.renderNewMenuModal.bind(this);
+		this.renderEditMenuModal = this.renderEditMenuModal.bind(this);
 
-	}
-
-	toggleEditServiceModal = (item) => {
-		this.props.toggleEditServiceModal(item);
-	}
-
-	handleEditServiceSubmit = (e) => {
-		e.preventDefault();
-		this.props.handleEditService();
-	}
-
-	handleNewServiceSubmit = (e) => {
-		e.preventDefault();
-		this.props.handleNewService();
 	}
 
 	handleChange = (e) => {
 		this.props.handleInputChange(e);
 	}
 
-	handlePhotoChange = (e) => {
-		this.props.handlePhotoChange(e.target.files);
+	handleEditMenuSubmit = (e) => {
+		e.preventDefault();
+		this.props.handleEditMenuSubmit();
+	}
+
+	handleNewMenuSubmit = (e) => {
+		e.preventDefault();
+		this.props.handleNewMenu();
 	}
 
 	handlePhotoPreviewClick = () => {
@@ -53,7 +47,11 @@ class SettingsServiceType extends Component {
 	}
 
 	renderPhotoPreview = () => {
-		if(!this.props.menu.image) {
+		const {
+			menu
+		} = this.props;
+
+		if(!menu.image) {
 			return (
 				<Button type="button" className="flex flex-column align-items--center justify-content--center" onClick={this.handlePhotoPreviewClick}>
 					<i className="fi flaticon-photo-camera icon icon--gigant clr-passive"></i>
@@ -73,29 +71,41 @@ class SettingsServiceType extends Component {
 		}
 	}
 
-	renderEditServiceModal = () => {
+	handlePhotoChange = (e) => {
+		this.props.handlePhotoChange(e.target.files);
+	}
+
+	toggleEditMenuModal = (item) => {
+		this.props.toggleEditMenuModal(item);
+	}
+
+	toggleNewMenuModal = () => {
+		this.props.toggleNewMenuModal();
+	}
+
+	renderEditMenuModal = () => {
 		const {
-			menu,
 			type,
+			menu,
 			isModalOpen,
-			toggleEditServiceModal
+			toggleEditMenuModal
 		} = this.props;
 
 		return (
-			<Modal isOpen={isModalOpen.editService} toggle={toggleEditServiceModal}>
+			<Modal isOpen={isModalOpen.editMenu} toggle={toggleEditMenuModal}>
 				<ModalHeader align="center">
-					<h6 className="fw-semibold">Ubah menu: <span className="fw-semibold clr-primary">{type.name}</span></h6>
+					<h6 className="fw-semibold">Ubah Menu: <span className="fw-bold clr-primary">{type.name}</span></h6>
 				</ModalHeader>
-				<Form onSubmit={this.handleEditServiceSubmit}>
+				<Form onSubmit={this.handleEditMenuSubmit}>
 					<ModalContent>
 						<FormGroup row>
 							<Label>
 								<small className="fw-semibold tt-uppercase ls-base">Nama Menu</small>
 							</Label>
 							<Input
-								type="text"
 								name="name"
-								placeholder="Masukkan nama menu"
+								type="text"
+								placeholder="Masukkan nama menu baru"
 								onChange={this.handleChange}
 								value={menu.name}
 								required="true"
@@ -103,7 +113,7 @@ class SettingsServiceType extends Component {
 						</FormGroup>
 						<FormGroup row>
 							<Label>
-								<small className="fw-semibold tt-uppercase ls-base">Harga</small>
+								<small className="fw-semibold tt-uppercase ls-base">Harga Menu</small>
 							</Label>
 							<InputGroup>
 								<InputAddon>
@@ -112,29 +122,29 @@ class SettingsServiceType extends Component {
 								<Input
 									type="text"
 									name="price"
-									placeholder="Masukkan harga menu"
-									onChange={this.handleChange}
+									placeholder="Harga Menu"
 									value={menu.price}
+									onChange={this.handleChange}
 									required="true"
 								/>
 							</InputGroup>
+							{/* <Input name="name" type="text" placeholder="Masukkan nama menu baru" /> */}
 						</FormGroup>
 						<FormGroup row>
 							<Label>
 								<small className="fw-semibold tt-uppercase ls-base">Deskripsi</small>
 							</Label>
 							<Input
-								type="textarea"
 								name="description"
-								placeholder="Masukkan deskripsi menu"
-								onChange={this.handleChange}
+								type="textarea"
 								value={menu.description}
-								required="true"
+								onChange={this.handleChange}
+								placeholder="Masukkan deskripsi menu"
 							/>
 						</FormGroup>
 					</ModalContent>
 					<ModalFooter>
-						<Button buttonTheme="primary" buttonSize="small" buttonFull>
+						<Button buttonTheme="primary" buttonFull>
 							<small className="fw-semibold tt-uppercase ls-base">Selesai</small>
 						</Button>
 					</ModalFooter>
@@ -143,26 +153,25 @@ class SettingsServiceType extends Component {
 		)
 	}
 
-	renderNewServiceModal = () => {
+	renderNewMenuModal = () => {
 		const {
-			menu,
 			type,
-			isModalOpen,
-			toggleNewServiceModal
+			menu,
+			isModalOpen
 		} = this.props;
 
 		return (
-			<Modal isOpen={isModalOpen.newService} toggle={toggleNewServiceModal}>
+			<Modal isOpen={isModalOpen.newMenu} toggle={this.toggleNewMenuModal}>
 				<ModalHeader align="center">
-					<h6 className="fw-semibold">Tambah menu: <span className="clr-primary fw-bold">{type.name}</span></h6>
+					<h6 className="fw-semibold">Menu Baru: <span className="fw-bold clr-primary">{type.name}</span></h6>
 				</ModalHeader>
-				<Form onSubmit={this.handleNewServiceSubmit}>
+				<Form onSubmit={this.handleNewMenuSubmit}>
 					<ModalContent>
 						<Row>
 							<div className="column-4 flex-column flex align-items--center justify-content--center">
 								{this.renderPhotoPreview()}
 								<Input
-									name="photo"
+									name="image"
 									type="file"
 									accept="image/*"
 									ref={(input) => this.photoInput = input }
@@ -242,7 +251,7 @@ class SettingsServiceType extends Component {
 				<td>{item.price}</td>
 				<td>{item.description}</td>
 				<td>
-					<Button buttonTheme="secondary" buttonSize="small" onClick={this.toggleEditServiceModal.bind(this, item)}>
+					<Button buttonTheme="secondary" buttonSize="small" onClick={this.toggleEditMenuModal.bind(this, item)}>
 						<small className="clr-dark fw-semibold tt-uppercase ls-base">Ubah</small>
 					</Button>
 				</td>
@@ -253,16 +262,15 @@ class SettingsServiceType extends Component {
 	renderTable = () => {
 		let {
 			type,
-			service,
-			serviceList
+			cafe
 		} = this.props;
 
-		if(service.isFetching) {
+		if(cafe.isFetching) {
 			return null;
 		}
 
-		if(serviceList) {
-			if(serviceList.length) {
+		if(cafe.list.menu) {
+			if(cafe.list.menu.length) {
 				return (
 					<Table className="margin-bottom-3">
 						<thead className="thead--primary">
@@ -274,7 +282,7 @@ class SettingsServiceType extends Component {
 							</tr>
 						</thead>
 						<tbody>
-							{ serviceList.map(this.renderTableBody) }
+							{ cafe.list.menu.map(this.renderTableBody) }
 						</tbody>
 					</Table>
 				)
@@ -291,10 +299,7 @@ class SettingsServiceType extends Component {
 
 	render() {
 		const {
-			type,
-			service,
-			serviceList,
-			toggleNewServiceModal
+			toggleNewMenuModal
 		} = this.props;
 
 		return (
@@ -303,16 +308,16 @@ class SettingsServiceType extends Component {
 					{this.renderTable()}
 				</PageBlock>
 				<PageBlock extension>
-					<Button type="button" buttonTheme="primary" buttonFull onClick={toggleNewServiceModal}>
+					<Button type="button" buttonTheme="primary" buttonFull onClick={toggleNewMenuModal}>
 						<small className="fw-semibold tt-uppercase ls-base">Tambah Menu</small>
 					</Button>
 				</PageBlock>
-				{this.renderNewServiceModal()}
-				{this.renderEditServiceModal()}
+				{this.renderNewMenuModal()}
+				{this.renderEditMenuModal()}
 			</PageBlockGroup>
-		)
+		);
 	}
 
 }
 
-export default SettingsServiceType;
+export default SettingsCafeType;

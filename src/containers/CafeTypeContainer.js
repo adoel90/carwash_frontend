@@ -2,11 +2,11 @@ import React from 'react';
 import { CafeType } from '../components/Cafe';
 
 import { connect } from 'react-redux';
-import { getCafeMenu } from '../actions/cafe.action';
+import { getCafeMenuList } from '../actions/cafe.action';
 
 class CafeTypeContainer extends React.Component {
 	componentDidMount = () => {
-		this.props.getCafeMenu();
+		this.props.getCafeMenuList();
 	}
 
 	render() {
@@ -34,7 +34,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 	}
 
 	return {
-		getCafeMenu: () => dispatch(getCafeMenu(requiredData, accessToken))
+		getCafeMenuList: () => dispatch(getCafeMenuList(requiredData, accessToken))
 	}
 }
 

@@ -8,6 +8,7 @@ import {
 } from '../components/Settings';
 
 import SettingsServiceContainer from './SettingsServiceContainer';
+import SettingsCafeContainer from './SettingsCafeContainer';
 
 
 class SettingsContainer extends Component {
@@ -17,15 +18,13 @@ class SettingsContainer extends Component {
 			subroutes: [
 				{ id: 1, name: 'Pengaturan Member', component: SettingsMember },
 				{ id: 2, name: 'Pengaturan Service', component: SettingsServiceContainer },
-				{ id: 3, name: 'Pengaturan Cafe', component: SettingsCafe }
+				{ id: 3, name: 'Pengaturan Cafe', component: SettingsCafeContainer }
 			]
 		}
 	}
 
 	render() {
-		return (
-			<Settings {...this.state} {...this.props} />
-		);
+		return <Settings {...this.state} {...this.props} />
 	}
 
 }

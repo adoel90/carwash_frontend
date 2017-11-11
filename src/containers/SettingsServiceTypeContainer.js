@@ -83,8 +83,6 @@ class SettingsServiceTypeContainer extends Component {
 				[name]: value
 			}
 		})
-
-		console.log(this.state);
 	}
 
 	handlePhotoChange = (data) => {
@@ -100,10 +98,6 @@ class SettingsServiceTypeContainer extends Component {
 
 			reader.readAsDataURL(data[0]);
 		}
-
-		// this.setState({
-		// 	image: data
-		// })
 	}
 
 	handleEditService = () => {
@@ -113,7 +107,7 @@ class SettingsServiceTypeContainer extends Component {
 		} = this.props;
 
 		const {
-			menu 
+			menu
 		} = this.state;
 
 		const requiredData = {

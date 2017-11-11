@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Route, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { Container, Row } from '../Grid';
 import { PropsRoute } from '../Route';
 

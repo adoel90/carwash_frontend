@@ -11,14 +11,6 @@ class Settings extends Component {
 	constructor() {
 		super();
 		this.renderSubroutes = this.renderSubroutes.bind(this);
-		this.handleRedirect = this.handleRedirect.bind(this);
-	}
-
-	handleRedirect = () => {
-		const { subroutes, match } = this.props;
-		const firstRoutePath = subroutes[0].name.replace(/\s+/g, '-').toLowerCase();
-
-		return <Redirect from={`${match.url}`} to={`settings/${firstRoutePath}`} />
 	}
 
 	renderSubroutes = (route, i) => {
@@ -42,6 +34,8 @@ class Settings extends Component {
 			subroutes
 		} = this.props;
 
+		const firstRoutePath = subroutes[0].name.replace(/\s+/g, '-').toLowerCase();
+
 		return (
 			<main className="main main--has-subheader">
 				<Container className="padding-top-3 padding-bottom-5">
@@ -53,10 +47,10 @@ class Settings extends Component {
 						</div>
 						<div className="column-10">
 							{ subroutes.map(this.renderSubroutes) }
+							<Redirect from="/*" to={`${match.url}/${firstRoutePath}`} />
 						</div>
 					</Row>
 				</Container>
-				{ this.handleRedirect() }
 			</main>
 		);
 	}

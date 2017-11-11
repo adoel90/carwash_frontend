@@ -5,6 +5,7 @@ import SettingsCard from './SettingsCard';
 import SettingsService from './SettingsService';
 import SettingsServiceType from './SettingsServiceType';
 import SettingsCafe from './SettingsCafe';
+import SettingsCafeType from './SettingsCafeType';
 
 export {
 	Settings,
@@ -13,5 +14,6 @@ export {
 	SettingsCard,
 	SettingsService,
 	SettingsServiceType,
-	SettingsCafe
+	SettingsCafe,
+	SettingsCafeType
 }

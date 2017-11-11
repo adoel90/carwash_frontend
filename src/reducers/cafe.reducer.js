@@ -1,13 +1,16 @@
 import {
-	REQUEST_CAFE_MENU,
-	GET_CAFE_MENU_FULFILLED,
-	GET_CAFE_MENU_REJECTED,
-	REQUEST_CAFE_TYPES,
+	GET_CAFE_MENU_LIST_REQUESTED,
+	GET_CAFE_MENU_LIST_FULFILLED,
+	GET_CAFE_MENU_LIST_REJECTED,
+	CREATE_CAFE_MENU_FULFILLED,
+	CREATE_CAFE_MENU_REJECTED,
+	GET_CAFE_TYPES_REQUESTED,
 	GET_CAFE_TYPES_FULFILLED,
 	GET_CAFE_TYPES_REJECTED
 } from '../actions/cafe.action';
 
 const initialState = {
+	list: {},
 	menu: {},
 	types: {},
 	isFetching: false,
@@ -17,25 +20,25 @@ const initialState = {
 
 const cafe = (state = initialState, action) => {
 	switch(action.type) {
-		case REQUEST_CAFE_MENU: {
+		case GET_CAFE_MENU_LIST_REQUESTED: {
 			return {
 				...state,
 				isFetching: true,
 				isLoaded: false
 			}
 		}
-		case GET_CAFE_MENU_FULFILLED: {
+		case GET_CAFE_MENU_LIST_FULFILLED: {
 			return {
 				...state,
-				menu: action.payload.data,
+				list: action.payload.data,
 				isFetching: false,
 				isLoaded: true
 			}
 		}
-		case GET_CAFE_MENU_REJECTED: {
+		case GET_CAFE_MENU_LIST_REJECTED: {
 			return {
 				...state,
-				menu: {},
+				list: {},
 				isFetching: false,
 				isLoaded: false,
 				error: action.payload
@@ -43,7 +46,24 @@ const cafe = (state = initialState, action) => {
 		}
 
 		//
-		case REQUEST_CAFE_TYPES: {
+		case CREATE_CAFE_MENU_FULFILLED: {
+			return {
+				...state,
+				menu: action.payload,
+				error: {}
+			}
+		}
+
+		case CREATE_CAFE_MENU_REJECTED: {
+			return {
+				...state,
+				menu: {},
+				error: action.payload
+			}
+		}
+
+		//
+		case GET_CAFE_TYPES_REQUESTED: {
 			return {
 				...state,
 				isFetching: true,

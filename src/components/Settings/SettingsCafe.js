@@ -1,18 +1,50 @@
 import React, { Component } from 'react';
+import { PageBlock } from '../Page';
+import { Nav, NavTabLink, NavItem } from '../Nav';
+import { Button, ButtonGroup } from '../Button';
+import { TabContent } from '../Tab';
+import { PropsRoute } from '../Route';
+
+import SettingsCafeTypeContainer from '../../containers/SettingsCafeTypeContainer';
 
 class SettingsCafe extends Component {
 	constructor() {
 		super();
+		this.state = {
+			activeTab: 0
+		}
+
 		this.renderTabNav = this.renderTabNav.bind(this);
 		this.renderTabContent = this.renderTabContent.bind(this);
 	}
 
-	renderTabNav = () => {
-
+	toggleTab = (index) => {
+		this.setState({
+			activeTab: index
+		})
 	}
 
-	renderTabContent = () => {
-		
+	renderTabContent = (type, i) => {
+		const { match } = this.props;
+
+		return (
+			<TabContent activeTab={this.state.activeTab} tabIndex={i}>
+				<PropsRoute
+					path={`${match.url}/${i}`}
+					component={SettingsCafeTypeContainer}
+					type={type}
+					{...this.props}
+				/>
+			</TabContent>
+		)
+	}
+
+	renderTabNav = (type, i) => {
+		return (
+			<NavItem>
+				<NavTabLink active={this.state.activeTab === i} onClick={this.toggleTab.bind(this, i)}>{type.name}</NavTabLink>
+			</NavItem>
+		)
 	}
 
 	render() {

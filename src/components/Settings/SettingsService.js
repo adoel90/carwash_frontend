@@ -45,12 +45,12 @@ class SettingsService extends Component {
 					<ModalContent>
 						<FormGroup>
 							<Label className="fw-semibold">Nama Tipe Service</Label>
-							<Input 
-								name="name" 
-								type="text" 
-								placeholder="Masukkan nama tipe service baru" 
+							<Input
+								name="name"
+								type="text"
+								placeholder="Masukkan nama tipe service baru"
 								onChange={handleInputChange}
-								autoFocus="true" 
+								autoFocus="true"
 							/>
 						</FormGroup>
 					</ModalContent>

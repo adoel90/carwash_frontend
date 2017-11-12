@@ -21,8 +21,6 @@ const cookies = new Cookies();
 
 export const getServiceList = (data, accessToken) => {
 	return async dispatch => {
-		dispatch(handleRequest());
-
 		return axios
 			.get(`${constant.API_PATH}service/list?accessToken=${accessToken}&type=${data.type}&limit=${data.limit}&offset=${data.offset}`)
 			.then((response) => {
@@ -40,6 +38,8 @@ export const getServiceList = (data, accessToken) => {
 
 export const getServiceTypes = (accessToken) => {
 	return async dispatch => {
+		dispatch(handleRequest());
+
 		return axios
 			.get(`${constant.API_PATH}service/type?accessToken=${accessToken}`)
 			.then((response) => {
@@ -55,6 +55,8 @@ export const getServiceTypes = (accessToken) => {
 				})
 			})
 	}
+
+	function handleRequest() { return { type: GET_SERVICE_TYPES_REQUESTED } }
 }
 
 export const createNewService = (data, accessToken) => {

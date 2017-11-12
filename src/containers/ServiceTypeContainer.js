@@ -1,7 +1,6 @@
 import React from 'react';
 import ServiceType from '../components/ServiceType';
 import PropTypes from 'prop-types';
-import { withCookies, Cookies } from 'react-cookie';
 
 import { connect } from 'react-redux';
 import {
@@ -12,29 +11,10 @@ import {
 class ServiceTypeContainer extends React.Component {
 	constructor() {
 		super();
-		this.handleAccessToken = this.handleAccessToken.bind(this);
 		this.handleServiceTransaction = this.handleServiceTransaction.bind(this);
 	}
 
-	componentWillMount() {
-		this.handleAccessToken();
-		// this.props.getServiceList();
-	}
-
-	handleServiceTransaction = (serviceId) => {
-		const { dispatch, accessToken } = this.props;
-
-		const requiredData = {
-			service: serviceId
-		}
-
-		dispatch(createServiceTransaction(requiredData, accessToken))
-			.then(() => {
-				window.location.reload();
-			})
-	}
-
-	handleAccessToken = () => {
+	componentDidMount = () => {
 		const {
 			accessToken,
 			member,
@@ -49,6 +29,19 @@ class ServiceTypeContainer extends React.Component {
 		}
 
 		dispatch(getServiceList(requiredData, accessToken));
+	}
+
+	handleServiceTransaction = (serviceId) => {
+		const { dispatch, accessToken } = this.props;
+
+		const requiredData = {
+			service: serviceId
+		}
+
+		dispatch(createServiceTransaction(requiredData, accessToken))
+			.then(() => {
+				window.location.reload();
+			})
 	}
 
 	render() {
@@ -72,17 +65,4 @@ const mapStateToProps = (state, props) => {
 	};
 }
 
-// const mapDispatchToProps = (dispatch, ownProps) => {
-// 	const { type } = ownProps;
-// 	const requiredData = {
-// 		type: type.id,
-// 		limit: 10,
-// 		offset: 0
-// 	}
-//
-// 	return {
-// 		getServiceList: () => dispatch(getServiceList(requiredData))
-// 	}
-// }
-
-export default withCookies(connect(mapStateToProps)(ServiceTypeContainer));
+export default connect(mapStateToProps)(ServiceTypeContainer);

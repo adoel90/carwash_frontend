@@ -35,19 +35,17 @@ class Service extends React.Component {
 		const {
 			match,
 			member,
-			serviceTypes
+			service
 		} = this.props;
 
-		const firstRoutePath = serviceTypes[0].name.replace(/\s+/g, '-').toLowerCase();
-
-		console.log(member);
+		const firstRoutePath = service.types[0].name.replace(/\s+/g, '-').toLowerCase();
 
 		return (
 			<main className="main main--has-subheader">
 				<Container className="padding-top-3">
 					<Row>
 						<aside className="sidebar column-2">
-							<MainSidenav items={ serviceTypes } basePath={match.path} />
+							<MainSidenav items={ service.types } basePath={match.path} />
 						</aside>
 						<div className="column-10">
 							<div className="heading padding-bottom-1">
@@ -67,7 +65,7 @@ class Service extends React.Component {
 								</PageBlock>
 
 							</div>
-							{ serviceTypes.map(this.renderServiceType) }
+							{ service.types.map(this.renderServiceType) }
 							<Redirect from="/*" to={`${match.url}/${firstRoutePath}`} />
 						</div>
 					</Row>

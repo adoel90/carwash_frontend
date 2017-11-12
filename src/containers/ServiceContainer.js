@@ -13,9 +13,13 @@ class ServiceContainer extends React.Component {
 	}
 
 	componentDidMount = () => {
-		const { getServiceTypes } = this.props;
+		const {
+			accessToken,
+			dispatch
+		} = this.props;
 
-		getServiceTypes();
+		dispatch(getServiceTypes(accessToken));
+
 	}
 
 	//	#1
@@ -23,7 +27,11 @@ class ServiceContainer extends React.Component {
 	//	to each service. Should be dismissed when Backend
 	//	provides this to each object item.
 	addPathPropToTypes = () => {
-		this.props.serviceTypes.map((type, i) => {
+		const {
+			service
+		} = this.props;
+
+		service.types.map((type, i) => {
 			return type.path = type.name.replace(/\s+/g, '-').toLowerCase();
 		})
 	}
@@ -31,40 +39,27 @@ class ServiceContainer extends React.Component {
 	render() {
 		const {
 			member,
+			service,
 			accessToken
 		} = this.props;
 
-		//	See #1
-		if(this.props.service.isLoaded) {
+		if(service.isLoaded) {
 			this.addPathPropToTypes();
 		}
 
-		console.log(member);
 
-		return this.props.service.isLoaded
+		return service.isLoaded
 		? <Service {...this.state} {...this.props} />
-		: null;
+		: null
 	}
 }
 
 const mapStateToProps = (state, props) => {
 	const service = state.service;
-	const serviceTypes = state.service.types;
 
 	return {
-		service,
-		serviceTypes
+		service
 	}
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => {
-	console.log(ownProps);
-
-	const { accessToken } = ownProps;
-
-	return {
-		getServiceTypes: () => dispatch(getServiceTypes(accessToken))
-	}
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(ServiceContainer);
+export default connect(mapStateToProps)(ServiceContainer);

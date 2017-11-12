@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { 
+import {
 	getServiceTypes,
 	createNewServiceType
 } from '../actions/service.action';
@@ -51,7 +51,7 @@ class SettingsServiceContainer extends Component {
 		const {
 			dispatch,
 			accessToken,
-			newService 
+			newService
 		} = this.state;
 
 		const requiredData = {

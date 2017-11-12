@@ -4,6 +4,8 @@ import {
 	GET_CAFE_MENU_LIST_REJECTED,
 	CREATE_CAFE_MENU_FULFILLED,
 	CREATE_CAFE_MENU_REJECTED,
+	UPDATE_CAFE_MENU_FULFILLED,
+	UPDATE_CAFE_MENU_REJECTED,
 	GET_CAFE_TYPES_REQUESTED,
 	GET_CAFE_TYPES_FULFILLED,
 	GET_CAFE_TYPES_REJECTED
@@ -55,6 +57,23 @@ const cafe = (state = initialState, action) => {
 		}
 
 		case CREATE_CAFE_MENU_REJECTED: {
+			return {
+				...state,
+				menu: {},
+				error: action.payload
+			}
+		}
+
+		//
+		case UPDATE_CAFE_MENU_FULFILLED: {
+			return {
+				...state,
+				menu: action.payload,
+				error: {}
+			}
+		}
+
+		case UPDATE_CAFE_MENU_REJECTED: {
 			return {
 				...state,
 				menu: {},

@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
 	getCafeMenuList,
-	createNewCafeMenu
+	createNewCafeMenu,
+	updateCafeMenu
 } from '../actions/cafe.action';
 
 import { SettingsCafeType } from '../components/Settings';
@@ -49,13 +50,29 @@ class SettingsCafeTypeContainer extends Component {
 			image: menu.image
 		}
 
-		console.log(requiredData);
-
 		dispatch(createNewCafeMenu(requiredData, accessToken));
 	}
 
 	handleEditMenu = () => {
+		const {
+			type,
+			accessToken,
+			dispatch
+		} = this.props;
 
+		const {
+			menu
+		} = this.state;
+
+		const requiredData = {
+			cafe: type.id,
+			id: menu.id,
+			name: menu.name,
+			price: menu.price,
+			description: menu.description
+		}
+
+		dispatch(updateCafeMenu(requiredData, accessToken));
 	}
 
 	handleInputChange = (e) => {
@@ -144,6 +161,7 @@ class SettingsCafeTypeContainer extends Component {
 				handleInputChange={this.handleInputChange}
 				handlePhotoChange={this.handlePhotoChange}
 				handleNewMenu={this.handleNewMenu}
+				handleEditMenu={this.handleEditMenu}
 			/>
 		)
 	}

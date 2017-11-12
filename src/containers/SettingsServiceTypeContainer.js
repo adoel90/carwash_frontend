@@ -18,6 +18,7 @@ class SettingsServiceTypeContainer extends Component {
 		this.handleEditService = this.handleEditService.bind(this);
 
 		this.state = {
+			isDialogOpen: false,
 			isModalOpen: {
 				newService: false,
 				editService: false
@@ -118,9 +119,6 @@ class SettingsServiceTypeContainer extends Component {
 		}
 
 		dispatch(updateService(requiredData, accessToken))
-			.then(() => {
-				window.location.reload();
-			})
 	}
 
 	handleNewService = () => {
@@ -147,7 +145,7 @@ class SettingsServiceTypeContainer extends Component {
 	}
 
 	render() {
-		const { isModalOpen } = this.state;
+		const { isModalOpen, isDialogOpen } = this.state;
 
 		console.log(this.props);
 

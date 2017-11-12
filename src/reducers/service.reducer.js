@@ -7,6 +7,8 @@ import {
 	GET_SERVICE_TYPES_REJECTED,
 	CREATE_SERVICE_FULFILLED,
 	CREATE_SERVICE_REJECTED,
+	CREATE_SERVICE_TYPE_FULFILLED,
+	CREATE_SERVICE_TYPE_REJECTED,
 	CREATE_SERVICE_TRANSACTION_FULFILLED,
 	CREATE_SERVICE_TRANSACTION_REJECTED,
 	UPDATE_SERVICE_FULFILLED,
@@ -15,6 +17,7 @@ import {
 
 const initialState = {
 	list: {},
+	type: {},
 	types: {},
 	service: {},
 	isFetching: false,
@@ -89,6 +92,22 @@ const service = (state = initialState, action) => {
 			return {
 				...state,
 				service: null,
+				error: action.payload
+			}
+		}
+
+		case CREATE_SERVICE_TYPE_FULFILLED: {
+			return {
+				...state,
+				type: action.payload,
+				error: {}
+			}
+		}
+
+		case CREATE_SERVICE_TYPE_REJECTED: {
+			return {
+				...state,
+				type: {},
 				error: action.payload
 			}
 		}

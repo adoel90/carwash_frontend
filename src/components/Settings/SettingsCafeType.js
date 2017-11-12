@@ -33,7 +33,7 @@ class SettingsCafeType extends Component {
 
 	handleEditMenuSubmit = (e) => {
 		e.preventDefault();
-		this.props.handleEditMenuSubmit();
+		this.props.handleEditMenu();
 	}
 
 	handleNewMenuSubmit = (e) => {

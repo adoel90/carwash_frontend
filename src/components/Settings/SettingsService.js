@@ -21,12 +21,19 @@ class SettingsService extends Component {
 		this.renderTabNav = this.renderTabNav.bind(this);
 		this.renderTabContent = this.renderTabContent.bind(this);
 		this.renderNewServiceTypeModal = this.renderNewServiceTypeModal.bind(this);
+		this.handleNewServiceTypeSubmit = this.handleNewServiceTypeSubmit.bind(this);
+	}
+
+	handleNewServiceTypeSubmit = (e) => {
+		e.preventDefault();
+		this.props.handleNewServiceType();
 	}
 
 	renderNewServiceTypeModal = () => {
 		const {
 			isModalOpen,
-			toggleModal
+			toggleModal,
+			handleInputChange
 		} = this.props;
 
 		return (
@@ -34,11 +41,17 @@ class SettingsService extends Component {
 				<ModalHeader align="center">
 					<h6 className="fw-semibold">Tambah Tipe Service</h6>
 				</ModalHeader>
-				<Form>
+				<Form onSubmit={this.handleNewServiceTypeSubmit}>
 					<ModalContent>
 						<FormGroup>
 							<Label className="fw-semibold">Nama Tipe Service</Label>
-							<Input type="text" placeholder="Masukkan nama tipe service baru" autoFocus="true" />
+							<Input 
+								name="name" 
+								type="text" 
+								placeholder="Masukkan nama tipe service baru" 
+								onChange={handleInputChange}
+								autoFocus="true" 
+							/>
 						</FormGroup>
 					</ModalContent>
 					<ModalFooter className="flex">

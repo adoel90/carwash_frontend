@@ -1,20 +1,64 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getServiceTypes } from '../actions/service.action';
+import { 
+	getServiceTypes,
+	createNewServiceType
+} from '../actions/service.action';
 import { SettingsService } from '../components/Settings';
 
 class SettingsServiceContainer extends Component {
 	constructor() {
 		super();
 		this.state = {
-			isModalOpen: false
+			isModalOpen: false,
+			newService: {
+				name: ''
+			}
 		}
-
+		this.getServiceTypes = this.getServiceTypes.bind(this);
+		this.handleInputChange = this.handleInputChange.bind(this);
 		this.toggleModal = this.toggleModal.bind(this);
+		this.handleNewServiceType = this.handleNewServiceType.bind(this);
 	}
 
-	componentDidMount = () => {
-		this.props.getServiceTypes();
+	componentWillMount = () => {
+		this.getServiceTypes();
+	}
+
+	getServiceTypes = () => {
+		const {
+			accessToken,
+			dispatch
+		} = this.props;
+
+		dispatch(getServiceTypes(accessToken));
+	}
+
+	handleInputChange = (e) => {
+		const target = e.target;
+		const name = target.name;
+		const value = target.value;
+
+		this.setState({
+			newService: {
+				...this.state.newService,
+				[name]: value
+			}
+		})
+	}
+
+	handleNewServiceType = () => {
+		const {
+			dispatch,
+			accessToken,
+			newService 
+		} = this.state;
+
+		const requiredData = {
+			name: newService.name
+		}
+
+		dispatch(createNewServiceType(requiredData, accessToken));
 	}
 
 	toggleModal = () => {
@@ -29,6 +73,8 @@ class SettingsServiceContainer extends Component {
 				{...this.props}
 				{...this.state}
 				toggleModal={this.toggleModal}
+				handleInputChange={this.handleInputChange}
+				handleNewServiceType={this.handleNewServiceType}
 			/>
 		)
 	}
@@ -40,12 +86,4 @@ const mapStateToProps = (state) => {
 	}
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => {
-	const { accessToken } = ownProps;
-
-	return {
-		getServiceTypes: () => dispatch(getServiceTypes(accessToken))
-	}
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(SettingsServiceContainer);
+export default connect(mapStateToProps)(SettingsServiceContainer);

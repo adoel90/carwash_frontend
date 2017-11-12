@@ -6,6 +6,8 @@ export const GET_CAFE_MENU_LIST_FULFILLED = 'GET_CAFE_MENU_LIST_FULFILLED';
 export const GET_CAFE_MENU_LIST_REJECTED = 'GET_CAFE_MENU_LIST_REJECTED';
 export const CREATE_CAFE_MENU_FULFILLED = 'CREATE_CAFE_MENU_FULFILLED';
 export const CREATE_CAFE_MENU_REJECTED = 'CREATE_CAFE_MENU_REJECTED';
+export const UPDATE_CAFE_MENU_FULFILLED = 'UPDATE_CAFE_MENU_FULFILLED';
+export const UPDATE_CAFE_MENU_REJECTED = 'UPDATE_CAFE_MENU_REJECTED';
 export const GET_CAFE_TYPES_REQUESTED = 'GET_CAFE_TYPES_REQUESTED';
 export const GET_CAFE_TYPES_FULFILLED = 'GET_CAFE_TYPES_FULFILLED';
 export const GET_CAFE_TYPES_REJECTED = "GET_CAFE_TYPES_REJECTED";
@@ -51,6 +53,28 @@ export const createNewCafeMenu = (data, accessToken) => {
 
 	function handleSuccess(data) { return { type: CREATE_CAFE_MENU_FULFILLED, payload: data}}
 	function handleError(data) { return { type: CREATE_CAFE_MENU_REJECTED, payload: data}}
+}
+
+export const updateCafeMenu = (data, accessToken) => {
+	return async dispatch => {
+		return axios
+			.put(`${constant.API_PATH}cafe/menu/update?accessToken=${accessToken}`, {
+				cafe: data.cafe,
+				id: data.id,
+				name: data.name,
+				price: data.price,
+				description: data.decription
+			})
+			.then((response) => {
+				dispatch(handleSuccess(response.data));
+			})
+			.catch((error) => {
+				dispatch(handleError(error));
+			})
+	}
+
+	function handleSuccess(data) { return { type: UPDATE_CAFE_MENU_FULFILLED, payload: data }}
+	function handleError(data) { return { type: UPDATE_CAFE_MENU_REJECTED, payload: data }}
 }
 
 export const getCafeTypes = (accessToken) => {

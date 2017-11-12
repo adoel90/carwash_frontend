@@ -7,6 +7,7 @@ import { ModalHeader, ModalContent, ModalFooter } from '../Modal';
 import { Form, FormGroup } from '../Form';
 import { Input, InputGroup, InputAddon, InputCurrency, Label } from '../Input';
 import { Row } from '../Grid';
+import { DialogConfirm } from '../Dialog';
 import SearchBar from '../SearchBar';
 
 class SettingsServiceType extends Component {
@@ -22,8 +23,9 @@ class SettingsServiceType extends Component {
 		this.renderNewServiceModal = this.renderNewServiceModal.bind(this);
 		this.renderEditServiceModal = this.renderEditServiceModal.bind(this);
 		this.renderPhotoPreview = this.renderPhotoPreview.bind(this);
-
 	}
+
+
 
 	toggleEditServiceModal = (item) => {
 		this.props.toggleEditServiceModal(item);
@@ -78,6 +80,7 @@ class SettingsServiceType extends Component {
 			menu,
 			type,
 			isModalOpen,
+			toggleDialog,
 			toggleEditServiceModal
 		} = this.props;
 

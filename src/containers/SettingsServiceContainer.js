@@ -4,12 +4,33 @@ import { getServiceTypes } from '../actions/service.action';
 import { SettingsService } from '../components/Settings';
 
 class SettingsServiceContainer extends Component {
+	constructor() {
+		super();
+		this.state = {
+			isModalOpen: false
+		}
+
+		this.toggleModal = this.toggleModal.bind(this);
+	}
+
 	componentDidMount = () => {
 		this.props.getServiceTypes();
 	}
 
+	toggleModal = () => {
+		this.setState({
+			isModalOpen: !this.state.isModalOpen
+		})
+	}
+
 	render() {
-		return <SettingsService {...this.props} {...this.state} />
+		return (
+			<SettingsService
+				{...this.props}
+				{...this.state}
+				toggleModal={this.toggleModal}
+			/>
+		)
 	}
 }
 

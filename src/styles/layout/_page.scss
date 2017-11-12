@@ -13,9 +13,9 @@
 }
 
 .page-block {
+	@include transition(all 250ms $transition-primary);
 	@include border-radius(base);
 	background-color: gray(100);
-	min-height: 5em;
 	width: 100%;
 	box-shadow: map-get($box-shadow, base);
 	overflow: hidden;

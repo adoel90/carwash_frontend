@@ -41,7 +41,7 @@ class CashierTopUpForm extends Component {
 		const requiredData = {
 			topup: parseInt(this.state.topup)
 		}
-		
+
 		dispatch(memberTopup(requiredData, member.data.accessToken))
 	}
 

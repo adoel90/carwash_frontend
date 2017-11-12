@@ -10,10 +10,9 @@ import {
 } from '../actions/member.action'
 
 const initialState = {
-	member: null,
-	list: null,
-	new: null,
-	error: null
+	data: {},
+	list: {},
+	error: {}
 }
 
 const member = (state = initialState, action) => {
@@ -21,7 +20,7 @@ const member = (state = initialState, action) => {
 		case AUTHENTICATE_MEMBER_FULFILLED: {
 			return {
 				...state,
-				data: action.payload,
+				data: action.payload.member,
 				error: null
 			}
 		}

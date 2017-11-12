@@ -93,7 +93,7 @@ const cafe = (state = initialState, action) => {
 		case GET_CAFE_TYPES_FULFILLED: {
 			return {
 				...state,
-				types: action.payload.data,
+				types: action.payload,
 				isFetching: false,
 				isLoaded: true
 			}

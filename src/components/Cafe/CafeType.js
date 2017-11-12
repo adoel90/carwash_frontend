@@ -15,21 +15,21 @@ class CafeType extends Component {
 
 	renderCafeMenuList = () => {
 		const {
-			cafeMenu,
+			cafe,
 			type
 		} = this.props;
 
 		return (
 			<CafeMenuList
 				cafeType={type}
-				cafeMenuList={cafeMenu}
+				cafeMenuList={cafe.list.menu}
 			/>
 		)
 	}
 
 	render() {
 		const {
-			cafeMenu
+			cafe
 		} = this.props;
 
 		return (
@@ -46,7 +46,7 @@ class CafeType extends Component {
 					className="padding-bottom-2"
 					placeholder="Pencarian cepat..."
 				/>
-				{ cafeMenu ? this.renderCafeMenuList() : <p>Sebentar ya...</p> }
+				{ cafe.list.menu ? this.renderCafeMenuList() : <p>Sebentar ya...</p> }
 			</div>
 		);
 	}

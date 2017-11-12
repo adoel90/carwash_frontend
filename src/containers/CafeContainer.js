@@ -6,11 +6,20 @@ import { getCafeTypes } from '../actions/cafe.action.js';
 
 class CafeContainer extends React.Component {
 	componentDidMount = () => {
-		this.props.getCafeTypes();
+		const {
+			accessToken,
+			dispatch
+		} = this.props;
+
+		dispatch(getCafeTypes(accessToken));
 	}
 
 	render() {
-		return this.props.cafe.isLoaded
+		const {
+			cafe
+		} = this.props;
+
+		return cafe.isLoaded
 		? <Cafe {...this.state} {...this.props} />
 		: null
 	}
@@ -18,17 +27,8 @@ class CafeContainer extends React.Component {
 
 const mapStateToProps = (state, props) => {
 	return {
-		cafe: state.cafe,
-		cafeTypes: state.cafe.types
+		cafe: state.cafe
 	}
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => {
-	const { accessToken } = ownProps;
-
-	return {
-		getCafeTypes: () => dispatch(getCafeTypes(accessToken))
-	}
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(CafeContainer);
+export default connect(mapStateToProps)(CafeContainer);

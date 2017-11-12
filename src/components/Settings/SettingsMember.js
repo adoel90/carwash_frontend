@@ -183,7 +183,7 @@ class SettingsMember extends React.Component {
 						</tr>
 					</thead>
 					<tbody>
-						{ member.list ? member.list.member.map(this.renderMemberList) : <p>Sedang dimuat...</p> }
+						{ member.list.member ? member.list.member.map(this.renderMemberList) : <p>Sedang dimuat...</p> }
 					</tbody>
 				</Table>
 				{ selectedMember ? this.renderActionModal() : null }

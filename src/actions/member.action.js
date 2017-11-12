@@ -21,7 +21,11 @@ export const authenticateMember = (data) => {
 			})
 			.then((response) => {
 				dispatch(handleSuccess(response.data.data));
-				cookies.set('accessToken', response.data.data.accessToken, { path: '/' });
+
+				if(!cookies.get('accessToken')) {
+					cookies.set('accessToken', response.data.data.accessToken, { path: '/' });
+				}
+
 				cookies.set('member', response.data.data.member, { path: '/' });
 			})
 			.catch((error) => {

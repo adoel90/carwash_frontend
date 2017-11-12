@@ -17,6 +17,7 @@ class Cafe extends React.Component {
 	renderCafeType = (type, i) => {
 		const { match } = this.props;
 		const path = type.name.replace(/\s+/g, '-').toLowerCase();
+		console.log(type);
 
 		return (
 			<PropsRoute
@@ -33,10 +34,10 @@ class Cafe extends React.Component {
 	render() {
 		const {
 			match,
-			cafeTypes
+			cafe
 		} = this.props;
 
-		const firstRoutePath = cafeTypes[0].name.replace(/\s+/g, '-').toLowerCase();
+		const firstRoutePath = cafe.types[0].name.replace(/\s+/g, '-').toLowerCase();
 
 		return (
 			<main className="main main--has-subheader">
@@ -48,7 +49,7 @@ class Cafe extends React.Component {
 							</aside>
 						</div>
 						<div className="column-10">
-							{ cafeTypes.map(this.renderCafeType) }
+							{ cafe.types.map(this.renderCafeType) }
 							<Redirect from="/*" to={`${match.url}/${firstRoutePath}`} />
 						</div>
 					</Row>

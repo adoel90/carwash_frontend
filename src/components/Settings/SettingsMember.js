@@ -17,9 +17,11 @@ class SettingsMember extends React.Component {
 
 	renderEditMemberModal = () => {
 		const {
+			member,
 			selectedMember,
 			isModalOpen,
 			toggleModal,
+			handleInputChange,
 			handleUpdateMemberSubmit,
 		} = this.props;
 
@@ -35,7 +37,46 @@ class SettingsMember extends React.Component {
 					<ModalContent>
 						<FormGroup row>
 							<Label className="fw-semibold">Nama Member</Label>
-							<Input name="name" placeholder="Masukkan nama lengkap member" value={selectedMember.name} />
+							<Input
+								type="text"
+								name="name"
+								placeholder="Masukkan nama lengkap member"
+								value={selectedMember.name}
+								onChange={(e) => handleInputChange(selectedMember, e)}
+								required="true"
+							/>
+						</FormGroup>
+						<FormGroup row>
+							<Label className="fw-semibold">Alamat Email</Label>
+							<Input
+								type="text"
+								name="email"
+								placeholder="Masukkan alamat email member"
+								value={selectedMember.email}
+								onChange={(e) => handleInputChange(selectedMember, e)}
+								required="true"
+							/>
+						</FormGroup>
+						<FormGroup row>
+							<Label className="fw-semibold">No. Telepon</Label>
+							<Input
+								type="phone"
+								name="phone"
+								placeholder="Masukkan nomor telepon/handphone member"
+								value={selectedMember.phone}
+								onChange={(e) => handleInputChange(selectedMember, e)}
+								required="true"
+							/>
+						</FormGroup>
+						<FormGroup row>
+							<Label className="fw-semibold">Alamat</Label>
+							<Input
+								type="textarea"
+								name="address"
+								placeholder="Masukkan alamat member"
+								value={selectedMember.address}
+								onChange={(e) => handleInputChange(selectedMember, e)}
+							/>
 						</FormGroup>
 					</ModalContent>
 					<ModalFooter className="flex justify-content--flex-end">

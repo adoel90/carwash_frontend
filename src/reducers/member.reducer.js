@@ -7,6 +7,9 @@ RESET_MEMBER_DATA,
 	GET_MEMBER_LIST_REQUESTED,
 	GET_MEMBER_LIST_FULFILLED,
 	GET_MEMBER_LIST_REJECTED,
+	UPDATE_MEMBER_REQUESTED,
+	UPDATE_MEMBER_FULFILLED,
+	UPDATE_MEMBER_REJECTED,
 	CREATE_MEMBER_REQUESTED,
 	CREATE_MEMBER_FULFILLED,
 	CREATE_MEMBER_REJECTED,
@@ -33,7 +36,7 @@ const member = (state = initialState, action) => {
 				...state,
 				data: action.payload.member,
 				accessToken: action.payload.accessToken,
-				error: null
+				error: {}
 			}
 		}
 
@@ -110,6 +113,22 @@ const member = (state = initialState, action) => {
 				...state,
 				data: {},
 				isLoaded: false,
+				error: action.payload
+			}
+		}
+
+		case UPDATE_MEMBER_FULFILLED: {
+			return {
+				...state,
+				data: action.payload,
+				error: {}
+			}
+		}
+
+		case UPDATE_MEMBER_REJECTED: {
+			return {
+				...state,
+				data: {},
 				error: action.payload
 			}
 		}

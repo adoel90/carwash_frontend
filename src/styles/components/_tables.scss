@@ -35,7 +35,7 @@
 			cursor: pointer;
 
 			&:hover {
-				background-color: rgba(secondary-color(base), 0.3);
+				background-color: rgba(secondary-color(base), 0.3) !important;
 			}
 		}
 
@@ -48,7 +48,7 @@
 
 	&.table--striped {
 		tbody {
-			tr:nth-child(2n + 2) {
+			tr:nth-child(2n+2) {
 				background-color: darken(gray(100), 5%);
 			}
 		}

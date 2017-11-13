@@ -113,12 +113,24 @@ export const createNewMember = (data, accessToken) => {
 	function handleError(data) { return { type: CREATE_MEMBER_REJECTED, payload: data } }
 }
 
-export const updateMember = () => {
+export const updateMember = (data, accessToken) => {
 	return async dispatch => {
-		dispatch(handleRequest());
+		return axios
+			.put(`${constant.API_PATH}member/update?accessToken=${accessToken}`, {
+				id: data.id,
+				name: data.name,
+				phone: data.phone,
+				email: data.email,
+				address: data.address
+			})
+			.then((response) => {
+				dispatch(handleSuccess(response.data));
+			})
+			.catch((error) => {
+				dispatch(handleError(error));
+			})
 	}
 
-	function handleRequest() { return { type: UPDATE_MEMBER_REQUESTED } }
 	function handleSuccess(data) { return { type: UPDATE_MEMBER_FULFILLED, payload: data } }
 	function handleError(data) { return { type: UPDATE_MEMBER_REJECTED, payload: data } }
 }

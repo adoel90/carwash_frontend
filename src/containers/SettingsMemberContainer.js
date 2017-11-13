@@ -24,6 +24,7 @@ class SettingsMemberContainer extends Component {
 
 		this.toggleModal = this.toggleModal.bind(this);
 		this.getMemberList = this.getMemberList.bind(this);
+		this.handleInputChange = this.handleInputChange.bind(this);
 		this.handleUpdateMember = this.handleUpdateMember.bind(this);
 		this.handleUpdateMemberSubmit = this.handleUpdateMemberSubmit.bind(this);
 		this.handleDeleteMember = this.handleDeleteMember.bind(this);
@@ -31,6 +32,21 @@ class SettingsMemberContainer extends Component {
 
 	componentDidMount = () => {
 		this.getMemberList();
+	}
+
+	handleInputChange = (object, e) => {
+		const target = e.target;
+		const name = target.name;
+		const value = target.value;
+
+		if(object) {
+			object[name] = value;
+			this.forceUpdate();
+		} else {
+			this.setState({
+				[name]: value
+			})
+		}
 	}
 
 	toggleModal = (name) => {
@@ -57,18 +73,24 @@ class SettingsMemberContainer extends Component {
 		this.toggleModal('editMember');
 	}
 
-	handleUpdateMemberSubmit = (data) => {
+	handleUpdateMemberSubmit = (e) => {
+		e.preventDefault();
+
 		const {
 			accessToken,
 			dispatch
 		} = this.props;
 
+		const {
+			selectedMember
+		} = this.state;
+
 		let requiredData = {
-			id: data.id,
-			name: data.name,
-			phone: data.phone,
-			email: data.email,
-			address: data.address
+			id: selectedMember.id,
+			name: selectedMember.name,
+			phone: selectedMember.phone,
+			email: selectedMember.email,
+			address: selectedMember.address
 		}
 
 		dispatch(updateMember(requiredData, accessToken));
@@ -112,6 +134,7 @@ class SettingsMemberContainer extends Component {
 					{...this.props}
 					{...this.state}
 					toggleModal={this.toggleModal}
+					handleInputChange={this.handleInputChange}
 					handleUpdateMember={this.handleUpdateMember}
 					handleUpdateMemberSubmit={this.handleUpdateMemberSubmit}
 					handleDeleteMember={this.handleDeleteMember}

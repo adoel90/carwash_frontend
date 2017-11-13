@@ -3,6 +3,8 @@ import React from 'react';
 import { Modal } from 'reactstrap';
 import { PageBlock } from '../Page';
 import { ModalHeader, ModalContent, ModalFooter, ModalDialog } from '../Modal';
+import { Form, FormGroup } from '../Form';
+import { Input, InputAddon, InputGroup, Label } from '../Input';
 
 import { SettingsMemberList } from '../Settings';
 
@@ -14,8 +16,10 @@ class SettingsMember extends React.Component {
 
 	renderEditMemberModal = () => {
 		const {
+			member,
 			isModalOpen,
-			toggleModal
+			toggleModal,
+			handleUpdateMember
 		} = this.props;
 
 		return (
@@ -26,6 +30,17 @@ class SettingsMember extends React.Component {
 				<ModalHeader align="center">
 					<h6 className="fw-semibold">Ubah Informasi Member</h6>
 				</ModalHeader>
+				<Form onSubmit={handleUpdateMember}>
+					<ModalContent>
+						<FormGroup row>
+							<Label className="fw-semibold">Nama Member</Label>
+							<Input name="name" placeholder="Masukkan nama lengkap member" value={member.name} />
+						</FormGroup>
+					</ModalContent>
+					<ModalFooter>
+
+					</ModalFooter>
+				</Form>
 			</Modal>
 		)
 	}

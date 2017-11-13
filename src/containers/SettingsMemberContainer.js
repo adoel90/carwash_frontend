@@ -43,7 +43,7 @@ class SettingsMemberContainer extends Component {
 		})
 	}
 
-	handleUpdateMember = (data) => {
+	handleUpdateMemberSubmit = (data) => {
 		const {
 			accessToken,
 			dispatch
@@ -99,6 +99,7 @@ class SettingsMemberContainer extends Component {
 					{...this.state}
 					toggleModal={this.toggleModal}
 					handleUpdateMember={this.handleUpdateMember}
+					handleUpdateMemberSubmit={this.handleUpdateMemberSubmit}
 					handleDeleteMember={this.handleDeleteMember}
 				/>
 			)

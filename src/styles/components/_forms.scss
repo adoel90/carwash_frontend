@@ -5,6 +5,11 @@ form {}
 		@include relative;
 		margin-bottom: $spacer * .75;
 
+		.form-label {
+			display: block;
+			margin-bottom: $spacer * .25;
+		}
+
 		&.form-group--row {
 			@include flexbox;
 			@include flex-direction(row);
@@ -15,16 +20,12 @@ form {}
 				width: 25%;
 				text-align: right;
 				padding-right: $spacer * .5;
+				margin: 0;
 			}
 
 			> .form-control {
 				width: 100%;
 			}
-		}
-
-		.form-label {
-			display: block;
-			margin-bottom: $spacer * .25;
 		}
 
 		// &:last-of-type {

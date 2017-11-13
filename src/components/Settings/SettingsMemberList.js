@@ -29,7 +29,7 @@ class SettingsMemberList extends Component {
 				<td>{member.phone}</td>
 				<td className="td--fixed">
 					<ButtonGroup>
-						<Button type="button" buttonTheme="secondary" buttonSize="small" className="clr-dark" onClick={() => toggleModal('editMember')}>
+						<Button type="button" buttonTheme="secondary" buttonSize="small" className="clr-dark" onClick={() => handleUpdateMember('editMember')}>
 							<i className="fi flaticon-edit icon margin-right-2"></i>
 							<small className="fw-semibold tt-uppercase ls-base">Ubah</small>
 						</Button>

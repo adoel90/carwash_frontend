@@ -2,14 +2,32 @@ import React from 'react';
 
 import { Modal } from 'reactstrap';
 import { PageBlock } from '../Page';
-import { ModalDialog } from '../Modal';
+import { ModalHeader, ModalContent, ModalFooter, ModalDialog } from '../Modal';
 
 import { SettingsMemberList } from '../Settings';
 
 class SettingsMember extends React.Component {
 	constructor() {
 		super();
-		this.renderDialog = this.renderDialog.bind(this);
+		this.renderEditMemberModal = this.renderEditMemberModal.bind(this);
+	}
+
+	renderEditMemberModal = () => {
+		const {
+			isModalOpen,
+			toggleModal
+		} = this.props;
+
+		return (
+			<Modal
+				name="editMember"
+				isOpen={isModalOpen.editMember}
+				toggle={() => toggleModal('editMember')}>
+				<ModalHeader align="center">
+					<h6 className="fw-semibold">Ubah Informasi Member</h6>
+				</ModalHeader>
+			</Modal>
+		)
 	}
 
 	renderDialog = () => {
@@ -32,7 +50,7 @@ class SettingsMember extends React.Component {
 					<p className="clr-passive">Silahkan klik salah satu member dibawah ini untuk mengubah informasinya.</p>
 				</div>
 				{ member.isLoaded ? <SettingsMemberList {...this.props} /> : null }
-				{ this.renderDialog() }
+				{ this.renderEditMemberModal() }
 			</div>
 		)
 	}

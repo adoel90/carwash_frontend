@@ -7,7 +7,6 @@ import { ModalHeader, ModalContent, ModalFooter } from '../Modal';
 import { Form, FormGroup } from '../Form';
 import { Input, InputGroup, InputAddon, InputCurrency, Label } from '../Input';
 import { Row } from '../Grid';
-import { DialogConfirm } from '../Dialog';
 import SearchBar from '../SearchBar';
 
 class SettingsServiceType extends Component {

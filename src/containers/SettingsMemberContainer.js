@@ -17,9 +17,12 @@ class SettingsMemberContainer extends Component {
 				phone: '',
 				address: ''
 			},
-			isModalOpen: false
+			isModalOpen: {
+				editMember: false
+			}
 		}
 
+		this.toggleModal = this.toggleModal.bind(this);
 		this.getMemberList = this.getMemberList.bind(this);
 		this.handleUpdateMember = this.handleUpdateMember.bind(this);
 		this.handleDeleteMember = this.handleDeleteMember.bind(this);
@@ -27,6 +30,17 @@ class SettingsMemberContainer extends Component {
 
 	componentDidMount = () => {
 		this.getMemberList();
+	}
+
+	toggleModal = (name) => {
+		const { isModalOpen } = this.state;
+
+		this.setState({
+			isModalOpen: {
+				...isModalOpen,
+				[name]: !isModalOpen[name]
+			}
+		})
 	}
 
 	handleUpdateMember = (data) => {
@@ -83,7 +97,7 @@ class SettingsMemberContainer extends Component {
 				<SettingsMember
 					{...this.props}
 					{...this.state}
-					isModalOpen={isModalOpen}
+					toggleModal={this.toggleModal}
 					handleUpdateMember={this.handleUpdateMember}
 					handleDeleteMember={this.handleDeleteMember}
 				/>

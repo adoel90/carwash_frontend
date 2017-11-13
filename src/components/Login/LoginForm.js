@@ -81,7 +81,7 @@ class LoginForm extends React.Component {
 					/>
 				</FormGroup>
 				<Button type="submit" buttonTheme="dark" buttonFull onClick={this.handleSubmit} disabled={authentication.isLoggingIn || !username || !password}>
-					<small className="fw-semibold ls-base tt-uppercase">{authentication.isLoggingIn ? 'Tunggu sebentar...' : 'Masuk'}</small>
+					<small className="fw-semibold ls-base tt-uppercase clr-light">{authentication.isLoggingIn ? 'Tunggu sebentar...' : 'Masuk'}</small>
 				</Button>
 			</Form>
 		)

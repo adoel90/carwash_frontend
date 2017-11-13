@@ -12,6 +12,7 @@ class ServiceTypeContainer extends React.Component {
 	constructor() {
 		super();
 		this.handleServiceTransaction = this.handleServiceTransaction.bind(this);
+		this.handleMemberLogout = this.handleMemberLogout.bind(this);
 	}
 
 	componentDidMount = () => {
@@ -31,6 +32,10 @@ class ServiceTypeContainer extends React.Component {
 		dispatch(getServiceList(requiredData, accessToken));
 	}
 
+	handleMemberLogout = () => {
+
+	}
+
 	handleServiceTransaction = (serviceId) => {
 		const { dispatch, accessToken } = this.props;
 
@@ -38,10 +43,7 @@ class ServiceTypeContainer extends React.Component {
 			service: serviceId
 		}
 
-		dispatch(createServiceTransaction(requiredData, accessToken))
-			.then(() => {
-				window.location.reload();
-			})
+		dispatch(createServiceTransaction(requiredData, accessToken));
 	}
 
 	render() {
@@ -50,6 +52,7 @@ class ServiceTypeContainer extends React.Component {
 			{...this.state}
 			{...this.props}
 			handleServiceTransaction={this.handleServiceTransaction}
+			handleMemberLogout={this.handleMemberLogout}
 		/>
 		: null;
 	}

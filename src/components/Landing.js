@@ -18,6 +18,7 @@ class Landing extends React.Component {
 		document.addEventListener('keydown', this.handleKeyPress);
 		document.addEventListener('keyup', this.handleKeyPress);
 	}
+
 	handleSubmit = (e) => {
 		e.preventDefault();
 		this.props.handleSubmit();
@@ -31,13 +32,13 @@ class Landing extends React.Component {
 		this.props.handleChange(value);
 	}
 
-	componentDidUpdate = () => {
-		if(this.props.member.data) {
-			window.location.reload();
-		}
-
-		console.log(this.props.member);
-	}
+	// componentDidUpdate = () => {
+	// 	if(this.props.member.data) {
+	// 		window.location.reload();
+	// 	}
+	//
+	// 	console.log(this.props.member);
+	// }
 
 	render() {
 		const {

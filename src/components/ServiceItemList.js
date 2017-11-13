@@ -18,14 +18,54 @@ import { default as CashierIcon } from '../assets/icons/Business/cashier.svg';
 class ServiceItemList extends React.Component {
 	constructor() {
 		super();
+		this.toggleDialog = this.toggleDialog.bind(this);
+
+		this.handleServiceTransaction = this.handleServiceTransaction.bind(this);
+		this.handleLogout = this.handleLogout.bind(this);
+
 		this.renderServiceItem = this.renderServiceItem.bind(this);
 		this.renderConfirmationModal = this.renderConfirmationModal.bind(this);
-		this.handleServiceTransaction = this.handleServiceTransaction.bind(this);
 		this.renderModalContent = this.renderModalContent.bind(this);
 		this.renderModalFooter = this.renderModalFooter.bind(this);
+		this.renderSuccessDialog = this.renderSuccessDialog.bind(this);
+
 		this.state = {
+			isModalOpen: false,
+			isDialogOpen: false,
 			selectedService: {}
 		}
+	}
+
+	handleLogout = () => {
+		this.props.handleMemberLogout();
+	}
+
+	toggleDialog = () => {
+		this.setState({
+			isDialogOpen: !this.state.isDialogOpen
+		})
+
+	}
+
+	renderSuccessDialog = () =>{
+		const {
+			isDialogOpen
+		} = this.state;
+
+		return (
+			<Modal isOpen={isDialogOpen} toggle={this.toggleDialog}>
+				<ModalContent className="flex flex-column align-items--center justify-content--center ta-center">
+					<i className="fi flaticon-success clr-success icon icon--gigant"></i>
+					<h5 className="fw-semibold">Berhasil!</h5>
+					<p>Dimohon untuk menunggu struk pembayaran tercetak secara menyeluruh sebelum diambil. Terima kasih.</p>
+				</ModalContent>
+				<ModalFooter>
+					<Button type="button" buttonTheme="success" buttonFull onClick={this.handleLogout}>
+						<small className="fw-semibold tt-uppercase ls-base">Selesai</small>
+					</Button>
+				</ModalFooter>
+			</Modal>
+		)
 	}
 
 	selectService = (item) => {
@@ -49,10 +89,16 @@ class ServiceItemList extends React.Component {
 	}
 
 	handleServiceTransaction = (e) => {
-		const { selectedService } = this.state;
+		const {
+			selectedService
+		} = this.state;
+
 		e.preventDefault();
 
-		this.props.handleServiceTransaction(selectedService.id);
+		return Promise.resolve(this.props.handleServiceTransaction(selectedService.id))
+			.then(() => {
+				this.toggleDialog();
+			})
 	}
 
 	renderModalContent = () => {
@@ -63,9 +109,14 @@ class ServiceItemList extends React.Component {
 			return (
 				<ModalContent className="flex flex-column justify-content--center align-items--center ta-center">
 					<img style={{ width: '150px' }} src={CashierIcon} />
-					<h3 className="fw-semibold clr-primary"><Currency value={selectedService.price} /></h3>
+					<div className="padding-bottom-2">
+						<h3 className="fw-semibold clr-primary"><Currency value={selectedService.price} /></h3>
+						{/* <p className="fw-semibold">
+							Saldo Anda saat ini adalah <span className="fw-bold clr-primary"><Currency value={member.balance} /></span>
+						</p> */}
+					</div>
 					{/* <p className="clr-success">Saldo Anda cukup untuk melakukan pembayaran.</p> */}
-					<p className="h6">Anda telah memilih layanan <span className="fw-semibold">{selectedService.name}</span>. <br /> Silahkan konfirmasi kembali pilihan Anda sebelum melanjutkan.</p>
+					<p className="h6">Anda memilih layanan <span className="fw-semibold">{selectedService.name}</span>. <br /> Silahkan konfirmasi kembali pilihan Anda sebelum melanjutkan.</p>
 				</ModalContent>
 			)
 		}
@@ -73,7 +124,8 @@ class ServiceItemList extends React.Component {
 			return (
 				<ModalContent className="flex flex-column justify-content--center align-items--center ta-center">
 					{/* <h3 className="fw-semibold clr-primary"><Currency value={selectedService.price} /></h3> */}
-					<h5 className="clr-danger">Maaf, saldo Anda tidak cukup untuk melakukan pembayaran. <br/> Silahkan lakukan top-up terlebih dahulu di kasir.</h5>
+					<i className="fi flaticon-warning icon icon--gigant clr-danger"></i>
+					<h6 className="clr-danger">Maaf, saldo Anda tidak cukup untuk melakukan pembayaran. <br/> Silahkan lakukan top-up terlebih dahulu di kasir.</h6>
 				</ModalContent>
 			)
 		}
@@ -166,6 +218,7 @@ class ServiceItemList extends React.Component {
 			<CardList>
 				{ serviceList.map(this.renderServiceItem) }
 				{ this.renderConfirmationModal() }
+				{this.renderSuccessDialog()}
 			</CardList>
 		)
 	}

@@ -1,31 +1,17 @@
-import React from 'react';
-import classNames from 'classnames';
+import React, { Component } from 'react';
 import { Modal } from 'reactstrap';
-import { ModalHeader } from '../Modal';
+import { ModalHeader, ModalContent, ModalFooter } from '../Modal';
 
-class Dialog extends React.Component {
-	constructor() {
-		super();
-	}
-
+class Dialog extends Component {
 	render() {
-		const {
-			title,
-			children,
-			className
-		} = this.props;
-
-		const classes = classNames(
-			className
-		);
-
 		return (
-			<Modal className={classes} {...this.props}>
-				<ModalHeader align="center">{title}</ModalHeader>
-				{children}
+			<Modal {...this.props}>
+				<ModalHeader align="center">
+				</ModalHeader>
 			</Modal>
-		)
+		);
 	}
+
 }
 
 export default Dialog;

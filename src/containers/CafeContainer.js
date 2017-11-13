@@ -3,6 +3,7 @@ import { Cafe } from '../components/Cafe';
 
 import { connect } from 'react-redux';
 import { getCafeTypes } from '../actions/cafe.action.js';
+import { resetMemberData } from '../actions/member.action.js';
 
 class CafeContainer extends React.Component {
 	componentDidMount = () => {
@@ -12,6 +13,7 @@ class CafeContainer extends React.Component {
 		} = this.props;
 
 		dispatch(getCafeTypes(accessToken));
+		dispatch(resetMemberData());
 	}
 
 	render() {
@@ -27,7 +29,8 @@ class CafeContainer extends React.Component {
 
 const mapStateToProps = (state, props) => {
 	return {
-		cafe: state.cafe
+		cafe: state.cafe,
+		member: state.member
 	}
 }
 

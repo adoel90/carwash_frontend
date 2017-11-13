@@ -19,7 +19,8 @@ class CashierTopUpForm extends Component {
 		this.state = {
 			cardId: '',
 			topup: '',
-			isTopupModalOpen: false
+			isTopupModalOpen: false,
+			isDialogOpen: false
 		}
 
 		this.handleSubmit = this.handleSubmit.bind(this);
@@ -27,7 +28,63 @@ class CashierTopUpForm extends Component {
 		this.handleScroll = this.handleScroll.bind(this);
 		this.handleTopup = this.handleTopup.bind(this);
 		this.toggleModal = this.toggleModal.bind(this);
+		this.toggleDialog = this.toggleDialog.bind(this);
+		this.renderSuccessDialog = this.renderSuccessDialog.bind(this);
+		this.renderTopupModal = this.renderTopupModal.bind(this);
 		this.renderMemberInfo = this.renderMemberInfo.bind(this);
+	}
+
+	renderTopupModal = () => {
+		const {
+			isTopupModalOpen
+		} = this.state
+
+		const {
+			member
+		} = this.props;
+
+		return (
+			<Modal isOpen={this.state.isTopupModalOpen} toggle={this.toggleModal}>
+				<Form onSubmit={this.handleTopup}>
+					<ModalHeader>
+						<h6 className="fw-semibold ta-center">Isi Ulang Saldo Customer</h6>
+					</ModalHeader>
+					{ member.data.id ? this.renderMemberInfo() : null }
+					<ModalFooter>
+						<Button buttonType="button" buttonTheme="primary" buttonFull>
+							<small className="tt-uppercase fw-semibold ls-base">Selesai & Print Struk</small>
+						</Button>
+					</ModalFooter>
+				</Form>
+			</Modal>
+		)
+	}
+
+	renderSuccessDialog = () => {
+		const {
+			member
+		} = this.props;
+
+		return (
+			<Modal isOpen={this.state.isDialogOpen} toggle={this.toggleDialog}>
+				<ModalContent className="flex flex-column align-items--center justify-content--center">
+					<i className="fi flaticon-success icon icon--gigant clr-success"></i>
+					<div className="ta-center">
+						<h4 className="fw-semibold clr-success">Berhasil!</h4>
+						<p>
+							Proses isi ulang saldo untuk customer <span className="fw-semibold">{member.data.name} berhasil!</span> <br />
+							Saldo customer kini berjumlah <span className="fw-semibold clr-primary"><Currency value={member.data.balance} /></span>
+						</p>
+					</div>
+				</ModalContent>
+			</Modal>
+		)
+	}
+
+	toggleDialog = () => {
+		this.setState({
+			isDialogOpen: !this.state.isDialogOpen
+		})
 	}
 
 	handleTopup = (e) => {
@@ -42,7 +99,10 @@ class CashierTopUpForm extends Component {
 			topup: parseInt(this.state.topup)
 		}
 
-		dispatch(memberTopup(requiredData, member.data.accessToken))
+		dispatch(memberTopup(requiredData, member.accessToken))
+			.then(() => {
+				this.toggleDialog();
+			})
 	}
 
 	toggleModal = () => {
@@ -87,6 +147,7 @@ class CashierTopUpForm extends Component {
 	renderMemberInfo = () => {
 		const { member } = this.props;
 
+
 		return (
 			<ModalContent>
 				<Row className="flex align-items--center">
@@ -95,22 +156,22 @@ class CashierTopUpForm extends Component {
 					</div>
 					<div className="column-9">
 						<div className="padding-bottom-3">
-							<h4 className="fw-semibold clr-primary">{member.data.member.name}</h4>
+							<h4 className="fw-semibold clr-primary">{member.data.name}</h4>
 							<h5 className="fw-semibold">
 								<NumberFormat
 									displayType={'text'}
 									format="#### #### #### ####"
-									value={member.data.member.card.id}
+									value={member.data.card.id}
 								/>
 							</h5>
-							<p>{member.data.member.email}</p>
-							<p>{member.data.member.address}</p>
+							<p>{member.data.email}</p>
+							<p>{member.data.address}</p>
 						</div>
 					</div>
 				</Row>
 				<FormGroup row>
 					<Label className="fw-semibold">Saldo saat ini</Label>
-					<InputCurrency value={member.data.member.balance} readOnly="true" />
+					<InputCurrency value={member.data.balance} readOnly="true" />
 				</FormGroup>
 				<FormGroup row>
 					<Label className="fw-semibold">Tambah Saldo</Label>
@@ -140,6 +201,8 @@ class CashierTopUpForm extends Component {
 			member
 		} = this.props;
 
+		console.log(member);
+
 		return (
 			<div>
 				<Form onSubmit={this.handleSubmit}>
@@ -150,19 +213,8 @@ class CashierTopUpForm extends Component {
 						{ member.error ? <small className="clr-danger">{member.error.message}</small> : null}
 					</FormGroup>
 				</Form>
-				<Modal isOpen={this.state.isTopupModalOpen} toggle={this.toggleModal}>
-					<Form onSubmit={this.handleTopup}>
-						<ModalHeader>
-							<h6 className="fw-semibold ta-center">Isi Ulang Saldo Customer</h6>
-						</ModalHeader>
-						{ member.data ? this.renderMemberInfo() : null }
-						<ModalFooter>
-							<Button buttonType="button" buttonTheme="primary" buttonFull>
-								<small className="tt-uppercase fw-semibold ls-base">Selesai & Print Struk</small>
-							</Button>
-						</ModalFooter>
-					</Form>
-				</Modal>
+				{this.renderTopupModal()}
+				{member.data.id ? this.renderSuccessDialog() : null}
 			</div>
 		);
 	}

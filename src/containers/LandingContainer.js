@@ -16,7 +16,15 @@ class LandingContainer extends React.Component {
 	}
 
 	componentDidUpdate = (prevProps) => {
-		console.log(prevProps);
+		const {
+			member
+		} = this.props;
+
+		if(prevProps !== this.props) {
+			if(member.data.id) {
+				window.location.reload();
+			}
+		}
 	}
 
 
@@ -37,10 +45,6 @@ class LandingContainer extends React.Component {
 		}
 
 		dispatch(authenticateMember(requiredData));
-	}
-
-	componentDidUpdate = () => {
-		console.log(this.state.cardId);
 	}
 
 	render() {

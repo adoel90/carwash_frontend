@@ -111,7 +111,7 @@ export const memberLogout = () => {
 		return Promise.resolve(dispatch(handleLogout()))
 			.then(() => {
 				cookies.remove('accessToken');
-				cookies.remove('user');
+				cookies.remove('member');
 			})
 			.then(() => {
 				window.location.reload();

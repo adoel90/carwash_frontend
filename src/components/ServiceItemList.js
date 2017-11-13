@@ -13,6 +13,7 @@ import { Button } from '../components/Button';
 import Currency from '../components/Currency';
 import { Icon } from '../components/Icon';
 import { Form } from '../components/Form';
+import { NavLink } from '../components/Nav';
 import { default as CashierIcon } from '../assets/icons/Business/cashier.svg';
 
 class ServiceItemList extends React.Component {
@@ -36,7 +37,9 @@ class ServiceItemList extends React.Component {
 		}
 	}
 
-	handleLogout = () => {
+	handleLogout = (e) => {
+		e.preventDefault();
+
 		this.props.handleMemberLogout();
 	}
 
@@ -53,16 +56,18 @@ class ServiceItemList extends React.Component {
 		} = this.state;
 
 		return (
-			<Modal isOpen={isDialogOpen} toggle={this.toggleDialog}>
+			<Modal isOpen={isDialogOpen}>
 				<ModalContent className="flex flex-column align-items--center justify-content--center ta-center">
 					<i className="fi flaticon-success clr-success icon icon--gigant"></i>
 					<h5 className="fw-semibold">Berhasil!</h5>
 					<p>Dimohon untuk menunggu struk pembayaran tercetak secara menyeluruh sebelum diambil. Terima kasih.</p>
 				</ModalContent>
 				<ModalFooter>
-					<Button type="button" buttonTheme="success" buttonFull onClick={this.handleLogout}>
-						<small className="fw-semibold tt-uppercase ls-base">Selesai</small>
-					</Button>
+					<NavLink to="/logout">
+						<Button type="button" buttonTheme="success" buttonFull>
+							<small className="fw-semibold tt-uppercase ls-base">Selesai</small>
+						</Button>
+					</NavLink>
 				</ModalFooter>
 			</Modal>
 		)
@@ -95,10 +100,10 @@ class ServiceItemList extends React.Component {
 
 		e.preventDefault();
 
-		return Promise.resolve(this.props.handleServiceTransaction(selectedService.id))
-			.then(() => {
-				this.toggleDialog();
-			})
+
+		this.props.handleServiceTransaction(selectedService.id);
+
+		this.toggleDialog();
 	}
 
 	renderModalContent = () => {

@@ -1,12 +1,17 @@
 import React from 'react';
 import ServiceType from '../components/ServiceType';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import {
 	getServiceList,
 	createServiceTransaction
 } from '../actions/service.action';
+
+import {
+	memberLogout
+} from '../actions/member.action';
 
 class ServiceTypeContainer extends React.Component {
 	constructor() {
@@ -33,7 +38,12 @@ class ServiceTypeContainer extends React.Component {
 	}
 
 	handleMemberLogout = () => {
+		const {
+			match,
+			dispatch
+		} = this.props;
 
+		return <Redirect from={`${match.url}`} to="/logout" />
 	}
 
 	handleServiceTransaction = (serviceId) => {

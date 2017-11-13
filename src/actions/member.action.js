@@ -13,6 +13,9 @@ export const GET_MEMBER_LIST_REJECTED = 'GET_MEMBER_LIST_REJECTED';
 export const CREATE_MEMBER_REQUESTED = 'CREATE_MEMBER_LIST_REQUESTED';
 export const CREATE_MEMBER_FULFILLED = 'CREATE_MEMBER_FULFILLED';
 export const CREATE_MEMBER_REJECTED = 'CREATE_MEMBER_REJECTED';
+export const UPDATE_MEMBER_REQUESTED = 'UPDATE_MEMBER_REQUESTED';
+export const UPDATE_MEMBER_FULFILLED = 'UPDATE_MEMBER_FULFILLED';
+export const UPDATE_MEMBER_REJECTED = 'UPDATE_MEMBER_REJECTED';
 export const MEMBER_LOGOUT_FULFILLED = 'MEMBER_LOGOUT_FULFILLED';
 
 const cookies = new Cookies();
@@ -65,12 +68,15 @@ export const memberTopup = (data, accessToken) => {
 
 	function handleSuccess(data) { return { type: MEMBER_TOPUP_FULFILLED, payload: data } }
 	function handleError(data) { return { type: MEMBER_TOPUP_REJECTED, payload: data } }
-
 }
 
 export const getMemberList = (data, accessToken) => {
 	return async dispatch => {
+
+		dispatch(handleRequest());
+
 		axios
+			// .get(`${constant.API_PATH}member/list?accessToken=${accessToken}`)
 			.get(`${constant.API_PATH}member/list?accessToken=${accessToken}&limit=${data.limit}&offset=${data.offset}`)
 			.then((response) => {
 				dispatch(handleSuccess(response.data.data));
@@ -80,6 +86,7 @@ export const getMemberList = (data, accessToken) => {
 			})
 	}
 
+	function handleRequest() { return { type: GET_MEMBER_LIST_REQUESTED } }
 	function handleSuccess(data) { return { type: GET_MEMBER_LIST_FULFILLED, payload: data }}
 	function handleError(data) { return { type: GET_MEMBER_LIST_REJECTED, payload: data }}
 }
@@ -104,6 +111,16 @@ export const createNewMember = (data, accessToken) => {
 
 	function handleSuccess(data) { return { type: CREATE_MEMBER_FULFILLED, payload: data } }
 	function handleError(data) { return { type: CREATE_MEMBER_REJECTED, payload: data } }
+}
+
+export const updateMember = () => {
+	return async dispatch => {
+		dispatch(handleRequest());
+	}
+
+	function handleRequest() { return { type: UPDATE_MEMBER_REQUESTED } }
+	function handleSuccess(data) { return { type: UPDATE_MEMBER_FULFILLED, payload: data } }
+	function handleError(data) { return { type: UPDATE_MEMBER_REJECTED, payload: data } }
 }
 
 export const memberLogout = () => {

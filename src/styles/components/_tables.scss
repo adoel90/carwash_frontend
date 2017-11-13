@@ -1,46 +1,56 @@
-table {
-	&.table {
-		@include border-radius(base);
-		display: block;
-		width: 100%;
-		overflow-x: auto;
-		background-color: gray(100);
+.table {
+	@include border-radius(base);
+	width: 100%;
+	display: block;
+	overflow-x: auto;
+	background-color: gray(100);
 
+	thead {
+		border-bottom: solid 5px gray(200);
 
-		thead {
-			border-bottom: solid 3px gray(300);
+		th {
+			@include font-weight(semibold);
+			vertical-align: middle;
+			padding: $spacer * .5;
+			min-width: 10em;
 
-			&.thead--primary {
-				background-color: primary-color(base);
-				color: gray(100);
+			&.th--auto {
+				min-width: auto;
 			}
 
-			th {
-				@include font-weight(semibold);
-				vertical-align: middle;
-				padding: $spacer * .5;
+			&.th--large {
+				min-width: 15em;
+			}
+
+		}
+
+		&.thead--primary {
+			background-color: primary-color(base);
+			color: gray(100);
+		}
+	}
+
+	tbody {
+		tr {
+			cursor: pointer;
+
+			&:hover {
+				background-color: rgba(secondary-color(base), 0.3);
 			}
 		}
 
+		td {
+			vertical-align: middle;
+			text-align: center;
+			padding: $spacer * .5;
+		}
+	}
+
+	&.table--striped {
 		tbody {
-
-			tr {
-				cursor: pointer;
-				border-bottom: solid 1px gray(300);
-
-				&:hover {
-					background-color: rgba(secondary-color(base), 0.3);
-				}
+			tr:nth-child(2n + 2) {
+				background-color: darken(gray(100), 5%);
 			}
-
-			td {
-				vertical-align: middle;
-				text-align: center;
-				padding: $spacer * .5;
-				min-width: 10em;
-
-			}
-
 		}
 	}
 }

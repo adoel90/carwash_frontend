@@ -21,9 +21,16 @@ body {
 		}
 		@include transform(translate(-50%, -50%));
 		@include border-radius(base);
-		width: 65%;
+		width: 648px;
+		height: auto;
 		background-color: gray(100);
 		overflow: hidden;
+
+		&.modal-dialog--small {
+			width: 478px;
+			height: auto;
+		}
+
 	}
 
 	.modal-content {

@@ -28,8 +28,6 @@
 	@each $theme, $color in $theme-colors {
 		&.button--#{$theme} {
 			background-color: $color;
-			color: gray(100);
-
 
 			&:disabled {
 				opacity: 0.5;
@@ -72,18 +70,5 @@
 	&.button--full {
 		display: block;
 		width: 100%;
-	}
-
-	/**
-	 **	Button Modifier
-	 */
-	 &.button--capitalized {
-		 text-transform: uppercase;
-		 letter-spacing: 2px;
-	 }
-
-	&.button--darkslategray {
-		background-color: #3a3835;
-		color: #EFEFEF;
 	}
 }

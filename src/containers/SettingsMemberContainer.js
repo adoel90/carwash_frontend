@@ -25,6 +25,7 @@ class SettingsMemberContainer extends Component {
 		this.toggleModal = this.toggleModal.bind(this);
 		this.getMemberList = this.getMemberList.bind(this);
 		this.handleUpdateMember = this.handleUpdateMember.bind(this);
+		this.handleUpdateMemberSubmit = this.handleUpdateMemberSubmit.bind(this);
 		this.handleDeleteMember = this.handleDeleteMember.bind(this);
 	}
 
@@ -41,6 +42,19 @@ class SettingsMemberContainer extends Component {
 				[name]: !isModalOpen[name]
 			}
 		})
+	}
+
+	handleUpdateMember = (member) => {
+		this.setState({
+			selectedMember: {
+				name: member.name,
+				email: member.email,
+				phone: member.phone,
+				address: member.address
+			}
+		})
+
+		this.toggleModal('editMember');
 	}
 
 	handleUpdateMemberSubmit = (data) => {

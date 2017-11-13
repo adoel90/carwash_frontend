@@ -5,6 +5,7 @@ import { PageBlock } from '../Page';
 import { ModalHeader, ModalContent, ModalFooter, ModalDialog } from '../Modal';
 import { Form, FormGroup } from '../Form';
 import { Input, InputAddon, InputGroup, Label } from '../Input';
+import { Button } from '../Button';
 
 import { SettingsMemberList } from '../Settings';
 
@@ -16,10 +17,10 @@ class SettingsMember extends React.Component {
 
 	renderEditMemberModal = () => {
 		const {
-			member,
+			selectedMember,
 			isModalOpen,
 			toggleModal,
-			handleUpdateMember
+			handleUpdateMemberSubmit,
 		} = this.props;
 
 		return (
@@ -30,15 +31,17 @@ class SettingsMember extends React.Component {
 				<ModalHeader align="center">
 					<h6 className="fw-semibold">Ubah Informasi Member</h6>
 				</ModalHeader>
-				<Form onSubmit={handleUpdateMember}>
+				<Form onSubmit={handleUpdateMemberSubmit}>
 					<ModalContent>
 						<FormGroup row>
 							<Label className="fw-semibold">Nama Member</Label>
-							<Input name="name" placeholder="Masukkan nama lengkap member" value={member.name} />
+							<Input name="name" placeholder="Masukkan nama lengkap member" value={selectedMember.name} />
 						</FormGroup>
 					</ModalContent>
-					<ModalFooter>
-
+					<ModalFooter className="flex justify-content--flex-end">
+						<Button buttonTheme="primary" className="clr-light">
+							<small className="tt-uppercase ls-base fw-semibold">Terapkan</small>
+						</Button>
 					</ModalFooter>
 				</Form>
 			</Modal>

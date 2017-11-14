@@ -8,10 +8,50 @@ class TableSet extends Component {
 		this.renderTableRow = this.renderTableRow.bind(this);
 		this.renderTableCell = this.renderTableCell.bind(this);
 		this.renderTablePagination = this.renderTablePagination.bind(this);
+		this.handlePageChange = this.handlePageChange.bind(this);
+
+		this.state = {
+			currentPage: 1,
+			limit: 10,
+			offset: 0
+		}
+	}
+
+	handlePageChange = (page) => {
+		const {
+			limit,
+			offset,
+			currentPage
+		} = this.state;
+
+		// this.setState({
+		// 	currentPage: page,
+		// 	limit: (pageIndex * tempLimit),
+		// 	offset: ((pageIndex * tempLimit) + tempOffset)
+		// })
 	}
 
 	renderTablePagination = () => {
+		const {
+			control,
+			rows
+		} = this.props;
 
+		const {
+			limit,
+			offset,
+			currentPage
+		} = this.state;
+
+		return (
+			<TablePagination
+				rows={rows.length}
+				limit={limit}
+				offset={offset}
+				currentPage={currentPage}
+				handlePageChange={this.handlePageChange}
+			/>
+		)
 	}
 
 	renderTableCell = (cell) => {
@@ -25,13 +65,13 @@ class TableSet extends Component {
 
 		let cells = [];
 
-		for(const key of Object.keys(row)) {
-			columns.map((column) => {
-				if(column.accessor === key) {
+		columns.map((column) => {
+			for(const key of Object.keys(row)) {
+				if(key === column.accessor) {
 					cells.push(row[key]);
 				}
-			})
-		}
+			}
+		})
 
 		return (
 			<tr>
@@ -50,8 +90,14 @@ class TableSet extends Component {
 		const {
 			hasPagination,
 			columns,
-			rows
+			rows,
+			control
 		} = this.props;
+
+		const {
+			limit,
+			offset
+		} = this.state;
 
 		return (
 			<div className="table-main">
@@ -60,7 +106,10 @@ class TableSet extends Component {
 						{columns.map(this.renderTableColumn)}
 					</TableHeading>
 					<TableBody>
-						{rows.map(this.renderTableRow)}
+						{rows
+							.map(this.renderTableRow)
+							.slice(offset, limit)
+						}
 					</TableBody>
 				</Table>
 				{ hasPagination ? this.renderTablePagination() : null }

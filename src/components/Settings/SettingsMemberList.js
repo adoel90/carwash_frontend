@@ -7,13 +7,15 @@ class SettingsMemberList extends Component {
 	constructor() {
 		super();
 		this.state = {
-			memberListTableData: [
-				{ accessor: 'id', title: 'ID' },
-				{ accessor: 'name', title: 'Nama Customer' },
-				{ accessor: 'phone', title: 'Phone' },
-				{ accessor: 'email', title: 'Alamat Email' },
-				{ accessor: 'address', title: 'Alamat' }
-			]
+			memberListTable: {
+				data: [
+					{ accessor: 'id', title: 'ID' },
+					{ accessor: 'name', title: 'Nama Customer' },
+					{ accessor: 'email', title: 'Alamat Email' },
+					{ accessor: 'address', title: 'Alamat' },
+					{ accessor: 'phone', title: 'Phone' },
+				]
+			}
 		}
 	}
 
@@ -52,14 +54,13 @@ class SettingsMemberList extends Component {
 		} = this.props;
 
 		const {
-			memberListTableData
+			memberListTable
 		} = this.state;
 
-		console.log(memberList);
 
 		return (
 			<TableSet
-				columns={memberListTableData}
+				columns={memberListTable.data}
 				rows={memberList}
 				isStriped
 				isHoverable

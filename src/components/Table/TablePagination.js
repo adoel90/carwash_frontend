@@ -5,27 +5,14 @@ class TablePagination extends Component {
 	constructor() {
 		super();
 		this.renderPages = this.renderPages.bind(this);
-		this.goToPage = this.goToPage.bind(this);
-
-		this.state = {
-			currentPage: 1
-		}
-	}
-
-	goToPage = (page) => {
-		this.setState({
-			currentPage: page
-		})
 	}
 
 	renderPages = () => {
 		const {
-			currentPage
-		} = this.state;
-
-		const {
+			handlePageChange,
 			rows,
-			limit
+			limit,
+			currentPage
 		} = this.props;
 
 		let pages = Math.floor(rows / limit);
@@ -38,7 +25,7 @@ class TablePagination extends Component {
 			paginationItems.push(
 				<PaginationItem
 					isActive={page === currentPage}
-					onClick={() => this.goToPage(page)}
+					onClick={() => handlePageChange(page)}
 				>
 					{page}
 				</PaginationItem>
@@ -59,7 +46,7 @@ class TablePagination extends Component {
 		console.log(`Rows: ${rows}`);
 
 		return (
-			<Pagination className="flex justify-content--center">
+			<Pagination className="table__pagination flex justify-content--center">
 				<PaginationItem>Previous</PaginationItem>
 				{ this.renderPages() }
 				<PaginationItem>Next</PaginationItem>

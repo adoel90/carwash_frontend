@@ -11,45 +11,37 @@ class TableSet extends Component {
 		this.handlePageChange = this.handlePageChange.bind(this);
 
 		this.state = {
-			currentPage: 1,
-			limit: 10,
-			offset: 0
+			activePage: 1,
+			limit: 10
 		}
 	}
 
 	handlePageChange = (page) => {
 		const {
-			limit,
-			offset,
-			currentPage
+			activePage
 		} = this.state;
 
-		// this.setState({
-		// 	currentPage: page,
-		// 	limit: (pageIndex * tempLimit),
-		// 	offset: ((pageIndex * tempLimit) + tempOffset)
-		// })
+		this.setState({
+			activePage: page
+		})
 	}
 
 	renderTablePagination = () => {
 		const {
-			control,
 			rows
 		} = this.props;
 
 		const {
 			limit,
-			offset,
-			currentPage
+			activePage
 		} = this.state;
 
 		return (
 			<TablePagination
-				rows={rows.length}
+				activePage={activePage}
+				totalRows={rows.length}
 				limit={limit}
-				offset={offset}
-				currentPage={currentPage}
-				handlePageChange={this.handlePageChange}
+				onPageChange={this.handlePageChange}
 			/>
 		)
 	}
@@ -96,8 +88,12 @@ class TableSet extends Component {
 
 		const {
 			limit,
-			offset
+			offset,
+			activePage
 		} = this.state;
+
+		const lowerLimit = (activePage - 1) * limit;
+		const upperLimit = activePage * limit;
 
 		return (
 			<div className="table-main">
@@ -108,7 +104,7 @@ class TableSet extends Component {
 					<TableBody>
 						{rows
 							.map(this.renderTableRow)
-							.slice(offset, limit)
+							.slice(lowerLimit, upperLimit)
 						}
 					</TableBody>
 				</Table>

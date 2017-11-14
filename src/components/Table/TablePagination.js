@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+// import Pagination from 'react-js-pagination';
 import { Pagination, PaginationItem } from '../Pagination';
 
 class TablePagination extends Component {
@@ -9,13 +10,13 @@ class TablePagination extends Component {
 
 	renderPages = () => {
 		const {
-			handlePageChange,
-			rows,
+			totalRows,
 			limit,
-			currentPage
+			onPageChange,
+			activePage
 		} = this.props;
 
-		let pages = Math.floor(rows / limit);
+		let pages = Math.floor(totalRows / limit);
 		let paginationItems = [];
 		let i = 1;
 
@@ -23,10 +24,7 @@ class TablePagination extends Component {
 			const page = i;
 
 			paginationItems.push(
-				<PaginationItem
-					isActive={page === currentPage}
-					onClick={() => handlePageChange(page)}
-				>
+				<PaginationItem isActive={page === activePage} onClick={() => onPageChange(page)}>
 					{page}
 				</PaginationItem>
 			)
@@ -39,17 +37,15 @@ class TablePagination extends Component {
 
 	render() {
 		const {
-			rows,
-			limit
+			activePage,
+			onPageChange
 		} = this.props;
-
-		console.log(`Rows: ${rows}`);
 
 		return (
 			<Pagination className="table__pagination flex justify-content--center">
-				<PaginationItem>Previous</PaginationItem>
+				<PaginationItem onClick={() => onPageChange(activePage - 1)}>Previous</PaginationItem>
 				{ this.renderPages() }
-				<PaginationItem>Next</PaginationItem>
+				<PaginationItem onClick={() => onPageChange(activePage + 1)}>Next</PaginationItem>
 			</Pagination>
 		)
 	}

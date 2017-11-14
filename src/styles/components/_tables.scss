@@ -1,9 +1,13 @@
 .table {
 	@include border-radius(base);
-	width: 100%;
+	// width: 100%;
 	display: block;
-	overflow-x: auto;
+	overflow: hidden;
 	background-color: gray(100);
+
+	.table__container {
+		overflow-x: auto;
+	}
 
 	thead {
 		border-bottom: solid 5px gray(200);
@@ -33,16 +37,22 @@
 	tbody {
 		tr {
 			cursor: pointer;
-
-			&:hover {
-				background-color: rgba(secondary-color(base), 0.3) !important;
-			}
 		}
 
 		td {
 			vertical-align: middle;
 			text-align: center;
 			padding: $spacer * .5;
+		}
+	}
+
+	&.table--hoverable {
+		tbody {
+			tr {
+				&:hover {
+					background-color: rgba(secondary-color(base), 0.3) !important;
+				}
+			}
 		}
 	}
 

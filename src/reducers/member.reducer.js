@@ -20,7 +20,7 @@ const initialState = {
 	data: {},
 	list: {},
 	accessToken: '',
-	isLoading: false,
+	isFetching: false,
 	isLoaded: false,
 	error: {},
 }
@@ -65,7 +65,7 @@ const member = (state = initialState, action) => {
 		case GET_MEMBER_LIST_REQUESTED: {
 			return {
 				...state,
-				isLoading: true,
+				isFetching: true,
 				isLoaded: false
 			}
 		}
@@ -74,7 +74,7 @@ const member = (state = initialState, action) => {
 			return {
 				...state,
 				list: action.payload,
-				isLoading: false,
+				isFetching: false,
 				isLoaded: true,
 				error: {}
 			}
@@ -84,7 +84,7 @@ const member = (state = initialState, action) => {
 			return {
 				...state,
 				list: {},
-				isLoading: false,
+				isFetching: false,
 				isLoaded: false,
 				error: action.payload
 			}
@@ -102,8 +102,6 @@ const member = (state = initialState, action) => {
 			return {
 				...state,
 				data: action.payload,
-				isLoaded: true,
-				isLoading: false,
 				error: {}
 			}
 		}
@@ -112,7 +110,6 @@ const member = (state = initialState, action) => {
 			return {
 				...state,
 				data: {},
-				isLoaded: false,
 				error: action.payload
 			}
 		}

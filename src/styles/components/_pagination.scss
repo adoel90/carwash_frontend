@@ -1,0 +1,46 @@
+.pagination {
+	@include relative;
+
+	.pagination__list {
+		@include flexbox;
+		margin: $spacer;
+
+		.pagination__item {
+
+			> a.pagination__link {
+				display: block;
+				padding: ($spacer * .25) ($spacer * .5);
+				border: solid 1px gray(300);
+				border-right: 0;
+
+				&:hover {
+					background-color: gray(200);
+				}
+			}
+
+			&.is-active {
+				> a.pagination__link {
+					background-color: primary-color(base);
+					color: gray(100);
+					border: solid 1px primary-color(base);
+				}
+			}
+
+			&:first-of-type {
+				> a.pagination__link {
+					border-top-left-radius: border-radius(base);
+					border-bottom-left-radius: border-radius(base);
+				}
+			}
+
+			&:last-of-type {
+				> a.pagination__link {
+					border-right: solid 1px gray(300);
+					border-top-right-radius: border-radius(base);
+					border-bottom-right-radius: border-radius(base);
+				}
+			}
+
+		}
+	}
+}

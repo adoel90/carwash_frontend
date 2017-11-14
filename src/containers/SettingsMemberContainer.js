@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
 	getMemberList,
+	getAllMemberList,
 	updateMember
 } from '../actions/member.action';
 import { SettingsMember } from '../components/Settings';
@@ -27,7 +28,6 @@ class SettingsMemberContainer extends Component {
 		this.handleInputChange = this.handleInputChange.bind(this);
 		this.handleUpdateMember = this.handleUpdateMember.bind(this);
 		this.handleUpdateMemberSubmit = this.handleUpdateMemberSubmit.bind(this);
-		this.handleDeleteMember = this.handleDeleteMember.bind(this);
 	}
 
 	componentDidMount = () => {
@@ -77,6 +77,7 @@ class SettingsMemberContainer extends Component {
 		e.preventDefault();
 
 		const {
+			memberList,
 			accessToken,
 			dispatch
 		} = this.props;
@@ -96,31 +97,31 @@ class SettingsMemberContainer extends Component {
 		dispatch(updateMember(requiredData, accessToken));
 	}
 
-	handleDeleteMember = () => {
-
-	}
-
 	//
 	getMemberList = () => {
+		const {
+			requiredData
+		} = this.state;
+
 		const {
 			dispatch,
 			accessToken,
 			member,
+			memberList
 		} = this.props;
 
-		const requiredData = {
-			limit: 10,
-			offset: 0
-		}
-
-		dispatch(getMemberList(requiredData, accessToken));
+		return Promise.resolve(dispatch(getAllMemberList(accessToken)))
 	}
 
 	render() {
 		const {
 			member,
+			memberList,
 			isModalOpen
 		} = this.props;
+
+
+		console.log(memberList);
 
 		if(member.isFetching) {
 			return (
@@ -149,7 +150,9 @@ class SettingsMemberContainer extends Component {
 const mapStateToProps = (state) => {
 	return {
 		member: state.member,
-		memberList: state.member.list.member
+		memberList: state.member.list.data
+		// memberList: state.member.list.member,
+		// memberRows: state.member.list.row
 	}
 }
 

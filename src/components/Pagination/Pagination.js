@@ -1,27 +1,29 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
 
-class TableHeading extends Component {
+class Pagination extends Component {
+
 	render() {
 		const {
+			align,
 			children,
-			className,
-			theme
+			className
 		} = this.props;
 
 		const classes = classNames(
-			theme ? `thead--${theme}` : null,
+			'pagination',
 			className
 		)
 
 		return (
-			<thead className={classes}>
-				<tr>
+			<div className={classes}>
+				<ul className="pagination__list">
 					{children}
-				</tr>
-			</thead>
-		)
+				</ul>
+			</div>
+		);
 	}
+
 }
 
-export default TableHeading;
+export default Pagination;

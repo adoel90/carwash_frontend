@@ -1,20 +1,28 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
+import { TablePagination } from '../Table';
 
 class Table extends Component {
 	render() {
 		const {
-			striped,
+			tableData,
 			children,
-			className
+			className,
+			isStriped,
+			isHoverable,
 		} = this.props;
 
 		const classes = classNames(
 			'table',
-			striped ? 'table--striped' : null
+			isStriped ? 'table--striped' : null,
+			isStriped ? 'table--hoverable' : null
 		)
 
-		return <table className={classes}>{children}</table>
+		return (
+			<table className={classes}>
+				{children}
+			</table>
+		)
 	}
 
 }

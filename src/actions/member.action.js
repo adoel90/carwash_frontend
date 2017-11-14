@@ -91,6 +91,26 @@ export const getMemberList = (data, accessToken) => {
 	function handleError(data) { return { type: GET_MEMBER_LIST_REJECTED, payload: data }}
 }
 
+export const getAllMemberList = (accessToken) => {
+	return async dispatch => {
+
+		dispatch(handleRequest());
+
+		axios
+			.get(`${constant.API_PATH}member?accessToken=${accessToken}`)
+			.then((response) => {
+				dispatch(handleSuccess(response.data));
+			})
+			.catch((error) => {
+				dispatch(handleError(error));
+			})
+	}
+
+	function handleRequest() { return { type: GET_MEMBER_LIST_REQUESTED } }
+	function handleSuccess(data) { return { type: GET_MEMBER_LIST_FULFILLED, payload: data }}
+	function handleError(data) { return { type: GET_MEMBER_LIST_REJECTED, payload: data }}
+}
+
 export const createNewMember = (data, accessToken) => {
 	return async dispatch => {
 		axios

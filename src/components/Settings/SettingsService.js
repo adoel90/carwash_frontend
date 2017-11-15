@@ -14,6 +14,8 @@ import SettingsServiceTypeContainer from '../../containers/SettingsServiceTypeCo
 class SettingsService extends Component {
 	constructor() {
 		super();
+		this.renderTabNav = this.renderTabNav.bind(this);
+		this.renderTabContent = this.renderTabContent.bind(this);
 	}
 
 	// handleNewServiceTypeSubmit = (e) => {
@@ -59,28 +61,41 @@ class SettingsService extends Component {
 	// 	)
 	// }
 
-	// renderTabContent = (type, i) => {
-	// 	const { match } = this.props;
-	//
-	// 	return (
-	// 		<TabContent activeTab={this.state.activeTab} tabIndex={i}>
-	// 			<PropsRoute
-	// 				path={`${match.url}/${i}`}
-	// 				component={SettingsServiceTypeContainer}
-	// 				type={type}
-	// 				{...this.props}
-	// 			/>
-	// 		</TabContent>
-	// 	)
-	// }
+	renderTabContent = (type, i) => {
+		const {
+			match,
+			activeTab
+		} = this.props;
 
-	// renderTabNav = (type, i) => {
-	// 	return (
-	// 		<NavItem>
-	// 			<NavTabLink active={this.state.activeTab === i} onClick={this.toggleTab.bind(this, i)}>{type.name}</NavTabLink>
-	// 		</NavItem>
-	// 	)
-	// }
+		return (
+			<TabContent activeTab={activeTab} tabIndex={i}>
+				<PropsRoute
+					path={`${match.url}/${i}`}
+					component={SettingsServiceTypeContainer}
+					type={type}
+					{...this.props}
+				/>
+			</TabContent>
+		)
+	}
+
+	renderTabNav = (type, i) => {
+		const {
+			activeTab,
+			toggleTab
+		} = this.props;
+
+		return (
+			<NavItem>
+				<NavTabLink
+					active={activeTab === i}
+					onClick={() => toggleTab(i)}
+				>
+					{type.name}
+				</NavTabLink>
+			</NavItem>
+		)
+	}
 
 	// toggleTab = (index) => {
 	// 	this.setState({
@@ -91,38 +106,26 @@ class SettingsService extends Component {
 	render() {
 		const {
 			service,
-			toggleModal
+			serviceTypes,
+			toggleModal,
+			handleNewServiceType
 		} = this.props
 
-		const heading = (
-			<div className="flex justify-content--space-between padding-bottom-2">
-				<h5 className="fw-semibold">Daftar Service</h5>
-				<Button type="button" buttonTheme="primary" buttonSize="small" onClick={handleNewServiceType}>
-					<small className="fw-semibold tt-uppercase ls-base">Tambah Kategori Service</small>
-				</Button>
-			</div>
-		)
+		console.log(serviceTypes);
 
 		return (
 			<div className="inner-view">
 				<div className="flex justify-content--space-between padding-bottom-2">
-
+					<h5 className="fw-semibold">Daftar Service</h5>
+					<Button type="button" buttonTheme="primary" buttonSize="small" className="clr-light" onClick={handleNewServiceType}>
+						<small className="fw-semibold tt-uppercase ls-base">Tambah Kategori Service</small>
+					</Button>
 				</div>
+				<Nav tabs className="flex justify-content--space-between">
+					{serviceTypes.length ? serviceTypes.map(this.renderTabNav) : null}
+				</Nav>
+				{ serviceTypes.length ? serviceTypes.map(this.renderTabContent) : null}
 			</div>
-
-			// <div className="inner-view">
-			// 	<div className="flex justify-content--space-between padding-bottom-2">
-			// 		<h5 className="fw-semibold">Daftar Service</h5>
-			// 		<Button type="button" buttonTheme="primary" buttonSize="small" onClick={toggleModal}>
-			// 			<small className="fw-semibold tt-uppercase ls-base">Tambah Tipe Service</small>
-			// 		</Button>
-			// 	</div>
-			// 	<Nav tabs className="flex justify-content--space-between">
-			// 		{service.types.length ? service.types.map(this.renderTabNav) : null }
-			// 	</Nav>
-			// 	{ service.types.length ? service.types.map(this.renderTabContent) : null }
-			// 	{ this.renderNewServiceTypeModal() }
-			// </div>
 		);
 	}
 }

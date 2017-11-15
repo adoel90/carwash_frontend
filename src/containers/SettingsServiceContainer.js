@@ -11,15 +11,22 @@ class SettingsServiceContainer extends Component {
 		super();
 		this.state = {
 			isModalOpen: false,
-			activeTab: 1
+			activeTab: 0
 		}
 		this.getServiceTypes = this.getServiceTypes.bind(this);
+		this.toggleTab = this.toggleTab.bind(this);
 		this.handleNewServiceType = this.handleNewServiceType.bind(this);
-
+		this.handleNewServiceTypeSubmit = this.handleNewServiceTypeSubmit.bind(this);
 	}
 
 	componentWillMount = () => {
 		this.getServiceTypes();
+	}
+
+	toggleTab = (tabIndex) => {
+		this.setState({
+			activeTab: tabIndex
+		})
 	}
 
 	getServiceTypes = () => {
@@ -43,26 +50,26 @@ class SettingsServiceContainer extends Component {
 	// 		}
 	// 	})
 	// }
-	//
-	// handleNewServiceType = () => {
-	// 	const {
-	// 		dispatch,
-	// 		accessToken,
-	// 		newService
-	// 	} = this.state;
-	//
-	// 	const requiredData = {
-	// 		name: newService.name
-	// 	}
-	//
-	// 	dispatch(createNewServiceType(requiredData, accessToken));
-	// }
-	//
-	// toggleModal = () => {
-	// 	this.setState({
-	// 		isModalOpen: !this.state.isModalOpen
-	// 	})
-	// }
+
+	handleNewServiceType = () => {
+
+	}
+
+	handleNewServiceTypeSubmit = (e) => {
+		e.preventDefault();
+
+		const {
+			dispatch,
+			accessToken,
+			newService
+		} = this.state;
+
+		const requiredData = {
+			name: newService.name
+		}
+
+		dispatch(createNewServiceType(requiredData, accessToken));
+	}
 
 	render() {
 		const {
@@ -74,7 +81,9 @@ class SettingsServiceContainer extends Component {
 				{...this.props}
 				{...this.state}
 				activeTab={activeTab}
-				handleNewServiceType={handleNewServiceType}
+				toggleTab={this.toggleTab}
+				handleNewServiceType={this.handleNewServiceType}
+				handleNewServiceTypeSubmit={this.handleNewServiceTypeSubmit}
 			/>
 		)
 	}
@@ -82,7 +91,8 @@ class SettingsServiceContainer extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-		service: state.service
+		service: state.service,
+		serviceTypes: state.service.types
 	}
 }
 

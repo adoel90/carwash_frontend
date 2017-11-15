@@ -137,9 +137,12 @@ class TableSet extends Component {
 						{this.renderTableColumn()}
 					</TableHeading>
 					<TableBody>
-						{rows
-							.map(this.renderTableRow)
-							.slice(lowerLimit, upperLimit)
+						{
+							rows.length
+								? rows
+									.map(this.renderTableRow)
+									.slice(lowerLimit, upperLimit)
+								: null
 						}
 					</TableBody>
 				</Table>

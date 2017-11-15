@@ -19,6 +19,26 @@ export const CREATE_SERVICE_TRANSACTION_REJECTED = 'CREATE_SERVICE_TRANSACTION_R
 
 const cookies = new Cookies();
 
+export const getAllServiceList = (data, accessToken) => {
+	return async dispatch => {
+
+		dispatch(handleRequest());
+
+		return axios
+			.get(`${constant.API_PATH}service?accessToken=${accessToken}&type=${data.type}`)
+			.then((response) => {
+				dispatch(handleSuccess(response.data));
+			})
+			.catch((error) => {
+				dispatch(handleError(error))
+			})
+	}
+
+	function handleRequest() { return { type: GET_SERVICE_LIST_REQUESTED } }
+	function handleSuccess(data) { return { type: GET_SERVICE_LIST_FULFILLED, payload: data } }
+	function handleError(data) { return { type: GET_SERVICE_LIST_REJECTED, payload: data } }
+}
+
 export const getServiceList = (data, accessToken) => {
 	return async dispatch => {
 		return axios

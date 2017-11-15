@@ -3,8 +3,10 @@ import { connect } from 'react-redux';
 import {
 	getMemberList,
 	getAllMemberList,
-	updateMember
+	updateMember,
+	deleteMember
 } from '../actions/member.action';
+import { toggleDialog } from '../actions/dialog.action';
 import { SettingsMember } from '../components/Settings';
 
 class SettingsMemberContainer extends Component {
@@ -19,7 +21,8 @@ class SettingsMemberContainer extends Component {
 				address: ''
 			},
 			isModalOpen: {
-				editMember: false
+				editMember: false,
+				deleteMember: false
 			}
 		}
 
@@ -28,6 +31,12 @@ class SettingsMemberContainer extends Component {
 		this.handleInputChange = this.handleInputChange.bind(this);
 		this.handleUpdateMember = this.handleUpdateMember.bind(this);
 		this.handleUpdateMemberSubmit = this.handleUpdateMemberSubmit.bind(this);
+		this.handleDeleteMember = this.handleDeleteMember.bind(this);
+		this.handleDeleteMemberSubmit = this.handleDeleteMemberSubmit.bind(this);
+	}
+
+	componentDidUpdate = () => {
+		console.log(this.props);
 	}
 
 	componentDidMount = () => {
@@ -49,6 +58,7 @@ class SettingsMemberContainer extends Component {
 		}
 	}
 
+
 	toggleModal = (name) => {
 		const { isModalOpen } = this.state;
 
@@ -63,6 +73,7 @@ class SettingsMemberContainer extends Component {
 	handleUpdateMember = (member) => {
 		this.setState({
 			selectedMember: {
+				id: member.id,
 				name: member.name,
 				email: member.email,
 				phone: member.phone,
@@ -73,10 +84,39 @@ class SettingsMemberContainer extends Component {
 		this.toggleModal('editMember');
 	}
 
+	handleDeleteMember = (member) => {
+		const {
+			dialog,
+			dispatch
+		} = this.props;
+
+		this.setState({
+			selectedMember: {
+				id: member.id,
+				name: member.name,
+				email: member.email,
+				phone: member.phone,
+				address: member.address
+			}
+		})
+
+		const dialogData = {
+			type: 'confirm',
+			title: 'Perhatian!',
+			message: 'Anda akan menghapus seluruh data member ini dan aksi ini tidak dapat dipulihkan. Apakah Anda yakin ingin melanjutkan?',
+			confirm: () => this.handleDeleteMemberSubmit(),
+			confirmText: 'Ya, Lanjutkan',
+			cancelText: 'Batalkan'
+		}
+
+		dispatch(toggleDialog(dialogData, dialog.isOpen));
+	}
+
 	handleUpdateMemberSubmit = (e) => {
 		e.preventDefault();
 
 		const {
+			member,
 			memberList,
 			accessToken,
 			dispatch
@@ -97,6 +137,23 @@ class SettingsMemberContainer extends Component {
 		dispatch(updateMember(requiredData, accessToken));
 	}
 
+	handleDeleteMemberSubmit = () => {
+		const {
+			dispatch,
+			accessToken
+		} = this.props;
+
+		const {
+			selectedMember
+		} = this.state;
+
+		let requiredData = {
+			id: selectedMember.id
+		}
+
+		dispatch(deleteMember(requiredData, accessToken))
+	}
+
 	//
 	getMemberList = () => {
 		const {
@@ -110,7 +167,7 @@ class SettingsMemberContainer extends Component {
 			memberList
 		} = this.props;
 
-		return Promise.resolve(dispatch(getAllMemberList(accessToken)))
+		dispatch(getAllMemberList(accessToken))
 	}
 
 	render() {
@@ -120,8 +177,6 @@ class SettingsMemberContainer extends Component {
 			isModalOpen
 		} = this.props;
 
-
-		console.log(memberList);
 
 		if(member.isFetching) {
 			return (
@@ -139,6 +194,7 @@ class SettingsMemberContainer extends Component {
 					handleUpdateMember={this.handleUpdateMember}
 					handleUpdateMemberSubmit={this.handleUpdateMemberSubmit}
 					handleDeleteMember={this.handleDeleteMember}
+					handleDeleteMemberSubmit={this.handleDeleteMemberSubmit}
 				/>
 			)
 		} else {
@@ -149,11 +205,11 @@ class SettingsMemberContainer extends Component {
 
 const mapStateToProps = (state) => {
 	return {
+		dialog: state.dialog,
 		member: state.member,
 		memberList: state.member.list.data
-		// memberList: state.member.list.member,
-		// memberRows: state.member.list.row
 	}
 }
+
 
 export default connect(mapStateToProps)(SettingsMemberContainer);

@@ -1,19 +1,27 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { PrivateRoute, PropsRoute } from '../components/Route';
-
+import { ModalDialog } from '../components/Modal';
 
 import AdminContainer from '../containers/AdminContainer';
 import CustomerContainer from '../containers/CustomerContainer';
 import LogoutContainer from '../containers/LogoutContainer';
 
 class MainView extends React.Component {
+	constructor() {
+		super();
+		this.state = {
+			isDialogOpen: false
+		}
+	}
+
 	render() {
 		const {
 			isAuthenticated,
 			accessToken,
 			user,
-			match
+			match,
+			dialog
 		} = this.props;
 
 		return (
@@ -33,5 +41,6 @@ class MainView extends React.Component {
 		)
 	}
 }
+
 
 export default MainView;

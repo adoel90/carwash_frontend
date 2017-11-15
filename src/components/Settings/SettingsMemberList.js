@@ -13,7 +13,7 @@ class SettingsMemberList extends Component {
 					{ accessor: 'name', title: 'Nama Customer' },
 					{ accessor: 'email', title: 'Alamat Email' },
 					{ accessor: 'address', title: 'Alamat' },
-					{ accessor: 'phone', title: 'Phone' },
+					{ accessor: 'phone', title: 'Phone' }
 				]
 			}
 		}
@@ -50,13 +50,14 @@ class SettingsMemberList extends Component {
 
 	render() {
 		const {
-			memberList
+			memberList,
+			handleUpdateMember,
+			handleDeleteMember
 		} = this.props;
 
 		const {
 			memberListTable
 		} = this.state;
-
 
 		return (
 			<TableSet
@@ -65,6 +66,8 @@ class SettingsMemberList extends Component {
 				isStriped
 				isHoverable
 				hasPagination
+				onUpdate={handleUpdateMember}
+				onDelete={handleDeleteMember}
 			/>
 		);
 	}

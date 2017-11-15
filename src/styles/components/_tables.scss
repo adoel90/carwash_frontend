@@ -1,13 +1,9 @@
 .table {
 	@include border-radius(base);
-	// width: 100%;
+	width: 100%;
 	display: block;
-	overflow: hidden;
+	overflow-x: auto;
 	background-color: gray(100);
-
-	.table__pagination {
-		background-color: gray(100);
-	}
 
 	thead {
 		border-bottom: solid 5px gray(200);

@@ -42,7 +42,7 @@ class TablePagination extends Component {
 		} = this.props;
 
 		return (
-			<Pagination className="table__pagination flex justify-content--center">
+			<Pagination className="flex justify-content--center">
 				<PaginationItem onClick={() => onPageChange(activePage - 1)}>Previous</PaginationItem>
 				{ this.renderPages() }
 				<PaginationItem onClick={() => onPageChange(activePage + 1)}>Next</PaginationItem>

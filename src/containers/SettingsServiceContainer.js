@@ -11,14 +11,11 @@ class SettingsServiceContainer extends Component {
 		super();
 		this.state = {
 			isModalOpen: false,
-			newService: {
-				name: ''
-			}
+			activeTab: 1
 		}
 		this.getServiceTypes = this.getServiceTypes.bind(this);
-		this.handleInputChange = this.handleInputChange.bind(this);
-		this.toggleModal = this.toggleModal.bind(this);
 		this.handleNewServiceType = this.handleNewServiceType.bind(this);
+
 	}
 
 	componentWillMount = () => {
@@ -34,47 +31,50 @@ class SettingsServiceContainer extends Component {
 		dispatch(getServiceTypes(accessToken));
 	}
 
-	handleInputChange = (e) => {
-		const target = e.target;
-		const name = target.name;
-		const value = target.value;
-
-		this.setState({
-			newService: {
-				...this.state.newService,
-				[name]: value
-			}
-		})
-	}
-
-	handleNewServiceType = () => {
-		const {
-			dispatch,
-			accessToken,
-			newService
-		} = this.state;
-
-		const requiredData = {
-			name: newService.name
-		}
-
-		dispatch(createNewServiceType(requiredData, accessToken));
-	}
-
-	toggleModal = () => {
-		this.setState({
-			isModalOpen: !this.state.isModalOpen
-		})
-	}
+	// handleInputChange = (e) => {
+	// 	const target = e.target;
+	// 	const name = target.name;
+	// 	const value = target.value;
+	//
+	// 	this.setState({
+	// 		newService: {
+	// 			...this.state.newService,
+	// 			[name]: value
+	// 		}
+	// 	})
+	// }
+	//
+	// handleNewServiceType = () => {
+	// 	const {
+	// 		dispatch,
+	// 		accessToken,
+	// 		newService
+	// 	} = this.state;
+	//
+	// 	const requiredData = {
+	// 		name: newService.name
+	// 	}
+	//
+	// 	dispatch(createNewServiceType(requiredData, accessToken));
+	// }
+	//
+	// toggleModal = () => {
+	// 	this.setState({
+	// 		isModalOpen: !this.state.isModalOpen
+	// 	})
+	// }
 
 	render() {
+		const {
+			activeTab
+		} = this.state;
+
 		return (
 			<SettingsService
 				{...this.props}
 				{...this.state}
-				toggleModal={this.toggleModal}
-				handleInputChange={this.handleInputChange}
-				handleNewServiceType={this.handleNewServiceType}
+				activeTab={activeTab}
+				handleNewServiceType={handleNewServiceType}
 			/>
 		)
 	}

@@ -170,8 +170,4 @@ const mapStateToProps = (state) => {
 	}
 }
 
-// const mapDispatchToProps = (dispatch, ownProps) => {
-//
-// }
-
 export default connect(mapStateToProps)(SettingsServiceTypeContainer);

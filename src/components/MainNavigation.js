@@ -1,4 +1,4 @@
-import React from 'react';
+ import React from 'react';
 import { Nav, NavItem, NavLink } from '../components/Nav';
 
 class MainNavigation extends React.Component {
@@ -15,8 +15,6 @@ class MainNavigation extends React.Component {
 		const {
 			items
 		} = this.props;
-
-		console.log(items);
 
 		return (
 			<Nav className="main-navigation">

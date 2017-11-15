@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import {
 	Settings,
 	SettingsMember,
@@ -6,6 +7,10 @@ import {
 	SettingsService,
 	SettingsCafe
 } from '../components/Settings';
+
+import {
+	toggleDialog
+} from '../actions/dialog.action';
 
 import SettingsMemberContainer from './SettingsMemberContainer';
 import SettingsServiceContainer from './SettingsServiceContainer';
@@ -15,6 +20,7 @@ import SettingsCafeContainer from './SettingsCafeContainer';
 class SettingsContainer extends Component {
 	constructor() {
 		super();
+		this.toggleDialog = this.toggleDialog.bind(this);
 		this.state = {
 			subroutes: [
 				{ id: 1, name: 'Pengaturan Member', component: SettingsMemberContainer },
@@ -24,10 +30,30 @@ class SettingsContainer extends Component {
 		}
 	}
 
-	render() {
-		return <Settings {...this.state} {...this.props} />
+	toggleDialog = () => {
+		const {
+			dialog,
+			dispatch
+		} = this.props;
+
+		dispatch(toggleDialog(null, dialog.isOpen))
 	}
 
+	render() {
+		return (
+			<Settings
+				toggleDialog={this.toggleDialog}
+				{...this.state}
+				{...this.props}
+			/>
+		)
+	}
 }
 
-export default SettingsContainer;
+const mapStateToProps = (state) => {
+	return {
+		dialog: state.dialog
+	}
+}
+
+export default connect(mapStateToProps)(SettingsContainer);

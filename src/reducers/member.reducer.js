@@ -13,7 +13,10 @@ RESET_MEMBER_DATA,
 	CREATE_MEMBER_REQUESTED,
 	CREATE_MEMBER_FULFILLED,
 	CREATE_MEMBER_REJECTED,
-	MEMBER_LOGOUT_FULFILLED
+	DELETE_MEMBER_FULFILLED,
+	DELETE_MEMBER_REJECTED,
+	LOGOUT_MEMBER_FULFILLED,
+	LOGOUT_MEMBER_REJECTED
 } from '../actions/member.action'
 
 const initialState = {
@@ -22,15 +25,13 @@ const initialState = {
 	accessToken: '',
 	isFetching: false,
 	isLoaded: false,
+	isError: false,
+	isUpdated: false,
 	error: {},
 }
 
 const member = (state = initialState, action) => {
 	switch(action.type) {
-		case RESET_MEMBER_DATA: {
-			return initialState
-		}
-
 		case AUTHENTICATE_MEMBER_FULFILLED: {
 			return {
 				...state,
@@ -45,7 +46,8 @@ const member = (state = initialState, action) => {
 				...state,
 				data: {},
 				accessToken: '',
-				error: action.payload
+				error: action.payload,
+				isError: true
 			}
 		}
 
@@ -58,7 +60,8 @@ const member = (state = initialState, action) => {
 		case MEMBER_TOPUP_REJECTED: {
 			return {
 				...state,
-				error: action.payload
+				error: action.payload,
+				isError: true
 			}
 		}
 
@@ -86,7 +89,8 @@ const member = (state = initialState, action) => {
 				list: {},
 				isFetching: false,
 				isLoaded: false,
-				error: action.payload
+				error: action.payload,
+				isError: true
 			}
 		}
 
@@ -110,7 +114,8 @@ const member = (state = initialState, action) => {
 			return {
 				...state,
 				data: {},
-				error: action.payload
+				error: action.payload,
+				isError: true
 			}
 		}
 
@@ -118,7 +123,7 @@ const member = (state = initialState, action) => {
 			return {
 				...state,
 				data: action.payload,
-				error: {}
+				isError: false,
 			}
 		}
 
@@ -126,11 +131,31 @@ const member = (state = initialState, action) => {
 			return {
 				...state,
 				data: {},
-				error: action.payload
+				error: action.payload,
 			}
 		}
 
-		case MEMBER_LOGOUT_FULFILLED: {
+		case DELETE_MEMBER_FULFILLED: {
+			return {
+				...state,
+				data: action.payload,
+				error: {},
+			}
+		}
+
+		case DELETE_MEMBER_REJECTED: {
+			return {
+				...state,
+				data: {},
+				error: action.payload,
+			}
+		}
+
+		case RESET_MEMBER_DATA: {
+			return state;
+		}
+
+		case LOGOUT_MEMBER_FULFILLED: {
 			return state;
 		}
 

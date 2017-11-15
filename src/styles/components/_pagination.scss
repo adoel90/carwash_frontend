@@ -6,6 +6,7 @@
 		margin: $spacer;
 
 		.pagination__item {
+			background-color: gray(100);
 
 			> a.pagination__link {
 				display: block;

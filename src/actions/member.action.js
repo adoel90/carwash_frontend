@@ -16,7 +16,9 @@ export const CREATE_MEMBER_REJECTED = 'CREATE_MEMBER_REJECTED';
 export const UPDATE_MEMBER_REQUESTED = 'UPDATE_MEMBER_REQUESTED';
 export const UPDATE_MEMBER_FULFILLED = 'UPDATE_MEMBER_FULFILLED';
 export const UPDATE_MEMBER_REJECTED = 'UPDATE_MEMBER_REJECTED';
-export const MEMBER_LOGOUT_FULFILLED = 'MEMBER_LOGOUT_FULFILLED';
+export const DELETE_MEMBER_FULFILLED = 'DELETE_MEMBER_FULFILLED';
+export const DELETE_MEMBER_REJECTED = 'DELETE_MEMBER_REJECTED';
+export const LOGOUT_MEMBER_FULFILLED = 'LOGOUT_MEMBER_FULFILLED';
 
 const cookies = new Cookies();
 
@@ -133,6 +135,7 @@ export const createNewMember = (data, accessToken) => {
 	function handleError(data) { return { type: CREATE_MEMBER_REJECTED, payload: data } }
 }
 
+
 export const updateMember = (data, accessToken) => {
 	return async dispatch => {
 		return axios
@@ -155,6 +158,24 @@ export const updateMember = (data, accessToken) => {
 	function handleError(data) { return { type: UPDATE_MEMBER_REJECTED, payload: data } }
 }
 
+export const deleteMember = (data, accessToken) => {
+	return async dispatch => {
+		axios
+			.put(`${constant.API_PATH}member/delete?accessToken=${accessToken}`, {
+				id: data.id,
+			})
+			.then((response) => {
+				dispatch(handleSuccess(response.data));
+			})
+			.catch((error) => {
+				dispatch(handleError(error));
+			})
+	}
+
+	function handleSuccess(data) { return { type: DELETE_MEMBER_FULFILLED, payload: data } }
+	function handleError(data) { return { type: DELETE_MEMBER_REJECTED, payload: data } }
+}
+
 export const memberLogout = () => {
 	return async (dispatch) => {
 		return Promise.resolve(dispatch(handleLogout()))
@@ -169,7 +190,7 @@ export const memberLogout = () => {
 
 	function handleLogout() {
 		return {
-			type: MEMBER_LOGOUT_FULFILLED
+			type: LOGOUT_MEMBER_FULFILLED
 		}
 	}
 }

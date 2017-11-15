@@ -13,7 +13,7 @@ class App extends React.Component {
 			user: null,
 			member: null,
 			accessToken: '',
-			isAuthenticated: false
+			isAuthenticated: false,
 		}
 	}
 

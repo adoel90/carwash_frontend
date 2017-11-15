@@ -80,20 +80,15 @@ class SettingsMember extends React.Component {
 						</FormGroup>
 					</ModalContent>
 					<ModalFooter className="flex justify-content--flex-end">
-						<Button buttonTheme="primary" className="clr-light">
+						<Button type="button" buttonTheme="danger" buttonSize="small" className="clr-light margin-right-2" onClick={() => toggleModal('editMember')}>
+							<small className="tt-uppercase ls-base fw-semibold">Batal</small>
+						</Button>
+						<Button buttonTheme="primary" buttonSize="small" className="clr-light">
 							<small className="tt-uppercase ls-base fw-semibold">Terapkan</small>
 						</Button>
 					</ModalFooter>
 				</Form>
 			</Modal>
-		)
-	}
-
-	renderDialog = () => {
-		return (
-			<ModalDialog>
-
-			</ModalDialog>
 		)
 	}
 

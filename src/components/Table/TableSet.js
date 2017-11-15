@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Table, TableHeading, TableBody, TablePagination } from '../Table';
+import { Button, ButtonGroup } from '../Button';
 
 class TableSet extends Component {
 	constructor() {
@@ -46,13 +47,15 @@ class TableSet extends Component {
 		)
 	}
 
-	renderTableCell = (cell) => {
-		return <td>{cell}</td>
+	renderTableCell = (cell, i) => {
+		return <td key={i}>{cell}</td>
 	}
 
 	renderTableRow = (row, i) => {
 		const {
-			columns
+			columns,
+			onUpdate,
+			onDelete,
 		} = this.props;
 
 		let cells = [];
@@ -65,6 +68,21 @@ class TableSet extends Component {
 			}
 		})
 
+		if(onUpdate || onDelete) {
+			const action = (
+				<ButtonGroup>
+					<Button type="button" buttonTheme="primary" buttonSize="small" onClick={() => onUpdate(row)}>
+						<small className="tt-uppercase ls-base fw-semibold clr-light">Ubah</small>
+					</Button>
+					<Button type="button" buttonTheme="secondary" buttonSize="small" onClick={() => onDelete(row)}>
+						<small className="tt-uppercase ls-base fw-semibold clr-light">Hapus</small>
+					</Button>
+				</ButtonGroup>
+			)
+
+			cells.push(action);
+		}
+
 		return (
 			<tr>
 				{cells.map(this.renderTableCell)}
@@ -73,17 +91,34 @@ class TableSet extends Component {
 	}
 
 	renderTableColumn = (column, i) => {
-		return (
-			<th>{column.title}</th>
-		)
+		const {
+			columns,
+			onUpdate,
+			onDelete
+		} = this.props
+
+		const tableColumns = [];
+
+		columns.map((column, i) => {
+			tableColumns.push(<th>{column.title}</th>);
+
+			// return (
+			// 	<th>{column.title}</th>
+			// )
+		})
+
+		if(onUpdate || onDelete) {
+			tableColumns.push(<th>Pengaturan</th>)
+		}
+
+		return tableColumns;
 	}
 
 	render() {
 		const {
-			hasPagination,
 			columns,
 			rows,
-			control
+			hasPagination
 		} = this.props;
 
 		const {
@@ -99,7 +134,7 @@ class TableSet extends Component {
 			<div className="table-main">
 				<Table {...this.props}>
 					<TableHeading theme="primary">
-						{columns.map(this.renderTableColumn)}
+						{this.renderTableColumn()}
 					</TableHeading>
 					<TableBody>
 						{rows

@@ -5,18 +5,51 @@ import { SettingsServiceList } from '../Settings';
 import { Button } from '../Button';
 
 class SettingsServiceType extends Component {
+	constructor() {
+		super();
+		this.renderServiceList = this.renderServiceList.bind(this);
+	}
+
+	renderServiceList = () => {
+		const {
+			type,
+			service,
+			serviceList
+		} = this.props;
+
+
+		{ service.isLoaded ? <SettingsServiceList {...this.props} /> : null }
+
+		if(service.isLoaded) {
+			if(serviceList.length) {
+				return <SettingsServiceList {...this.props} />
+			}
+			else {
+				return (
+					<div className="flex justify-content--center flex-column ta-center">
+						<i className="fi flaticon-warning icon icon--gigant clr-danger"></i>
+						<p>Maaf, sistem tidak dapat menemukan daftar menu untuk <span className="fw-semibold">{type.name}</span>. <br /> Silahkan klik tombol di bawah untuk menambahkan menu baru.</p>
+					</div>
+				)
+			}
+		}
+
+	}
+
 	render() {
 		const {
-			service
+			type,
+			service,
+			handleNewService
 		} = this.props;
 
 		return (
 			<PageBlockGroup>
 				<PageBlock>
-					{ service.isLoaded ? <SettingsServiceList {...this.props} /> : null }
+					{ this.renderServiceList() }
 				</PageBlock>
 				<PageBlock className="flex justify-content--flex-end" extension>
-					<Button buttonTheme="primary" className="clr-light">
+					<Button type="button" buttonTheme="primary" className="clr-light" onClick={() => handleNewService(type)}>
 						<small className="fw-semibold tt-uppercase ls-base">Buat Service Baru</small>
 					</Button>
 				</PageBlock>

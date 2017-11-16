@@ -7,6 +7,8 @@ import SettingsServiceType from './SettingsServiceType';
 import SettingsServiceList from './SettingsServiceList';
 import SettingsCafe from './SettingsCafe';
 import SettingsCafeType from './SettingsCafeType';
+import SettingsCard from './SettingsCard';
+import SettingsCardList from './SettingsCardList';
 
 export {
 	Settings,
@@ -17,5 +19,7 @@ export {
 	SettingsServiceType,
 	SettingsServiceList,
 	SettingsCafe,
-	SettingsCafeType
+	SettingsCafeType,
+	SettingsCard,
+	SettingsCardList
 }

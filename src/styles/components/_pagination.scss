@@ -2,7 +2,7 @@
 	@include relative;
 
 	&.pagination--table {
-		background-color: gray(200);
+		background-color: gray(100);
 	}
 
 	.pagination__list {
@@ -15,7 +15,8 @@
 			&.disabled {
 				pointer-events: none !important;
 				cursor: not-allowed !important;
-				background-color: gray(200);
+				background-color: shade(gray(100), 5%);
+				color: gray(1000);
 			}
 
 			> a.pagination__link {

@@ -295,6 +295,7 @@ class SettingsServiceType extends Component {
 			type,
 			service,
 			serviceList,
+			handleNewService,
 			toggleNewServiceModal
 		} = this.props;
 
@@ -304,7 +305,7 @@ class SettingsServiceType extends Component {
 					{this.renderTable()}
 				</PageBlock>
 				<PageBlock extension>
-					<Button type="button" buttonTheme="primary" buttonFull onClick={toggleNewServiceModal}>
+					<Button type="button" buttonTheme="primary" buttonFull onClick={handleNewService}>
 						<small className="fw-semibold tt-uppercase ls-base">Tambah Menu</small>
 					</Button>
 				</PageBlock>

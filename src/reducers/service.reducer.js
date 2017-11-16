@@ -22,6 +22,7 @@ const initialState = {
 	service: {},
 	isFetching: false,
 	isLoaded: false,
+	isUpdated: false,
 	error: {}
 }
 
@@ -132,6 +133,7 @@ const service = (state = initialState, action) => {
 			return {
 				...state,
 				service: action.payload,
+				isUpdated: true,
 				error: {}
 			}
 		}
@@ -140,6 +142,8 @@ const service = (state = initialState, action) => {
 			return {
 				...state,
 				service: {},
+				isUpdated: false,
+				isError: true,
 				error: action.payload
 			}
 		}

@@ -1,21 +1,242 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import { Table, Modal } from 'reactstrap';
 import { ModalHeader, ModalContent, ModalFooter } from '../Modal';
 import { PageBlock } from '../Page';
 import { Nav, NavTabLink, NavItem } from '../Nav';
 import { Form, FormGroup } from '../Form';
-import { Input, Label } from '../Input';
+import { Input, InputGroup, InputAddon, Label } from '../Input';
 import { Button, ButtonGroup } from '../Button';
 import { TabContent } from '../Tab';
 import { PropsRoute } from '../Route';
+import { Row } from '../Grid';
 
 import SettingsServiceTypeContainer from '../../containers/SettingsServiceTypeContainer';
 
 class SettingsService extends Component {
 	constructor() {
 		super();
+		this.triggerFileChange = this.triggerFileChange.bind(this);
+		this.renderPhotoPreview = this.renderPhotoPreview.bind(this);
 		this.renderTabNav = this.renderTabNav.bind(this);
 		this.renderTabContent = this.renderTabContent.bind(this);
+		this.renderNewServiceModal = this.renderNewServiceModal.bind(this);
+		this.renderNewServiceTypeModal = this.renderNewServiceTypeModal.bind(this);
+		this.renderUpdateServiceModal = this.renderUpdateServiceModal.bind(this);
+	}
+
+	renderPhotoPreview = () => {
+		const {
+			newService
+		} = this.props;
+
+		if(!newService.imagePreview) {
+			return <i className="fi flaticon-picture icon icon--gigant clr-primary" onClick={this.triggerFileChange}></i>
+		}
+		else {
+			return <img src={newService.imagePreview} style={{ width: '100%' }} />
+		}
+
+	}
+
+	triggerFileChange = (e) => {
+		const fileInput = ReactDOM.findDOMNode(this.fileInput);
+		fileInput.click();
+	}
+
+	renderNewServiceTypeModal = () => {
+		const {
+			isModalOpen,
+			toggleModal,
+			handleNewServiceType,
+			handleNewServiceTypeSubmit,
+			handleInputChange,
+			newServiceType
+		} = this.props;
+
+		return (
+			<Modal
+				name="newService"
+				isOpen={isModalOpen.newServiceType}
+				toggle={() => toggleModal('newServiceType')}>
+				<ModalHeader align="center">
+					<h6 className="fw-semibold">Buat Kategori Service Baru</h6>
+				</ModalHeader>
+				<Form onSubmit={handleNewServiceTypeSubmit}>
+					<ModalContent>
+						<FormGroup>
+							<Label htmlFor="name" className="fw-semibold">Nama Kategori Service</Label>
+							<Input
+								type="text"
+								name="name"
+								placeholder="Masukkan nama kategori service baru"
+								onChange={(e) => handleInputChange(newServiceType, e)}
+								autoFocus="true"
+							/>
+						</FormGroup>
+					</ModalContent>
+					<ModalFooter className="flex justify-content--flex-end">
+						<Button type="button" buttonTheme="danger" className="clr-light margin-right-2" onClick={() => toggleModal('newServiceType')}>
+							<small className="tt-uppercase ls-base fw-semibold">Batal</small>
+						</Button>
+						<Button buttonTheme="primary" className="clr-light">
+							<small className="tt-uppercase ls-base fw-semibold">Buat</small>
+						</Button>
+					</ModalFooter>
+				</Form>
+			</Modal>
+		)
+	}
+
+	renderNewServiceModal = () => {
+		const {
+			isModalOpen,
+			toggleModal,
+			newService,
+			handleInputChange,
+			handleImageChange,
+			handleNewServiceSubmit,
+		} = this.props;
+
+		return (
+			<Modal
+				name="newService"
+				isOpen={isModalOpen.newService}
+				toggle={() => toggleModal('newService')}>
+				<ModalHeader align="center">
+					<h6 className="fw-semibold">Buat Service Baru</h6>
+				</ModalHeader>
+				<Form onSubmit={handleNewServiceSubmit}>
+					<ModalContent>
+						<Row>
+							<div className="column-5 flex flex-column align-items--center justify-content--center">
+								{this.renderPhotoPreview()}
+								<Input
+									name="image"
+									type="file"
+									accept="image/*"
+									ref={(input) => this.fileInput = input }
+									onChange={(e) => handleImageChange(newService, e)}
+									style={{display: 'none'}}
+									readOnly
+								/>
+								<p className="fw-semibold clr-primary">Tambahkan Foto</p>
+							</div>
+							<div className="column-7">
+								<FormGroup>
+									<Label htmlFor="name" className="fw-semibold">Nama Service</Label>
+									<Input
+										type="text"
+										name="name"
+										placeholder="Masukkan nama service baru"
+										onChange={(e) => handleInputChange(newService, e)}
+									/>
+								</FormGroup>
+								<FormGroup>
+									<Label htmlFor="price" className="fw-semibold">Nama Service</Label>
+									<InputGroup>
+										<InputAddon>
+											<small className="fw-semibold tt-uppercase ls-base">Rp</small>
+										</InputAddon>
+										<Input
+											type="text"
+											name="price"
+											placeholder="Masukkan harga service baru"
+											onChange={(e) => handleInputChange(newService, e)}
+										/>
+									</InputGroup>
+								</FormGroup>
+								<FormGroup>
+									<Label htmlFor="description" className="fw-semibold">Nama Service</Label>
+									<Input
+										type="textarea"
+										name="description"
+										placeholder="Masukkan deskripsi service baru"
+										onChange={(e) => handleInputChange(newService, e)}
+									/>
+								</FormGroup>
+							</div>
+						</Row>
+					</ModalContent>
+					<ModalFooter className="flex justify-content--flex-end">
+						<Button type="button" buttonTheme="danger" className="clr-light margin-right-2" onClick={() => toggleModal('newService')}>
+							<small className="tt-uppercase ls-base fw-semibold">Batal</small>
+						</Button>
+						<Button buttonTheme="primary" className="clr-light">
+							<small className="tt-uppercase ls-base fw-semibold">Buat</small>
+						</Button>
+					</ModalFooter>
+				</Form>
+			</Modal>
+		)
+	}
+
+	renderUpdateServiceModal = () => {
+		const {
+			selectedService,
+			handleInputChange,
+			handleServiceUpdateSubmit,
+			toggleModal,
+			isModalOpen
+		} = this.props;
+
+		return (
+			<Modal
+				name="editService"
+				isOpen={isModalOpen.editService}
+				toggle={() => toggleModal('editService')}>
+				<ModalHeader align="center">
+					<h6 className="fw-semibold">Perubahan Service: <span className="clr-primary">{selectedService.name}</span></h6>
+				</ModalHeader>
+				<Form onSubmit={handleServiceUpdateSubmit}>
+					<ModalContent>
+						<FormGroup row>
+							<Label htmlFor="name" className="fw-semibold">Nama Service</Label>
+							<Input
+								name="name"
+								type="text"
+								placeholder="Masukkan nama service"
+								value={selectedService.name}
+								onChange={(e) => handleInputChange(selectedService, e)}
+							/>
+						</FormGroup>
+						<FormGroup row>
+							<Label htmlFor="price" className="fw-semibold">Harga Service</Label>
+							<InputGroup>
+								<InputAddon>
+									<small className="fw-semibold tt-uppercase ls-base">Rp</small>
+								</InputAddon>
+								<Input
+									name="price"
+									type="text"
+									placeholder="Masukkan harga service"
+									value={selectedService.price}
+									onChange={(e) => handleInputChange(selectedService, e)}
+								/>
+							</InputGroup>
+						</FormGroup>
+						<FormGroup row>
+							<Label htmlFor="description" className="fw-semibold">Deskripsi</Label>
+							<Input
+								name="description"
+								type="textarea"
+								placeholder="Masukkan deskripsi service"
+								value={selectedService.description}
+								onChange={(e) => handleInputChange(selectedService, e)}
+							/>
+						</FormGroup>
+					</ModalContent>
+					<ModalFooter className="flex justify-content--flex-end">
+						<Button type="button" buttonTheme="danger" className="clr-light margin-right-2" onClick={() => toggleModal('editService')}>
+							<small className="fw-semibold tt-uppercase ls-base">Batalkan</small>
+						</Button>
+						<Button type="submit" buttonTheme="primary" className="clr-light">
+							<small className="fw-semibold tt-uppercase ls-base">Terapkan</small>
+						</Button>
+					</ModalFooter>
+				</Form>
+			</Modal>
+		)
 	}
 
 	// handleNewServiceTypeSubmit = (e) => {
@@ -89,8 +310,7 @@ class SettingsService extends Component {
 			<NavItem>
 				<NavTabLink
 					active={activeTab === i}
-					onClick={() => toggleTab(i)}
-				>
+					onClick={() => toggleTab(i)}>
 					{type.name}
 				</NavTabLink>
 			</NavItem>
@@ -111,8 +331,6 @@ class SettingsService extends Component {
 			handleNewServiceType
 		} = this.props
 
-		console.log(serviceTypes);
-
 		return (
 			<div className="inner-view">
 				<div className="flex justify-content--space-between padding-bottom-2">
@@ -125,6 +343,9 @@ class SettingsService extends Component {
 					{serviceTypes.length ? serviceTypes.map(this.renderTabNav) : null}
 				</Nav>
 				{ serviceTypes.length ? serviceTypes.map(this.renderTabContent) : null}
+				{ this.renderNewServiceModal() }
+				{ this.renderNewServiceTypeModal() }
+				{ this.renderUpdateServiceModal() }
 			</div>
 		);
 	}

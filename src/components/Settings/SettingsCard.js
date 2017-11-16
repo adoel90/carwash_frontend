@@ -33,7 +33,7 @@ class SettingsCard extends Component {
 				<Form onSubmit={handleNewCardTypeSubmit}>
 					<ModalContent>
 						<FormGroup>
-							<Label htmlFor="name">Nama Tipe Kartu</Label>
+							<Label htmlFor="name" className="fw-semibold">Nama Tipe Kartu</Label>
 							<Input
 								name="name"
 								type="text"
@@ -43,7 +43,7 @@ class SettingsCard extends Component {
 							/>
 						</FormGroup>
 						<FormGroup>
-							<Label htmlFor="minimum">Minimum Saldo</Label>
+							<Label htmlFor="minimum" className="fw-semibold">Minimum Saldo</Label>
 							<InputGroup>
 								<InputAddon>
 									<small className="fw-semibold tt-uppercase ls-base">Rp</small>
@@ -51,14 +51,13 @@ class SettingsCard extends Component {
 								<Input
 									name="minimum"
 									type="text"
-									placeholder="Masukkan minimum pengisian saldo untuk menerapkan bonus"
+									placeholder="Masukkan minimum pengisian saldo untuk bonus"
 									onChange={(e) => handleInputChange(newCardType, e)}
-									autoFocus="true"
 								/>
 							</InputGroup>
 						</FormGroup>
 						<FormGroup>
-							<Label htmlFor="minimum">Minimum Saldo</Label>
+							<Label htmlFor="minimum" className="fw-semibold">Minimum Saldo</Label>
 							<InputGroup>
 								<InputAddon>
 									<small className="fw-semibold tt-uppercase ls-base">Rp</small>
@@ -68,13 +67,18 @@ class SettingsCard extends Component {
 									type="text"
 									placeholder="Masukkan bonus dari pengisian saldo"
 									onChange={(e) => handleInputChange(newCardType, e)}
-									autoFocus="true"
 								/>
 							</InputGroup>
+							<small className="clr-passive">Merupakan jumlah saldo minimum yang harus diisi customer untuk mendapatkan bonus saldo.</small>
 						</FormGroup>
 					</ModalContent>
-					<ModalFooter>
-						<Button>tes</Button>
+					<ModalFooter className="flex justify-content--flex-end">
+						<Button type="button" buttonTheme="danger" className="clr-light margin-right-2" onClick={() => toggleModal('newCardType')}>
+							<small className="fw-semibold tt-uppercase ls-base">Batal</small>
+						</Button>
+						<Button buttonTheme="primary" className="clr-light">
+							<small className="fw-semibold tt-uppercase ls-base">Buat</small>
+						</Button>
 					</ModalFooter>
 				</Form>
 			</Modal>

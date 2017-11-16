@@ -43,6 +43,7 @@ class TableSet extends Component {
 				totalRows={rows.length}
 				limit={limit}
 				onPageChange={this.handlePageChange}
+				stickToBottom
 			/>
 		)
 	}

@@ -1,12 +1,22 @@
 .pagination {
 	@include relative;
 
+	&.pagination--table {
+		background-color: gray(200);
+	}
+
 	.pagination__list {
 		@include flexbox;
 		margin: $spacer;
 
 		.pagination__item {
 			background-color: gray(100);
+
+			&.disabled {
+				pointer-events: none !important;
+				cursor: not-allowed !important;
+				background-color: gray(200);
+			}
 
 			> a.pagination__link {
 				display: block;

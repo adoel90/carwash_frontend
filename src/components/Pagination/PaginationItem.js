@@ -6,12 +6,14 @@ class PaginationItem extends Component {
 		const {
 			children,
 			className,
-			isActive
+			active,
+			disabled
 		} = this.props;
 
 		const classes = classNames(
 			'pagination__item',
-			isActive ? 'is-active' : null,
+			active ? 'is-active' : null,
+			disabled ? 'disabled' : null,
 			className
 		)
 

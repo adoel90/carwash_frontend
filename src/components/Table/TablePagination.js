@@ -1,51 +1,92 @@
 import React, { Component } from 'react';
+import classNames from 'classnames';
 // import Pagination from 'react-js-pagination';
 import { Pagination, PaginationItem } from '../Pagination';
 
 class TablePagination extends Component {
 	constructor() {
 		super();
-		this.renderPages = this.renderPages.bind(this);
+		this.renderPagers = this.renderPagers.bind(this);
+		this.handlePagers = this.handlePagers.bind(this);
+
+		this.state = {
+			totalPagers: ''
+		}
 	}
 
-	renderPages = () => {
+	componentDidMount = () => {
+		this.handlePagers();
+	}
+
+	handlePagers = () => {
+		const {
+			totalPagers
+		} = this.state
+
 		const {
 			totalRows,
 			limit,
-			onPageChange,
 			activePage
 		} = this.props;
 
-		let pages = Math.floor(totalRows / limit);
-		let paginationItems = [];
-		let i = 1;
-
-		while(i <= pages) {
-			const page = i;
-
-			paginationItems.push(
-				<PaginationItem isActive={page === activePage} onClick={() => onPageChange(page)}>
-					{page}
-				</PaginationItem>
-			)
-
-			i++;
+		let pages = Math.round(totalRows/limit);
+		let pagers = 1;
+		while(pagers <= pages) {
+			pagers++;
 		}
 
-		return paginationItems;
+		this.setState({
+			totalPagers: pagers
+		})
 	}
 
-	render() {
+	renderPagers = (pager, i) => {
 		const {
 			activePage,
 			onPageChange
 		} = this.props;
 
+		const {
+			totalPagers
+		} = this.state;
+
+		let pagers = [];
+		let j = 1;
+		while(j <= totalPagers) {
+			const pager = j;
+			pagers.push(
+				<PaginationItem active={pager === activePage} onClick={() => onPageChange(pager)}>
+					{pager}
+				</PaginationItem>
+			)
+			j++;
+		}
+
+		return pagers;
+	}
+
+	render() {
+		const {
+			activePage,
+			onPageChange,
+			stickToBottom
+		} = this.props;
+
+		const {
+			totalPagers
+		} = this.state;
+
+		const classes = classNames(
+			'pagination--table',
+			'flex justify-content--center',
+			stickToBottom ? 'sticky sticky--bottom' : null
+		)
+
 		return (
-			<Pagination className="flex justify-content--center">
-				<PaginationItem onClick={() => onPageChange(activePage - 1)}>Previous</PaginationItem>
-				{ this.renderPages() }
-				<PaginationItem onClick={() => onPageChange(activePage + 1)}>Next</PaginationItem>
+			<Pagination className={classes}>
+				<PaginationItem onClick={() => onPageChange(activePage - 1)} disabled={activePage == 1}>Previous</PaginationItem>
+				{ this.renderPagers() }
+				<PaginationItem onClick={() => onPageChange(activePage + 1)} disabled={activePage == totalPagers}>Next</PaginationItem>
 			</Pagination>
 		)
 	}

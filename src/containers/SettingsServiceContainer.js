@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
 	getServiceTypes,
+	deleteService,
+	updateService,
 	createNewServiceType
 } from '../actions/service.action';
 import { SettingsService } from '../components/Settings';
@@ -9,14 +11,17 @@ import { SettingsService } from '../components/Settings';
 class SettingsServiceContainer extends Component {
 	constructor() {
 		super();
-		this.state = {
-			isModalOpen: false,
-			activeTab: 0
-		}
 		this.getServiceTypes = this.getServiceTypes.bind(this);
 		this.toggleTab = this.toggleTab.bind(this);
 		this.handleNewServiceType = this.handleNewServiceType.bind(this);
 		this.handleNewServiceTypeSubmit = this.handleNewServiceTypeSubmit.bind(this);
+		this.handleServiceUpdate = this.handleServiceUpdate.bind(this);
+		this.handleServiceDelete = this.handleServiceDelete.bind(this);
+
+		this.state = {
+			isModalOpen: false,
+			activeTab: 0
+		}
 	}
 
 	componentWillMount = () => {
@@ -36,6 +41,14 @@ class SettingsServiceContainer extends Component {
 		} = this.props;
 
 		dispatch(getServiceTypes(accessToken));
+	}
+
+	handleServiceUpdate = () => {
+
+	}
+
+	handleServiceDelete = () => {
+
 	}
 
 	// handleInputChange = (e) => {
@@ -84,6 +97,8 @@ class SettingsServiceContainer extends Component {
 				toggleTab={this.toggleTab}
 				handleNewServiceType={this.handleNewServiceType}
 				handleNewServiceTypeSubmit={this.handleNewServiceTypeSubmit}
+				handleServiceUpdate={this.handleServiceUpdate}
+				handleServiceDelete={this.handleServiceDelete}
 			/>
 		)
 	}

@@ -1,0 +1,7 @@
+.sticky {
+	position: sticky;
+
+	&.sticky--bottom {
+		bottom: 0;
+	}
+}

@@ -8,6 +8,7 @@ class Table extends Component {
 			tableData,
 			children,
 			className,
+			compact,
 			isStriped,
 			isHoverable,
 		} = this.props;
@@ -15,7 +16,8 @@ class Table extends Component {
 		const classes = classNames(
 			'table',
 			isStriped ? 'table--striped' : null,
-			isStriped ? 'table--hoverable' : null
+			isHoverable ? 'table--hoverable' : null,
+			compact ? 'table--compact' : null
 		)
 
 		return (

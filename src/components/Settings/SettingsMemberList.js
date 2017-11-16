@@ -58,7 +58,7 @@ class SettingsMemberList extends Component {
 		const {
 			memberListTable
 		} = this.state;
-		
+
 		return (
 			<TableSet
 				columns={memberListTable.data}

@@ -18,14 +18,16 @@ class SettingsServiceList extends Component {
 	render() {
 		const {
 			service,
-			serviceList
+			serviceList,
+			handleServiceUpdate,
+			handleServiceDelete
 		} = this.props;
 
 		const {
 			table,
 		} = this.state;
 
-		
+
 		return (
 			<TableSet
 				columns={table.columns}
@@ -33,6 +35,8 @@ class SettingsServiceList extends Component {
 				isStriped
 				isHoverable
 				hasPagination
+				onUpdate={handleServiceUpdate}
+				onDelete={handleServiceDelete}
 			/>
 		);
 	}

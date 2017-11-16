@@ -29,7 +29,7 @@ class TablePagination extends Component {
 			activePage
 		} = this.props;
 
-		let pages = Math.round(totalRows/limit);
+		let pages = Math.floor(totalRows/limit);
 		let pagers = 1;
 		while(pagers <= pages) {
 			pagers++;

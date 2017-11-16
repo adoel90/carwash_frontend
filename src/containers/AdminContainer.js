@@ -95,18 +95,18 @@ class AdminContainer extends React.Component {
 				<MainContent>
 					<Route name="login" path={`${match.url}/login`} component={ LoginContainer } />
 					<PrivateRoute
-						name="cafe"
-						path={`${match.url}/cafe`}
-						component={CafeContainer}
+						name="settings"
+						path={`${match.url}/settings`}
+						component={SettingsContainer}
 						isAuthenticated={isAuthenticated}
 						user={user}
 						accessToken={accessToken}
 						redirectTo={`${match.url}/login`}
 					/>
 					<PrivateRoute
-						name="settings"
-						path={`${match.url}/settings`}
-						component={SettingsContainer}
+						name="cafe"
+						path={`${match.url}/cafe`}
+						component={CafeContainer}
 						isAuthenticated={isAuthenticated}
 						user={user}
 						accessToken={accessToken}

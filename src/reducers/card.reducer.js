@@ -2,11 +2,15 @@ import {
 	GET_ALL_CARD_TYPE_REQUESTED,
 	GET_ALL_CARD_TYPE_FULFILLED,
 	GET_ALL_CARD_TYPE_REJECTED,
+	CREATE_CARD_TYPE_FULFILLED,
+	CREATE_CARD_TYPE_REJECTED,
 } from '../actions/card.action';
 
 const initialState = {
 	list: {},
+	newCard: {},
 	isFetching: false,
+	isCreated: false,
 	isLoaded: false,
 	isError: false,
 	error: {}
@@ -38,6 +42,25 @@ const card = (state = initialState, action) => {
 				list: {},
 				isFetching: false,
 				isLoaded: false,
+				isError: true,
+				error: action.payload
+			}
+		}
+
+		case CREATE_CARD_TYPE_FULFILLED: {
+			return {
+				...state,
+				newCard: action.payload,
+				isCreated: true,
+				error: {}
+			}
+		}
+
+		case CREATE_CARD_TYPE_REJECTED: {
+			return {
+				...state,
+				newCard: {},
+				isCreated: false,
 				isError: true,
 				error: action.payload
 			}

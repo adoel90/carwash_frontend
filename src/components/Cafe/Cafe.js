@@ -37,7 +37,7 @@ class Cafe extends React.Component {
 			cafe
 		} = this.props;
 
-		const firstRoutePath = cafe.types[0].name.replace(/\s+/g, '-').toLowerCase();
+		let firstRoutePath = cafe.types[0].name.replace(/\s+/g, '-').toLowerCase();
 
 		return (
 			<main className="main main--has-subheader">
@@ -50,7 +50,7 @@ class Cafe extends React.Component {
 						</div>
 						<div className="column-10">
 							{ cafe.types.map(this.renderCafeType) }
-							<Redirect from="/*" to={`${match.url}/${firstRoutePath}`} />
+							<Redirect from="/*"	 to={`${match.url}/${firstRoutePath}`} />
 						</div>
 					</Row>
 				</Container>

@@ -11,6 +11,7 @@ class SettingsCard extends Component {
 	constructor() {
 		super();
 		this.renderNewCardTypeModal = this.renderNewCardTypeModal.bind(this);
+		this.renderUpdateCardTypeModal = this.renderUpdateCardTypeModal.bind(this);
 	}
 
 	renderNewCardTypeModal = () => {
@@ -85,6 +86,79 @@ class SettingsCard extends Component {
 		)
 	}
 
+	renderUpdateCardTypeModal = () => {
+		const {
+			isModalOpen,
+			toggleModal,
+			selectedCardType,
+			handleInputChange,
+			handleCardTypeUpdateSubmit
+		} = this.props;
+
+		return (
+			<Modal
+				isOpen={isModalOpen.updateCardType}
+				toggle={() => toggleModal('updateCardType')}>
+				<ModalHeader align="center">
+					<h6 className="fw-semibold">Ubah Tipe Kartu: <span className="fw-bold clr-primary">{selectedCardType.name}</span></h6>
+				</ModalHeader>
+				<Form onSubmit={handleCardTypeUpdateSubmit}>
+					<ModalContent>
+						<FormGroup>
+							<Label htmlFor="name" className="fw-semibold">Nama Tipe Kartu</Label>
+							<Input
+								type="text"
+								name="name"
+								value={selectedCardType.name}
+								placeholder="Masukkan nama tipe kartu"
+								onChange={(e) => handleInputChange(selectedCardType, e)}
+							/>
+						</FormGroup>
+						<FormGroup>
+							<Label htmlFor="minimum" className="fw-semibold">Minimum Saldo</Label>
+							<InputGroup>
+								<InputAddon>
+									<small className="fw-semibold tt-uppercase ls-base">Rp</small>
+								</InputAddon>
+								<Input
+									type="text"
+									name="minimum"
+									value={selectedCardType.minimum}
+									placeholder="Masukkan minimum saldo"
+									onChange={(e) => handleInputChange(selectedCardType, e)}
+								/>
+							</InputGroup>
+						</FormGroup>
+						<FormGroup>
+							<Label htmlFor="bonus" className="fw-semibold">Bonus Saldo</Label>
+							<InputGroup>
+								<InputAddon>
+									<small className="fw-semibold tt-uppercase ls-base">Rp</small>
+								</InputAddon>
+								<Input
+									type="text"
+									name="bonus"
+									value={selectedCardType.bonus}
+									placeholder="Masukkan bonus saldo"
+									onChange={(e) => handleInputChange(selectedCardType, e)}
+								/>
+							</InputGroup>
+							<small className="clr-passive">Customer berhak mendapatkan bonus saldo tambahan dengan mengisi ulang saldo dengan jumlah minimum yang telah ditetapkan.</small>
+						</FormGroup>
+					</ModalContent>
+					<ModalFooter className="flex justify-content--flex-end">
+						<Button type="button" buttonTheme="danger" className="clr-light margin-right-2" onClick={() => toggleModal('updateCardType')}>
+							<small className="fw-semibold tt-uppercase ls-base">Batalkan</small>
+						</Button>
+						<Button buttonTheme="primary" className="clr-light">
+							<small className="fw-semibold tt-uppercase ls-base">Terapkan</small>
+						</Button>
+					</ModalFooter>
+				</Form>
+			</Modal>
+		)
+	}
+
 	render() {
 		const {
 			card,
@@ -106,6 +180,7 @@ class SettingsCard extends Component {
 					</PageBlock>
 				</PageBlockGroup>
 				{this.renderNewCardTypeModal()}
+				{this.renderUpdateCardTypeModal()}
 			</div>
 		)
 	}

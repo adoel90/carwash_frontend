@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Redirect } from 'react-router-dom';
 
 import { Container, Row } from '../Grid';
@@ -8,15 +8,29 @@ import { ModalDialog } from '../Modal';
 
 import MainSidenav from '../MainSidenav';
 
-class Settings extends Component {
+class Settings extends React.Component {
 	constructor() {
 		super();
 		this.renderSubroutes = this.renderSubroutes.bind(this);
 		this.renderDialog = this.renderDialog.bind(this);
+		this.handleRedirect = this.handleRedirect.bind(this);
 	}
 
-	componentDidMount = () => {
+	handleRedirect = () => {
 
+		const {
+			dialog,
+			match,
+			subroutes
+		} = this.props;
+
+		let firstRoute = subroutes[0].name.replace(/\s+/g, '-').toLowerCase();
+
+		setTimeout(() => {
+			return <Redirect from="/*" to={`${match.url}/${firstRoute}`} />
+		}, 2000)
+		
+		// window.location.href = `${match.url}/${firstRoutePath}`;
 	}
 
 	renderDialog = () => {
@@ -78,11 +92,11 @@ class Settings extends Component {
 						</div>
 						<div className="column-10">
 							{ subroutes.map(this.renderSubroutes) }
-							<Redirect from={match.url} to={`${match.url}/${firstRoutePath}`} />
 						</div>
 					</Row>
 				</Container>
 				{ dialog.isOpen ? this.renderDialog() : null }
+				{ this.handleRedirect() }
 			</main>
 		);
 	}

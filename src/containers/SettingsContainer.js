@@ -26,7 +26,7 @@ class SettingsContainer extends Component {
 				{ id: 1, name: 'Pengaturan Member', component: SettingsMemberContainer },
 				{ id: 2, name: 'Pengaturan Service', component: SettingsServiceContainer },
 				{ id: 3, name: 'Pengaturan Cafe', component: SettingsCafeContainer },
-				{ id: 3, name: 'Pengaturan Kartu', component: SettingsCardContainer }
+				{ id: 4, name: 'Pengaturan Kartu', component: SettingsCardContainer }
 			]
 		}
 	}

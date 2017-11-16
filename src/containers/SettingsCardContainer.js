@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
 	getAllCardType,
-	getCardTypeList
+	getCardTypeList,
+	createNewCardType	
 } from '../actions/card.action';
 import { SettingsCard } from '../components/Settings';
 
@@ -20,10 +21,15 @@ class SettingsCardContainer extends Component {
 		this.state = {
 			isModalOpen: {
 				newCardType: false,
-				updateCard: false,
-				deleteCard: false
+				updateCardType: false,
+				deleteCardType: false
 			},
 			newCardType: {
+				name: '',
+				minimum: '',
+				bonus: ''
+			},
+			selectedCardType: {
 				name: '',
 				minimum: '',
 				bonus: ''
@@ -66,19 +72,46 @@ class SettingsCardContainer extends Component {
 		}
 	}
 
-	handleNewCardType = () => {
+	handleNewCardType = (e) => {
 		this.toggleModal('newCardType');
 	}
 
-	handleNewCardTypeSubmit = () => {
+	handleNewCardTypeSubmit = (e) => {
+		e.preventDefault();
+
+		const {
+			accessToken,
+			dispatch
+		} = this.props;
+
+		const {
+			newCardType
+		} = this.state;
+
+		const requiredData = {
+			name: newCardType.name,
+			minimum: newCardType.minimum,
+			bonus: newCardType.bonus
+		}
+
+		dispatch(createNewCardType(requiredData, accessToken));
 	}
 
-	handleCardTypeUpdate = () => {
-		this.toggleModal('updateCard');
+	handleCardTypeUpdate = (cardType) => {
+		this.setState({
+			selectedCardType: {
+				id: cardType.id,
+				name: cardType.name,
+				minimum: cardType.min,
+				bonus: cardType.bonus
+			}
+		})
+
+		this.toggleModal('updateCardType');
 	}
 
 	handleCardTypeDelete = () => {
-		this.toggleModal('deleteCard');
+		this.toggleModal('deleteCardType');
 	}
 
 	getAllCardType = () => {
@@ -100,6 +133,7 @@ class SettingsCardContainer extends Component {
 				handleNewCardType={this.handleNewCardType}
 				handleNewCardTypeSubmit={this.handleNewCardTypeSubmit}
 				handleCardTypeUpdate={this.handleCardTypeUpdate}
+				handleCardTypeUpdateSubmit={this.handleCardTypeUpdateSubmit}
 				handleCardTypeDelete={this.handleCardTypeDelete}
 			/>
 		);

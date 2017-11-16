@@ -19,7 +19,9 @@ class SettingsCardContainer extends Component {
 
 		this.state = {
 			isModalOpen: {
-				newCardType: false
+				newCardType: false,
+				updateCard: false,
+				deleteCard: false
 			},
 			newCardType: {
 				name: '',
@@ -31,6 +33,11 @@ class SettingsCardContainer extends Component {
 
 	componentDidMount = () => {
 		this.getAllCardType();
+	}
+
+	componentDidUpdate = () => {
+
+		console.log(this.state);
 	}
 
 	toggleModal = (name) => {
@@ -67,9 +74,11 @@ class SettingsCardContainer extends Component {
 	}
 
 	handleCardTypeUpdate = () => {
+		this.toggleModal('updateCard');
 	}
 
 	handleCardTypeDelete = () => {
+		this.toggleModal('deleteCard');
 	}
 
 	getAllCardType = () => {

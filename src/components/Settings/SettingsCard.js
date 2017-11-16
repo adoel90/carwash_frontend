@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { SettingsCardList } from '../Settings';
-import { Modal, ModalHeader, ModalContent, ModalFooter } from '../Modal';
+import { Modal } from 'reactstrap';
+import { ModalHeader, ModalContent, ModalFooter } from '../Modal';
 import { Form, FormGroup } from '../Form';
 import { Input, InputGroup, InputAddon, Label } from '../Input';
 import { PageBlock, PageBlockGroup } from '../Page';
@@ -17,19 +18,19 @@ class SettingsCard extends Component {
 			isModalOpen,
 			toggleModal,
 			newCardType,
-			handleInputChange
+			handleInputChange,
+			handleNewCardTypeSubmit
 		} = this.props;
 
 		return (
 			<Modal
+				name="newCardType"
 				isOpen={isModalOpen.newCardType}
-				toggle={toggleModal('newCardType')}>
+				toggle={() => toggleModal('newCardType')}>
 				<ModalHeader align="center">
-					<h6 className="fw-semibold tt-uppercase ls-base">
-						Buat Tipe Kartu Baru
-					</h6>
+					<h6 className="fw-semibold">Buat Tipe Kartu Baru</h6>
 				</ModalHeader>
-				<Form>
+				<Form onSubmit={handleNewCardTypeSubmit}>
 					<ModalContent>
 						<FormGroup>
 							<Label htmlFor="name">Nama Tipe Kartu</Label>
@@ -73,15 +74,14 @@ class SettingsCard extends Component {
 						</FormGroup>
 					</ModalContent>
 					<ModalFooter>
-
+						<Button>tes</Button>
 					</ModalFooter>
 				</Form>
-
 			</Modal>
 		)
 	}
 
-	render = () => {
+	render() {
 		const {
 			card,
 			cardList,
@@ -101,7 +101,7 @@ class SettingsCard extends Component {
 						</Button>
 					</PageBlock>
 				</PageBlockGroup>
-
+				{this.renderNewCardTypeModal()}
 			</div>
 		)
 	}

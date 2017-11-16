@@ -12,8 +12,11 @@ class SettingsCardContainer extends Component {
 		this.getAllCardType = this.getAllCardType.bind(this);
 		this.toggleModal = this.toggleModal.bind(this);
 		this.handleInputChange = this.handleInputChange.bind(this);
+		this.handleNewCardType = this.handleNewCardType.bind(this);
+		this.handleNewCardTypeSubmit = this.handleNewCardTypeSubmit.bind(this);
 		this.handleCardTypeUpdate = this.handleCardTypeUpdate.bind(this);
 		this.handleCardTypeDelete = this.handleCardTypeDelete.bind(this);
+
 		this.state = {
 			isModalOpen: {
 				newCardType: false
@@ -54,6 +57,10 @@ class SettingsCardContainer extends Component {
 				[name]: value
 			})
 		}
+	}
+
+	handleNewCardType = () => {
+		this.toggleModal('newCardType');
 	}
 
 	handleCardTypeUpdate = () => {

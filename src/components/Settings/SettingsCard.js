@@ -84,7 +84,8 @@ class SettingsCard extends Component {
 	render = () => {
 		const {
 			card,
-			cardList
+			cardList,
+			handleNewCardType
 		} = this.props;
 
 		return (
@@ -95,7 +96,7 @@ class SettingsCard extends Component {
 				<PageBlockGroup>
 					{ card.isLoaded ? <SettingsCardList {...this.props} /> : null }
 					<PageBlock className="flex justify-content--flex-end" extension>
-						<Button type="button" buttonTheme="primary" className="clr-light">
+						<Button type="button" buttonTheme="primary" className="clr-light" onClick={handleNewCardType}>
 							<small className="fw-semibold tt-uppercase ls-base">Buat Tipe Kartu Baru</small>
 						</Button>
 					</PageBlock>

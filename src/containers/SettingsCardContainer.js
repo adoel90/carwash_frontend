@@ -63,6 +63,9 @@ class SettingsCardContainer extends Component {
 		this.toggleModal('newCardType');
 	}
 
+	handleNewCardTypeSubmit = () => {
+	}
+
 	handleCardTypeUpdate = () => {
 	}
 

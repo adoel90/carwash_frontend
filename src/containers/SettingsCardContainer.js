@@ -85,6 +85,8 @@ class SettingsCardContainer extends Component {
 				{...this.state}
 				toggleModal={this.toggleModal}
 				handleInputChange={this.handleInputChange}
+				handleNewCardType={this.handleNewCardType}
+				handleNewCardTypeSubmit={this.handleNewCardTypeSubmit}
 				handleCardTypeUpdate={this.handleCardTypeUpdate}
 				handleCardTypeDelete={this.handleCardTypeDelete}
 			/>

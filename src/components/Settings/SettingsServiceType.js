@@ -18,8 +18,6 @@ class SettingsServiceType extends Component {
 		} = this.props;
 
 
-		{ service.isLoaded ? <SettingsServiceList {...this.props} /> : null }
-
 		if(service.isLoaded) {
 			if(serviceList.length) {
 				return <SettingsServiceList {...this.props} />
@@ -28,7 +26,7 @@ class SettingsServiceType extends Component {
 				return (
 					<div className="flex justify-content--center flex-column ta-center">
 						<i className="fi flaticon-warning icon icon--gigant clr-danger"></i>
-						<p>Maaf, sistem tidak dapat menemukan daftar menu untuk <span className="fw-semibold">{type.name}</span>. <br /> Silahkan klik tombol di bawah untuk menambahkan menu baru.</p>
+						<p>Maaf, sistem tidak dapat menemukan daftar service untuk kategori <span className="fw-semibold">{type.name}</span>. <br /> Silahkan klik tombol di bawah untuk menambahkan menu baru.</p>
 					</div>
 				)
 			}

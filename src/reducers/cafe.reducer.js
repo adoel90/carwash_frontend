@@ -2,21 +2,28 @@ import {
 	GET_CAFE_MENU_LIST_REQUESTED,
 	GET_CAFE_MENU_LIST_FULFILLED,
 	GET_CAFE_MENU_LIST_REJECTED,
+	GET_CAFE_TYPES_REQUESTED,
+	GET_CAFE_TYPES_FULFILLED,
+	GET_CAFE_TYPES_REJECTED,
 	CREATE_CAFE_MENU_FULFILLED,
 	CREATE_CAFE_MENU_REJECTED,
 	UPDATE_CAFE_MENU_FULFILLED,
 	UPDATE_CAFE_MENU_REJECTED,
-	GET_CAFE_TYPES_REQUESTED,
-	GET_CAFE_TYPES_FULFILLED,
-	GET_CAFE_TYPES_REJECTED
+	DELETE_CAFE_MENU_FULFILLED,
+	DELETE_CAFE_MENU_REJECTED
 } from '../actions/cafe.action';
 
 const initialState = {
 	list: {},
 	menu: {},
 	types: {},
+	updatedMenu: {},
+	deletedMenu: {},
 	isFetching: false,
 	isLoaded: false,
+	isCreated: false,
+	isUpdated: false,
+	isError: false,
 	error: {}
 }
 
@@ -48,40 +55,6 @@ const cafe = (state = initialState, action) => {
 		}
 
 		//
-		case CREATE_CAFE_MENU_FULFILLED: {
-			return {
-				...state,
-				menu: action.payload,
-				error: {}
-			}
-		}
-
-		case CREATE_CAFE_MENU_REJECTED: {
-			return {
-				...state,
-				menu: {},
-				error: action.payload
-			}
-		}
-
-		//
-		case UPDATE_CAFE_MENU_FULFILLED: {
-			return {
-				...state,
-				menu: action.payload,
-				error: {}
-			}
-		}
-
-		case UPDATE_CAFE_MENU_REJECTED: {
-			return {
-				...state,
-				menu: {},
-				error: action.payload
-			}
-		}
-
-		//
 		case GET_CAFE_TYPES_REQUESTED: {
 			return {
 				...state,
@@ -106,6 +79,54 @@ const cafe = (state = initialState, action) => {
 				isFetching: false,
 				isLoaded: false,
 				error: action.payload
+			}
+		}
+
+		//
+		case CREATE_CAFE_MENU_FULFILLED: {
+			return {
+				...state,
+				menu: action.payload,
+				error: {}
+			}
+		}
+
+		case CREATE_CAFE_MENU_REJECTED: {
+			return {
+				...state,
+				menu: {},
+				error: action.payload
+			}
+		}
+
+		//
+		case UPDATE_CAFE_MENU_FULFILLED: {
+			return {
+				...state,
+				menu: action.payload,
+				isUpdated: true,
+				isError: false,
+				error: {}
+			}
+		}
+
+		case UPDATE_CAFE_MENU_REJECTED: {
+			return {
+				...state,
+				menu: {},
+				isUpdated: false,
+				isError: true,
+				error: action.payload
+			}
+		}
+
+		case DELETE_CAFE_MENU_FULFILLED: {
+			return {
+				...state,
+				deletedMenu: action.payload,
+				isDeleted: true,
+				isError: false,
+				error: {}
 			}
 		}
 

@@ -64,7 +64,7 @@ class SettingsService extends Component {
 				</ModalHeader>
 				<Form onSubmit={handleNewServiceTypeSubmit}>
 					<ModalContent>
-						<FormGroup>
+						<FormGroup row>
 							<Label htmlFor="name" className="fw-semibold">Nama Kategori Service</Label>
 							<Input
 								type="text"
@@ -123,7 +123,7 @@ class SettingsService extends Component {
 								<p className="fw-semibold clr-primary">Tambahkan Foto</p>
 							</div>
 							<div className="column-7">
-								<FormGroup>
+								<FormGroup row>
 									<Label htmlFor="name" className="fw-semibold">Nama Service</Label>
 									<Input
 										type="text"
@@ -132,7 +132,7 @@ class SettingsService extends Component {
 										onChange={(e) => handleInputChange(newService, e)}
 									/>
 								</FormGroup>
-								<FormGroup>
+								<FormGroup row>
 									<Label htmlFor="price" className="fw-semibold">Nama Service</Label>
 									<InputGroup>
 										<InputAddon>
@@ -146,7 +146,7 @@ class SettingsService extends Component {
 										/>
 									</InputGroup>
 								</FormGroup>
-								<FormGroup>
+								<FormGroup row>
 									<Label htmlFor="description" className="fw-semibold">Nama Service</Label>
 									<Input
 										type="textarea"

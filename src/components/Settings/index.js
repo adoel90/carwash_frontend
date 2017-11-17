@@ -9,6 +9,7 @@ import SettingsCafe from './SettingsCafe';
 import SettingsCafeType from './SettingsCafeType';
 import SettingsCard from './SettingsCard';
 import SettingsCardList from './SettingsCardList';
+import SettingsCafeMenuList from './SettingsCafeMenuList';
 
 export {
 	Settings,
@@ -20,6 +21,7 @@ export {
 	SettingsServiceList,
 	SettingsCafe,
 	SettingsCafeType,
+	SettingsCafeMenuList,
 	SettingsCard,
 	SettingsCardList
 }

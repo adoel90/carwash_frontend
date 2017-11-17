@@ -3,8 +3,13 @@ import { connect } from 'react-redux';
 import {
 	getAllCardType,
 	getCardTypeList,
-	createNewCardType	
+	createNewCardType,
+	updateCardType,
+	deleteCardType
 } from '../actions/card.action';
+import {
+	toggleDialog
+} from '../actions/dialog.action';
 import { SettingsCard } from '../components/Settings';
 
 class SettingsCardContainer extends Component {
@@ -17,6 +22,7 @@ class SettingsCardContainer extends Component {
 		this.handleNewCardTypeSubmit = this.handleNewCardTypeSubmit.bind(this);
 		this.handleCardTypeUpdate = this.handleCardTypeUpdate.bind(this);
 		this.handleCardTypeDelete = this.handleCardTypeDelete.bind(this);
+		this.handleCardTypeDeleteSubmit = this.handleCardTypeDeleteSubmit.bind(this);
 
 		this.state = {
 			isModalOpen: {
@@ -41,9 +47,49 @@ class SettingsCardContainer extends Component {
 		this.getAllCardType();
 	}
 
-	componentDidUpdate = () => {
+	componentDidUpdate = (prevProps) => {
+		const {
+			card,
+			dispatch,
+			dialog
+		} = this.props;
 
-		console.log(this.state);
+
+		if(prevProps.card !== this.props.card) {
+			let dialogData = {
+				success: {
+					type: 'success',
+					title: '',
+					message: '',
+					close: () => {
+						window.location.reload()
+					},
+					closeText: 'Tutup'
+				}
+			}
+
+
+			if(card.isUpdated) {
+				dialogData.success.title = 'Berhasil!';
+				dialogData.success.message = 'Data tipe kartu berhasil diubah.';
+
+				dispatch(toggleDialog(dialogData.success, dialog.isOpen));
+			}
+
+			else if(card.isCreated) {
+				dialogData.success.title = 'Berhasil!';
+				dialogData.success.message = 'Tipe kartu telah berhasil dibuat.';
+
+				dispatch(toggleDialog(dialogData.success, dialog.isOpen));
+			}
+
+			else if(card.isDeleted) {
+				dialogData.success.title = 'Berhasil!';
+				dialogData.success.message = 'Tipe kartu telah berhasil dihapus.';
+
+				dispatch(toggleDialog(dialogData.success, false));
+			}
+		}
 	}
 
 	toggleModal = (name) => {
@@ -110,8 +156,76 @@ class SettingsCardContainer extends Component {
 		this.toggleModal('updateCardType');
 	}
 
-	handleCardTypeDelete = () => {
-		this.toggleModal('deleteCardType');
+	handleCardTypeUpdateSubmit = (e) => {
+		e.preventDefault();
+
+		const {
+			dispatch,
+			accessToken,
+			dialog,
+			card
+		} = this.props;
+
+		const {
+			selectedCardType
+		} = this.state;
+
+		let requiredData = {
+			id: selectedCardType.id,
+			name: selectedCardType.name,
+			minimum: selectedCardType.minimum,
+			bonus: selectedCardType.bonus
+		}
+
+		dispatch(updateCardType(requiredData, accessToken));
+	}
+
+	handleCardTypeDelete = (cardType) => {
+		const {
+			dispatch,
+			dialog
+		} = this.props;
+
+		this.setState({
+			selectedCardType: {
+				id: cardType.id,
+				name: cardType.name,
+				minimum: cardType.min,
+				bonus: cardType.bonus
+			}
+		})
+
+		const dialogData = {
+			type: 'confirm',
+			title: 'Perhatian!',
+			message: `Anda akan menghapus tipe kartu ${cardType.name}. \n Aksi ini tidak dapat dipulihkan kembali. \n Apakah Anda yakin ingin melanjutkan?`,
+			confirm: (e) => this.handleCardTypeDeleteSubmit(e),
+			confirmText: 'Ya, Lanjutkan',
+			cancel: true,
+			cancelText: 'Batalkan'
+		}
+
+		dispatch(toggleDialog(dialogData, dialog.isOpen));
+	}
+
+	handleCardTypeDeleteSubmit = (e) => {
+		e.preventDefault();
+
+		const {
+			dispatch,
+			accessToken,
+			card
+		} = this.props;
+
+		const {
+			selectedCardType
+		} = this.state;
+
+		let requiredData = {
+			id: selectedCardType.id
+		}
+
+		dispatch(deleteCardType(requiredData, accessToken));
 	}
 
 	getAllCardType = () => {

@@ -4,13 +4,21 @@ import {
 	GET_ALL_CARD_TYPE_REJECTED,
 	CREATE_CARD_TYPE_FULFILLED,
 	CREATE_CARD_TYPE_REJECTED,
+	UPDATE_CARD_TYPE_FULFILLED,
+	UPDATE_CARD_TYPE_REJECTED,
+	DELETE_CARD_TYPE_FULFILLED,
+	DELETE_CARD_TYPE_REJECTED
 } from '../actions/card.action';
 
 const initialState = {
 	list: {},
 	newCard: {},
+	updatedCard: {},
+	deletedCard: {},
 	isFetching: false,
 	isCreated: false,
+	isUpdated: false,
+	isDeleted: false,
 	isLoaded: false,
 	isError: false,
 	error: {}
@@ -61,6 +69,45 @@ const card = (state = initialState, action) => {
 				...state,
 				newCard: {},
 				isCreated: false,
+				isError: true,
+				error: action.payload
+			}
+		}
+
+		case UPDATE_CARD_TYPE_FULFILLED: {
+			return {
+				...state,
+				updatedCard: action.payload,
+				isUpdated: true,
+				error: {}
+			}
+		}
+
+		case UPDATE_CARD_TYPE_REJECTED: {
+			return {
+				...state,
+				updatedCard: {},
+				isUpdated: false,
+				isError: true,
+				error: action.payload
+			}
+		}
+
+		case DELETE_CARD_TYPE_FULFILLED: {
+			return {
+				...state,
+				deletedCard: action.payload,
+				isDeleted: true,
+				isError: false,
+				error: {}
+			}
+		}
+
+		case DELETE_CARD_TYPE_REJECTED: {
+			return {
+				...state,
+				deletedCard: {},
+				isDeleted: false,
 				isError: true,
 				error: action.payload
 			}

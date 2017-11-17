@@ -40,7 +40,8 @@ class SettingsCard extends Component {
 								type="text"
 								placeholder="Nama tipe kartu baru"
 								onChange={(e) => handleInputChange(newCardType, e)}
-								autoFocus="true"
+								required="true"
+								autoFocus
 							/>
 						</FormGroup>
 						<FormGroup>
@@ -54,6 +55,7 @@ class SettingsCard extends Component {
 									type="text"
 									placeholder="Masukkan minimum pengisian saldo untuk bonus"
 									onChange={(e) => handleInputChange(newCardType, e)}
+									required="true"
 								/>
 							</InputGroup>
 						</FormGroup>
@@ -68,9 +70,9 @@ class SettingsCard extends Component {
 									type="text"
 									placeholder="Masukkan bonus dari pengisian saldo"
 									onChange={(e) => handleInputChange(newCardType, e)}
+									required="true"
 								/>
 							</InputGroup>
-							<small className="clr-passive">Merupakan jumlah saldo minimum yang harus diisi customer untuk mendapatkan bonus saldo.</small>
 						</FormGroup>
 					</ModalContent>
 					<ModalFooter className="flex justify-content--flex-end">
@@ -112,6 +114,8 @@ class SettingsCard extends Component {
 								value={selectedCardType.name}
 								placeholder="Masukkan nama tipe kartu"
 								onChange={(e) => handleInputChange(selectedCardType, e)}
+								autoFocus
+								required="true"
 							/>
 						</FormGroup>
 						<FormGroup>
@@ -126,6 +130,7 @@ class SettingsCard extends Component {
 									value={selectedCardType.minimum}
 									placeholder="Masukkan minimum saldo"
 									onChange={(e) => handleInputChange(selectedCardType, e)}
+									required="true"
 								/>
 							</InputGroup>
 						</FormGroup>
@@ -141,9 +146,9 @@ class SettingsCard extends Component {
 									value={selectedCardType.bonus}
 									placeholder="Masukkan bonus saldo"
 									onChange={(e) => handleInputChange(selectedCardType, e)}
+									required="true"
 								/>
 							</InputGroup>
-							<small className="clr-passive">Customer berhak mendapatkan bonus saldo tambahan dengan mengisi ulang saldo dengan jumlah minimum yang telah ditetapkan.</small>
 						</FormGroup>
 					</ModalContent>
 					<ModalFooter className="flex justify-content--flex-end">

@@ -9,6 +9,10 @@ export const GET_ALL_CARD_TYPE_FULFILLED = 'GET_ALL_CARD_TYPE_FULFILLED';
 export const GET_ALL_CARD_TYPE_REJECTED = 'GET_ALL_CARD_TYPE_REJECTED';
 export const CREATE_CARD_TYPE_FULFILLED = 'CREATE_CARD_TYPE_FULFILLED';
 export const CREATE_CARD_TYPE_REJECTED = 'CREATE_CARD_TYPE_REJECTED';
+export const UPDATE_CARD_TYPE_FULFILLED = 'UPDATE_CARD_TYPE_FULFILLED';
+export const UPDATE_CARD_TYPE_REJECTED = 'UPDATE_CARD_TYPE_REJECTED';
+export const DELETE_CARD_TYPE_FULFILLED = 'DELETE_CARD_TYPE_FULFILLED';
+export const DELETE_CARD_TYPE_REJECTED = 'DELETE_CARD_TYPE_REJECTED';
 
 export const getCardTypeList = (data, accessToken) => {
 	return async dispatch => {
@@ -66,7 +70,48 @@ export const createNewCardType = (data, accessToken) => {
 				dispatch(handleError(error))
 			})
 	}
- 
+
 	function handleSuccess(data) { return { type: CREATE_CARD_TYPE_FULFILLED, payload: data}}
 	function handleError(data) { return { type: CREATE_CARD_TYPE_REJECTED, payload: data}}
+}
+
+export const updateCardType = (data, accessToken) => {
+	return async dispatch => {
+		return axios
+			.put(`${constant.API_PATH}card/type/update?accessToken=${accessToken}`, {
+				id: data.id,
+				name: data.name,
+				minimum: data.minimum,
+				bonus: data.bonus
+			})
+			.then((response) => {
+				return Promise.resolve(dispatch(handleSuccess(response.data)))
+			})
+			.catch((error) => {
+				return Promise.resolve(dispatch(handleError(error)))
+			})
+	}
+
+	function handleSuccess(data) { return { type: UPDATE_CARD_TYPE_FULFILLED, payload: data}}
+	function handleError(data) { return { type: UPDATE_CARD_TYPE_REJECTED, payload: data}}
+}
+
+export const deleteCardType = (data, accessToken) => {
+	return async dispatch => {
+		return axios
+			.put(`${constant.API_PATH}card/type/delete?accessToken=${accessToken}`, {
+				id: data.id
+			})
+			.then((response) => {
+				return Promise.resolve(dispatch(handleSuccess(response.data)))
+			})
+			.catch((error) => {
+				return Promise.resolve(dispatch(handleError(error)))
+			})
+	}
+
+	function handleSuccess(data) { return { type: DELETE_CARD_TYPE_FULFILLED, payload: data}}
+	function handleError(data) { return { type: DELETE_CARD_TYPE_REJECTED, payload: data}}
+
+
 }

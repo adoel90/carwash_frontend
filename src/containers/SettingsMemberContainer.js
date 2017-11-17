@@ -84,34 +84,6 @@ class SettingsMemberContainer extends Component {
 		this.toggleModal('editMember');
 	}
 
-	handleDeleteMember = (member) => {
-		const {
-			dialog,
-			dispatch
-		} = this.props;
-
-		this.setState({
-			selectedMember: {
-				id: member.id,
-				name: member.name,
-				email: member.email,
-				phone: member.phone,
-				address: member.address
-			}
-		})
-
-		const dialogData = {
-			type: 'confirm',
-			title: 'Perhatian!',
-			message: 'Anda akan menghapus seluruh data member ini dan aksi ini tidak dapat dipulihkan. Apakah Anda yakin ingin melanjutkan?',
-			confirm: () => this.handleDeleteMemberSubmit(),
-			confirmText: 'Ya, Lanjutkan',
-			cancelText: 'Batalkan'
-		}
-
-		dispatch(toggleDialog(dialogData, dialog.isOpen));
-	}
-
 	handleUpdateMemberSubmit = (e) => {
 		e.preventDefault();
 
@@ -135,6 +107,35 @@ class SettingsMemberContainer extends Component {
 		}
 
 		dispatch(updateMember(requiredData, accessToken));
+	}
+
+	handleDeleteMember = (member) => {
+		const {
+			dialog,
+			dispatch
+		} = this.props;
+
+		this.setState({
+			selectedMember: {
+				id: member.id,
+				name: member.name,
+				email: member.email,
+				phone: member.phone,
+				address: member.address
+			}
+		})
+
+		const dialogData = {
+			type: 'confirm',
+			title: 'Perhatian!',
+			message: 'Anda akan menghapus seluruh data member ini dan aksi ini tidak dapat dipulihkan. Apakah Anda yakin ingin melanjutkan?',
+			confirm: () => this.handleDeleteMemberSubmit(),
+			confirmText: 'Ya, Lanjutkan',
+			cancel: true,
+			cancelText: 'Batalkan'
+		}
+
+		dispatch(toggleDialog(dialogData, dialog.isOpen));
 	}
 
 	handleDeleteMemberSubmit = () => {

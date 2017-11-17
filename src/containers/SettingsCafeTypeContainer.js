@@ -1,167 +1,254 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
+	getAllCafeMenu,
 	getCafeMenuList,
-	createNewCafeMenu,
-	updateCafeMenu
+	createCafeMenu,
+	updateCafeMenu,
+	deleteCafeMenu
 } from '../actions/cafe.action';
-
+import {
+	toggleDialog
+} from '../actions/dialog.action';
 import { SettingsCafeType } from '../components/Settings';
 
 class SettingsCafeTypeContainer extends Component {
 	constructor() {
 		super();
-		this.toggleNewMenuModal = this.toggleNewMenuModal.bind(this);
-		this.toggleEditMenuModal = this.toggleEditMenuModal.bind(this);
-		this.handleInputChange = this.handleInputChange.bind(this);
-		this.handleEditMenu = this.handleEditMenu.bind(this);
-		this.handleNewMenu = this.handleNewMenu.bind(this);
+		this.getAllCafeMenu = this.getAllCafeMenu.bind(this);
+		this.handleCafeMenuCreate = this.handleCafeMenuCreate.bind(this);
+		this.handleCafeMenuUpdate = this.handleCafeMenuUpdate.bind(this)
+		this.handleCafeMenuDelete = this.handleCafeMenuDelete.bind(this);
+		this.handleCafeMenuDeleteSubmit = this.handleCafeMenuDeleteSubmit.bind(this);
 
 		this.state = {
-			menu: {
+			selectedCafeMenu: {
+				cafe: '',
 				id: '',
 				name: '',
 				price: '',
 				description: ''
 			},
-			isModalOpen: {
-				newMenu: false,
-				editMenu: false
+			cafeMenuCreate: {
+				name: '',
+				price: '',
+				description: '',
+				image: '',
+				imagePreview: ''
+			},
+		}
+	}
+
+	componentDidMount = () => {
+		this.getAllCafeMenu();
+	}
+
+	componentDidUpdate = (prevProps) => {
+		const {
+			cafe,
+			dispatch,
+			dialog
+		} = this.props;
+
+		if(prevProps.cafe !== this.props.cafe) {
+			let dialogData = {
+				success: {
+					type: 'success',
+					title: '',
+					message: '',
+					close: () => {
+						window.location.reload()
+					},
+					closeText: 'Tutup'
+				}
+			}
+
+			if(cafe.isUpdated) {
+				dialogData.success.title = 'Berhasil!';
+				dialogData.success.message = 'Perubahan terhadap menu cafe berhasil. Klik tombol berikut untuk kembali.';
+
+				dispatch(toggleDialog(dialogData.success, dialog.isOpen));
+			}
+
+			if(cafe.isDeleted) {
+				dialogData.success.title = 'Berhasil!';
+				dialogData.success.message = 'Penghapusan menu cafe berhasil. Klik tombol berikut untuk kembali.';
+
+				dispatch(toggleDialog(dialogData.success, false));
 			}
 		}
 	}
 
-	handleNewMenu = () => {
-		const {
-			type,
-			accessToken,
-			dispatch
-		} = this.props;
+	handleInputChange = (object, e) => {
+		const target = e.target;
+		const value = target.value;
+		const name = target.name;
 
-		const {
-			menu
-		} = this.state;
-
-		const requiredData = {
-			cafe: type.id,
-			name: menu.name,
-			price: menu.price,
-			description: menu.description,
-			image: menu.image
+		if(object) {
+			object[name] = value;
+			this.forceUpdate();
+		} else {
+			this.setState({
+				[name]: value
+			})
 		}
-
-		dispatch(createNewCafeMenu(requiredData, accessToken));
 	}
 
-	handleEditMenu = () => {
+	handleCafeMenuCreate = () => {
 		const {
-			type,
-			accessToken,
-			dispatch
+			toggleModal
+		} = this.props;
+
+		toggleModal('cafeMenuCreate');
+	}
+
+	handleCafeMenuCreateSubmit = (e) => {
+		e.preventDefault();
+
+		const {
+			dispatch,
+			accessToken
 		} = this.props;
 
 		const {
-			menu
+			cafeMenuCreate
 		} = this.state;
 
-		const requiredData = {
+		let requiredData = {
 			cafe: type.id,
-			id: menu.id,
-			name: menu.name,
-			price: menu.price,
-			description: menu.description
+			name: cafeMenuCreate.name,
+			price: cafeMenuCreate.price,
+			description: cafeMenuCreate.description
+		}
+
+		dispatch(createCafeMenu(requiredData, accessToken));
+	}
+
+	handleCafeMenuUpdate = (cafeMenu) => {
+		const {
+			type,
+			toggleModal
+		} = this.props;
+
+		const {
+			selectedCafeMenu
+		} = this.state;
+
+		console.log(cafeMenu);
+
+		this.setState({
+			selectedCafeMenu: {
+				cafe: type.id,
+				id: cafeMenu.id,
+				name: cafeMenu.name,
+				price: cafeMenu.price,
+				description: cafeMenu.description
+			}
+		})
+
+		toggleModal('cafeMenuUpdate');
+	}
+
+	handleCafeMenuUpdateSubmit = (e) => {
+		e.preventDefault();
+
+		const {
+			dispatch,
+			accessToken
+		} = this.props;
+
+		const {
+			selectedCafeMenu
+		} = this.state;
+
+		let requiredData = {
+			cafe: selectedCafeMenu.cafe,
+			id: selectedCafeMenu.id,
+			name: selectedCafeMenu.name,
+			price: selectedCafeMenu.price,
+			description: selectedCafeMenu.description
 		}
 
 		dispatch(updateCafeMenu(requiredData, accessToken));
 	}
 
-	handleInputChange = (e) => {
-		const target = e.target;
-		const value = e.target.value;
-		const name = target.name;
-
-		this.setState({
-			menu: {
-				...this.state.menu,
-				[name]: value
-			}
-		})
-	}
-
-	handlePhotoChange = (data) => {
-		if(data && data[0]) {
-			let reader = new FileReader();
-			reader.onload = (e) => {
-				this.setState({
-					menu: {
-						...this.state.menu,
-						image: e.target.result
-					}
-				})
-			}
-
-			reader.readAsDataURL(data[0]);
-		}
-	}
-
-	toggleEditMenuModal = (item) => {
+	handleCafeMenuDelete = (cafeMenu) => {
 		const {
-			isModalOpen
-		} = this.state
-
-		if(!isModalOpen.editMenu) {
-			this.setState({
-				menu: {
-					id: item.id,
-					name: item.name,
-					price: item.price,
-					description: item.description
-				}
-			})
-		}
-
-		this.setState({
-			isModalOpen: {
-				editMenu: !isModalOpen.editMenu
-			}
-		})
-	}
-
-	toggleNewMenuModal = () => {
-		this.setState({
-			isModalOpen: {
-				newMenu: !this.state.isModalOpen.newMenu
-			}
-		})
-	}
-
-	componentDidMount = () => {
-		const {
+			dialog,
 			dispatch,
 			type,
+			toggleModal
+		} = this.props;
+
+		const {
+			selectedCafeMenu
+		} = this.state;
+
+		this.setState({
+			selectedCafeMenu: {
+				cafe: type.id,
+				id: cafeMenu.id,
+				name: cafeMenu.name,
+				price: cafeMenu.price,
+				description: cafeMenu.description
+			}
+		})
+
+		let dialogData = {
+			type: 'confirm',
+			title: 'Perhatian!',
+			message: `Anda akan menghapus data cafe menu dengan nama ${cafeMenu.name}. Aksi ini tidak dapat dipulihkan. Apakah Anda yakin ingin menghapusnya?`,
+			cancel: true,
+			cancelText: 'Batalkan',
+			confirm: () => this.handleCafeMenuDeleteSubmit(),
+			confirmText: 'Ya, Lanjutkan'
+		}
+
+		dispatch(toggleDialog(dialogData, dialog.isOpen));
+	}
+
+	handleCafeMenuDeleteSubmit = () => {
+		const {
+			dispatch,
 			accessToken
 		} = this.props;
 
-		const requiredData = {
-			cafe: type.id,
-			limit: 10,
-			offset: 0
+		const {
+			selectedCafeMenu
+		} = this.state;
+
+		let requiredData = {
+			id: selectedCafeMenu.id
 		}
 
-		dispatch(getCafeMenuList(requiredData, accessToken))
+		dispatch(deleteCafeMenu(requiredData, accessToken));
 	}
 
-	render() {
+	getAllCafeMenu = () => {
+		const {
+			type,
+			dispatch,
+			accessToken
+		} = this.props;
+
+		let requiredData = {
+			cafe: type.id
+		}
+
+		dispatch(getAllCafeMenu(requiredData, accessToken));
+	}
+
+	render = () => {
 		return (
 			<SettingsCafeType
 				{...this.state}
 				{...this.props}
-				toggleEditMenuModal={this.toggleEditMenuModal}
-				toggleNewMenuModal={this.toggleNewMenuModal}
 				handleInputChange={this.handleInputChange}
-				handlePhotoChange={this.handlePhotoChange}
-				handleNewMenu={this.handleNewMenu}
-				handleEditMenu={this.handleEditMenu}
+				handleCafeMenuCreate={this.handleCafeMenuCreate}
+				handleCafeMenuCreateSubmit={this.handleCafeMenuCreateSubmit}
+				handleCafeMenuUpdate={this.handleCafeMenuUpdate}
+				handleCafeMenuUpdateSubmit={this.handleCafeMenuUpdateSubmit}
+				handleCafeMenuDelete={this.handleCafeMenuDelete}
 			/>
 		)
 	}
@@ -169,7 +256,8 @@ class SettingsCafeTypeContainer extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-		cafe: state.cafe
+		cafe: state.cafe,
+		cafeList: state.cafe.list
 	}
 }
 

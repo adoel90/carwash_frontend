@@ -6,6 +6,21 @@
 	overflow-x: auto;
 	background-color: gray(100);
 
+	&::-webkit-scrollbar-track {
+		border-radius: 5px;
+		background-color: #F5F5F5;
+	}
+
+	&::-webkit-scrollbar {
+		height: 7.5px;
+		background-color: #F5F5F5;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		border-radius: 10px;
+		background-color: #555;
+	}
+
 	thead {
 		border-bottom: solid 5px gray(200);
 

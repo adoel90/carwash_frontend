@@ -17,6 +17,11 @@ class ModalDialogIcon extends Component {
 				return 'flaticon-warning clr-danger'
 				break;
 			}
+
+			case "success": {
+				return 'flaticon-success clr-success'
+				break;
+			}
 		}
 	}
 

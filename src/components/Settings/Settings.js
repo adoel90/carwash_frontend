@@ -29,7 +29,7 @@ class Settings extends React.Component {
 		setTimeout(() => {
 			return <Redirect from="/*" to={`${match.url}/${firstRoute}`} />
 		}, 2000)
-		
+
 		// window.location.href = `${match.url}/${firstRoutePath}`;
 	}
 
@@ -44,14 +44,18 @@ class Settings extends React.Component {
 		return (
 			<ModalDialog
 				isOpen={dialog.isOpen}
-				toggle={toggleDialog}
+				// toggle={toggleDialog}
 				type={dialog.type}
 				title={dialog.title}
 				message={dialog.message}
-				onConfirm={dialog.confirm}
-				onCancel={toggleDialog}
-				confirmText={dialog.confirmText}
-				cancelText={dialog.cancelText}
+
+				confirmText={dialog.confirm ? dialog.confirmText : null}
+				cancelText={dialog.cancel ? dialog.cancelText : null}
+				closeText={dialog.close ? dialog.closeText : null}
+
+				onConfirm={dialog.confirm ? dialog.confirm : null}
+				onCancel={dialog.cancel ? toggleDialog : null}
+				onClose={dialog.close ? dialog.close : null}
 			/>
 		)
 	}

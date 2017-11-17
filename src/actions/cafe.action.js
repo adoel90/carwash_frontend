@@ -33,7 +33,7 @@ export const getCafeMenuList = (data, accessToken) => {
 }
 
 export const getAllCafeMenu = (data, accessToken) => {
-	return async dispatch => {
+	return dispatch => {
 		dispatch(handleRequest());
 		return axios
 			.get(`${constant.API_PATH}cafe/menu?accessToken=${accessToken}&cafe=${data.cafe}`)
@@ -52,13 +52,11 @@ export const getAllCafeMenu = (data, accessToken) => {
 
 export const getCafeTypes = (accessToken) => {
 	return async dispatch => {
-
 		dispatch(handleRequest());
-
 		return axios
 			.get(`${constant.API_PATH}cafe/type?accessToken=${accessToken}`)
 			.then((response) => {
-				dispatch(handleSuccess(response.data.data));
+				dispatch(handleSuccess(response.data));
 			})
 			.catch((error) => {
 				dispatch(handleError(error));

@@ -32,8 +32,7 @@ const cafe = (state = initialState, action) => {
 		case GET_CAFE_MENU_LIST_REQUESTED: {
 			return {
 				...state,
-				isFetching: true,
-				isLoaded: false
+				isFetching: true
 			}
 		}
 		case GET_CAFE_MENU_LIST_FULFILLED: {
@@ -58,15 +57,14 @@ const cafe = (state = initialState, action) => {
 		case GET_CAFE_TYPES_REQUESTED: {
 			return {
 				...state,
-				isFetching: true,
-				isLoaded: false
+				isFetching: true
 			}
 		}
 
 		case GET_CAFE_TYPES_FULFILLED: {
 			return {
 				...state,
-				types: action.payload,
+				types: action.payload.data,
 				isFetching: false,
 				isLoaded: true
 			}

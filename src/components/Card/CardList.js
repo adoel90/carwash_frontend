@@ -1,11 +1,12 @@
 import React from 'react';
+import { Row } from '../Grid';
 
 class CardList extends React.Component {
 	render() {
 		return (
-			<div className="card-list row">
+			<Row className="card-list">
 				{this.props.children}
-			</div>
+			</Row>
 		)
 	}
 }

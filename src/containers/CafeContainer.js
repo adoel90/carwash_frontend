@@ -3,38 +3,40 @@ import { Cafe } from '../components/Cafe';
 
 import { connect } from 'react-redux';
 import { getCafeTypes } from '../actions/cafe.action.js';
-import { resetMemberData } from '../actions/member.action.js';
 
 class CafeContainer extends React.Component {
+	constructor() {
+		super();
+		this.getCafeTypes = this.getCafeTypes.bind(this);
+	}
+
 	componentDidMount = () => {
+		this.getCafeTypes();
+	}
+
+	getCafeTypes = () => {
 		const {
-			accessToken,
-			dispatch
+			dispatch,
+			accessToken
 		} = this.props;
 
 		dispatch(getCafeTypes(accessToken));
-		dispatch(resetMemberData());
 	}
 
 	render() {
-		const {
-			cafe
-		} = this.props;
-
 		return (
 			<Cafe
-				{...this.state}
 				{...this.props}
+				{...this.state}
 			/>
 		)
 	}
 }
 
-const mapStateToProps = (state, props) => {
+const mapStateToProps = (state) => {
 	return {
 		cafe: state.cafe,
-		cafeTypes: state.cafe.types,
-		member: state.member
+		cafeTypes: state.cafe.types
 	}
 }
 

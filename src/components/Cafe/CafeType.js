@@ -16,20 +16,19 @@ class CafeType extends Component {
 	renderCafeMenuList = () => {
 		const {
 			cafe,
+			cafeMenuList,
 			type
 		} = this.props;
 
-		return (
-			<CafeMenuList
-				cafeType={type}
-				cafeMenuList={cafe.list.menu}
-			/>
-		)
+		if(cafe.isLoaded) {
+			return <CafeMenuList {...this.props} />
+		}
 	}
 
 	render() {
 		const {
-			cafe
+			cafe,
+			cafeMenuList
 		} = this.props;
 
 		return (
@@ -38,15 +37,11 @@ class CafeType extends Component {
 					<div className="column-8">
 						<div className="heading padding-bottom-2">
 							<h5 className="fw-semibold">Daftar Menu</h5>
-							<p className="clr-passive">Pilih menu (bisa lebih dari 1) yang dipesan oleh customer.</p>
+							<p className="clr-passive">Pilih menu dari daftar berikut sesuai dengan yang diinginkan customer.</p>
 						</div>
 					</div>
 				</Row>
-				<SearchBar
-					className="padding-bottom-2"
-					placeholder="Pencarian cepat..."
-				/>
-				{ cafe.list.menu ? this.renderCafeMenuList() : <p>Sebentar ya...</p> }
+				{ this.renderCafeMenuList() }
 			</div>
 		);
 	}

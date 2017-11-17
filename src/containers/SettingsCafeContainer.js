@@ -89,6 +89,7 @@ class SettingsCafeContainer extends React.Component {
 				toggleTab={this.toggleTab}
 				toggleModal={this.toggleModal}
 				handleNewCafeType={this.handleNewCafeType}
+				handleNewCafeTypeSubmit={this.handleNewCafeTypeSubmit}
 			/>
 		)
 	}

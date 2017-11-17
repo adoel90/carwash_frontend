@@ -60,10 +60,6 @@ class SettingsServiceContainer extends Component {
 		this.getServiceTypes();
 	}
 
-	componentDidUpdate = () => {
-
-	}
-
 	handleInputChange = (object, e) => {
 		const target = e.target;
 		const value = target.value;

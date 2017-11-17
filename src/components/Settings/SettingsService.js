@@ -79,7 +79,7 @@ class SettingsService extends Component {
 						<Button type="button" buttonTheme="danger" className="clr-light margin-right-2" onClick={() => toggleModal('newServiceType')}>
 							<small className="tt-uppercase ls-base fw-semibold">Batal</small>
 						</Button>
-						<Button buttonTheme="primary" className="clr-light">
+						<Button buttonTheme="primary" className="clr-light" onClick={() => toggleModal('newServiceType')}>
 							<small className="tt-uppercase ls-base fw-semibold">Buat</small>
 						</Button>
 					</ModalFooter>
@@ -109,7 +109,7 @@ class SettingsService extends Component {
 				<Form onSubmit={handleNewServiceSubmit}>
 					<ModalContent>
 						<Row>
-							<div className="column-5 flex flex-column align-items--center justify-content--center">
+							<div className="column-4 flex flex-column align-items--center justify-content--center">
 								{this.renderPhotoPreview()}
 								<Input
 									name="image"
@@ -122,7 +122,7 @@ class SettingsService extends Component {
 								/>
 								<p className="fw-semibold clr-primary">Tambahkan Foto</p>
 							</div>
-							<div className="column-7">
+							<div className="column-8">
 								<FormGroup row>
 									<Label htmlFor="name" className="fw-semibold">Nama Service</Label>
 									<Input

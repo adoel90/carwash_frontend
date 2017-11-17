@@ -16,6 +16,8 @@ class SettingsCafeTypeContainer extends Component {
 	constructor() {
 		super();
 		this.getAllCafeMenu = this.getAllCafeMenu.bind(this);
+		this.handleImageChange = this.handleImageChange.bind(this);
+		this.handleInputChange = this.handleInputChange.bind(this);
 		this.handleCafeMenuCreate = this.handleCafeMenuCreate.bind(this);
 		this.handleCafeMenuUpdate = this.handleCafeMenuUpdate.bind(this)
 		this.handleCafeMenuDelete = this.handleCafeMenuDelete.bind(this);
@@ -79,6 +81,25 @@ class SettingsCafeTypeContainer extends Component {
 		}
 	}
 
+	handleImageChange = (object, e) => {
+		const target = e.target;
+		const files = target.files;
+		const name = target.name;
+
+		let reader = new FileReader();
+		let file = files[0];
+
+		reader.onloadend = () => {
+			if(object) {
+				object['image'] = file;
+				object['imagePreview'] = reader.result
+				this.forceUpdate();
+			}
+		}
+
+		reader.readAsDataURL(file);
+	}
+
 	handleInputChange = (object, e) => {
 		const target = e.target;
 		const value = target.value;
@@ -106,6 +127,7 @@ class SettingsCafeTypeContainer extends Component {
 		e.preventDefault();
 
 		const {
+			type,
 			dispatch,
 			accessToken
 		} = this.props;
@@ -118,7 +140,8 @@ class SettingsCafeTypeContainer extends Component {
 			cafe: type.id,
 			name: cafeMenuCreate.name,
 			price: cafeMenuCreate.price,
-			description: cafeMenuCreate.description
+			description: cafeMenuCreate.description,
+			image: cafeMenuCreate.image
 		}
 
 		dispatch(createCafeMenu(requiredData, accessToken));
@@ -244,6 +267,7 @@ class SettingsCafeTypeContainer extends Component {
 				{...this.state}
 				{...this.props}
 				handleInputChange={this.handleInputChange}
+				handleImageChange={this.handleImageChange}
 				handleCafeMenuCreate={this.handleCafeMenuCreate}
 				handleCafeMenuCreateSubmit={this.handleCafeMenuCreateSubmit}
 				handleCafeMenuUpdate={this.handleCafeMenuUpdate}

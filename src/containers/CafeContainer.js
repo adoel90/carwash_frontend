@@ -21,9 +21,12 @@ class CafeContainer extends React.Component {
 			cafe
 		} = this.props;
 
-		return cafe.isLoaded
-		? <Cafe {...this.state} {...this.props} />
-		: null
+		return (
+			<Cafe
+				{...this.state}
+				{...this.props}
+			/>
+		)
 	}
 }
 

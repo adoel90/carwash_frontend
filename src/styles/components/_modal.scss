@@ -26,8 +26,9 @@ body {
 		background-color: gray(100);
 		overflow: hidden;
 
-		&.modal-dialog--small {
-			width: 478px;
+		&.modal-dialog--large {
+			width: 978px;
+			max-width: 90%;
 			height: auto;
 		}
 

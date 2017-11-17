@@ -37,7 +37,7 @@ class SettingsCafe extends Component {
 				</ModalHeader>
 				<Form onSubmit={handleNewCafeTypeSubmit}>
 					<ModalContent>
-						<FormGroup row>
+						<FormGroup>
 							<Label htmlFor="name" className="fw-semibold">Nama Kategori Cafe</Label>
 							<Input
 								type="text"

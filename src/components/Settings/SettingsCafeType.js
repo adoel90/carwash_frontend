@@ -51,6 +51,11 @@ class SettingsCafeType extends Component {
 	// 	);
 	// }
 
+	triggerFileChange = (e) => {
+		const fileInput = ReactDOM.findDOMNode(this.fileInput);
+		fileInput.click();
+	}
+
 	renderPhotoPreview = () => {
 		const {
 			cafeMenuCreate
@@ -60,7 +65,7 @@ class SettingsCafeType extends Component {
 			return <i className="fi flaticon-picture icon icon--gigant clr-primary" onClick={this.triggerFileChange}></i>
 		}
 		else {
-			return <img src={newService.imagePreview} style={{ width: '100%' }} />
+			return <img src={cafeMenuCreate.imagePreview} style={{ width: '100%' }} onClick={this.triggerFileChange} />
 		}
 	}
 
@@ -69,6 +74,8 @@ class SettingsCafeType extends Component {
 			isModalOpen,
 			toggleModal,
 			handleCafeMenuCreateSubmit,
+			handleImageChange,
+			cafeMenuCreate,
 			handleInputChange,
 			selectedCafeMenu
 		} = this.props;
@@ -83,32 +90,32 @@ class SettingsCafeType extends Component {
 				<Form onSubmit={handleCafeMenuCreateSubmit}>
 					<ModalContent>
 						<Row>
-							<div className="column-3 flex flex-column align-items--center justify-content--center">
+							<div className="column-4 flex flex-column align-items--center justify-content--center">
 								{this.renderPhotoPreview()}
 								<Input
 									name="image"
 									type="file"
 									accept="image/*"
 									ref={(input) => this.fileInput = input }
-									onChange={(e) => handleImageChange(newService, e)}
+									onChange={(e) => handleImageChange(cafeMenuCreate, e)}
 									style={{display: 'none'}}
 									readOnly
 								/>
 								<p className="fw-semibold clr-primary">Tambahkan Foto</p>
 							</div>
-							<div className="column-9">
-								<FormGroup row>
+							<div className="column-8">
+								<FormGroup>
 									<Label htmlFor="name" className="fw-semibold">Nama Menu</Label>
 									<Input
 										type="text"
 										name="name"
 										placeholder="Masukkan nama menu baru"
-										onChange={(e) => handleInputChange(selectedCafeMenu, e)}
+										onChange={(e) => handleInputChange(cafeMenuCreate, e)}
 										required="true"
 										autoFocus
 									/>
 								</FormGroup>
-								<FormGroup row>
+								<FormGroup>
 									<Label htmlFor="name" className="fw-semibold">Harga Menu</Label>
 									<InputGroup>
 										<InputAddon>
@@ -118,27 +125,27 @@ class SettingsCafeType extends Component {
 											type="text"
 											name="price"
 											placeholder="Masukkan harga menu baru"
-											onChange={(e) => handleInputChange(selectedCafeMenu, e)}
+											onChange={(e) => handleInputChange(cafeMenuCreate, e)}
 											required="true"
 										/>
 									</InputGroup>
 								</FormGroup>
-								<FormGroup row>
+								<FormGroup>
 									<Label htmlFor="description" className="fw-semibold">Deskripsi</Label>
 									<Input
 										type="textarea"
 										name="description"
 										placeholder="Masukkan deskripsi menu baru"
-										onChange={(e) => handleInputChange(selectedCafeMenu, e)}
+										onChange={(e) => handleInputChange(cafeMenuCreate, e)}
 										required="true"
 									/>
 								</FormGroup>
 							</div>
 						</Row>
 					</ModalContent>
-					<ModalFooter>
+					<ModalFooter className="flex justify-content--flex-end">
 						<Button buttonTheme="danger" className="clr-light margin-right-2" onClick={() => toggleModal('cafeMenuCreate')}>
-							<small className="fw-semibold tt-uppercase ls-base">Buat</small>
+							<small className="fw-semibold tt-uppercase ls-base">Batal</small>
 						</Button>
 						<Button buttonTheme="primary" className="clr-light">
 							<small className="fw-semibold tt-uppercase ls-base">Buat</small>

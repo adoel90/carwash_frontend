@@ -259,7 +259,7 @@ class CafeMenuList extends Component {
 		console.log(member);
 
 		return (
-			<Modal isOpen={isModalOpen.payment} toggle={this.togglePaymentModal}>
+			<Modal className="modal-dialog--large" isOpen={isModalOpen.payment} toggle={this.togglePaymentModal}>
 				<ModalHeader align="center">
 					<h6 className="fw-semibold">Pembayaran</h6>
 				</ModalHeader>

@@ -34,10 +34,15 @@ class Cafe extends React.Component {
 	render() {
 		const {
 			match,
-			cafe
+			cafe,
+			cafeTypes
 		} = this.props;
 
-		let firstRoutePath = cafe.types[0].name.replace(/\s+/g, '-').toLowerCase();
+		let firstRoutePath;
+
+		if(cafeTypes.length) {
+			firstRoutePath = cafeTypes[0].name.replace(/\s+/g, '-').toLowerCase();
+		}
 
 		return (
 			<main className="main main--has-subheader">
@@ -45,11 +50,13 @@ class Cafe extends React.Component {
 					<Row>
 						<div className="column-2">
 							<aside className="sidebar">
-								<MainSidenav items={ this.props.cafe.types } basePath={match.path} />
+								{ cafeTypes.length
+									? <MainSidenav items={ cafeTypes.length ? cafeTypes : null } basePath={match.path} />
+									: null }
 							</aside>
 						</div>
 						<div className="column-10">
-							{ cafe.types.map(this.renderCafeType) }
+							{ cafeTypes.length ? cafeTypes.map(this.renderCafeType) : null }
 							<Redirect from="/*"	 to={`${match.url}/${firstRoutePath}`} />
 						</div>
 					</Row>

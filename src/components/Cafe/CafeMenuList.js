@@ -297,7 +297,7 @@ class CafeMenuList extends Component {
 		} = this.state;
 
 		return (
-			<Modal isOpen={isModalOpen.cart} toggle={this.toggleCartModal}>
+			<Modal className="modal-dialog--large" isOpen={isModalOpen.cart} toggle={this.toggleCartModal}>
 				<ModalHeader align="center">
 					<h6 className="fw-semibold">Detail Pembayaran</h6>
 				</ModalHeader>

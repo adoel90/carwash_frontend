@@ -33,6 +33,7 @@ class CafeContainer extends React.Component {
 const mapStateToProps = (state, props) => {
 	return {
 		cafe: state.cafe,
+		cafeTypes: state.cafe.types,
 		member: state.member
 	}
 }

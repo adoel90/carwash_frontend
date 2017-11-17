@@ -27,6 +27,7 @@ class CafeType extends Component {
 
 	render() {
 		const {
+			type,
 			cafe,
 			cafeMenuList
 		} = this.props;
@@ -36,7 +37,7 @@ class CafeType extends Component {
 				<Row>
 					<div className="column-8">
 						<div className="heading padding-bottom-2">
-							<h5 className="fw-semibold">Daftar Menu</h5>
+							<h5 className="fw-semibold">Daftar Menu {type.name}</h5>
 							<p className="clr-passive">Pilih menu dari daftar berikut sesuai dengan yang diinginkan customer.</p>
 						</div>
 					</div>

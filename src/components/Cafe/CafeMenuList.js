@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Card, CardList, CardHeading, CardImage, CardBody, CardFooter } from '../Card';
+import { PageBlock } from '../Page';
 import Currency from '../Currency';
 import { Button } from '../Button';
 
@@ -56,13 +57,25 @@ class CafeMenuList extends Component {
 			cafeMenuList
 		} = this.props;
 
-		return (
-			<div>
-				<CardList>
-					{ cafeMenuList.length ? cafeMenuList.map(this.renderCafeMenu) : null }
-				</CardList>
-			</div>
-		);
+		if(cafe.isLoaded) {
+			if(cafeMenuList.length) {
+				return (
+					<div>
+						<CardList>
+							{ cafeMenuList.length ? cafeMenuList.map(this.renderCafeMenu) : null }
+						</CardList>
+					</div>
+				);
+			}
+			else {
+				return (
+					<PageBlock className="flex flex-column align-items--center ta-center">
+						<i className="fi flaticon-warning icon icon--gigant clr-danger"></i>
+						<p>Tidak terdapat menu pada kategori cafe ini.</p>
+					</PageBlock>
+				)
+			}
+		}
 	}
 
 }

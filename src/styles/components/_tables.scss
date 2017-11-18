@@ -1,10 +1,13 @@
 .table {
 	@include border-radius(base);
-	min-width: 100%;
-	width: 100%;
 	display: block;
 	overflow-x: auto;
 	background-color: gray(100);
+
+	table {
+		min-width: 100%;
+		width: 100%;
+	}
 
 	&::-webkit-scrollbar-track {
 		border-radius: 5px;
@@ -49,6 +52,7 @@
 	tbody {
 		tr {
 			cursor: pointer;
+			vertical-align: middle;
 		}
 
 		td {

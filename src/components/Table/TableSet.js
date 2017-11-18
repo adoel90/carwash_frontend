@@ -91,14 +91,16 @@ class TableSet extends Component {
 
 		if(onUpdate || onDelete) {
 			const action = (
-				<ButtonGroup>
-					<Button type="button" buttonTheme="primary" buttonSize="small" onClick={() => onUpdate(row)}>
-						<small className="tt-uppercase ls-base fw-semibold clr-light">Ubah</small>
-					</Button>
-					<Button type="button" buttonTheme="secondary" buttonSize="small" onClick={() => onDelete(row)}>
-						<small className="tt-uppercase ls-base fw-semibold clr-light">Hapus</small>
-					</Button>
-				</ButtonGroup>
+				<td>
+					<ButtonGroup>
+						<Button type="button" buttonTheme="primary" buttonSize="small" onClick={() => onUpdate(row)}>
+							<small className="tt-uppercase ls-base fw-semibold clr-light">Ubah</small>
+						</Button>
+						<Button type="button" buttonTheme="secondary" buttonSize="small" onClick={() => onDelete(row)}>
+							<small className="tt-uppercase ls-base fw-semibold clr-light">Hapus</small>
+						</Button>
+					</ButtonGroup>
+				</td>
 			)
 
 			cells.push(action);

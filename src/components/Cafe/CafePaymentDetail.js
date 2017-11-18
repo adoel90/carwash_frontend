@@ -15,31 +15,21 @@ class CafePaymentDetail extends Component {
 				]
 			}
 		}
-
-		this.calculateGrandTotal = this.calculateGrandTotal.bind(this);
 	}
 
-	calculateGrandTotal = () => {
+	componentDidUpdate = () => {
 		const {
-			selectedMenus
+			selectedMenus,
+			calculateGrandTotal
 		} = this.props;
 
-		let priceArray = [];
-
-		selectedMenus.map((menu, i) => {
-			priceArray.push(menu.totalPrice);
-		})
-
-		let sum = priceArray.reduce((a, b) => {
-			return a + b;
-		})
-
-		return sum;
+		calculateGrandTotal();
 	}
 
 	render() {
 		const {
-			selectedMenus
+			selectedMenus,
+			grandTotal
 		} = this.props;
 
 		const {
@@ -59,7 +49,7 @@ class CafePaymentDetail extends Component {
 					<small className="fw-semibold tt-uppercase ls-base clr-passive">Total yang harus dibayar</small>
 					<h4 className="fw-semibold clr-primary">
 						<Currency
-							value={this.calculateGrandTotal()}
+							value={grandTotal}
 						/>
 					</h4>
 				</div>

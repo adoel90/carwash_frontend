@@ -21,9 +21,11 @@ class Table extends Component {
 		)
 
 		return (
-			<table className={classes}>
-				{children}
-			</table>
+			<div className={classes}>
+				<table>
+					{children}
+				</table>
+			</div>
 		)
 	}
 

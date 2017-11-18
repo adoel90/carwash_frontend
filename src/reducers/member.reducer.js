@@ -37,6 +37,7 @@ const member = (state = initialState, action) => {
 				...state,
 				data: action.payload.member,
 				accessToken: action.payload.accessToken,
+				isLoaded: true,
 				error: {}
 			}
 		}
@@ -47,6 +48,7 @@ const member = (state = initialState, action) => {
 				data: {},
 				accessToken: '',
 				error: action.payload,
+				isLoaded: false,
 				isError: true
 			}
 		}

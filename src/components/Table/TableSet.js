@@ -72,9 +72,11 @@ class TableSet extends Component {
 							<td>
 								<Input
 									name={column.accessor}
+									type="text"
 									value={row[key]}
 									className="ta-center"
 									onChange={(e) => handleTableInputChange(rows, i, e)}
+									selectOnFocus
 								/>
 							</td>
 						)

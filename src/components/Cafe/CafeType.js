@@ -14,12 +14,45 @@ class CafeType extends Component {
 		super();
 		this.renderCafeMenuList = this.renderCafeMenuList.bind(this);
 		this.renderPaymentDetailModal = this.renderPaymentDetailModal.bind(this);
+		this.renderPaymentProcessModal = this.renderPaymentProcessModal.bind(this);
+	}
+
+	renderPaymentProcessModal = () => {
+		const {
+			isModalOpen,
+			toggleModal,
+			paymentProcess,
+			handleInputChange,
+			handlePaymentProcessSubmit,
+		} = this.props;
+
+		return (
+			<Modal
+				isOpen={isModalOpen.paymentProcess}
+				toggle={() => toggleModal('paymentProcess')}>
+				<ModalHeader align="center">
+					<h6 className="fw-semibold">Proses Pembayaran</h6>
+				</ModalHeader>
+				<Form>
+					<ModalContent>
+						<Input
+							name="card"
+							type="number"
+							className="form-control--large ta-center"
+							onChange={(e) => handleInputChange(paymentProcess, e)}
+						/>
+					</ModalContent>
+					<ModalFooter></ModalFooter>
+				</Form>
+			</Modal>
+		)
 	}
 
 	renderPaymentDetailModal = () => {
 		const {
 			isModalOpen,
-			toggleModal
+			toggleModal,
+			handlePaymentDetailSubmit
 		} = this.props;
 
 		return (
@@ -30,11 +63,21 @@ class CafeType extends Component {
 				<ModalHeader align="center">
 					<h6 className="fw-semibold">Detil Pembayaran</h6>
 				</ModalHeader>
-				<Form>
+				<Form onSubmit={handlePaymentDetailSubmit}>
 					<ModalContent>
+						<div className="padding-bottom-2">
+							<p className="clr-passive">Berikut merupakan daftar menu yang telah dipilih. Silahkan cek kembali pesanan dari customer sebelum melanjutkan.</p>
+						</div>
 						<CafePaymentDetail {...this.props} />
 					</ModalContent>
-					<ModalFooter></ModalFooter>
+					<ModalFooter className="flex justify-content--center">
+						<Button type="button" buttonTheme="danger" className="clr-light margin-right-2" onClick={() => toggleModal('paymentDetail')}>
+							<small className="fw-semibold tt-uppercase ls-base">Kembali</small>
+						</Button>
+						<Button buttonTheme="primary" className="clr-light">
+							<small className="fw-semibold tt-uppercase ls-base">Selanjutnya</small>
+						</Button>
+					</ModalFooter>
 				</Form>
 			</Modal>
 		)
@@ -71,6 +114,7 @@ class CafeType extends Component {
 				</Row>
 				{ this.renderCafeMenuList() }
 				{ this.renderPaymentDetailModal() }
+				{ this.renderPaymentProcessModal() }
 			</div>
 		);
 	}

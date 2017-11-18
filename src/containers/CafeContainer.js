@@ -9,11 +9,19 @@ class CafeContainer extends React.Component {
 		super();
 		this.getCafeTypes = this.getCafeTypes.bind(this);
 		this.toggleModal = this.toggleModal.bind(this);
+		this.handleInputChange = this.handleInputChange.bind(this);
+		this.handleSelectMenu = this.handleSelectMenu.bind(this);
 		this.handlePaymentDetail = this.handlePaymentDetail.bind(this);
+		this.handlePaymentDetailSubmit = this.handlePaymentDetailSubmit.bind(this);
 
 		this.state = {
+			selectedMenus: [],
+			paymentProcess: {
+				card: ''
+			},
 			isModalOpen: {
-				paymentDetail: false
+				paymentDetail: false,
+				paymentProcess: false
 			}
 		}
 	}
@@ -33,9 +41,56 @@ class CafeContainer extends React.Component {
 		})
 	}
 
+	handleInputChange = (object, e) => {
+		const target = e.target;
+		const value = target.value;
+		const name = target.name;
+
+		if(object) {
+			object[name] = value;
+			this.forceUpdate();
+		} else {
+			this.setState({
+				[name]: value
+			})
+		}
+	}
+
 	handlePaymentDetail = () => {
 		this.toggleModal('paymentDetail');
 	}
+
+	handlePaymentDetailSubmit = (e) => {
+		e.preventDefault();
+
+		this.toggleModal('paymentProcess');
+	}
+
+	handleSelectMenu = (menu) => {
+		const {
+			selectedMenus
+		} = this.state;
+
+		if(!menu.selected) {
+			menu.selected = true;
+			this.setState({
+				selectedMenus: selectedMenus.concat([menu])
+			})
+		}
+		else {
+			menu.selected = false;
+			let filteredMenu = selectedMenus.filter((item) => {
+				return item != menu
+			})
+
+			this.setState({
+				selectedMenus: filteredMenu
+			})
+		}
+
+		console.log(selectedMenus);
+	}
+
 
 	getCafeTypes = () => {
 		const {
@@ -52,7 +107,10 @@ class CafeContainer extends React.Component {
 				{...this.props}
 				{...this.state}
 				toggleModal={this.toggleModal}
+				handleInputChange={this.handleInputChange}
+				handleSelectMenu={this.handleSelectMenu}
 				handlePaymentDetail={this.handlePaymentDetail}
+				handlePaymentDetailSubmit={this.handlePaymentDetailSubmit}
 			/>
 		)
 	}

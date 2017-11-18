@@ -22,6 +22,7 @@ class CafeMenuList extends Component {
 		}
 	}
 
+
 	renderCafeMenuList = () => {
 		const {
 			type,
@@ -64,7 +65,7 @@ class CafeMenuList extends Component {
 
 	renderCafeMenu = (menu, i) => {
 		const {
-			selectMenu,
+			handleSelectMenu,
 			cafeMenuList
 		} = this.props;
 
@@ -73,7 +74,7 @@ class CafeMenuList extends Component {
 		}
 
 		if(!menu.quantity) {
-			menu.quantity = 1;
+			menu.quantity = 1;	// this sets the minimum quantity per menu item
 		}
 
 		menu.totalPrice = menu.quantity * menu.price;
@@ -96,7 +97,7 @@ class CafeMenuList extends Component {
 							type="button"
 							buttonTheme={menu.selected ? 'secondary' : 'primary'}
 							buttonFull
-							onClick={() => selectMenu(menu)}>
+							onClick={() => handleSelectMenu(menu)}>
 							<small className={`tt-uppercase fw-bold ls-base ${menu.selected ? 'clr-dark' : 'clr-light'}`}>{menu.selected ? 'Terpilih' : 'Pilih'}</small>
 						</Button>
 					</CardFooter>

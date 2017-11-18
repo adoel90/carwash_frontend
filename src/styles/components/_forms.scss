@@ -41,7 +41,11 @@ form {}
 		border: solid 1px gray(300);
 		background-color: gray(100);
 		font-size: inherit;
-		padding: ($spacer * .4) ($spacer * .5);
+		padding: ($spacer * .5);
+
+		&.form-control--large {
+			font-size: $font-size-large;
+		}
 
 		&:disabled,
 		&:read-only {

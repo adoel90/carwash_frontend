@@ -11,17 +11,7 @@ class CafeTypeContainer extends React.Component {
 	constructor() {
 		super();
 		this.getAllCafeMenu = this.getAllCafeMenu.bind(this);
-		this.selectMenu = this.selectMenu.bind(this);
 		this.handleTableInputChange = this.handleTableInputChange.bind(this);
-		this.state = {
-			searchText: '',
-			selectedMenus: [],
-			grandTotal: ''
-		}
-	}
-
-	componentDidMount = () => {
-		this.getAllCafeMenu();
 	}
 
 	handleTableInputChange = (object, index, e) => {
@@ -29,33 +19,12 @@ class CafeTypeContainer extends React.Component {
 		const value = target.value;
 		const name = target.name;
 
-		object[index][name] = value;
+		object[index][name] = parseInt(value);
 		this.forceUpdate();
 	}
 
-	selectMenu = (menu) => {
-		const {
-			selectedMenus
-		} = this.state;
-
-		if(!menu.selected) {
-			menu.selected = true;
-			this.setState({
-				selectedMenus: selectedMenus.concat([menu])
-			})
-		}
-		else {
-			menu.selected = false;
-			let filteredMenu = selectedMenus.filter((item) => {
-				return item != menu
-			})
-
-			this.setState({
-				selectedCafeMenus: filteredMenu
-			})
-		}
-
-		console.log(selectedMenus);
+	componentDidMount = () => {
+		this.getAllCafeMenu();
 	}
 
 	getAllCafeMenu = () => {
@@ -77,7 +46,6 @@ class CafeTypeContainer extends React.Component {
 			<CafeType
 				{...this.state}
 				{...this.props}
-				selectMenu={this.selectMenu}
 				handleTableInputChange={this.handleTableInputChange}
 			/>
 		);

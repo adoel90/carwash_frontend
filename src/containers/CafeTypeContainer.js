@@ -12,9 +12,13 @@ class CafeTypeContainer extends React.Component {
 		super();
 		this.getAllCafeMenu = this.getAllCafeMenu.bind(this);
 		this.selectMenu = this.selectMenu.bind(this);
+		this.handlePaymentDetail = this.handlePaymentDetail.bind(this);
 		this.state = {
 			searchText: '',
-			selectedCafeMenus: []
+			selectedCafeMenus: [],
+			isModalOpen: {
+				paymentDetail: false
+			}
 		}
 	}
 
@@ -30,7 +34,7 @@ class CafeTypeContainer extends React.Component {
 		if(!menu.selected) {
 			menu.selected = true;
 			this.setState({
-				selectedCafeMenu: selectedCafeMenus.concat([menu])
+				selectedCafeMenus: selectedCafeMenus.concat([menu])
 			})
 		}
 		else {
@@ -39,8 +43,12 @@ class CafeTypeContainer extends React.Component {
 				return item != menu
 			})
 
-			this.forceUpdate();
+			this.setState({
+				selectedCafeMenus: filteredMenu
+			})
 		}
+
+		console.log(selectedCafeMenus);
 	}
 
 	getAllCafeMenu = () => {

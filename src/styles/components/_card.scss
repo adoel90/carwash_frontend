@@ -1,3 +1,17 @@
+.card-list {
+
+	.card-list__footer {
+		position: sticky;
+		bottom: 0;
+		padding: $spacer * .5;
+		background-color: gray(200);
+		border-top: solid 1px gray(300);
+		width: 100%;
+	}
+}
+
+
+/**/
 .card {
 	@include relative;
 	@include border-radius(base);

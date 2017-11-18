@@ -1,5 +1,13 @@
 import React, { Component } from 'react';
-import { Card, CardList, CardHeading, CardImage, CardBody, CardFooter } from '../Card';
+import {
+	Card,
+	CardList,
+	CardListFooter,
+	CardHeading,
+	CardImage,
+	CardBody,
+	CardFooter
+} from '../Card';
 import { PageBlock } from '../Page';
 import Currency from '../Currency';
 import { Button } from '../Button';
@@ -7,12 +15,57 @@ import { Button } from '../Button';
 class CafeMenuList extends Component {
 	constructor() {
 		super();
+		this.renderCafeMenuList = this.renderCafeMenuList.bind(this);
 		this.renderCafeMenu = this.renderCafeMenu.bind(this);
+		this.state = {
+			limit: 10
+		}
+	}
+
+	renderCafeMenuList = () => {
+		const {
+			type,
+			cafe,
+			cafeMenuList,
+			selectedCafeMenus,
+			handlePaymentDetail
+		} = this.props;
+
+		const {
+			limit
+		} = this.state;
+
+		if(cafe.isLoaded) {
+			if(cafeMenuList.length > 0) {
+				return (
+					<CardList>
+						{ cafeMenuList
+							.map(this.renderCafeMenu)
+							.slice(0, limit)
+						}
+						<CardListFooter>
+							<Button buttonTheme="primary" buttonFull className="clr-light" disabled={!selectedCafeMenus.length} onClick={handlePaymentDetail}>
+								<small className="tt-uppercase ls-base fw-semibold">Lanjut ke Pembayaran ({selectedCafeMenus.length})</small>
+							</Button>
+						</CardListFooter>
+					</CardList>
+				)
+			}
+			else {
+				return (
+					<PageBlock className="flex flex-column align-items--center ta-center">
+						<i className="fi flaticon-warning icon icon--gigant clr-danger"></i>
+						<p>Tidak terdapat menu pada kategori <span className="fw-semibold">{type.name}</span>.</p>
+					</PageBlock>
+				)
+			}
+		}
 	}
 
 	renderCafeMenu = (menu, i) => {
 		const {
-			selectMenu
+			selectMenu,
+			cafeMenuList
 		} = this.props;
 
 		if(!menu.selected) {
@@ -57,25 +110,8 @@ class CafeMenuList extends Component {
 			cafeMenuList
 		} = this.props;
 
-		if(cafe.isLoaded) {
-			if(cafeMenuList.length) {
-				return (
-					<div>
-						<CardList>
-							{ cafeMenuList.length ? cafeMenuList.map(this.renderCafeMenu) : null }
-						</CardList>
-					</div>
-				);
-			}
-			else {
-				return (
-					<PageBlock className="flex flex-column align-items--center ta-center">
-						<i className="fi flaticon-warning icon icon--gigant clr-danger"></i>
-						<p>Tidak terdapat menu pada kategori cafe ini.</p>
-					</PageBlock>
-				)
-			}
-		}
+		return this.renderCafeMenuList();
+
 	}
 
 }

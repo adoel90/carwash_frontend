@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-const CardFooter = (props) => {
-	const { children } = props;
+class CardFooter extends Component {
+	render() {
+		const {
+			children
+		} = this.props;
 
-	return <div className="card__heading">{children}</div>
+		return <div className="card__footer">{children}</div>
+	}
+
 }
 
 export default CardFooter;

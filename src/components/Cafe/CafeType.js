@@ -1,16 +1,43 @@
 import React, { Component } from 'react';
 
-import { CafeMenuList } from '../Cafe';
+import { CafeMenuList, CafePaymentDetail } from '../Cafe';
 import SearchBar from '../SearchBar';
-import Heading from '../Heading';
 import { Button } from '../Button';
-
+import { Modal } from 'reactstrap';
+import { ModalHeader, ModalContent, ModalFooter } from '../Modal';
+import { Form, FormGroup } from '../Form';
+import { Input, Label, InputAddon, InputGroup } from '../Input'
 import { Row } from '../Grid';
 
 class CafeType extends Component {
 	constructor() {
 		super();
 		this.renderCafeMenuList = this.renderCafeMenuList.bind(this);
+		this.renderPaymentDetailModal = this.renderPaymentDetailModal.bind(this);
+	}
+
+	renderPaymentDetailModal = () => {
+		const {
+			isModalOpen,
+			toggleModal
+		} = this.props;
+
+		return (
+			<Modal
+				className="modal-dialog--large"
+				isOpen={isModalOpen.paymentDetail}
+				toggle={() => toggleModal('paymentDetail')}>
+				<ModalHeader align="center">
+					<h6 className="fw-semibold">Detil Pembayaran</h6>
+				</ModalHeader>
+				<Form>
+					<ModalContent>
+						<CafePaymentDetail {...this.props} />
+					</ModalContent>
+					<ModalFooter></ModalFooter>
+				</Form>
+			</Modal>
+		)
 	}
 
 	renderCafeMenuList = () => {
@@ -43,6 +70,7 @@ class CafeType extends Component {
 					</div>
 				</Row>
 				{ this.renderCafeMenuList() }
+				{ this.renderPaymentDetailModal() }
 			</div>
 		);
 	}

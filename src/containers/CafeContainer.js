@@ -10,6 +10,12 @@ class CafeContainer extends React.Component {
 		this.getCafeTypes = this.getCafeTypes.bind(this);
 		this.toggleModal = this.toggleModal.bind(this);
 		this.handlePaymentDetail = this.handlePaymentDetail.bind(this);
+
+		this.state = {
+			isModalOpen: {
+				paymentDetail: false
+			}
+		}
 	}
 
 	componentDidMount = () => {
@@ -28,10 +34,6 @@ class CafeContainer extends React.Component {
 	}
 
 	handlePaymentDetail = () => {
-		const {
-			toggleModal
-		} = this.toggleModal;
-
 		this.toggleModal('paymentDetail');
 	}
 

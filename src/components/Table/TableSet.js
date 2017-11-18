@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { Table, TableHeading, TableBody, TablePagination } from '../Table';
 import { Button, ButtonGroup } from '../Button';
+import { Input } from '../Input';
 
 class TableSet extends Component {
 	constructor() {
 		super();
+		this.handleTableInputChange = this.handleTableInputChange.bind(this);
 		this.renderTableColumn = this.renderTableColumn.bind(this);
 		this.renderTableRow = this.renderTableRow.bind(this);
-		this.renderTableCell = this.renderTableCell.bind(this);
 		this.renderTablePagination = this.renderTablePagination.bind(this);
 		this.handlePageChange = this.handlePageChange.bind(this);
 
@@ -15,6 +16,10 @@ class TableSet extends Component {
 			activePage: 1,
 			limit: 10
 		}
+	}
+
+	handleTableInputChange = () => {
+
 	}
 
 	handlePageChange = (page) => {
@@ -48,15 +53,13 @@ class TableSet extends Component {
 		)
 	}
 
-	renderTableCell = (cell, i) => {
-		return <td key={i}>{cell}</td>
-	}
-
 	renderTableRow = (row, i) => {
 		const {
 			columns,
 			onUpdate,
 			onDelete,
+			rows,
+			handleTableInputChange
 		} = this.props;
 
 		let cells = [];
@@ -64,7 +67,22 @@ class TableSet extends Component {
 		columns.map((column) => {
 			for(const key of Object.keys(row)) {
 				if(key === column.accessor) {
-					cells.push(row[key]);
+					if(column.editable) {
+						cells.push(
+							<td>
+								<Input
+									name={column.accessor}
+									value={row[key]}
+									className="ta-center"
+									onChange={(e) => handleTableInputChange(rows, i, e)}
+								/>
+							</td>
+						)
+					}
+					else {
+						cells.push(<td>{row[key]}</td>)
+					}
+					// cells.push(row[key]);
 				}
 			}
 		})
@@ -86,7 +104,7 @@ class TableSet extends Component {
 
 		return (
 			<tr>
-				{cells.map(this.renderTableCell)}
+				{cells}
 			</tr>
 		)
 	}

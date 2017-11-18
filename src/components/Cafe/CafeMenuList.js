@@ -27,7 +27,7 @@ class CafeMenuList extends Component {
 			type,
 			cafe,
 			cafeMenuList,
-			selectedCafeMenus,
+			selectedMenus,
 			handlePaymentDetail
 		} = this.props;
 
@@ -44,8 +44,8 @@ class CafeMenuList extends Component {
 							.slice(0, limit)
 						}
 						<CardListFooter>
-							<Button buttonTheme="primary" buttonFull className="clr-light" disabled={!selectedCafeMenus.length} onClick={handlePaymentDetail}>
-								<small className="tt-uppercase ls-base fw-semibold">Lanjut ke Pembayaran ({selectedCafeMenus.length})</small>
+							<Button buttonTheme="primary" buttonFull className="clr-light" disabled={!selectedMenus.length} onClick={handlePaymentDetail}>
+								<small className="tt-uppercase ls-base fw-semibold">Lanjut ke Pembayaran ({selectedMenus.length})</small>
 							</Button>
 						</CardListFooter>
 					</CardList>
@@ -74,8 +74,9 @@ class CafeMenuList extends Component {
 
 		if(!menu.quantity) {
 			menu.quantity = 1;
-			menu.totalPrice = menu.quantity * menu.price;
 		}
+
+		menu.totalPrice = menu.quantity * menu.price;
 
 		return (
 			<div key={i} className="column-6 padding-top-2 padding-bottom-2">

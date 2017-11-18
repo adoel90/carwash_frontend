@@ -12,13 +12,11 @@ class CafeTypeContainer extends React.Component {
 		super();
 		this.getAllCafeMenu = this.getAllCafeMenu.bind(this);
 		this.selectMenu = this.selectMenu.bind(this);
-		this.handlePaymentDetail = this.handlePaymentDetail.bind(this);
+		this.handleTableInputChange = this.handleTableInputChange.bind(this);
 		this.state = {
 			searchText: '',
-			selectedCafeMenus: [],
-			isModalOpen: {
-				paymentDetail: false
-			}
+			selectedMenus: [],
+			grandTotal: ''
 		}
 	}
 
@@ -26,20 +24,29 @@ class CafeTypeContainer extends React.Component {
 		this.getAllCafeMenu();
 	}
 
+	handleTableInputChange = (object, index, e) => {
+		const target = e.target;
+		const value = target.value;
+		const name = target.name;
+
+		object[index][name] = value;
+		this.forceUpdate();
+	}
+
 	selectMenu = (menu) => {
 		const {
-			selectedCafeMenus
+			selectedMenus
 		} = this.state;
 
 		if(!menu.selected) {
 			menu.selected = true;
 			this.setState({
-				selectedCafeMenus: selectedCafeMenus.concat([menu])
+				selectedMenus: selectedMenus.concat([menu])
 			})
 		}
 		else {
 			menu.selected = false;
-			let filteredMenu = selectedCafeMenus.filter((item) => {
+			let filteredMenu = selectedMenus.filter((item) => {
 				return item != menu
 			})
 
@@ -48,7 +55,7 @@ class CafeTypeContainer extends React.Component {
 			})
 		}
 
-		console.log(selectedCafeMenus);
+		console.log(selectedMenus);
 	}
 
 	getAllCafeMenu = () => {
@@ -71,6 +78,7 @@ class CafeTypeContainer extends React.Component {
 				{...this.state}
 				{...this.props}
 				selectMenu={this.selectMenu}
+				handleTableInputChange={this.handleTableInputChange}
 			/>
 		);
 	}

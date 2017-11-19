@@ -58,7 +58,7 @@ export const memberTopup = (data, accessToken) => {
 	return async dispatch => {
 		axios
 			.post(`${constant.API_PATH}member/topup?accessToken=${accessToken}`, {
-				balance: data.topup
+				balance: data.balance
 			})
 			.then((response) => {
 				dispatch(handleSuccess(response));

@@ -2,13 +2,43 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 
 import { Container, Row } from '../Grid';
-import MainSidenav from '../MainSidenav';
 import { PropsRoute } from '../Route';
+import { ModalDialog } from '../Modal';
+import MainSidenav from '../MainSidenav';
+
 
 class Cashier extends React.Component {
 	constructor() {
 		super();
 		this.renderSubRoutes = this.renderSubRoutes.bind(this);
+		this.renderDialog = this.renderDialog.bind(this);
+	}
+
+	renderDialog = () => {
+		const {
+			dialog,
+			dispatch,
+			toggleDialog,
+			isDialogOpen
+		} = this.props;
+
+		return (
+			<ModalDialog
+				isOpen={dialog.isOpen}
+				// toggle={toggleDialog}
+				type={dialog.type}
+				title={dialog.title}
+				message={dialog.message}
+
+				confirmText={dialog.confirm ? dialog.confirmText : null}
+				cancelText={dialog.cancel ? dialog.cancelText : null}
+				closeText={dialog.close ? dialog.closeText : null}
+
+				onConfirm={dialog.confirm ? dialog.confirm : null}
+				onCancel={dialog.cancel ? toggleDialog : null}
+				onClose={dialog.close ? dialog.close : null}
+			/>
+		)
 	}
 
 	renderSubRoutes = (route, i) => {
@@ -45,6 +75,7 @@ class Cashier extends React.Component {
 						</div>
 					</Row>
 				</Container>
+				{this.renderDialog()}
 			</main>
 		);
 	}

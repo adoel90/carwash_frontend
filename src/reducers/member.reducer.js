@@ -25,6 +25,7 @@ const initialState = {
 	accessToken: '',
 	isFetching: false,
 	isLoaded: false,
+	isAuthenticated: false,
 	isUpdated: false,
 	isCreated: false,
 	isDeleted: false,
@@ -40,6 +41,8 @@ const member = (state = initialState, action) => {
 				data: action.payload.member,
 				accessToken: action.payload.accessToken,
 				isLoaded: true,
+				isAuthenticated: true,
+				isError: false,
 				error: {}
 			}
 		}
@@ -50,6 +53,7 @@ const member = (state = initialState, action) => {
 				data: {},
 				accessToken: '',
 				error: action.payload,
+				isAuthenticated: false,
 				isLoaded: false,
 				isError: true
 			}
@@ -57,15 +61,21 @@ const member = (state = initialState, action) => {
 
 		case MEMBER_TOPUP_FULFILLED: {
 			return {
-				...state
+				...state,
+				topupData: action.payload,
+				isTopup: true,
+				isError: false,
+				error: {}
 			}
 		}
 
 		case MEMBER_TOPUP_REJECTED: {
 			return {
 				...state,
+				topupData: {},
+				isTopup: false,
+				isError: true,
 				error: action.payload,
-				isError: true
 			}
 		}
 

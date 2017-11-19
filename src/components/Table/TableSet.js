@@ -171,7 +171,7 @@ class TableSet extends Component {
 			else {
 				return (
 					<TableBody className="ta-center">
-						<td colspan="100%">Data tidak dapat ditemukan.</td>
+						<td colspan="100%" style={{ padding: '40px'}}>Data tidak dapat ditemukan.</td>
 					</TableBody>
 				)
 			}

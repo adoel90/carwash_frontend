@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import { Table, TableHeading, TableBody, TablePagination } from '../Table';
 import { Button, ButtonGroup } from '../Button';
 import { Input } from '../Input';
+import { PageBlock } from '../Page';
 import SearchBar from '../SearchBar';
 
 class TableSet extends Component {
 	constructor() {
 		super();
 		this.renderTableColumn = this.renderTableColumn.bind(this);
+		this.renderTableBody = this.renderTableBody.bind(this);
 		this.renderFilteredRow = this.renderFilteredRow.bind(this);
 		this.renderTableRow = this.renderTableRow.bind(this);
 		this.renderTableSearchBar = this.renderTableSearchBar.bind(this);
@@ -19,6 +21,7 @@ class TableSet extends Component {
 			limit: 10
 		}
 	}
+
 
 	handlePageChange = (page) => {
 		const {
@@ -71,7 +74,6 @@ class TableSet extends Component {
 
 	renderFilteredRow = (row, i) => {
 		const {
-			hasSearchBar,
 			searchText
 		} = this.props;
 
@@ -132,10 +134,49 @@ class TableSet extends Component {
 		}
 
 		return (
-			<tr>
-				{cells}
-			</tr>
+			<tr>{cells}</tr>
 		)
+	}
+
+	renderTableBody = () => {
+		const {
+			rows,
+			searchText
+		} = this.props;
+
+		const {
+			activePage,
+			limit
+		} = this.state;
+
+		const lowerLimit = (activePage - 1) * limit;
+		const upperLimit = activePage * limit;
+
+		if(rows.length) {	
+			let filteredRow = rows.filter((row) => {
+				return row.name.toLowerCase().includes(searchText.toLowerCase());
+			});
+
+			if(filteredRow.length) {
+				return (
+					<TableBody>
+						{
+							filteredRow
+								.map(this.renderTableRow)
+								.slice(lowerLimit, upperLimit)
+						}
+					</TableBody>
+				)
+			}
+			else {
+				return (
+					<TableBody className="ta-center">
+						<td colspan="100%">Data tidak dapat ditemukan.</td>
+					</TableBody>
+				)
+			}
+
+		}
 	}
 
 	renderTableColumn = (column, i) => {
@@ -149,10 +190,6 @@ class TableSet extends Component {
 
 		columns.map((column, i) => {
 			tableColumns.push(<th>{column.title}</th>);
-
-			// return (
-			// 	<th>{column.title}</th>
-			// )
 		})
 
 		if(onUpdate || onDelete) {
@@ -176,9 +213,6 @@ class TableSet extends Component {
 			activePage
 		} = this.state;
 
-		const lowerLimit = (activePage - 1) * limit;
-		const upperLimit = activePage * limit;
-
 		return (
 			<div className="table-main">
 				{ hasSearchBar ? this.renderTableSearchBar() : null}
@@ -186,16 +220,7 @@ class TableSet extends Component {
 					<TableHeading theme="primary">
 						{this.renderTableColumn()}
 					</TableHeading>
-					<TableBody>
-						{
-							rows.length
-								? rows
-									.filter(this.renderFilteredRow)
-									.map(this.renderTableRow)
-									.slice(lowerLimit, upperLimit)
-								: null
-						}
-					</TableBody>
+					{ this.renderTableBody() }
 				</Table>
 				{ hasPagination ? this.renderTablePagination() : null }
 			</div>

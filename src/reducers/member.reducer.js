@@ -25,8 +25,9 @@ const initialState = {
 	accessToken: '',
 	isFetching: false,
 	isLoaded: false,
-	isError: false,
 	isUpdated: false,
+	isDeleted: false,
+	isError: false,
 	error: {},
 }
 
@@ -125,6 +126,7 @@ const member = (state = initialState, action) => {
 			return {
 				...state,
 				data: action.payload,
+				isUpdated: true,
 				isError: false,
 			}
 		}
@@ -133,6 +135,8 @@ const member = (state = initialState, action) => {
 			return {
 				...state,
 				data: {},
+				isUpdated: false,
+				isError: true,
 				error: action.payload,
 			}
 		}
@@ -141,6 +145,7 @@ const member = (state = initialState, action) => {
 			return {
 				...state,
 				data: action.payload,
+				isDeleted: true,
 				error: {},
 			}
 		}
@@ -149,6 +154,8 @@ const member = (state = initialState, action) => {
 			return {
 				...state,
 				data: {},
+				isDeleted: false,
+				isError: true,
 				error: action.payload,
 			}
 		}

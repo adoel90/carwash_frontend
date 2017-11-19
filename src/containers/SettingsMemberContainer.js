@@ -39,6 +39,42 @@ class SettingsMemberContainer extends Component {
 		this.getMemberList();
 	}
 
+	componentDidUpdate = (prevProps) => {
+		const {
+			dialog,
+			dispatch,
+			member
+		} = this.props;
+
+		if(prevProps.member !== this.props.member) {
+			let dialogData = {
+				success: {
+					type: 'success',
+					title: '',
+					message: '',
+					close: () => {
+						window.location.reload()
+					},
+					closeText: 'Tutup'
+				}
+			}
+
+			if(member.isUpdated) {
+				dialogData.success.title = 'Berhasil';
+				dialogData.success.message = 'Data member telah berhasil diubah. Klik tombol berikut untuk kembali.';
+
+				dispatch(toggleDialog(dialogData.success, false));
+			}
+
+			else if(member.isDeleted) {
+				dialogData.success.title = 'Berhasil';
+				dialogData.success.message = 'Penghapusan member telah berhasil. Klik tombol berikut untuk kembali.';
+
+				dispatch(toggleDialog(dialogData.success, false));
+			}
+		}
+	}
+
 	handleInputChange = (object, e) => {
 		const target = e.target;
 		const name = target.name;

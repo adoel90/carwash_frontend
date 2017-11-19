@@ -7,6 +7,9 @@ import {
 	createCafeTransaction
 } from '../actions/cafe.action.js';
 
+
+import { toggleDialog } from '../actions/dialog.action';
+
 import {
 	authenticateMember
 } from '../actions/member.action';
@@ -16,6 +19,7 @@ class CafeContainer extends React.Component {
 		super();
 		this.getCafeTypes = this.getCafeTypes.bind(this);
 		this.toggleModal = this.toggleModal.bind(this);
+		this.toggleDialog = this.toggleDialog.bind(this);
 		this.handleInputChange = this.handleInputChange.bind(this);
 		this.handleSelectMenu = this.handleSelectMenu.bind(this);
 		this.handleSearchFilter = this.handleSearchFilter.bind(this);
@@ -40,8 +44,45 @@ class CafeContainer extends React.Component {
 		}
 	}
 
+	componentDidUpdate = (prevProps) => {
+		const {
+			dispatch,
+			dialog,
+			cafe
+		} = this.props;
+
+		if(prevProps.cafe !== this.props.cafe) {
+			if(cafe.isPaid) {
+
+				let dialogData = {
+					success: {
+						type: 'success',
+						title: 'Pembayaran Berhasil',
+						message: 'Proses pembayaran terhadap pesanan customer berhasil. Klik tombol berikut untuk mencetak struk pembayaran.',
+						close: () => {
+							window.location.reload()
+						},
+						closeText: 'Cetak Struk'
+					}
+				}
+
+				dispatch(toggleDialog(dialogData.success, false));
+			}
+		}
+	}
+
+
 	componentDidMount = () => {
 		this.getCafeTypes();
+	}
+
+	toggleDialog = () => {
+		const {
+			dialog,
+			dispatch
+		} = this.props;
+
+		dispatch(toggleDialog(null, dialog.isOpen))
 	}
 
 	calculateGrandTotal = () => {
@@ -134,7 +175,7 @@ class CafeContainer extends React.Component {
 
 		selectedMenus.map((menu, i) => {
 			let requiredData = {
-				menu: menu.id,
+				id: menu.id,
 				quantity: menu.quantity
 			}
 
@@ -142,16 +183,6 @@ class CafeContainer extends React.Component {
 		})
 
 		dispatch(createCafeTransaction(dataArray, member.accessToken));
-
-		// selectedMenus.map((menu, i) => {
-		// 	let requiredData = {
-		// 		menu: menu.id,
-		// 		quantity: menu.quantity
-		// 	}
-
-		// 	dispatch(createCafeTransaction(requiredData, member.accessToken));
-		// })
-
 	}
 
 	handlePaymentMemberAuthentication = (e) => {
@@ -211,6 +242,7 @@ class CafeContainer extends React.Component {
 				{...this.props}
 				{...this.state}
 				toggleModal={this.toggleModal}
+				toggleDialog={this.toggleDialog}
 				handleInputChange={this.handleInputChange}
 				handleSearchFilter={this.handleSearchFilter}
 				handleSearchFilterSubmit={this.handleSearchFilterSubmit}
@@ -229,7 +261,8 @@ const mapStateToProps = (state) => {
 	return {
 		cafe: state.cafe,
 		cafeTypes: state.cafe.types,
-		member: state.member
+		member: state.member,
+		dialog: state.dialog
 	}
 }
 

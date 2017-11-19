@@ -4,6 +4,8 @@ import { Redirect } from 'react-router-dom';
 import { Container, Row } from '../Grid';
 import { PropsRoute } from '../Route';
 
+import { ModalDialog } from '../Modal';
+
 import MainSidenav from '../MainSidenav';
 
 import CafeTypeContainer from '../../containers/CafeTypeContainer';
@@ -13,6 +15,7 @@ class Cafe extends React.Component {
 		super();
 		this.handleSidenav = this.handleSidenav.bind(this);
 		this.renderCafeTypeContent = this.renderCafeTypeContent.bind(this)
+		this.renderDialog = this.renderDialog.bind(this);
 	}
 
 	renderCafeTypeContent = (type, i) => {
@@ -46,6 +49,34 @@ class Cafe extends React.Component {
 		}
 	}
 
+	renderDialog = () => {
+		const {
+			dialog,
+			dispatch,
+			toggleDialog,
+			isDialogOpen
+		} = this.props;
+
+		return (
+			<ModalDialog
+				isOpen={dialog.isOpen}
+				// toggle={toggleDialog}
+				type={dialog.type}
+				title={dialog.title}
+				message={dialog.message}
+
+				confirmText={dialog.confirm ? dialog.confirmText : null}
+				cancelText={dialog.cancel ? dialog.cancelText : null}
+				closeText={dialog.close ? dialog.closeText : null}
+
+				onConfirm={dialog.confirm ? dialog.confirm : null}
+				onCancel={dialog.cancel ? toggleDialog : null}
+				onClose={dialog.close ? dialog.close : null}
+			/>
+		)
+	}
+
+
 	render() {
 		const {
 			match,
@@ -74,6 +105,7 @@ class Cafe extends React.Component {
 						</div>
 					</Row>
 				</Container>
+				{this.renderDialog()}
 			</main>
 		)
 

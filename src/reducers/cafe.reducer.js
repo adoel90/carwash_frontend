@@ -7,6 +7,8 @@ import {
 	GET_CAFE_TYPES_REJECTED,
 	CREATE_CAFE_MENU_FULFILLED,
 	CREATE_CAFE_MENU_REJECTED,
+	CREATE_CAFE_TRANSACTION_FULFILLED,
+	CREATE_CAFE_TRANSACTION_REJECTED,
 	UPDATE_CAFE_MENU_FULFILLED,
 	UPDATE_CAFE_MENU_REJECTED,
 	DELETE_CAFE_MENU_FULFILLED,
@@ -17,6 +19,7 @@ const initialState = {
 	list: {},
 	menu: {},
 	types: {},
+	paid: {},
 	updatedMenu: {},
 	deletedMenu: {},
 	isFetching: false,
@@ -24,6 +27,7 @@ const initialState = {
 	isCreated: false,
 	isUpdated: false,
 	isError: false,
+	isPaid: false,
 	error: {}
 }
 
@@ -93,6 +97,26 @@ const cafe = (state = initialState, action) => {
 			return {
 				...state,
 				menu: {},
+				error: action.payload
+			}
+		}
+
+		//
+		case CREATE_CAFE_TRANSACTION_FULFILLED: {
+			return {
+				...state,
+				paid: action.payload,
+				isPaid: true,
+				error: {}
+			}
+		}
+
+		case CREATE_CAFE_TRANSACTION_REJECTED: {
+			return {
+				...state,
+				paid: {},
+				isPaid: false,
+				isError: true,
 				error: action.payload
 			}
 		}

@@ -96,10 +96,14 @@ export const createCafeMenu = (data, accessToken) => {
 
 export const createCafeTransaction = (data, accessToken) => {
 	return async dispatch => {
+
+		console.log(data);
+
 		return axios
 			.post(`${constant.API_PATH}cafe/transaction/create?accessToken=${accessToken}`, {
-				menu: data.menu,
-				quantity: data.quantity
+				menu: data
+			}, {
+				'Content-Type': 'application/json'
 			})
 			.then((response) => {
 				dispatch(handleSuccess(response.data));

@@ -16,6 +16,8 @@ export const DELETE_SERVICE_FULFILLED = 'DELETE_SERVICE_FULFILLED';
 export const DELETE_SERVICE_REJECTED = 'DELETE_SERVICE_REJECTED';
 export const CREATE_SERVICE_TYPE_FULFILLED = 'CREATE_SERVICE_TYPE_FULFILLED';
 export const CREATE_SERVICE_TYPE_REJECTED = 'CREATE_SERVICE_TYPE_REJECTED';
+export const DELETE_SERVICE_TYPE_FULFILLED = 'DELETE_SERVICE_TYPE_FULFILLED';
+export const DELETE_SERVICE_TYPE_REJECTED = 'DELETE_SERVICE_TYPE_REJECTED';
 export const CREATE_SERVICE_TRANSACTION_FULFILLED = 'CREATE_SERVICE_TRANSACTION_FULFILLED';
 export const CREATE_SERVICE_TRANSACTION_REJECTED = 'CREATE_SERVICE_TRANSACTION_REJECTED';
 
@@ -160,6 +162,24 @@ export const createNewServiceType = (data, accessToken) => {
 
 	function handleSuccess(data) { return { type: CREATE_SERVICE_TYPE_FULFILLED, payload: data }}
 	function handleError(data) { return { type: CREATE_SERVICE_TYPE_REJECTED, payload: data }}
+}
+
+export const deleteServiceType = (data, accessToken) => {
+	return async dispatch => {
+		return axios
+			.post(`${constant.API_PATH}service/type/delete?accessToken=${accessToken}`, {
+				id: data.id
+			})
+			.then((response) => {
+				dispatch(handleSuccess(response.data))
+			})
+			.catch((error) => {
+				dispatch(handleError(error))
+			})
+	}
+
+	function handleSuccess(data) { return { type: DELETE_SERVICE_TYPE_FULFILLED, payload: data} }
+	function handleError(data) { return { type: DELETE_SERVICE_TYPE_REJECTED, payload: data} }
 }
 
 export const createServiceTransaction = (data, accessToken) => {

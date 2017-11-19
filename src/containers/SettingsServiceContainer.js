@@ -94,6 +94,13 @@ class SettingsServiceContainer extends Component {
 
 				dispatch(toggleDialog(dialogData.success, false));
 			}
+
+			else if(service.type.isDeleted) {
+				dialogData.success.title = 'Berhasil';
+				dialogData.success.message = 'Kategori service telah berhasil dihapus. Klik untuk kembali.'
+
+				dispatch(toggleDialog(dialogData.success, false));
+			}
 		}
 	}
 

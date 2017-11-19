@@ -15,6 +15,8 @@ import {
 	UPDATE_SERVICE_REJECTED,
 	DELETE_SERVICE_FULFILLED,
 	DELETE_SERVICE_REJECTED,
+	DELETE_SERVICE_TYPE_FULFILLED,
+	DELETE_SERVICE_TYPE_REJECTED,
 } from '../actions/service.action';
 
 const initialState = {
@@ -162,6 +164,27 @@ const service = (state = initialState, action) => {
 			return {
 				...state,
 				isDeleted: false,
+				isError: true,
+				error: action.payload
+			}
+		}
+
+		case DELETE_SERVICE_TYPE_FULFILLED: {
+			return {
+				...state,
+				type: {
+					isDeleted: true,
+					data: action.payload
+				},
+				isError: false,
+				error: {}
+			}
+		}
+
+		case DELETE_SERVICE_TYPE_REJECTED: {
+			return {
+				...state,
+				type: {},
 				isError: true,
 				error: action.payload
 			}

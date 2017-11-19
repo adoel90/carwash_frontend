@@ -10,7 +10,6 @@ import {
 	UPDATE_MEMBER_REQUESTED,
 	UPDATE_MEMBER_FULFILLED,
 	UPDATE_MEMBER_REJECTED,
-	CREATE_MEMBER_REQUESTED,
 	CREATE_MEMBER_FULFILLED,
 	CREATE_MEMBER_REJECTED,
 	DELETE_MEMBER_FULFILLED,
@@ -22,10 +21,12 @@ import {
 const initialState = {
 	data: {},
 	list: {},
+	createdMember: {},
 	accessToken: '',
 	isFetching: false,
 	isLoaded: false,
 	isUpdated: false,
+	isCreated: false,
 	isDeleted: false,
 	isError: false,
 	error: {},
@@ -97,18 +98,12 @@ const member = (state = initialState, action) => {
 			}
 		}
 
-		case CREATE_MEMBER_REQUESTED: {
-			return {
-				...state,
-				isLoaded: false,
-				isLoading: false
-			}
-		}
-
 		case CREATE_MEMBER_FULFILLED: {
 			return {
 				...state,
-				data: action.payload,
+				createdMember: action.payload,
+				isCreated: true,
+				isError: false,
 				error: {}
 			}
 		}
@@ -116,9 +111,10 @@ const member = (state = initialState, action) => {
 		case CREATE_MEMBER_REJECTED: {
 			return {
 				...state,
-				data: {},
+				createdMember: {},
+				isCreated: false,
+				isError: true,
 				error: action.payload,
-				isError: true
 			}
 		}
 

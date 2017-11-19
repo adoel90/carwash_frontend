@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Cashier } from '../components/Cashier';
 import { CashierNewCard, CashierTopUp } from '../components/Cashier';
+import CashierNewCardContainer from '../containers/CashierNewCardContainer';
 import { resetMemberData } from '../actions/member.action';
 
 class CashierContainer extends React.Component {
@@ -10,8 +11,8 @@ class CashierContainer extends React.Component {
 		this.state = {
 			subRoutes: [
 				{ id: 1, name: 'Isi Ulang', component: CashierTopUp },
-				{ id: 2, name: 'Kartu Baru', component: CashierNewCard }
-			]
+				{ id: 2, name: 'Kartu Baru', component: CashierNewCardContainer }
+			],
 		}
 	}
 
@@ -23,7 +24,10 @@ class CashierContainer extends React.Component {
 
 	render() {
 		return (
-			<Cashier {...this.props} {...this.state} />
+			<Cashier 
+				{...this.props} 
+				{...this.state} 
+			/>
 		)
 	}
 }

@@ -13,6 +13,8 @@ import {
 	CREATE_SERVICE_TRANSACTION_REJECTED,
 	UPDATE_SERVICE_FULFILLED,
 	UPDATE_SERVICE_REJECTED,
+	DELETE_SERVICE_FULFILLED,
+	DELETE_SERVICE_REJECTED,
 } from '../actions/service.action';
 
 const initialState = {
@@ -22,6 +24,7 @@ const initialState = {
 	service: {},
 	isFetching: false,
 	isLoaded: false,
+	isDeleted: false,
 	isUpdated: false,
 	error: {}
 }
@@ -143,6 +146,22 @@ const service = (state = initialState, action) => {
 				...state,
 				service: {},
 				isUpdated: false,
+				isError: true,
+				error: action.payload
+			}
+		}
+
+		case DELETE_SERVICE_FULFILLED: {
+			return {
+				...state,
+				isDeleted: true,
+			}
+		}
+
+		case DELETE_SERVICE_REJECTED: {
+			return {
+				...state,
+				isDeleted: false,
 				isError: true,
 				error: action.payload
 			}

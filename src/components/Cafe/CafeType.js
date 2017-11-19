@@ -19,11 +19,29 @@ class CafeType extends Component {
 		this.renderPaymentDetailModal = this.renderPaymentDetailModal.bind(this);
 		this.renderPaymentProcessModal = this.renderPaymentProcessModal.bind(this);
 		this.renderMemberInformation = this.renderPaymentInformation.bind(this);
+		this.renderBalanceMessage = this.renderBalanceMessage.bind(this);
+	}
+
+	renderBalanceMessage = () => {
+		const {
+			member,
+			grandTotal
+		} = this.props;
+
+		if(member.isLoaded) {
+			if(member.data.balance > grandTotal) {
+				return <p>Saldo member sebesar <span className="clr-primary fw-semibold"><Currency value={member.data.balance} /></span> cukup untuk melakukan pembayaran.</p>
+			}
+			else {
+				return <p className="clr-danger">Saldo member sebesar <span className="fw-semibold"><Currency value={member.data.balance} /></span> tidak cukup untuk melakukan pembayaran.</p>
+			}
+		}
 	}
 
 	renderPaymentInformation = () => {
 		const {
-			member
+			member,
+			grandTotal
 		} = this.props;
 
 		if(member.isLoaded) {
@@ -38,7 +56,7 @@ class CafeType extends Component {
 							value={member.data.card.id}
 						/>
 					</h5>
-					<p>Saldo member sebesar <span className="clr-primary fw-semibold"><Currency value={member.data.balance} /></span> cukup untuk melakukan pembayaran.</p>
+					{ this.renderBalanceMessage() }
 				</div>
 			)
 		}
@@ -50,6 +68,7 @@ class CafeType extends Component {
 			isModalOpen,
 			toggleModal,
 			paymentProcess,
+			grandTotal,
 			handleInputChange,
 			handlePaymentProcessSubmit,
 			handlePaymentMemberAuthentication
@@ -62,28 +81,28 @@ class CafeType extends Component {
 				<ModalHeader align="center">
 					<h6 className="fw-semibold">Proses Pembayaran</h6>
 				</ModalHeader>
-				<Form onSubmit={handlePaymentProcessSubmit}>
+				<Form onSubmit={handlePaymentMemberAuthentication}>
 					<ModalContent className="ta-center">
 						<div className="padding-bottom-2">
 							<p>Silahkan gesek kartu member pada kolom dibawah untuk mendapatkan informasi member.</p>
 						</div>
-						<Form onSubmit={handlePaymentMemberAuthentication}>
-							<Input
-								name="card"
-								type="number"
-								className="form-control--large ta-center"
-								onChange={(e) => handleInputChange(paymentProcess, e)}
-								autoFocus
-								selectOnFocus
-							/>
-						</Form>
+						<Input
+							name="card"
+							type="number"
+							className="form-control--large ta-center"
+							onChange={(e) => handleInputChange(paymentProcess, e)}
+							autoFocus
+							selectOnFocus
+						/>
 						{ this.renderMemberInformation() }
 					</ModalContent>
+				</Form>
+				<Form onSubmit={handlePaymentProcessSubmit}>
 					<ModalFooter className="flex justify-content--center">
 						<Button type="button" buttonTheme="danger" className="clr-light margin-right-2" onClick={() => toggleModal('paymentProcess')}>
 							<small className="fw-semibold tt-uppercase ls-base">Kembali</small>
 						</Button>
-						<Button buttonTheme="primary" className="clr-light" disabled={!member.isLoaded}>
+						<Button buttonTheme="primary" className="clr-light" disabled={!member.isLoaded || member.data.balance < grandTotal}>
 							<small className="fw-semibold tt-uppercase ls-base">Bayar</small>
 						</Button>
 					</ModalFooter>

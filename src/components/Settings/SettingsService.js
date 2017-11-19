@@ -109,7 +109,7 @@ class SettingsService extends Component {
 				<Form onSubmit={handleNewServiceSubmit}>
 					<ModalContent>
 						<Row>
-							<div className="column-4 flex flex-column align-items--center justify-content--center">
+							<div className="column-3 flex flex-column align-items--center justify-content--center">
 								{this.renderPhotoPreview()}
 								<Input
 									name="image"
@@ -122,7 +122,7 @@ class SettingsService extends Component {
 								/>
 								<p className="fw-semibold clr-primary">Tambahkan Foto</p>
 							</div>
-							<div className="column-8">
+							<div className="column-9">
 								<FormGroup row>
 									<Label htmlFor="name" className="fw-semibold">Nama Service</Label>
 									<Input
@@ -133,7 +133,7 @@ class SettingsService extends Component {
 									/>
 								</FormGroup>
 								<FormGroup row>
-									<Label htmlFor="price" className="fw-semibold">Nama Service</Label>
+									<Label htmlFor="price" className="fw-semibold">Harga</Label>
 									<InputGroup>
 										<InputAddon>
 											<small className="fw-semibold tt-uppercase ls-base">Rp</small>
@@ -147,7 +147,7 @@ class SettingsService extends Component {
 									</InputGroup>
 								</FormGroup>
 								<FormGroup row>
-									<Label htmlFor="description" className="fw-semibold">Nama Service</Label>
+									<Label htmlFor="description" className="fw-semibold">Deskripsi</Label>
 									<Input
 										type="textarea"
 										name="description"

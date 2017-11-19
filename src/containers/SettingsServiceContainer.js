@@ -60,6 +60,42 @@ class SettingsServiceContainer extends Component {
 		this.getServiceTypes();
 	}
 
+	componentDidUpdate = (prevProps) => {
+		const {
+			service,
+			dialog,
+			dispatch
+		} = this.props;
+
+		if(prevProps.service !== this.props.service) {
+			let dialogData = {
+				success: {
+					type: 'success',
+					title: '',
+					message: '',
+					close: () => {
+						window.location.reload()
+					},
+					closeText: 'Tutup'
+				}
+			}
+
+			if(service.isUpdated) {
+				dialogData.success.title = 'Berhasil';
+				dialogData.success.message = 'Perubahan informasi service telah berhasil.'
+
+				dispatch(toggleDialog(dialogData.success, false));
+			}
+
+			else if(service.isDeleted) {
+				dialogData.success.title = 'Berhasil!';
+				dialogData.success.message = 'Penghapusan service telah berhasil.';
+
+				dispatch(toggleDialog(dialogData.success, false));
+			}
+		}
+	}
+
 	handleInputChange = (object, e) => {
 		const target = e.target;
 		const value = target.value;
@@ -211,7 +247,8 @@ class SettingsServiceContainer extends Component {
 			message: 'Anda akan menghapus service beserta seluruh informasinya. Tindakan ini tidak dapat dipulihkan. Apakah Anda ingin menghapus service ini?',
 			confirm: () => this.handleServiceDeleteSubmit(),
 			confirmText: 'Ya, Lanjutkan',
-			cancelText: 'Batalkan'
+			cancel: true,
+			cancelText: 'Batal'
 		}
 
 		dispatch(toggleDialog(dialogData, dialog.isOpen));

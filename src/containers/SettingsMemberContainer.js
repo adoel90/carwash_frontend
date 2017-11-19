@@ -13,7 +13,7 @@ class SettingsMemberContainer extends Component {
 	constructor() {
 		super();
 		this.state = {
-			searchValue: '',
+			searchText: '',
 			selectedMember: {
 				name: '',
 				email: '',
@@ -33,10 +33,6 @@ class SettingsMemberContainer extends Component {
 		this.handleUpdateMemberSubmit = this.handleUpdateMemberSubmit.bind(this);
 		this.handleDeleteMember = this.handleDeleteMember.bind(this);
 		this.handleDeleteMemberSubmit = this.handleDeleteMemberSubmit.bind(this);
-	}
-
-	componentDidUpdate = () => {
-		console.log(this.props);
 	}
 
 	componentDidMount = () => {

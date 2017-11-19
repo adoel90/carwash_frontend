@@ -24,6 +24,7 @@ class SettingsCafeTypeContainer extends Component {
 		this.handleCafeMenuDeleteSubmit = this.handleCafeMenuDeleteSubmit.bind(this);
 
 		this.state = {
+			searchText: '',
 			selectedCafeMenu: {
 				cafe: '',
 				id: '',

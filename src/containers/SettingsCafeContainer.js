@@ -11,6 +11,7 @@ class SettingsCafeContainer extends React.Component {
 		super();
 		this.toggleTab = this.toggleTab.bind(this);
 		this.toggleModal = this.toggleModal.bind(this);
+		this.handleInputChange = this.handleInputChange.bind(this);
 		this.handleNewCafeType = this.handleNewCafeType.bind(this);
 		this.state = {
 			isModalOpen: {
@@ -88,6 +89,7 @@ class SettingsCafeContainer extends React.Component {
 				{...this.props}
 				toggleTab={this.toggleTab}
 				toggleModal={this.toggleModal}
+				handleInputChange={this.handleInputChange}
 				handleNewCafeType={this.handleNewCafeType}
 				handleNewCafeTypeSubmit={this.handleNewCafeTypeSubmit}
 			/>

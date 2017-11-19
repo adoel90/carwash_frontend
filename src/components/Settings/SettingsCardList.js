@@ -35,8 +35,10 @@ class SettingsCardList extends Component {
 				isStriped
 				isHoverable
 				hasPagination
+				hasSearchBar
 				onUpdate={handleCardTypeUpdate}
 				onDelete={handleCardTypeDelete}
+				{...this.props}
 			/>
 		)
 	}

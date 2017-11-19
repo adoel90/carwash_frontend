@@ -2,13 +2,15 @@ import React, { Component } from 'react';
 import { Table, TableHeading, TableBody, TablePagination } from '../Table';
 import { Button, ButtonGroup } from '../Button';
 import { Input } from '../Input';
+import SearchBar from '../SearchBar';
 
 class TableSet extends Component {
 	constructor() {
 		super();
-		this.handleTableInputChange = this.handleTableInputChange.bind(this);
 		this.renderTableColumn = this.renderTableColumn.bind(this);
+		this.renderFilteredRow = this.renderFilteredRow.bind(this);
 		this.renderTableRow = this.renderTableRow.bind(this);
+		this.renderTableSearchBar = this.renderTableSearchBar.bind(this);
 		this.renderTablePagination = this.renderTablePagination.bind(this);
 		this.handlePageChange = this.handlePageChange.bind(this);
 
@@ -16,10 +18,6 @@ class TableSet extends Component {
 			activePage: 1,
 			limit: 10
 		}
-	}
-
-	handleTableInputChange = () => {
-
 	}
 
 	handlePageChange = (page) => {
@@ -30,6 +28,24 @@ class TableSet extends Component {
 		this.setState({
 			activePage: page
 		})
+	}
+
+
+	renderTableSearchBar = () => {
+		const {
+			searchText,
+			handleInputChange
+		} = this.props;
+
+		return (
+			<SearchBar
+				name="searchText"
+				value={searchText}
+				placeholder="Cari member..."
+				onChange={(e) => handleInputChange(null, e)}
+				className="margin-bottom-2"
+			/>
+		)
 	}
 
 	renderTablePagination = () => {
@@ -51,6 +67,15 @@ class TableSet extends Component {
 				stickToBottom
 			/>
 		)
+	}
+
+	renderFilteredRow = (row, i) => {
+		const {
+			hasSearchBar,
+			searchText
+		} = this.props;
+
+		return row.name.toLowerCase().includes(searchText.toLowerCase());
 	}
 
 	renderTableRow = (row, i) => {
@@ -141,7 +166,8 @@ class TableSet extends Component {
 		const {
 			columns,
 			rows,
-			hasPagination
+			hasPagination,
+			hasSearchBar
 		} = this.props;
 
 		const {
@@ -155,6 +181,7 @@ class TableSet extends Component {
 
 		return (
 			<div className="table-main">
+				{ hasSearchBar ? this.renderTableSearchBar() : null}
 				<Table {...this.props}>
 					<TableHeading theme="primary">
 						{this.renderTableColumn()}
@@ -163,6 +190,7 @@ class TableSet extends Component {
 						{
 							rows.length
 								? rows
+									.filter(this.renderFilteredRow)
 									.map(this.renderTableRow)
 									.slice(lowerLimit, upperLimit)
 								: null

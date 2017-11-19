@@ -35,8 +35,10 @@ class SettingsServiceList extends Component {
 				isStriped
 				isHoverable
 				hasPagination
+				hasSearchBar
 				onUpdate={handleServiceUpdate}
 				onDelete={handleServiceDelete}
+				{...this.props}
 			/>
 		);
 	}

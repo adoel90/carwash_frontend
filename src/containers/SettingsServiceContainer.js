@@ -30,6 +30,7 @@ class SettingsServiceContainer extends Component {
 		this.handleServiceDeleteSubmit = this.handleServiceDeleteSubmit.bind(this);
 
 		this.state = {
+			searchText: '',
 			newService: {
 				type: '',
 				name: '',

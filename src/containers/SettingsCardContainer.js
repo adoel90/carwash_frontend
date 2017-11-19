@@ -25,6 +25,7 @@ class SettingsCardContainer extends Component {
 		this.handleCardTypeDeleteSubmit = this.handleCardTypeDeleteSubmit.bind(this);
 
 		this.state = {
+			searchText: '',
 			isModalOpen: {
 				newCardType: false,
 				updateCardType: false,

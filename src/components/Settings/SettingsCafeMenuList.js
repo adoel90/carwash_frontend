@@ -33,8 +33,10 @@ class SettingsCafeMenuList extends Component {
 				isStriped
 				isHoverable
 				hasPagination
+				hasSearchBar
 				onUpdate={handleCafeMenuUpdate}
 				onDelete={handleCafeMenuDelete}
+				{...this.props}
 			/>
 		);
 	}

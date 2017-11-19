@@ -64,7 +64,7 @@ class ServiceItemList extends React.Component {
 				</ModalContent>
 				<ModalFooter>
 					<NavLink to="/logout">
-						<Button type="button" buttonTheme="success" buttonFull>
+						<Button type="button" buttonTheme="success" buttonFull className="clr-light">
 							<small className="fw-semibold tt-uppercase ls-base">Selesai</small>
 						</Button>
 					</NavLink>
@@ -144,10 +144,10 @@ class ServiceItemList extends React.Component {
 			return (
 				<ModalFooter>
 					<div className="flex">
-						<Button type="button" buttonTheme="danger" className="margin-right-2" onClick={this.toggleModal} buttonFull>
+						<Button type="button" buttonTheme="danger" onClick={this.toggleModal} className="clr-light margin-right-2" buttonFull>
 							<small className="fw-semibold ls-base tt-uppercase">Batal</small>
 						</Button>
-						<Button type="submit" buttonTheme="primary" buttonFull>
+						<Button type="submit" buttonTheme="primary" buttonFull className="clr-light">
 							<small className="fw-semibold ls-base tt-uppercase">Bayar</small>
 						</Button>
 					</div>
@@ -157,7 +157,7 @@ class ServiceItemList extends React.Component {
 			return (
 				<ModalFooter>
 					<div className="flex">
-						<Button type="button" buttonTheme="danger" onClick={this.toggleModal} buttonFull>
+						<Button type="button" buttonTheme="danger" onClick={this.toggleModal} buttonFull  className="clr-light">
 							<small className="fw-semibold ls-base tt-uppercase">Kembali</small>
 						</Button>
 					</div>
@@ -183,7 +183,7 @@ class ServiceItemList extends React.Component {
 						<p className="card__text">{item.description}</p>
 					</CardBody>
 					<CardFooter>
-						<Button type="button" buttonTheme="primary" buttonFull onClick={this.selectService.bind(this, item)}>
+						<Button type="button" buttonTheme="primary" buttonFull onClick={this.selectService.bind(this, item)} className="clr-light">
 							<small className="tt-uppercase fw-bold ls-base">Pilih</small>
 						</Button>
 					</CardFooter>

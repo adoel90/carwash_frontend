@@ -11,15 +11,25 @@ import {
 import { PageBlock } from '../Page';
 import Currency from '../Currency';
 import { Button } from '../Button';
+import SearchBar from '../SearchBar';
 
 class CafeMenuList extends Component {
 	constructor() {
 		super();
 		this.renderCafeMenuList = this.renderCafeMenuList.bind(this);
 		this.renderCafeMenu = this.renderCafeMenu.bind(this);
+		this.filteredCafeMenu = this.filteredCafeMenu.bind(this);
 		this.state = {
-			limit: 10
+			limit: 10,
 		}
+	}
+
+	filteredCafeMenu = (menu) => {
+		const {
+			searchText
+		} = this.props;
+
+		return menu.name.toLowerCase().includes(searchText.toLowerCase())
 	}
 
 
@@ -29,6 +39,7 @@ class CafeMenuList extends Component {
 			cafe,
 			cafeMenuList,
 			selectedMenus,
+			searchText,
 			handlePaymentDetail
 		} = this.props;
 
@@ -41,8 +52,10 @@ class CafeMenuList extends Component {
 				return (
 					<CardList>
 						{ cafeMenuList
+							.filter(this.filteredCafeMenu)
 							.map(this.renderCafeMenu)
 							.slice(0, limit)
+
 						}
 						<CardListFooter>
 							<Button buttonTheme="primary" buttonFull className="clr-light" disabled={!selectedMenus.length} onClick={handlePaymentDetail}>
@@ -109,10 +122,25 @@ class CafeMenuList extends Component {
 	render() {
 		const {
 			cafe,
-			cafeMenuList
+			cafeMenuList,
+			searchText,
+			handleInputChange,
+			handleSearchFilter,
+			handleSearchFilterSubmit
 		} = this.props;
 
-		return this.renderCafeMenuList();
+		return (
+			<div>
+				<SearchBar 
+					name="searchText"
+					value={searchText}
+					placeholder="Ketik nama service untuk mencari..."
+					onChange={(e) => handleSearchFilter(e)}
+					onSubmit={handleSearchFilterSubmit}
+				/>
+				{this.renderCafeMenuList()}
+			</div>
+		)
 
 	}
 

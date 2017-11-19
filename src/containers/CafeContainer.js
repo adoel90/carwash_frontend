@@ -18,6 +18,8 @@ class CafeContainer extends React.Component {
 		this.toggleModal = this.toggleModal.bind(this);
 		this.handleInputChange = this.handleInputChange.bind(this);
 		this.handleSelectMenu = this.handleSelectMenu.bind(this);
+		this.handleSearchFilter = this.handleSearchFilter.bind(this);
+		this.handleSearchFilterSubmit = this.handleSearchFilterSubmit.bind(this)
 		this.handlePaymentDetail = this.handlePaymentDetail.bind(this);
 		this.handlePaymentDetailSubmit = this.handlePaymentDetailSubmit.bind(this);
 		this.handlePaymentProcessSubmit = this.handlePaymentProcessSubmit.bind(this);
@@ -29,6 +31,7 @@ class CafeContainer extends React.Component {
 			paymentProcess: {
 				card: ''
 			},
+			searchText: '',
 			grandTotal: '',
 			isModalOpen: {
 				paymentDetail: false,
@@ -87,6 +90,23 @@ class CafeContainer extends React.Component {
 		}
 	}
 
+	handleSearchFilter = (e) => {
+		const target = e.target;
+		const value = target.value;
+		const name = target.name;
+
+		this.setState({
+			...this.state,
+			[name]: value
+		})
+	}
+
+	handleSearchFilterSubmit = () => {
+		const {
+			searchText 
+		} = this.props
+	}
+
 	handlePaymentDetail = () => {
 		this.toggleModal('paymentDetail');
 	}
@@ -110,14 +130,27 @@ class CafeContainer extends React.Component {
 
 		e.preventDefault();
 
+		let dataArray = [];
+
 		selectedMenus.map((menu, i) => {
 			let requiredData = {
 				menu: menu.id,
 				quantity: menu.quantity
 			}
 
-			dispatch(createCafeTransaction(requiredData, member.accessToken));
+			dataArray.push(requiredData);
 		})
+
+		dispatch(createCafeTransaction(dataArray, member.accessToken));
+
+		// selectedMenus.map((menu, i) => {
+		// 	let requiredData = {
+		// 		menu: menu.id,
+		// 		quantity: menu.quantity
+		// 	}
+
+		// 	dispatch(createCafeTransaction(requiredData, member.accessToken));
+		// })
 
 	}
 
@@ -179,6 +212,8 @@ class CafeContainer extends React.Component {
 				{...this.state}
 				toggleModal={this.toggleModal}
 				handleInputChange={this.handleInputChange}
+				handleSearchFilter={this.handleSearchFilter}
+				handleSearchFilterSubmit={this.handleSearchFilterSubmit}
 				handleSelectMenu={this.handleSelectMenu}
 				handlePaymentDetail={this.handlePaymentDetail}
 				handlePaymentDetailSubmit={this.handlePaymentDetailSubmit}

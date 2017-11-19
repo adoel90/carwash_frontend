@@ -8,6 +8,8 @@ class SearchBar extends React.Component {
 		const {
 			placeholder,
 			className,
+			name,
+			value,
 			onSubmit,
 			onChange
 		} = this.props;
@@ -23,7 +25,13 @@ class SearchBar extends React.Component {
 					<InputAddon>
 						<i className="icon icon--base fi flaticon flaticon-search-1"></i>
 					</InputAddon>
-					<Input type="text" placeholder={placeholder} onChange={onChange} />
+					<Input 
+						type="text" 
+						name={name} 
+						placeholder={placeholder} 
+						value={value} 
+						onChange={onChange} 
+					/>
 				</InputGroup>
 			</Form>
 		)

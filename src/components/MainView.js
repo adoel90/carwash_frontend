@@ -8,13 +8,6 @@ import CustomerContainer from '../containers/CustomerContainer';
 import LogoutContainer from '../containers/LogoutContainer';
 
 class MainView extends React.Component {
-	constructor() {
-		super();
-		this.state = {
-			isDialogOpen: false
-		}
-	}
-
 	render() {
 		const {
 			isAuthenticated,
@@ -26,8 +19,18 @@ class MainView extends React.Component {
 
 		return (
 			<Switch>
-				<PropsRoute name="admin" path="/admin" component={AdminContainer} {...this.props} />
-				<PropsRoute name="customer" path="/customer" component={CustomerContainer} {...this.props} />
+				<PropsRoute 
+					name="admin" 
+					path="/admin" 
+					component={AdminContainer} 
+					{...this.props} 
+				/>
+				<PropsRoute 
+					name="customer" 
+					path="/customer" 
+					component={CustomerContainer} 
+					{...this.props}
+				/>
 				<PrivateRoute
 					name="logout"
 					path="/logout"

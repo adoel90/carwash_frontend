@@ -1,5 +1,4 @@
 import {
-	RESET_MEMBER_DATA,
 	AUTHENTICATE_MEMBER_FULFILLED,
 	AUTHENTICATE_MEMBER_REJECTED,
 	MEMBER_TOPUP_FULFILLED,
@@ -22,6 +21,8 @@ const initialState = {
 	data: {},
 	list: {},
 	createdMember: {},
+	updatedMember: {},
+	deletedMember: {},
 	accessToken: '',
 	isFetching: false,
 	isLoaded: false,
@@ -164,10 +165,6 @@ const member = (state = initialState, action) => {
 				isError: true,
 				error: action.payload,
 			}
-		}
-
-		case RESET_MEMBER_DATA: {
-			return state;
 		}
 
 		case LOGOUT_MEMBER_FULFILLED: {

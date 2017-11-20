@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { 
+	withCookies, 
+	Cookies 
+} from 'react-cookie';
 
-import { withCookies, Cookies } from 'react-cookie';
-
-import MainView from './components/MainView';
+import MainRoutes from './components/MainRoutes';
 
 class App extends React.Component {
 	constructor() {
@@ -22,23 +24,24 @@ class App extends React.Component {
 	}
 
 	handleAccessToken = () => {
-		const { cookies } = this.props;
-		const token = cookies.get('accessToken') || null;
-		const user = Object.assign({}, cookies.get('user') || null);
-		const member = Object.assign({}, cookies.get('member') || null);
+		const { 
+			cookies 
+		} = this.props;
+
+		const accessToken = cookies.get('accessToken') || null;
+		const userData = Object.assign({}, cookies.get('user') || null);
+		const memberData = Object.assign({}, cookies.get('member') || null);
 
 		this.setState({
-			user: user,
-			member: member,
-			accessToken: token,
-			isAuthenticated: token ? true : false
-		})
+			user: userData,
+			member: memberData,
+			accessToken: accessToken,
+			isAuthenticated: accessToken ? true : false
+		});
 	}
 
 	render() {
-		return (
-			<MainView {...this.state} {...this.props} />
-		);
+		return <MainRoutes {...this.state} {...this.props} />
 	}
 }
 

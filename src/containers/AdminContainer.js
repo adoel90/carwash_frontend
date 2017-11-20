@@ -17,22 +17,27 @@ class AdminContainer extends React.Component {
 		super();
 		this.handleNavigationItems = this.handleNavigationItems.bind(this);
 		this.handleRedirect = this.handleRedirect.bind(this);
-
 		this.state = {
 			navigationItems: []
 		}
 	}
 
 	componentDidMount = () => {
-		const { user } = this.props;
+		const { 
+			user,
+			isAuthenticated
+		} = this.props;
 
-		if(user.level) {
+		if(isAuthenticated) {
 			this.handleNavigationItems();
 		}
 	}
 
 	handleNavigationItems = () => {
-		const { user } = this.props;
+		const { 
+			user
+		} = this.props;
+
 		const level = user.level.id;
 
 		switch(level) {
@@ -40,6 +45,7 @@ class AdminContainer extends React.Component {
 				this.setState({
 					navigationItems: [
 						{ name: 'Pengaturan', path: '/admin/settings' },
+						{ name: 'Laporan', path: '/admin/report' }
 					]
 				})
 				break;
@@ -88,10 +94,13 @@ class AdminContainer extends React.Component {
 			...rest
 		} = this.props;
 
+		// <MainHeader {...this.state} {...this.props} />
+		// <MainSubheader {...this.state} {...this.props} />
+
 		return (
 			<div>
-				<MainHeader {...this.state} {...this.props} />
-				<MainSubheader {...this.state} {...this.props} />
+				<MainHeader {...this.props} {...this.state} />
+				<MainSubheader {...this.props} {...this.state} />
 				<MainContent>
 					<Route name="login" path={`${match.url}/login`} component={ LoginContainer } />
 					<PrivateRoute

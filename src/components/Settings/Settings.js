@@ -17,7 +17,6 @@ class Settings extends React.Component {
 	}
 
 	handleRedirect = () => {
-
 		const {
 			dialog,
 			match,

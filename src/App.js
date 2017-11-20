@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { 
-	withCookies, 
-	Cookies 
+import {
+	withCookies,
+	Cookies
 } from 'react-cookie';
 
 import MainRoutes from './components/MainRoutes';
@@ -24,8 +24,8 @@ class App extends React.Component {
 	}
 
 	handleAccessToken = () => {
-		const { 
-			cookies 
+		const {
+			cookies
 		} = this.props;
 
 		const accessToken = cookies.get('accessToken') || null;

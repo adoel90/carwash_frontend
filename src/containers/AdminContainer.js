@@ -1,40 +1,19 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-import { Switch, Route, Redirect } from 'react-router-dom';
-import { PropsRoute, PrivateRoute } from '../components/Route';
+import { Admin } from '../components/Admin';
 
-import MainHeader from '../components/MainHeader';
-import MainSubheader from '../components/MainSubheader';
-import MainContent from '../components/MainContent';
-
-import LoginContainer from '../containers/LoginContainer';
-import CashierContainer from '../containers/CashierContainer';
-import CafeContainer from '../containers/CafeContainer';
-import SettingsContainer from '../containers/SettingsContainer';
-
-class AdminContainer extends React.Component {
+class AdminContainer extends Component {
 	constructor() {
 		super();
 		this.handleNavigationItems = this.handleNavigationItems.bind(this);
-		this.handleRedirect = this.handleRedirect.bind(this);
 		this.state = {
-			navigationItems: []
-		}
-	}
-
-	componentDidMount = () => {
-		const { 
-			user,
-			isAuthenticated
-		} = this.props;
-
-		if(isAuthenticated) {
-			this.handleNavigationItems();
+			navigations: []
 		}
 	}
 
 	handleNavigationItems = () => {
-		const { 
+		const {
 			user
 		} = this.props;
 
@@ -43,7 +22,7 @@ class AdminContainer extends React.Component {
 		switch(level) {
 			case 1: {
 				this.setState({
-					navigationItems: [
+					navigations: [
 						{ name: 'Pengaturan', path: '/admin/settings' },
 						{ name: 'Laporan', path: '/admin/report' }
 					]
@@ -52,7 +31,7 @@ class AdminContainer extends React.Component {
 			}
 			case 2: {
 				this.setState({
-					navigationItems: [
+					navigations: [
 						{ name: 'Kafe', path: '/admin/cafe' },
 						{ name: 'Kasir', path: '/admin/cashier' },
 					]
@@ -66,79 +45,21 @@ class AdminContainer extends React.Component {
 		}
 	}
 
-
-	handleRedirect = () => {
-		const {
-			isAuthenticated,
-			user,
-			match
-		} = this.props;
-
-		if(!isAuthenticated) {
-			return <Redirect from={`${match.url}`} to={`${match.url}/login`} />
-		} else {
-			switch(user.level.id) {
-				case 1: return <Redirect to={`${match.url}/settings`} />
-				case 2: return <Redirect to={`${match.url}/cafe`} />
-				default: return null;
-			}
-		}
-	}
-
 	render() {
 		const {
-			isAuthenticated,
-			accessToken,
 			user,
-			match,
-			...rest
+			isAuthenticated
 		} = this.props;
 
-		// <MainHeader {...this.state} {...this.props} />
-		// <MainSubheader {...this.state} {...this.props} />
-
 		return (
-			<div>
-				<MainHeader {...this.props} {...this.state} />
-				<MainSubheader {...this.props} {...this.state} />
-				<MainContent>
-					<Route name="login" path={`${match.url}/login`} component={ LoginContainer } />
-					<PrivateRoute
-						name="settings"
-						path={`${match.url}/settings`}
-						component={SettingsContainer}
-						isAuthenticated={isAuthenticated}
-						user={user}
-						accessToken={accessToken}
-						redirectTo={`${match.url}/login`}
-					/>
-					<PrivateRoute
-						name="cafe"
-						path={`${match.url}/cafe`}
-						component={CafeContainer}
-						isAuthenticated={isAuthenticated}
-						user={user}
-						accessToken={accessToken}
-						redirectTo={`${match.url}/login`}
-					/>
-					<PrivateRoute
-						name="cashier"
-						path={`${match.url}/cashier`}
-						component={CashierContainer}
-						isAuthenticated={isAuthenticated}
-						user={user}
-						accessToken={accessToken}
-						redirectTo={`${match.url}/login`}
-					/>
-
-					<Redirect from={`${match.url}`} to={`${match.url}/login`} />
-
-					{ this.handleRedirect() }
-				</MainContent>
-			</div>
+			<Admin
+				{...this.state}
+				{...this.props}
+				handleNavigationItems={this.handleNavigationItems}
+			/>
 		);
-
 	}
+
 }
 
 export default AdminContainer;

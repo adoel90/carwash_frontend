@@ -1,23 +1,35 @@
 import React from 'react';
-import MainNavigation from '../components/MainNavigation';
+import { Nav, NavItem, NavLink } from '../components/Nav';
 
 class MainSubheader extends React.Component {
+	constructor() {
+		super();
+		this.renderNavigationItem = this.renderNavigationItem.bind(this);
+	}
+
+	renderNavigationItem = (navigation, i) => {
+		return (
+			<NavItem key={i}>
+				<NavLink to={navigation.path}>{navigation.name}</NavLink>
+			</NavItem>
+		)
+	}
+
 	render() {
 		const {
-			navigationItems,
-			isAuthenticated,
+			navigations,
 			member
 		} = this.props;
 
-		if(isAuthenticated) {
-			return (
-				<div className="header sub-header">
-					<MainNavigation items={navigationItems} />
-				</div>
-			)
-		}
+		console.log(navigations);
 
-		return null;
+		return (
+			<div className="header sub-header">
+				<Nav className="main-navigation">
+					{ navigations.map(this.renderNavigationItem) }
+				</Nav>
+			</div>
+		)
 	}
 }
 

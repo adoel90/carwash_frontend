@@ -17,19 +17,24 @@ class MainSubheader extends React.Component {
 
 	render() {
 		const {
+			isAuthenticated,
 			navigations,
 			member
 		} = this.props;
 
 		console.log(navigations);
 
-		return (
-			<div className="header sub-header">
-				<Nav className="main-navigation">
-					{ navigations.map(this.renderNavigationItem) }
-				</Nav>
-			</div>
-		)
+		if(isAuthenticated) {
+			return (
+				<div className="header sub-header">
+					<Nav className="main-navigation">
+						{ navigations.map(this.renderNavigationItem) }
+					</Nav>
+				</div>
+			)
+		}
+
+		return null;
 	}
 }
 

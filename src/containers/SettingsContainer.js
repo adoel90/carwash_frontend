@@ -43,9 +43,9 @@ class SettingsContainer extends Component {
 	render() {
 		return (
 			<Settings
-				toggleDialog={this.toggleDialog}
 				{...this.state}
 				{...this.props}
+				toggleDialog={this.toggleDialog}
 			/>
 		)
 	}

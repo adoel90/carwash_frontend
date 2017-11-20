@@ -16,6 +16,10 @@ class Settings extends React.Component {
 		this.handleRedirect = this.handleRedirect.bind(this);
 	}
 
+	componentDidUpdate = () => {
+		this.handleRedirect();
+	}
+
 	handleRedirect = () => {
 		const {
 			dialog,
@@ -25,11 +29,7 @@ class Settings extends React.Component {
 
 		let firstRoute = subroutes[0].name.replace(/\s+/g, '-').toLowerCase();
 
-		setTimeout(() => {
-			return <Redirect from="/*" to={`${match.url}/${firstRoute}`} />
-		}, 2000)
-
-		// window.location.href = `${match.url}/${firstRoutePath}`;
+		return <Redirect from="/*" to={`${match.url}/${firstRoute}`} />
 	}
 
 	renderDialog = () => {
@@ -95,11 +95,11 @@ class Settings extends React.Component {
 						</div>
 						<div className="column-10">
 							{ subroutes.map(this.renderSubroutes) }
+							{ this.handleRedirect() }
 						</div>
 					</Row>
 				</Container>
 				{ dialog.isOpen ? this.renderDialog() : null }
-				{ this.handleRedirect() }
 			</main>
 		);
 	}

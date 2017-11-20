@@ -90,7 +90,7 @@ class Admin extends Component {
 						accessToken={accessToken}
 					/>
 
-					<Redirect from={`${match.url}`} to={`${match.url}/login`} />
+					{/* <Redirect from={`${match.url}`} to={`${match.url}/login`} /> */}
 					{this.handleRedirect()}
 				</MainContent>
 			</div>

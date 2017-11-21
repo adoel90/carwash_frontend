@@ -7,6 +7,7 @@ import { PropsRoute } from '../Route';
 import { ModalDialog } from '../Modal';
 
 import MainSidenav from '../MainSidenav';
+import { AdminSidebar } from '../Admin/index';
 
 class Settings extends React.Component {
 	constructor() {
@@ -84,12 +85,16 @@ class Settings extends React.Component {
 			<main className="main main--has-subheader">
 				<Container className="padding-top-3 padding-bottom-5">
 					<Row>
-						<div className="column-2">
-							<aside className="sidebar">
+						<div className="column-3">
+							<AdminSidebar
+								navigations={subroutes}
+							/>
+						
+							{/* <aside className="sidebar">
 								<MainSidenav items={ this.props.subroutes } basePath={match.path} />
-							</aside>
+							</aside> */}
 						</div>
-						<div className="column-10">
+						<div className="column-9">
 							{ subroutes.map(this.renderSubroutes) }
 						</div>
 					</Row>

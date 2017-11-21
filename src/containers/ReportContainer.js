@@ -5,9 +5,7 @@ class ReportContainer extends Component {
     constructor() {
         super();
         this.state = {
-            navigations: [
-                { id: 1, name: '', path: '', component: ''}
-            ]
+            navigations: []
         }
     }
     

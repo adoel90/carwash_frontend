@@ -23,10 +23,9 @@ class SettingsContainer extends Component {
 		this.toggleDialog = this.toggleDialog.bind(this);
 		this.state = {
 			subroutes: [
-				{ id: 1, name: 'Pengaturan Member', component: SettingsMemberContainer },
-				{ id: 2, name: 'Pengaturan Service', component: SettingsServiceContainer },
-				{ id: 3, name: 'Pengaturan Cafe', component: SettingsCafeContainer },
-				{ id: 4, name: 'Pengaturan Kartu', component: SettingsCardContainer }
+				{ id: 1, name: 'Pengaturan Member', path: "/admin/settings/pengaturan-member", component: SettingsMemberContainer },
+				{ id: 2, name: 'Pengaturan Service', path: "/admin/settings/pengaturan-service", component: SettingsServiceContainer },
+				{ id: 3, name: 'Pengaturan Cafe', path: "/admin/settings/pengaturan-cafe", component: SettingsCafeContainer }
 			]
 		}
 	}

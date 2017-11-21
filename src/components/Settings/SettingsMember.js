@@ -6,6 +6,7 @@ import { ModalHeader, ModalContent, ModalFooter, ModalDialog } from '../Modal';
 import { Form, FormGroup } from '../Form';
 import { Input, InputAddon, InputGroup, Label } from '../Input';
 import { Button } from '../Button';
+import { Alert } from '../Alert';
 
 import { SettingsMemberList } from '../Settings';
 
@@ -32,6 +33,7 @@ class SettingsMember extends React.Component {
 				toggle={() => toggleModal('editMember')}>
 				<ModalHeader align="center">
 					<h6 className="fw-semibold">Ubah Informasi Member</h6>
+					<p className="clr-passive">Ubah informasi member hanya jika memang diperlukan.</p>
 				</ModalHeader>
 				<Form onSubmit={handleUpdateMemberSubmit}>
 					<ModalContent>
@@ -44,6 +46,7 @@ class SettingsMember extends React.Component {
 								value={selectedMember.name}
 								onChange={(e) => handleInputChange(selectedMember, e)}
 								required="true"
+								autoFocus="true"
 							/>
 						</FormGroup>
 						<FormGroup row>

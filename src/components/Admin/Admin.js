@@ -20,7 +20,8 @@ class Admin extends Component {
 	componentDidMount = () => {
 		const {
 			isAuthenticated,
-			handleNavigationItems
+			handleNavigationItems,
+			handleRedirect
 		} = this.props
 
 		if(isAuthenticated) {
@@ -35,17 +36,29 @@ class Admin extends Component {
 			isAuthenticated
 		} = this.props;
 
-		console.log(isAuthenticated);
-
 		if(!isAuthenticated) {
-			return <Redirect from={`${match.url}`} to={`${match.url}/login`} />
-		} else {
-			switch(user.level.id) {
-				case 1: return <Redirect to={`${match.url}/settings`} />
-				case 2: return <Redirect to={`${match.url}/cafe`} />
+			console.log(123);
+			return <Redirect from="/*" to={`${match.url}/login`} />
+		}
+		else {
+			let userLevel = user.level.id;
+			switch(userLevel) {
+				case 1: return <Redirect from="/*" to={`${match.url}/settings`} />
+				case 2: return <Redirect from="/*" to={`${match.url}/cafe`} />
 				default: return null;
 			}
 		}
+
+		// if(!isAuthenticated) {
+		// 	return <Redirect from={`${match.url}`} to={`${match.url}/login`} />
+		// }
+		// else {
+		// 	switch(user.level.id) {
+		// 		case 1: return <Redirect from={match.url} to={`${match.url}/settings`} />
+		// 		case 2: return <Redirect from={match.url} to={`${match.url}/cafe`} />
+		// 		default: return null;
+		// 	}
+		// }
 	}
 
 	render() {
@@ -61,6 +74,7 @@ class Admin extends Component {
 				<MainHeader {...this.props} />
 				<MainSubheader {...this.props} />
 				<MainContent>
+					{ this.handleRedirect() }
 					<Route name="login" path={`${match.url}/login`} component={ LoginContainer } />
 					<PrivateRoute
 						name="settings"
@@ -89,9 +103,6 @@ class Admin extends Component {
 						user={user}
 						accessToken={accessToken}
 					/>
-
-					{/* <Redirect from={`${match.url}`} to={`${match.url}/login`} /> */}
-					{this.handleRedirect()}
 				</MainContent>
 			</div>
 		);

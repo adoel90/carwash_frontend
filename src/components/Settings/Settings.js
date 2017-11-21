@@ -13,14 +13,10 @@ class Settings extends React.Component {
 		super();
 		this.renderSubroutes = this.renderSubroutes.bind(this);
 		this.renderDialog = this.renderDialog.bind(this);
-		this.handleRedirect = this.handleRedirect.bind(this);
+		this.handleSubrouteRedirect = this.handleSubrouteRedirect.bind(this);
 	}
 
-	componentDidUpdate = () => {
-		this.handleRedirect();
-	}
-
-	handleRedirect = () => {
+	handleSubrouteRedirect = () => {
 		const {
 			dialog,
 			match,
@@ -29,7 +25,7 @@ class Settings extends React.Component {
 
 		let firstRoute = subroutes[0].name.replace(/\s+/g, '-').toLowerCase();
 
-		return <Redirect from="/*" to={`${match.url}/${firstRoute}`} />
+		return <Redirect to={`${match.url}/${firstRoute}`} />
 	}
 
 	renderDialog = () => {
@@ -95,10 +91,10 @@ class Settings extends React.Component {
 						</div>
 						<div className="column-10">
 							{ subroutes.map(this.renderSubroutes) }
-							{ this.handleRedirect() }
 						</div>
 					</Row>
 				</Container>
+				{ this.handleSubrouteRedirect() }
 				{ dialog.isOpen ? this.renderDialog() : null }
 			</main>
 		);

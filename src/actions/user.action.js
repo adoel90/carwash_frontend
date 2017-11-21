@@ -10,14 +10,14 @@ export const USER_LOGOUT_FULFILLED = 'USER_LOGOUT_FULFILLED';
 
 const cookies = new Cookies();
 
-export const userLogin = (username, password) => {
+export const userLogin = (data) => {
 	return async dispatch => {
 		dispatch(handleRequest());
 
 		return axios
 			.post(`${constant.API_PATH}user/authenticate`, {
-				username: username,
-				password: password
+				username: data.username,
+				password: data.password
 			})
 			.then((response) => {
 				dispatch(handleSuccess(response.data.data));

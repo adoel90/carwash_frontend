@@ -8,8 +8,7 @@ class SettingsCafeMenuList extends Component {
 			table: {
 				columns: [
 					{ accessor: 'name', title: 'Name' },
-					{ accessor: 'price', title: 'Price' },
-					{ accessor: 'description', title: 'Description' },
+					{ accessor: 'price', title: 'Price', isCurrency: true },
 				]
 			}
 		}

@@ -5,7 +5,7 @@ import { ModalHeader, ModalContent, ModalFooter } from '../Modal';
 import { PageBlock } from '../Page';
 import { Nav, NavTabLink, NavItem } from '../Nav';
 import { Form, FormGroup } from '../Form';
-import { Input, InputGroup, InputAddon, Label } from '../Input';
+import { Input, InputCurrency, InputGroup, InputAddon, Label } from '../Input';
 import { Button, ButtonGroup } from '../Button';
 import { TabContent } from '../Tab';
 import { PropsRoute } from '../Route';
@@ -138,10 +138,11 @@ class SettingsService extends Component {
 										<InputAddon>
 											<small className="fw-semibold tt-uppercase ls-base">Rp</small>
 										</InputAddon>
-										<Input
+										<InputCurrency
 											type="text"
 											name="price"
 											placeholder="Masukkan harga service baru"
+											thousandSeparator={true}
 											onChange={(e) => handleInputChange(newService, e)}
 										/>
 									</InputGroup>
@@ -206,10 +207,11 @@ class SettingsService extends Component {
 								<InputAddon>
 									<small className="fw-semibold tt-uppercase ls-base">Rp</small>
 								</InputAddon>
-								<Input
+								<InputCurrency
 									name="price"
 									type="text"
 									placeholder="Masukkan harga service"
+									thousandSeparator={true}
 									value={selectedService.price}
 									onChange={(e) => handleInputChange(selectedService, e)}
 								/>

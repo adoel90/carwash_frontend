@@ -12,7 +12,6 @@ class InputCurrency extends Component {
 				className="form-control"
 				displayType={'input'}
 				thousandSeparator={true}
-				prefix={'Rp '}
 				{...rest}
 			/>
 		);

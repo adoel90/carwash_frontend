@@ -9,9 +9,7 @@ class SettingsMemberList extends Component {
 		this.state = {
 			memberListTable: {
 				data: [
-					{ accessor: 'id', title: 'ID' },
 					{ accessor: 'name', title: 'Nama Customer' },
-					{ accessor: 'email', title: 'Alamat Email' },
 					{ accessor: 'address', title: 'Alamat' },
 					{ accessor: 'phone', title: 'Phone' }
 				]

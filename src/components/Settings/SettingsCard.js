@@ -3,7 +3,7 @@ import { SettingsCardList } from '../Settings';
 import { Modal } from 'reactstrap';
 import { ModalHeader, ModalContent, ModalFooter } from '../Modal';
 import { Form, FormGroup } from '../Form';
-import { Input, InputGroup, InputAddon, Label } from '../Input';
+import { Input, InputGroup, InputCurrency, InputAddon, Label } from '../Input';
 import { PageBlock, PageBlockGroup } from '../Page';
 import { Button } from '../Button';
 
@@ -33,7 +33,7 @@ class SettingsCard extends Component {
 				</ModalHeader>
 				<Form onSubmit={handleNewCardTypeSubmit}>
 					<ModalContent>
-						<FormGroup>
+						<FormGroup row>
 							<Label htmlFor="name" className="fw-semibold">Nama Tipe Kartu</Label>
 							<Input
 								name="name"
@@ -44,7 +44,7 @@ class SettingsCard extends Component {
 								autoFocus
 							/>
 						</FormGroup>
-						<FormGroup>
+						<FormGroup row>
 							<Label htmlFor="minimum" className="fw-semibold">Minimum Saldo</Label>
 							<InputGroup>
 								<InputAddon>
@@ -59,7 +59,7 @@ class SettingsCard extends Component {
 								/>
 							</InputGroup>
 						</FormGroup>
-						<FormGroup>
+						<FormGroup row>
 							<Label htmlFor="minimum" className="fw-semibold">Minimum Saldo</Label>
 							<InputGroup>
 								<InputAddon>
@@ -103,11 +103,12 @@ class SettingsCard extends Component {
 				toggle={() => toggleModal('updateCardType')}>
 				<ModalHeader align="center">
 					<h6 className="fw-semibold">Ubah Tipe Kartu: <span className="fw-bold clr-primary">{selectedCardType.name}</span></h6>
+					<p className="clr-passive">Hanya lakukan perubahan terhadap tipe kartu ketika <span className="fw-semibold">diperlukan saja!</span></p>
 				</ModalHeader>
 				<Form onSubmit={handleCardTypeUpdateSubmit}>
 					<ModalContent>
-						<FormGroup>
-							<Label htmlFor="name" className="fw-semibold">Nama Tipe Kartu</Label>
+						<FormGroup row>
+							<Label htmlFor="name" className="fw-semibold">Nama Kartu</Label>
 							<Input
 								type="text"
 								name="name"
@@ -118,37 +119,49 @@ class SettingsCard extends Component {
 								required="true"
 							/>
 						</FormGroup>
-						<FormGroup>
+						<FormGroup row>
 							<Label htmlFor="minimum" className="fw-semibold">Minimum Saldo</Label>
 							<InputGroup>
 								<InputAddon>
 									<small className="fw-semibold tt-uppercase ls-base">Rp</small>
 								</InputAddon>
-								<Input
-									type="text"
+								<InputCurrency
 									name="minimum"
 									value={selectedCardType.minimum}
 									placeholder="Masukkan minimum saldo"
 									onChange={(e) => handleInputChange(selectedCardType, e)}
 									required="true"
+									thousandSeparator={true}
 								/>
 							</InputGroup>
 						</FormGroup>
-						<FormGroup>
+						<FormGroup row>
 							<Label htmlFor="bonus" className="fw-semibold">Bonus Saldo</Label>
 							<InputGroup>
 								<InputAddon>
 									<small className="fw-semibold tt-uppercase ls-base">Rp</small>
 								</InputAddon>
-								<Input
+								<InputCurrency
 									type="text"
 									name="bonus"
 									value={selectedCardType.bonus}
 									placeholder="Masukkan bonus saldo"
 									onChange={(e) => handleInputChange(selectedCardType, e)}
+									thousandSeparator={true}
 									required="true"
 								/>
 							</InputGroup>
+						</FormGroup>
+						<FormGroup row>
+							<Label htmlFor="refundable" className="fw-semibold">Dapat direfund?</Label>
+							<Input
+								type="select"
+								name="refunable"
+								value={selectedCardType.refunable}
+								onChange={(e) => handleInputChange(selectedCardType, e)}>
+								<option value={true}>Bisa direfund</option>
+								<option value={false}>Tidak dapat direfund</option>
+							</Input>
 						</FormGroup>
 					</ModalContent>
 					<ModalFooter className="flex justify-content--flex-end">
@@ -174,7 +187,8 @@ class SettingsCard extends Component {
 		return (
 			<div className="inner-view">
 				<div className="padding-bottom-2">
-					<h5 className="fw-semibold">Daftar Kartu</h5>
+					<h5 className="fw-semibold">Daftar Tipe Kartu</h5>
+					<p className="clr-passive">Berikut merupakan daftar tipe kartu yang aktif dalam layanan.</p>
 				</div>
 				<PageBlockGroup>
 					{ card.isLoaded ? <SettingsCardList {...this.props} /> : null }

@@ -1,61 +1,48 @@
 import React from 'react';
-
-import { connect } from 'react-redux';
-import { userLogin } from '../../actions/user.action.js';
 import PropTypes from 'prop-types';
 
 import { Form, FormGroup } from '../Form';
 import { Input, InputGroup, Label } from '../Input';
 import { Button } from '../Button';
+import { Alert } from '../Alert';
 
 class LoginForm extends React.Component {
 	constructor() {
 		super();
-		this.state = {
-			username: '',
-			password: '',
-			submitted: false
-		}
-
-		this.handleChange = this.handleChange.bind(this);
-		this.handleSubmit = this.handleSubmit.bind(this);
+		this.renderErrorAlert = this.renderErrorAlert.bind(this);
 	}
 
-	handleChange = (e) => {
-		const target = e.target;
-		const value = target.type === 'checkbox' ? target.checkbox : target.value;
-		const name = target.name;
+	renderErrorAlert = () => {
+		const {
+			user
+		} = this.props;
 
-		this.setState({
-			[name]: value
-		});
-	}
+		if(user.isError) {
+			let errorMessage;
 
-	handleSubmit = (e) => {
-		e.preventDefault();
+			if(user.error.response.data.status == 403) {
+				errorMessage = 'User tidak ditemukan atau tidak aktif.'
+			}
 
-		this.setState({ submitted: true });
-		const { username, password } = this.state;
-		const { authentication, dispatch, cookies } = this.props;
-
-		if(username && password) {
-			dispatch(userLogin(username, password));
+			return (
+				<Alert theme="warning" className="margin-bottom-2">
+					<p>{errorMessage}</p>
+				</Alert>
+			)
 		}
 	}
 
 	render() {
 		const {
-			username,
-			password,
-			submitted
-		} = this.state;
-
-		const {
-			authentication
+			user,
+			loginData,
+			handleInputChange,
+			handleLoginSubmit
 		} = this.props;
 
 		return (
-			<Form>
+			<Form onSubmit={handleLoginSubmit}>
+				{ this.renderErrorAlert() }
 				<FormGroup>
 					<Label htmlFor="username">
 						<small className="tt-uppercase fw-semibold ls-base">Username</small>
@@ -64,8 +51,7 @@ class LoginForm extends React.Component {
 						name="username"
 						type="text"
 						placeholder="Masukkan username"
-						value={username}
-						onChange={this.handleChange}
+						onChange={(e) => handleInputChange(loginData, e)}
 					/>
 				</FormGroup>
 				<FormGroup>
@@ -76,23 +62,15 @@ class LoginForm extends React.Component {
 						name="password"
 						type="password"
 						placeholder="Masukkan kata sandi"
-						value={password}
-						onChange={this.handleChange}
+						onChange={(e) => handleInputChange(loginData, e)}
 					/>
 				</FormGroup>
-				<Button type="submit" buttonTheme="dark" buttonFull onClick={this.handleSubmit} disabled={authentication.isLoggingIn || !username || !password}>
-					<small className="fw-semibold ls-base tt-uppercase clr-light">{authentication.isLoggingIn ? 'Tunggu sebentar...' : 'Masuk'}</small>
+				<Button type="submit" buttonTheme="dark" buttonFull disabled={user.isLoggingIn || !loginData.username || !loginData.password}>
+					<small className="fw-semibold ls-base tt-uppercase clr-light">{user.isLoggingIn ? 'Tunggu sebentar...' : 'Masuk'}</small>
 				</Button>
 			</Form>
 		)
 	}
 }
 
-
-const mapDispatchToProps = (state) => {
-	return {
-		authentication: state.authentication
-	}
-}
-
-export default connect(mapDispatchToProps)(LoginForm);
+export default LoginForm;

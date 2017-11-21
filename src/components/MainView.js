@@ -19,16 +19,16 @@ class MainView extends React.Component {
 
 		return (
 			<Switch>
-				<PropsRoute 
-					name="admin" 
-					path="/admin" 
-					component={AdminContainer} 
-					{...this.props} 
+				<PropsRoute
+					name="admin"
+					path="/admin"
+					component={AdminContainer}
+					{...this.props}
 				/>
-				<PropsRoute 
-					name="customer" 
-					path="/customer" 
-					component={CustomerContainer} 
+				<PropsRoute
+					name="customer"
+					path="/customer"
+					component={CustomerContainer}
 					{...this.props}
 				/>
 				<PrivateRoute

@@ -3,6 +3,7 @@ import { Table, TableHeading, TableBody, TablePagination } from '../Table';
 import { Button, ButtonGroup } from '../Button';
 import { Input } from '../Input';
 import { PageBlock } from '../Page';
+import Currency from '../Currency';
 import SearchBar from '../SearchBar';
 
 class TableSet extends Component {
@@ -85,6 +86,7 @@ class TableSet extends Component {
 			columns,
 			onUpdate,
 			onDelete,
+			onDisable,
 			rows,
 			handleTableInputChange
 		} = this.props;
@@ -108,6 +110,16 @@ class TableSet extends Component {
 							</td>
 						)
 					}
+					else if(column.isCurrency) {						
+						cells.push(
+							<td>
+								<Currency
+									name={column.accessor}
+									value={row[key]}
+								/>
+							</td>
+						)
+					}
 					else {
 						cells.push(<td>{row[key]}</td>)
 					}
@@ -116,16 +128,32 @@ class TableSet extends Component {
 			}
 		})
 
-		if(onUpdate || onDelete) {
+		if(onUpdate || onDelete || onDisable) {
 			const action = (
 				<td>
-					<ButtonGroup>
-						<Button type="button" buttonTheme="primary" buttonSize="small" onClick={() => onUpdate(row)}>
-							<small className="tt-uppercase ls-base fw-semibold clr-light">Ubah</small>
-						</Button>
-						<Button type="button" buttonTheme="secondary" buttonSize="small" onClick={() => onDelete(row)}>
-							<small className="tt-uppercase ls-base fw-semibold clr-light">Hapus</small>
-						</Button>
+					<ButtonGroup className="flex justify-content--center">
+						{ 
+							onUpdate
+							? <Button type="button" buttonTheme="primary" buttonSize="small" onClick={() => onUpdate(row)}>
+								<small className="tt-uppercase ls-base fw-semibold clr-light">Ubah</small>
+							</Button> 
+							: null
+						}
+						{
+							onDelete
+							? <Button type="button" buttonTheme="danger" buttonSize="small" onClick={() => onDelete(row)}>
+								<small className="tt-uppercase ls-base fw-semibold clr-light">Hapus</small>
+							</Button> 
+							: null
+						}
+						{
+							onDisable
+							? <Button type="button" buttonTheme="secondary" buttonSize="small" onClick={() => onDisable(row)}>
+								<small className="tt-uppercase ls-base fw-semibold clr-light">Aktif</small>
+							</Button>
+							: null
+						}
+						
 					</ButtonGroup>
 				</td>
 			)

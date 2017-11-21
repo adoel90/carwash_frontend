@@ -63,7 +63,7 @@ class Settings extends React.Component {
 		return (
 			<PropsRoute
 				key={i}
-				path={`${match.url}/${path}`}
+				path={route.path}
 				component={route.component}
 				{...this.props}
 			/>

@@ -4,9 +4,10 @@ import { Report } from '../components/Report';
 class ReportContainer extends Component {
     constructor() {
         super();
-        this.handleNavigationItems = this.handleNavigationItems.bind(this);
         this.state = {
-            navigations: []
+            navigations: [
+                { id: 1, name: '', path: '', component: ''}
+            ]
         }
     }
     

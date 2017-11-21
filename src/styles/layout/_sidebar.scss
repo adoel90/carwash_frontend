@@ -4,6 +4,22 @@
 	max-height: calc(100vh - 12.5em);
 	overflow-y: auto;
 
+	&.sidebar--admin {
+		@include transition(transform 300ms $transition-primary);
+		@include border-radius(base);
+		margin-top: 1.5em;
+		top: 10em;
+		width: 15em;
+		background-color: gray(100);
+		
+		.navigation {
+			.navigation__item {
+				padding: ($spacer * .75) ($spacer * .75);
+				border-bottom: solid 1px gray(200);
+			}
+		}
+	}
+
 	&::-webkit-scrollbar {
 		width: 0px;
 		background: transparent;

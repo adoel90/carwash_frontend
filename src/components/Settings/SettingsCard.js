@@ -103,7 +103,6 @@ class SettingsCard extends Component {
 				toggle={() => toggleModal('updateCardType')}>
 				<ModalHeader align="center">
 					<h6 className="fw-semibold">Ubah Tipe Kartu: <span className="fw-bold clr-primary">{selectedCardType.name}</span></h6>
-					<p className="clr-passive">Hanya lakukan perubahan terhadap tipe kartu ketika <span className="fw-semibold">diperlukan saja!</span></p>
 				</ModalHeader>
 				<Form onSubmit={handleCardTypeUpdateSubmit}>
 					<ModalContent>

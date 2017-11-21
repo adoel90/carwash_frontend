@@ -8,6 +8,7 @@ import MainContent from '../MainContent';
 
 import LoginContainer from '../../containers/LoginContainer';
 import SettingsContainer from '../../containers/SettingsContainer';
+import ReportContainer from '../../containers/ReportContainer';
 import CashierContainer from '../../containers/CashierContainer';
 import CafeContainer from '../../containers/CafeContainer';
 
@@ -85,6 +86,16 @@ class Admin extends Component {
 						accessToken={accessToken}
 						redirectTo={`${match.url}/login`}
 					/>
+					<PrivateRoute
+						name="report"
+						path={`${match.url}/report`}
+						component={ReportContainer}
+						isAuthenticated={isAuthenticated}
+						redirectTo={`${match.url}/login`}
+						user={user}
+						accessToken={accessToken}
+					/>
+					
 					<PrivateRoute
 						name="cafe"
 						path={`${match.url}/cafe`}

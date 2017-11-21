@@ -191,7 +191,7 @@ class SettingsServiceContainer extends Component {
 		let requiredData = {
 			type: newService.type,
 			name: newService.name,
-			price: newService.price,
+			price: parseInt(newService.price.replace(/,/g, '')),
 			description: newService.description,
 			image: newService.image
 		}
@@ -227,7 +227,7 @@ class SettingsServiceContainer extends Component {
 		let requiredData = {
 			id: selectedService.id,
 			name: selectedService.name,
-			price: selectedService.price,
+			price: parseInt(selectedService.price.replace(/,/g, '')),
 			description: selectedService.description
 		}
 

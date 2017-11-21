@@ -140,7 +140,7 @@ class SettingsCafeTypeContainer extends Component {
 		let requiredData = {
 			cafe: type.id,
 			name: cafeMenuCreate.name,
-			price: cafeMenuCreate.price,
+			price: parseInt(cafeMenuCreate.price.replace(/'/g, '')),
 			description: cafeMenuCreate.description,
 			image: cafeMenuCreate.image
 		}
@@ -189,7 +189,7 @@ class SettingsCafeTypeContainer extends Component {
 			cafe: selectedCafeMenu.cafe,
 			id: selectedCafeMenu.id,
 			name: selectedCafeMenu.name,
-			price: selectedCafeMenu.price,
+			price: parseInt(selectedCafeMenu.price.replace(/,/g, '')),
 			description: selectedCafeMenu.description
 		}
 

@@ -33,7 +33,6 @@ class SettingsMember extends React.Component {
 				toggle={() => toggleModal('editMember')}>
 				<ModalHeader align="center">
 					<h6 className="fw-semibold">Ubah Informasi Member</h6>
-					<p className="clr-passive">Ubah informasi member hanya jika memang diperlukan.</p>
 				</ModalHeader>
 				<Form onSubmit={handleUpdateMemberSubmit}>
 					<ModalContent>

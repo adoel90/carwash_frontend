@@ -4,7 +4,7 @@ import { PageBlock, PageBlockGroup } from '../Page';
 import { Modal, Table } from 'reactstrap';
 import { ModalHeader, ModalContent, ModalFooter } from '../Modal';
 import { Form, FormGroup } from '../Form';
-import { Input, InputGroup, InputAddon, Label } from '../Input';
+import { Input, InputGroup, InputAddon, InputCurrency, Label } from '../Input';
 import { Button } from '../Button';
 import { Row } from '../Grid';
 import { SettingsCafeMenuList } from '../Settings';
@@ -119,11 +119,12 @@ class SettingsCafeType extends Component {
 									<Label htmlFor="name" className="fw-semibold">Harga Menu</Label>
 									<InputGroup>
 										<InputAddon>
-											<small classNaame="tt-uppercase ls-base clr-primary">Rp</small>
+											<small className="tt-uppercase fw-semibold ls-base">Rp</small>
 										</InputAddon>
-										<Input
+										<InputCurrency
 											type="text"
 											name="price"
+											thousandSeparator={true}
 											placeholder="Masukkan harga menu baru"
 											onChange={(e) => handleInputChange(cafeMenuCreate, e)}
 											required="true"
@@ -192,11 +193,12 @@ class SettingsCafeType extends Component {
 								<InputAddon>
 									<small className="fw-semibold">Rp</small>
 								</InputAddon>
-								<Input
+								<InputCurrency
 									name="price"
 									type="text"
 									value={selectedCafeMenu.price}
 									placeholder="Masukkan harga menu"
+									thousandSeparator={true}
 									onChange={(e) => handleInputChange(selectedCafeMenu, e)}
 									required="true"
 								/>

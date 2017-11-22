@@ -1,3 +1,7 @@
+body {
+	overflow-y: scroll;
+}
+
 * {
 	@include border-box;
 	font-family: $font-family-sans-serif !important;
@@ -38,17 +42,5 @@
 		// .page-block {
 		// 	height: 100%;
 		// }
-	}
-
-	.inner-view {
-		.inner-view-footer {
-			position: sticky;
-			bottom: 0;
-			height: 5em;
-			left: 0;
-			right: 0;
-			background-color: gray(200);
-			border-top: solid 1px gray(300);
-		}
 	}
 }

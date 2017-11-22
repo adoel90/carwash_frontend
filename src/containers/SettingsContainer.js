@@ -25,7 +25,8 @@ class SettingsContainer extends Component {
 			subroutes: [
 				{ id: 1, name: 'Pengaturan Member', path: "/admin/settings/pengaturan-member", component: SettingsMemberContainer },
 				{ id: 2, name: 'Pengaturan Service', path: "/admin/settings/pengaturan-service", component: SettingsServiceContainer },
-				{ id: 3, name: 'Pengaturan Cafe', path: "/admin/settings/pengaturan-cafe", component: SettingsCafeContainer }
+				{ id: 3, name: 'Pengaturan Cafe', path: "/admin/settings/pengaturan-cafe", component: SettingsCafeContainer },
+				{ id: 4, name: 'Pengaturan Tipe Kartu', path: "/admin/settings/pengaturan-kartu", component: SettingsCardContainer}
 			]
 		}
 	}

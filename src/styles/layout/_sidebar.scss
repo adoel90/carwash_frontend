@@ -19,14 +19,14 @@
 					border-bottom: solid 1px gray(200);
 					color: gray(400);
 
+					&:hover {
+						background-color: shade(gray(100), 4%) !important;
+					}
+					
 					&.is-active {
 						@include font-weight(semibold);
 						color: gray(1700);
 						border-left: solid 5px secondary-color(base);
-						background-color: shade(gray(100), 4%) !important;
-					}
-
-					&:hover {
 						background-color: shade(gray(100), 4%) !important;
 					}
 				}

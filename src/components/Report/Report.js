@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import { Container, Row } from '../Grid';
 import { AdminSidebar } from '../Admin';
 import { PropsRoute } from '../Route';
@@ -7,6 +8,20 @@ class Report extends Component {
 	constructor() {
 		super();
 		this.renderSubroutes = this.renderSubroutes.bind(this);
+		this.handleSubrouteRedirect = this.handleSubrouteRedirect.bind(this);
+	}
+
+	handleSubrouteRedirect = () => {
+		const {
+			match,
+			subroutes
+		} = this.props;
+		
+		let firstRoutePath = subroutes[0].name.replace(/\s+/g, '-').toLowerCase();
+				
+		return (
+			<Redirect to={`${match.url}/${firstRoutePath}`} />
+		)
 	}
 
 	renderSubroutes = (route, i) => {
@@ -17,7 +32,7 @@ class Report extends Component {
 		return (
 			<PropsRoute
 				key={i}
-				to={`${match.url}/${route.path}`}
+				to={route.path}
 				component={route.component}
 				{...this.props}
 			/>
@@ -31,7 +46,7 @@ class Report extends Component {
 
 		return (
 			<main className="main main--has-subheader">
-				<Container className="padding-top-3 padding-bottom-5">
+				<div style={{ padding: '30px' }}>
 					<Row>
 						<div className="column-3">
 							<AdminSidebar navigations={subroutes} />
@@ -40,7 +55,8 @@ class Report extends Component {
 							{ subroutes.map(this.renderSubroutes) }
 						</div>
 					</Row>
-				</Container>
+				</div>
+				{ this.handleSubrouteRedirect() }
 			</main>
 		);
 	}

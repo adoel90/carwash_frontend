@@ -8,12 +8,12 @@ class ReportContainer extends Component {
 		super();
 		this.state = {
 			subroutes: [
-				{ id: 1, name: 'Laporan Transaksi', path: "/admin/report/transaction", component: ReportTransactionContainer }
+				{ id: 1, name: 'Laporan Transaksi', path: "/admin/report/laporan-transaksi", component: ReportTransactionContainer },
 			]
 		}
 	}
 	
-	render() {
+	render() {		
 		return (
 			<Report
 				{...this.state}
@@ -23,4 +23,10 @@ class ReportContainer extends Component {
 	}
 }
 
-export default ReportContainer;
+const mapStateToProps = (state) => {
+	return {
+		report: state.report
+	}
+}
+
+export default connect(mapStateToProps)(ReportContainer);

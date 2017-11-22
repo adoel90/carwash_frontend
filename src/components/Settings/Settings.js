@@ -83,22 +83,18 @@ class Settings extends React.Component {
 
 		return (
 			<main className="main main--has-subheader">
-				<Container className="padding-top-3 padding-bottom-5">
+				<div style={{ padding: '30px' }}>
 					<Row>
 						<div className="column-3">
 							<AdminSidebar
 								navigations={subroutes}
 							/>
-						
-							{/* <aside className="sidebar">
-								<MainSidenav items={ this.props.subroutes } basePath={match.path} />
-							</aside> */}
 						</div>
 						<div className="column-9">
 							{ subroutes.map(this.renderSubroutes) }
 						</div>
 					</Row>
-				</Container>
+				</div>
 				{ this.handleSubrouteRedirect() }
 				{ dialog.isOpen ? this.renderDialog() : null }
 			</main>

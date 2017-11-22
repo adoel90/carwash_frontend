@@ -5,6 +5,7 @@ import cafe from './cafe.reducer';
 import member from './member.reducer';
 import card from './card.reducer';
 import dialog from './dialog.reducer';
+import report from './report.reducer';
 
 const rootReducer = combineReducers({
 	user,
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
 	cafe,
 	member,
 	card,
-	dialog
+	dialog,
+	report
 });
 
 export default rootReducer;

@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
 import { PropsRoute, PrivateRoute } from '../Route';
-import MainHeader from '../MainHeader';
-import MainSubheader from '../MainSubheader';
-import MainContent from '../MainContent';
+import { AdminHeader, AdminSubheader, AdminContent } from '../Admin';
+// import MainHeader from '../MainHeader';
+// import MainSubheader from '../MainSubheader';
+// import MainContent from '../MainContent';
 
 import LoginContainer from '../../containers/LoginContainer';
 import SettingsContainer from '../../containers/SettingsContainer';
@@ -72,9 +73,9 @@ class Admin extends Component {
 
 		return (
 			<div>
-				<MainHeader {...this.props} />
-				<MainSubheader {...this.props} />
-				<MainContent>
+				<AdminHeader {...this.props} />
+				<AdminSubheader {...this.props} />
+				<AdminContent>
 					{ this.handleRedirect() }
 					<Route name="login" path={`${match.url}/login`} component={ LoginContainer } />
 					<PrivateRoute
@@ -114,7 +115,7 @@ class Admin extends Component {
 						user={user}
 						accessToken={accessToken}
 					/>
-				</MainContent>
+				</AdminContent>
 			</div>
 		);
 	}

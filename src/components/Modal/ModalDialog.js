@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import classNames from 'classnames';
 import { Modal } from 'reactstrap';
 import { ModalContent, ModalFooter, ModalDialogIcon } from '../Modal';
 import { Button } from '../Button';
@@ -21,10 +22,10 @@ class ModalDialog extends Component {
 
 		let buttonStack = [];
 
-		if(onCancel) {
+		if(onClose) {
 			buttonStack.push(
-				<Button buttonTheme="danger" buttonSize="small" className="clr-light margin-right-1" onClick={onCancel}>
-					<small className="fw-semibold tt-uppercase ls-base">{cancelText}</small>
+				<Button buttonTheme="danger" buttonSize="small" className="clr-light margin-right-2" onClick={onClose}>
+					<small className="fw-semibold tt-uppercase ls-base">{closeText}</small>
 				</Button>
 			)
 		}
@@ -37,14 +38,6 @@ class ModalDialog extends Component {
 			)
 		}
 
-		if(onClose) {
-			buttonStack.push(
-				<Button buttonTheme="secondary" buttonSize="small" className="clr-dark" onClick={onClose}>
-					<small className="fw-semibold tt-uppercase ls-base">{closeText}</small>
-				</Button>
-			)
-		}
-
 		return buttonStack;
 	}
 
@@ -53,13 +46,16 @@ class ModalDialog extends Component {
 			children,
 			type,
 			title,
-			message
+			message,
+			className
 		} = this.props;
 
-		console.log(this.props);
+		const classes = classNames(
+			className
+		)
 
 		return (
-			<Modal {...this.props}>
+			<Modal className={classes} {...this.props}>
 				<ModalContent className="flex flex-column align-items--center justify-content--center ta-center">
 					<ModalDialogIcon type={type} />
 					<h5 className="fw-semibold">{title}</h5>

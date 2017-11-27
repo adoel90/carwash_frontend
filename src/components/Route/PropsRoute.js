@@ -19,27 +19,6 @@ const PropsRoute = (props) => {
 			return renderMergedProps(component, routeProps, rest)
 		}} />
 	)
-
-	// const renderRoute = (props) => {
-	// 	return <Component {...props} {...rest} />
-	// };
-	//
-	// return <Route {...rest} render={renderRoute} />
 }
-//
-// class PropsRoute extends React.Component {
-// 	render() {
-// 		const {
-// 			component: Component,
-// 			...rest
-// 		} = this.props;
-//
-// 		const renderRoute = (routeProps) => {
-// 			return <Component {...routeProps} {...rest} />
-// 		};
-//
-// 		return <Route {...rest} render={renderRoute} />
-// 	}
-// }
 
 export default PropsRoute;

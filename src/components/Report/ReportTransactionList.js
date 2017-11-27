@@ -5,7 +5,7 @@ class ReportTransactionList extends Component {
     render() {
         return (
             <PageBlock>
-            
+
             </PageBlock>
         );
     }

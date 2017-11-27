@@ -1,62 +1,35 @@
 import {
-	TOGGLE_DIALOG_REQUESTED,
-	SHOW_DIALOG_CONFIRM,
-	SHOW_DIALOG_SUCCESS,
-	CLOSE_DIALOG
+	SHOW_DIALOG_FULFILLED,
+	HIDE_DIALOG_FULFILLED
 } from '../actions/dialog.action';
 
 const initialState = {
-	isOpen: false,
-	type: '',
-	title: '',
-	message: '',
-	confirm: null,
-	close: null,
-	cancel: null,
-	confirmText: null,
-	cancelText: null,
-	closeText: null
+	data: {},
+	isOpened: false,
+	isClosed: false,
+	isError: false,
+	error: {}
 }
 
 const dialog = (state = initialState, action) => {
 	switch(action.type) {
-		case TOGGLE_DIALOG_REQUESTED: {
-			return initialState;
-		}
-
-		case SHOW_DIALOG_CONFIRM: {
+		case 'SHOW_DIALOG_FULFILLED': {
 			return {
 				...state,
-				isOpen: true,
-				type: action.payload.type,
-				title: action.payload.title,
-				message: action.payload.message,
-				confirm: action.payload.confirm,
-				confirmText: action.payload.confirmText,
-				cancel: action.payload.cancel,
-				cancelText: action.payload.cancelText
+				isOpened: true,
+				isClosed: false,
+				data: action.payload
 			}
 		}
 
-		case SHOW_DIALOG_SUCCESS: {
+		case 'HIDE_DIALOG_FULFILLED': {
 			return {
 				...state,
-				isOpen: true,
-				type: action.payload.type,
-				title: action.payload.title,
-				message: action.payload.message,
-				close: action.payload.close,
-				closeText: action.payload.closeText
+				isOpened: false,
+				isClosed: true,
+				data: {}
 			}
 		}
-
-		case CLOSE_DIALOG: {
-			return {
-				...state,
-				isOpen: false
-			}
-		}
-
 
 		default: {
 			return state;

@@ -7,9 +7,6 @@ import {
 	updateCafeMenu,
 	deleteCafeMenu
 } from '../actions/cafe.action';
-import {
-	toggleDialog
-} from '../actions/dialog.action';
 import { SettingsCafeType } from '../components/Settings';
 
 class SettingsCafeTypeContainer extends Component {
@@ -50,7 +47,8 @@ class SettingsCafeTypeContainer extends Component {
 		const {
 			cafe,
 			dispatch,
-			dialog
+			dialog,
+			toggleDialog
 		} = this.props;
 
 		if(prevProps.cafe !== this.props.cafe) {
@@ -59,7 +57,7 @@ class SettingsCafeTypeContainer extends Component {
 					type: 'success',
 					title: '',
 					message: '',
-					close: () => {
+					onClose: () => {
 						window.location.reload()
 					},
 					closeText: 'Tutup'
@@ -69,15 +67,13 @@ class SettingsCafeTypeContainer extends Component {
 			if(cafe.isUpdated) {
 				dialogData.success.title = 'Berhasil!';
 				dialogData.success.message = 'Perubahan terhadap menu cafe berhasil. Klik tombol berikut untuk kembali.';
-
-				dispatch(toggleDialog(dialogData.success, dialog.isOpen));
+				toggleDialog(dialogData.success);
 			}
 
 			if(cafe.isDeleted) {
 				dialogData.success.title = 'Berhasil!';
 				dialogData.success.message = 'Penghapusan menu cafe berhasil. Klik tombol berikut untuk kembali.';
-
-				dispatch(toggleDialog(dialogData.success, false));
+				toggleDialog(dialogData.success);
 			}
 		}
 	}
@@ -201,7 +197,8 @@ class SettingsCafeTypeContainer extends Component {
 			dialog,
 			dispatch,
 			type,
-			toggleModal
+			toggleModal,
+			toggleDialog
 		} = this.props;
 
 		const {
@@ -222,13 +219,13 @@ class SettingsCafeTypeContainer extends Component {
 			type: 'confirm',
 			title: 'Perhatian!',
 			message: `Anda akan menghapus data cafe menu dengan nama ${cafeMenu.name}. Aksi ini tidak dapat dipulihkan. Apakah Anda yakin ingin menghapusnya?`,
-			cancel: true,
-			cancelText: 'Batalkan',
-			confirm: () => this.handleCafeMenuDeleteSubmit(),
-			confirmText: 'Ya, Lanjutkan'
+			confirmText: 'Ya, Lanjutkan',
+			closeText: 'Kembali',
+			onConfirm: () => this.handleCafeMenuDeleteSubmit(),
+			onClose: () => toggleDialog
 		}
 
-		dispatch(toggleDialog(dialogData, dialog.isOpen));
+		toggleDialog(dialogData);
 	}
 
 	handleCafeMenuDeleteSubmit = () => {

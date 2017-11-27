@@ -27,7 +27,9 @@ const initialState = {
 	isFetching: false,
 	isLoaded: false,
 	isDeleted: false,
+	isCreated: false,
 	isUpdated: false,
+	isError: false,
 	error: {}
 }
 
@@ -90,6 +92,7 @@ const service = (state = initialState, action) => {
 			return {
 				...state,
 				service: action.payload,
+				isCreated: true,
 				error: null
 			}
 		}
@@ -98,6 +101,8 @@ const service = (state = initialState, action) => {
 			return {
 				...state,
 				service: null,
+				isCreated: false,
+				isError: true,
 				error: action.payload
 			}
 		}

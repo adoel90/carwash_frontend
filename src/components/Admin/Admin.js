@@ -96,7 +96,7 @@ class Admin extends Component {
 						user={user}
 						accessToken={accessToken}
 					/>
-					
+
 					<PrivateRoute
 						name="cafe"
 						path={`${match.url}/cafe`}

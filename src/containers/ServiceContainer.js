@@ -1,9 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import Service from '../components/Service';
 import PropTypes from 'prop-types';
 import { withCookies, Cookies } from 'react-cookie';
 
-import { connect } from 'react-redux';
 import { getServiceTypes } from '../actions/service.action.js';
 
 class ServiceContainer extends React.Component {
@@ -55,10 +55,9 @@ class ServiceContainer extends React.Component {
 }
 
 const mapStateToProps = (state, props) => {
-	const service = state.service;
-
 	return {
-		service
+		dialog: state.dialog,
+		service: state.service
 	}
 }
 

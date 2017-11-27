@@ -8,7 +8,8 @@ import {
 	deleteCardType
 } from '../actions/card.action';
 import {
-	toggleDialog
+	showDialog,
+	hideDialog
 } from '../actions/dialog.action';
 import { SettingsCard } from '../components/Settings';
 
@@ -54,7 +55,8 @@ class SettingsCardContainer extends Component {
 		const {
 			card,
 			dispatch,
-			dialog
+			dialog,
+			toggleDialog
 		} = this.props;
 
 
@@ -64,7 +66,7 @@ class SettingsCardContainer extends Component {
 					type: 'success',
 					title: '',
 					message: '',
-					close: () => {
+					onClose: () => {
 						window.location.reload()
 					},
 					closeText: 'Tutup'
@@ -76,21 +78,22 @@ class SettingsCardContainer extends Component {
 				dialogData.success.title = 'Berhasil!';
 				dialogData.success.message = 'Data tipe kartu berhasil diubah.';
 
-				dispatch(toggleDialog(dialogData.success, dialog.isOpen));
+				toggleDialog(dialogData.success);
 			}
 
 			else if(card.isCreated) {
 				dialogData.success.title = 'Berhasil!';
 				dialogData.success.message = 'Tipe kartu telah berhasil dibuat.';
 
-				dispatch(toggleDialog(dialogData.success, dialog.isOpen));
+				toggleDialog(dialogData.success);
+
 			}
 
 			else if(card.isDeleted) {
 				dialogData.success.title = 'Berhasil!';
 				dialogData.success.message = 'Tipe kartu telah berhasil dihapus.';
 
-				dispatch(toggleDialog(dialogData.success, false));
+				toggleDialog(dialogData.success);
 			}
 		}
 	}
@@ -191,7 +194,8 @@ class SettingsCardContainer extends Component {
 	handleCardTypeDelete = (cardType) => {
 		const {
 			dispatch,
-			dialog
+			dialog,
+			toggleDialog
 		} = this.props;
 
 		this.setState({
@@ -206,14 +210,15 @@ class SettingsCardContainer extends Component {
 		const dialogData = {
 			type: 'confirm',
 			title: 'Perhatian!',
-			message: `Anda akan menghapus tipe kartu ${cardType.name}. \n Aksi ini tidak dapat dipulihkan kembali. \n Apakah Anda yakin ingin melanjutkan?`,
-			confirm: (e) => this.handleCardTypeDeleteSubmit(e),
+			message: `Anda akan menghapus tipe kartu ${cardType.name}. Aksi ini tidak dapat dipulihkan kembali. \n Apakah Anda yakin ingin melanjutkan?`,
+			onConfirm: (e) => this.handleCardTypeDeleteSubmit(e),
 			confirmText: 'Ya, Lanjutkan',
-			cancel: true,
-			cancelText: 'Batalkan'
+			onClose: toggleDialog,
+			closeText: 'Kembali'
 		}
 
-		dispatch(toggleDialog(dialogData, dialog.isOpen));
+		toggleDialog(dialogData);
+		// dispatch(toggleDialog(dialogData, dialog.isOpen));
 	}
 
 	handleCardTypeDeleteSubmit = (e) => {

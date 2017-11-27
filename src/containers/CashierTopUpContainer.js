@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { authenticateMember, memberTopup } from '../actions/member.action'
-import { toggleDialog } from '../actions/dialog.action';
+import { showDialog, hideDialog } from '../actions/dialog.action';
 import Currency from '../components/Currency';
 
 import { CashierTopUp } from '../components/Cashier';
@@ -31,7 +31,8 @@ class CashierTopUpContainer extends Component {
 		const {
 			dispatch,
 			member,
-			dialog
+			dialog,
+			toggleDialog
 		} = this.props;
 
 		const {
@@ -46,7 +47,7 @@ class CashierTopUpContainer extends Component {
 			if(member.isTopup) {
 				let totalBalance = parseInt(member.data.balance) + parseInt(topupData.balance);
 				let message = (
-					<p>Proses isi ulang saldo member telah berhasil. Kini saldo member berjumlah <span className="clr-primary fw-semibold"><Currency value={totalBalance} /></span>.</p>
+					<p>Proses isi ulang saldo member telah berhasil. Saldo member kini berjumlah <span className="clr-primary fw-semibold"><Currency value={totalBalance} /></span>.</p>
 				)
 
 				let dialogData = {
@@ -54,14 +55,15 @@ class CashierTopUpContainer extends Component {
 						type: 'success',
 						title: 'Berhasil',
 						message: message,
-						close: () => {
+						onClose: () => {
 							window.location.reload()
 						},
 						closeText: 'Tutup'
 					}
 				}
 
-				dispatch(toggleDialog(dialogData.success, dialog.isOpen))
+				toggleDialog(toggleDialog.success);
+				// dispatch(toggleDialog(dialogData.success, dialog.isOpen))
 			}
 		}
 	}

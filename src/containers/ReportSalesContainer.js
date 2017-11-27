@@ -1,36 +1,28 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { ReportTransaction } from '../components/Report';
+import { ReportSales } from '../components/Report';
 
-class ReportTransactionContainer extends Component {
+class ReportSalesContainer extends Component {
 	constructor() {
 		super();
 		this.state = {
-			transactionTypes: [
+			salesTypes: [
 				{ id: 1, name: 'Cafe', type: 'cafe' },
 				{ id: 2, name: 'Service', type: 'service' }
 			],
 			activeTab: 0
 		}
-
-		this.toggleTab = this.toggleTab.bind(this);
-	}
-
-	toggleTab = (tabIndex) => {
-		this.setState({
-			activeTab: tabIndex
-		})
 	}
 
 	render() {
 		return (
-			<ReportTransaction
+			<ReportSales
 				{...this.state}
 				{...this.props}
-				toggleTab={this.toggleTab}
 			/>
-		)
+		);
 	}
+
 }
 
 const mapStateToProps = (state) => {
@@ -39,4 +31,4 @@ const mapStateToProps = (state) => {
 	}
 }
 
-export default connect(mapStateToProps)(ReportTransactionContainer);
+export default connect(mapStateToProps)(ReportSalesContainer);

@@ -16,11 +16,12 @@ class Report extends Component {
 			match,
 			subroutes
 		} = this.props;
-		
-		let firstRoutePath = subroutes[0].name.replace(/\s+/g, '-').toLowerCase();
-				
+
+		// let firstRoutePath = subroutes[0].name.replace(/\s+/g, '-').toLowerCase();
+		let firstRoutePath = subroutes[0].path;
+
 		return (
-			<Redirect to={`${match.url}/${firstRoutePath}`} />
+			<Redirect to={firstRoutePath} />
 		)
 	}
 
@@ -28,11 +29,11 @@ class Report extends Component {
 		const {
 			match
 		} = this.props;
-
+		
 		return (
 			<PropsRoute
 				key={i}
-				to={route.path}
+				path={route.path}
 				component={route.component}
 				{...this.props}
 			/>

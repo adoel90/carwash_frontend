@@ -6,7 +6,7 @@ import {
 	updateMember,
 	deleteMember
 } from '../actions/member.action';
-import { toggleDialog } from '../actions/dialog.action';
+import { showDialog, hideDialog } from '../actions/dialog.action';
 import { SettingsMember } from '../components/Settings';
 
 class SettingsMemberContainer extends Component {
@@ -43,7 +43,9 @@ class SettingsMemberContainer extends Component {
 		const {
 			dialog,
 			dispatch,
-			member
+			member,
+			toggleDialog,
+			showDialog
 		} = this.props;
 
 		if(prevProps.member !== this.props.member) {
@@ -52,10 +54,10 @@ class SettingsMemberContainer extends Component {
 					type: 'success',
 					title: '',
 					message: '',
-					close: () => {
+					onClose: () => {
 						window.location.reload()
 					},
-					closeText: 'Tutup'
+					closeText: 'Kembali'
 				}
 			}
 
@@ -63,14 +65,16 @@ class SettingsMemberContainer extends Component {
 				dialogData.success.title = 'Berhasil';
 				dialogData.success.message = 'Data member telah berhasil diubah. Klik tombol berikut untuk kembali.';
 
-				dispatch(toggleDialog(dialogData.success, false));
+				// dispatch(toggleDialog(dialogData.success, false));
+				toggleDialog(dialogData.success);
 			}
 
 			else if(member.isDeleted) {
 				dialogData.success.title = 'Berhasil';
 				dialogData.success.message = 'Penghapusan member telah berhasil. Klik tombol berikut untuk kembali.';
 
-				dispatch(toggleDialog(dialogData.success, false));
+				showDialog(dialogData.success);
+				// dispatch(toggleDialog(dialogData.success, false));
 			}
 		}
 	}
@@ -144,7 +148,8 @@ class SettingsMemberContainer extends Component {
 	handleDeleteMember = (member) => {
 		const {
 			dialog,
-			dispatch
+			dispatch,
+			toggleDialog
 		} = this.props;
 
 		this.setState({
@@ -161,13 +166,14 @@ class SettingsMemberContainer extends Component {
 			type: 'confirm',
 			title: 'Perhatian!',
 			message: 'Anda akan menghapus seluruh data member ini dan aksi ini tidak dapat dipulihkan. Apakah Anda yakin ingin melanjutkan?',
-			confirm: () => this.handleDeleteMemberSubmit(),
+			onConfirm: () => this.handleDeleteMemberSubmit(),
 			confirmText: 'Ya, Lanjutkan',
-			cancel: true,
-			cancelText: 'Batalkan'
+			onClose: toggleDialog,
+			closeText: 'Batalkan'
 		}
 
-		dispatch(toggleDialog(dialogData, dialog.isOpen));
+		toggleDialog(dialogData);
+		// dispatch(toggleDialog(dialogData, dialog.isOpen));
 	}
 
 	handleDeleteMemberSubmit = () => {

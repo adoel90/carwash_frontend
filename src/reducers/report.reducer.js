@@ -5,10 +5,18 @@ import {
 } from '../actions/report.action';
 
 const initialState = {
-    transactionList: {},
-    isFetching: false,
-    isLoaded: false,
-    isError: false,
+    transaction: {
+        data: {},
+        isFetching: false,
+        isLoaded: false,
+        isError: false,
+    },
+    sales: {
+        data: {},
+        isFetching: false,
+        isLoaded: false,
+        isError: false,
+    },
     error: {}
 }
 
@@ -17,26 +25,39 @@ const report = (state = initialState, action) => {
         case GET_TRANSACTION_REPORT_REQUESTED: {
             return {
                 ...state,
-                isFetching: true
+                transaction: {
+                    ...state.transaction,
+                    isFetching: true,
+                    isLoaded: false,
+                    isError: false
+                }
             }
         }
-        
+
 		case GET_TRANSACTION_REPORT_FULFILLED: {
 			return {
                 ...state,
-                transactionList: action.payload,
-                isFetching: false,
-                isLoaded: true,
-				error: {}
+                transaction: {
+                    ...state.transaction,
+                    data: action.payload.data,
+                    isFetching: false,
+                    isLoaded: true,
+                    isError: false
+                }
 			}
         }
-        
+
         case GET_TRANSACTION_REPORT_REJECTED: {
             return {
                 ...state,
-                transactionList: {},
-                isError: true,
-                error: action.payload
+                transaction: {
+                    ...state.transaction,
+                    data: {},
+                    isFetching: false,
+                    isLoaded: false,
+                    isError: true,
+                    error: action.payload
+                }
             }
         }
 

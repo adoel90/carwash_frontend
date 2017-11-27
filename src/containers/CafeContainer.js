@@ -8,7 +8,10 @@ import {
 } from '../actions/cafe.action.js';
 
 
-import { toggleDialog } from '../actions/dialog.action';
+import {
+	showDialog,
+	hideDialog
+} from '../actions/dialog.action';
 
 import {
 	authenticateMember
@@ -59,14 +62,12 @@ class CafeContainer extends React.Component {
 						type: 'success',
 						title: 'Pembayaran Berhasil',
 						message: 'Proses pembayaran terhadap pesanan customer berhasil. Klik tombol berikut untuk mencetak struk pembayaran.',
-						close: () => {
-							window.location.reload()
-						},
-						closeText: 'Cetak Struk'
+						onClose: () => window.location.reload(),
+						closeText: 'Kembali'
 					}
 				}
 
-				dispatch(toggleDialog(dialogData.success, false));
+				this.toggleDialog(dialogData.success);
 			}
 		}
 	}
@@ -76,13 +77,18 @@ class CafeContainer extends React.Component {
 		this.getCafeTypes();
 	}
 
-	toggleDialog = () => {
+	toggleDialog = (data) => {
 		const {
 			dialog,
 			dispatch
 		} = this.props;
 
-		dispatch(toggleDialog(null, dialog.isOpen))
+		if(!dialog.isOpened) {
+			dispatch(showDialog(data))
+		}
+		else {
+			dispatch(hideDialog())
+		}
 	}
 
 	calculateGrandTotal = () => {
@@ -144,7 +150,7 @@ class CafeContainer extends React.Component {
 
 	handleSearchFilterSubmit = () => {
 		const {
-			searchText 
+			searchText
 		} = this.props
 	}
 

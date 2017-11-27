@@ -4,10 +4,10 @@ import { PropsRoute } from '../Route';
 import { TabContent } from '../Tab';
 import ReportTransactionListContainer from '../../containers/ReportTransactionListContainer';
 
-class ReportTransaction extends Component {	
+class ReportTransaction extends Component {
 	constructor() {
 		super();
-		this.rnederTransactionTabNav = this.renderTransactionTabNav.bind(this);
+		this.renderTransactionTabNav = this.renderTransactionTabNav.bind(this);
 		this.renderTransactionTabContent = this.renderTransactionTabContent.bind(this);
 	}
 
@@ -33,11 +33,10 @@ class ReportTransaction extends Component {
 			match,
 			activeTab
 		} = this.props;
-		
+
 		return (
 			<TabContent activeTab={activeTab} tabIndex={i}>
 				<PropsRoute
-					path={`${match.url}/${i}`}
 					component={ReportTransactionListContainer}
 					type={type}
 					{...this.props}
@@ -45,12 +44,12 @@ class ReportTransaction extends Component {
 			</TabContent>
 		)
 	}
-	
+
 	render() {
 		const {
 			transactionTypes
 		} = this.props;
-		
+
 		return (
 			<div className="inner-view">
 				<div className="padding-bottom-3">

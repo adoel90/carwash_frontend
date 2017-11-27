@@ -15,9 +15,10 @@ class CustomerContainer extends Component {
 		super();
 		this.handleRouteRedirect = this.handleRouteRedirect.bind(this);
 		this.state = {
-			navigationItems: [
-				{ id: 1, name: 'Pilih Servis', path: "/customer/service" },
-				{ id: 2, name: 'Profil Saya', path: "/customer/profile" }
+			navigations: [
+				{ id: 1, name: 'Pilih Layanan', path: "/customer/service" },
+				{ id: 2, name: 'Profil Saya', path: "/customer/my-profile" },
+				{ id: 3, name: 'Kartu Saya', path: "/customer/my-card" },
 			]
 		}
 	}
@@ -68,7 +69,6 @@ class CustomerContainer extends Component {
 			</div>
 		);
 	}
-
 }
 
 export default CustomerContainer;

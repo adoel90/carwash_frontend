@@ -1,17 +1,22 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { ReportTransactionList } from '../components/Report';
 
-class ReportTransactionListContainer extends Component { 
+class ReportTransactionListContainer extends Component {
     render() {
-        return null;
-        
-        // return (
-        //     <ReportTransactionList
-        //         {...this.state}
-        //         {...this.props}
-        //     />
-        // );
+        return (
+            <ReportTransactionList
+                {...this.state}
+                {...this.props}
+            />
+        );
     }
 }
 
-export default ReportTransactionListContainer;
+const mapStateToProps = (state) => {
+    return {
+        report: state.report
+    }
+}
+
+export default connect(mapStateToProps)(ReportTransactionListContainer);

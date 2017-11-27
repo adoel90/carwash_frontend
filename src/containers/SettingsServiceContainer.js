@@ -8,7 +8,8 @@ import {
 	createNewServiceType
 } from '../actions/service.action';
 import {
-	toggleDialog
+	showDialog,
+	hideDialog
 } from '../actions/dialog.action';
 import { SettingsService } from '../components/Settings';
 
@@ -65,7 +66,9 @@ class SettingsServiceContainer extends Component {
 		const {
 			service,
 			dialog,
-			dispatch
+			dispatch,
+			toggleDialog,
+			showDialog
 		} = this.props;
 
 		if(prevProps.service !== this.props.service) {
@@ -74,32 +77,39 @@ class SettingsServiceContainer extends Component {
 					type: 'success',
 					title: '',
 					message: '',
-					close: () => {
+					onClose: () => {
 						window.location.reload()
 					},
-					closeText: 'Tutup'
+					closeText: 'Kembali'
 				}
 			}
 
 			if(service.isUpdated) {
-				dialogData.success.title = 'Berhasil';
-				dialogData.success.message = 'Perubahan informasi service telah berhasil.'
+				dialogData.success.title = 'Berhasil!';
+				dialogData.success.message = 'Perubahan informasi service telah berhasil. Klik tombol berikut untuk kembali.'
 
-				dispatch(toggleDialog(dialogData.success, false));
+				toggleDialog(dialogData.success);
+			}
+
+			else if(service.isCreated) {
+				dialogData.success.title = 'Berhasil!';
+				dialogData.success.message = 'Service telah berhasil ditambahkan. Klik tombol berikut untuk kembali.'
+
+				toggleDialog(dialogData.success);
+			}
+
+			else if(service.type.isDeleted) {
+				dialogData.success.title = 'Berhasil!';
+				dialogData.success.message = 'Kategori service telah berhasil dihapus. Klik tombol berikut untuk kembali.'
+
+				showDialog(dialogData.success);
 			}
 
 			else if(service.isDeleted) {
 				dialogData.success.title = 'Berhasil!';
-				dialogData.success.message = 'Penghapusan service telah berhasil.';
+				dialogData.success.message = 'Penghapusan service telah berhasil. Klik tombol berikut untuk kembali.';
 
-				dispatch(toggleDialog(dialogData.success, false));
-			}
-
-			else if(service.type.isDeleted) {
-				dialogData.success.title = 'Berhasil';
-				dialogData.success.message = 'Kategori service telah berhasil dihapus. Klik untuk kembali.'
-
-				dispatch(toggleDialog(dialogData.success, false));
+				showDialog(dialogData.success);
 			}
 		}
 	}
@@ -237,7 +247,8 @@ class SettingsServiceContainer extends Component {
 	handleServiceDelete = (service) => {
 		const {
 			dialog,
-			dispatch
+			dispatch,
+			toggleDialog
 		} = this.props;
 
 		this.setState({
@@ -253,13 +264,14 @@ class SettingsServiceContainer extends Component {
 			type: 'confirm',
 			title: 'Perhatian!',
 			message: 'Anda akan menghapus service beserta seluruh informasinya. Tindakan ini tidak dapat dipulihkan. Apakah Anda ingin menghapus service ini?',
-			confirm: () => this.handleServiceDeleteSubmit(),
 			confirmText: 'Ya, Lanjutkan',
-			cancel: true,
-			cancelText: 'Batal'
+			closeText: 'Batalkan',
+			onConfirm: () => this.handleServiceDeleteSubmit(),
+			onClose: toggleDialog,
 		}
 
-		dispatch(toggleDialog(dialogData, dialog.isOpen));
+		toggleDialog(dialogData);
+		// dispatch(toggleDialog(dialogData, dialog.isOpen));
 	}
 
 	handleServiceDeleteSubmit = () => {

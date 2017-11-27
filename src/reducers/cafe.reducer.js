@@ -89,6 +89,7 @@ const cafe = (state = initialState, action) => {
 			return {
 				...state,
 				menu: action.payload,
+				isCreated: true,
 				error: {}
 			}
 		}
@@ -97,6 +98,8 @@ const cafe = (state = initialState, action) => {
 			return {
 				...state,
 				menu: {},
+				isCreated: false,
+				isError: true,
 				error: action.payload
 			}
 		}

@@ -13,8 +13,6 @@ class SettingsCafeContainer extends React.Component {
 		this.toggleModal = this.toggleModal.bind(this);
 		this.handleInputChange = this.handleInputChange.bind(this);
 		this.handleNewCafeType = this.handleNewCafeType.bind(this);
-		this.handleCafeMenuDelete = this.handleCafeMenuDelete.bind(this);
-		this.handleCafeMenuDeleteSubmit = this.handleCafeMenuDeleteSubmit.bind(this);
 		this.state = {
 			isModalOpen: {
 				cafeTypeCreate: false,
@@ -35,58 +33,50 @@ class SettingsCafeContainer extends React.Component {
 		this.getCafeTypes();
 	}
 
-	componentDidUpdate = (prevProps) => {
-		const {
-			cafe,
-			dialog,
-			dispatch,
-			toggleDialog,
-			showDialog
-		} = this.props;
-
-		if(prevProps.service !== this.props.service) {
-			let dialogData = {
-				success: {
-					type: 'success',
-					title: '',
-					message: '',
-					onClose: () => {
-						window.location.reload()
-					},
-					closeText: 'Kembali'
-				}
-			}
-
-			if(cafe.isUpdated) {
-				dialogData.success.title = 'Berhasil!';
-				dialogData.success.message = 'Perubahan informasi menu telah berhasil. Klik tombol berikut untuk kembali.'
-
-				toggleDialog(dialogData.success);
-			}
-
-			else if(cafe.isCreated) {
-				dialogData.success.title = 'Berhasil!';
-				dialogData.success.message = 'Menu telah berhasil ditambahkan. Klik tombol berikut untuk kembali.'
-
-				toggleDialog(dialogData.success);
-			}
-
-			else if(cafe.isDeleted) {
-				dialogData.success.title = 'Berhasil!';
-				dialogData.success.message = 'Menu telah berhasil dihapus. Klik tombol berikut untuk kembali.';
-
-				showDialog(dialogData.success);
-			}
-		}
-	}
-
-	handleCafeMenuDelete = () => {
-
-	}
-
-	handleCafeMenuDeleteSubmit = () => {
-
-	}
+	// componentDidUpdate = (prevProps) => {
+	// 	const {
+	// 		cafe,
+	// 		dialog,
+	// 		dispatch,
+	// 		toggleDialog,
+	// 		showDialog
+	// 	} = this.props;
+	//
+	// 	if(prevProps.service !== this.props.service) {
+	// 		let dialogData = {
+	// 			success: {
+	// 				type: 'success',
+	// 				title: '',
+	// 				message: '',
+	// 				onClose: () => {
+	// 					window.location.reload()
+	// 				},
+	// 				closeText: 'Kembali'
+	// 			}
+	// 		}
+	//
+	// 		if(cafe.isUpdated) {
+	// 			dialogData.success.title = 'Berhasil!';
+	// 			dialogData.success.message = 'Perubahan informasi menu telah berhasil. Klik tombol berikut untuk kembali.'
+	//
+	// 			toggleDialog(dialogData.success);
+	// 		}
+	//
+	// 		else if(cafe.isCreated) {
+	// 			dialogData.success.title = 'Berhasil!';
+	// 			dialogData.success.message = 'Menu telah berhasil ditambahkan. Klik tombol berikut untuk kembali.'
+	//
+	// 			toggleDialog(dialogData.success);
+	// 		}
+	//
+	// 		else if(cafe.isDeleted) {
+	// 			dialogData.success.title = 'Berhasil!';
+	// 			dialogData.success.message = 'Menu telah berhasil dihapus. Klik tombol berikut untuk kembali.';
+	//
+	// 			showDialog(dialogData.success);
+	// 		}
+	// 	}
+	// }
 
 	handleInputChange = (object, e) => {
 		const target = e.target;
@@ -144,8 +134,6 @@ class SettingsCafeContainer extends React.Component {
 				{...this.props}
 				toggleTab={this.toggleTab}
 				toggleModal={this.toggleModal}
-				handleCafeMenuDelete={this.handleCafeMenuDelete}
-				handleCafeMenuDeleteSubmit={this.handleCafeMenuDeleteSubmit}
 				handleInputChange={this.handleInputChange}
 				handleNewCafeType={this.handleNewCafeType}
 				handleNewCafeTypeSubmit={this.handleNewCafeTypeSubmit}

@@ -56,7 +56,8 @@ class SettingsCardContainer extends Component {
 			card,
 			dispatch,
 			dialog,
-			toggleDialog
+			toggleDialog,
+			showDialog
 		} = this.props;
 
 
@@ -69,21 +70,20 @@ class SettingsCardContainer extends Component {
 					onClose: () => {
 						window.location.reload()
 					},
-					closeText: 'Tutup'
+					closeText: 'Kembali'
 				}
 			}
 
-
 			if(card.isUpdated) {
 				dialogData.success.title = 'Berhasil!';
-				dialogData.success.message = 'Data tipe kartu berhasil diubah.';
+				dialogData.success.message = 'Data tipe kartu berhasil diubah. Klik tombol berikut untuk kembali.';
 
 				toggleDialog(dialogData.success);
 			}
 
 			else if(card.isCreated) {
 				dialogData.success.title = 'Berhasil!';
-				dialogData.success.message = 'Tipe kartu telah berhasil dibuat.';
+				dialogData.success.message = 'Tipe kartu telah berhasil dibuat. Klik tombol berikut untuk kembali.';
 
 				toggleDialog(dialogData.success);
 
@@ -91,9 +91,9 @@ class SettingsCardContainer extends Component {
 
 			else if(card.isDeleted) {
 				dialogData.success.title = 'Berhasil!';
-				dialogData.success.message = 'Tipe kartu telah berhasil dihapus.';
+				dialogData.success.message = 'Tipe kartu telah berhasil dihapus. Klik tombol berikut untuk kembali.';
 
-				toggleDialog(dialogData.success);
+				showDialog(dialogData.success);
 			}
 		}
 	}

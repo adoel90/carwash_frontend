@@ -48,7 +48,8 @@ class SettingsCafeTypeContainer extends Component {
 			cafe,
 			dispatch,
 			dialog,
-			toggleDialog
+			toggleDialog,
+			showDialog
 		} = this.props;
 
 		if(prevProps.cafe !== this.props.cafe) {
@@ -60,7 +61,7 @@ class SettingsCafeTypeContainer extends Component {
 					onClose: () => {
 						window.location.reload()
 					},
-					closeText: 'Tutup'
+					closeText: 'Kembali'
 				}
 			}
 
@@ -70,10 +71,16 @@ class SettingsCafeTypeContainer extends Component {
 				toggleDialog(dialogData.success);
 			}
 
+			if(cafe.isCreated) {
+				dialogData.success.title = 'Berhasil';
+				dialogData.success.message = 'Menu baru telah berhasil ditambah. Klik tombol berikut untuk kembali.';
+				toggleDialog(dialogData.success);
+			}
+
 			if(cafe.isDeleted) {
 				dialogData.success.title = 'Berhasil!';
 				dialogData.success.message = 'Penghapusan menu cafe berhasil. Klik tombol berikut untuk kembali.';
-				toggleDialog(dialogData.success);
+				showDialog(dialogData.success);
 			}
 		}
 	}
@@ -222,7 +229,7 @@ class SettingsCafeTypeContainer extends Component {
 			confirmText: 'Ya, Lanjutkan',
 			closeText: 'Kembali',
 			onConfirm: () => this.handleCafeMenuDeleteSubmit(),
-			onClose: () => toggleDialog
+			onClose: toggleDialog
 		}
 
 		toggleDialog(dialogData);

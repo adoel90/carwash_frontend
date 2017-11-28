@@ -61,7 +61,9 @@ body {
 
 	.modal__header {
 		border-bottom: solid 1px gray(300);
-		background-color: primary(base);
+		background-color: primary-color(base);
+		color: gray(100);
+		// background-color: primary(base);
 	}
 
 	.modal__content {

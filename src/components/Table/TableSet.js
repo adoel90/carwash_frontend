@@ -16,6 +16,7 @@ class TableSet extends Component {
 		this.renderTableSearchBar = this.renderTableSearchBar.bind(this);
 		this.renderTablePagination = this.renderTablePagination.bind(this);
 		this.handlePageChange = this.handlePageChange.bind(this);
+		this.handleResetPagination = this.handleResetPagination.bind(this);
 
 		this.state = {
 			activePage: 1,
@@ -23,6 +24,11 @@ class TableSet extends Component {
 		}
 	}
 
+	componentDidUpdate = (prevProps) => {
+		if(prevProps.searchText !== this.props.searchText) {
+			this.handleResetPagination();
+		}
+	}
 
 	handlePageChange = (page) => {
 		const {
@@ -34,6 +40,11 @@ class TableSet extends Component {
 		})
 	}
 
+	handleResetPagination = () => {
+		this.setState({
+			activePage: 1
+		})
+	}
 
 	renderTableSearchBar = () => {
 		const {
@@ -87,6 +98,7 @@ class TableSet extends Component {
 			onUpdate,
 			onDelete,
 			onDisable,
+			onRowClick,
 			rows,
 			handleTableInputChange
 		} = this.props;
@@ -110,7 +122,7 @@ class TableSet extends Component {
 							</td>
 						)
 					}
-					else if(column.isCurrency) {						
+					else if(column.isCurrency) {
 						cells.push(
 							<td>
 								<Currency
@@ -132,18 +144,18 @@ class TableSet extends Component {
 			const action = (
 				<td>
 					<ButtonGroup className="flex justify-content--center">
-						{ 
+						{
 							onUpdate
-							? <Button type="button" buttonTheme="primary" buttonSize="small" onClick={() => onUpdate(row)}>
+							? <Button type="button" buttonTheme="primary" buttonSize="small" onClick={(e) => onUpdate(row, e)}>
 								<small className="tt-uppercase ls-base fw-semibold clr-light">Ubah</small>
-							</Button> 
+							</Button>
 							: null
 						}
 						{
 							onDelete
-							? <Button type="button" buttonTheme="danger" buttonSize="small" onClick={() => onDelete(row)}>
+							? <Button type="button" buttonTheme="danger" buttonSize="small" onClick={(e) => onDelete(row, e)}>
 								<small className="tt-uppercase ls-base fw-semibold clr-light">Hapus</small>
-							</Button> 
+							</Button>
 							: null
 						}
 						{
@@ -153,7 +165,7 @@ class TableSet extends Component {
 							</Button>
 							: null
 						}
-						
+
 					</ButtonGroup>
 				</td>
 			)
@@ -162,7 +174,7 @@ class TableSet extends Component {
 		}
 
 		return (
-			<tr>{cells}</tr>
+			<tr onClick={() => onRowClick(row)}>{cells}</tr>
 		)
 	}
 
@@ -180,7 +192,7 @@ class TableSet extends Component {
 		const lowerLimit = (activePage - 1) * limit;
 		const upperLimit = activePage * limit;
 
-		if(rows.length) {	
+		if(rows.length) {
 			let filteredRow = rows.filter((row) => {
 				return row.name.toLowerCase().includes(searchText.toLowerCase());
 			});

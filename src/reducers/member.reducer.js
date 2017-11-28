@@ -63,7 +63,7 @@ const member = (state = initialState, action) => {
 		case MEMBER_TOPUP_FULFILLED: {
 			return {
 				...state,
-				topupData: action.payload,
+				updatedMember: action.payload,
 				isTopup: true,
 				isError: false,
 				error: {}
@@ -73,7 +73,7 @@ const member = (state = initialState, action) => {
 		case MEMBER_TOPUP_REJECTED: {
 			return {
 				...state,
-				topupData: {},
+				updatedMember: {},
 				isTopup: false,
 				isError: true,
 				error: action.payload,

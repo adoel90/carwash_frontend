@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import { Form, FormGroup } from '../Form';
 import { Input, InputGroup, InputAddon, InputCurrency, Label } from '../Input';
+import { Button } from '../Button';
 
 class CashierTopUpForm extends Component {
 	render() {
@@ -16,11 +17,13 @@ class CashierTopUpForm extends Component {
 			<Form onSubmit={handleMemberAuthenticateSubmit}>
 				<FormGroup>
 					<InputGroup>
+						<InputAddon>
+							<i className="ion-card" />
+						</InputAddon>
 						<Input
 							name="card"
 							type="number"
-							className="form-control--large ta-center"
-							placeholder="Klik kolom ini dahulu sebelum menggesek"
+							placeholder="Klik disini sebelum menggesek kartu"
 							onChange={(e) => handleInputChange(memberAuthData, e)}
 							autoFocus="true"
 							selectOnFocus

@@ -20,6 +20,7 @@ class SettingsMemberList extends Component {
 	render() {
 		const {
 			memberList,
+			handleViewMemberDetail,
 			handleUpdateMember,
 			handleDeleteMember
 		} = this.props;
@@ -36,6 +37,7 @@ class SettingsMemberList extends Component {
 				isHoverable
 				hasPagination
 				hasSearchBar
+				onRowClick={handleViewMemberDetail}
 				onUpdate={handleUpdateMember}
 				onDelete={handleDeleteMember}
 				{...this.props}

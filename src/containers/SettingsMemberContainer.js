@@ -21,6 +21,7 @@ class SettingsMemberContainer extends Component {
 				address: ''
 			},
 			isModalOpen: {
+				viewMemberDetail: false,
 				editMember: false,
 				deleteMember: false
 			}
@@ -29,6 +30,8 @@ class SettingsMemberContainer extends Component {
 		this.toggleModal = this.toggleModal.bind(this);
 		this.getMemberList = this.getMemberList.bind(this);
 		this.handleInputChange = this.handleInputChange.bind(this);
+		this.handleSearchInputChange = this.handleSearchInputChange.bind(this);
+		this.handleViewMemberDetail = this.handleViewMemberDetail.bind(this);
 		this.handleUpdateMember = this.handleUpdateMember.bind(this);
 		this.handleUpdateMemberSubmit = this.handleUpdateMemberSubmit.bind(this);
 		this.handleDeleteMember = this.handleDeleteMember.bind(this);
@@ -94,6 +97,9 @@ class SettingsMemberContainer extends Component {
 		}
 	}
 
+	handleSearchInputChange = (e) => {
+		this.handleInputChange(null, e);
+	}
 
 	toggleModal = (name) => {
 		const { isModalOpen } = this.state;
@@ -106,7 +112,19 @@ class SettingsMemberContainer extends Component {
 		})
 	}
 
-	handleUpdateMember = (member) => {
+	handleViewMemberDetail = (member, e) => {
+		this.setState({
+			selectedMember: member
+		});
+
+		console.log(member);
+
+		this.toggleModal('viewMemberDetail');
+	}
+
+	handleUpdateMember = (member, e) => {
+		e.stopPropagation();
+
 		this.setState({
 			selectedMember: {
 				id: member.id,
@@ -145,7 +163,9 @@ class SettingsMemberContainer extends Component {
 		dispatch(updateMember(requiredData, accessToken));
 	}
 
-	handleDeleteMember = (member) => {
+	handleDeleteMember = (member, e) => {
+		e.stopPropagation();
+
 		const {
 			dialog,
 			dispatch,
@@ -230,6 +250,7 @@ class SettingsMemberContainer extends Component {
 					{...this.state}
 					toggleModal={this.toggleModal}
 					handleInputChange={this.handleInputChange}
+					handleViewMemberDetail={this.handleViewMemberDetail}
 					handleUpdateMember={this.handleUpdateMember}
 					handleUpdateMemberSubmit={this.handleUpdateMemberSubmit}
 					handleDeleteMember={this.handleDeleteMember}

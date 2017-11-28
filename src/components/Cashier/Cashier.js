@@ -24,19 +24,15 @@ class Cashier extends React.Component {
 
 		return (
 			<ModalDialog
-				isOpen={dialog.isOpen}
-				// toggle={toggleDialog}
-				type={dialog.type}
-				title={dialog.title}
-				message={dialog.message}
-
-				confirmText={dialog.confirm ? dialog.confirmText : null}
-				cancelText={dialog.cancel ? dialog.cancelText : null}
-				closeText={dialog.close ? dialog.closeText : null}
-
-				onConfirm={dialog.confirm ? dialog.confirm : null}
-				onCancel={dialog.cancel ? toggleDialog : null}
-				onClose={dialog.close ? dialog.close : null}
+				isOpen={dialog.isOpened}
+				toggle={toggleDialog}
+				type={dialog.data.type}
+				title={dialog.data.title}
+				message={dialog.data.message}
+				onConfirm={dialog.data.onConfirm}
+				onClose={dialog.data.onClose}
+				confirmText={dialog.data.confirmText}
+				closeText={dialog.data.closeText}
 			/>
 		)
 	}

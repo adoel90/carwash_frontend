@@ -60,10 +60,15 @@ class CashierTopUp extends Component {
 						</Row>
 						<FormGroup row>
 							<Label className="fw-semibold">Saldo saat ini</Label>
-							<InputCurrency
-								value={member.data.balance}
-								readOnly="true"
-							/>
+							<InputGroup>
+								<InputAddon>
+									<small className="tt-uppercase fw-semibold ls-base">Rp</small>
+								</InputAddon>
+								<InputCurrency
+									value={member.data.balance}
+									readOnly="true"
+								/>
+							</InputGroup>
 						</FormGroup>
 						<FormGroup row>
 							<Label className="fw-semibold">Tambah Saldo</Label>
@@ -71,7 +76,7 @@ class CashierTopUp extends Component {
 								<InputAddon>
 									<small className="tt-uppercase fw-semibold ls-base">Rp</small>
 								</InputAddon>
-								<Input
+								<InputCurrency
 									name="balance"
 									type="text"
 									placeholder="Masukkan jumlah saldo yang diinginkan"
@@ -110,21 +115,14 @@ class CashierTopUp extends Component {
 
 		return (
 			<div className="inner-view">
-				<div className="padding-bottom-2">
-					<h5 className="fw-semibold">Isi Ulang Saldo</h5>
-					<p className="clr-passive">Isi ulang saldo customer disini dengan mengikuti instruksi yang telah disediakan.</p>
-				</div>
-				<PageBlock className="margin-bottom-5">
-					<Row className="flex flex-row align-items--center">
-						<div className="column-3">
-							<img src={CardIcon} />
-						</div>
-						<div className="column-9">
-							<div className="padding-bottom-2">
-								<h5 className="fw-semibold">
-									Silahkan gesek kartu member pada Card Reader yang telah tersedia.
-								</h5>
-							</div>
+				<PageBlock className="margin-bottom-5 ta-center">
+					<img src={CardIcon} style={{width: '150px'}}/>
+					<Row className="flex flex-column padding-bottom-3">
+						<h5 className="fw-semibold">Isi Ulang Saldo</h5>
+						<p className="clr-passive">Isi ulang saldo customer disini dengan mengikuti instruksi yang telah disediakan.</p>
+					</Row>
+					<Row className="flex flex-row justify-content--center">
+						<div className="column-6">
 							<CashierTopUpForm {...this.props} />
 						</div>
 					</Row>

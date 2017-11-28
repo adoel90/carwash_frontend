@@ -45,9 +45,9 @@ class CashierTopUpContainer extends Component {
 			}
 
 			if(member.isTopup) {
-				let totalBalance = parseInt(member.data.balance) + parseInt(topupData.balance);
+				// let totalBalance = parseInt(member.data.balance) + parseInt(topupData.balance);
 				let message = (
-					<p>Proses isi ulang saldo member telah berhasil. Saldo member kini berjumlah <span className="clr-primary fw-semibold"><Currency value={totalBalance} /></span>.</p>
+					<p>Proses isi ulang saldo member telah berhasil. Saldo member kini berjumlah <span className="clr-primary fw-semibold"><Currency value={member.updatedMember.data.data.balance} /></span>.</p>
 				)
 
 				let dialogData = {
@@ -62,7 +62,7 @@ class CashierTopUpContainer extends Component {
 					}
 				}
 
-				toggleDialog(toggleDialog.success);
+				toggleDialog(dialogData.success);
 				// dispatch(toggleDialog(dialogData.success, dialog.isOpen))
 			}
 		}
@@ -101,7 +101,7 @@ class CashierTopUpContainer extends Component {
 		} = this.props;
 
 		let requiredData = {
-			balance: topupData.balance
+			balance: parseInt(topupData.balance.replace(/,/g, ''))
 		}
 
 		dispatch(memberTopup(requiredData, member.accessToken));

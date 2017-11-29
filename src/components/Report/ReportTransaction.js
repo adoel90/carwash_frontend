@@ -36,8 +36,7 @@ class ReportTransaction extends Component {
 
 		return (
 			<TabContent activeTab={activeTab} tabIndex={i}>
-				<PropsRoute
-					component={ReportTransactionListContainer}
+				<ReportTransactionListContainer
 					type={type}
 					{...this.props}
 				/>

@@ -33,7 +33,7 @@ export const getTransactionReport = (data, accessToken) => {
 		dispatch(handleRequest());
 
 		return axios
-			.get(`${constant.API_PATH}report/${data.type}/transaction?accessToken=${accessToken}`)
+			.get(`${constant.API_PATH}report/transaction/${data.type}?accessToken=${accessToken}&start_date=${data.start_date}&end_date=${data.end_date}`)
 			.then((response) => {
 				dispatch(handleSuccess(response.data))
 			})

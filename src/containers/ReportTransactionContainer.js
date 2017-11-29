@@ -7,8 +7,8 @@ class ReportTransactionContainer extends Component {
 		super();
 		this.state = {
 			transactionTypes: [
-				{ id: 1, name: 'Cafe', type: 'cafe' },
-				{ id: 2, name: 'Service', type: 'service' }
+				{ id: 1, name: 'Transaksi Cafe', type: 'cafe' },
+				{ id: 2, name: 'Transaksi Service', type: 'service' }
 			],
 			activeTab: 0
 		}

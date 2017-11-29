@@ -16,6 +16,8 @@ export const CREATE_MEMBER_REJECTED = 'CREATE_MEMBER_REJECTED';
 export const UPDATE_MEMBER_REQUESTED = 'UPDATE_MEMBER_REQUESTED';
 export const UPDATE_MEMBER_FULFILLED = 'UPDATE_MEMBER_FULFILLED';
 export const UPDATE_MEMBER_REJECTED = 'UPDATE_MEMBER_REJECTED';
+export const TOGGLE_MEMBER_STATUS_FULFILLED = 'TOGGLE_MEMBER_STATUS_FULFILLED';
+export const TOGGLE_MEMBER_STATUS_REJECTED = 'TOGGLE_MEMBER_STATUS_REJECTED';
 export const DELETE_MEMBER_FULFILLED = 'DELETE_MEMBER_FULFILLED';
 export const DELETE_MEMBER_REJECTED = 'DELETE_MEMBER_REJECTED';
 export const LOGOUT_MEMBER_FULFILLED = 'LOGOUT_MEMBER_FULFILLED';
@@ -156,6 +158,21 @@ export const updateMember = (data, accessToken) => {
 
 	function handleSuccess(data) { return { type: UPDATE_MEMBER_FULFILLED, payload: data } }
 	function handleError(data) { return { type: UPDATE_MEMBER_REJECTED, payload: data } }
+}
+
+export const toggleMemberStatus = (data, accessToken) => {
+	return async dispatch => {
+		axios
+			.put(`${constant.API_PATH}member/status?accessToken=${accessToken}`, {
+				id: data.id
+			})
+			.then((response) => {
+
+			})
+			.catch((error) => {
+				
+			})
+	}
 }
 
 export const deleteMember = (data, accessToken) => {

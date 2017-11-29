@@ -11,6 +11,7 @@ class SettingsCardList extends Component {
 					{ accessor: 'name', title: 'Name' },
 					{ accessor: 'min', title: 'Minimum', isCurrency: true },
 					{ accessor: 'bonus', title: 'Bonus', isCurrency: true },
+					{ accessor: 'status', title: 'Status', isStatus: true }
 				]
 			}
 		}

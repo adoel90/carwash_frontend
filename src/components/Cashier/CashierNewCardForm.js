@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { createNewMember } from '../../actions/member.action';
 
 import { Form, FormGroup } from '../Form';
-import { Input, Label } from '../Input';
+import { Input, InputGroup, InputAddon, Label } from '../Input';
 import { Row } from '../Grid';
 import { Modal } from 'reactstrap';
 import { ModalHeader, ModalContent, ModalFooter } from '../Modal';
@@ -16,44 +16,11 @@ class CashierNewCardForm extends Component {
 		super();
 		this.renderCardTypeOptions = this.renderCardTypeOptions.bind(this);
 	}
-	// renderNewMemberModal = () => {
-	// 	const {
-	// 		member
-	// 	} = this.props;
-
-	// 	return (
-	// 		<Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
-	// 			<ModalHeader align="center">
-	// 				<h6 className="fw-semibold">Informasi Kartu Baru</h6>
-	// 			</ModalHeader>
-	// 			<ModalContent className="flex flex-column align-items--center justify-content--center ta-center">
-	// 				<img src={CardIcon} style={{ width: '150px'}} />
-	// 				<p>
-	// 					Siapkan kartu kosong baru, kemudian salin ID berikut untuk ditulis pada kartu tersebut.
-	// 					Buka program MSR605X dan tempel ID kartu tersebut pada kolom pertama (hiraukan kolom lainnya) yang tersedia.
-	// 					Lalu tekan tombol 'Card Write' untuk menulis ID pada kartu tersebut.
-	// 				</p>
-	// 				<Form>
-	// 					<FormGroup>
-	// 						<Input
-	// 							name="cardId"
-	// 							type="text"
-	// 							value={member.data.card.id}
-	// 						/>
-	// 					</FormGroup>
-	// 				</Form>
-	// 			</ModalContent>
-	// 			<ModalFooter className="flex justify-content--flex-end">
-	// 				<Button type="button" buttonTheme="danger" onClick={this.toggleModal}>
-	// 					<small className="fw-semibold tt-uppercase ls-base">Tutup</small>
-	// 				</Button>
-	// 			</ModalFooter>
-	// 		</Modal>
-	// 	)
-	// }
 
 	renderCardTypeOptions = (type, i) => {
-		return <option>{type.name}</option>
+		if(type.status) {
+			return <option>{type.name}</option>
+		}
 	}
 
 	render() {
@@ -68,7 +35,7 @@ class CashierNewCardForm extends Component {
 
 		return (
 			<Form onSubmit={handleNewCardSubmit}>
-				<Row>
+				<Row className="margin-bottom-3">
 					<div className="column-6">
 						<FormGroup>
 							<Label htmlFor="card">
@@ -80,34 +47,41 @@ class CashierNewCardForm extends Component {
 								defaultValue={newCardData.card}
 								onChange={(e) => handleInputChange(newCardData, e)}>
 								{card.isLoaded ? cardTypes.map(this.renderCardTypeOptions) : null}
-								{/* <option value={1}>Regular</option>
-								<option value={2}>Non-Member</option>
-								<option value={3}>Taxi Online</option> */}
 							</Input>
 						</FormGroup>
 						<FormGroup>
 							<Label htmlFor="fullname">
 								<p className="fw-semibold">Nama Lengkap</p>
 							</Label>
-							<Input
-								name="name"
-								type="text"
-								placeholder="Masukkan nama lengkap customer"
-								onChange={(e) => handleInputChange(newCardData, e)}
-								required="true"
-							/>
+							<InputGroup>
+								<InputAddon>
+									<i className="ion-person"></i>
+								</InputAddon>
+								<Input
+									name="name"
+									type="text"
+									placeholder="Masukkan nama lengkap customer"
+									onChange={(e) => handleInputChange(newCardData, e)}
+									required="true"
+								/>
+							</InputGroup>
 						</FormGroup>
 						<FormGroup>
 							<Label htmlFor="email">
 								<p className="fw-semibold">Alamat E-mail</p>
 							</Label>
-							<Input
-								name="email"
-								type="email"
-								placeholder="Masukkan alamat email customer"
-								onChange={(e) => handleInputChange(newCardData, e)}
-								required="true"
-							/>
+							<InputGroup>
+								<InputAddon>
+									<i className="ion-email"></i>
+								</InputAddon>
+								<Input
+									name="email"
+									type="email"
+									placeholder="Masukkan alamat email customer"
+									onChange={(e) => handleInputChange(newCardData, e)}
+									required="true"
+								/>
+							</InputGroup>
 						</FormGroup>
 					</div>
 					<div className="column-6">
@@ -115,13 +89,19 @@ class CashierNewCardForm extends Component {
 							<Label htmlFor="phone">
 								<p className="fw-semibold">Nomor Telepon</p>
 							</Label>
-							<Input
-								name="phone"
-								type="text"
-								placeholder="Masukkan nomor telepon/HP customer"
-								onChange={(e) => handleInputChange(newCardData, e)}
-								required="true"
-							/>
+							<InputGroup>
+								<InputAddon>
+									<i className="ion-android-call"></i>
+								</InputAddon>
+								<Input
+									name="phone"
+									type="text"
+									placeholder="Masukkan nomor telepon/HP customer"
+									onChange={(e) => handleInputChange(newCardData, e)}
+									required="true"
+								/>
+
+							</InputGroup>
 						</FormGroup>
 						<FormGroup>
 							<Label htmlFor="address">

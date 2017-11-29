@@ -77,7 +77,7 @@ class SettingsCardContainer extends Component {
 			}
 
 			if(card.isStatusUpdated) {
-				
+
 			}
 
 			if(card.isUpdated) {
@@ -215,8 +215,7 @@ class SettingsCardContainer extends Component {
 		// })
 
 		let requiredData = {
-			id: cardType.id,
-			status: cardType.status
+			id: cardType.id
 		}
 
 		dispatch(toggleCardTypeStatus(requiredData, accessToken));

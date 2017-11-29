@@ -19,6 +19,7 @@ const initialState = {
 	deletedCard: {},
 	isFetching: false,
 	isCreated: false,
+	isStatusUpdated: false,
 	isUpdated: false,
 	isDeleted: false,
 	isLoaded: false,
@@ -96,13 +97,23 @@ const card = (state = initialState, action) => {
 			}
 		}
 
-		case TOGGLE_CARD_TYPE_STATUS_FULFILLED {
+		case TOGGLE_CARD_TYPE_STATUS_FULFILLED: {
 			return {
 				...state,
 				updatedCard: action.payload,
 				isStatusUpdated: true,
 				isError: false,
 				error: {}
+			}
+		}
+
+		case TOGGLE_CARD_TYPE_STATUS_REJECTED: {
+			return {
+				...state,
+				updatedCard: {},
+				isStatusUpdated: false,
+				isError: true,
+				error: action.payload
 			}
 		}
 

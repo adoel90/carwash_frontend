@@ -1,18 +1,24 @@
 .badge {
 	@include border-radius(border-radius(small));
-	padding: 2.5px 5px;
+	padding: 1px;
 
 	&.badge--pill {
 		@include border-radius(border-radius(rounded-edge));
 	}
 
-	&.badge--primary {
-		background-color: primary-color(400);
-		color: gray(100);
+	@each $theme, $color in $theme-colors {
+		&.badge--#{$theme} {
+			background-color: $color;
+		}
 	}
 
-	&.badge--secondary {
-		background-color: secondary-color(base);
-		color: gray(100);
-	}
+	// &.badge--primary {
+	// 	background-color: primary-color(400);
+	// 	color: gray(100);
+	// }
+	//
+	// &.badge--secondary {
+	// 	background-color: secondary-color(base);
+	// 	color: gray(100);
+	// }
 }

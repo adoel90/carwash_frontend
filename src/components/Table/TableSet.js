@@ -3,6 +3,7 @@ import { Table, TableHeading, TableBody, TablePagination } from '../Table';
 import { Button, ButtonGroup } from '../Button';
 import { Input } from '../Input';
 import { PageBlock } from '../Page';
+import { Badge } from '../Badge';
 import Currency from '../Currency';
 import SearchBar from '../SearchBar';
 
@@ -132,6 +133,13 @@ class TableSet extends Component {
 							</td>
 						)
 					}
+					else if(column.isStatus) {
+						cells.push(
+							<td>
+								<small className={`fw-bold tt-uppercase ls-base ${row.status ? 'clr-primary' : 'clr-danger'}`}>{row.status ? 'Aktif' : 'Tidak Aktif'}</small>
+							</td>
+						)
+					}
 					else {
 						cells.push(<td>{row[key]}</td>)
 					}
@@ -161,7 +169,7 @@ class TableSet extends Component {
 						{
 							onToggleStatus
 							? <Button type="button" buttonTheme={row.status ? 'secondary' : 'danger' } buttonSize="small" onClick={() => onToggleStatus(row)}>
-								<small className="tt-uppercase ls-base fw-semibold clr-dark">Aktif</small>
+								<small className={`tt-uppercase ls-base fw-semibold ${row.status ? 'clr-dark' : 'clr-light'}`}>{row.status ? 'Aktif' : 'Nonaktif'}</small>
 							</Button>
 							: null
 						}

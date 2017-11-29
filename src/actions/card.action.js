@@ -102,8 +102,7 @@ export const toggleCardTypeStatus = (data, accessToken) => {
 	return async dispatch => {
 		return axios
 			.put(`${constant.API_PATH}card/type/status?accessToken=${accessToken}`, {
-				id: data.id,
-				status: data.status
+				id: data.id
 			})
 			.then((response) => {
 				return dispatch(handleSuccess(response.data))

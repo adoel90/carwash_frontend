@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import moment from 'moment';
 import { connect } from 'react-redux';
 import { ReportSales } from '../components/Report';
 
@@ -7,11 +8,19 @@ class ReportSalesContainer extends Component {
 		super();
 		this.state = {
 			salesTypes: [
-				{ id: 1, name: 'Cafe', type: 'cafe' },
-				{ id: 2, name: 'Service', type: 'service' }
+				{ id: 1, name: 'Penjualan Cafe', type: 'cafe' },
+				{ id: 2, name: 'Penjualan Service', type: 'service' }
 			],
 			activeTab: 0
 		}
+
+		this.toggleTab = this.toggleTab.bind(this);
+	}
+
+	toggleTab = (tabIndex) => {
+		this.setState({
+			activeTab: tabIndex
+		})
 	}
 
 	render() {
@@ -19,6 +28,7 @@ class ReportSalesContainer extends Component {
 			<ReportSales
 				{...this.state}
 				{...this.props}
+				toggleTab={this.toggleTab}
 			/>
 		);
 	}

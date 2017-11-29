@@ -17,11 +17,17 @@
 	@include border-radius(base);
 	@include flexbox;
 	@include flex-direction(column);
-	min-height: 20em;
 	background-color: gray(100);
 	box-shadow: map-get($box-shadow, base);
 	overflow: hidden;
+	min-height: auto;
 	// border: solid 1px gray(300);
+
+	@each $theme, $color in $theme-colors {
+		&.card--#{$theme} {
+			background-color: $color;
+		}
+	}
 
 	.card__container {
 		@include flexbox;

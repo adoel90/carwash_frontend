@@ -24,7 +24,8 @@ class SettingsCardList extends Component {
 		const {
 			cardList,
 			handleCardTypeUpdate,
-			handleCardTypeDelete
+			handleCardTypeDelete,
+			handleCardTypeToggleStatus
 		} = this.props;
 
 		return (
@@ -36,7 +37,8 @@ class SettingsCardList extends Component {
 				hasPagination
 				hasSearchBar
 				onUpdate={handleCardTypeUpdate}
-				onDelete={handleCardTypeDelete}
+				onToggleStatus={handleCardTypeToggleStatus}
+				// onDelete={handleCardTypeDelete}
 				{...this.props}
 			/>
 		)

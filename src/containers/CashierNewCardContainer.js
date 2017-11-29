@@ -3,6 +3,9 @@ import { connect } from 'react-redux';
 import {
 	createNewMember
 } from '../actions/member.action';
+import {
+	getAllCardType
+} from '../actions/card.action';
 import { CashierNewCard } from '../components/Cashier';
 
 class CashierNewCardContainer extends Component {
@@ -12,6 +15,7 @@ class CashierNewCardContainer extends Component {
 		this.handleInputChange = this.handleInputChange.bind(this);
 		this.handleNewCardSubmit = this.handleNewCardSubmit.bind(this);
 		this.handleNewCardInstructionSubmit = this.handleNewCardInstructionSubmit.bind(this);
+		this.getCardTypes = this.getCardTypes.bind(this);
 
 		this.state = {
 			isModalOpen: {
@@ -27,6 +31,10 @@ class CashierNewCardContainer extends Component {
 		}
 	}
 
+	componentDidMount = () => {
+		this.getCardTypes();
+	}
+
 	componentDidUpdate = (prevProps) => {
 		const {
 			member
@@ -37,6 +45,15 @@ class CashierNewCardContainer extends Component {
 				this.toggleModal('newCardInstruction');
 			}
 		}
+	}
+
+	getCardTypes = () => {
+		const {
+			dispatch,
+			accessToken
+		} = this.props;
+
+		dispatch(getAllCardType());
 	}
 
 	handleNewCardSubmit = (e) => {
@@ -111,7 +128,9 @@ class CashierNewCardContainer extends Component {
 const mapStateToProps = (state) => {
 	return {
 		dialog: state.dialog,
-		member: state.member
+		member: state.member,
+		card: state.card,
+		cardTypes: state.card.list.data
 	}
 }
 

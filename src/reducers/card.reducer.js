@@ -6,6 +6,8 @@ import {
 	CREATE_CARD_TYPE_REJECTED,
 	UPDATE_CARD_TYPE_FULFILLED,
 	UPDATE_CARD_TYPE_REJECTED,
+	TOGGLE_CARD_TYPE_STATUS_FULFILLED,
+	TOGGLE_CARD_TYPE_STATUS_REJECTED,
 	DELETE_CARD_TYPE_FULFILLED,
 	DELETE_CARD_TYPE_REJECTED
 } from '../actions/card.action';
@@ -79,6 +81,7 @@ const card = (state = initialState, action) => {
 				...state,
 				updatedCard: action.payload,
 				isUpdated: true,
+				isError: false,
 				error: {}
 			}
 		}
@@ -92,6 +95,17 @@ const card = (state = initialState, action) => {
 				error: action.payload
 			}
 		}
+
+		case TOGGLE_CARD_TYPE_STATUS_FULFILLED {
+			return {
+				...state,
+				updatedCard: action.payload,
+				isStatusUpdated: true,
+				isError: false,
+				error: {}
+			}
+		}
+
 
 		case DELETE_CARD_TYPE_FULFILLED: {
 			return {

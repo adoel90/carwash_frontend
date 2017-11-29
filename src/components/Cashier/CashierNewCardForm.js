@@ -12,7 +12,10 @@ import { default as CardIcon } from '../../assets/icons/Business/credit-card-3.s
 
 
 class CashierNewCardForm extends Component {
-
+	constructor() {
+		super();
+		this.renderCardTypeOptions = this.renderCardTypeOptions.bind(this);
+	}
 	// renderNewMemberModal = () => {
 	// 	const {
 	// 		member
@@ -49,8 +52,14 @@ class CashierNewCardForm extends Component {
 	// 	)
 	// }
 
+	renderCardTypeOptions = (type, i) => {
+		return <option>{type.name}</option>
+	}
+
 	render() {
 		const {
+			card,
+			cardTypes,
 			member,
 			newCardData,
 			handleInputChange,
@@ -65,25 +74,26 @@ class CashierNewCardForm extends Component {
 							<Label htmlFor="card">
 								<p className="fw-semibold">Tipe Kartu</p>
 							</Label>
-							<Input 
-								name="card" 
+							<Input
+								name="card"
 								type="select"
 								defaultValue={newCardData.card}
 								onChange={(e) => handleInputChange(newCardData, e)}>
-								<option value={1}>Regular</option>
+								{card.isLoaded ? cardTypes.map(this.renderCardTypeOptions) : null}
+								{/* <option value={1}>Regular</option>
 								<option value={2}>Non-Member</option>
-								<option value={3}>Taxi Online</option>
+								<option value={3}>Taxi Online</option> */}
 							</Input>
 						</FormGroup>
 						<FormGroup>
 							<Label htmlFor="fullname">
 								<p className="fw-semibold">Nama Lengkap</p>
 							</Label>
-							<Input 
-								name="name" 
-								type="text" 
-								placeholder="Masukkan nama lengkap customer" 
-								onChange={(e) => handleInputChange(newCardData, e)} 
+							<Input
+								name="name"
+								type="text"
+								placeholder="Masukkan nama lengkap customer"
+								onChange={(e) => handleInputChange(newCardData, e)}
 								required="true"
 							/>
 						</FormGroup>
@@ -91,11 +101,11 @@ class CashierNewCardForm extends Component {
 							<Label htmlFor="email">
 								<p className="fw-semibold">Alamat E-mail</p>
 							</Label>
-							<Input 
-								name="email" 
-								type="email" 
-								placeholder="Masukkan alamat email customer" 
-								onChange={(e) => handleInputChange(newCardData, e)} 
+							<Input
+								name="email"
+								type="email"
+								placeholder="Masukkan alamat email customer"
+								onChange={(e) => handleInputChange(newCardData, e)}
 								required="true"
 							/>
 						</FormGroup>
@@ -105,10 +115,10 @@ class CashierNewCardForm extends Component {
 							<Label htmlFor="phone">
 								<p className="fw-semibold">Nomor Telepon</p>
 							</Label>
-							<Input 
-								name="phone" 
-								type="text" 
-								placeholder="Masukkan nomor telepon/HP customer" 
+							<Input
+								name="phone"
+								type="text"
+								placeholder="Masukkan nomor telepon/HP customer"
 								onChange={(e) => handleInputChange(newCardData, e)}
 								required="true"
 							/>
@@ -117,12 +127,12 @@ class CashierNewCardForm extends Component {
 							<Label htmlFor="address">
 								<p className="fw-semibold">Alamat</p>
 							</Label>
-							<Input 
-								name="address" 
-								type="textarea" 
-								placeholder="Masukkan alamat rumah customer" 
+							<Input
+								name="address"
+								type="textarea"
+								placeholder="Masukkan alamat rumah customer"
 								onChange={(e) => handleInputChange(newCardData, e)}
-								required="true" 
+								required="true"
 							/>
 						</FormGroup>
 					</div>

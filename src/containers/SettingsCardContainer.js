@@ -5,6 +5,7 @@ import {
 	getCardTypeList,
 	createNewCardType,
 	updateCardType,
+	toggleCardTypeStatus,
 	deleteCardType
 } from '../actions/card.action';
 import {
@@ -24,6 +25,7 @@ class SettingsCardContainer extends Component {
 		this.handleCardTypeUpdate = this.handleCardTypeUpdate.bind(this);
 		this.handleCardTypeDelete = this.handleCardTypeDelete.bind(this);
 		this.handleCardTypeDeleteSubmit = this.handleCardTypeDeleteSubmit.bind(this);
+		this.handleCardTypeToggleStatus = this.handleCardTypeToggleStatus.bind(this);
 
 		this.state = {
 			searchText: '',
@@ -72,6 +74,10 @@ class SettingsCardContainer extends Component {
 					},
 					closeText: 'Kembali'
 				}
+			}
+
+			if(card.isStatusUpdated) {
+				
 			}
 
 			if(card.isUpdated) {
@@ -152,7 +158,7 @@ class SettingsCardContainer extends Component {
 		dispatch(createNewCardType(requiredData, accessToken));
 	}
 
-	handleCardTypeUpdate = (cardType) => {
+	handleCardTypeUpdate = (cardType, e) => {
 		this.setState({
 			selectedCardType: {
 				id: cardType.id,
@@ -183,12 +189,37 @@ class SettingsCardContainer extends Component {
 		let requiredData = {
 			id: selectedCardType.id,
 			name: selectedCardType.name,
-			minimum: parseInt(selectedCardType.minimum),
-			bonus: parseInt(selectedCardType.bonus),
+			minimum: parseInt(selectedCardType.minimum.replace(/,/g, '')),
+			bonus: parseInt(selectedCardType.bonus.replace(/,/g, '')),
 			refunable: selectedCardType.refunable
 		}
 
 		dispatch(updateCardType(requiredData, accessToken));
+	}
+
+	handleCardTypeToggleStatus = (cardType) => {
+		const { selectedCardType } = this.state;
+		const {
+			accessToken,
+			dispatch
+		} = this.props;
+
+		// this.setState({
+		// 	selectedCardType: {
+		// 		id: cardType.id,
+		// 		name: cardType.name,
+		// 		minimum: cardType.min,
+		// 		bonus: cardType.bonus,
+		// 		status: cardType.status
+		// 	}
+		// })
+
+		let requiredData = {
+			id: cardType.id,
+			status: cardType.status
+		}
+
+		dispatch(toggleCardTypeStatus(requiredData, accessToken));
 	}
 
 	handleCardTypeDelete = (cardType) => {
@@ -261,6 +292,7 @@ class SettingsCardContainer extends Component {
 				handleNewCardTypeSubmit={this.handleNewCardTypeSubmit}
 				handleCardTypeUpdate={this.handleCardTypeUpdate}
 				handleCardTypeUpdateSubmit={this.handleCardTypeUpdateSubmit}
+				handleCardTypeToggleStatus={this.handleCardTypeToggleStatus}
 				handleCardTypeDelete={this.handleCardTypeDelete}
 			/>
 		);

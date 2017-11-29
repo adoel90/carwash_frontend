@@ -97,7 +97,7 @@ class TableSet extends Component {
 			columns,
 			onUpdate,
 			onDelete,
-			onDisable,
+			onToggleStatus,
 			onRowClick,
 			rows,
 			handleTableInputChange
@@ -140,7 +140,7 @@ class TableSet extends Component {
 			}
 		})
 
-		if(onUpdate || onDelete || onDisable) {
+		if(onUpdate || onDelete || onToggleStatus) {
 			const action = (
 				<td>
 					<ButtonGroup className="flex justify-content--center">
@@ -159,9 +159,9 @@ class TableSet extends Component {
 							: null
 						}
 						{
-							onDisable
-							? <Button type="button" buttonTheme="secondary" buttonSize="small" onClick={() => onDisable(row)}>
-								<small className="tt-uppercase ls-base fw-semibold clr-light">Aktif</small>
+							onToggleStatus
+							? <Button type="button" buttonTheme={row.status ? 'secondary' : 'danger' } buttonSize="small" onClick={() => onToggleStatus(row)}>
+								<small className="tt-uppercase ls-base fw-semibold clr-dark">Aktif</small>
 							</Button>
 							: null
 						}
@@ -173,9 +173,14 @@ class TableSet extends Component {
 			cells.push(action);
 		}
 
-		return (
-			<tr onClick={() => onRowClick(row)}>{cells}</tr>
-		)
+		if(onRowClick) {
+			return (
+				<tr onClick={() => onRowClick(row)}>{cells}</tr>
+			)
+
+		}
+
+		return <tr>{cells}</tr>
 	}
 
 	renderTableBody = () => {

@@ -11,6 +11,8 @@ export const CREATE_CARD_TYPE_FULFILLED = 'CREATE_CARD_TYPE_FULFILLED';
 export const CREATE_CARD_TYPE_REJECTED = 'CREATE_CARD_TYPE_REJECTED';
 export const UPDATE_CARD_TYPE_FULFILLED = 'UPDATE_CARD_TYPE_FULFILLED';
 export const UPDATE_CARD_TYPE_REJECTED = 'UPDATE_CARD_TYPE_REJECTED';
+export const TOGGLE_CARD_TYPE_STATUS_FULFILLED = 'TOGGLE_CARD_TYPE_STATUS_FULFILLED';
+export const TOGGLE_CARD_TYPE_STATUS_REJECTED = 'TOGGLE_CARD_TYPE_STATUS_REJECTED';
 export const DELETE_CARD_TYPE_FULFILLED = 'DELETE_CARD_TYPE_FULFILLED';
 export const DELETE_CARD_TYPE_REJECTED = 'DELETE_CARD_TYPE_REJECTED';
 
@@ -96,6 +98,25 @@ export const updateCardType = (data, accessToken) => {
 	function handleError(data) { return { type: UPDATE_CARD_TYPE_REJECTED, payload: data}}
 }
 
+export const toggleCardTypeStatus = (data, accessToken) => {
+	return async dispatch => {
+		return axios
+			.put(`${constant.API_PATH}card/type/status?accessToken=${accessToken}`, {
+				id: data.id,
+				status: data.status
+			})
+			.then((response) => {
+				return dispatch(handleSuccess(response.data))
+			})
+			.catch((error) => {
+				return dispatch(handleError(error))
+			})
+	}
+
+	function handleSuccess(data) { return { type: TOGGLE_CARD_TYPE_STATUS_FULFILLED, payload: data} }
+	function handleError(data) { return { type: TOGGLE_CARD_TYPE_STATUS_REJECTED, payload: data} }
+}
+
 export const deleteCardType = (data, accessToken) => {
 	return async dispatch => {
 		return axios
@@ -112,6 +133,4 @@ export const deleteCardType = (data, accessToken) => {
 
 	function handleSuccess(data) { return { type: DELETE_CARD_TYPE_FULFILLED, payload: data}}
 	function handleError(data) { return { type: DELETE_CARD_TYPE_REJECTED, payload: data}}
-
-
 }

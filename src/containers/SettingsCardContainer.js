@@ -28,6 +28,7 @@ class SettingsCardContainer extends Component {
 		this.handleCardTypeToggleStatus = this.handleCardTypeToggleStatus.bind(this);
 
 		this.state = {
+			cardList: {},
 			searchText: '',
 			isModalOpen: {
 				newCardType: false,
@@ -55,12 +56,24 @@ class SettingsCardContainer extends Component {
 
 	componentDidUpdate = (prevProps) => {
 		const {
+			cardList
+		} = this.state;
+
+		const {
 			card,
 			dispatch,
 			dialog,
 			toggleDialog,
 			showDialog
 		} = this.props;
+
+		if(prevProps.card.list !== this.props.card.list) {
+			if(card.isLoaded) {
+				this.setState({
+					cardList: card.list.data
+				})
+			}
+		}
 
 
 		if(prevProps.card !== this.props.card) {
@@ -77,7 +90,21 @@ class SettingsCardContainer extends Component {
 			}
 
 			if(card.isStatusUpdated) {
+				cardList.forEach((item) => {
+					if(item.id === card.updatedCard.id) {
+						if(item.status) {
+							item.status = false;
+						}
+						else {
+							item.status = true;
+						}
 
+						this.forceUpdate();
+					}
+				})
+
+				// cardList[card.updatedCard]
+				// cardList[card.updatedCard.index].status = card.updatedCard.status;
 			}
 
 			if(card.isUpdated) {
@@ -302,7 +329,7 @@ class SettingsCardContainer extends Component {
 const mapStateToProps = (state) => {
 	return {
 		card: state.card,
-		cardList: state.card.list.data,
+		// cardList: state.card.list.data,
 		dialog: state.dialog
 	}
 }

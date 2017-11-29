@@ -100,7 +100,10 @@ const card = (state = initialState, action) => {
 		case TOGGLE_CARD_TYPE_STATUS_FULFILLED: {
 			return {
 				...state,
-				updatedCard: action.payload,
+				updatedCard: {
+					data: action.payload,
+					id: action.id
+				},
 				isStatusUpdated: true,
 				isError: false,
 				error: {}

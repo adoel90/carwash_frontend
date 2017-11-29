@@ -53,7 +53,7 @@ export const getAllCardType = (data, accessToken) => {
 	}
 
 	function handleRequest() { return { type: GET_ALL_CARD_TYPE_REQUESTED } }
-	function handleSuccess(data) { return { type: GET_ALL_CARD_TYPE_FULFILLED, payload: data} }
+	function handleSuccess(data, id) { return { type: GET_ALL_CARD_TYPE_FULFILLED, payload: data} }
 	function handleError(data) { return { type: GET_ALL_CARD_TYPE_REJECTED, payload: data} }
 }
 
@@ -105,14 +105,14 @@ export const toggleCardTypeStatus = (data, accessToken) => {
 				id: data.id
 			})
 			.then((response) => {
-				return dispatch(handleSuccess(response.data))
+				return dispatch(handleSuccess(response.data, data.id))
 			})
 			.catch((error) => {
 				return dispatch(handleError(error))
 			})
 	}
 
-	function handleSuccess(data) { return { type: TOGGLE_CARD_TYPE_STATUS_FULFILLED, payload: data} }
+	function handleSuccess(data, id) { return { type: TOGGLE_CARD_TYPE_STATUS_FULFILLED, id: id, payload: data} }
 	function handleError(data) { return { type: TOGGLE_CARD_TYPE_STATUS_REJECTED, payload: data} }
 }
 

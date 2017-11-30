@@ -55,11 +55,17 @@ class SettingsService extends Component {
 
 		let serviceTypeItem = (type, i) => {
 			return (
-				<ListGroupItem className="flex align-items--center justify-content--space-between">
-					<p>{type.name}</p>
-					<Button buttonTheme="secondary">
-						<small className="fw-semibold tt-uppercase ls-base">Aktif</small>
-					</Button>
+				<ListGroupItem>
+					<Row className="align-items--center">
+						<div className="column-9">
+							<p>{type.name}</p>
+						</div>
+						<div className="column-3">
+							<Button buttonTheme="secondary" buttonFull>
+								<small className="fw-semibold tt-uppercase ls-base">Aktif</small>
+							</Button>
+						</div>
+					</Row>
 				</ListGroupItem>
 			)
 		}
@@ -76,6 +82,22 @@ class SettingsService extends Component {
 					<ModalContent>
 						<ListGroup>
 							{service.isLoaded ? serviceTypes.map(serviceTypeItem) : null}
+							<ListGroupItem className="align-items--center">
+								<Row>
+									<div className="column-9">
+										<Input
+											type="text"
+											placeholder="Buat kategori baru"
+										/>
+									</div>
+									<div className="column-3">
+										<Button buttonTheme="primary" buttonFull>
+											<small className="fw-semibold tt-uppercase ls-base clr-light">Tambah</small>
+										</Button>
+									</div>
+
+								</Row>
+							</ListGroupItem>
 						</ListGroup>
 					</ModalContent>
 					<ModalFooter className="flex justify-content--flex-end">

@@ -28,7 +28,7 @@ class SettingsCardContainer extends Component {
 		this.handleCardTypeToggleStatus = this.handleCardTypeToggleStatus.bind(this);
 
 		this.state = {
-			cardList: {},
+			cardList: [],
 			searchText: '',
 			isModalOpen: {
 				newCardType: false,

@@ -338,7 +338,8 @@ class SettingsService extends Component {
 				<div className="flex justify-content--space-between padding-bottom-2">
 					<h5 className="fw-semibold">Daftar Service</h5>
 					<Button type="button" buttonTheme="primary" buttonSize="small" className="clr-light" onClick={handleNewServiceType}>
-						<small className="fw-semibold tt-uppercase ls-base">Tambah Kategori Service</small>
+						<i className="ion-gear-b icon icon--base margin-right-3"></i>
+						<small className="fw-semibold tt-uppercase ls-base">Pengaturan</small>
 					</Button>
 				</div>
 				<Nav tabs className="flex justify-content--space-between">

@@ -13,6 +13,7 @@ class SettingsMemberContainer extends Component {
 	constructor() {
 		super();
 		this.state = {
+			memberList: [],
 			searchText: '',
 			selectedMember: {
 				name: '',
@@ -62,6 +63,12 @@ class SettingsMemberContainer extends Component {
 					},
 					closeText: 'Kembali'
 				}
+			}
+
+			if(member.isLoaded) {
+				this.setState({
+					memberList: member.list.data
+				})
 			}
 
 			if(member.isUpdated) {
@@ -266,8 +273,7 @@ class SettingsMemberContainer extends Component {
 const mapStateToProps = (state) => {
 	return {
 		dialog: state.dialog,
-		member: state.member,
-		memberList: state.member.list.data
+		member: state.member
 	}
 }
 

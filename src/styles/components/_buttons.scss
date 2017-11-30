@@ -13,6 +13,9 @@
 }
 
 .button {
+	@include flexbox;
+	@include flex-direction(row);
+	@include align-items(center);
 	@include transition(all 200ms ease-in-out);
 	@include user-select(none);
 	white-space: nowrap;

@@ -81,7 +81,6 @@ class SettingsService extends Component {
 				<Form>
 					<ModalContent>
 						<ListGroup>
-							{service.isLoaded ? serviceTypes.map(serviceTypeItem) : null}
 							<ListGroupItem className="align-items--center">
 								<Row>
 									<div className="column-9">
@@ -98,9 +97,10 @@ class SettingsService extends Component {
 
 								</Row>
 							</ListGroupItem>
+							{service.isLoaded ? serviceTypes.map(serviceTypeItem) : null}
 						</ListGroup>
 					</ModalContent>
-					<ModalFooter className="flex justify-content--flex-end">
+					<ModalFooter className="flex justify-content--center">
 						<Button type="button" buttonTheme="danger" className='clr-light'>
 							<small className="fw-semibold tt-uppercase ls-base">Kembali</small>
 						</Button>

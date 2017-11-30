@@ -50,6 +50,7 @@ class TableSet extends Component {
 	renderTableSearchBar = () => {
 		const {
 			searchText,
+			placeholder,
 			handleInputChange
 		} = this.props;
 
@@ -57,7 +58,7 @@ class TableSet extends Component {
 			<SearchBar
 				name="searchText"
 				value={searchText}
-				placeholder="Cari member..."
+				placeholder={placeholder}
 				onChange={(e) => handleInputChange(null, e)}
 				className="margin-bottom-2"
 			/>
@@ -194,7 +195,8 @@ class TableSet extends Component {
 	renderTableBody = () => {
 		const {
 			rows,
-			searchText
+			searchText,
+			hasSearchBar
 		} = this.props;
 
 		const {
@@ -206,29 +208,35 @@ class TableSet extends Component {
 		const upperLimit = activePage * limit;
 
 		if(rows.length) {
-			let filteredRow = rows.filter((row) => {
-				return row.name.toLowerCase().includes(searchText.toLowerCase());
-			});
+			if(hasSearchBar) {
+				let filteredRow = rows.filter((row) => {
+					return row.name.toLowerCase().includes(searchText.toLowerCase());
+				});
 
-			if(filteredRow.length) {
+				if(!filteredRow.length) {
+					return (
+						<TableBody className="ta-center">
+							<td colspan="100%" style={{ padding: '40px' }}>Data tidak dapat ditemukan.</td>
+						</TableBody>
+					)
+				}
+
 				return (
 					<TableBody>
 						{
 							filteredRow
-								.map(this.renderTableRow)
-								.slice(lowerLimit, upperLimit)
+							.map(this.renderTableRow)
+							.slice(lowerLimit, upperLimit)
 						}
 					</TableBody>
 				)
 			}
-			else {
-				return (
-					<TableBody className="ta-center">
-						<td colspan="100%" style={{ padding: '40px'}}>Data tidak dapat ditemukan.</td>
-					</TableBody>
-				)
-			}
 
+			return (
+				<TableBody>
+					{rows.map(this.renderTableRow)}
+				</TableBody>
+			)
 		}
 	}
 

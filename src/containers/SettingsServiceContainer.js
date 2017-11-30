@@ -23,8 +23,9 @@ class SettingsServiceContainer extends Component {
 		this.handleImageChange = this.handleImageChange.bind(this);
 		this.handleNewServicte = this.handleNewService.bind(this);
 		this.handleNewServiceSubmit = this.handleNewServiceSubmit.bind(this);
-		this.handleNewServiceType = this.handleNewServiceType.bind(this);
-		this.handleNewServiceTypeSubmit = this.handleNewServiceTypeSubmit.bind(this);
+		this.handleServiceTypeSettings = this.handleServiceTypeSettings.bind(this);
+		// this.handleNewServiceType = this.handleNewServiceType.bind(this);
+		// this.handleNewServiceTypeSubmit = this.handleNewServiceTypeSubmit.bind(this);
 		this.handleServiceUpdate = this.handleServiceUpdate.bind(this);
 		this.handleServiceUpdateSubmit = this.handleServiceUpdateSubmit.bind(this);
 		this.handleServiceDelete = this.handleServiceDelete.bind(this);
@@ -52,7 +53,7 @@ class SettingsServiceContainer extends Component {
 			isModalOpen: {
 				editService: false,
 				newService: false,
-				newServiceType: false
+				serviceTypeSetings: false,
 			},
 			activeTab: 0
 		}
@@ -294,56 +295,32 @@ class SettingsServiceContainer extends Component {
 		dispatch(deleteService(requiredData, accessToken));
 	}
 
-	// handleInputChange = (e) => {
-	// 	const target = e.target;
-	// 	const name = target.name;
-	// 	const value = target.value;
-	//
-	// 	this.setState({
-	// 		newService: {
-	// 			...this.state.newService,
-	// 			[name]: value
-	// 		}
-	// 	})
+	handleServiceTypeSettings = () => {
+		this.toggleModal('serviceTypeSettings');
+	}
+
+	// handleNewServiceType = () => {
+	// 	this.toggleModal('newServiceType');
 	// }
-
-	handleNewServiceType = () => {
-		this.toggleModal('newServiceType');
-	}
-
-	handleNewServiceTypeSubmit = () => {
-		const {
-			newServiceType
-		} = this.state;
-
-		const {
-			dispatch,
-			accessToken
-		} = this.props;
-
-		let requiredData = {
-			name: newServiceType.name
-		}
-	}
-
-	handleNewServiceTypeSubmit = (e) => {
-		e.preventDefault();
-
-		const {
-			newServiceType
-		} = this.state;
-
-		const {
-			dispatch,
-			accessToken,
-		} = this.props;
-
-		const requiredData = {
-			name: newServiceType.name
-		}
-
-		dispatch(createNewServiceType(requiredData, accessToken));
-	}
+	//
+	// handleNewServiceTypeSubmit = (e) => {
+	// 	e.preventDefault();
+	//
+	// 	const {
+	// 		newServiceType
+	// 	} = this.state;
+	//
+	// 	const {
+	// 		dispatch,
+	// 		accessToken,
+	// 	} = this.props;
+	//
+	// 	const requiredData = {
+	// 		name: newServiceType.name
+	// 	}
+	//
+	// 	dispatch(createNewServiceType(requiredData, accessToken));
+	// }
 
 	render() {
 		const {
@@ -361,11 +338,10 @@ class SettingsServiceContainer extends Component {
 				handleImageChange={this.handleImageChange}
 				handleNewService={this.handleNewService}
 				handleNewServiceSubmit={this.handleNewServiceSubmit}
-				handleNewServiceType={this.handleNewServiceType}
-				handleNewServiceTypeSubmit={this.handleNewServiceTypeSubmit}
 				handleServiceUpdate={this.handleServiceUpdate}
 				handleServiceUpdateSubmit={this.handleServiceUpdateSubmit}
 				handleServiceDelete={this.handleServiceDelete}
+				handleServiceTypeSettings={this.handleServiceTypeSettings}
 			/>
 		)
 	}

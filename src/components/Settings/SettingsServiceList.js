@@ -7,8 +7,8 @@ class SettingsServiceList extends Component {
 		this.state = {
 			table: {
 				columns: [
-					{ accessor: 'name', title: 'Name' },
-					{ accessor: 'price', title: 'Price', isCurrency: true }
+					{ accessor: 'name', title: 'Nama' },
+					{ accessor: 'price', title: 'Harga', isCurrency: true }
 				]
 			}
 		}
@@ -26,11 +26,15 @@ class SettingsServiceList extends Component {
 			table,
 		} = this.state;
 
+		if(service.isFetching) {
+			return <p>Sedang memuat. Silahkan tunggu sebentar...</p>
+		}
 
 		return (
 			<TableSet
 				columns={table.columns}
 				rows={serviceList}
+				placeholder="Cari service..."
 				isStriped
 				isHoverable
 				hasPagination

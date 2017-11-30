@@ -29,8 +29,23 @@ class ReportTransactionListContainer extends Component {
 
 		if(prevProps.report.transaction !== this.props.report.transaction) {
 			if(report.transaction.isLoaded) {
+				let transactions = report.transaction.data.transaction;
+				let transactionArray = [];
+
+				transactions.map((transaction, i) => {
+					let transactionData = {
+						menuName: transaction.menu.name,
+						transactionDate: transaction.date,
+						memberName: transaction.member.name,
+						price: transaction.price,
+						quantity: transaction.quantity
+					};
+
+					transactionArray.push(transactionData);
+				})
+
 				this.setState({
-					transactionList: report.transaction.data.transaction
+					transactionList: transactionArray
 				})
 			}
 		}

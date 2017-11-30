@@ -110,7 +110,7 @@ class SettingsMember extends React.Component {
 										</InputAddon>
 										<Input
 											placeholder="Nomor kartu member"
-											value={selectedMember.card ? selectedMember.card.id : null}
+											value={selectedMember.cardId}
 											readOnly
 										/>
 									</InputGroup>
@@ -123,7 +123,7 @@ class SettingsMember extends React.Component {
 										</InputAddon>
 										<Input
 											placeholder="Nama lengkap member"
-											value={selectedMember.card ? selectedMember.card.type.name : null}
+											value={selectedMember.cardType}
 											readOnly
 										/>
 									</InputGroup>
@@ -228,7 +228,7 @@ class SettingsMember extends React.Component {
 			<div className="inner-view">
 				<div className="padding-bottom-2">
 					<h5 className="fw-semibold">Daftar Member</h5>
-					<p className="clr-passive">Silahkan klik salah satu member dibawah ini untuk mengubah informasinya.</p>
+					<p className="clr-passive">Untuk melihat informasi member, silahkan klik baris member yang diinginkan.</p>
 				</div>
 				{ member.isLoaded ? <SettingsMemberList {...this.props} /> : null }
 				{ this.renderEditMemberModal() }

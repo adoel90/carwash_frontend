@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 class Input extends React.Component {
 	// handleChange = (event) => {
@@ -37,6 +39,10 @@ class Input extends React.Component {
 		const textareaInput = type === 'textarea';
 		const selectInput = type === 'select';
 		let Tag = textareaInput || selectInput ? type : 'input';
+
+		if(type === 'date') {
+			Tag = DatePicker;
+		}
 
 		if(Tag === 'input') {
 			attributes.type = type;

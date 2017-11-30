@@ -29,6 +29,7 @@ class SettingsCafeMenuList extends Component {
 			<TableSet
 				columns={table.columns}
 				rows={cafeList}
+				placeholder="Cari menu..."
 				isStriped
 				isHoverable
 				hasPagination

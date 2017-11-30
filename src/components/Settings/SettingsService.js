@@ -10,6 +10,7 @@ import { Button, ButtonGroup } from '../Button';
 import { TabContent } from '../Tab';
 import { PropsRoute } from '../Route';
 import { Row } from '../Grid';
+import { ListGroup, ListGroupItem } from '../List';
 
 import SettingsServiceTypeContainer from '../../containers/SettingsServiceTypeContainer';
 
@@ -20,8 +21,8 @@ class SettingsService extends Component {
 		this.renderPhotoPreview = this.renderPhotoPreview.bind(this);
 		this.renderTabNav = this.renderTabNav.bind(this);
 		this.renderTabContent = this.renderTabContent.bind(this);
+		this.renderServiceTypeSettingsModal = this.renderServiceTypeSettingsModal.bind(this);
 		this.renderNewServiceModal = this.renderNewServiceModal.bind(this);
-		this.renderNewServiceTypeModal = this.renderNewServiceTypeModal.bind(this);
 		this.renderUpdateServiceModal = this.renderUpdateServiceModal.bind(this);
 	}
 
@@ -44,49 +45,92 @@ class SettingsService extends Component {
 		fileInput.click();
 	}
 
-	renderNewServiceTypeModal = () => {
+	renderServiceTypeSettingsModal = () => {
 		const {
+			service,
+			serviceTypes,
 			isModalOpen,
-			toggleModal,
-			handleNewServiceType,
-			handleNewServiceTypeSubmit,
-			handleInputChange,
-			newServiceType
+			toggleModal
 		} = this.props;
+
+		let serviceTypeItem = (type, i) => {
+			return (
+				<ListGroupItem className="flex align-items--center justify-content--space-between">
+					<p>{type.name}</p>
+					<Button buttonTheme="secondary">
+						<small className="fw-semibold tt-uppercase ls-base">Aktif</small>
+					</Button>
+				</ListGroupItem>
+			)
+		}
 
 		return (
 			<Modal
-				name="newService"
-				isOpen={isModalOpen.newServiceType}
-				toggle={() => toggleModal('newServiceType')}>
+				name="serviceTypeSettings"
+				isOpen={isModalOpen.serviceTypeSettings}
+				toggle={() => toggleModal('serviceTypeSettings')}>
 				<ModalHeader align="center">
-					<h6 className="fw-semibold">Buat Kategori Service Baru</h6>
+					<h6 className="fw-semibold">Pengaturan Kategori Service</h6>
 				</ModalHeader>
-				<Form onSubmit={handleNewServiceTypeSubmit}>
+				<Form>
 					<ModalContent>
-						<FormGroup row>
-							<Label htmlFor="name" className="fw-semibold">Nama Kategori Service</Label>
-							<Input
-								type="text"
-								name="name"
-								placeholder="Masukkan nama kategori service baru"
-								onChange={(e) => handleInputChange(newServiceType, e)}
-								autoFocus="true"
-							/>
-						</FormGroup>
+						<ListGroup>
+							{service.isLoaded ? serviceTypes.map(serviceTypeItem) : null}
+						</ListGroup>
 					</ModalContent>
 					<ModalFooter className="flex justify-content--flex-end">
-						<Button type="button" buttonTheme="danger" className="clr-light margin-right-2" onClick={() => toggleModal('newServiceType')}>
-							<small className="tt-uppercase ls-base fw-semibold">Batal</small>
-						</Button>
-						<Button buttonTheme="primary" className="clr-light" onClick={() => toggleModal('newServiceType')}>
-							<small className="tt-uppercase ls-base fw-semibold">Buat</small>
+						<Button type="button" buttonTheme="danger" className='clr-light'>
+							<small className="fw-semibold tt-uppercase ls-base">Kembali</small>
 						</Button>
 					</ModalFooter>
 				</Form>
 			</Modal>
 		)
 	}
+
+	// renderNewServiceTypeModal = () => {
+	// 	const {
+	// 		isModalOpen,
+	// 		toggleModal,
+	// 		handleNewServiceType,
+	// 		handleNewServiceTypeSubmit,
+	// 		handleInputChange,
+	// 		newServiceType
+	// 	} = this.props;
+	//
+	// 	return (
+	// 		<Modal
+	// 			name="newService"
+	// 			isOpen={isModalOpen.newServiceType}
+	// 			toggle={() => toggleModal('newServiceType')}>
+	// 			<ModalHeader align="center">
+	// 				<h6 className="fw-semibold">Buat Kategori Service Baru</h6>
+	// 			</ModalHeader>
+	// 			<Form onSubmit={handleNewServiceTypeSubmit}>
+	// 				<ModalContent>
+	// 					<FormGroup row>
+	// 						<Label htmlFor="name" className="fw-semibold">Nama Kategori Service</Label>
+	// 						<Input
+	// 							type="text"
+	// 							name="name"
+	// 							placeholder="Masukkan nama kategori service baru"
+	// 							onChange={(e) => handleInputChange(newServiceType, e)}
+	// 							autoFocus="true"
+	// 						/>
+	// 					</FormGroup>
+	// 				</ModalContent>
+	// 				<ModalFooter className="flex justify-content--flex-end">
+	// 					<Button type="button" buttonTheme="danger" className="clr-light margin-right-2" onClick={() => toggleModal('newServiceType')}>
+	// 						<small className="tt-uppercase ls-base fw-semibold">Batal</small>
+	// 					</Button>
+	// 					<Button buttonTheme="primary" className="clr-light" onClick={() => toggleModal('newServiceType')}>
+	// 						<small className="tt-uppercase ls-base fw-semibold">Buat</small>
+	// 					</Button>
+	// 				</ModalFooter>
+	// 			</Form>
+	// 		</Modal>
+	// 	)
+	// }
 
 	renderNewServiceModal = () => {
 		const {
@@ -187,7 +231,7 @@ class SettingsService extends Component {
 				isOpen={isModalOpen.editService}
 				toggle={() => toggleModal('editService')}>
 				<ModalHeader align="center">
-					<h6 className="fw-semibold">Perubahan Service: <span className="clr-primary">{selectedService.name}</span></h6>
+					<h6 className="fw-semibold">Perubahan Service: <span className="fw-bold">{selectedService.name}</span></h6>
 				</ModalHeader>
 				<Form onSubmit={handleServiceUpdateSubmit}>
 					<ModalContent>
@@ -330,16 +374,16 @@ class SettingsService extends Component {
 			service,
 			serviceTypes,
 			toggleModal,
-			handleNewServiceType
+			handleServiceTypeSettings
 		} = this.props
 
 		return (
 			<div className="inner-view">
 				<div className="flex justify-content--space-between padding-bottom-2">
 					<h5 className="fw-semibold">Daftar Service</h5>
-					<Button type="button" buttonTheme="primary" buttonSize="small" className="clr-light" onClick={handleNewServiceType}>
+					<Button type="button" buttonTheme="primary" buttonSize="small" className="clr-light" onClick={handleServiceTypeSettings}>
 						<i className="ion-gear-b icon icon--base margin-right-3"></i>
-						<small className="fw-semibold tt-uppercase ls-base">Pengaturan</small>
+						<small className="fw-semibold tt-uppercase ls-base">Atur Kategori Service</small>
 					</Button>
 				</div>
 				<Nav tabs className="flex justify-content--space-between">
@@ -347,7 +391,7 @@ class SettingsService extends Component {
 				</Nav>
 				{ serviceTypes.length ? serviceTypes.map(this.renderTabContent) : null}
 				{ this.renderNewServiceModal() }
-				{ this.renderNewServiceTypeModal() }
+				{ this.renderServiceTypeSettingsModal() }
 				{ this.renderUpdateServiceModal() }
 			</div>
 		);

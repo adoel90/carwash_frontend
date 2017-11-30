@@ -59,10 +59,15 @@ nav {}
 		margin-bottom: -1px;
 
 		.navigation__link {
+			@include transition(all 250ms $transition-primary);
 			padding: ($spacer * .5) ($spacer);
 			overflow: hidden;
 			border-bottom: none;
 			color: gray(700);
+
+			&:hover {
+				background-color: gray(300);
+			}
 
 			&.is-active {
 				@include font-weight(semibold);

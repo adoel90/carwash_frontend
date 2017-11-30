@@ -9,9 +9,10 @@ class SettingsMemberList extends Component {
 		this.state = {
 			memberListTable: {
 				data: [
-					{ accessor: 'name', title: 'Nama Customer' },
+					{ accessor: 'name', title: 'Nama' },
+					{ accessor: 'phone', title: 'Phone' },
 					{ accessor: 'address', title: 'Alamat' },
-					{ accessor: 'phone', title: 'Phone' }
+					{ accessor: 'cardType', title: 'Tipe Member' }
 				]
 			}
 		}
@@ -33,6 +34,7 @@ class SettingsMemberList extends Component {
 			<TableSet
 				columns={memberListTable.data}
 				rows={memberList}
+				placeholder="Cari member yang terdaftar..."
 				isStriped
 				isHoverable
 				hasPagination

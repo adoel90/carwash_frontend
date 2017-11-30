@@ -66,9 +66,25 @@ class SettingsMemberContainer extends Component {
 			}
 
 			if(member.isLoaded) {
-				this.setState({
-					memberList: member.list.data
+				let members = member.list.data;
+				let memberArray = [];
+				members.map((member, i) => {
+					let memberData = {
+						name: member.name,
+						address: member.address,
+						email: member.email,
+						phone: member.phone,
+						cardType: member.card.type.name,
+						cardId: member.card.id,
+						balance: member.balance
+					}
+
+					memberArray.push(memberData);
 				})
+
+				this.setState({
+					memberList: memberArray
+				});
 			}
 
 			if(member.isUpdated) {

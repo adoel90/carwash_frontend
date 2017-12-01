@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
 	getServiceTypes,
+	createNewService,
 	deleteService,
 	updateService,
-	createNewService,
-	createNewServiceType
+	createNewServiceType,
+	updateServiceType
 } from '../actions/service.action';
 import {
 	showDialog,
@@ -20,12 +21,15 @@ class SettingsServiceContainer extends Component {
 		this.toggleTab = this.toggleTab.bind(this);
 		this.toggleModal = this.toggleModal.bind(this);
 		this.handleInputChange = this.handleInputChange.bind(this);
+		this.handleInputIndexChange = this.handleInputIndexChange.bind(this);
 		this.handleImageChange = this.handleImageChange.bind(this);
 		this.handleNewServicte = this.handleNewService.bind(this);
 		this.handleNewServiceSubmit = this.handleNewServiceSubmit.bind(this);
 		this.handleServiceTypeSettings = this.handleServiceTypeSettings.bind(this);
 		// this.handleNewServiceType = this.handleNewServiceType.bind(this);
-		// this.handleNewServiceTypeSubmit = this.handleNewServiceTypeSubmit.bind(this);
+		this.handleNewServiceTypeSubmit = this.handleNewServiceTypeSubmit.bind(this);
+		this.handleUpdateServiceType = this.handleUpdateServiceType.bind(this);
+		this.handleUpdateServiceTypeSubmit = this.handleUpdateServiceTypeSubmit.bind(this);
 		this.handleServiceUpdate = this.handleServiceUpdate.bind(this);
 		this.handleServiceUpdateSubmit = this.handleServiceUpdateSubmit.bind(this);
 		this.handleServiceDelete = this.handleServiceDelete.bind(this);
@@ -33,6 +37,7 @@ class SettingsServiceContainer extends Component {
 
 		this.state = {
 			searchText: '',
+			serviceTypes: [],
 			newService: {
 				type: '',
 				name: '',
@@ -71,6 +76,34 @@ class SettingsServiceContainer extends Component {
 			toggleDialog,
 			showDialog
 		} = this.props;
+
+		if(prevProps.service.types !== this.props.service.types) {
+			if(service.types.isLoaded) {
+				function dynamicSort(property) {
+					var sortOrder = 1;
+					if(property[0] === "-") {
+						sortOrder = -1;
+						property = property.substr(1);
+					}
+					return function (a,b) {
+						var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+						return result * sortOrder;
+					}
+				}
+
+				let sortedData = service.types.data.sort(dynamicSort('name'))
+
+				this.setState({
+					serviceTypes: sortedData
+				})
+			}
+		}
+
+		if(prevProps.service.type !== this.props.service.type) {
+			if(service.type.isUpdated) {
+				window.location.reload();
+			}
+		}
 
 		if(prevProps.service !== this.props.service) {
 			let dialogData = {
@@ -128,6 +161,15 @@ class SettingsServiceContainer extends Component {
 				[name]: value
 			})
 		}
+	}
+
+	handleInputIndexChange = (object, index, e) => {
+		const target = e.target;
+		const value = target.value;
+		const name = target.name;
+
+		object[index].name = value;
+		this.forceUpdate();
 	}
 
 	handleImageChange = (object, e) => {
@@ -303,24 +345,41 @@ class SettingsServiceContainer extends Component {
 	// 	this.toggleModal('newServiceType');
 	// }
 	//
-	// handleNewServiceTypeSubmit = (e) => {
-	// 	e.preventDefault();
-	//
-	// 	const {
-	// 		newServiceType
-	// 	} = this.state;
-	//
-	// 	const {
-	// 		dispatch,
-	// 		accessToken,
-	// 	} = this.props;
-	//
-	// 	const requiredData = {
-	// 		name: newServiceType.name
-	// 	}
-	//
-	// 	dispatch(createNewServiceType(requiredData, accessToken));
-	// }
+	handleNewServiceTypeSubmit = (e) => {
+		e.preventDefault();
+
+		const {
+			newServiceType
+		} = this.state;
+
+		const {
+			dispatch,
+			accessToken,
+		} = this.props;
+
+		const requiredData = {
+			name: newServiceType.name
+		}
+
+		dispatch(createNewServiceType(requiredData, accessToken));
+	}
+
+	handleUpdateServiceType = () => {
+	}
+
+	handleUpdateServiceTypeSubmit = (object) => {
+		const {
+			dispatch,
+			accessToken
+		} = this.props;
+
+		let requiredData = {
+			id: object.id,
+			name: object.name
+		}
+
+		dispatch(updateServiceType(requiredData, accessToken));
+	}
 
 	render() {
 		const {
@@ -335,6 +394,7 @@ class SettingsServiceContainer extends Component {
 				toggleTab={this.toggleTab}
 				toggleModal={this.toggleModal}
 				handleInputChange={this.handleInputChange}
+				handleInputIndexChange={this.handleInputIndexChange}
 				handleImageChange={this.handleImageChange}
 				handleNewService={this.handleNewService}
 				handleNewServiceSubmit={this.handleNewServiceSubmit}
@@ -342,6 +402,8 @@ class SettingsServiceContainer extends Component {
 				handleServiceUpdateSubmit={this.handleServiceUpdateSubmit}
 				handleServiceDelete={this.handleServiceDelete}
 				handleServiceTypeSettings={this.handleServiceTypeSettings}
+				handleNewServiceTypeSubmit={this.handleNewServiceTypeSubmit}
+				handleUpdateServiceTypeSubmit={this.handleUpdateServiceTypeSubmit}
 			/>
 		)
 	}
@@ -351,7 +413,7 @@ const mapStateToProps = (state) => {
 	return {
 		dialog: state.dialog,
 		service: state.service,
-		serviceTypes: state.service.types
+		// serviceTypes: state.service.types
 	}
 }
 

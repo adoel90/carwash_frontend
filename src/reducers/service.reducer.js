@@ -9,6 +9,8 @@ import {
 	CREATE_SERVICE_REJECTED,
 	CREATE_SERVICE_TYPE_FULFILLED,
 	CREATE_SERVICE_TYPE_REJECTED,
+	UPDATE_SERVICE_TYPE_FULFILLED,
+	UPDATE_SERVICE_TYPE_REJECTED,
 	CREATE_SERVICE_TRANSACTION_FULFILLED,
 	CREATE_SERVICE_TRANSACTION_REJECTED,
 	UPDATE_SERVICE_FULFILLED,
@@ -21,8 +23,21 @@ import {
 
 const initialState = {
 	list: {},
-	type: {},
-	types: {},
+	type: {
+		data: {},
+		isCreated: false,
+		isUpdated: false,
+		isDeleted: false,
+		isError: false,
+		error: {}
+	},
+	types: {
+		data: [],
+		isFetching: false,
+		isLoaded: false,
+		isError: false,
+		error: {}
+	},
 	service: {},
 	isFetching: false,
 	isLoaded: false,
@@ -64,27 +79,37 @@ const service = (state = initialState, action) => {
 		case GET_SERVICE_TYPES_REQUESTED: {
 			return {
 				...state,
-				isFetching: true,
-				isLoaded: false
+				types: {
+					...state.types,
+					isFetching: true,
+					isLoaded: false
+				}
 			}
 		}
 
 		case GET_SERVICE_TYPES_FULFILLED: {
 			return {
 				...state,
-				types: action.payload.data,
-				isFetching: false,
-				isLoaded: true
+				types: {
+					...state.types,
+					data: action.payload.data,
+					isLoaded: true,
+					isFetching: false
+				}
 			}
 		}
 
 		case GET_SERVICE_TYPES_REJECTED: {
 			return {
 				...state,
-				types: {},
-				isFetching: false,
-				isLoaded: false,
-				error: action.payload
+				types: {
+					...state.types,
+					data: {},
+					isLoaded: false,
+					isFetching: false,
+					isError: true,
+					error: action.payload
+				}
 			}
 		}
 
@@ -110,16 +135,48 @@ const service = (state = initialState, action) => {
 		case CREATE_SERVICE_TYPE_FULFILLED: {
 			return {
 				...state,
-				type: action.payload,
-				error: {}
+				type: {
+					...state.type,
+					data: action.payload,
+					isCreated: true,
+				},
 			}
 		}
 
 		case CREATE_SERVICE_TYPE_REJECTED: {
 			return {
 				...state,
-				type: {},
-				error: action.payload
+				type: {
+					...state.type,
+					data: {},
+					isCreated: false,
+					isError: true,
+					error: action.payload
+				}
+			}
+		}
+
+		case UPDATE_SERVICE_TYPE_FULFILLED: {
+			return {
+				...state,
+				type: {
+					...state.type,
+					data: action.payload,
+					isUpdated: true
+				}
+			}
+		}
+
+		case UPDATE_SERVICE_TYPE_REJECTED: {
+			return {
+				...state,
+				type: {
+					...state.type,
+					data: {},
+					isUpdated: false,
+					isError: true,
+					error: action.payload
+				}
 			}
 		}
 

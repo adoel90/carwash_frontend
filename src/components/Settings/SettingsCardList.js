@@ -37,6 +37,7 @@ class SettingsCardList extends Component {
 				isHoverable
 				hasPagination
 				hasSearchBar
+				placeholder="Cari tipe kartu..."
 				onUpdate={handleCardTypeUpdate}
 				onToggleStatus={handleCardTypeToggleStatus}
 				// onDelete={handleCardTypeDelete}

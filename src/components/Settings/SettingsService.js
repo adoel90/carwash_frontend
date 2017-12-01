@@ -10,6 +10,7 @@ import { Button, ButtonGroup } from '../Button';
 import { TabContent } from '../Tab';
 import { PropsRoute } from '../Route';
 import { Row } from '../Grid';
+import { Alert } from '../Alert';
 import { ListGroup, ListGroupItem } from '../List';
 
 import SettingsServiceTypeContainer from '../../containers/SettingsServiceTypeContainer';
@@ -49,22 +50,36 @@ class SettingsService extends Component {
 		const {
 			service,
 			serviceTypes,
+			newServiceType,
+			serviceTypeSettings,
+			handleNewServiceTypeSubmit,
+			handleUpdateServiceTypeSubmit,
+			handleInputChange,
+			handleInputIndexChange,
 			isModalOpen,
 			toggleModal
 		} = this.props;
 
-		let serviceTypeItem = (type, i) => {
+		let serviceTypeItem = (type, index) => {
 			return (
 				<ListGroupItem>
 					<Row className="align-items--center">
-						<div className="column-9">
-							<p>{type.name}</p>
+						<div className="column-12 flex align-items--center">
+							<InputGroup>
+								<Input value={type.name} placeholder={type.name} onChange={(e) => handleInputIndexChange(serviceTypes, index, e)} required="true"/>
+								<Button type="button" buttonTheme="primary" buttonSize="small" onClick={(e) => handleUpdateServiceTypeSubmit(serviceTypes[index])}>
+									<small className="clr-light fw-semibold tt-uppercase ls-base">Ubah</small>
+								</Button>
+								<Button type="button" buttonTheme="secondary" buttonSize="small">
+									<small className="clr-dark fw-semibold tt-uppercase ls-base">Aktif</small>
+								</Button>
+							</InputGroup>
 						</div>
-						<div className="column-3">
+						{/* <div className="column-3">
 							<Button buttonTheme="secondary" buttonFull>
 								<small className="fw-semibold tt-uppercase ls-base">Aktif</small>
 							</Button>
-						</div>
+						</div> */}
 					</Row>
 				</ListGroupItem>
 			)
@@ -78,15 +93,18 @@ class SettingsService extends Component {
 				<ModalHeader align="center">
 					<h6 className="fw-semibold">Pengaturan Kategori Service</h6>
 				</ModalHeader>
-				<Form>
+				<Form onSubmit={handleNewServiceTypeSubmit}>
 					<ModalContent>
+						<p>Untuk menonaktifkan atau mengaktifkan salah satu status dibawah, klik pada tombol yang tersedia.</p>
 						<ListGroup>
 							<ListGroupItem className="align-items--center">
 								<Row>
 									<div className="column-9">
 										<Input
+											name="name"
 											type="text"
-											placeholder="Buat kategori baru"
+											placeholder="Masukkan nama kategori baru"
+											onChange={(e) => handleInputChange(newServiceType, e)}
 										/>
 									</div>
 									<div className="column-3">
@@ -101,7 +119,7 @@ class SettingsService extends Component {
 						</ListGroup>
 					</ModalContent>
 					<ModalFooter className="flex justify-content--center">
-						<Button type="button" buttonTheme="danger" className='clr-light'>
+						<Button type="button" buttonTheme="danger" className="clr-light" onClick={() => toggleModal('serviceTypeSettings')}>
 							<small className="fw-semibold tt-uppercase ls-base">Kembali</small>
 						</Button>
 					</ModalFooter>

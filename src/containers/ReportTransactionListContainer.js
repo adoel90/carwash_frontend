@@ -71,7 +71,7 @@ class ReportTransactionListContainer extends Component {
 	}
 
 	handleDateChange = (range, date) => {
-		const { 
+		const {
 			period
 		} = this.state;
 

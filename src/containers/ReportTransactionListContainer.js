@@ -16,6 +16,8 @@ class ReportTransactionListContainer extends Component {
 		}
 
 		this.getTransactionReport = this.getTransactionReport.bind(this);
+		this.handleDateChange = this.handleDateChange.bind(this);
+		this.handleSearchTransactionSubmit = this.handleSearchTransactionSubmit.bind(this);
 	}
 
 	componentDidMount = () => {
@@ -68,11 +70,28 @@ class ReportTransactionListContainer extends Component {
 		dispatch(getTransactionReport(requiredData, accessToken))
 	}
 
+	handleDateChange = (range, date) => {
+		const { 
+			period
+		} = this.state;
+
+		period[range] = date;
+		this.forceUpdate();
+	}
+
+	handleSearchTransactionSubmit = (e) => {
+		e.preventDefault();
+
+		this.getTransactionReport();
+	}
+
     render() {
         return (
             <ReportTransactionList
                 {...this.state}
                 {...this.props}
+                handleDateChange={this.handleDateChange}
+                handleSearchTransactionSubmit={this.handleSearchTransactionSubmit}
             />
         );
     }

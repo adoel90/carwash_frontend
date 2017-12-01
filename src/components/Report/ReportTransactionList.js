@@ -9,6 +9,7 @@ import { Button } from '../Button';
 class ReportTransactionList extends Component {
 	constructor() {
 		super();
+		this.renderDatePicker = this.renderDatePicker.bind(this);
 		this.renderTransactionList = this.renderTransactionList.bind(this);
 		this.state = {
 			table: {
@@ -23,27 +24,86 @@ class ReportTransactionList extends Component {
 		}
 	}
 
+	renderDatePicker = () => {
+		const {
+			period,
+			handleDateChange,
+			handleDateChangeRaw,
+			handleSearchTransactionSubmit
+		} = this.props;
+
+		return (
+			<Form onSubmit={handleSearchTransactionSubmit}>
+				<div className="flex">
+					<FormGroup className="margin-right-2">
+						<InputGroup>
+							<InputAddon>
+								<small className="fw-semibold tt-uppercase ls-base">Dari</small>
+							</InputAddon>
+							<Input
+								type="date"
+								name="start"
+								placeholder="Dari"
+								className="margin-right-2"
+								selected={period.start}
+								dateFormat="DD/MM/YYYY"
+								onChange={(date) => handleDateChange('start', date)}
+							/>
+						</InputGroup>
+					</FormGroup>
+					<FormGroup className="margin-right-2">
+						<InputGroup>
+							<InputAddon>
+								<small className="fw-semibold tt-uppercase ls-base">Sampai</small>
+							</InputAddon>
+							<Input
+								type="date"
+								name="end"
+								placeholder="Sampai"
+								className="margin-right-2"
+								selected={period.end}
+								dateFormat="DD/MM/YYYY"
+								onChange={(date) => handleDateChange('end', date)}
+							/>
+						</InputGroup>
+					</FormGroup>
+					<FormGroup>
+						<Button buttonTheme="secondary">
+							<small className="fw-semibold tt-uppercase ls-base">Cari</small>
+						</Button>
+					</FormGroup>
+				</div>
+			</Form>
+		)
+	}
+
 	renderTransactionList = () => {
 		const { table } = this.state;
 		const {
+			report,
 			transactionList
 		} = this.props;
 
 		console.log(transactionList);
 
-		return (
-			<TableSet
-				columns={table.columns}
-				rows={transactionList}
-				isStriped
-				isHoverable
-				hasPagination
-				// hasSearchBar
-				// onUpdate={handleServiceUpdate}
-				// onDelete={handleServiceDelete}
-				{...this.props}
-			/>
-		)
+		if(report.transaction.isLoaded) {
+			return (
+				<TableSet
+					columns={table.columns}
+					rows={transactionList}
+					isStriped
+					isHoverable
+					hasPagination
+					// hasSearchBar
+					// onUpdate={handleServiceUpdate}
+					// onDelete={handleServiceDelete}
+					{...this.props}
+				/>
+			)
+		}
+		else {
+			return <p className="ta-center">Tunggu sebentar. Data sedang dimuat...</p>
+		}
 	}
 
 	render() {
@@ -55,52 +115,12 @@ class ReportTransactionList extends Component {
 
 		console.log(transactionList);
 
-		if(transactionList.length) {
-			return (
-				<PageBlock>
-					<Form>
-						<Row>
-							<FormGroup className="margin-right-2">
-								<InputGroup>
-									<InputAddon>
-										<small className="fw-semibold tt-uppercase ls-base">Dari</small>
-									</InputAddon>
-									<Input
-										type="date"
-										placeholder="Dari"
-										className="margin-right-2"
-										selected={period.start}
-										dateFormat="DD/MM/YYYY"
-									/>
-								</InputGroup>
-							</FormGroup>
-							<FormGroup className="margin-right-2">
-								<InputGroup>
-									<InputAddon>
-										<small className="fw-semibold tt-uppercase ls-base">Sampai</small>
-									</InputAddon>
-									<Input
-										type="date"
-										placeholder="Sampai"
-										className="margin-right-2"
-										selected={period.end}
-										dateFormat="DD/MM/YYYY"
-									/>
-								</InputGroup>
-							</FormGroup>
-							<FormGroup>
-								<Button buttonTheme="secondary">
-									<small className="fw-semibold tt-uppercase ls-base">Cari</small>
-								</Button>
-							</FormGroup>
-						</Row>
-					</Form>
-					{this.renderTransactionList()}
-				</PageBlock>
-			);
-		}
-
-		return null;
+		return (
+			<PageBlock>
+				{this.renderDatePicker()}
+				{this.renderTransactionList()}
+			</PageBlock>
+		);
 	}
 }
 

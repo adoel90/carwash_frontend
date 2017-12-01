@@ -237,6 +237,12 @@ class TableSet extends Component {
 					{rows.map(this.renderTableRow)}
 				</TableBody>
 			)
+		} else {
+			return (
+				<TableBody className="ta-center">
+					<td colspan="100%" style={{ padding: '40px' }}>Data tidak dapat ditemukan.</td>
+				</TableBody>
+			)
 		}
 	}
 

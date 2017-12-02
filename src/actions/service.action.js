@@ -2,24 +2,28 @@ import axios from 'axios';
 import { constant } from '../config';
 import Cookies from 'universal-cookie';
 
-export const GET_SERVICE_LIST_REQUESTED = 'GET_SERVICE_LIST_REQUESTED';
-export const GET_SERVICE_LIST_FULFILLED = 'GET_SERVICE_LIST_FULFILLED';
-export const GET_SERVICE_LIST_REJECTED = 'GET_SERVICE_LIST_REJECTED';
 export const GET_SERVICE_TYPES_REQUESTED = 'GET_SERVICE_TYPES_REQUESTED';
 export const GET_SERVICE_TYPES_FULFILLED = 'GET_SERVICE_TYPES_FULFILLED';
 export const GET_SERVICE_TYPES_REJECTED = 'GET_SERVICE_TYPES_REJECTED';
+
+export const GET_SERVICE_LIST_REQUESTED = 'GET_SERVICE_LIST_REQUESTED';
+export const GET_SERVICE_LIST_FULFILLED = 'GET_SERVICE_LIST_FULFILLED';
+export const GET_SERVICE_LIST_REJECTED = 'GET_SERVICE_LIST_REJECTED';
+
 export const CREATE_SERVICE_FULFILLED = 'CREATE_SERVICE_FULFILLED';
 export const CREATE_SERVICE_REJECTED = 'CREATE_SERVICE_REJECTED';
 export const UPDATE_SERVICE_FULFILLED = 'UPDATE_SERVICE_FULFILLED';
 export const UPDATE_SERVICE_REJECTED = 'UPDATE_SERVICE_REJECTED';
 export const DELETE_SERVICE_FULFILLED = 'DELETE_SERVICE_FULFILLED';
 export const DELETE_SERVICE_REJECTED = 'DELETE_SERVICE_REJECTED';
+
 export const CREATE_SERVICE_TYPE_FULFILLED = 'CREATE_SERVICE_TYPE_FULFILLED';
 export const CREATE_SERVICE_TYPE_REJECTED = 'CREATE_SERVICE_TYPE_REJECTED';
 export const UPDATE_SERVICE_TYPE_FULFILLED = 'UPDATE_SERVICE_TYPE_FULFILLED';
 export const UPDATE_SERVICE_TYPE_REJECTED = 'UPDATE_SERVICE_TYPE_REJECTED';
-export const DELETE_SERVICE_TYPE_FULFILLED = 'DELETE_SERVICE_TYPE_FULFILLED';
-export const DELETE_SERVICE_TYPE_REJECTED = 'DELETE_SERVICE_TYPE_REJECTED';
+export const CHANGE_SERVICE_TYPE_STATUS_FULFILLED = 'CHANGE_SERVICE_TYPE_STATUS_FULFILLED';
+export const CHANGE_SERVICE_TYPE_STATUS_REJECTED = 'CHANGE_SERVICE_TYPE_STATUS_FULFILLED';
+
 export const CREATE_SERVICE_TRANSACTION_FULFILLED = 'CREATE_SERVICE_TRANSACTION_FULFILLED';
 export const CREATE_SERVICE_TRANSACTION_REJECTED = 'CREATE_SERVICE_TRANSACTION_REJECTED';
 
@@ -148,6 +152,9 @@ export const deleteService = (data, accessToken) => {
 	function handleError(data) { return { type: DELETE_SERVICE_REJECTED, payload: data }}
 }
 
+/**
+**	ACTION CREATOR: Service Type
+*/
 export const createNewServiceType = (data, accessToken) => {
 	return async dispatch => {
 		return axios
@@ -174,33 +181,33 @@ export const updateServiceType = (data, accessToken) => {
 				name: data.name
 			})
 			.then((response) => {
-				dispatch(handleSuccess(response.data))
+				dispatch(handleSuccess(response.data, data.id))
 			})
 			.catch((error) => {
 				dispatch(handleError(error))
 			})
 	}
 
-	function handleSuccess(data) { return { type: UPDATE_SERVICE_TYPE_FULFILLED, payload: data} }
+	function handleSuccess(data, id) { return { type: UPDATE_SERVICE_TYPE_FULFILLED, payload: data, id: id} }
 	function handleError(data) { return { type: UPDATE_SERVICE_TYPE_REJECTED, payload: data} }
 }
 
-export const deleteServiceType = (data, accessToken) => {
+export const changeServiceTypeStatus = (data, accessToken) => {
 	return async dispatch => {
 		return axios
-			.post(`${constant.API_PATH}service/type/delete?accessToken=${accessToken}`, {
+			.put(`${constant.API_PATH}service/type/status?accessToken=${accessToken}`, {
 				id: data.id
 			})
 			.then((response) => {
-				dispatch(handleSuccess(response.data))
+				dispatch(handleSuccess(response.data, data.id))
 			})
 			.catch((error) => {
 				dispatch(handleError(error))
 			})
 	}
 
-	function handleSuccess(data) { return { type: DELETE_SERVICE_TYPE_FULFILLED, payload: data} }
-	function handleError(data) { return { type: DELETE_SERVICE_TYPE_REJECTED, payload: data} }
+	function handleSuccess(data, id) { return { type: CHANGE_SERVICE_TYPE_STATUS_FULFILLED, payload: data, id: id } }
+	function handleError(data) { return { type: CHANGE_SERVICE_TYPE_STATUS_REJECTED, payload: data } }
 }
 
 export const createServiceTransaction = (data, accessToken) => {

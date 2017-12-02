@@ -12,7 +12,8 @@ class SettingsMemberList extends Component {
 					{ accessor: 'name', title: 'Nama' },
 					{ accessor: 'phone', title: 'Phone' },
 					{ accessor: 'address', title: 'Alamat' },
-					{ accessor: 'cardType', title: 'Tipe Member' }
+					{ accessor: 'cardType', title: 'Tipe Member' },
+					{ accessor: 'status', title: 'Status', isStatus: true },
 				]
 			}
 		}

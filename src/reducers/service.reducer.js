@@ -2,23 +2,28 @@ import {
 	GET_SERVICE_LIST_REQUESTED,
 	GET_SERVICE_LIST_FULFILLED,
 	GET_SERVICE_LIST_REJECTED,
+
 	GET_SERVICE_TYPES_REQUESTED,
 	GET_SERVICE_TYPES_FULFILLED,
 	GET_SERVICE_TYPES_REJECTED,
+
 	CREATE_SERVICE_FULFILLED,
 	CREATE_SERVICE_REJECTED,
-	CREATE_SERVICE_TYPE_FULFILLED,
-	CREATE_SERVICE_TYPE_REJECTED,
-	UPDATE_SERVICE_TYPE_FULFILLED,
-	UPDATE_SERVICE_TYPE_REJECTED,
-	CREATE_SERVICE_TRANSACTION_FULFILLED,
-	CREATE_SERVICE_TRANSACTION_REJECTED,
 	UPDATE_SERVICE_FULFILLED,
 	UPDATE_SERVICE_REJECTED,
 	DELETE_SERVICE_FULFILLED,
 	DELETE_SERVICE_REJECTED,
-	DELETE_SERVICE_TYPE_FULFILLED,
-	DELETE_SERVICE_TYPE_REJECTED,
+
+	CREATE_SERVICE_TYPE_FULFILLED,
+	CREATE_SERVICE_TYPE_REJECTED,
+	UPDATE_SERVICE_TYPE_FULFILLED,
+	UPDATE_SERVICE_TYPE_REJECTED,
+	CHANGE_SERVICE_TYPE_STATUS_FULFILLED,
+	CHANGE_SERVICE_TYPE_STATUS_REJECTED,
+
+	CREATE_SERVICE_TRANSACTION_FULFILLED,
+	CREATE_SERVICE_TRANSACTION_REJECTED,
+
 } from '../actions/service.action';
 
 const initialState = {
@@ -87,7 +92,6 @@ const service = (state = initialState, action) => {
 				}
 			}
 		}
-
 		case GET_SERVICE_TYPES_FULFILLED: {
 			return {
 				...state,
@@ -99,7 +103,6 @@ const service = (state = initialState, action) => {
 				}
 			}
 		}
-
 		case GET_SERVICE_TYPES_REJECTED: {
 			return {
 				...state,
@@ -114,6 +117,7 @@ const service = (state = initialState, action) => {
 			}
 		}
 
+		//
 		case CREATE_SERVICE_FULFILLED: {
 			return {
 				...state,
@@ -122,7 +126,6 @@ const service = (state = initialState, action) => {
 				error: null
 			}
 		}
-
 		case CREATE_SERVICE_REJECTED: {
 			return {
 				...state,
@@ -132,7 +135,39 @@ const service = (state = initialState, action) => {
 				error: action.payload
 			}
 		}
+		case UPDATE_SERVICE_FULFILLED: {
+			return {
+				...state,
+				service: action.payload,
+				isUpdated: true,
+				error: {}
+			}
+		}
+		case UPDATE_SERVICE_REJECTED: {
+			return {
+				...state,
+				service: {},
+				isUpdated: false,
+				isError: true,
+				error: action.payload
+			}
+		}
+		case DELETE_SERVICE_FULFILLED: {
+			return {
+				...state,
+				isDeleted: true,
+			}
+		}
+		case DELETE_SERVICE_REJECTED: {
+			return {
+				...state,
+				isDeleted: false,
+				isError: true,
+				error: action.payload
+			}
+		}
 
+		//
 		case CREATE_SERVICE_TYPE_FULFILLED: {
 			return {
 				...state,
@@ -143,7 +178,6 @@ const service = (state = initialState, action) => {
 				},
 			}
 		}
-
 		case CREATE_SERVICE_TYPE_REJECTED: {
 			return {
 				...state,
@@ -156,18 +190,17 @@ const service = (state = initialState, action) => {
 				}
 			}
 		}
-
 		case UPDATE_SERVICE_TYPE_FULFILLED: {
 			return {
 				...state,
 				type: {
 					...state.type,
+					id: action.id,
 					data: action.payload,
-					isUpdated: true
+					isUpdated: true,
 				}
 			}
 		}
-
 		case UPDATE_SERVICE_TYPE_REJECTED: {
 			return {
 				...state,
@@ -180,75 +213,46 @@ const service = (state = initialState, action) => {
 				}
 			}
 		}
-
-		case CREATE_SERVICE_TRANSACTION_FULFILLED: {
-			return {
-				...state,
-				service: action.payload,
-				error: {}
-			}
-		}
-
-		case CREATE_SERVICE_TRANSACTION_FULFILLED: {
-			return {
-				...state,
-				service: {},
-				error: action.payload
-			}
-		}
-
-		case UPDATE_SERVICE_FULFILLED: {
-			return {
-				...state,
-				service: action.payload,
-				isUpdated: true,
-				error: {}
-			}
-		}
-
-		case UPDATE_SERVICE_REJECTED: {
-			return {
-				...state,
-				service: {},
-				isUpdated: false,
-				isError: true,
-				error: action.payload
-			}
-		}
-
-		case DELETE_SERVICE_FULFILLED: {
-			return {
-				...state,
-				isDeleted: true,
-			}
-		}
-
-		case DELETE_SERVICE_REJECTED: {
-			return {
-				...state,
-				isDeleted: false,
-				isError: true,
-				error: action.payload
-			}
-		}
-
-		case DELETE_SERVICE_TYPE_FULFILLED: {
+		case CHANGE_SERVICE_TYPE_STATUS_FULFILLED: {
 			return {
 				...state,
 				type: {
-					isDeleted: true,
-					data: action.payload
-				},
-				isError: false,
+					...state.type,
+					id: action.id,
+					data: action.payload,
+					isUpdated: true,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+		case CHANGE_SERVICE_TYPE_STATUS_REJECTED: {
+			return {
+				...state,
+				type: {
+					...state.type,
+					id: null,
+					data: {},
+					isUpdated: false,
+					isError: true,
+					error: action.payload
+				}
+			}
+		}
+
+		//
+		case CREATE_SERVICE_TRANSACTION_FULFILLED: {
+			return {
+				...state,
+				service: action.payload,
 				error: {}
 			}
 		}
 
-		case DELETE_SERVICE_TYPE_REJECTED: {
+		case CREATE_SERVICE_TRANSACTION_FULFILLED: {
 			return {
 				...state,
-				type: {},
-				isError: true,
+				service: {},
 				error: action.payload
 			}
 		}

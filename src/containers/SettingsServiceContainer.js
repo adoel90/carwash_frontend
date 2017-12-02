@@ -6,7 +6,8 @@ import {
 	deleteService,
 	updateService,
 	createNewServiceType,
-	updateServiceType
+	updateServiceType,
+	changeServiceTypeStatus
 } from '../actions/service.action';
 import {
 	showDialog,
@@ -25,15 +26,16 @@ class SettingsServiceContainer extends Component {
 		this.handleImageChange = this.handleImageChange.bind(this);
 		this.handleNewServicte = this.handleNewService.bind(this);
 		this.handleNewServiceSubmit = this.handleNewServiceSubmit.bind(this);
+		this.handleServiceUpdate = this.handleServiceUpdate.bind(this);
+		this.handleServiceUpdateSubmit = this.handleServiceUpdateSubmit.bind(this);
+		this.handleServiceDelete = this.handleServiceDelete.bind(this);
+		this.handleServiceDeleteSubmit = this.handleServiceDeleteSubmit.bind(this);
 		this.handleServiceTypeSettings = this.handleServiceTypeSettings.bind(this);
 		// this.handleNewServiceType = this.handleNewServiceType.bind(this);
 		this.handleNewServiceTypeSubmit = this.handleNewServiceTypeSubmit.bind(this);
 		this.handleUpdateServiceType = this.handleUpdateServiceType.bind(this);
 		this.handleUpdateServiceTypeSubmit = this.handleUpdateServiceTypeSubmit.bind(this);
-		this.handleServiceUpdate = this.handleServiceUpdate.bind(this);
-		this.handleServiceUpdateSubmit = this.handleServiceUpdateSubmit.bind(this);
-		this.handleServiceDelete = this.handleServiceDelete.bind(this);
-		this.handleServiceDeleteSubmit = this.handleServiceDeleteSubmit.bind(this);
+		this.handleChangeServiceTypeStatusSubmit = this.handleChangeServiceTypeStatusSubmit.bind(this);
 
 		this.state = {
 			searchText: '',
@@ -367,18 +369,31 @@ class SettingsServiceContainer extends Component {
 	handleUpdateServiceType = () => {
 	}
 
-	handleUpdateServiceTypeSubmit = (object) => {
+	handleUpdateServiceTypeSubmit = (data) => {
 		const {
 			dispatch,
 			accessToken
 		} = this.props;
 
 		let requiredData = {
-			id: object.id,
-			name: object.name
+			id: data.id,
+			name: data.name
 		}
 
 		dispatch(updateServiceType(requiredData, accessToken));
+	}
+
+	handleChangeServiceTypeStatusSubmit = (data) => {
+		const {
+			dispatch,
+			accessToken
+		} = this.props;
+
+		let requiredData = {
+			id: data.id
+		}
+
+		dispatch(changeServiceTypeStatus(requiredData, accessToken))
 	}
 
 	render() {
@@ -404,6 +419,7 @@ class SettingsServiceContainer extends Component {
 				handleServiceTypeSettings={this.handleServiceTypeSettings}
 				handleNewServiceTypeSubmit={this.handleNewServiceTypeSubmit}
 				handleUpdateServiceTypeSubmit={this.handleUpdateServiceTypeSubmit}
+				handleChangeServiceTypeStatusSubmit={this.handleChangeServiceTypeStatusSubmit}
 			/>
 		)
 	}

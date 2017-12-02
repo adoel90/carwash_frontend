@@ -52,13 +52,22 @@ class SettingsService extends Component {
 			serviceTypes,
 			newServiceType,
 			serviceTypeSettings,
-			handleNewServiceTypeSubmit,
-			handleUpdateServiceTypeSubmit,
 			handleInputChange,
 			handleInputIndexChange,
 			isModalOpen,
-			toggleModal
+			toggleModal,
+			handleNewServiceTypeSubmit,
+			handleUpdateServiceTypeSubmit,
+			handleChangeServiceTypeStatusSubmit,
 		} = this.props;
+
+		let updateMessage = (typeId) => {
+			if(service.type.isUpdated && typeId === service.type.id) {
+				return (
+					<small className="clr-success" style={{padding: '15px 10px'}}>Service berhasil diubah.</small>
+				)
+			}
+		}
 
 		let serviceTypeItem = (type, index) => {
 			return (
@@ -67,13 +76,14 @@ class SettingsService extends Component {
 						<div className="column-12 flex-column justify-content--center">
 							<InputGroup className="flex">
 								<Input value={type.name} placeholder={type.name} onChange={(e) => handleInputIndexChange(serviceTypes, index, e)} required="true"/>
-								<Button type="button" buttonTheme="primary" buttonSize="small" onClick={(e) => handleUpdateServiceTypeSubmit(serviceTypes[index])}>
+								<Button type="button" buttonTheme="primary" buttonSize="small" onClick={(e) => handleUpdateServiceTypeSubmit(type)}>
 									<small className="clr-light fw-semibold tt-uppercase ls-base">Ubah</small>
 								</Button>
-								<Button type="button" buttonTheme="secondary" buttonSize="small">
+								<Button type="button" buttonTheme="secondary" buttonSize="small" onClick={(e) => handleChangeServiceTypeStatusSubmit(type)}>
 									<small className="clr-dark fw-semibold tt-uppercase ls-base">Aktif</small>
 								</Button>
 							</InputGroup>
+							{ updateMessage(type.id) }
 						</div>
 						{/* <div className="column-3">
 							<Button buttonTheme="secondary" buttonFull>

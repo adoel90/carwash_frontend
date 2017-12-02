@@ -16,8 +16,9 @@ export const CREATE_MEMBER_REJECTED = 'CREATE_MEMBER_REJECTED';
 export const UPDATE_MEMBER_REQUESTED = 'UPDATE_MEMBER_REQUESTED';
 export const UPDATE_MEMBER_FULFILLED = 'UPDATE_MEMBER_FULFILLED';
 export const UPDATE_MEMBER_REJECTED = 'UPDATE_MEMBER_REJECTED';
-export const TOGGLE_MEMBER_STATUS_FULFILLED = 'TOGGLE_MEMBER_STATUS_FULFILLED';
-export const TOGGLE_MEMBER_STATUS_REJECTED = 'TOGGLE_MEMBER_STATUS_REJECTED';
+export const CHANGE_MEMBER_STATUS_REQUESTED = 'CHANGE_MEMBER_STATUS_REQUESTED';
+export const CHANGE_MEMBER_STATUS_FULFILLED = 'CHANGE_MEMBER_STATUS_FULFILLED';
+export const CHANGE_MEMBER_STATUS_REJECTED = 'CHANGE_MEMBER_STATUS_REJECTED';
 export const DELETE_MEMBER_FULFILLED = 'DELETE_MEMBER_FULFILLED';
 export const DELETE_MEMBER_REJECTED = 'DELETE_MEMBER_REJECTED';
 export const LOGOUT_MEMBER_FULFILLED = 'LOGOUT_MEMBER_FULFILLED';
@@ -160,19 +161,25 @@ export const updateMember = (data, accessToken) => {
 	function handleError(data) { return { type: UPDATE_MEMBER_REJECTED, payload: data } }
 }
 
-export const toggleMemberStatus = (data, accessToken) => {
+export const changeMemberStatus = (data, accessToken) => {
 	return async dispatch => {
+		dispatch(handleRequest());
+
 		axios
 			.put(`${constant.API_PATH}member/status?accessToken=${accessToken}`, {
 				id: data.id
 			})
 			.then((response) => {
-
+				dispatch(handleSuccess(response.data, data.id))
 			})
 			.catch((error) => {
-				
+				dispatch(handleError(error))	
 			})
 	}
+
+	function handleRequest() { return { type: CHANGE_MEMBER_STATUS_REQUESTED}}
+	function handleSuccess(data, id) { return { type: CHANGE_MEMBER_STATUS_FULFILLED, payload: data, id: id } }
+	function handleError(data) { return { type: CHANGE_MEMBER_STATUS_REJECTED, payload: data } }
 }
 
 export const deleteMember = (data, accessToken) => {

@@ -26,7 +26,7 @@ class SettingsCardList extends Component {
 			cardList,
 			handleCardTypeUpdate,
 			handleCardTypeDelete,
-			handleCardTypeToggleStatus
+			handleChangeCardTypeStatus
 		} = this.props;
 
 		return (
@@ -39,7 +39,7 @@ class SettingsCardList extends Component {
 				hasSearchBar
 				placeholder="Cari tipe kartu..."
 				onUpdate={handleCardTypeUpdate}
-				onToggleStatus={handleCardTypeToggleStatus}
+				onChangeStatus={handleChangeCardTypeStatus}
 				// onDelete={handleCardTypeDelete}
 				{...this.props}
 			/>

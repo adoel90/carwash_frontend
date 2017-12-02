@@ -101,7 +101,7 @@ class SettingsServiceContainer extends Component {
 
 		if(prevProps.service.type !== this.props.service.type) {
 			if(service.type.isUpdated) {
-				window.location.reload();
+				this.getServiceTypes();
 			}
 		}
 

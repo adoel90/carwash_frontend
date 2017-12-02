@@ -23,7 +23,8 @@ class SettingsMemberList extends Component {
 			memberList,
 			handleViewMemberDetail,
 			handleUpdateMember,
-			handleDeleteMember
+			handleDeleteMember,
+			handleChangeMemberStatus
 		} = this.props;
 
 		const {
@@ -41,7 +42,7 @@ class SettingsMemberList extends Component {
 				hasSearchBar
 				onRowClick={handleViewMemberDetail}
 				onUpdate={handleUpdateMember}
-				onDelete={handleDeleteMember}
+				onChangeStatus={handleChangeMemberStatus}
 				{...this.props}
 			/>
 		);

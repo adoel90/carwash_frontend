@@ -24,6 +24,7 @@ import {
 const initialState = {
 	list: {},
 	type: {
+		id: null,
 		data: {},
 		isCreated: false,
 		isUpdated: false,

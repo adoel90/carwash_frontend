@@ -25,7 +25,7 @@ class SettingsCardContainer extends Component {
 		this.handleCardTypeUpdate = this.handleCardTypeUpdate.bind(this);
 		this.handleCardTypeDelete = this.handleCardTypeDelete.bind(this);
 		this.handleCardTypeDeleteSubmit = this.handleCardTypeDeleteSubmit.bind(this);
-		this.handleCardTypeToggleStatus = this.handleCardTypeToggleStatus.bind(this);
+		this.handleChangeCardTypeStatus = this.handleChangeCardTypeStatus.bind(this);
 
 		this.state = {
 			cardList: [],
@@ -224,7 +224,7 @@ class SettingsCardContainer extends Component {
 		dispatch(updateCardType(requiredData, accessToken));
 	}
 
-	handleCardTypeToggleStatus = (cardType) => {
+	handleChangeCardTypeStatus = (cardType) => {
 		const { selectedCardType } = this.state;
 		const {
 			accessToken,
@@ -318,7 +318,7 @@ class SettingsCardContainer extends Component {
 				handleNewCardTypeSubmit={this.handleNewCardTypeSubmit}
 				handleCardTypeUpdate={this.handleCardTypeUpdate}
 				handleCardTypeUpdateSubmit={this.handleCardTypeUpdateSubmit}
-				handleCardTypeToggleStatus={this.handleCardTypeToggleStatus}
+				handleChangeCardTypeStatus={this.handleChangeCardTypeStatus}
 				handleCardTypeDelete={this.handleCardTypeDelete}
 			/>
 		);

@@ -64,8 +64,8 @@ class SettingsService extends Component {
 			return (
 				<ListGroupItem>
 					<Row className="align-items--center">
-						<div className="column-12 flex align-items--center">
-							<InputGroup>
+						<div className="column-12 flex-column justify-content--center">
+							<InputGroup className="flex">
 								<Input value={type.name} placeholder={type.name} onChange={(e) => handleInputIndexChange(serviceTypes, index, e)} required="true"/>
 								<Button type="button" buttonTheme="primary" buttonSize="small" onClick={(e) => handleUpdateServiceTypeSubmit(serviceTypes[index])}>
 									<small className="clr-light fw-semibold tt-uppercase ls-base">Ubah</small>
@@ -95,8 +95,9 @@ class SettingsService extends Component {
 				</ModalHeader>
 				<Form onSubmit={handleNewServiceTypeSubmit}>
 					<ModalContent>
-						<p>Untuk menonaktifkan atau mengaktifkan salah satu status dibawah, klik pada tombol yang tersedia.</p>
+						<small>Berikut merupakan daftar kategori yang ada di aplikasi ini. Kategori yang sedang berjalan dan aktif untuk layanan ditandai dengan tombol 'Aktif', dan sebaliknya 'Tidak Aktif' bagi kategori yang sedang tidak berjalan. Silahkan klik tombol tersebut untuk mengubah status kategori.</small>
 						<ListGroup>
+							{service.isLoaded ? serviceTypes.map(serviceTypeItem) : null}
 							<ListGroupItem className="align-items--center">
 								<Row>
 									<div className="column-9">
@@ -115,7 +116,6 @@ class SettingsService extends Component {
 
 								</Row>
 							</ListGroupItem>
-							{service.isLoaded ? serviceTypes.map(serviceTypeItem) : null}
 						</ListGroup>
 					</ModalContent>
 					<ModalFooter className="flex justify-content--center">

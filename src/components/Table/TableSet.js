@@ -75,15 +75,17 @@ class TableSet extends Component {
 			activePage
 		} = this.state;
 
-		return (
-			<TablePagination
-				activePage={activePage}
-				totalRows={rows.length}
-				limit={limit}
-				onPageChange={this.handlePageChange}
-				stickToBottom
-			/>
-		)
+		if(rows.length) {
+			return (
+				<TablePagination
+					activePage={activePage}
+					totalRows={rows.length}
+					limit={limit}
+					onPageChange={this.handlePageChange}
+					stickToBottom
+				/>
+			)
+		}
 	}
 
 	renderFilteredRow = (row, i) => {
@@ -99,7 +101,7 @@ class TableSet extends Component {
 			columns,
 			onUpdate,
 			onDelete,
-			onToggleStatus,
+			onChangeStatus,
 			onRowClick,
 			rows,
 			handleTableInputChange
@@ -149,7 +151,7 @@ class TableSet extends Component {
 			}
 		})
 
-		if(onUpdate || onDelete || onToggleStatus) {
+		if(onUpdate || onDelete || onChangeStatus) {
 			const action = (
 				<td>
 					<ButtonGroup className="flex justify-content--center">
@@ -168,8 +170,8 @@ class TableSet extends Component {
 							: null
 						}
 						{
-							onToggleStatus
-							? <Button type="button" buttonTheme={row.status ? 'secondary' : 'danger' } buttonSize="small" onClick={() => onToggleStatus(row)}>
+							onChangeStatus
+							? <Button type="button" buttonTheme={row.status ? 'secondary' : 'danger' } buttonSize="small" onClick={(e) => onChangeStatus(row, e)}>
 								<small className={`tt-uppercase ls-base fw-semibold ${row.status ? 'clr-dark' : 'clr-light'}`}>{row.status ? 'Aktif' : 'Nonaktif'}</small>
 							</Button>
 							: null

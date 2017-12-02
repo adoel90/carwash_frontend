@@ -4,6 +4,7 @@ import {
 	getMemberList,
 	getAllMemberList,
 	updateMember,
+	changeMemberStatus,
 	deleteMember
 } from '../actions/member.action';
 import { showDialog, hideDialog } from '../actions/dialog.action';
@@ -37,6 +38,7 @@ class SettingsMemberContainer extends Component {
 		this.handleUpdateMemberSubmit = this.handleUpdateMemberSubmit.bind(this);
 		this.handleDeleteMember = this.handleDeleteMember.bind(this);
 		this.handleDeleteMemberSubmit = this.handleDeleteMemberSubmit.bind(this);
+		this.handleChangeMemberStatus = this.handleChangeMemberStatus.bind(this);
 	}
 
 	componentDidMount = () => {
@@ -52,6 +54,32 @@ class SettingsMemberContainer extends Component {
 			showDialog
 		} = this.props;
 
+		if(prevProps.member.list !== this.props.member.list) {
+			if(member.list.isLoaded) {
+				let members = member.list.data;
+				let memberArray = [];
+				members.map((member, i) => {
+					let memberData = {
+						id: member.id,
+						name: member.name,
+						address: member.address,
+						email: member.email,
+						phone: member.phone,
+						cardType: member.card.type.name,
+						cardId: member.card.id,
+						balance: member.balance,
+						status: member.status
+					}
+
+					memberArray.push(memberData);
+				});
+
+				this.setState({
+					memberList: memberArray
+				});
+			}
+		}
+
 		if(prevProps.member !== this.props.member) {
 			let dialogData = {
 				success: {
@@ -65,29 +93,7 @@ class SettingsMemberContainer extends Component {
 				}
 			}
 
-			if(member.isLoaded) {
-				let members = member.list.data;
-				let memberArray = [];
-				members.map((member, i) => {
-					let memberData = {
-						name: member.name,
-						address: member.address,
-						email: member.email,
-						phone: member.phone,
-						cardType: member.card.type.name,
-						cardId: member.card.id,
-						balance: member.balance
-					}
-
-					memberArray.push(memberData);
-				})
-
-				this.setState({
-					memberList: memberArray
-				});
-			}
-
-			if(member.isUpdated) {
+			if(member.member.isUpdated) {
 				dialogData.success.title = 'Berhasil';
 				dialogData.success.message = 'Data member telah berhasil diubah. Klik tombol berikut untuk kembali.';
 
@@ -186,6 +192,21 @@ class SettingsMemberContainer extends Component {
 		dispatch(updateMember(requiredData, accessToken));
 	}
 
+	handleChangeMemberStatus = (member, e) => {
+		e.stopPropagation();
+
+		const {
+			dispatch,
+			accessToken
+		} = this.props;
+
+		let requiredData = {
+			id: member.id
+		}
+
+		dispatch(changeMemberStatus(requiredData, accessToken));
+	}
+
 	handleDeleteMember = (member, e) => {
 		e.stopPropagation();
 
@@ -260,13 +281,13 @@ class SettingsMemberContainer extends Component {
 		} = this.props;
 
 
-		if(member.isFetching) {
+		if(member.list.isFetching) {
 			return (
-				<p>Sedang memuat...</p>
+				<p>Tunggu sebentar. Sedang memuat daftar member...</p>
 			)
 		}
 
-		if(member.isLoaded) {
+		if(member.list.isLoaded) {
 			return (
 				<SettingsMember
 					{...this.props}
@@ -276,11 +297,13 @@ class SettingsMemberContainer extends Component {
 					handleViewMemberDetail={this.handleViewMemberDetail}
 					handleUpdateMember={this.handleUpdateMember}
 					handleUpdateMemberSubmit={this.handleUpdateMemberSubmit}
+					handleChangeMemberStatus={this.handleChangeMemberStatus}
 					handleDeleteMember={this.handleDeleteMember}
 					handleDeleteMemberSubmit={this.handleDeleteMemberSubmit}
 				/>
 			)
-		} else {
+		} 
+		else {
 			return <p>Maaf, sistem tidak dapat memuat daftar member.</p>
 		}
 	}

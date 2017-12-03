@@ -10,9 +10,8 @@ class SettingsMemberList extends Component {
 			memberListTable: {
 				data: [
 					{ accessor: 'name', title: 'Nama' },
-					{ accessor: 'phone', title: 'Phone' },
-					{ accessor: 'address', title: 'Alamat' },
-					{ accessor: 'cardType', title: 'Tipe Member' },
+					{ accessor: 'email', title: 'Email Address', size: 'large' },
+					{ accessor: 'cardType', title: 'Tipe Member', size: 'small' },
 					{ accessor: 'status', title: 'Status', isStatus: true },
 				]
 			}

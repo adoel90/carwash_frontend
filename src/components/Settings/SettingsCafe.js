@@ -108,8 +108,8 @@ class SettingsCafe extends Component {
 			<div className="inner-view">
 				<div className="flex justify-content--space-between padding-bottom-2">
 					<h5 className="fw-semibold">Daftar Cafe</h5>
-					<Button type="button" buttonTheme="primary" buttonSize="small" className="clr-light" onClick={handleNewCafeType}>
-						<small className="fw-semibold tt-uppercase ls-base">Tambah Kategori Cafe</small>
+					<Button type="button" buttonTheme="primary" className="clr-light" onClick={handleNewCafeType}>
+						<small className="fw-semibold tt-uppercase ls-base">Pengaturan</small>
 					</Button>
 				</div>
 				<Nav tabs className="flex justify-content--space-between">

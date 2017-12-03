@@ -46,6 +46,7 @@ class SettingsMemberContainer extends Component {
 	}
 
 	componentDidUpdate = (prevProps) => {
+		const { memberList } = this.state;
 		const {
 			dialog,
 			dispatch,
@@ -80,33 +81,51 @@ class SettingsMemberContainer extends Component {
 			}
 		}
 
-		if(prevProps.member !== this.props.member) {
-			let dialogData = {
-				success: {
+		if(prevProps.member.updated !== this.props.member.updated) {
+			let dialogData = {};
+
+			if(member.updated.isStatusChanged) {
+				memberList.forEach((item) => {
+					if(item.id === member.member.id) {
+						if(item.status) {
+							item.status = false;
+						}
+						else {
+							item.status = true;
+						}
+
+						this.forceUpdate();
+					}
+				})
+
+					// cardList[card.updatedCard]
+					// cardList[card.updatedCard.index].status = card.updatedCard.status;
+			}
+
+			if(member.updated.isUpdated) {
+				dialogData = {
 					type: 'success',
-					title: '',
-					message: '',
+					title: 'Berhasil',
+					message: 'Data member telah berhasil diubah. Klik tombol berikut untuk kembali.',
 					onClose: () => {
 						window.location.reload()
 					},
 					closeText: 'Kembali'
 				}
+
+				toggleDialog(dialogData);
 			}
 
-			if(member.member.isUpdated) {
-				dialogData.success.title = 'Berhasil';
-				dialogData.success.message = 'Data member telah berhasil diubah. Klik tombol berikut untuk kembali.';
-
-				// dispatch(toggleDialog(dialogData.success, false));
-				toggleDialog(dialogData.success);
-			}
-
-			else if(member.isDeleted) {
-				dialogData.success.title = 'Berhasil';
-				dialogData.success.message = 'Penghapusan member telah berhasil. Klik tombol berikut untuk kembali.';
-
-				showDialog(dialogData.success);
-				// dispatch(toggleDialog(dialogData.success, false));
+			if(member.updated.isError) {
+				dialogData = {
+					type: 'warning',
+					title: 'Perhatian!',
+					message: 'Terdapat kesalahan pada permintaan ini.',
+					onClose: () => {
+						window.location.reload()
+					},
+					closeText: 'Kembali'
+				}
 			}
 		}
 	}

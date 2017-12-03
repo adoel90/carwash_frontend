@@ -50,7 +50,7 @@ class SettingsCard extends Component {
 								<InputAddon>
 									<small className="fw-semibold tt-uppercase ls-base">Rp</small>
 								</InputAddon>
-								<Input
+								<InputCurrency
 									name="minimum"
 									type="text"
 									placeholder="Masukkan minimum pengisian saldo untuk bonus"
@@ -60,12 +60,12 @@ class SettingsCard extends Component {
 							</InputGroup>
 						</FormGroup>
 						<FormGroup row>
-							<Label htmlFor="minimum" className="fw-semibold">Minimum Saldo</Label>
+							<Label htmlFor="minimum" className="fw-semibold">Bonus Saldo</Label>
 							<InputGroup>
 								<InputAddon>
 									<small className="fw-semibold tt-uppercase ls-base">Rp</small>
 								</InputAddon>
-								<Input
+								<InputCurrency
 									name="bonus"
 									type="text"
 									placeholder="Masukkan bonus dari pengisian saldo"
@@ -73,6 +73,15 @@ class SettingsCard extends Component {
 									required="true"
 								/>
 							</InputGroup>
+						</FormGroup>
+						<FormGroup row>
+							<Label htmlFor="refundable" className="fw-semibold">Dapat refund?</Label>
+							<Input
+								type="checkbox"
+								name="refunable"
+								value={newCardType.refunable}
+								onChange={(e) => handleInputChange(newCardType, e)}
+							/>
 						</FormGroup>
 					</ModalContent>
 					<ModalFooter className="flex justify-content--flex-end">
@@ -152,15 +161,13 @@ class SettingsCard extends Component {
 							</InputGroup>
 						</FormGroup>
 						<FormGroup row>
-							<Label htmlFor="refundable" className="fw-semibold">Dapat direfund?</Label>
+							<Label htmlFor="refundable" className="fw-semibold">Dapat refund?</Label>
 							<Input
-								type="select"
+								type="checkbox"
 								name="refunable"
 								value={selectedCardType.refunable}
-								onChange={(e) => handleInputChange(selectedCardType, e)}>
-								<option value={true}>Bisa direfund</option>
-								<option value={false}>Tidak dapat direfund</option>
-							</Input>
+								onChange={(e) => handleInputChange(selectedCardType, e)}
+							/>
 						</FormGroup>
 					</ModalContent>
 					<ModalFooter className="flex justify-content--flex-end">
@@ -190,7 +197,7 @@ class SettingsCard extends Component {
 					<p className="clr-passive">Berikut merupakan daftar tipe kartu yang aktif dalam layanan.</p>
 				</div>
 				<PageBlockGroup>
-					{ card.isLoaded ? <SettingsCardList {...this.props} /> : null }
+					<SettingsCardList {...this.props} />
 					<PageBlock className="flex justify-content--flex-end" extension>
 						<Button type="button" buttonTheme="primary" className="clr-light" onClick={handleNewCardType}>
 							<small className="fw-semibold tt-uppercase ls-base">Buat Tipe Kartu Baru</small>

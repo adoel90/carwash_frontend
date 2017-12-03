@@ -5,7 +5,7 @@ import {
 	getCardTypeList,
 	createNewCardType,
 	updateCardType,
-	toggleCardTypeStatus,
+	changeCardTypeStatus,
 	deleteCardType
 } from '../actions/card.action';
 import {
@@ -67,31 +67,52 @@ class SettingsCardContainer extends Component {
 			showDialog
 		} = this.props;
 
-		if(prevProps.card.list !== this.props.card.list) {
-			if(card.isLoaded) {
+		let dialogData = {};
+
+		if(prevProps.card.list !== card.list) {
+			if(card.list.isLoaded) {
 				this.setState({
 					cardList: card.list.data
 				})
 			}
 		}
 
-
-		if(prevProps.card !== this.props.card) {
-			let dialogData = {
-				success: {
+		if(prevProps.card.created !== card.created) {
+			if(card.created.isCreated) {
+				dialogData = {
 					type: 'success',
-					title: '',
-					message: '',
+					title: 'Berhasil',
+					message: 'Tipe kartu telah berhasil dibuat. Klik tombol berikut untuk kembali.',
 					onClose: () => {
 						window.location.reload()
 					},
 					closeText: 'Kembali'
 				}
+
+				toggleDialog(dialogData);
+			}
+		}
+
+		if(prevProps.card.updated !== card.updated) {
+			if(card.updated.isUpdated) {
+				dialogData = {
+					type: 'success',
+					title: 'Berhasil',
+					message: 'Informasi tipe kartu telah berhasil diubah. Klik tombol berikut untuk kembali.',
+					onClose: () => {
+						window.location.reload()
+					},
+					closeText: 'Kembali'
+				}
+
+				toggleDialog(dialogData);
 			}
 
-			if(card.isStatusUpdated) {
+			else if(card.updated.isStatusChanged) {
 				cardList.forEach((item) => {
-					if(item.id === card.updatedCard.id) {
+					if(item.id === card.updated.id) {
+						// item.status = item.status ? false : true;
+
 						if(item.status) {
 							item.status = false;
 						}
@@ -102,31 +123,6 @@ class SettingsCardContainer extends Component {
 						this.forceUpdate();
 					}
 				})
-
-				// cardList[card.updatedCard]
-				// cardList[card.updatedCard.index].status = card.updatedCard.status;
-			}
-
-			if(card.isUpdated) {
-				dialogData.success.title = 'Berhasil!';
-				dialogData.success.message = 'Data tipe kartu berhasil diubah. Klik tombol berikut untuk kembali.';
-
-				toggleDialog(dialogData.success);
-			}
-
-			else if(card.isCreated) {
-				dialogData.success.title = 'Berhasil!';
-				dialogData.success.message = 'Tipe kartu telah berhasil dibuat. Klik tombol berikut untuk kembali.';
-
-				toggleDialog(dialogData.success);
-
-			}
-
-			else if(card.isDeleted) {
-				dialogData.success.title = 'Berhasil!';
-				dialogData.success.message = 'Tipe kartu telah berhasil dihapus. Klik tombol berikut untuk kembali.';
-
-				showDialog(dialogData.success);
 			}
 		}
 	}
@@ -144,8 +140,8 @@ class SettingsCardContainer extends Component {
 
 	handleInputChange = (object, e) => {
 		const target = e.target;
+		const value = target.type === 'checkbox' ? target.checked : target.value;
 		const name = target.name;
-		const value = target.value;
 
 		if(object) {
 			object[name] = value;
@@ -177,9 +173,9 @@ class SettingsCardContainer extends Component {
 
 		const requiredData = {
 			name: newCardType.name,
-			minimum: parseInt(newCardType.minimum),
-			bonus: parseInt(newCardType.bonus),
-			refunable: newCardType.refunable
+			minimum: parseInt(newCardType.minimum.replace(/,/g, '')),
+			bonus: parseInt(newCardType.minimum.replace(/,/g, '')),
+			refund: newCardType.refunable
 		}
 
 		dispatch(createNewCardType(requiredData, accessToken));
@@ -245,7 +241,7 @@ class SettingsCardContainer extends Component {
 			id: cardType.id
 		}
 
-		dispatch(toggleCardTypeStatus(requiredData, accessToken));
+		dispatch(changeCardTypeStatus(requiredData, accessToken));
 	}
 
 	handleCardTypeDelete = (cardType) => {

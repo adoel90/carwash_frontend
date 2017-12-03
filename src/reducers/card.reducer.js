@@ -6,25 +6,32 @@ import {
 	CREATE_CARD_TYPE_REJECTED,
 	UPDATE_CARD_TYPE_FULFILLED,
 	UPDATE_CARD_TYPE_REJECTED,
-	TOGGLE_CARD_TYPE_STATUS_FULFILLED,
-	TOGGLE_CARD_TYPE_STATUS_REJECTED,
-	DELETE_CARD_TYPE_FULFILLED,
-	DELETE_CARD_TYPE_REJECTED
+	CHANGE_CARD_TYPE_STATUS_FULFILLED,
+	CHANGE_CARD_TYPE_STATUS_REJECTED,
 } from '../actions/card.action';
 
 const initialState = {
-	list: {},
-	newCard: {},
-	updatedCard: {},
-	deletedCard: {},
-	isFetching: false,
-	isCreated: false,
-	isStatusUpdated: false,
-	isUpdated: false,
-	isDeleted: false,
-	isLoaded: false,
-	isError: false,
-	error: {}
+	list: {
+		data: [],
+		isFetching: false,
+		isLoaded: false,
+		isError: false,
+		error: {}
+	},
+	created: {
+		data: {},
+		isCreated: false,
+		isError: false,
+		error: {}
+	},
+	updated: {
+		data: {},
+		id: null,
+		isUpdated: false,
+		isStatusChanged: false,
+		isError: false,
+		error: {}
+	},
 }
 
 const card = (state = initialState, action) => {
@@ -32,112 +39,115 @@ const card = (state = initialState, action) => {
 		case GET_ALL_CARD_TYPE_REQUESTED: {
 			return {
 				...state,
-				isFetching: true,
-				isLoaded: false
+				list: {
+					...state.list,
+					isFetching: true,
+					isLoaded: false,
+					isError: false,
+					error: {}
+				}
 			}
 		}
 
 		case GET_ALL_CARD_TYPE_FULFILLED: {
 			return {
 				...state,
-				list: action.payload,
-				isFetching: false,
-				isLoaded: true,
-				error: {}
+				list: {
+					...state.list,
+					data: action.payload.data,
+					isFetching: false,
+					isLoaded: true,
+					isError: false,
+					error: {}
+				}
 			}
 		}
 
 		case GET_ALL_CARD_TYPE_REJECTED: {
 			return {
 				...state,
-				list: {},
-				isFetching: false,
-				isLoaded: false,
-				isError: true,
-				error: action.payload
+				list: {
+					...state.list,
+					isFetching: false,
+					isLoaded: false,
+					isError: true,
+					error: action.payload
+				}
 			}
 		}
 
 		case CREATE_CARD_TYPE_FULFILLED: {
 			return {
 				...state,
-				newCard: action.payload,
-				isCreated: true,
-				error: {}
+				created: {
+					...state.created,
+					data: action.payload,
+					isCreated: true,
+					isError: false,
+					error: {}
+				}
 			}
 		}
 
 		case CREATE_CARD_TYPE_REJECTED: {
 			return {
 				...state,
-				newCard: {},
-				isCreated: false,
-				isError: true,
-				error: action.payload
+				created: {
+					...state.created,
+					isCreated: false,
+					isError: true,
+					error: action.payload
+				}
 			}
 		}
 
 		case UPDATE_CARD_TYPE_FULFILLED: {
 			return {
 				...state,
-				updatedCard: action.payload,
-				isUpdated: true,
-				isError: false,
-				error: {}
+				updated: {
+					...state.updated,
+					isUpdated: true,
+					isError: false,
+					error: {}
+				}
 			}
 		}
 
 		case UPDATE_CARD_TYPE_REJECTED: {
 			return {
 				...state,
-				updatedCard: {},
-				isUpdated: false,
-				isError: true,
-				error: action.payload
+				updated: {
+					...state.updated,
+					isUpdated: false,
+					isError: true,
+					error: action.payload
+				}
 			}
 		}
 
-		case TOGGLE_CARD_TYPE_STATUS_FULFILLED: {
+		case CHANGE_CARD_TYPE_STATUS_FULFILLED: {
 			return {
 				...state,
-				updatedCard: {
+				updated: {
+					...state.updated,
+					id: action.id,
 					data: action.payload,
-					id: action.id
-				},
-				isStatusUpdated: true,
-				isError: false,
-				error: {}
+					isStatusChanged: true,
+					isError: false,
+					error: {}
+				}
 			}
 		}
 
-		case TOGGLE_CARD_TYPE_STATUS_REJECTED: {
+		case CHANGE_CARD_TYPE_STATUS_REJECTED: {
 			return {
 				...state,
-				updatedCard: {},
-				isStatusUpdated: false,
-				isError: true,
-				error: action.payload
-			}
-		}
-
-
-		case DELETE_CARD_TYPE_FULFILLED: {
-			return {
-				...state,
-				deletedCard: action.payload,
-				isDeleted: true,
-				isError: false,
-				error: {}
-			}
-		}
-
-		case DELETE_CARD_TYPE_REJECTED: {
-			return {
-				...state,
-				deletedCard: {},
-				isDeleted: false,
-				isError: true,
-				error: action.payload
+				updated: {
+					...state.updated,
+					isStatusChanged: false,
+					isError: true,
+					error: action.payload
+				}
 			}
 		}
 

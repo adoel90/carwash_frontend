@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import classNames from 'classnames';
 import { Table, TableHeading, TableBody, TablePagination } from '../Table';
 import { Button, ButtonGroup } from '../Button';
 import { Input } from '../Input';
@@ -248,20 +249,25 @@ class TableSet extends Component {
 		}
 	}
 
-	renderTableColumn = (column, i) => {
+	renderTableColumn = () => {
 		const {
 			columns,
 			onUpdate,
-			onDelete
+			onDelete,
+			onChangeStatus
 		} = this.props
 
 		const tableColumns = [];
 
 		columns.map((column, i) => {
-			tableColumns.push(<th>{column.title}</th>);
+			let columnClasses = classNames(
+				column.size ? `th--${column.size}` : null
+			)
+
+			tableColumns.push(<th key={i} className={columnClasses}>{column.title}</th>);
 		})
 
-		if(onUpdate || onDelete) {
+		if(onUpdate || onDelete || onChangeStatus) {
 			tableColumns.push(<th>Pengaturan</th>)
 		}
 

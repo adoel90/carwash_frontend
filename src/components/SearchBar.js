@@ -23,7 +23,7 @@ class SearchBar extends React.Component {
 			<Form onSubmit={onSubmit} className={classes}>
 				<InputGroup>
 					<InputAddon>
-						<i className="icon icon--base fi flaticon flaticon-search-1"></i>
+						<i className="ion-search icon icon--base"></i>
 					</InputAddon>
 					<Input 
 						type="text" 

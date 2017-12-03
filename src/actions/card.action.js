@@ -11,8 +11,8 @@ export const CREATE_CARD_TYPE_FULFILLED = 'CREATE_CARD_TYPE_FULFILLED';
 export const CREATE_CARD_TYPE_REJECTED = 'CREATE_CARD_TYPE_REJECTED';
 export const UPDATE_CARD_TYPE_FULFILLED = 'UPDATE_CARD_TYPE_FULFILLED';
 export const UPDATE_CARD_TYPE_REJECTED = 'UPDATE_CARD_TYPE_REJECTED';
-export const TOGGLE_CARD_TYPE_STATUS_FULFILLED = 'TOGGLE_CARD_TYPE_STATUS_FULFILLED';
-export const TOGGLE_CARD_TYPE_STATUS_REJECTED = 'TOGGLE_CARD_TYPE_STATUS_REJECTED';
+export const CHANGE_CARD_TYPE_STATUS_FULFILLED = 'CHANGE_CARD_TYPE_STATUS_FULFILLED';
+export const CHANGE_CARD_TYPE_STATUS_REJECTED = 'CHANGE_CARD_TYPE_STATUS_REJECTED';
 export const DELETE_CARD_TYPE_FULFILLED = 'DELETE_CARD_TYPE_FULFILLED';
 export const DELETE_CARD_TYPE_REJECTED = 'DELETE_CARD_TYPE_REJECTED';
 
@@ -63,7 +63,8 @@ export const createNewCardType = (data, accessToken) => {
 			.post(`${constant.API_PATH}card/type/create?accessToken=${accessToken}`, {
 				name: data.name,
 				minimum: data.minimum,
-				bonus: data.bonus
+				bonus: data.bonus,
+				refund: data.refund
 			})
 			.then((response) => {
 				dispatch(handleSuccess(response.data))
@@ -98,7 +99,7 @@ export const updateCardType = (data, accessToken) => {
 	function handleError(data) { return { type: UPDATE_CARD_TYPE_REJECTED, payload: data}}
 }
 
-export const toggleCardTypeStatus = (data, accessToken) => {
+export const changeCardTypeStatus = (data, accessToken) => {
 	return async dispatch => {
 		return axios
 			.put(`${constant.API_PATH}card/type/status?accessToken=${accessToken}`, {
@@ -112,8 +113,8 @@ export const toggleCardTypeStatus = (data, accessToken) => {
 			})
 	}
 
-	function handleSuccess(data, id) { return { type: TOGGLE_CARD_TYPE_STATUS_FULFILLED, id: id, payload: data} }
-	function handleError(data) { return { type: TOGGLE_CARD_TYPE_STATUS_REJECTED, payload: data} }
+	function handleSuccess(data, id) { return { type: CHANGE_CARD_TYPE_STATUS_FULFILLED, id: id, payload: data} }
+	function handleError(data) { return { type: CHANGE_CARD_TYPE_STATUS_REJECTED, payload: data} }
 }
 
 export const deleteCardType = (data, accessToken) => {

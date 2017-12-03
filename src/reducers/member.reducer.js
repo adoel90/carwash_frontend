@@ -6,22 +6,19 @@ import {
 	GET_MEMBER_LIST_REQUESTED,
 	GET_MEMBER_LIST_FULFILLED,
 	GET_MEMBER_LIST_REJECTED,
+	CREATE_MEMBER_FULFILLED,
+	CREATE_MEMBER_REJECTED,
 	UPDATE_MEMBER_REQUESTED,
 	UPDATE_MEMBER_FULFILLED,
 	UPDATE_MEMBER_REJECTED,
-	CREATE_MEMBER_FULFILLED,
-	CREATE_MEMBER_REJECTED,
 	CHANGE_MEMBER_STATUS_REQUESTED,
 	CHANGE_MEMBER_STATUS_FULFILLED,
 	CHANGE_MEMBER_STATUS_REJECTED,
-	DELETE_MEMBER_FULFILLED,
-	DELETE_MEMBER_REJECTED,
 	LOGOUT_MEMBER_FULFILLED,
 	LOGOUT_MEMBER_REJECTED
 } from '../actions/member.action'
 
 const initialState = {
-	data: {},
 	list: {
 		data: [],
 		isLoaded: false,
@@ -29,25 +26,24 @@ const initialState = {
 		isError: false,
 		error: {}
 	},
-	member: {
+	updated: {
 		id: null,
 		data: {},
 		isUpdated: false,
-		isCreated: false,
-		isDeleted: false,
+		isStatusChanged: false,
+		isBalanceChanged: false,
 		isError: false,
 		error: {}
 	},
-	createdMember: {},
-	updatedMember: {},
-	deletedMember: {},
+	created: {
+		data: {},
+		isCreated: false,
+		isError: false,
+		error: {}
+	},
+	data: {},
 	accessToken: '',
 	isAuthenticated: false,
-	// isFetching: false,
-	// isLoaded: false,
-	// isUpdated: false,
-	// isCreated: false,
-	// isDeleted: false,
 	isError: false,
 	error: {},
 }
@@ -78,31 +74,11 @@ const member = (state = initialState, action) => {
 			}
 		}
 
-		case MEMBER_TOPUP_FULFILLED: {
-			return {
-				...state,
-				updatedMember: action.payload,
-				isTopup: true,
-				isError: false,
-				error: {}
-			}
-		}
-
-		case MEMBER_TOPUP_REJECTED: {
-			return {
-				...state,
-				updatedMember: {},
-				isTopup: false,
-				isError: true,
-				error: action.payload,
-			}
-		}
-
 		case GET_MEMBER_LIST_REQUESTED: {
 			return {
 				...state,
 				list: {
-					...state.member,
+					...state.list,
 					isFetching: true,
 					isLoaded: false,
 					isError: false,
@@ -115,7 +91,7 @@ const member = (state = initialState, action) => {
 			return {
 				...state,
 				list: {
-					...state.member,
+					...state.list,
 					data: action.payload.data,
 					isFetching: false,
 					isLoaded: true
@@ -127,7 +103,7 @@ const member = (state = initialState, action) => {
 			return {
 				...state,
 				list: {
-					...state.member,
+					...state.list,
 					data: {},
 					isFetching: false,
 					isLoaded: false,
@@ -140,8 +116,8 @@ const member = (state = initialState, action) => {
 		case CREATE_MEMBER_FULFILLED: {
 			return {
 				...state,
-				member: {
-					...state.member,
+				created: {
+					...state.created,
 					data: action.payload,
 					isCreated: true,
 					isError: false,
@@ -153,8 +129,8 @@ const member = (state = initialState, action) => {
 		case CREATE_MEMBER_REJECTED: {
 			return {
 				...state,
-				member: {
-					...state.member,
+				created: {
+					...state.created,
 					data: {},
 					isCreated: false,
 					isError: false,
@@ -166,8 +142,8 @@ const member = (state = initialState, action) => {
 		case UPDATE_MEMBER_FULFILLED: {
 			return {
 				...state,
-				member: {
-					...state.member,
+				updated: {
+					...state.updated,
 					data: action.payload,
 					isUpdated: true,
 					isError: false,
@@ -179,10 +155,36 @@ const member = (state = initialState, action) => {
 		case UPDATE_MEMBER_REJECTED: {
 			return {
 				...state,
-				member: {
-					...state.member,
+				updated: {
+					...state.updated,
 					data: {},
 					isUpdated: false,
+					isError: true,
+					error: action.payload
+				}
+			}
+		}
+
+		case MEMBER_TOPUP_FULFILLED: {
+			return {
+				...state,
+				updated: {
+					...state.updated,
+					data: action.payload,
+					isBalanceChanged: true,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case MEMBER_TOPUP_REJECTED: {
+			return {
+				...state,
+				updated: {
+					...state.updated,
+					data: {},
+					isBalanceChanged: false,
 					isError: false,
 					error: {}
 				}
@@ -192,11 +194,11 @@ const member = (state = initialState, action) => {
 		case CHANGE_MEMBER_STATUS_FULFILLED: {
 			return {
 				...state,
-				member: {
-					...state.member,
+				updated: {
+					...state.updated,
 					id: action.id,
 					data: action.payload,
-					isUpdated: true,
+					isStatusChanged: true,
 					isError: false,
 					error: {}
 				}
@@ -206,32 +208,13 @@ const member = (state = initialState, action) => {
 		case CHANGE_MEMBER_STATUS_REJECTED: {
 			return {
 				...state,
-				member: {
-					...state.member,
+				updated: {
+					...state.updated,
 					data: {},
-					isUpdated: false,
+					isStatusChanged: false,
 					isError: true,
 					error: action.payload
 				}
-			}
-		}
-
-		case DELETE_MEMBER_FULFILLED: {
-			return {
-				...state,
-				data: action.payload,
-				isDeleted: true,
-				error: {},
-			}
-		}
-
-		case DELETE_MEMBER_REJECTED: {
-			return {
-				...state,
-				data: {},
-				isDeleted: false,
-				isError: true,
-				error: action.payload,
 			}
 		}
 

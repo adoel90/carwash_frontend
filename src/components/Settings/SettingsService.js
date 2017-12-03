@@ -430,10 +430,12 @@ class SettingsService extends Component {
 		return (
 			<div className="inner-view">
 				<div className="flex justify-content--space-between padding-bottom-2">
-					<h5 className="fw-semibold">Daftar Service</h5>
+					<div>
+						<h5 className="fw-semibold">Daftar Service</h5>
+						<p className="clr-passive">Berikut merupakan daftar service yang sedang berjalan pada aplikasi.</p>
+					</div>
 					<Button type="button" buttonTheme="primary" buttonSize="small" className="clr-light" onClick={handleServiceTypeSettings}>
-						<i className="ion-gear-b icon icon--base margin-right-3"></i>
-						<small className="fw-semibold tt-uppercase ls-base">Atur Kategori Service</small>
+						<small className="fw-semibold tt-uppercase ls-base">Pengaturan</small>
 					</Button>
 				</div>
 				<Nav tabs className="flex justify-content--space-between">

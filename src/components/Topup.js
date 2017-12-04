@@ -13,6 +13,7 @@ class Topup extends React.Component {
                 <p>{item.email}</p>
                 <p>{item.phone}</p>
                 <p>{item.address}</p>
+                <p>wtf</p>
             </div>
         )
     }

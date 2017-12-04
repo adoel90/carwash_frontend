@@ -39,7 +39,10 @@ class SettingsServiceContainer extends Component {
 
 		this.state = {
 			searchText: '',
-			serviceTypes: [],
+			serviceTypes: {
+				all: [],
+				active: []
+			},
 			newService: {
 				type: '',
 				name: '',
@@ -93,10 +96,20 @@ class SettingsServiceContainer extends Component {
 					}
 				}
 
-				let sortedData = service.types.data.sort(dynamicSort('name'))
+				let sortedTypes = service.types.data.sort(dynamicSort('name'))
+				let activeTypes = [];
+
+				service.types.data.map((type) => {
+					if(type.status) {
+						activeTypes.push(type);
+					}
+				})
 
 				this.setState({
-					serviceTypes: sortedData
+					serviceTypes: {
+						all: sortedTypes,
+						active: activeTypes
+					}
 				})
 			}
 		}

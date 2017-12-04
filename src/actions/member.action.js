@@ -177,7 +177,7 @@ export const changeMemberStatus = (data, accessToken) => {
 			})
 	}
 
-	function handleRequest(id) { return { type: CHANGE_MEMBER_STATUS_REQUESTED, id: id } }
+	function handleRequest(id) { return { type: CHANGE_MEMBER_STATUS_REQUESTED, id: id}}
 	function handleSuccess(data, id) { return { type: CHANGE_MEMBER_STATUS_FULFILLED, payload: data, id: id } }
 	function handleError(data) { return { type: CHANGE_MEMBER_STATUS_REJECTED, payload: data } }
 }

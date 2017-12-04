@@ -107,7 +107,7 @@ class SettingsService extends Component {
 					<ModalContent>
 						<small>Berikut merupakan daftar kategori yang ada di aplikasi ini. Kategori yang sedang berjalan dan aktif untuk layanan ditandai dengan tombol 'Aktif', dan sebaliknya 'Tidak Aktif' bagi kategori yang sedang tidak berjalan. Silahkan klik tombol tersebut untuk mengubah status kategori.</small>
 						<ListGroup>
-							{service.types.isLoaded ? serviceTypes.map(serviceTypeItem) : null}
+							{service.types.isLoaded ? serviceTypes.all.map(serviceTypeItem) : null}
 							<ListGroupItem className="align-items--center">
 								<Row>
 									<div className="column-9">
@@ -123,7 +123,6 @@ class SettingsService extends Component {
 											<small className="fw-semibold tt-uppercase ls-base clr-light">Tambah</small>
 										</Button>
 									</div>
-
 								</Row>
 							</ListGroupItem>
 						</ListGroup>
@@ -441,9 +440,9 @@ class SettingsService extends Component {
 					</div>
 				</div>
 				<Nav tabs className="flex justify-content--space-between">
-					{serviceTypes.length ? serviceTypes.map(this.renderTabNav) : null}
+					{service.types.isLoaded ? serviceTypes.active.map(this.renderTabNav) : null}
 				</Nav>
-				{ serviceTypes.length ? serviceTypes.map(this.renderTabContent) : null}
+				{ service.types.isLoaded ? serviceTypes.active.map(this.renderTabContent) : null}
 				{ this.renderNewServiceModal() }
 				{ this.renderServiceTypeSettingsModal() }
 				{ this.renderUpdateServiceModal() }

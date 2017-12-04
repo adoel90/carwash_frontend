@@ -173,7 +173,7 @@ export const changeMemberStatus = (data, accessToken) => {
 				dispatch(handleSuccess(response.data, data.id))
 			})
 			.catch((error) => {
-				dispatch(handleError(error))	
+				dispatch(handleError(error))
 			})
 	}
 

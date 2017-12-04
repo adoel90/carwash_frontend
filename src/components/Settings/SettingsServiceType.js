@@ -18,7 +18,7 @@ class SettingsServiceType extends Component {
 		} = this.props;
 
 
-		if(service.isLoaded) {
+		if(service.list.isLoaded) {
 			if(serviceList.length) {
 				return <SettingsServiceList {...this.props} />
 			}

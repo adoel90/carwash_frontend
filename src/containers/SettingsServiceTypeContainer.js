@@ -26,11 +26,15 @@ class SettingsServiceTypeContainer extends React.Component {
 			service
 		} = this.props;
 
-		if(prevProps.service !== this.props.service) {
-			if(service.isLoaded) {
+		if(prevProps.service.list !== service.list) {
+			if(service.list.isLoaded) {
 				this.setState({
-					serviceList: service.list
+					serviceList: service.list.data
 				})
+
+				// this.setState({
+				// 	serviceList: service.list.data
+				// })
 			}
 		}
 	}

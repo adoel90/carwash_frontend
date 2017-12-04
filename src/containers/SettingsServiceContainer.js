@@ -5,6 +5,7 @@ import {
 	createNewService,
 	deleteService,
 	updateService,
+	changeServiceStatus,
 	createNewServiceType,
 	updateServiceType,
 	changeServiceTypeStatus
@@ -28,8 +29,7 @@ class SettingsServiceContainer extends Component {
 		this.handleNewServiceSubmit = this.handleNewServiceSubmit.bind(this);
 		this.handleServiceUpdate = this.handleServiceUpdate.bind(this);
 		this.handleServiceUpdateSubmit = this.handleServiceUpdateSubmit.bind(this);
-		this.handleServiceDelete = this.handleServiceDelete.bind(this);
-		this.handleServiceDeleteSubmit = this.handleServiceDeleteSubmit.bind(this);
+		this.handleChangeServiceStatus = this.handleChangeServiceStatus.bind(this);
 		this.handleServiceTypeSettings = this.handleServiceTypeSettings.bind(this);
 		// this.handleNewServiceType = this.handleNewServiceType.bind(this);
 		this.handleNewServiceTypeSubmit = this.handleNewServiceTypeSubmit.bind(this);
@@ -79,7 +79,7 @@ class SettingsServiceContainer extends Component {
 			showDialog
 		} = this.props;
 
-		if(prevProps.service.types !== this.props.service.types) {
+		if(prevProps.service.types !== service.types) {
 			if(service.types.isLoaded) {
 				function dynamicSort(property) {
 					var sortOrder = 1;
@@ -101,51 +101,39 @@ class SettingsServiceContainer extends Component {
 			}
 		}
 
-		if(prevProps.service.type !== this.props.service.type) {
+		if(prevProps.service.type !== service.type) {
 			if(service.type.isUpdated) {
 				this.getServiceTypes();
 			}
 		}
 
-		if(prevProps.service !== this.props.service) {
-			let dialogData = {
-				success: {
+		if(prevProps.service !== service) {
+			let dialogData = {};
+
+			if(service.updated.isUpdated) {
+				dialogData = {
 					type: 'success',
-					title: '',
-					message: '',
+					title: 'Berhasil!',
+					message: 'Perubahan service telah berhasil. Klik tombol berikut untuk kembali.',
 					onClose: () => {
 						window.location.reload()
 					},
 					closeText: 'Kembali'
 				}
+
+				toggleDialog(dialogData);
 			}
 
-			if(service.isUpdated) {
-				dialogData.success.title = 'Berhasil!';
-				dialogData.success.message = 'Perubahan informasi service telah berhasil. Klik tombol berikut untuk kembali.'
-
-				toggleDialog(dialogData.success);
-			}
-
-			else if(service.isCreated) {
-				dialogData.success.title = 'Berhasil!';
-				dialogData.success.message = 'Service telah berhasil ditambahkan. Klik tombol berikut untuk kembali.'
-
-				toggleDialog(dialogData.success);
-			}
-
-			else if(service.type.isDeleted) {
-				dialogData.success.title = 'Berhasil!';
-				dialogData.success.message = 'Kategori service telah berhasil dihapus. Klik tombol berikut untuk kembali.'
-
-				showDialog(dialogData.success);
-			}
-
-			else if(service.isDeleted) {
-				dialogData.success.title = 'Berhasil!';
-				dialogData.success.message = 'Penghapusan service telah berhasil. Klik tombol berikut untuk kembali.';
-
-				showDialog(dialogData.success);
+			else if(service.created.isCreated) {
+				dialogData = {
+					type: 'success',
+					title: 'Berhasil!',
+					message: 'Penambahan service telah berhasil. Klik tombol berikut untuk kembali.',
+					onClose: () => {
+						window.location.reload()
+					},
+					closeText: 'Kembali'
+				}
 			}
 		}
 	}
@@ -289,6 +277,19 @@ class SettingsServiceContainer extends Component {
 		dispatch(updateService(requiredData, accessToken));
 	}
 
+	handleChangeServiceStatus = (service) => {
+		const {
+			accessToken,
+			dispatch
+		} = this.props;
+
+		let requiredData = {
+			id: service.id
+		}
+
+		dispatch(changeServiceStatus(requiredData, accessToken))
+	}
+
 	handleServiceDelete = (service) => {
 		const {
 			dialog,
@@ -415,7 +416,7 @@ class SettingsServiceContainer extends Component {
 				handleNewServiceSubmit={this.handleNewServiceSubmit}
 				handleServiceUpdate={this.handleServiceUpdate}
 				handleServiceUpdateSubmit={this.handleServiceUpdateSubmit}
-				handleServiceDelete={this.handleServiceDelete}
+				handleChangeServiceStatus={this.handleChangeServiceStatus}
 				handleServiceTypeSettings={this.handleServiceTypeSettings}
 				handleNewServiceTypeSubmit={this.handleNewServiceTypeSubmit}
 				handleUpdateServiceTypeSubmit={this.handleUpdateServiceTypeSubmit}

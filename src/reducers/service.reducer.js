@@ -11,6 +11,8 @@ import {
 	CREATE_SERVICE_REJECTED,
 	UPDATE_SERVICE_FULFILLED,
 	UPDATE_SERVICE_REJECTED,
+	CHANGE_SERVICE_STATUS_FULFILLED,
+	CHANGE_SERVICE_STATUS_REJECTED,
 	DELETE_SERVICE_FULFILLED,
 	DELETE_SERVICE_REJECTED,
 
@@ -27,7 +29,13 @@ import {
 } from '../actions/service.action';
 
 const initialState = {
-	list: {},
+	list: {
+		data: [],
+		isFetching: false,
+		isLoaded: false,
+		isError: false,
+		error: {}
+	},
 	type: {
 		id: null,
 		data: {},
@@ -41,6 +49,19 @@ const initialState = {
 		data: [],
 		isFetching: false,
 		isLoaded: false,
+		isError: false,
+		error: {}
+	},
+	updated: {
+		data: {},
+		isUpdated: false,
+		isStatusChanged: false,
+		isError: false,
+		error: {}
+	},
+	created: {
+		data: {},
+		isCreated: false,
 		isError: false,
 		error: {}
 	},
@@ -59,25 +80,37 @@ const service = (state = initialState, action) => {
 		case GET_SERVICE_LIST_REQUESTED: {
 			return {
 				...state,
-				isFetching: true,
-				isLoaded: false
+				list: {
+					...state.list,
+					isFetching: true,
+					isLoaded: false
+				}
 			}
 		}
 		case GET_SERVICE_LIST_FULFILLED: {
 			return {
 				...state,
-				list: action.payload.data,
-				isFetching: false,
-				isLoaded: true
+				list: {
+					...state.list,
+					data: action.payload.data,
+					isLoaded: true,
+					isFetching: false,
+					isError: false,
+					error: {}
+				}
 			}
 		}
 		case GET_SERVICE_LIST_REJECTED: {
 			return {
 				...state,
-				list: {},
-				isFetching: false,
-				isLoaded: false,
-				error: action.payload
+				list: {
+					...state.list,
+					data: {},
+					isLoaded: false,
+					isFetching: false,
+					isError: true,
+					error: action.payload
+				}
 			}
 		}
 
@@ -121,49 +154,73 @@ const service = (state = initialState, action) => {
 		case CREATE_SERVICE_FULFILLED: {
 			return {
 				...state,
-				service: action.payload,
-				isCreated: true,
-				error: null
+				created: {
+					...state.created,
+					data: action.payload.data,
+					isCreated: true,
+					isError: false,
+					error: {}
+				}
 			}
 		}
 		case CREATE_SERVICE_REJECTED: {
 			return {
 				...state,
-				service: null,
-				isCreated: false,
-				isError: true,
-				error: action.payload
+				created: {
+					...state.created,
+					data: {},
+					isCreated: false,
+					isError: true,
+					error: action.payload
+				}
 			}
 		}
 		case UPDATE_SERVICE_FULFILLED: {
 			return {
 				...state,
-				service: action.payload,
-				isUpdated: true,
-				error: {}
+				updated: {
+					...state.updated,
+					data: action.payload,
+					isUpdated: true,
+					isError: false,
+					error: {}
+				}
 			}
 		}
 		case UPDATE_SERVICE_REJECTED: {
 			return {
 				...state,
-				service: {},
-				isUpdated: false,
-				isError: true,
-				error: action.payload
+				updated: {
+					...state.updated,
+					data: {},
+					isUpdated: false,
+					isError: true,
+					error: action.payload
+				}
 			}
 		}
-		case DELETE_SERVICE_FULFILLED: {
+		case CHANGE_SERVICE_STATUS_FULFILLED: {
 			return {
 				...state,
-				isDeleted: true,
+				updated: {
+					...state.updated,
+					data: action.payload,
+					isStatusChanged: true,
+					isError: false,
+					error: {}
+				}
 			}
 		}
-		case DELETE_SERVICE_REJECTED: {
+		case CHANGE_SERVICE_STATUS_REJECTED: {
 			return {
 				...state,
-				isDeleted: false,
-				isError: true,
-				error: action.payload
+				updated: {
+					...state.updated,
+					data: {},
+					isStatusChanged: false,
+					isError: true,
+					error: action.payload
+				}
 			}
 		}
 
@@ -171,18 +228,20 @@ const service = (state = initialState, action) => {
 		case CREATE_SERVICE_TYPE_FULFILLED: {
 			return {
 				...state,
-				type: {
-					...state.type,
+				created: {
+					...state.created,
 					data: action.payload,
 					isCreated: true,
-				},
+					isError: false,
+					error: {}
+				}
 			}
 		}
 		case CREATE_SERVICE_TYPE_REJECTED: {
 			return {
 				...state,
-				type: {
-					...state.type,
+				created: {
+					...state.created,
 					data: {},
 					isCreated: false,
 					isError: true,
@@ -193,11 +252,13 @@ const service = (state = initialState, action) => {
 		case UPDATE_SERVICE_TYPE_FULFILLED: {
 			return {
 				...state,
-				type: {
-					...state.type,
+				updated: {
+					...state.updated,
 					id: action.id,
 					data: action.payload,
 					isUpdated: true,
+					isError: false,
+					error: {}
 				}
 			}
 		}

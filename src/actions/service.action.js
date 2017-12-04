@@ -14,6 +14,8 @@ export const CREATE_SERVICE_FULFILLED = 'CREATE_SERVICE_FULFILLED';
 export const CREATE_SERVICE_REJECTED = 'CREATE_SERVICE_REJECTED';
 export const UPDATE_SERVICE_FULFILLED = 'UPDATE_SERVICE_FULFILLED';
 export const UPDATE_SERVICE_REJECTED = 'UPDATE_SERVICE_REJECTED';
+export const CHANGE_SERVICE_STATUS_FULFILLED = 'CHANGE_SERVICE_STATUS_FULFILLED';
+export const CHANGE_SERVICE_STATUS_REJECTED = 'CHANGE_SERVICE_STATUS_REJECTED';
 export const DELETE_SERVICE_FULFILLED = 'DELETE_SERVICE_FULFILLED';
 export const DELETE_SERVICE_REJECTED = 'DELETE_SERVICE_REJECTED';
 
@@ -132,6 +134,24 @@ export const updateService = (data, accessToken) => {
 
 	function handleSuccess(data) { return { type: UPDATE_SERVICE_FULFILLED, payload: data}}
 	function handleError(data) { return { type: UPDATE_SERVICE_REJECTED, payload: data }}
+}
+
+export const changeServiceStatus = (data, accessToken) => {
+	return async dispatch => {
+		return axios
+			.put(`${constant.API_PATH}service/status?accessToken=${accessToken}`, {
+				id: data.id
+			})
+			.then((response) => {
+				dispatch(handleSuccess(response.data, data.id))
+			})
+			.catch((error) => {
+				dispatch(handleError(error))
+			})
+	}
+
+	function handleSuccess(data, id) { return { type: CHANGE_SERVICE_STATUS_FULFILLED, payload: data, id: id }}
+	function handleError(data) { return { type: CHANGE_SERVICE_STATUS_FULFILLED, payload: data }}
 }
 
 export const deleteService = (data, accessToken) => {

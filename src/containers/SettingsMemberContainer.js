@@ -86,7 +86,7 @@ class SettingsMemberContainer extends Component {
 
 			if(member.updated.isStatusChanged) {
 				memberList.forEach((item) => {
-					if(item.id === member.member.id) {
+					if(item.id === member.updated.id) {
 						if(item.status) {
 							item.status = false;
 						}
@@ -96,10 +96,7 @@ class SettingsMemberContainer extends Component {
 
 						this.forceUpdate();
 					}
-				})
-
-					// cardList[card.updatedCard]
-					// cardList[card.updatedCard.index].status = card.updatedCard.status;
+				});
 			}
 
 			if(member.updated.isUpdated) {
@@ -321,7 +318,7 @@ class SettingsMemberContainer extends Component {
 					handleDeleteMemberSubmit={this.handleDeleteMemberSubmit}
 				/>
 			)
-		} 
+		}
 		else {
 			return <p>Maaf, sistem tidak dapat memuat daftar member.</p>
 		}

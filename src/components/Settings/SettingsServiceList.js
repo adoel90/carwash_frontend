@@ -19,7 +19,8 @@ class SettingsServiceList extends Component {
 			service,
 			serviceList,
 			handleServiceUpdate,
-			handleServiceDelete
+			handleServiceDelete,
+			handleChangeServiceStatus
 		} = this.props;
 
 		const {
@@ -40,7 +41,8 @@ class SettingsServiceList extends Component {
 				hasPagination
 				hasSearchBar
 				onUpdate={handleServiceUpdate}
-				onDelete={handleServiceDelete}
+				onChangeStatus={handleChangeServiceStatus}
+				// onDelete={handleServiceDelete}
 				{...this.props}
 			/>
 		);

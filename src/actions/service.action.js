@@ -24,6 +24,7 @@ export const CREATE_SERVICE_TYPE_FULFILLED = 'CREATE_SERVICE_TYPE_FULFILLED';
 export const CREATE_SERVICE_TYPE_REJECTED = 'CREATE_SERVICE_TYPE_REJECTED';
 export const UPDATE_SERVICE_TYPE_FULFILLED = 'UPDATE_SERVICE_TYPE_FULFILLED';
 export const UPDATE_SERVICE_TYPE_REJECTED = 'UPDATE_SERVICE_TYPE_REJECTED';
+export const CHANGE_SERVICE_TYPE_STATUS_REQUESTED = 'CHANGE_SERVICE_TYPE_STATUS_REQUESTED';
 export const CHANGE_SERVICE_TYPE_STATUS_FULFILLED = 'CHANGE_SERVICE_TYPE_STATUS_FULFILLED';
 export const CHANGE_SERVICE_TYPE_STATUS_REJECTED = 'CHANGE_SERVICE_TYPE_STATUS_FULFILLED';
 
@@ -76,20 +77,16 @@ export const getServiceTypes = (accessToken) => {
 		return axios
 			.get(`${constant.API_PATH}service/type?accessToken=${accessToken}`)
 			.then((response) => {
-				dispatch({
-					type: GET_SERVICE_TYPES_FULFILLED,
-					payload: response.data
-				})
+				dispatch(handleSuccess(response.data));
 			})
 			.catch((error) => {
-				dispatch({
-					type: GET_SERVICE_TYPES_REJECTED,
-					payload: error
-				})
+				dispatch(handleError(error));
 			})
 	}
 
 	function handleRequest() { return { type: GET_SERVICE_TYPES_REQUESTED } }
+	function handleSuccess(data) { return { type: GET_SERVICE_TYPES_FULFILLED, payload: data } }
+	function handleError(data) { return { type: GET_SERVICE_TYPES_REJECTED, payload: data } }
 }
 
 export const createNewService = (data, accessToken) => {
@@ -139,7 +136,7 @@ export const updateService = (data, accessToken) => {
 
 export const changeServiceStatus = (data, accessToken) => {
 	return async dispatch => {
-		dispatch(handleRequest());
+		dispatch(handleRequest(data.id));
 
 		return axios
 			.put(`${constant.API_PATH}service/status?accessToken=${accessToken}`, {
@@ -153,7 +150,7 @@ export const changeServiceStatus = (data, accessToken) => {
 			})
 	}
 
-	function handleRequest() { return { type: CHANGE_SERVICE_STATUS_REQUESTED } }
+	function handleRequest(id) { return { type: CHANGE_SERVICE_STATUS_REQUESTED, id: id } }
 	function handleSuccess(data, id) { return { type: CHANGE_SERVICE_STATUS_FULFILLED, payload: data, id: id }}
 	function handleError(data) { return { type: CHANGE_SERVICE_STATUS_FULFILLED, payload: data }}
 }
@@ -218,6 +215,8 @@ export const updateServiceType = (data, accessToken) => {
 
 export const changeServiceTypeStatus = (data, accessToken) => {
 	return async dispatch => {
+		dispatch(handleRequest(data.id));
+
 		return axios
 			.put(`${constant.API_PATH}service/type/status?accessToken=${accessToken}`, {
 				id: data.id
@@ -230,6 +229,7 @@ export const changeServiceTypeStatus = (data, accessToken) => {
 			})
 	}
 
+	function handleRequest(id) { return { type: CHANGE_SERVICE_TYPE_STATUS_REQUESTED, id: id } }
 	function handleSuccess(data, id) { return { type: CHANGE_SERVICE_TYPE_STATUS_FULFILLED, payload: data, id: id } }
 	function handleError(data) { return { type: CHANGE_SERVICE_TYPE_STATUS_REJECTED, payload: data } }
 }

@@ -35,7 +35,7 @@ class SettingsServiceContainer extends Component {
 		this.handleNewServiceTypeSubmit = this.handleNewServiceTypeSubmit.bind(this);
 		this.handleUpdateServiceType = this.handleUpdateServiceType.bind(this);
 		this.handleUpdateServiceTypeSubmit = this.handleUpdateServiceTypeSubmit.bind(this);
-		this.handleChangeServiceTypeStatusSubmit = this.handleChangeServiceTypeStatusSubmit.bind(this);
+		this.handleChangeServiceTypeStatus = this.handleChangeServiceTypeStatus.bind(this);
 
 		this.state = {
 			searchText: '',
@@ -82,6 +82,10 @@ class SettingsServiceContainer extends Component {
 			showDialog
 		} = this.props;
 
+		const {
+			serviceTypes
+		} = this.state;
+
 		if(prevProps.service.types !== service.types) {
 			if(service.types.isLoaded) {
 				function dynamicSort(property) {
@@ -114,16 +118,46 @@ class SettingsServiceContainer extends Component {
 			}
 		}
 
+		// if(prevProps.service.type !== service.type) {
+		// 	if(service.type.isUpdated) {
+		// 		this.getServiceTypes();
+		// 	}
+		// }
+
 		if(prevProps.service.type !== service.type) {
-			if(service.type.isUpdated) {
+			if(service.type.isStatusChanging) {
+				service.types.data.forEach((item) => {
+					if(item.id === service.type.id) {
+						item.statusChanging = true;
+						this.forceUpdate();
+					}
+				})
+			}
+
+			if(service.type.isStatusChanged) {
+				service.types.data.forEach((item) => {
+					if(item.id === service.type.id) {
+						item.statusChanging = false;
+
+						if(item.status) {
+							item.status = false;
+						}
+						else {
+							item.status = true;
+						}
+
+						this.forceUpdate();
+					}
+				})
+
 				this.getServiceTypes();
 			}
 		}
 
-		if(prevProps.service !== service) {
+		if(prevProps.service.item !== service.item) {
 			let dialogData = {};
 
-			if(service.updated.isUpdated) {
+			if(service.item.isUpdated) {
 				dialogData = {
 					type: 'success',
 					title: 'Berhasil!',
@@ -137,7 +171,7 @@ class SettingsServiceContainer extends Component {
 				toggleDialog(dialogData);
 			}
 
-			else if(service.created.isCreated) {
+			else if(service.item.isCreated) {
 				dialogData = {
 					type: 'success',
 					title: 'Berhasil!',
@@ -147,6 +181,8 @@ class SettingsServiceContainer extends Component {
 					},
 					closeText: 'Kembali'
 				}
+
+				toggleDialog(dialogData);
 			}
 		}
 	}
@@ -397,7 +433,7 @@ class SettingsServiceContainer extends Component {
 		dispatch(updateServiceType(requiredData, accessToken));
 	}
 
-	handleChangeServiceTypeStatusSubmit = (data) => {
+	handleChangeServiceTypeStatus = (data) => {
 		const {
 			dispatch,
 			accessToken
@@ -433,7 +469,7 @@ class SettingsServiceContainer extends Component {
 				handleServiceTypeSettings={this.handleServiceTypeSettings}
 				handleNewServiceTypeSubmit={this.handleNewServiceTypeSubmit}
 				handleUpdateServiceTypeSubmit={this.handleUpdateServiceTypeSubmit}
-				handleChangeServiceTypeStatusSubmit={this.handleChangeServiceTypeStatusSubmit}
+				handleChangeServiceTypeStatus={this.handleChangeServiceTypeStatus}
 			/>
 		)
 	}

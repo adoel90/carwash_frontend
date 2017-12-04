@@ -22,19 +22,44 @@ class SettingsServiceTypeContainer extends React.Component {
 	}
 
 	componentDidUpdate = (prevProps) => {
+		const { serviceList } = this.state;
 		const {
 			service
 		} = this.props;
+
+		if(prevProps.service.item !== service.item) {
+			if(service.item.isStatusChanging) {
+				serviceList.forEach((item) => {
+					if(item.id === service.item.id) {
+						item.statusChanging = true;
+						this.forceUpdate();
+					}
+				})
+			}
+
+			if(service.item.isStatusChanged) {
+				serviceList.forEach((item) => {
+					if(item.id === service.item.id) {
+						item.statusChanging = false;
+
+						if(item.status) {
+							item.status = false;
+						}
+						else {
+							item.status = true;
+						}
+
+						this.forceUpdate();
+					}
+				})
+			}
+		}
 
 		if(prevProps.service.list !== service.list) {
 			if(service.list.isLoaded) {
 				this.setState({
 					serviceList: service.list.data
 				})
-
-				// this.setState({
-				// 	serviceList: service.list.data
-				// })
 			}
 		}
 	}

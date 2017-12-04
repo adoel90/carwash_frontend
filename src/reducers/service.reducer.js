@@ -21,6 +21,7 @@ import {
 	CREATE_SERVICE_TYPE_REJECTED,
 	UPDATE_SERVICE_TYPE_FULFILLED,
 	UPDATE_SERVICE_TYPE_REJECTED,
+	CHANGE_SERVICE_TYPE_STATUS_REQUESTED,
 	CHANGE_SERVICE_TYPE_STATUS_FULFILLED,
 	CHANGE_SERVICE_TYPE_STATUS_REJECTED,
 
@@ -30,6 +31,16 @@ import {
 } from '../actions/service.action';
 
 const initialState = {
+	item: {
+		id: null,
+		data: {},
+		isCreating: false,
+		isCreated: false,
+		isStatusChanging: false,
+		isStatusChanged: false,
+		isError: false,
+		error: {}
+	},
 	list: {
 		data: [],
 		isFetching: false,
@@ -41,8 +52,11 @@ const initialState = {
 		id: null,
 		data: {},
 		isCreated: false,
+		isCreating: false,
 		isUpdated: false,
-		isDeleted: false,
+		isUpdating: false,
+		isStatusChanged: false,
+		isStatusChanging: false,
 		isError: false,
 		error: {}
 	},
@@ -53,28 +67,13 @@ const initialState = {
 		isError: false,
 		error: {}
 	},
-	updated: {
-		data: {},
-		isUpdated: false,
-		isStatusChanged: false,
-		isStatusChanging: false,
-		isError: false,
-		error: {}
-	},
-	created: {
-		data: {},
-		isCreated: false,
-		isError: false,
-		error: {}
-	},
-	service: {},
-	isFetching: false,
-	isLoaded: false,
-	isDeleted: false,
-	isCreated: false,
-	isUpdated: false,
-	isError: false,
-	error: {}
+	// isFetching: false,
+	// isLoaded: false,
+	// isDeleted: false,
+	// isCreated: false,
+	// isUpdated: false,
+	// isError: false,
+	// error: {}
 }
 
 const service = (state = initialState, action) => {
@@ -156,8 +155,8 @@ const service = (state = initialState, action) => {
 		case CREATE_SERVICE_FULFILLED: {
 			return {
 				...state,
-				created: {
-					...state.created,
+				item: {
+					...state.item,
 					data: action.payload.data,
 					isCreated: true,
 					isError: false,
@@ -168,8 +167,8 @@ const service = (state = initialState, action) => {
 		case CREATE_SERVICE_REJECTED: {
 			return {
 				...state,
-				created: {
-					...state.created,
+				item: {
+					...state.item,
 					data: {},
 					isCreated: false,
 					isError: true,
@@ -180,8 +179,8 @@ const service = (state = initialState, action) => {
 		case UPDATE_SERVICE_FULFILLED: {
 			return {
 				...state,
-				updated: {
-					...state.updated,
+				item: {
+					...state.item,
 					data: action.payload,
 					isUpdated: true,
 					isError: false,
@@ -192,8 +191,8 @@ const service = (state = initialState, action) => {
 		case UPDATE_SERVICE_REJECTED: {
 			return {
 				...state,
-				updated: {
-					...state.updated,
+				item: {
+					...state.item,
 					data: {},
 					isUpdated: false,
 					isError: true,
@@ -204,9 +203,9 @@ const service = (state = initialState, action) => {
 		case CHANGE_SERVICE_STATUS_REQUESTED: {
 			return {
 				...state,
-				updated: {
-					...state.updated,
-					data: {},
+				item: {
+					...state.item,
+					id: action.id,
 					isStatusChanging: true,
 					isStatusChanged: false,
 					isError: false,
@@ -217,8 +216,8 @@ const service = (state = initialState, action) => {
 		case CHANGE_SERVICE_STATUS_FULFILLED: {
 			return {
 				...state,
-				updated: {
-					...state.updated,
+				item: {
+					...state.item,
 					data: action.payload,
 					isStatusChanging: false,
 					isStatusChanged: true
@@ -228,8 +227,8 @@ const service = (state = initialState, action) => {
 		case CHANGE_SERVICE_STATUS_REJECTED: {
 			return {
 				...state,
-				updated: {
-					...state.updated,
+				item: {
+					...state.item,
 					data: {},
 					isStatusChanging: false,
 					isStatusChanged: false,
@@ -270,7 +269,22 @@ const service = (state = initialState, action) => {
 				updated: {
 					...state.updated,
 					id: action.id,
+					data: {},
+					isUpdating: true,
+					isUpdated: false,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+		case UPDATE_SERVICE_TYPE_FULFILLED: {
+			return {
+				...state,
+				updated: {
+					...state.updated,
+					id: action.id,
 					data: action.payload,
+					isUpdating: false,
 					isUpdated: true,
 					isError: false,
 					error: {}
@@ -280,12 +294,26 @@ const service = (state = initialState, action) => {
 		case UPDATE_SERVICE_TYPE_REJECTED: {
 			return {
 				...state,
-				type: {
+				updated: {
 					...state.type,
 					data: {},
+					isUpdating: false,
 					isUpdated: false,
 					isError: true,
 					error: action.payload
+				}
+			}
+		}
+		case CHANGE_SERVICE_TYPE_STATUS_REQUESTED: {
+			return {
+				...state,
+				type: {
+					...state.type,
+					id: action.id,
+					isStatusChanging: true,
+					isStatusChanged: false,
+					isError: false,
+					error: {}
 				}
 			}
 		}
@@ -295,8 +323,9 @@ const service = (state = initialState, action) => {
 				type: {
 					...state.type,
 					id: action.id,
-					data: action.payload,
-					isUpdated: true,
+					data: action.payload.data,
+					isStatusChanging: false,
+					isStatusChanged: true,
 					isError: false,
 					error: {}
 				}
@@ -307,9 +336,10 @@ const service = (state = initialState, action) => {
 				...state,
 				type: {
 					...state.type,
-					id: null,
+					id: action.id,
 					data: {},
-					isUpdated: false,
+					isStatusChanging: false,
+					isStatusChanged: false,
 					isError: true,
 					error: action.payload
 				}

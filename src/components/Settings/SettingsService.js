@@ -58,7 +58,7 @@ class SettingsService extends Component {
 			toggleModal,
 			handleNewServiceTypeSubmit,
 			handleUpdateServiceTypeSubmit,
-			handleChangeServiceTypeStatusSubmit,
+			handleChangeServiceTypeStatus,
 		} = this.props;
 
 		let updateMessage = (typeId) => {
@@ -79,8 +79,8 @@ class SettingsService extends Component {
 								<Button type="button" buttonTheme="primary" buttonSize="small" onClick={(e) => handleUpdateServiceTypeSubmit(type)}>
 									<small className="clr-light fw-semibold tt-uppercase ls-base">Ubah</small>
 								</Button>
-								<Button type="button" buttonTheme="secondary" buttonSize="small" onClick={(e) => handleChangeServiceTypeStatusSubmit(type)}>
-									<small className="clr-dark fw-semibold tt-uppercase ls-base">Aktif</small>
+								<Button type="button" buttonTheme={type.status ? 'secondary' : 'danger'} buttonSize="small" onClick={(e) => handleChangeServiceTypeStatus(type)} disabled={type.statusChanging}>
+									<small className={`${type.status ? 'clr-dark' : 'clr-light'} fw-semibold tt-uppercase ls-base`}>{type.statusChanging ? 'Merubah...' : (type.status ? 'Aktif' : 'Tidak Aktif')}</small>
 								</Button>
 							</InputGroup>
 							{ updateMessage(type.id) }
@@ -105,9 +105,9 @@ class SettingsService extends Component {
 				</ModalHeader>
 				<Form onSubmit={handleNewServiceTypeSubmit}>
 					<ModalContent>
-						<small>Berikut merupakan daftar kategori yang ada di aplikasi ini. Kategori yang sedang berjalan dan aktif untuk layanan ditandai dengan tombol 'Aktif', dan sebaliknya 'Tidak Aktif' bagi kategori yang sedang tidak berjalan. Silahkan klik tombol tersebut untuk mengubah status kategori.</small>
+						{/* <small>Berikut merupakan daftar kategori yang ada di aplikasi ini. Kategori yang sedang berjalan dan aktif untuk layanan ditandai dengan tombol 'Aktif', dan sebaliknya 'Tidak Aktif' bagi kategori yang sedang tidak berjalan. Silahkan klik tombol tersebut untuk mengubah status kategori.</small> */}
 						<ListGroup>
-							{service.types.isLoaded ? serviceTypes.all.map(serviceTypeItem) : null}
+							<h6 className="fw-semibold">Tambah Baru</h6>
 							<ListGroupItem className="align-items--center">
 								<Row>
 									<div className="column-9">
@@ -125,6 +125,9 @@ class SettingsService extends Component {
 									</div>
 								</Row>
 							</ListGroupItem>
+
+							<h6 className="fw-semibold padding-top-3">Daftar Kategori</h6>
+							{service.types.isLoaded ? serviceTypes.all.map(serviceTypeItem) : null}
 						</ListGroup>
 					</ModalContent>
 					<ModalFooter className="flex justify-content--center">

@@ -11,6 +11,7 @@ import {
 	CREATE_SERVICE_REJECTED,
 	UPDATE_SERVICE_FULFILLED,
 	UPDATE_SERVICE_REJECTED,
+	CHANGE_SERVICE_STATUS_REQUESTED,
 	CHANGE_SERVICE_STATUS_FULFILLED,
 	CHANGE_SERVICE_STATUS_REJECTED,
 	DELETE_SERVICE_FULFILLED,
@@ -56,6 +57,7 @@ const initialState = {
 		data: {},
 		isUpdated: false,
 		isStatusChanged: false,
+		isStatusChanging: false,
 		isError: false,
 		error: {}
 	},
@@ -199,15 +201,27 @@ const service = (state = initialState, action) => {
 				}
 			}
 		}
+		case CHANGE_SERVICE_STATUS_REQUESTED: {
+			return {
+				...state,
+				updated: {
+					...state.updated,
+					data: {},
+					isStatusChanging: true,
+					isStatusChanged: false,
+					isError: false,
+					error: {}
+				}
+			}
+		}
 		case CHANGE_SERVICE_STATUS_FULFILLED: {
 			return {
 				...state,
 				updated: {
 					...state.updated,
 					data: action.payload,
-					isStatusChanged: true,
-					isError: false,
-					error: {}
+					isStatusChanging: false,
+					isStatusChanged: true
 				}
 			}
 		}
@@ -217,6 +231,7 @@ const service = (state = initialState, action) => {
 				updated: {
 					...state.updated,
 					data: {},
+					isStatusChanging: false,
 					isStatusChanged: false,
 					isError: true,
 					error: action.payload

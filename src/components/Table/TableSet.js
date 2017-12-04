@@ -172,8 +172,8 @@ class TableSet extends Component {
 						}
 						{
 							onChangeStatus
-							? <Button type="button" buttonTheme={row.status ? 'secondary' : 'danger' } buttonSize="small" onClick={(e) => onChangeStatus(row, e)}>
-								<small className={`tt-uppercase ls-base fw-semibold ${row.status ? 'clr-dark' : 'clr-light'}`}>{row.status ? 'Aktif' : 'Nonaktif'}</small>
+							? <Button type="button" buttonTheme={row.status ? 'secondary' : 'danger' } buttonSize="small" onClick={(e) => onChangeStatus(row, e)} disabled={row.statusChanging}>
+								<small className={`tt-uppercase ls-base fw-semibold ${row.status ? 'clr-dark' : 'clr-light'}`}>{row.statusChanging ? 'Merubah...' : (row.status ? 'Aktif' : 'Tidak Aktif')}</small>
 							</Button>
 							: null
 						}

@@ -14,8 +14,27 @@ import { SettingsMemberList } from '../Settings';
 class SettingsMember extends React.Component {
 	constructor() {
 		super();
+		this.renderMemberList = this.renderMemberList.bind(this);
 		this.renderViewMemberDetailModal = this.renderViewMemberDetailModal.bind(this);
 		this.renderEditMemberModal = this.renderEditMemberModal.bind(this);
+	}
+
+	renderMemberList = () => {
+		const {
+			member
+		} = this.props;
+
+		if(member.list.isFetching) {
+			return <p>Sedang memuat data member. Tunggu sebentar...</p>
+		}
+
+		else if(member.list.isLoaded) {
+			return <SettingsMemberList {...this.props} />
+		}
+
+		else if(member.list.isError) {
+			return <p>Maaf, terdapat kesalahan dalam memuat data member.</p>
+		}
 	}
 
 	renderViewMemberDetailModal = () => {
@@ -230,7 +249,7 @@ class SettingsMember extends React.Component {
 					<h5 className="fw-semibold">Daftar Member</h5>
 					<p className="clr-passive">Untuk melihat informasi member, silahkan klik baris member yang diinginkan.</p>
 				</div>
-				{ <SettingsMemberList {...this.props} /> }
+				{ this.renderMemberList() }
 				{ this.renderEditMemberModal() }
 				{ this.renderViewMemberDetailModal() }
 			</div>

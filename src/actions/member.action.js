@@ -163,7 +163,7 @@ export const updateMember = (data, accessToken) => {
 
 export const changeMemberStatus = (data, accessToken) => {
 	return async dispatch => {
-		dispatch(handleRequest());
+		dispatch(handleRequest(data.id));
 
 		axios
 			.put(`${constant.API_PATH}member/status?accessToken=${accessToken}`, {
@@ -177,7 +177,7 @@ export const changeMemberStatus = (data, accessToken) => {
 			})
 	}
 
-	function handleRequest() { return { type: CHANGE_MEMBER_STATUS_REQUESTED}}
+	function handleRequest(id) { return { type: CHANGE_MEMBER_STATUS_REQUESTED, id: id } }
 	function handleSuccess(data, id) { return { type: CHANGE_MEMBER_STATUS_FULFILLED, payload: data, id: id } }
 	function handleError(data) { return { type: CHANGE_MEMBER_STATUS_REJECTED, payload: data } }
 }

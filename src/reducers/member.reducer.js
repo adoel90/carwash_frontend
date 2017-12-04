@@ -30,7 +30,9 @@ const initialState = {
 		id: null,
 		data: {},
 		isUpdated: false,
+		isStatusChanging: false,
 		isStatusChanged: false,
+		isBalanceChanging: false,
 		isBalanceChanged: false,
 		isError: false,
 		error: {}
@@ -191,6 +193,20 @@ const member = (state = initialState, action) => {
 			}
 		}
 
+		case CHANGE_MEMBER_STATUS_REQUESTED: {
+			return {
+				...state,
+				updated: {
+					...state.updated,
+					id: action.id,
+					isStatusChanging: true,
+					isStatusChanged: false,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
 		case CHANGE_MEMBER_STATUS_FULFILLED: {
 			return {
 				...state,
@@ -198,6 +214,7 @@ const member = (state = initialState, action) => {
 					...state.updated,
 					id: action.id,
 					data: action.payload,
+					isStatusChanging: false,
 					isStatusChanged: true,
 					isError: false,
 					error: {}
@@ -211,6 +228,7 @@ const member = (state = initialState, action) => {
 				updated: {
 					...state.updated,
 					data: {},
+					isStatusChanging: false,
 					isStatusChanged: false,
 					isError: true,
 					error: action.payload

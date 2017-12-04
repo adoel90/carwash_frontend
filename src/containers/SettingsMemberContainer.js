@@ -84,9 +84,20 @@ class SettingsMemberContainer extends Component {
 		if(prevProps.member.updated !== this.props.member.updated) {
 			let dialogData = {};
 
+			if(member.updated.isStatusChanging) {
+				memberList.forEach((item) => {
+					if(item.id === member.updated.id) {
+						item.statusChanging = true;
+						this.forceUpdate();
+					}
+				})
+			}
+
 			if(member.updated.isStatusChanged) {
 				memberList.forEach((item) => {
 					if(item.id === member.updated.id) {
+						item.statusChanging = false;
+
 						if(item.status) {
 							item.status = false;
 						}
@@ -296,32 +307,20 @@ class SettingsMemberContainer extends Component {
 			isModalOpen
 		} = this.props;
 
-
-		if(member.list.isFetching) {
-			return (
-				<p>Tunggu sebentar. Sedang memuat daftar member...</p>
-			)
-		}
-
-		if(member.list.isLoaded) {
-			return (
-				<SettingsMember
-					{...this.props}
-					{...this.state}
-					toggleModal={this.toggleModal}
-					handleInputChange={this.handleInputChange}
-					handleViewMemberDetail={this.handleViewMemberDetail}
-					handleUpdateMember={this.handleUpdateMember}
-					handleUpdateMemberSubmit={this.handleUpdateMemberSubmit}
-					handleChangeMemberStatus={this.handleChangeMemberStatus}
-					handleDeleteMember={this.handleDeleteMember}
-					handleDeleteMemberSubmit={this.handleDeleteMemberSubmit}
-				/>
-			)
-		}
-		else {
-			return <p>Maaf, sistem tidak dapat memuat daftar member.</p>
-		}
+		return (
+			<SettingsMember
+				{...this.props}
+				{...this.state}
+				toggleModal={this.toggleModal}
+				handleInputChange={this.handleInputChange}
+				handleViewMemberDetail={this.handleViewMemberDetail}
+				handleUpdateMember={this.handleUpdateMember}
+				handleUpdateMemberSubmit={this.handleUpdateMemberSubmit}
+				handleChangeMemberStatus={this.handleChangeMemberStatus}
+				handleDeleteMember={this.handleDeleteMember}
+				handleDeleteMemberSubmit={this.handleDeleteMemberSubmit}
+			/>
+		)
 	}
 }
 

@@ -15,6 +15,7 @@ import {
 	hideDialog
 } from '../actions/dialog.action';
 import { SettingsService } from '../components/Settings';
+import { sortBy } from '../utils';
 
 class SettingsServiceContainer extends Component {
 	constructor() {
@@ -88,19 +89,7 @@ class SettingsServiceContainer extends Component {
 
 		if(prevProps.service.types !== service.types) {
 			if(service.types.isLoaded) {
-				function dynamicSort(property) {
-					var sortOrder = 1;
-					if(property[0] === "-") {
-						sortOrder = -1;
-						property = property.substr(1);
-					}
-					return function (a,b) {
-						var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
-						return result * sortOrder;
-					}
-				}
-
-				let sortedTypes = service.types.data.sort(dynamicSort('name'))
+				let sortedTypes = service.types.data.sort(sortBy('name'))
 				let activeTypes = [];
 
 				service.types.data.map((type) => {
@@ -419,7 +408,9 @@ class SettingsServiceContainer extends Component {
 	handleUpdateServiceType = () => {
 	}
 
-	handleUpdateServiceTypeSubmit = (data) => {
+	handleUpdateServiceTypeSubmit = (data, e) => {
+		e.preventDefault();
+
 		const {
 			dispatch,
 			accessToken

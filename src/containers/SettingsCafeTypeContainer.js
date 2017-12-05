@@ -5,6 +5,7 @@ import {
 	getCafeMenuList,
 	createCafeMenu,
 	updateCafeMenu,
+	changeCafeMenuStatus,
 	deleteCafeMenu
 } from '../actions/cafe.action';
 import { SettingsCafeType } from '../components/Settings';
@@ -17,10 +18,12 @@ class SettingsCafeTypeContainer extends Component {
 		this.handleInputChange = this.handleInputChange.bind(this);
 		this.handleCafeMenuCreate = this.handleCafeMenuCreate.bind(this);
 		this.handleCafeMenuUpdate = this.handleCafeMenuUpdate.bind(this)
-		this.handleCafeMenuDelete = this.handleCafeMenuDelete.bind(this);
-		this.handleCafeMenuDeleteSubmit = this.handleCafeMenuDeleteSubmit.bind(this);
+		this.handleChangeCafeMenuStatus = this.handleChangeCafeMenuStatus.bind(this);
+		// this.handleCafeMenuDelete = this.handleCafeMenuDelete.bind(this);
+		// this.handleCafeMenuDeleteSubmit = this.handleCafeMenuDeleteSubmit.bind(this);
 
 		this.state = {
+			cafeList: [],
 			searchText: '',
 			selectedCafeMenu: {
 				cafe: '',
@@ -44,6 +47,7 @@ class SettingsCafeTypeContainer extends Component {
 	}
 
 	componentDidUpdate = (prevProps) => {
+		const { cafeList } = this.state;
 		const {
 			cafe,
 			dispatch,
@@ -52,37 +56,88 @@ class SettingsCafeTypeContainer extends Component {
 			showDialog
 		} = this.props;
 
-		if(prevProps.cafe !== this.props.cafe) {
-			let dialogData = {
-				success: {
-					type: 'success',
-					title: '',
-					message: '',
-					onClose: () => {
-						window.location.reload()
-					},
-					closeText: 'Kembali'
-				}
-			}
-
-			if(cafe.isUpdated) {
-				dialogData.success.title = 'Berhasil!';
-				dialogData.success.message = 'Perubahan terhadap menu cafe berhasil. Klik tombol berikut untuk kembali.';
-				toggleDialog(dialogData.success);
-			}
-
-			if(cafe.isCreated) {
-				dialogData.success.title = 'Berhasil';
-				dialogData.success.message = 'Menu baru telah berhasil ditambah. Klik tombol berikut untuk kembali.';
-				toggleDialog(dialogData.success);
-			}
-
-			if(cafe.isDeleted) {
-				dialogData.success.title = 'Berhasil!';
-				dialogData.success.message = 'Penghapusan menu cafe berhasil. Klik tombol berikut untuk kembali.';
-				showDialog(dialogData.success);
+		if(prevProps.cafe.list !== cafe.list) {
+			if(cafe.list.isLoaded) {
+				this.setState({
+					cafeList: cafe.list.data
+				})
 			}
 		}
+
+		if(prevProps.cafe.menu !== cafe.menu) {
+			let dialogData = {};
+
+			if(cafe.menu.isUpdated) {
+				dialogData = {
+					type: 'success',
+					title: 'Berhasil',
+					message: 'Menu ini telah berhasil diperbarui. Klik tombol berikut untuk kembali.',
+					onClose: () => window.location.reload(),
+					closeText: 'Kembali'
+				}
+
+				toggleDialog(dialogData);
+			}
+
+			if(cafe.menu.isStatusChanging) {
+				cafeList.map((item) => {
+					if(item.id === cafe.menu.id) {
+						item.statusChanging = true;
+						this.forceUpdate();
+					}
+				});
+			}
+
+			if(cafe.menu.isStatusChanged) {
+				cafeList.map((item) => {
+					if(item.id === cafe.menu.id) {
+						item.statusChanging = false;
+
+						if(item.status) {
+							item.status = false;
+						}
+						else {
+							item.status = true;
+						}
+					}
+				})
+
+				this.forceUpdate();
+			}
+		}
+
+	// 	if(prevProps.cafe !== this.props.cafe) {
+	// 		let dialogData = {
+	// 			success: {
+	// 				type: 'success',
+	// 				title: '',
+	// 				message: '',
+	// 				onClose: () => {
+	// 					window.location.reload()
+	// 				},
+	// 				closeText: 'Kembali'
+	// 			}
+	// 		}
+	//
+	// 		if(cafe.isUpdated) {
+	// 			dialogData.success.title = 'Berhasil!';
+	// 			dialogData.success.message = 'Perubahan terhadap menu cafe berhasil. Klik tombol berikut untuk kembali.';
+	// 			toggleDialog(dialogData.success);
+	// 		}
+	//
+	// 		if(cafe.isCreated) {
+	// 			dialogData.success.title = 'Berhasil';
+	// 			dialogData.success.message = 'Menu baru telah berhasil ditambah. Klik tombol berikut untuk kembali.';
+	// 			toggleDialog(dialogData.success);
+	// 		}
+	//
+	// 		if(cafe.isDeleted) {
+	// 			dialogData.success.title = 'Berhasil!';
+	// 			dialogData.success.message = 'Penghapusan menu cafe berhasil. Klik tombol berikut untuk kembali.';
+	// 			showDialog(dialogData.success);
+	// 		}
+	// 	}
+	// }
 	}
 
 	handleImageChange = (object, e) => {
@@ -199,6 +254,19 @@ class SettingsCafeTypeContainer extends Component {
 		dispatch(updateCafeMenu(requiredData, accessToken));
 	}
 
+	handleChangeCafeMenuStatus = (menu) => {
+		const {
+			accessToken,
+			dispatch
+		} = this.props;
+
+		let requiredData = {
+			id: menu.id
+		}
+
+		dispatch(changeCafeMenuStatus(requiredData, accessToken));
+	}
+
 	handleCafeMenuDelete = (cafeMenu) => {
 		const {
 			dialog,
@@ -277,6 +345,7 @@ class SettingsCafeTypeContainer extends Component {
 				handleCafeMenuCreateSubmit={this.handleCafeMenuCreateSubmit}
 				handleCafeMenuUpdate={this.handleCafeMenuUpdate}
 				handleCafeMenuUpdateSubmit={this.handleCafeMenuUpdateSubmit}
+				handleChangeCafeMenuStatus={this.handleChangeCafeMenuStatus}
 				handleCafeMenuDelete={this.handleCafeMenuDelete}
 			/>
 		)
@@ -285,8 +354,7 @@ class SettingsCafeTypeContainer extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-		cafe: state.cafe,
-		cafeList: state.cafe.list
+		cafe: state.cafe
 	}
 }
 

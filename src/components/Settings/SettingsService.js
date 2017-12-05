@@ -61,10 +61,10 @@ class SettingsService extends Component {
 			handleChangeServiceTypeStatus,
 		} = this.props;
 
-		let updateMessage = (typeId) => {
-			if(service.type.isUpdated && typeId === service.type.id) {
+		let updateMessage = (id) => {
+			if(service.type.isUpdated && id === service.type.id) {
 				return (
-					<small className="clr-success" style={{padding: '15px 10px'}}>Service berhasil diubah.</small>
+					<small className="clr-success" style={{padding: '15px 10px'}}>Berhasil diubah.</small>
 				)
 			}
 		}
@@ -72,25 +72,22 @@ class SettingsService extends Component {
 		let serviceTypeItem = (type, index) => {
 			return (
 				<ListGroupItem>
-					<Row className="align-items--center">
-						<div className="column-12 flex-column justify-content--center">
-							<InputGroup className="flex">
-								<Input value={type.name} placeholder={type.name} onChange={(e) => handleInputIndexChange(serviceTypes, index, e)} required="true"/>
-								<Button type="button" buttonTheme="primary" buttonSize="small" onClick={(e) => handleUpdateServiceTypeSubmit(type)}>
-									<small className="clr-light fw-semibold tt-uppercase ls-base">Ubah</small>
-								</Button>
-								<Button type="button" buttonTheme={type.status ? 'secondary' : 'danger'} buttonSize="small" onClick={(e) => handleChangeServiceTypeStatus(type)} disabled={type.statusChanging}>
-									<small className={`${type.status ? 'clr-dark' : 'clr-light'} fw-semibold tt-uppercase ls-base`}>{type.statusChanging ? 'Merubah...' : (type.status ? 'Aktif' : 'Tidak Aktif')}</small>
-								</Button>
-							</InputGroup>
-							{ updateMessage(type.id) }
-						</div>
-						{/* <div className="column-3">
-							<Button buttonTheme="secondary" buttonFull>
-								<small className="fw-semibold tt-uppercase ls-base">Aktif</small>
-							</Button>
-						</div> */}
-					</Row>
+					<Form onSubmit={(e) => handleUpdateServiceTypeSubmit(type, e)}>
+						<Row className="align-items--center">
+							<div className="column-12 flex-column justify-content--center">
+								<InputGroup className="flex">
+									<Input value={type.name} placeholder={type.name} onChange={(e) => handleInputIndexChange(serviceTypes.all, index, e)} required="true"/>
+									<Button type="submit" buttonTheme="primary" buttonSize="small">
+										<small className="clr-light fw-semibold tt-uppercase ls-base">Ubah</small>
+									</Button>
+									<Button type="button" buttonTheme={type.status ? 'secondary' : 'danger'} buttonSize="small" onClick={(e) => handleChangeServiceTypeStatus(type)} disabled={type.statusChanging}>
+										<small className={`${type.status ? 'clr-dark' : 'clr-light'} fw-semibold tt-uppercase ls-base`}>{type.statusChanging ? 'Merubah...' : (type.status ? 'Aktif' : 'Tidak Aktif')}</small>
+									</Button>
+								</InputGroup>
+								{ updateMessage(type.id) }
+							</div>
+						</Row>
+					</Form>
 				</ListGroupItem>
 			)
 		}
@@ -103,12 +100,12 @@ class SettingsService extends Component {
 				<ModalHeader align="center">
 					<h6 className="fw-semibold">Pengaturan Kategori Service</h6>
 				</ModalHeader>
-				<Form onSubmit={handleNewServiceTypeSubmit}>
-					<ModalContent>
-						{/* <small>Berikut merupakan daftar kategori yang ada di aplikasi ini. Kategori yang sedang berjalan dan aktif untuk layanan ditandai dengan tombol 'Aktif', dan sebaliknya 'Tidak Aktif' bagi kategori yang sedang tidak berjalan. Silahkan klik tombol tersebut untuk mengubah status kategori.</small> */}
-						<ListGroup>
-							<h6 className="fw-semibold">Tambah Baru</h6>
-							<ListGroupItem className="align-items--center">
+				<ModalContent>
+					{/* <small>Berikut merupakan daftar kategori yang ada di aplikasi ini. Kategori yang sedang berjalan dan aktif untuk layanan ditandai dengan tombol 'Aktif', dan sebaliknya 'Tidak Aktif' bagi kategori yang sedang tidak berjalan. Silahkan klik tombol tersebut untuk mengubah status kategori.</small> */}
+					<ListGroup>
+						<h6 className="fw-semibold">Tambah Baru</h6>
+						<ListGroupItem className="align-items--center">
+							<Form onSubmit={handleNewServiceTypeSubmit}>
 								<Row>
 									<div className="column-9">
 										<Input
@@ -124,18 +121,18 @@ class SettingsService extends Component {
 										</Button>
 									</div>
 								</Row>
-							</ListGroupItem>
+							</Form>
+						</ListGroupItem>
 
-							<h6 className="fw-semibold padding-top-3">Daftar Kategori</h6>
-							{service.types.isLoaded ? serviceTypes.all.map(serviceTypeItem) : null}
-						</ListGroup>
-					</ModalContent>
-					<ModalFooter className="flex justify-content--center">
-						<Button type="button" buttonTheme="danger" className="clr-light" onClick={() => toggleModal('serviceTypeSettings')}>
-							<small className="fw-semibold tt-uppercase ls-base">Kembali</small>
-						</Button>
-					</ModalFooter>
-				</Form>
+						<h6 className="fw-semibold padding-top-3">Daftar Kategori</h6>
+						{service.types.isLoaded ? serviceTypes.all.map(serviceTypeItem) : null}
+					</ListGroup>
+				</ModalContent>
+				<ModalFooter className="flex justify-content--center">
+					<Button type="button" buttonTheme="danger" className="clr-light" onClick={() => toggleModal('serviceTypeSettings')}>
+						<small className="fw-semibold tt-uppercase ls-base">Kembali</small>
+					</Button>
+				</ModalFooter>
 			</Modal>
 		)
 	}

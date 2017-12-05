@@ -5,6 +5,7 @@ import {
 	updateCafeMenu
 } from '../actions/cafe.action';
 import { SettingsCafe } from '../components/Settings';
+import { sortBy } from '../utils';
 
 class SettingsCafeContainer extends React.Component {
 	constructor() {
@@ -12,17 +13,23 @@ class SettingsCafeContainer extends React.Component {
 		this.toggleTab = this.toggleTab.bind(this);
 		this.toggleModal = this.toggleModal.bind(this);
 		this.handleInputChange = this.handleInputChange.bind(this);
-		this.handleNewCafeType = this.handleNewCafeType.bind(this);
+		this.handleInputIndexChange = this.handleInputIndexChange.bind(this);
+		this.handleCafeTypeSettings = this.handleCafeTypeSettings.bind(this);
+		this.handleNewCafeTypeSubmit = this.handleNewCafeTypeSubmit.bind(this);
+		this.handleUpdateCafeTypeSubmit = this.handleUpdateCafeTypeSubmit.bind(this);
+		this.handleChangeCafeTypeStatus = this.handleChangeCafeTypeStatus.bind(this);
+
 		this.state = {
-			isModalOpen: {
-				cafeTypeCreate: false,
-				cafeTypeUpdate: false,
-				cafeTypeDelete: false,
-				cafeMenuCreate: false,
-				cafeMenuUpdate: false,
-				cafeMenuDelete: false,
+			cafeTypes: {
+				all: [],
+				active: []
 			},
-			cafeTypeCreate: {
+			isModalOpen: {
+				cafeTypeSettings: false,
+				cafeMenuCreate: false,
+				cafeMenuUpdate: false
+			},
+			newCafeType: {
 				name: ''
 			},
 			activeTab: 0
@@ -33,50 +40,30 @@ class SettingsCafeContainer extends React.Component {
 		this.getCafeTypes();
 	}
 
-	// componentDidUpdate = (prevProps) => {
-	// 	const {
-	// 		cafe,
-	// 		dialog,
-	// 		dispatch,
-	// 		toggleDialog,
-	// 		showDialog
-	// 	} = this.props;
-	//
-	// 	if(prevProps.service !== this.props.service) {
-	// 		let dialogData = {
-	// 			success: {
-	// 				type: 'success',
-	// 				title: '',
-	// 				message: '',
-	// 				onClose: () => {
-	// 					window.location.reload()
-	// 				},
-	// 				closeText: 'Kembali'
-	// 			}
-	// 		}
-	//
-	// 		if(cafe.isUpdated) {
-	// 			dialogData.success.title = 'Berhasil!';
-	// 			dialogData.success.message = 'Perubahan informasi menu telah berhasil. Klik tombol berikut untuk kembali.'
-	//
-	// 			toggleDialog(dialogData.success);
-	// 		}
-	//
-	// 		else if(cafe.isCreated) {
-	// 			dialogData.success.title = 'Berhasil!';
-	// 			dialogData.success.message = 'Menu telah berhasil ditambahkan. Klik tombol berikut untuk kembali.'
-	//
-	// 			toggleDialog(dialogData.success);
-	// 		}
-	//
-	// 		else if(cafe.isDeleted) {
-	// 			dialogData.success.title = 'Berhasil!';
-	// 			dialogData.success.message = 'Menu telah berhasil dihapus. Klik tombol berikut untuk kembali.';
-	//
-	// 			showDialog(dialogData.success);
-	// 		}
-	// 	}
-	// }
+	componentDidUpdate = (prevProps) => {
+		const { cafeTypes } = this.state;
+		const { cafe } = this.props;
+
+		if(prevProps.cafe.types !== cafe.types) {
+			if(cafe.types.isLoaded) {
+				let sortedTypes = cafe.types.data.sort(sortBy('name'));
+				let activeTypes = [];
+
+				sortedTypes.map((type) => {
+					if(type.status) {
+						activeTypes.push(type);
+					}
+				});
+
+				this.setState({
+					cafeTypes: {
+						all: sortedTypes,
+						active: activeTypes
+					}
+				})
+			}
+		}
+	}
 
 	handleInputChange = (object, e) => {
 		const target = e.target;
@@ -91,6 +78,15 @@ class SettingsCafeContainer extends React.Component {
 				[name]: value
 			})
 		}
+	}
+
+	handleInputIndexChange = (object, index, e) => {
+		const target = e.target;
+		const value = target.value;
+		const name = target.name;
+
+		object[index].name = value;
+		this.forceUpdate();
 	}
 
 	toggleTab = (tabIndex) => {
@@ -110,12 +106,24 @@ class SettingsCafeContainer extends React.Component {
 		})
 	}
 
+	handleCafeTypeSettings = () => {
+		this.toggleModal('cafeTypeSettings');
+	}
+
 	handleNewCafeType = () => {
 		this.toggleModal('cafeTypeCreate');
 	}
 
 	handleNewCafeTypeSubmit = (e) => {
 		e.preventDefault();
+	}
+
+	handleUpdateCafeTypeSubmit = () => {
+
+	}
+
+	handleChangeCafeTypeStatus = () => {
+
 	}
 
 	getCafeTypes = () => {
@@ -135,8 +143,12 @@ class SettingsCafeContainer extends React.Component {
 				toggleTab={this.toggleTab}
 				toggleModal={this.toggleModal}
 				handleInputChange={this.handleInputChange}
-				handleNewCafeType={this.handleNewCafeType}
+				handleInputIndexChange={this.handleInputIndexChange}
+				handleCafeTypeSettings={this.handleCafeTypeSettings}
+				handleUpdateCafeType={this.handleUpdateCafeType}
 				handleNewCafeTypeSubmit={this.handleNewCafeTypeSubmit}
+				handleUpdateCafeTypeSubmit={this.handleUpdateCafeTypeSubmit}
+				handleChangeCafeTypeStatus={this.handleChangeCafeTypeStatus}
 			/>
 		)
 	}
@@ -144,8 +156,7 @@ class SettingsCafeContainer extends React.Component {
 
 const mapStateToProps = (state) => {
 	return {
-		cafe: state.cafe,
-		cafeTypes: state.cafe.types
+		cafe: state.cafe
 	}
 }
 

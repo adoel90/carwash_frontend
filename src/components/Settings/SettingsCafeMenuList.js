@@ -18,6 +18,7 @@ class SettingsCafeMenuList extends Component {
 		const {
 			cafeList,
 			handleCafeMenuUpdate,
+			handleChangeCafeMenuStatus,
 			handleCafeMenuDelete
 		} = this.props;
 
@@ -35,7 +36,8 @@ class SettingsCafeMenuList extends Component {
 				hasPagination
 				hasSearchBar
 				onUpdate={handleCafeMenuUpdate}
-				onDelete={handleCafeMenuDelete}
+				onChangeStatus={handleChangeCafeMenuStatus}
+				// onDelete={handleCafeMenuDelete}
 				{...this.props}
 			/>
 		);

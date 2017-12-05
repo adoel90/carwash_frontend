@@ -75,6 +75,7 @@ class SettingsServiceContainer extends Component {
 	}
 
 	componentDidUpdate = (prevProps) => {
+		const { newServiceType } = this.state;
 		const {
 			service,
 			dialog,
@@ -146,6 +147,10 @@ class SettingsServiceContainer extends Component {
 					}
 				})
 
+				this.getServiceTypes();
+			}
+
+			if(service.type.isCreated) {
 				this.getServiceTypes();
 			}
 		}

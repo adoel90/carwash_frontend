@@ -62,8 +62,6 @@ class SettingsService extends Component {
 		} = this.props;
 
 		let updateMessage = (id) => {
-			console.log(service.type);
-
 			if(service.type.isUpdated && id === service.type.id) {
 				return (
 					<small className="clr-success fw-semibold" style={{padding: '15px 10px'}}>Berhasil diubah!</small>

@@ -243,7 +243,7 @@ const service = (state = initialState, action) => {
 		case CREATE_SERVICE_TYPE_FULFILLED: {
 			return {
 				...state,
-				created: {
+				type: {
 					...state.created,
 					data: action.payload,
 					isCreated: true,
@@ -255,7 +255,7 @@ const service = (state = initialState, action) => {
 		case CREATE_SERVICE_TYPE_REJECTED: {
 			return {
 				...state,
-				created: {
+				type: {
 					...state.created,
 					data: {},
 					isCreated: false,

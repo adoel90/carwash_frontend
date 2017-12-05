@@ -34,6 +34,7 @@ class CafeContainer extends React.Component {
 		this.calculateGrandTotal = this.calculateGrandTotal.bind(this);
 
 		this.state = {
+			cafeTypes: [],
 			selectedMenus: [],
 			paymentProcess: {
 				card: ''
@@ -53,6 +54,14 @@ class CafeContainer extends React.Component {
 			dialog,
 			cafe
 		} = this.props;
+
+		if(prevProps.cafe.types !== cafe.types) {
+			if(cafe.types.isLoaded) {
+				this.setState({
+					cafeTypes: cafe.types.data
+				})
+			}
+		}
 
 		if(prevProps.cafe !== this.props.cafe) {
 			if(cafe.isPaid) {
@@ -266,7 +275,7 @@ class CafeContainer extends React.Component {
 const mapStateToProps = (state) => {
 	return {
 		cafe: state.cafe,
-		cafeTypes: state.cafe.types,
+		// cafeTypes: state.cafe.types,
 		member: state.member,
 		dialog: state.dialog
 	}

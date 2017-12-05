@@ -86,7 +86,7 @@ class Cafe extends React.Component {
 
 		let firstRoutePath;
 
-		if(cafe.isLoaded) {
+		if(cafe.types.isLoaded) {
 			firstRoutePath = cafeTypes[0].name.replace(/\s+/g, '-').toLowerCase();
 		}
 
@@ -100,8 +100,8 @@ class Cafe extends React.Component {
 							</aside>
 						</div>
 						<div className="column-10">
-							{ cafe.isLoaded ? cafeTypes.map(this.renderCafeTypeContent) : null }
-							<Redirect from="/*"	 to={`${match.url}/${firstRoutePath}`} />
+							{ cafe.types.isLoaded ? cafeTypes.map(this.renderCafeTypeContent) : null }
+							<Redirect from="/*" to={`${match.url}/${firstRoutePath}`} />
 						</div>
 					</Row>
 				</Container>

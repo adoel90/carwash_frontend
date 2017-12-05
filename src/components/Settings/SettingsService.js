@@ -62,9 +62,11 @@ class SettingsService extends Component {
 		} = this.props;
 
 		let updateMessage = (id) => {
+			console.log(service.type);
+
 			if(service.type.isUpdated && id === service.type.id) {
 				return (
-					<small className="clr-success" style={{padding: '15px 10px'}}>Berhasil diubah.</small>
+					<small className="clr-success fw-semibold" style={{padding: '15px 10px'}}>Berhasil diubah!</small>
 				)
 			}
 		}
@@ -431,7 +433,6 @@ class SettingsService extends Component {
 				<div className="flex align-items--center justify-content--space-between padding-bottom-2">
 					<div>
 						<h5 className="fw-semibold">Daftar Service</h5>
-						<p className="clr-passive">Berikut merupakan daftar service yang sedang berjalan pada aplikasi.</p>
 					</div>
 					<div>
 						<Button type="button" buttonTheme="primary" className="clr-light" onClick={handleServiceTypeSettings}>

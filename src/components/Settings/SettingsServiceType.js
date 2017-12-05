@@ -17,6 +17,9 @@ class SettingsServiceType extends Component {
 			serviceList
 		} = this.props;
 
+		if(service.list.isFetching) {
+			return <p>Sedang memuat daftar service. Mohon tunggu sebentar...</p>
+		}
 
 		if(service.list.isLoaded) {
 			if(serviceList.length) {

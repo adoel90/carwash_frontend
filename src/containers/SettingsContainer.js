@@ -56,7 +56,7 @@ class SettingsContainer extends Component {
 		dispatch(showDialog(data))
 	}
 
-	hideDialog = (data) => {
+	hideDialog = () => {
 		const { dialog, dispatch } = this.props;
 
 		dispatch(hideDialog());
@@ -69,6 +69,7 @@ class SettingsContainer extends Component {
 				{...this.props}
 				toggleDialog={this.toggleDialog}
 				showDialog={this.showDialog}
+				hideDialog={this.hideDialog}
 			/>
 		)
 	}

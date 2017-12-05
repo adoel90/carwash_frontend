@@ -28,7 +28,7 @@ class SettingsServiceList extends Component {
 			table,
 		} = this.state;
 
-		if(service.isFetching) {
+		if(service.list.isFetching) {
 			return <p>Sedang memuat. Silahkan tunggu sebentar...</p>
 		}
 

@@ -79,6 +79,7 @@ class SettingsServiceContainer extends Component {
 			service,
 			dialog,
 			dispatch,
+			hideDialog,
 			toggleDialog,
 			showDialog
 		} = this.props;
@@ -107,13 +108,19 @@ class SettingsServiceContainer extends Component {
 			}
 		}
 
-		// if(prevProps.service.type !== service.type) {
-		// 	if(service.type.isUpdated) {
-		// 		this.getServiceTypes();
-		// 	}
-		// }
-
 		if(prevProps.service.type !== service.type) {
+			if(service.type.isUpdated) {
+				let dialogData = {
+					type: 'success',
+					title: 'Berhasil!',
+					message: 'Informasi kategori telah berhasil diubah.',
+					onClose: () => hideDialog(),
+					closeText: 'Tutup'
+				}
+
+				toggleDialog(dialogData);
+			}
+
 			if(service.type.isStatusChanging) {
 				service.types.data.forEach((item) => {
 					if(item.id === service.type.id) {
@@ -410,6 +417,8 @@ class SettingsServiceContainer extends Component {
 
 	handleUpdateServiceTypeSubmit = (data, e) => {
 		e.preventDefault();
+
+		console.log(data);
 
 		const {
 			dispatch,

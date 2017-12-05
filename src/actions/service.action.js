@@ -208,7 +208,7 @@ export const updateServiceType = (data, accessToken) => {
 				dispatch(handleSuccess(response.data, data.id))
 			})
 			.catch((error) => {
-				dispatch(handleError(error))
+				dispatch(handleError(error, data.id))
 			})
 	}
 
@@ -229,13 +229,13 @@ export const changeServiceTypeStatus = (data, accessToken) => {
 				dispatch(handleSuccess(response.data, data.id))
 			})
 			.catch((error) => {
-				dispatch(handleError(error))
+				dispatch(handleError(error, data.id))
 			})
 	}
 
 	function handleRequest(id) { return { type: CHANGE_SERVICE_TYPE_STATUS_REQUESTED, id: id } }
 	function handleSuccess(data, id) { return { type: CHANGE_SERVICE_TYPE_STATUS_FULFILLED, payload: data, id: id } }
-	function handleError(data) { return { type: CHANGE_SERVICE_TYPE_STATUS_REJECTED, payload: data } }
+	function handleError(data, id) { return { type: CHANGE_SERVICE_TYPE_STATUS_REJECTED, payload: data, id: id } }
 }
 
 export const createServiceTransaction = (data, accessToken) => {

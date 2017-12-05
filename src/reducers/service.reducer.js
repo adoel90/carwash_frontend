@@ -19,6 +19,7 @@ import {
 
 	CREATE_SERVICE_TYPE_FULFILLED,
 	CREATE_SERVICE_TYPE_REJECTED,
+	UPDATE_SERVICE_TYPE_REQUESTED,
 	UPDATE_SERVICE_TYPE_FULFILLED,
 	UPDATE_SERVICE_TYPE_REJECTED,
 	CHANGE_SERVICE_TYPE_STATUS_REQUESTED,
@@ -263,10 +264,10 @@ const service = (state = initialState, action) => {
 				}
 			}
 		}
-		case UPDATE_SERVICE_TYPE_FULFILLED: {
+		case UPDATE_SERVICE_TYPE_REQUESTED: {
 			return {
 				...state,
-				updated: {
+				type: {
 					...state.updated,
 					id: action.id,
 					data: {},
@@ -280,7 +281,7 @@ const service = (state = initialState, action) => {
 		case UPDATE_SERVICE_TYPE_FULFILLED: {
 			return {
 				...state,
-				updated: {
+				type: {
 					...state.updated,
 					id: action.id,
 					data: action.payload,
@@ -294,7 +295,7 @@ const service = (state = initialState, action) => {
 		case UPDATE_SERVICE_TYPE_REJECTED: {
 			return {
 				...state,
-				updated: {
+				type: {
 					...state.type,
 					data: {},
 					isUpdating: false,

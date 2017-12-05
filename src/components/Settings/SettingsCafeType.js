@@ -236,7 +236,7 @@ class SettingsCafeType extends Component {
 		} = this.props;
 
 		if(cafe.list.isFetching) {
-			return <p>Sedang memuat data menu cafe. Tunggu sebentar...</p>
+			return <p>Sedang memuat daftar menu cafe. Mohon tunggu sebentar...</p>
 		}
 
 		if(cafe.list.isLoaded) {

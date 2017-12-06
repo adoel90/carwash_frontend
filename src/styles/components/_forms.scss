@@ -14,10 +14,9 @@ form {}
 			@include flexbox;
 			@include flex-direction(row);
 			@include align-items(center);
-			@include justify-content(center);
 
 			> .form-label {
-				width: 33.3%;
+				width: calc(100%/3);
 				text-align: right;
 				padding-right: $spacer * .5;
 				margin: 0;
@@ -31,6 +30,46 @@ form {}
 		// &:last-of-type {
 		// 	margin-bottom: $spacer * 1.5;
 		// }
+	}
+
+	.form-switch {
+		@include relative;
+		width: 100%;
+		display: block;
+		background: none;
+		border: none;
+
+		> .switch-label {
+			@include relative;
+			@include transition(all 250ms $transition-primary);
+			@include border-radius(25px);
+			display: block;
+			background-color: gray(500);
+			width: 60px;
+			height: 30px;
+			cursor: pointer;
+
+			> .switch-track {
+				@include transition(all 250ms $transition-primary);
+				@include border-radius(100%);
+				height: 20px;
+				width: 20px;
+				background-color: gray(100);
+				@include transform(translate(-50%, -50%));
+				@include absolute {
+					top: 50%;
+					left: 25%;
+				}
+			}
+
+			&.switch-label--is-checked {
+				background-color: primary-color(base);
+
+				> .switch-track {
+					left: 75%;
+				}
+			}
+		}
 	}
 
 	.form-control {

@@ -11,7 +11,7 @@ class SettingsCardList extends Component {
 					{ accessor: 'name', title: 'Name' },
 					{ accessor: 'min', title: 'Minimum', isCurrency: true },
 					{ accessor: 'bonus', title: 'Bonus', isCurrency: true },
-					{ accessor: 'status', title: 'Status', isStatus: true }
+					// { accessor: 'status', title: 'Status', isStatus: true }
 				]
 			}
 		}
@@ -23,7 +23,7 @@ class SettingsCardList extends Component {
 		} = this.state;
 
 		const {
-			cardList,
+			cardTypes,
 			handleCardTypeUpdate,
 			handleCardTypeDelete,
 			handleChangeCardTypeStatus
@@ -32,7 +32,7 @@ class SettingsCardList extends Component {
 		return (
 			<TableSet
 				columns={table.columns}
-				rows={cardList}
+				rows={cardTypes}
 				isStriped
 				isHoverable
 				hasPagination

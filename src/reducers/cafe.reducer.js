@@ -2,9 +2,6 @@ import {
 	GET_CAFE_MENU_LIST_REQUESTED,
 	GET_CAFE_MENU_LIST_FULFILLED,
 	GET_CAFE_MENU_LIST_REJECTED,
-	GET_CAFE_TYPES_REQUESTED,
-	GET_CAFE_TYPES_FULFILLED,
-	GET_CAFE_TYPES_REJECTED,
 
 	CREATE_CAFE_MENU_REQUESTED,
 	CREATE_CAFE_MENU_FULFILLED,
@@ -17,6 +14,19 @@ import {
 	UPDATE_CAFE_MENU_REJECTED,
 	DELETE_CAFE_MENU_FULFILLED,
 	DELETE_CAFE_MENU_REJECTED,
+
+	GET_CAFE_TYPES_REQUESTED,
+	GET_CAFE_TYPES_FULFILLED,
+	GET_CAFE_TYPES_REJECTED,
+	CREATE_CAFE_TYPE_REQUESTED,
+	CREATE_CAFE_TYPE_FULFILLED,
+	CREATE_CAFE_TYPE_REJECTED,
+	UPDATE_CAFE_TYPE_REQUESTED,
+	UPDATE_CAFE_TYPE_FULFILLED,
+	UPDATE_CAFE_TYPE_REJECTED,
+	CHANGE_CAFE_TYPE_STATUS_REQUESTED,
+	CHANGE_CAFE_TYPE_STATUS_FULFILLED,
+	CHANGE_CAFE_TYPE_STATUS_REJECTED,
 
 	CREATE_CAFE_TRANSACTION_FULFILLED,
 	CREATE_CAFE_TRANSACTION_REJECTED,
@@ -36,6 +46,18 @@ const initialState = {
 		data: [],
 		isFetching: false,
 		isLoaded: false,
+		isError: false,
+		error: {}
+	},
+	type: {
+		id: null,
+		data: {},
+		isUpdating: false,
+		isUpdated: false,
+		isCreating: false,
+		isCreated: false,
+		isStatusChanging: false,
+		isStatusChanged: false,
 		isError: false,
 		error: {}
 	},
@@ -94,48 +116,6 @@ const cafe = (state = initialState, action) => {
 			}
 		}
 
-		//
-		case GET_CAFE_TYPES_REQUESTED: {
-			return {
-				...state,
-				types: {
-					...state.types,
-					data: {},
-					isFetching: true,
-					isLoaded: false,
-					isError: false,
-					error: {}
-				}
-			}
-		}
-
-		case GET_CAFE_TYPES_FULFILLED: {
-			return {
-				...state,
-				types: {
-					...state.types,
-					data: action.payload.data,
-					isLoaded: true,
-					isFetching: false,
-					isError: false,
-					error: {}
-				}
-			}
-		}
-
-		case GET_CAFE_TYPES_REJECTED: {
-			return {
-				...state,
-				types: {
-					...state.types,
-					data: {},
-					isLoaded: false,
-					isFetching: false,
-					isError: true,
-					error: action.payload
-				}
-			}
-		}
 
 		//
 		case CREATE_CAFE_MENU_REQUESTED: {
@@ -297,6 +277,177 @@ const cafe = (state = initialState, action) => {
 				isDeleted: true,
 				isError: false,
 				error: {}
+			}
+		}
+
+		//
+		case GET_CAFE_TYPES_REQUESTED: {
+			return {
+				...state,
+				types: {
+					...state.types,
+					data: {},
+					isFetching: true,
+					isLoaded: false,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case GET_CAFE_TYPES_FULFILLED: {
+			return {
+				...state,
+				types: {
+					...state.types,
+					data: action.payload.data,
+					isLoaded: true,
+					isFetching: false,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case GET_CAFE_TYPES_REJECTED: {
+			return {
+				...state,
+				types: {
+					...state.types,
+					data: {},
+					isLoaded: false,
+					isFetching: false,
+					isError: true,
+					error: action.payload
+				}
+			}
+		}
+
+		case CREATE_CAFE_TYPE_REQUESTED: {
+			return {
+				...state,
+				type: {
+					...state.type,
+					data: {},
+					isCreating: true,
+					isCreated: false,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case CREATE_CAFE_TYPE_FULFILLED: {
+			return {
+				...state,
+				type: {
+					...state.type,
+					data: action.payload.data,
+					isCreating: false,
+					isCreated: true
+				}
+			}
+		}
+
+		case CREATE_CAFE_TYPE_REJECTED: {
+			return {
+				...state,
+				type: {
+					...state.type,
+					data: {},
+					isCreating: false,
+					isCreated: false,
+					isError: true,
+					error: action.payload
+				}
+			}
+		}
+
+		case UPDATE_CAFE_TYPE_REQUESTED: {
+			return {
+				...state,
+				type: {
+					...state.type,
+					id: action.id,
+					data: {},
+					isUpdating: true,
+					isUpdated: false,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case UPDATE_CAFE_TYPE_FULFILLED: {
+			return {
+				...state,
+				type: {
+					...state.type,
+					id: action.id,
+					data: action.payload.data,
+					isUpdating: false,
+					isUpdated: true,
+				}
+			}
+		}
+
+		case UPDATE_CAFE_TYPE_REQUESTED: {
+			return {
+				...state,
+				type: {
+					...state.type,
+					id: action.id,
+					data: {},
+					isUpdating: false,
+					isUpdated: false,
+					isError: true,
+					error: action.payload
+				}
+			}
+		}
+
+		case CHANGE_CAFE_TYPE_STATUS_REQUESTED: {
+			return {
+				...state,
+				type: {
+					...state.type,
+					id: action.id,
+					data: {},
+					isStatusChanging: true,
+					isStatusChanged: false,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case CHANGE_CAFE_TYPE_STATUS_FULFILLED: {
+			return {
+				...state,
+				type: {
+					...state.type,
+					id: action.id,
+					data: action.payload,
+					isStatusChanging: false,
+					isStatusChanged: true,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case CHANGE_CAFE_TYPE_STATUS_REJECTED: {
+			return {
+				...state,
+				type: {
+					...state.type,
+					id: action.id,
+					data: {},
+					isStatusChanging: false,
+					isStatusChanged: false,
+					isError: true,
+					error: action.payload
+				}
 			}
 		}
 

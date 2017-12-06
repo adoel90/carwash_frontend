@@ -1,8 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {
+	updateCafeMenu,
 	getCafeTypes,
-	updateCafeMenu
+	updateCafeType,
+	createCafeType,
+	changeCafeTypeStatus,
 } from '../actions/cafe.action';
 import { SettingsCafe } from '../components/Settings';
 import { sortBy } from '../utils';
@@ -42,25 +45,99 @@ class SettingsCafeContainer extends React.Component {
 
 	componentDidUpdate = (prevProps) => {
 		const { cafeTypes } = this.state;
-		const { cafe } = this.props;
+		const {
+			cafe,
+			toggleDialog,
+		 	hideDialog
+		} = this.props;
 
 		if(prevProps.cafe.types !== cafe.types) {
 			if(cafe.types.isLoaded) {
-				let sortedTypes = cafe.types.data.sort(sortBy('name'));
 				let activeTypes = [];
 
-				sortedTypes.map((type) => {
+				cafe.types.data.map((type) => {
 					if(type.status) {
-						activeTypes.push(type);
-					}
-				});
-
-				this.setState({
-					cafeTypes: {
-						all: sortedTypes,
-						active: activeTypes
+						activeTypes = activeTypes.concat([type]);
 					}
 				})
+
+				this.setState({
+					...this.state,
+					cafeTypes: {
+						...this.state.cafeTypes,
+						all: cafe.types.data.sort(sortBy('name')),
+						active: activeTypes.sort(sortBy('name'))
+					}
+				})
+
+				// let sortedTypes = cafe.types.data.sort(sortBy('name'));
+				// let activeTypes = [];
+				//
+				// sortedTypes.map((type) => {
+				// 	if(type.status) {
+				// 		activeTypes.push(type);
+				// 	}
+				// });
+				//
+				// this.setState({
+				// 	cafeTypes: {
+				// 		all: sortedTypes,
+				// 		active: activeTypes
+				// 	}
+				// })
+			}
+		}
+
+		if(prevProps.cafe.type !== cafe.type) {
+			if(cafe.type.isUpdated) {
+				let dialogData = {
+					type: 'success',
+					title: 'Berhasil',
+					message: 'Kategori cafe telah berhasil diperbarui. Klik tombol berikut untuk kembali.',
+					onClose: () => hideDialog(),
+					closeText: 'Tutup'
+				}
+
+				toggleDialog(dialogData);
+			}
+
+			if(cafe.type.isStatusChanging) {
+				cafeTypes.all.forEach((item) => {
+					if(item.id === cafe.type.id) {
+						item.statusChanging = true;
+						this.forceUpdate();
+					}
+				})
+			}
+
+			if(cafe.type.isStatusChanged) {
+				cafeTypes.all.forEach((item) => {
+					if(item.id === cafe.type.id) {
+						item.statusChanging = false;
+
+						if(item.status) {
+							item.status = false;
+						}
+						else {
+							item.status = true;
+						}
+
+						this.getCafeTypes();
+						this.forceUpdate();
+					}
+				})
+			}
+
+			if(cafe.type.isCreated) {
+				let dialogData = {
+					type: 'success',
+					title: 'Berhasil',
+					message: 'Kategori berhasil ditambahkan. Klik tombol berikut untuk kembali.',
+					onClose: () => hideDialog(),
+					closeText: 'Tutup'
+				}
+
+				toggleDialog(dialogData);
 			}
 		}
 	}
@@ -107,6 +184,10 @@ class SettingsCafeContainer extends React.Component {
 	}
 
 	handleCafeTypeSettings = () => {
+		const {
+			cafeTypes
+		} = this.state;
+
 		this.toggleModal('cafeTypeSettings');
 	}
 
@@ -116,14 +197,47 @@ class SettingsCafeContainer extends React.Component {
 
 	handleNewCafeTypeSubmit = (e) => {
 		e.preventDefault();
+
+		const { newCafeType } = this.state;
+		const {
+			accessToken,
+			dispatch
+		} = this.props;
+
+		let requiredData = {
+			name: newCafeType.name
+		}
+
+		dispatch(createCafeType(requiredData, accessToken));
 	}
 
-	handleUpdateCafeTypeSubmit = () => {
+	handleUpdateCafeTypeSubmit = (cafeType, e) => {
+		e.preventDefault();
 
+		const {
+			accessToken,
+			dispatch
+		} = this.props;
+
+		let requiredData = {
+			id: cafeType.id,
+			name: cafeType.name
+		}
+
+		dispatch(updateCafeType(requiredData, accessToken));
 	}
 
-	handleChangeCafeTypeStatus = () => {
+	handleChangeCafeTypeStatus = (cafeType) => {
+		const {
+			accessToken,
+			dispatch
+		} = this.props;
 
+		let requiredData = {
+			id: cafeType.id
+		}
+
+		dispatch(changeCafeTypeStatus(requiredData, accessToken));
 	}
 
 	getCafeTypes = () => {

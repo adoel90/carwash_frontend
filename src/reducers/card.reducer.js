@@ -6,32 +6,30 @@ import {
 	CREATE_CARD_TYPE_REJECTED,
 	UPDATE_CARD_TYPE_FULFILLED,
 	UPDATE_CARD_TYPE_REJECTED,
+	CHANGE_CARD_TYPE_STATUS_REQUESTED,
 	CHANGE_CARD_TYPE_STATUS_FULFILLED,
 	CHANGE_CARD_TYPE_STATUS_REJECTED,
 } from '../actions/card.action';
 
 const initialState = {
-	list: {
+	types: {
 		data: [],
 		isFetching: false,
 		isLoaded: false,
 		isError: false,
 		error: {}
 	},
-	created: {
+	type: {
 		data: {},
-		isCreated: false,
-		isError: false,
-		error: {}
-	},
-	updated: {
-		data: {},
-		id: null,
+		isUpdating: false,
 		isUpdated: false,
+		isCreating: false,
+		isCreated: false,
+		isStatusChanging: false,
 		isStatusChanged: false,
 		isError: false,
 		error: {}
-	},
+	}
 }
 
 const card = (state = initialState, action) => {
@@ -39,8 +37,8 @@ const card = (state = initialState, action) => {
 		case GET_ALL_CARD_TYPE_REQUESTED: {
 			return {
 				...state,
-				list: {
-					...state.list,
+				types: {
+					...state.types,
 					isFetching: true,
 					isLoaded: false,
 					isError: false,
@@ -52,8 +50,8 @@ const card = (state = initialState, action) => {
 		case GET_ALL_CARD_TYPE_FULFILLED: {
 			return {
 				...state,
-				list: {
-					...state.list,
+				types: {
+					...state.types,
 					data: action.payload.data,
 					isFetching: false,
 					isLoaded: true,
@@ -66,8 +64,8 @@ const card = (state = initialState, action) => {
 		case GET_ALL_CARD_TYPE_REJECTED: {
 			return {
 				...state,
-				list: {
-					...state.list,
+				types: {
+					...state.types,
 					isFetching: false,
 					isLoaded: false,
 					isError: true,
@@ -79,8 +77,8 @@ const card = (state = initialState, action) => {
 		case CREATE_CARD_TYPE_FULFILLED: {
 			return {
 				...state,
-				created: {
-					...state.created,
+				type: {
+					...state.type,
 					data: action.payload,
 					isCreated: true,
 					isError: false,
@@ -92,8 +90,8 @@ const card = (state = initialState, action) => {
 		case CREATE_CARD_TYPE_REJECTED: {
 			return {
 				...state,
-				created: {
-					...state.created,
+				type: {
+					...state.type,
 					isCreated: false,
 					isError: true,
 					error: action.payload
@@ -104,8 +102,8 @@ const card = (state = initialState, action) => {
 		case UPDATE_CARD_TYPE_FULFILLED: {
 			return {
 				...state,
-				updated: {
-					...state.updated,
+				type: {
+					...state.type,
 					isUpdated: true,
 					isError: false,
 					error: {}
@@ -116,8 +114,8 @@ const card = (state = initialState, action) => {
 		case UPDATE_CARD_TYPE_REJECTED: {
 			return {
 				...state,
-				updated: {
-					...state.updated,
+				type: {
+					...state.type,
 					isUpdated: false,
 					isError: true,
 					error: action.payload
@@ -125,16 +123,30 @@ const card = (state = initialState, action) => {
 			}
 		}
 
+		case CHANGE_CARD_TYPE_STATUS_REQUESTED: {
+			return {
+				...state,
+				type: {
+					...state.type,
+					id: action.id,
+					data: {},
+					isStatusChanging: true,
+					isStatusChanged: false,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
 		case CHANGE_CARD_TYPE_STATUS_FULFILLED: {
 			return {
 				...state,
-				updated: {
-					...state.updated,
+				type: {
+					...state.type,
 					id: action.id,
 					data: action.payload,
+					isStatusChanging: false,
 					isStatusChanged: true,
-					isError: false,
-					error: {}
 				}
 			}
 		}
@@ -142,8 +154,11 @@ const card = (state = initialState, action) => {
 		case CHANGE_CARD_TYPE_STATUS_REJECTED: {
 			return {
 				...state,
-				updated: {
-					...state.updated,
+				type: {
+					...state.type,
+					id: action.id,
+					data: {},
+					isStatusChanging: false,
 					isStatusChanged: false,
 					isError: true,
 					error: action.payload

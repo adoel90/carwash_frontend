@@ -428,9 +428,9 @@ class SettingsService extends Component {
 
 		return (
 			<div className="inner-view">
-				<div className="flex align-items--center justify-content--space-between padding-bottom-2">
+				<div className="flex justify-content--space-between padding-bottom-2">
 					<div>
-						<h5 className="fw-semibold">Daftar Service</h5>
+						<h4 className="fw-semibold">Daftar Service</h4>
 					</div>
 					<div>
 						<Button type="button" buttonTheme="primary" className="clr-light" onClick={handleServiceTypeSettings}>

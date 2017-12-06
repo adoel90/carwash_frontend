@@ -122,7 +122,6 @@ class SettingsMember extends React.Component {
 								</FormGroup>
 								<FormGroup>
 									<Label className="fw-semibold">Nomor Kartu</Label>
-
 									<InputGroup>
 										<InputAddon>
 											<i className="ion-card"></i>
@@ -246,8 +245,8 @@ class SettingsMember extends React.Component {
 		return (
 			<div className="inner-view">
 				<div className="padding-bottom-2">
-					<h5 className="fw-semibold">Daftar Member</h5>
-					<p className="clr-passive">Untuk melihat informasi member, silahkan klik baris member yang diinginkan.</p>
+					<h4 className="fw-semibold">Daftar Member</h4>
+					{/* <p className="clr-passive">Untuk melihat informasi member, silahkan klik baris member yang diinginkan.</p> */}
 				</div>
 				{ this.renderMemberList() }
 				{ this.renderEditMemberModal() }

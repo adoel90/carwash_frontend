@@ -39,7 +39,7 @@ class SettingsCafe extends Component {
 		let updateMessage = (typeId) => {
 			if(cafe.type.isUpdated && typeId === cafe.type.id) {
 				return (
-					<small className="clr-success" style={{padding: '15px 10px'}}>Service berhasil diubah.</small>
+					<small className="clr-success" style={{padding: '15px 10px'}}>Berhasil diubah.</small>
 				)
 			}
 		}
@@ -47,15 +47,15 @@ class SettingsCafe extends Component {
 		let cafeTypeItem = (type, index) => {
 			return (
 				<ListGroupItem>
-					<Form onSubmit={(e) => handleUpdateCafeTypeSubmit(type)}>
+					<Form onSubmit={(e) => handleUpdateCafeTypeSubmit(type, e)}>
 						<Row className="align-items--center">
 							<div className="column-12 flex-column justify-content--center">
 								<InputGroup className="flex">
-									<Input value={type.name} placeholder={type.name} onChange={(e) => handleInputIndexChange(cafeTypes.all, index, e)} required="true"/>
+									<Input name={type.name} value={type.name} placeholder="Nama tipe cafe" onChange={(e) => handleInputIndexChange(cafeTypes.all, index, e)} required="true"/>
 									<Button type="submit" buttonTheme="primary" buttonSize="small">
 										<small className="clr-light fw-semibold tt-uppercase ls-base">Ubah</small>
 									</Button>
-									<Button type="button" buttonTheme={type.status ? 'secondary' : 'danger'} buttonSize="small" onClick={(e) => handleChangeCafeTypeStatus(type)} disabled={type.statusChanging}>
+									<Button type="button" buttonTheme={type.status ? 'secondary' : 'danger'} buttonSize="small" onClick={() => handleChangeCafeTypeStatus(type)} disabled={type.statusChanging}>
 										<small className={`${type.status ? 'clr-dark' : 'clr-light'} fw-semibold tt-uppercase ls-base`}>{type.statusChanging ? 'Merubah...' : (type.status ? 'Aktif' : 'Tidak Aktif')}</small>
 									</Button>
 								</InputGroup>
@@ -79,7 +79,7 @@ class SettingsCafe extends Component {
 					{/* <small>Berikut merupakan daftar kategori yang ada di aplikasi ini. Kategori yang sedang berjalan dan aktif untuk layanan ditandai dengan tombol 'Aktif', dan sebaliknya 'Tidak Aktif' bagi kategori yang sedang tidak berjalan. Silahkan klik tombol tersebut untuk mengubah status kategori.</small> */}
 					<ListGroup>
 						<Form onSubmit={handleNewCafeTypeSubmit}>
-							<h6 className="fw-semibold">Tambah Baru</h6>
+							<h6 className="fw-semibold">Tambah Kategori</h6>
 							<ListGroupItem className="align-items--center">
 								<Row>
 									<div className="column-9">
@@ -156,7 +156,7 @@ class SettingsCafe extends Component {
 		return (
 			<div className="inner-view">
 				<div className="flex justify-content--space-between padding-bottom-2">
-					<h5 className="fw-semibold">Daftar Cafe</h5>
+					<h4 className="fw-semibold">Daftar Menu Cafe</h4>
 					<Button type="button" buttonTheme="primary" className="clr-light" onClick={handleCafeTypeSettings}>
 						<small className="fw-semibold tt-uppercase ls-base">Pengaturan</small>
 					</Button>

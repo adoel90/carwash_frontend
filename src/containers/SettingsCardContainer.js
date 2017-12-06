@@ -28,7 +28,7 @@ class SettingsCardContainer extends Component {
 		this.handleChangeCardTypeStatus = this.handleChangeCardTypeStatus.bind(this);
 
 		this.state = {
-			cardList: [],
+			cardTypes: [],
 			searchText: '',
 			isModalOpen: {
 				newCardType: false,
@@ -56,7 +56,7 @@ class SettingsCardContainer extends Component {
 
 	componentDidUpdate = (prevProps) => {
 		const {
-			cardList
+			cardTypes
 		} = this.state;
 
 		const {
@@ -69,10 +69,10 @@ class SettingsCardContainer extends Component {
 
 		let dialogData = {};
 
-		if(prevProps.card.list !== card.list) {
-			if(card.list.isLoaded) {
+		if(prevProps.card.types !== card.types) {
+			if(card.types.isLoaded) {
 				this.setState({
-					cardList: card.list.data
+					cardTypes: card.types.data
 				})
 			}
 		}
@@ -82,7 +82,7 @@ class SettingsCardContainer extends Component {
 				dialogData = {
 					type: 'success',
 					title: 'Berhasil',
-					message: 'Tipe kartu telah berhasil dibuat. Klik tombol berikut untuk kembali.',
+					message: 'Tipe kartu telah berhasil ditambahkan. Klik tombol berikut untuk kembali.',
 					onClose: () => {
 						window.location.reload()
 					},
@@ -93,8 +93,8 @@ class SettingsCardContainer extends Component {
 			}
 		}
 
-		if(prevProps.card.updated !== card.updated) {
-			if(card.updated.isUpdated) {
+		if(prevProps.card.type !== card.type) {
+			if(card.type.isUpdated) {
 				dialogData = {
 					type: 'success',
 					title: 'Berhasil',
@@ -108,10 +108,19 @@ class SettingsCardContainer extends Component {
 				toggleDialog(dialogData);
 			}
 
-			else if(card.updated.isStatusChanged) {
-				cardList.forEach((item) => {
-					if(item.id === card.updated.id) {
-						// item.status = item.status ? false : true;
+			else if(card.type.isStatusChanging) {
+				cardTypes.forEach((item) => {
+					if(item.id === card.type.id) {
+						item.statusChanging = true;
+						this.forceUpdate();
+					}
+				})
+			}
+
+			else if(card.type.isStatusChanged) {
+				cardTypes.forEach((item) => {
+					if(item.id === card.type.id) {
+						item.statusChanging = false;
 
 						if(item.status) {
 							item.status = false;

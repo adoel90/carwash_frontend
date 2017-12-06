@@ -9,7 +9,7 @@
 		@include border-radius(base);
 		width: 100%;
 		background-color: gray(100);
-		
+
 		.navigation {
 			.navigation__item {
 				> a {
@@ -17,12 +17,12 @@
 					display: block;
 					padding: ($spacer * .5);
 					border-bottom: solid 1px gray(200);
-					color: gray(400);
+					color: gray(600);
 
 					&:hover {
 						background-color: shade(gray(100), 4%) !important;
 					}
-					
+
 					&.is-active {
 						@include font-weight(semibold);
 						color: gray(1700);

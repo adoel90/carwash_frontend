@@ -3,7 +3,7 @@ import { SettingsCardList } from '../Settings';
 import { Modal } from 'reactstrap';
 import { ModalHeader, ModalContent, ModalFooter } from '../Modal';
 import { Form, FormGroup } from '../Form';
-import { Input, InputGroup, InputCurrency, InputAddon, Label } from '../Input';
+import { Input, InputGroup, InputCurrency, InputAddon, InputSwitch, Label } from '../Input';
 import { PageBlock, PageBlockGroup } from '../Page';
 import { Button } from '../Button';
 
@@ -160,10 +160,12 @@ class SettingsCard extends Component {
 								/>
 							</InputGroup>
 						</FormGroup>
-						<FormGroup row>
-							<Label htmlFor="refundable" className="fw-semibold">Dapat refund?</Label>
-							<Input
-								type="checkbox"
+						<FormGroup row switch>
+							<Label
+								htmlFor="refundable"
+								className="fw-semibold">Dapat refund?
+							</Label>
+							<InputSwitch
 								name="refunable"
 								value={selectedCardType.refunable}
 								onChange={(e) => handleInputChange(selectedCardType, e)}
@@ -193,8 +195,8 @@ class SettingsCard extends Component {
 		return (
 			<div className="inner-view">
 				<div className="padding-bottom-2">
-					<h5 className="fw-semibold">Daftar Tipe Kartu</h5>
-					<p className="clr-passive">Berikut merupakan daftar tipe kartu yang aktif dalam layanan.</p>
+					<h4 className="fw-semibold">Daftar Tipe Kartu</h4>
+					{/* <p className="clr-passive">Berikut merupakan daftar tipe kartu yang aktif dalam layanan.</p> */}
 				</div>
 				<PageBlockGroup>
 					<SettingsCardList {...this.props} />

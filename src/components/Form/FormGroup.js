@@ -4,6 +4,7 @@ import classNames from 'classnames';
 const FormGroup = (props) => {
 	const {
 		row,
+		check,
 		children,
 		className,
 		...rest

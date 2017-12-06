@@ -171,7 +171,7 @@ class SettingsCafeType extends Component {
 				isOpen={isModalOpen.cafeMenuUpdate}
 				toggle={() => toggleModal('cafeMenuUpdate')}>
 				<ModalHeader align="center">
-					<h6 className="fw-semibold">Ubah Cafe Menu: <span className="fw-bold clr-primary">{selectedCafeMenu.name}</span></h6>
+					<h6 className="fw-semibold">Ubah Cafe Menu: <span className="fw-bold">{selectedCafeMenu.name}</span></h6>
 				</ModalHeader>
 				<Form onSubmit={handleCafeMenuUpdateSubmit}>
 					<ModalContent>

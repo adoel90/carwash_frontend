@@ -94,7 +94,7 @@ class SettingsServiceContainer extends Component {
 				let sortedTypes = service.types.data.sort(sortBy('name'))
 				let activeTypes = [];
 
-				service.types.data.map((type) => {
+				sortedTypes.map((type) => {
 					if(type.status) {
 						activeTypes.push(type);
 					}

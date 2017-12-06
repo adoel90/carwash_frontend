@@ -25,10 +25,6 @@ class Cafe extends React.Component {
 			match
 		} = this.props;
 
-		// cafe.types.isLoaded ? cafeTypes.active.map(this.renderCafeTypeContent) : null
-
-
-
 		if(cafe.types.isLoaded) {
 			return cafeTypes.active.map((type, i) => {
 				let path = type.name.replace(/\s+/g, '-').toLowerCase();

@@ -21,8 +21,9 @@ class CafeContainer extends React.Component {
 	constructor() {
 		super();
 		this.getCafeTypes = this.getCafeTypes.bind(this);
-		this.toggleModal = this.toggleModal.bind(this);
 		this.toggleDialog = this.toggleDialog.bind(this);
+		this.showDialog = this.showDialog.bind(this);
+		this.hideDialog = this.hideDialog.bind(this);
 		this.handleInputChange = this.handleInputChange.bind(this);
 		// this.handleSelectMenu = this.handleSelectMenu.bind(this);
 		// this.handleSearchFilter = this.handleSearchFilter.bind(this);
@@ -37,10 +38,6 @@ class CafeContainer extends React.Component {
 			cafeTypes: {
 				all: [],
 				active: []
-			},
-			isModalOpen: {
-				paymentDetail: false,
-				paymentProcess: false
 			}
 		}
 	}
@@ -103,17 +100,6 @@ class CafeContainer extends React.Component {
 		const { dialog, dispatch } = this.props;
 
 		dispatch(hideDialog());
-	}
-
-	toggleModal = (name) => {
-		const { isModalOpen } = this.state;
-
-		this.setState({
-			isModalOpen: {
-				...isModalOpen,
-				[name]: !isModalOpen[name]
-			}
-		})
 	}
 
 	handleInputChange = (object, e) => {
@@ -241,19 +227,10 @@ class CafeContainer extends React.Component {
 			<Cafe
 				{...this.props}
 				{...this.state}
-				toggleModal={this.toggleModal}
 				toggleDialog={this.toggleDialog}
 				showDialog={this.showDialog}
 				hideDialog={this.hideDialog}
 				handleInputChange={this.handleInputChange}
-				// handleSearchFilter={this.handleSearchFilter}
-				// handleSearchFilterSubmit={this.handleSearchFilterSubmit}
-				// handleSelectMenu={this.handleSelectMenu}
-				// handlePaymentDetail={this.handlePaymentDetail}
-				// handlePaymentDetailSubmit={this.handlePaymentDetailSubmit}
-				// handlePaymentProcessSubmit={this.handlePaymentProcessSubmit}
-				// handlePaymentMemberAuthentication={this.handlePaymentMemberAuthentication}
-				// calculateGrandTotal={this.calculateGrandTotal}
 			/>
 		)
 	}

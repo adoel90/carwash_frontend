@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { TableSet } from '../Table';
-import Currency from '../Currency';
 
 class CafePaymentDetail extends Component {
 	constructor() {
@@ -8,51 +7,32 @@ class CafePaymentDetail extends Component {
 		this.state = {
 			table: {
 				columns: [
-					{ accessor: 'name', title: 'Nama Menu' },
-					{ accessor: 'quantity', title: 'Jumlah', editable: true },
-					{ accessor: 'price', title: 'Price (per item)' },
-					{ accessor: 'totalPrice', title: 'Total Price' }
+					{ id: 1, accessor: 'name', title: 'Nama Menu' },
+					{ id: 2, accessor: 'price', title: 'Harga (per satuan)', isCurrency: true },
+					{ id: 3, accessor: 'quantity', title: 'Jumlah', size: 'small', isEditable: true },
+					{ id: 4, accessor: 'totalPrice', title: 'Total Harga', isCurrency: true }
 				]
 			}
 		}
 	}
 
-	componentDidUpdate = () => {
-		const {
-			selectedMenus,
-			calculateGrandTotal
-		} = this.props;
-
-		calculateGrandTotal();
-	}
-
 	render() {
+		const { table } = this.state;
 		const {
-			selectedMenus,
-			grandTotal
+			selectedMenuList,
+			grandTotalPrice
 		} = this.props;
-
-		const {
-			table
-		} = this.state;
 
 		return (
-			<div>
+			<div className="payment-detail">
 				<TableSet
 					columns={table.columns}
-					rows={selectedMenus}
+					rows={selectedMenuList}
 					isStriped
 					isHoverable
 					{...this.props}
 				/>
-				<div className="flex flex-column align-items--flex-end">
-					<small className="fw-semibold tt-uppercase ls-base clr-passive">Total yang harus dibayar</small>
-					<h4 className="fw-semibold clr-primary">
-						<Currency
-							value={grandTotal}
-						/>
-					</h4>
-				</div>
+				<h5>{grandTotalPrice}</h5>
 			</div>
 		);
 	}

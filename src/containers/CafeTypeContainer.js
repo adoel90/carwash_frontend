@@ -12,15 +12,61 @@ class CafeTypeContainer extends React.Component {
 		super();
 		this.getAllCafeMenu = this.getAllCafeMenu.bind(this);
 		this.handleInputChange = this.handleInputChange.bind(this);
-		this.handleTableInputChange = this.handleTableInputChange.bind(this);
+		this.handleIndexedInputChange = this.handleIndexedInputChange.bind(this);
+		this.toggleModal = this.toggleModal.bind(this);
 		this.handleSelectMenu = this.handleSelectMenu.bind(this);
+		this.calculateGrandTotalPrice = this.calculateGrandTotalPrice.bind(this);
+		this.handlePaymentConfirmation = this.handlePaymentConfirmation.bind(this);
 		this.state = {
 			cafeList: [],
+			isModalOpen: {
+				paymentConfirmation: false,
+				paymentProcess: false
+			},
 			selectedMenuList: [],
 			searchMenu: {
 				searchText: ''
+			},
+			grandTotalPrice: '',
+		}
+	}
+
+	componentDidMount = () => {
+		this.getAllCafeMenu();
+	}
+
+	componentDidUpdate = (prevProps) => {
+		const {
+			cafe,
+			cafeList
+		} = this.props;
+
+		if(prevProps.cafe.list !== cafe.list) {
+			if(cafe.list.isLoaded) {
+				let activeList = []
+
+				cafe.list.data.map((item) => {
+					if(item.status) {
+						activeList.push(item);
+					}
+				})
+
+				this.setState({
+					cafeList: activeList
+				})
 			}
 		}
+	}
+
+	toggleModal = (name) => {
+		const { isModalOpen } = this.state;
+
+		this.setState({
+			isModalOpen: {
+				...isModalOpen,
+				[name]: !isModalOpen[name]
+			}
+		})
 	}
 
 	handleInputChange = (object, e) => {
@@ -33,13 +79,33 @@ class CafeTypeContainer extends React.Component {
 
 	}
 
-	handleTableInputChange = (object, index, e) => {
+	handleIndexedInputChange = (object, index, e) => {
 		const target = e.target;
 		const value = target.value;
 		const name = target.name;
 
 		object[index][name] = parseInt(value);
 		this.forceUpdate();
+	}
+
+	handlePaymentConfirmation = () => {
+		this.calculateGrandTotalPrice();
+
+		this.toggleModal('paymentConfirmation');
+	}
+
+	getAllCafeMenu = () => {
+		const {
+			type,
+			dispatch,
+			accessToken
+		} = this.props;
+
+		let requiredData = {
+			cafe: type.id
+		}
+
+		dispatch(getAllCafeMenu(requiredData, accessToken));
 	}
 
 	handleSelectMenu = (menu) => {
@@ -61,44 +127,19 @@ class CafeTypeContainer extends React.Component {
 		}
 	}
 
-	componentDidMount = () => {
-		this.getAllCafeMenu();
-	}
-
-	componentDidUpdate = (prevProps) => {
+	calculateGrandTotalPrice = () => {
 		const {
-			cafe
-		} = this.props;
+			selectedMenuList,
+			grandTotalPrice
+		} = this.state;
 
-		if(prevProps.cafe.list !== cafe.list) {
-			if(cafe.list.isLoaded) {
-				let activeList = []
+		selectedMenuList.map((item) => {
+			let total = grandTotalPrice + item.totalPrice;
 
-				cafe.list.data.map((item) => {
-					if(item.status) {
-						activeList.push(item);
-					}
-				})
-
-				this.setState({
-					cafeList: activeList
-				})
-			}
-		}
-	}
-
-	getAllCafeMenu = () => {
-		const {
-			type,
-			dispatch,
-			accessToken
-		} = this.props;
-
-		let requiredData = {
-			cafe: type.id
-		}
-
-		dispatch(getAllCafeMenu(requiredData, accessToken));
+			this.setState({
+				grandTotalPrice: total
+			})
+		})
 	}
 
 	render() {
@@ -106,9 +147,12 @@ class CafeTypeContainer extends React.Component {
 			<CafeType
 				{...this.state}
 				{...this.props}
+				toggleModal={this.toggleModal}
 				handleInputChange={this.handleInputChange}
-				handleTableInputChange={this.handleTableInputChange}
+				handleIndexedInputChange={this.handleIndexedInputChange}
 				handleSelectMenu={this.handleSelectMenu}
+				handlePaymentConfirmation={this.handlePaymentConfirmation}
+				calculateGrandTotalPrice={this.calculateGrandTotalPrice}
 			/>
 		);
 	}

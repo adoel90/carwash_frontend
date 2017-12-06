@@ -16,130 +16,78 @@ class CafeType extends Component {
 	constructor() {
 		super();
 		this.renderCafeMenuList = this.renderCafeMenuList.bind(this);
-		this.renderPaymentDetailModal = this.renderPaymentDetailModal.bind(this);
-		this.renderPaymentProcessModal = this.renderPaymentProcessModal.bind(this);
-		this.renderMemberInformation = this.renderPaymentInformation.bind(this);
-		this.renderBalanceMessage = this.renderBalanceMessage.bind(this);
+		this.renderPaymentConfirmationModal = this.renderPaymentConfirmationModal.bind(this);
 	}
 
-	renderBalanceMessage = () => {
-		const {
-			member,
-			grandTotal
-		} = this.props;
+	// renderPaymentProcessModal = () => {
+	// 	const {
+	// 		member,
+	// 		isModalOpen,
+	// 		toggleModal,
+	// 		paymentProcess,
+	// 		grandTotal,
+	// 		handleInputChange,
+	// 		handlePaymentProcessSubmit,
+	// 		handlePaymentMemberAuthentication
+	// 	} = this.props;
+	//
+	// 	return (
+	// 		<Modal
+	// 			isOpen={isModalOpen.paymentProcess}
+	// 			toggle={() => toggleModal('paymentProcess')}>
+	// 			<ModalHeader align="center">
+	// 				<h6 className="fw-semibold">Proses Pembayaran</h6>
+	// 			</ModalHeader>
+	// 			<Form onSubmit={handlePaymentMemberAuthentication}>
+	// 				<ModalContent className="ta-center">
+	// 					<div className="padding-bottom-2">
+	// 						<p>Silahkan gesek kartu member pada kolom dibawah untuk mendapatkan informasi member.</p>
+	// 					</div>
+	// 					<Input
+	// 						name="card"
+	// 						type="number"
+	// 						className="form-control--large ta-center"
+	// 						onChange={(e) => handleInputChange(paymentProcess, e)}
+	// 						autoFocus
+	// 						selectOnFocus
+	// 					/>
+	// 					{ this.renderMemberInformation() }
+	// 				</ModalContent>
+	// 			</Form>
+	// 			<Form onSubmit={handlePaymentProcessSubmit}>
+	// 				<ModalFooter className="flex justify-content--center">
+	// 					<Button type="button" buttonTheme="danger" className="clr-light margin-right-2" onClick={() => toggleModal('paymentProcess')}>
+	// 						<small className="fw-semibold tt-uppercase ls-base">Kembali</small>
+	// 					</Button>
+	// 					<Button buttonTheme="primary" className="clr-light" disabled={!member.isLoaded || member.data.balance < grandTotal}>
+	// 						<small className="fw-semibold tt-uppercase ls-base">Bayar</small>
+	// 					</Button>
+	// 				</ModalFooter>
+	// 			</Form>
+	// 		</Modal>
+	// 	)
+	// }
 
-		if(member.isLoaded) {
-			if(member.data.balance > grandTotal) {
-				return <p>Saldo member sebesar <span className="clr-primary fw-semibold"><Currency value={member.data.balance} /></span> cukup untuk melakukan pembayaran.</p>
-			}
-			else {
-				return <p className="clr-danger">Saldo member sebesar <span className="fw-semibold"><Currency value={member.data.balance} /></span> tidak cukup untuk melakukan pembayaran.</p>
-			}
-		}
-	}
-
-	renderPaymentInformation = () => {
-		const {
-			member,
-			grandTotal
-		} = this.props;
-
-		if(member.isLoaded) {
-			return (
-				<div>
-					<img src={CardIcon} style={{ width: '150px' }} />
-					<h5>{member.data.name}</h5>
-					<h5 className="fw-semibold clr-primary">
-						<NumberFormat
-							displayType={'text'}
-							format="#### #### #### ####"
-							value={member.data.card.id}
-						/>
-					</h5>
-					{ this.renderBalanceMessage() }
-				</div>
-			)
-		}
-	}
-
-	renderPaymentProcessModal = () => {
-		const {
-			member,
-			isModalOpen,
-			toggleModal,
-			paymentProcess,
-			grandTotal,
-			handleInputChange,
-			handlePaymentProcessSubmit,
-			handlePaymentMemberAuthentication
-		} = this.props;
-
-		return (
-			<Modal
-				isOpen={isModalOpen.paymentProcess}
-				toggle={() => toggleModal('paymentProcess')}>
-				<ModalHeader align="center">
-					<h6 className="fw-semibold">Proses Pembayaran</h6>
-				</ModalHeader>
-				<Form onSubmit={handlePaymentMemberAuthentication}>
-					<ModalContent className="ta-center">
-						<div className="padding-bottom-2">
-							<p>Silahkan gesek kartu member pada kolom dibawah untuk mendapatkan informasi member.</p>
-						</div>
-						<Input
-							name="card"
-							type="number"
-							className="form-control--large ta-center"
-							onChange={(e) => handleInputChange(paymentProcess, e)}
-							autoFocus
-							selectOnFocus
-						/>
-						{ this.renderMemberInformation() }
-					</ModalContent>
-				</Form>
-				<Form onSubmit={handlePaymentProcessSubmit}>
-					<ModalFooter className="flex justify-content--center">
-						<Button type="button" buttonTheme="danger" className="clr-light margin-right-2" onClick={() => toggleModal('paymentProcess')}>
-							<small className="fw-semibold tt-uppercase ls-base">Kembali</small>
-						</Button>
-						<Button buttonTheme="primary" className="clr-light" disabled={!member.isLoaded || member.data.balance < grandTotal}>
-							<small className="fw-semibold tt-uppercase ls-base">Bayar</small>
-						</Button>
-					</ModalFooter>
-				</Form>
-			</Modal>
-		)
-	}
-
-	renderPaymentDetailModal = () => {
+	renderPaymentConfirmationModal = () => {
 		const {
 			isModalOpen,
-			toggleModal,
-			handlePaymentDetailSubmit
+			toggleModal
 		} = this.props;
 
 		return (
 			<Modal
 				className="modal-dialog--large"
-				isOpen={isModalOpen.paymentDetail}
-				toggle={() => toggleModal('paymentDetail')}>
+				isOpen={isModalOpen.paymentConfirmation}
+				toggle={() => toggleModal('paymentConfirmation')}>
 				<ModalHeader align="center">
-					<h6 className="fw-semibold">Detil Pembayaran</h6>
+					<h6 className="fw-semibold">Konfirmasi Pembayaran</h6>
 				</ModalHeader>
-				<Form onSubmit={handlePaymentDetailSubmit}>
+				<Form>
 					<ModalContent>
-						<div className="padding-bottom-2">
-							<p className="clr-passive">Berikut merupakan daftar menu yang telah dipilih. Silahkan cek kembali pesanan dari customer sebelum melanjutkan.</p>
-						</div>
 						<CafePaymentDetail {...this.props} />
 					</ModalContent>
-					<ModalFooter className="flex justify-content--center">
-						<Button type="button" buttonTheme="secondary" className="clr-dark margin-right-2" onClick={() => toggleModal('paymentDetail')}>
-							<small className="fw-semibold tt-uppercase ls-base">Tambah Menu Lain</small>
-						</Button>
-						<Button buttonTheme="primary" className="clr-light">
-							<small className="fw-semibold tt-uppercase ls-base">Selanjutnya</small>
-						</Button>
+					<ModalFooter>
+
 					</ModalFooter>
 				</Form>
 			</Modal>
@@ -180,8 +128,7 @@ class CafeType extends Component {
 					</div>
 				</Row>
 				{ this.renderCafeMenuList() }
-				{ this.renderPaymentDetailModal() }
-				{ this.renderPaymentProcessModal() }
+				{ this.renderPaymentConfirmationModal() }
 			</div>
 		);
 	}

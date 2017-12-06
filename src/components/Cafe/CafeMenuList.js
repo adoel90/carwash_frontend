@@ -18,13 +18,14 @@ class CafeMenuList extends Component {
 			searchMenu,
 			selectedMenuList,
 			handleInputChange,
-			handleSelectMenu
+			handleSelectMenu,
+			handlePaymentConfirmation
 		} = this.props;
 
 		const renderSearchBar = () => {
 			return cafeList.length
 			? <SearchBar
-					name="searchText"
+				name="searchText"
 					placeholder="Masukkan nama menu..."
 					onChange={(e) => handleInputChange(searchMenu, e)}
 				/>
@@ -65,9 +66,9 @@ class CafeMenuList extends Component {
 
 			return filteredMenu
 				.map((menu, i) => {
-					console.log(menu);
-
 					menu.selected = menu.selected ? true : false;
+					menu.quantity = menu.quantity ? menu.quantity : 1;
+					menu.totalPrice = menu.quantity * menu.price;
 
 					return (
 						<div key={i} className="column-6 padding-top-2 padding-bottom-2">
@@ -101,7 +102,7 @@ class CafeMenuList extends Component {
 		const renderCheckoutButton = () => {
 			return (
 				<CardListFooter className="flex align-items--center justify-content--center">
-					<Button buttonTheme="secondary" className="margin-right-2" disabled={!selectedMenuList.length}>
+					<Button type="button" buttonTheme="secondary" className="margin-right-2" disabled={!selectedMenuList.length} onClick={handlePaymentConfirmation}>
 						<small className="tt-uppercase ls-base fw-semibold clr-dark">Konfirmasi Pembayaran {selectedMenuList.length ? `( ${selectedMenuList.length} Terpilih )` : null}</small>
 					</Button>
 					{/* <p className="clr-primary fw-bold">{selectedMenuList.length ? `${selectedMenuList.length} Terpilih` : null}</p> */}

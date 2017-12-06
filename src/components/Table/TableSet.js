@@ -105,7 +105,7 @@ class TableSet extends Component {
 			onChangeStatus,
 			onRowClick,
 			rows,
-			handleTableInputChange
+			handleIndexedInputChange
 		} = this.props;
 
 		let cells = [];
@@ -113,7 +113,7 @@ class TableSet extends Component {
 		columns.map((column) => {
 			for(const key of Object.keys(row)) {
 				if(key === column.accessor) {
-					if(column.editable) {
+					if(column.isEditable) {
 						cells.push(
 							<td>
 								<Input
@@ -121,7 +121,7 @@ class TableSet extends Component {
 									type="text"
 									value={row[key]}
 									className="ta-center"
-									onChange={(e) => handleTableInputChange(rows, i, e)}
+									onChange={(e) => handleIndexedInputChange(rows, i, e)}
 									selectOnFocus
 								/>
 							</td>

@@ -24,23 +24,20 @@ class CafeContainer extends React.Component {
 		this.toggleModal = this.toggleModal.bind(this);
 		this.toggleDialog = this.toggleDialog.bind(this);
 		this.handleInputChange = this.handleInputChange.bind(this);
-		this.handleSelectMenu = this.handleSelectMenu.bind(this);
-		this.handleSearchFilter = this.handleSearchFilter.bind(this);
-		this.handleSearchFilterSubmit = this.handleSearchFilterSubmit.bind(this)
-		this.handlePaymentDetail = this.handlePaymentDetail.bind(this);
-		this.handlePaymentDetailSubmit = this.handlePaymentDetailSubmit.bind(this);
-		this.handlePaymentProcessSubmit = this.handlePaymentProcessSubmit.bind(this);
-		this.handlePaymentMemberAuthentication = this.handlePaymentMemberAuthentication.bind(this);
-		this.calculateGrandTotal = this.calculateGrandTotal.bind(this);
+		// this.handleSelectMenu = this.handleSelectMenu.bind(this);
+		// this.handleSearchFilter = this.handleSearchFilter.bind(this);
+		// this.handleSearchFilterSubmit = this.handleSearchFilterSubmit.bind(this)
+		// this.handlePaymentDetail = this.handlePaymentDetail.bind(this);
+		// this.handlePaymentDetailSubmit = this.handlePaymentDetailSubmit.bind(this);
+		// this.handlePaymentProcessSubmit = this.handlePaymentProcessSubmit.bind(this);
+		// this.handlePaymentMemberAuthentication = this.handlePaymentMemberAuthentication.bind(this);
+		// this.calculateGrandTotal = this.calculateGrandTotal.bind(this);
 
 		this.state = {
-			cafeTypes: [],
-			selectedMenus: [],
-			paymentProcess: {
-				card: ''
+			cafeTypes: {
+				all: [],
+				active: []
 			},
-			searchText: '',
-			grandTotal: '',
 			isModalOpen: {
 				paymentDetail: false,
 				paymentProcess: false
@@ -57,26 +54,20 @@ class CafeContainer extends React.Component {
 
 		if(prevProps.cafe.types !== cafe.types) {
 			if(cafe.types.isLoaded) {
-				this.setState({
-					cafeTypes: cafe.types.data
-				})
-			}
-		}
+				let activeTypes = [];
 
-		if(prevProps.cafe !== this.props.cafe) {
-			if(cafe.isPaid) {
-
-				let dialogData = {
-					success: {
-						type: 'success',
-						title: 'Pembayaran Berhasil',
-						message: 'Proses pembayaran terhadap pesanan customer berhasil. Klik tombol berikut untuk mencetak struk pembayaran.',
-						onClose: () => window.location.reload(),
-						closeText: 'Kembali'
+				cafe.types.data.forEach((type) => {
+					if(type.status) {
+						activeTypes.push(type);
 					}
-				}
+				})
 
-				this.toggleDialog(dialogData.success);
+				this.setState({
+					cafeTypes: {
+						all: cafe.types.data,
+						active: activeTypes
+					}
+				})
 			}
 		}
 	}
@@ -92,32 +83,26 @@ class CafeContainer extends React.Component {
 			dispatch
 		} = this.props;
 
+		console.log(data);
+
 		if(!dialog.isOpened) {
-			dispatch(showDialog(data))
+			this.showDialog(data);
 		}
 		else {
-			dispatch(hideDialog())
+			this.hideDialog();
 		}
 	}
 
-	calculateGrandTotal = () => {
-		const {
-			selectedMenus
-		} = this.state;
+	showDialog = (data) => {
+		const { dialog, dispatch } = this.props;
 
-		let priceArray = [];
+		dispatch(showDialog(data))
+	}
 
-		selectedMenus.map((menu, i) => {
-			priceArray.push(menu.totalPrice);
-		})
+	hideDialog = () => {
+		const { dialog, dispatch } = this.props;
 
-		let sum = priceArray.reduce((a, b) => {
-			return a + b;
-		})
-
-		this.setState({
-			grandTotal: sum
-		})
+		dispatch(hideDialog());
 	}
 
 	toggleModal = (name) => {
@@ -258,15 +243,17 @@ class CafeContainer extends React.Component {
 				{...this.state}
 				toggleModal={this.toggleModal}
 				toggleDialog={this.toggleDialog}
+				showDialog={this.showDialog}
+				hideDialog={this.hideDialog}
 				handleInputChange={this.handleInputChange}
-				handleSearchFilter={this.handleSearchFilter}
-				handleSearchFilterSubmit={this.handleSearchFilterSubmit}
-				handleSelectMenu={this.handleSelectMenu}
-				handlePaymentDetail={this.handlePaymentDetail}
-				handlePaymentDetailSubmit={this.handlePaymentDetailSubmit}
-				handlePaymentProcessSubmit={this.handlePaymentProcessSubmit}
-				handlePaymentMemberAuthentication={this.handlePaymentMemberAuthentication}
-				calculateGrandTotal={this.calculateGrandTotal}
+				// handleSearchFilter={this.handleSearchFilter}
+				// handleSearchFilterSubmit={this.handleSearchFilterSubmit}
+				// handleSelectMenu={this.handleSelectMenu}
+				// handlePaymentDetail={this.handlePaymentDetail}
+				// handlePaymentDetailSubmit={this.handlePaymentDetailSubmit}
+				// handlePaymentProcessSubmit={this.handlePaymentProcessSubmit}
+				// handlePaymentMemberAuthentication={this.handlePaymentMemberAuthentication}
+				// calculateGrandTotal={this.calculateGrandTotal}
 			/>
 		)
 	}
@@ -275,7 +262,6 @@ class CafeContainer extends React.Component {
 const mapStateToProps = (state) => {
 	return {
 		cafe: state.cafe,
-		// cafeTypes: state.cafe.types,
 		member: state.member,
 		dialog: state.dialog
 	}

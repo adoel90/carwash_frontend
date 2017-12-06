@@ -149,11 +149,15 @@ class CafeType extends Component {
 	renderCafeMenuList = () => {
 		const {
 			cafe,
-			cafeMenuList,
+			cafeList,
 			type
 		} = this.props;
 
-		if(cafe.isLoaded) {
+		if(cafe.list.isFetching) {
+			return <p>Sedang memuat daftar menu. Silahkan tunggu sebentar...</p>
+		}
+
+		if(cafe.list.isLoaded) {
 			return <CafeMenuList {...this.props} />
 		}
 	}
@@ -162,7 +166,7 @@ class CafeType extends Component {
 		const {
 			type,
 			cafe,
-			cafeMenuList
+			cafeList
 		} = this.props;
 
 		return (

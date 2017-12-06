@@ -1,13 +1,20 @@
 import React, { Component } from 'react';
+import classNames from 'classnames';
 
 class CardListFooter extends Component {
 	render() {
 		const {
-			children
+			children,
+			className
 		} = this.props;
 
+		const classes = classNames(
+			'card-list__footer',
+			className
+		)
+
 		return (
-			<div className="card-list__footer">
+			<div className={classes}>
 				{children}
 			</div>
 		);

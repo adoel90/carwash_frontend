@@ -11,7 +11,26 @@ class CafeTypeContainer extends React.Component {
 	constructor() {
 		super();
 		this.getAllCafeMenu = this.getAllCafeMenu.bind(this);
+		this.handleInputChange = this.handleInputChange.bind(this);
 		this.handleTableInputChange = this.handleTableInputChange.bind(this);
+		this.handleSelectMenu = this.handleSelectMenu.bind(this);
+		this.state = {
+			cafeList: [],
+			selectedMenuList: [],
+			searchMenu: {
+				searchText: ''
+			}
+		}
+	}
+
+	handleInputChange = (object, e) => {
+		const target = e.target;
+		const value = target.value;
+		const name = target.name;
+
+		object[name] = value;
+		this.forceUpdate();
+
 	}
 
 	handleTableInputChange = (object, index, e) => {
@@ -23,8 +42,41 @@ class CafeTypeContainer extends React.Component {
 		this.forceUpdate();
 	}
 
+	handleSelectMenu = (menu) => {
+		const { selectedMenuList } = this.state;
+
+		if(!menu.selected) {
+			menu.selected = true;
+			this.setState({
+				...this.state,
+				selectedMenuList: selectedMenuList.concat([menu])
+			})
+		}
+		else {
+			menu.selected = false;
+			this.setState({
+				...this.state,
+				selectedMenuList: selectedMenuList.filter(item => item != menu)
+			})
+		}
+	}
+
 	componentDidMount = () => {
 		this.getAllCafeMenu();
+	}
+
+	componentDidUpdate = (prevProps) => {
+		const {
+			cafe
+		} = this.props;
+
+		if(prevProps.cafe.list !== cafe.list) {
+			if(cafe.list.isLoaded) {
+				this.setState({
+					cafeList: cafe.list.data
+				})
+			}
+		}
 	}
 
 	getAllCafeMenu = () => {
@@ -46,7 +98,9 @@ class CafeTypeContainer extends React.Component {
 			<CafeType
 				{...this.state}
 				{...this.props}
+				handleInputChange={this.handleInputChange}
 				handleTableInputChange={this.handleTableInputChange}
+				handleSelectMenu={this.handleSelectMenu}
 			/>
 		);
 	}
@@ -55,7 +109,7 @@ class CafeTypeContainer extends React.Component {
 const mapStateToProps = (state) => {
 	return {
 		cafe: state.cafe,
-		cafeMenuList: state.cafe.list
+		// cafeList: state.cafe.list
 	}
 }
 

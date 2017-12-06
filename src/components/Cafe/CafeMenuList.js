@@ -4,6 +4,7 @@ import {
 	CardHeading, CardImage,
 	CardBody, CardFooter
 } from '../Card';
+import { PageBlock } from '../Page';
 import SearchBar from '../SearchBar';
 import Currency from '../Currency';
 import { Button } from '../Button';
@@ -21,59 +22,80 @@ class CafeMenuList extends Component {
 		} = this.props;
 
 		const renderSearchBar = () => {
-			return (
-				<SearchBar
+			return cafeList.length
+			? <SearchBar
 					name="searchText"
 					placeholder="Masukkan nama menu..."
 					onChange={(e) => handleInputChange(searchMenu, e)}
 				/>
-			)
+			: null
 		}
 
 		const renderMenuList = () => {
 			if(cafeList.length) {
 				return (
 					<CardList>
-						{cafeList.map(renderMenu)}
+						{renderMenu()}
 						{renderCheckoutButton()}
 					</CardList>
 				)
 			}
 			else {
 				return (
-					<p>Tidak dapat menemukan data pada kategori ini. Segera hubungi admin.</p>
+					<PageBlock className="flex flex-column ta-center justify-content--center align-items--center">
+						<i className="fi flaticon-warning icon icon--gigant clr-danger"></i>
+						<p>Tidak dapat menemukan data pada kategori ini.</p>
+					</PageBlock>
 				)
 			}
 		}
 
-		const renderMenu = (menu, i) => {
-			menu.selected = menu.selected ? true : false;
+		const renderMenu = () => {
+			let filteredMenu = cafeList.filter((menu) => {
+				return menu.name.toLowerCase().includes(searchMenu.searchText.toLowerCase())
+			})
 
-			return (
-				<div key={i} className="column-6 padding-top-2 padding-bottom-2">
-					<Card>
-						<CardHeading>
-							<h6 className="fw-semibold">{menu.name}</h6>
-							<h4 className="fw-semibold clr-primary">
-								<Currency value={menu.price} />
-							</h4>
-						</CardHeading>
-						<CardImage src={menu.image ? menu.image : NoThumbnail } alt={menu.title} />
-						<CardBody>
-							<p className={!menu.description ? 'clr-muted' : null }>{menu.description ? menu.description : 'Tidak terdapat deskripsi.'}</p>
-						</CardBody>
-						<CardFooter>
-							<Button
-								type="button"
-								buttonTheme={menu.selected ? 'secondary' : 'primary'}
-								buttonFull
-								onClick={() => handleSelectMenu(menu)}>
-								<small className={`tt-uppercase fw-bold ls-base ${menu.selected ? 'clr-dark' : 'clr-light'}`}>{menu.selected ? 'Terpilih' : 'Pilih'}</small>
-							</Button>
-						</CardFooter>
-					</Card>
-				</div>
-			)
+			if(!filteredMenu.length) {
+				return (
+					<div className="ta-center" style={{width: '100%', padding: '30px 15px'}}>
+						<p className="clr-passive">Tidak dapat menemukan hasil pencarian untuk <span className="fw-semibold">{searchMenu.searchText}</span>.</p>
+					</div>
+				)
+			}
+
+			return filteredMenu
+				.map((menu, i) => {
+					console.log(menu);
+
+					menu.selected = menu.selected ? true : false;
+
+					return (
+						<div key={i} className="column-6 padding-top-2 padding-bottom-2">
+							<Card>
+								<CardHeading>
+									<h6 className="fw-semibold">{menu.name}</h6>
+									<h4 className="fw-semibold clr-primary">
+										<Currency value={menu.price} />
+									</h4>
+								</CardHeading>
+								<CardImage src={menu.image ? menu.image : NoThumbnail } alt={menu.title} />
+								<CardBody>
+									<p className={!menu.description ? 'clr-muted' : null }>{menu.description ? menu.description : 'Tidak terdapat deskripsi.'}</p>
+								</CardBody>
+								<CardFooter>
+									<Button
+										type="button"
+										buttonTheme={menu.selected ? 'secondary' : 'primary'}
+										buttonFull
+										onClick={() => handleSelectMenu(menu)}>
+										<small className={`tt-uppercase fw-bold ls-base ${menu.selected ? 'clr-dark' : 'clr-light'}`}>{menu.selected ? 'Terpilih' : 'Pilih'}</small>
+									</Button>
+								</CardFooter>
+							</Card>
+						</div>
+					)
+				})
+
 		}
 
 		const renderCheckoutButton = () => {

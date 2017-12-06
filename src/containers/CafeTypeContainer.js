@@ -72,8 +72,16 @@ class CafeTypeContainer extends React.Component {
 
 		if(prevProps.cafe.list !== cafe.list) {
 			if(cafe.list.isLoaded) {
+				let activeList = []
+
+				cafe.list.data.map((item) => {
+					if(item.status) {
+						activeList.push(item);
+					}
+				})
+
 				this.setState({
-					cafeList: cafe.list.data
+					cafeList: activeList
 				})
 			}
 		}

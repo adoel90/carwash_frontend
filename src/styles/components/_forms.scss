@@ -1,6 +1,11 @@
 form {}
 
 .form {
+
+	&.search-bar {
+		box-shadow: map-get($box-shadow, base);
+	}
+
 	.form-group {
 		@include relative;
 		margin-bottom: $spacer * .75;

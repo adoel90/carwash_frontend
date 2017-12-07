@@ -1,5 +1,13 @@
 import React, { Component } from 'react';
+import { Button } from '../Button';
+import { Modal } from 'reactstrap';
+import { ModalHeader, ModalContent, ModalFooter } from '../Modal';
+import { Form, FormGroup } from '../Form';
+import { Input, Label, InputAddon, InputGroup } from '../Input'
+import { Row } from '../Grid';
 import { TableSet } from '../Table';
+import { Alert } from '../Alert';
+import Currency from '../Currency';
 
 class CafePaymentDetail extends Component {
 	constructor() {
@@ -19,21 +27,51 @@ class CafePaymentDetail extends Component {
 	render() {
 		const { table } = this.state;
 		const {
+			isModalOpen,
+			toggleModal,
+			handlePaymentCheckout,
 			selectedMenuList,
-			grandTotalPrice
+			grandTotal
 		} = this.props;
 
 		return (
-			<div className="payment-detail">
-				<TableSet
-					columns={table.columns}
-					rows={selectedMenuList}
-					isStriped
-					isHoverable
-					{...this.props}
-				/>
-				<h5>{grandTotalPrice}</h5>
-			</div>
+			<Modal
+				className="modal-dialog--large"
+				isOpen={isModalOpen.paymentConfirmation}
+				toggle={() => toggleModal('paymentConfirmation')}>
+				<ModalHeader align="center">
+					<h6 className="fw-semibold">Konfirmasi Pembayaran</h6>
+				</ModalHeader>
+				<Form onSubmit={handlePaymentCheckout}>
+					<ModalContent>
+						<div className="payment-detail">
+						<Alert theme="secondary" className="flex align-items--center justify-content--center margin-bottom-2">
+							<i className="ion-alert-circled icon icon--base margin-right-2"></i>
+							<p>Silahkan periksa terlebih dahulu pesanan customer sebelum checkout!</p>
+						</Alert>
+						<TableSet
+							columns={table.columns}
+							rows={selectedMenuList}
+							isStriped
+							isHoverable
+							{...this.props}
+						/>
+						<div className="flex flex-column align-items--flex-end padding-top-3">
+							<small className="tt-uppercase ls-base fw-bold">Total yang harus dibayar</small>
+							<h4 className="clr-primary"><Currency value={grandTotal} /></h4>
+						</div>
+					</div>
+					</ModalContent>
+					<ModalFooter className="flex justify-content--center">
+						<Button type="button" buttonTheme="danger" className="clr-light margin-right-2" onClick={() => toggleModal('paymentConfirmation')}>
+							<small className="fw-semibold tt-uppercase ls-base">Kembali</small>
+						</Button>
+						<Button type="submit" buttonTheme="primary" className="clr-light">
+							<small className="fw-semibold tt-uppercase ls-base">Selanjutnya</small>
+						</Button>
+					</ModalFooter>
+				</Form>
+			</Modal>
 		);
 	}
 

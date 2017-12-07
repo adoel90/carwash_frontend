@@ -7,6 +7,10 @@ import {
 	getCafeMenuList
 } from '../actions/cafe.action';
 
+import {
+	authenticateMember
+} from '../actions/member.action';
+
 class CafeTypeContainer extends React.Component {
 	constructor() {
 		super();
@@ -15,19 +19,27 @@ class CafeTypeContainer extends React.Component {
 		this.handleIndexedInputChange = this.handleIndexedInputChange.bind(this);
 		this.toggleModal = this.toggleModal.bind(this);
 		this.handleSelectMenu = this.handleSelectMenu.bind(this);
-		this.calculateGrandTotalPrice = this.calculateGrandTotalPrice.bind(this);
 		this.handlePaymentConfirmation = this.handlePaymentConfirmation.bind(this);
+		this.handlePaymentCheckout = this.handlePaymentCheckout.bind(this);
+		this.handlePaymentCheckoutSubmit = this.handlePaymentCheckoutSubmit.bind(this);
+		this.handleMemberAuthentication = this.handleMemberAuthentication.bind(this);
+		this.calculateGrandTotalPrice = this.calculateGrandTotalPrice.bind(this);
 		this.state = {
 			cafeList: [],
-			isModalOpen: {
-				paymentConfirmation: false,
-				paymentProcess: false
-			},
 			selectedMenuList: [],
 			searchMenu: {
 				searchText: ''
 			},
-			grandTotalPrice: '',
+			memberInfo: {
+				memberID: '',
+				memberData: {},
+				memberToken: {}
+			},
+			isModalOpen: {
+				paymentConfirmation: false,
+				paymentCheckout: false
+			},
+			grandTotal: 0
 		}
 	}
 
@@ -35,11 +47,23 @@ class CafeTypeContainer extends React.Component {
 		this.getAllCafeMenu();
 	}
 
-	componentDidUpdate = (prevProps) => {
+	componentDidUpdate = (prevProps, prevState) => {
 		const {
+			member,
 			cafe,
 			cafeList
 		} = this.props;
+
+		if(prevProps.member.isAuthenticated !== member.isAuthenticated) {
+			this.setState({
+				...this.state,
+				memberInfo: {
+					...this.state.memberInfo,
+					memberData: member.data,
+					memberToken: member.accessToken
+				}
+			})
+		}
 
 		if(prevProps.cafe.list !== cafe.list) {
 			if(cafe.list.isLoaded) {
@@ -47,11 +71,13 @@ class CafeTypeContainer extends React.Component {
 
 				cafe.list.data.map((item) => {
 					if(item.status) {
+						item.selected = item.selected ? true : false;
 						activeList.push(item);
 					}
 				})
 
 				this.setState({
+					...this.state,
 					cafeList: activeList
 				})
 			}
@@ -76,7 +102,6 @@ class CafeTypeContainer extends React.Component {
 
 		object[name] = value;
 		this.forceUpdate();
-
 	}
 
 	handleIndexedInputChange = (object, index, e) => {
@@ -84,14 +109,11 @@ class CafeTypeContainer extends React.Component {
 		const value = target.value;
 		const name = target.name;
 
-		object[index][name] = parseInt(value);
-		this.forceUpdate();
-	}
-
-	handlePaymentConfirmation = () => {
-		this.calculateGrandTotalPrice();
-
-		this.toggleModal('paymentConfirmation');
+		let newObject = Object.assign({}, object);
+		newObject[index][name] = parseInt(value);
+		this.setState({newObject}, () => {
+			this.calculateGrandTotalPrice();
+		})
 	}
 
 	getAllCafeMenu = () => {
@@ -129,17 +151,50 @@ class CafeTypeContainer extends React.Component {
 
 	calculateGrandTotalPrice = () => {
 		const {
-			selectedMenuList,
-			grandTotalPrice
+			selectedMenuList
 		} = this.state;
 
-		selectedMenuList.map((item) => {
-			let total = grandTotalPrice + item.totalPrice;
+		let totalPriceArray = [];
+		let updatedGrandTotal;
 
-			this.setState({
-				grandTotalPrice: total
-			})
+		selectedMenuList.map((item) => {
+			totalPriceArray.push(item.totalPrice);
 		})
+
+		updatedGrandTotal = totalPriceArray.reduce((a, b) => a + b, 0);
+
+		this.setState({
+			...this.state,
+			grandTotal: updatedGrandTotal
+		})
+	}
+
+	handlePaymentConfirmation = () => {
+		this.calculateGrandTotalPrice();
+		this.toggleModal('paymentConfirmation');
+	}
+
+	handlePaymentCheckout = (e) => {
+		e.preventDefault();
+		
+		this.toggleModal('paymentCheckout');
+	}
+
+	handlePaymentCheckoutSubmit = (e) => {
+		e.preventDefault();
+	}
+
+	handleMemberAuthentication = (e) => {
+		e.preventDefault();
+
+		const { memberInfo } = this.state;
+		const { dispatch } = this.props;
+		
+		let requiredData = {
+			card: memberInfo.memberID
+		}
+		
+		dispatch(authenticateMember(requiredData))
 	}
 
 	render() {
@@ -152,6 +207,9 @@ class CafeTypeContainer extends React.Component {
 				handleIndexedInputChange={this.handleIndexedInputChange}
 				handleSelectMenu={this.handleSelectMenu}
 				handlePaymentConfirmation={this.handlePaymentConfirmation}
+				handlePaymentCheckout={this.handlePaymentCheckout}
+				handlePaymentCheckoutSubmit={this.handlePaymentCheckoutSubmit}
+				handleMemberAuthentication={this.handleMemberAuthentication}
 				calculateGrandTotalPrice={this.calculateGrandTotalPrice}
 			/>
 		);
@@ -160,8 +218,7 @@ class CafeTypeContainer extends React.Component {
 
 const mapStateToProps = (state) => {
 	return {
-		cafe: state.cafe,
-		// cafeList: state.cafe.list
+		cafe: state.cafe
 	}
 }
 

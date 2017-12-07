@@ -1,4 +1,5 @@
 import {
+	AUTHENTICATE_MEMBER_REQUESTED,
 	AUTHENTICATE_MEMBER_FULFILLED,
 	AUTHENTICATE_MEMBER_REJECTED,
 	MEMBER_TOPUP_FULFILLED,
@@ -19,27 +20,24 @@ import {
 } from '../actions/member.action'
 
 const initialState = {
-	list: {
-		data: [],
-		isLoaded: false,
-		isFetching: false,
-		isError: false,
-		error: {}
-	},
-	updated: {
+	item: {
 		id: null,
 		data: {},
+		isUpdating: false,
 		isUpdated: false,
 		isStatusChanging: false,
 		isStatusChanged: false,
 		isBalanceChanging: false,
 		isBalanceChanged: false,
+		isCreating: false,
+		isCreated: false,
 		isError: false,
 		error: {}
 	},
-	created: {
-		data: {},
-		isCreated: false,
+	list: {
+		data: [],
+		isLoaded: false,
+		isFetching: false,
 		isError: false,
 		error: {}
 	},
@@ -52,12 +50,25 @@ const initialState = {
 
 const member = (state = initialState, action) => {
 	switch(action.type) {
+		case AUTHENTICATE_MEMBER_REQUESTED: {
+			return {
+				...state,
+				data: {},
+				accessToken: null,
+				isAuthenticating: true,
+				isAuthenticated: false,
+				isError: false,
+				error: {}
+			}
+		}
+		
 		case AUTHENTICATE_MEMBER_FULFILLED: {
 			return {
 				...state,
 				data: action.payload.member,
 				accessToken: action.payload.accessToken,
 				isLoaded: true,
+				isAuthenticating: false,
 				isAuthenticated: true,
 				isError: false,
 				error: {}
@@ -70,6 +81,7 @@ const member = (state = initialState, action) => {
 				data: {},
 				accessToken: '',
 				error: action.payload,
+				isAuthenticating: false,
 				isAuthenticated: false,
 				isLoaded: false,
 				isError: true

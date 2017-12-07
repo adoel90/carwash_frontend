@@ -25,14 +25,6 @@ class CafeContainer extends React.Component {
 		this.showDialog = this.showDialog.bind(this);
 		this.hideDialog = this.hideDialog.bind(this);
 		this.handleInputChange = this.handleInputChange.bind(this);
-		// this.handleSelectMenu = this.handleSelectMenu.bind(this);
-		// this.handleSearchFilter = this.handleSearchFilter.bind(this);
-		// this.handleSearchFilterSubmit = this.handleSearchFilterSubmit.bind(this)
-		// this.handlePaymentDetail = this.handlePaymentDetail.bind(this);
-		// this.handlePaymentDetailSubmit = this.handlePaymentDetailSubmit.bind(this);
-		// this.handlePaymentProcessSubmit = this.handlePaymentProcessSubmit.bind(this);
-		// this.handlePaymentMemberAuthentication = this.handlePaymentMemberAuthentication.bind(this);
-		// this.calculateGrandTotal = this.calculateGrandTotal.bind(this);
 
 		this.state = {
 			cafeTypes: {
@@ -42,12 +34,14 @@ class CafeContainer extends React.Component {
 		}
 	}
 
-	componentDidUpdate = (prevProps) => {
+	componentDidUpdate = (prevProps, prevState) => {
 		const {
 			dispatch,
 			dialog,
 			cafe
 		} = this.props;
+
+		console.log(prevState);
 
 		if(prevProps.cafe.types !== cafe.types) {
 			if(cafe.types.isLoaded) {

@@ -3,6 +3,7 @@ import { constant } from '../config';
 import Cookies from 'universal-cookie';
 
 export const RESET_MEMBER_DATA = 'RESET_MEMBER_DATA';
+export const AUTHENTICATE_MEMBER_REQUESTED = 'AUTHENTICATE_MEMBER_REQUESTED';
 export const AUTHENTICATE_MEMBER_FULFILLED = 'AUTHENTICATE_MEMBER_FULFILLED';
 export const AUTHENTICATE_MEMBER_REJECTED = 'AUTHENTICATE_MEMBER_REJECTED';
 export const MEMBER_TOPUP_FULFILLED = 'MEMBER_TOPUP_FULFILLED';
@@ -31,10 +32,12 @@ export const resetMemberData = () => {
 			type: RESET_MEMBER_DATA
 		})
 	}
-}
+} 
 
 export const authenticateMember = (data) => {
 	return async dispatch => {
+		dispatch(handleRequest());
+		
 		axios
 			.post(`${constant.API_PATH}member/authenticate`, {
 				card: data.card
@@ -53,6 +56,7 @@ export const authenticateMember = (data) => {
 			})
 	}
 
+	function handleRequest() { return { type: AUTHENTICATE_MEMBER_REQUESTED } }
 	function handleSuccess(data) { return { type: AUTHENTICATE_MEMBER_FULFILLED, payload: data }}
 	function handleError(data) { return { type: AUTHENTICATE_MEMBER_REJECTED, payload: data }}
 }

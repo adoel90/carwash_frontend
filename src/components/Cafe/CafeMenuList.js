@@ -19,7 +19,8 @@ class CafeMenuList extends Component {
 			selectedMenuList,
 			handleInputChange,
 			handleSelectMenu,
-			handlePaymentConfirmation
+			handlePaymentConfirmation,
+			calculateGrandTotalPrice
 		} = this.props;
 
 		const renderSearchBar = () => {

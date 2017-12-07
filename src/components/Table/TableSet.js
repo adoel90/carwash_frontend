@@ -213,7 +213,7 @@ class TableSet extends Component {
 		if(rows.length) {
 			if(hasSearchBar) {
 				let filteredRow = rows.filter((row) => {
-					return row.name.toLowerCase().includes(searchText.toLowerCase());
+					return row.name.toLowerCase().includes(searchText.toLowerCase())
 				});
 
 				if(!filteredRow.length) {

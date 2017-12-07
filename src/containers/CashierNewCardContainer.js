@@ -13,13 +13,19 @@ class CashierNewCardContainer extends Component {
 		super();
 		this.toggleModal = this.toggleModal.bind(this);
 		this.handleInputChange = this.handleInputChange.bind(this);
+		this.handleChangeCardType = this.handleChangeCardType.bind(this);
 		this.handleNewCardSubmit = this.handleNewCardSubmit.bind(this);
 		this.handleNewCardInstructionSubmit = this.handleNewCardInstructionSubmit.bind(this);
 		this.getCardTypes = this.getCardTypes.bind(this);
 
 		this.state = {
+			cardTypes: [],
 			isModalOpen: {
 				newCardInstruction: false
+			},
+			selectedCardType: {
+				id: '',
+				balance: ''
 			},
 			newCardData: {
 				card: 1,
@@ -36,13 +42,23 @@ class CashierNewCardContainer extends Component {
 	}
 
 	componentDidUpdate = (prevProps) => {
+		const { newCardData } = this.state;
 		const {
+			card,
 			member
 		} = this.props;
 
-		if(prevProps.member !== this.props.member) {
-			if(member.isCreated) {
-				this.toggleModal('newCardInstruction');
+		if(prevProps.card.types !== card.types) {
+			console.log(card.types);
+			
+			if(card.types.isLoaded) {
+				this.setState({
+					cardTypes: card.types.data,
+					selectedCardType: {
+						id: card.types.data[0].id,
+						min: card.types.data[0].min
+					}
+				})
 			}
 		}
 	}
@@ -111,6 +127,27 @@ class CashierNewCardContainer extends Component {
 		console.log(this.state);
 	}
 
+	handleChangeCardType = (e) => {
+		const {
+			cardTypes,
+			newCardData
+		} = this.state;
+		
+		this.handleInputChange(newCardData, e);
+
+		let selectedId = e.target.value;
+		cardTypes.forEach((item) => {
+			if(item.id === parseInt(selectedId)) {
+				this.setState({
+					selectedCardType: {
+						id: item.id,
+						min: item.min
+					}
+				})
+			}
+		})
+	}
+
 	render() {
 		return (
 			<CashierNewCard
@@ -118,6 +155,7 @@ class CashierNewCardContainer extends Component {
 				{...this.state}
 				toggleModal={this.toggleModal}
 				handleInputChange={this.handleInputChange}
+				handleChangeCardType={this.handleChangeCardType}
 				handleNewCardSubmit={this.handleNewCardSubmit}
 				handleNewCardInstructionSubmit={this.handleNewCardInstructionSubmit}
 			/>
@@ -130,7 +168,7 @@ const mapStateToProps = (state) => {
 		dialog: state.dialog,
 		member: state.member,
 		card: state.card,
-		cardTypes: state.card.list.data
+		// cardTypes: state.card.list.data
 	}
 }
 

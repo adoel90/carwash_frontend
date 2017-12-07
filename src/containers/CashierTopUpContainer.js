@@ -44,26 +44,23 @@ class CashierTopUpContainer extends Component {
 				this.handleTopup();
 			}
 
-			if(member.isTopup) {
+			if(member.item.isBalanceChanged) {
 				// let totalBalance = parseInt(member.data.balance) + parseInt(topupData.balance);
 				let message = (
-					<p>Proses isi ulang saldo member telah berhasil. Saldo member kini berjumlah <span className="clr-primary fw-semibold"><Currency value={member.updatedMember.data.data.balance} /></span>.</p>
+					<p>Proses isi ulang saldo member telah berhasil. Saldo member kini berjumlah <span className="clr-primary fw-semibold"><Currency value={member.item.data.balance} /></span>.</p>
 				)
 
 				let dialogData = {
-					success: {
-						type: 'success',
-						title: 'Berhasil',
-						message: message,
-						onClose: () => {
-							window.location.reload()
-						},
-						closeText: 'Tutup'
-					}
+					type: 'success',
+					title: 'Berhasil',
+					message: message,
+					onClose: () => {
+						window.location.reload()
+					},
+					closeText: 'Tutup'
 				}
 
-				toggleDialog(dialogData.success);
-				// dispatch(toggleDialog(dialogData.success, dialog.isOpen))
+				toggleDialog(dialogData);
 			}
 		}
 	}
@@ -105,12 +102,6 @@ class CashierTopUpContainer extends Component {
 		}
 
 		dispatch(memberTopup(requiredData, member.accessToken));
-
-		// let requiredData = {
-		// 	card: topupData.card
-		// }
-		//
-		// dispatch(authenticateMember(requiredData));
 	}
 
 	handleTopup = () => {

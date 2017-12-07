@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { createNewMember } from '../../actions/member.action';
 
 import { Form, FormGroup } from '../Form';
-import { Input, InputGroup, InputAddon, Label } from '../Input';
+import { Input, InputGroup, InputAddon, InputCurrency, Label } from '../Input';
 import { Row } from '../Grid';
 import { Modal } from 'reactstrap';
 import { ModalHeader, ModalContent, ModalFooter } from '../Modal';
@@ -19,7 +19,7 @@ class CashierNewCardForm extends Component {
 
 	renderCardTypeOptions = (type, i) => {
 		if(type.status) {
-			return <option>{type.name}</option>
+			return <option value={type.id}>{type.name}</option>
 		}
 	}
 
@@ -29,7 +29,9 @@ class CashierNewCardForm extends Component {
 			cardTypes,
 			member,
 			newCardData,
+			selectedCardType,
 			handleInputChange,
+			handleChangeCardType,
 			handleNewCardSubmit
 		} = this.props;
 
@@ -37,18 +39,6 @@ class CashierNewCardForm extends Component {
 			<Form onSubmit={handleNewCardSubmit}>
 				<Row className="margin-bottom-3">
 					<div className="column-6">
-						<FormGroup>
-							<Label htmlFor="card">
-								<p className="fw-semibold">Tipe Kartu</p>
-							</Label>
-							<Input
-								name="card"
-								type="select"
-								defaultValue={newCardData.card}
-								onChange={(e) => handleInputChange(newCardData, e)}>
-								{card.isLoaded ? cardTypes.map(this.renderCardTypeOptions) : null}
-							</Input>
-						</FormGroup>
 						<FormGroup>
 							<Label htmlFor="fullname">
 								<p className="fw-semibold">Nama Lengkap</p>
@@ -83,8 +73,6 @@ class CashierNewCardForm extends Component {
 								/>
 							</InputGroup>
 						</FormGroup>
-					</div>
-					<div className="column-6">
 						<FormGroup>
 							<Label htmlFor="phone">
 								<p className="fw-semibold">Nomor Telepon</p>
@@ -114,6 +102,37 @@ class CashierNewCardForm extends Component {
 								onChange={(e) => handleInputChange(newCardData, e)}
 								required="true"
 							/>
+						</FormGroup>
+					</div>
+					<div className="column-6">
+						<FormGroup>
+							<Label htmlFor="card">
+								<p className="fw-semibold">Tipe Kartu</p>
+							</Label>
+							<Input
+								name="card"
+								type="select"
+								defaultValue={newCardData.card}
+								// onChange={(e) => handleInputChange(newCardData, e)}>
+								onChange={(e) => handleChangeCardType(e)}>
+								{card.types.isLoaded ? cardTypes.map(this.renderCardTypeOptions) : null}
+							</Input>
+						</FormGroup>
+						<FormGroup>
+							<Label htmlFor="starting">
+								<p className="fw-semibold">Saldo Awal</p>
+							</Label>
+							<InputGroup>
+								<InputAddon>
+									<small className="fw-semibold tt-uppercase ls-base">RP</small>
+								</InputAddon>
+								<InputCurrency
+									name="starting"
+									type="text"
+									value={selectedCardType.min}
+									readOnly
+								/>
+							</InputGroup>
 						</FormGroup>
 					</div>
 				</Row>

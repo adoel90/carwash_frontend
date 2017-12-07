@@ -68,10 +68,10 @@ export const memberTopup = (data, accessToken) => {
 				balance: data.balance
 			})
 			.then((response) => {
-				dispatch(handleSuccess(response));
+				dispatch(handleSuccess(response.data));
 			})
 			.catch((error) => {
-				dispatch(handleError(error.response.data));
+				dispatch(handleError(error));
 			})
 	}
 

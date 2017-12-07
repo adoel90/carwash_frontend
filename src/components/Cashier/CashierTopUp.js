@@ -98,8 +98,11 @@ class CashierTopUp extends Component {
 							</Input>
 						</FormGroup> */}
 					</ModalContent>
-					<ModalFooter>
-						<Button buttonTheme="primary" buttonFull className="clr-light">
+					<ModalFooter className="flex justify-content--center">
+						<Button type="button" buttonTheme="danger" className="clr-light" onClick={() => toggleModal('topup')}>
+							<small className="tt-uppercase fw-semibold ls-base">Kembali</small>
+						</Button>
+						<Button buttonTheme="primary" className="clr-light margin-left-2">
 							<small className="tt-uppercase fw-semibold ls-base">Selesai & Print Struk</small>
 						</Button>
 					</ModalFooter>

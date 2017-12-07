@@ -126,7 +126,7 @@ class CafePaymentCheckout extends Component {
                     </Button>
                     {
                         memberInfo.memberData.balance > grandTotal
-                        ? <Button buttonTheme="primary" className="clr-light margin-left-2">
+                        ? <Button type="button" buttonTheme="primary" className="clr-light margin-left-2" onClick={handlePaymentCheckoutSubmit}>
                             <small className="fw-semibold tt-uppercase ls-base">Bayar dan Cetak Struk</small>
                         </Button>
                         : null 

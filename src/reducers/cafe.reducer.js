@@ -70,6 +70,7 @@ const initialState = {
 	},
 	transaction: {
 		data: {},
+		isPaying: false,
 		isPaid: false,
 		isError: false,
 		error: {}
@@ -166,19 +167,26 @@ const cafe = (state = initialState, action) => {
 		case CREATE_CAFE_TRANSACTION_FULFILLED: {
 			return {
 				...state,
-				paid: action.payload,
-				isPaid: true,
-				error: {}
+				transaction: {
+					...state.transaction,
+					data: action.payload.data,
+					isPaid: true,
+					isError: false,
+					error: {}
+				}
 			}
 		}
 
 		case CREATE_CAFE_TRANSACTION_REJECTED: {
 			return {
 				...state,
-				paid: {},
-				isPaid: false,
-				isError: true,
-				error: action.payload
+				transaction: {
+					...state.transaction,
+					data: {},
+					isPaid: false,
+					isError: true,
+					error: action.payload
+				}
 			}
 		}
 

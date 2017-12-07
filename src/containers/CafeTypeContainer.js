@@ -4,7 +4,8 @@ import { CafeType } from '../components/Cafe';
 import { connect } from 'react-redux';
 import {
 	getAllCafeMenu,
-	getCafeMenuList
+	getCafeMenuList,
+	createCafeTransaction
 } from '../actions/cafe.action';
 
 import {
@@ -23,6 +24,7 @@ class CafeTypeContainer extends React.Component {
 		this.handlePaymentCheckout = this.handlePaymentCheckout.bind(this);
 		this.handlePaymentCheckoutSubmit = this.handlePaymentCheckoutSubmit.bind(this);
 		this.handleMemberAuthentication = this.handleMemberAuthentication.bind(this);
+		this.handlePrintReceipt = this.handlePrintReceipt.bind(this);
 		this.calculateGrandTotalPrice = this.calculateGrandTotalPrice.bind(this);
 		this.state = {
 			cafeList: [],
@@ -51,7 +53,8 @@ class CafeTypeContainer extends React.Component {
 		const {
 			member,
 			cafe,
-			cafeList
+			cafeList,
+			toggleDialog
 		} = this.props;
 
 		if(prevProps.member.isAuthenticated !== member.isAuthenticated) {
@@ -80,6 +83,23 @@ class CafeTypeContainer extends React.Component {
 					...this.state,
 					cafeList: activeList
 				})
+			}
+		}
+
+		if(prevProps.cafe.transaction !== cafe.transaction) {
+			if(cafe.transaction.isPaid) {
+				let dialogData = {
+					type: 'success',
+					title: 'Berhasil',
+					message: 'Pembayaran telah berhasil. Tunggu hingga struk transaksi dicetak sepenuhnya sebelum menutup jendela ini.',
+					onConfirm: () => this.handlePrintReceipt(),
+					confirmText: 'Print Ulang',
+					onClose: () => window.location.reload(),
+					closeText: 'Tutup'
+				}
+
+				this.handlePrintReceipt();
+				toggleDialog(dialogData);
 			}
 		}
 	}
@@ -182,6 +202,22 @@ class CafeTypeContainer extends React.Component {
 
 	handlePaymentCheckoutSubmit = (e) => {
 		e.preventDefault();
+
+		const {
+			dispatch,
+			accessToken
+		} = this.props;
+
+		const {
+			memberInfo,
+			selectedMenuList
+		} = this.state;
+
+		dispatch(createCafeTransaction(selectedMenuList, memberInfo.memberToken))
+	}
+
+	handlePrintReceipt = () => {
+		console.log('PRINTING!')
 	}
 
 	handleMemberAuthentication = (e) => {

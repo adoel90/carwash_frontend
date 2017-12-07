@@ -182,9 +182,9 @@ const member = (state = initialState, action) => {
 		case MEMBER_TOPUP_FULFILLED: {
 			return {
 				...state,
-				updated: {
-					...state.updated,
-					data: action.payload,
+				item: {
+					...state.item,
+					data: action.payload.data,
 					isBalanceChanged: true,
 					isError: false,
 					error: {}
@@ -195,12 +195,12 @@ const member = (state = initialState, action) => {
 		case MEMBER_TOPUP_REJECTED: {
 			return {
 				...state,
-				updated: {
-					...state.updated,
+				item: {
+					...state.item,
 					data: {},
 					isBalanceChanged: false,
-					isError: false,
-					error: {}
+					isError: true,
+					error: action.payload
 				}
 			}
 		}
@@ -208,8 +208,8 @@ const member = (state = initialState, action) => {
 		case CHANGE_MEMBER_STATUS_REQUESTED: {
 			return {
 				...state,
-				updated: {
-					...state.updated,
+				item: {
+					...state.item,
 					id: action.id,
 					isStatusChanging: true,
 					isStatusChanged: false,
@@ -222,8 +222,8 @@ const member = (state = initialState, action) => {
 		case CHANGE_MEMBER_STATUS_FULFILLED: {
 			return {
 				...state,
-				updated: {
-					...state.updated,
+				item: {
+					...state.item,
 					id: action.id,
 					data: action.payload,
 					isStatusChanging: false,
@@ -237,8 +237,8 @@ const member = (state = initialState, action) => {
 		case CHANGE_MEMBER_STATUS_REJECTED: {
 			return {
 				...state,
-				updated: {
-					...state.updated,
+				item: {
+					...state.item,
 					data: {},
 					isStatusChanging: false,
 					isStatusChanged: false,

@@ -130,8 +130,8 @@ const member = (state = initialState, action) => {
 		case CREATE_MEMBER_FULFILLED: {
 			return {
 				...state,
-				created: {
-					...state.created,
+				item: {
+					...state.item,
 					data: action.payload,
 					isCreated: true,
 					isError: false,
@@ -143,11 +143,11 @@ const member = (state = initialState, action) => {
 		case CREATE_MEMBER_REJECTED: {
 			return {
 				...state,
-				created: {
-					...state.created,
+				item: {
+					...state.item,
 					data: {},
 					isCreated: false,
-					isError: false,
+					isError: true,
 					error: action.payload
 				}
 			}
@@ -156,8 +156,8 @@ const member = (state = initialState, action) => {
 		case UPDATE_MEMBER_FULFILLED: {
 			return {
 				...state,
-				updated: {
-					...state.updated,
+				item: {
+					...state.item,
 					data: action.payload,
 					isUpdated: true,
 					isError: false,
@@ -169,8 +169,8 @@ const member = (state = initialState, action) => {
 		case UPDATE_MEMBER_REJECTED: {
 			return {
 				...state,
-				updated: {
-					...state.updated,
+				item: {
+					...state.item,
 					data: {},
 					isUpdated: false,
 					isError: true,

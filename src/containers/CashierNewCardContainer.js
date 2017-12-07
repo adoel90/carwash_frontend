@@ -15,6 +15,7 @@ class CashierNewCardContainer extends Component {
 		this.handleInputChange = this.handleInputChange.bind(this);
 		this.handleChangeCardType = this.handleChangeCardType.bind(this);
 		this.handleNewCardSubmit = this.handleNewCardSubmit.bind(this);
+		this.handleNewCardInstruction = this.handleNewCardInstruction.bind(this);
 		this.handleNewCardInstructionSubmit = this.handleNewCardInstructionSubmit.bind(this);
 		this.getCardTypes = this.getCardTypes.bind(this);
 
@@ -27,6 +28,7 @@ class CashierNewCardContainer extends Component {
 				id: '',
 				balance: ''
 			},
+			newMember: {},
 			newCardData: {
 				card: 1,
 				name: '',
@@ -61,6 +63,12 @@ class CashierNewCardContainer extends Component {
 				})
 			}
 		}
+
+		if(prevProps.member.item !== member.item) {
+			if(member.item.isCreated) {
+				this.handleNewCardInstruction();
+			}
+		}
 	}
 
 	getCardTypes = () => {
@@ -93,6 +101,10 @@ class CashierNewCardContainer extends Component {
 		}
 
 		dispatch(createNewMember(requiredData, accessToken));
+	}
+
+	handleNewCardInstruction = () => {
+		this.toggleModal('newCardInstruction')
 	}
 
 	handleNewCardInstructionSubmit = () => {

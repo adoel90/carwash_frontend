@@ -23,12 +23,29 @@ class CashierTopUp extends Component {
 	renderTopupModal = () => {
 		const {
 			member,
-			toggleModal,
 			isModalOpen,
+			toggleModal,
 			topupData,
 			handleTopupSubmit,
 			handleInputChange
 		} = this.props;
+
+		const renderMemberInformation = () => {
+			return (
+				<div className="padding-bottom-3">
+					<h4 className="fw-semibold clr-primary">{member.data.name}</h4>
+					<h5 className="fw-semibold">
+						<NumberFormat
+							displayType={'text'}
+							format="#### #### #### ####"
+							value={member.data.card.id}
+						/>
+					</h5>
+					<p>{member.data.email}</p>
+					<p>{member.data.address}</p>
+				</div>
+			)
+		}
 
 		return (
 			<Modal
@@ -44,18 +61,7 @@ class CashierTopUp extends Component {
 								<img src={CardIcon} />
 							</div>
 							<div className="column-9">
-								<div className="padding-bottom-3">
-									<h4 className="fw-semibold clr-primary">{member.data.name}</h4>
-									<h5 className="fw-semibold">
-										<NumberFormat
-											displayType={'text'}
-											format="#### #### #### ####"
-											value={member.data.card.id}
-										/>
-									</h5>
-									<p>{member.data.email}</p>
-									<p>{member.data.address}</p>
-								</div>
+								{renderMemberInformation()}
 							</div>
 						</Row>
 						<FormGroup row>

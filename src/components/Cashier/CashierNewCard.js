@@ -20,13 +20,13 @@ class CashierNewCard extends Component {
 			member,
 			isModalOpen,
 			toggleModal,
+			newMember,
 			handleNewCardInstructionSubmit
 		} = this.props;
 
 		return (
 			<Modal
-				isOpen={isModalOpen.newCardInstruction}
-				toggle={() => toggleModal('newCardInstruction')}>
+				isOpen={isModalOpen.newCardInstruction}>
 				<ModalHeader align="center">
 					<h6 className="fw-semibold">Instruksi Pembuatan Kartu Baru</h6>
 				</ModalHeader>
@@ -36,7 +36,7 @@ class CashierNewCard extends Component {
 							<Input
 								type="text"
 								className="form-control--large ta-center"
-								value={member.createdMember.card.id}
+								value={member.item.data.card.id}
 								readOnly
 								selectOnFocus
 							/>
@@ -72,11 +72,11 @@ class CashierNewCard extends Component {
 				<PageBlock className="margin-bottom-5">
 					<CashierNewCardForm {...this.props} />
 				</PageBlock>
-				{member.isCreated ? this.renderNewCardInstructionModal() : null}
+				{member.item.isCreated ? this.renderNewCardInstructionModal() : null}
 			</div>
 		);
 	}
-
+		
 }
 
 export default CashierNewCard;

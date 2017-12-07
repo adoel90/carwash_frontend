@@ -50,7 +50,7 @@ class CashierNewCardForm extends Component {
 								<Input
 									name="name"
 									type="text"
-									placeholder="Masukkan nama lengkap customer"
+									placeholder="e.g: John Doe, Billy Simpson"
 									onChange={(e) => handleInputChange(newCardData, e)}
 									required="true"
 								/>
@@ -67,7 +67,7 @@ class CashierNewCardForm extends Component {
 								<Input
 									name="email"
 									type="email"
-									placeholder="Masukkan alamat email customer"
+									placeholder="e.g: john.doe@email.com"
 									onChange={(e) => handleInputChange(newCardData, e)}
 									required="true"
 								/>
@@ -84,7 +84,7 @@ class CashierNewCardForm extends Component {
 								<Input
 									name="phone"
 									type="text"
-									placeholder="Masukkan nomor telepon/HP customer"
+									placeholder="+62"
 									onChange={(e) => handleInputChange(newCardData, e)}
 									required="true"
 								/>
@@ -98,7 +98,7 @@ class CashierNewCardForm extends Component {
 							<Input
 								name="address"
 								type="textarea"
-								placeholder="Masukkan alamat rumah customer"
+								placeholder="Provinsi, Kecamatan, Jalan, Kode Pos"
 								onChange={(e) => handleInputChange(newCardData, e)}
 								required="true"
 							/>
@@ -133,6 +133,7 @@ class CashierNewCardForm extends Component {
 									readOnly
 								/>
 							</InputGroup>
+							<small className="clr-passive">Merupakan minimal saldo yang harus diisi calon member untuk membuat kartu baru.</small>
 						</FormGroup>
 					</div>
 				</Row>

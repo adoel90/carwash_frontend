@@ -166,8 +166,8 @@ class SettingsCard extends Component {
 								className="fw-semibold">Dapat refund?
 							</Label>
 							<InputSwitch
-								name="refunable"
-								value={selectedCardType.refunable}
+								name="refundable"
+								value={selectedCardType.refundable}
 								onChange={(e) => handleInputChange(selectedCardType, e)}
 							/>
 						</FormGroup>

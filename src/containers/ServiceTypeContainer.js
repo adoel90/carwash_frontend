@@ -113,7 +113,9 @@ class ServiceTypeContainer extends React.Component {
 			dispatch
 		} = this.props;
 
-		return <Redirect from={`${match.url}`} to="/logout" />
+		console.log(123);
+
+		return <Redirect to="/logout" />
 	}
 
 	handleServicePayment = (item) => {
@@ -150,7 +152,7 @@ class ServiceTypeContainer extends React.Component {
 				{...this.state}
 				{...this.props}
 				toggleModal={this.toggleModal}
-				handleMemberLogout={this.handleMemberLogout}
+				// handleMemberLogout={this.handleMemberLogout}
 				handleServicePayment={this.handleServicePayment}
 				handleServicePaymentConfirm={this.handleServicePaymentConfirm}
 				handleServicePaymentSubmit={this.handleServicePaymentSubmit}

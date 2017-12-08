@@ -39,13 +39,13 @@ class SettingsCardContainer extends Component {
 				name: '',
 				minimum: '',
 				bonus: '',
-				refunable: false
+				refundable: false
 			},
 			selectedCardType: {
 				name: '',
 				minimum: '',
 				bonus: '',
-				refunable: false
+				refundable: false
 			}
 		}
 	}
@@ -187,7 +187,9 @@ class SettingsCardContainer extends Component {
 			refund: newCardType.refunable
 		}
 
-		dispatch(createNewCardType(requiredData, accessToken));
+		console.log(requiredData);
+		
+		// dispatch(createNewCardType(requiredData, accessToken));
 	}
 
 	handleCardTypeUpdate = (cardType, e) => {
@@ -197,7 +199,7 @@ class SettingsCardContainer extends Component {
 				name: cardType.name,
 				minimum: cardType.min,
 				bonus: cardType.bonus,
-				refunable: cardType.refunable
+				refundable: cardType.refund
 			}
 		})
 
@@ -223,9 +225,9 @@ class SettingsCardContainer extends Component {
 			name: selectedCardType.name,
 			minimum: parseInt(selectedCardType.minimum.replace(/,/g, '')),
 			bonus: parseInt(selectedCardType.bonus.replace(/,/g, '')),
-			refunable: selectedCardType.refunable
+			refund: selectedCardType.refundable
 		}
-
+		
 		dispatch(updateCardType(requiredData, accessToken));
 	}
 

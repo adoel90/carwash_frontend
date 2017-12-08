@@ -8,7 +8,7 @@ import { PageBlock } from '../Page';
 import SearchBar from '../SearchBar';
 import Currency from '../Currency';
 import { Button } from '../Button';
-import { default as NoThumbnail } from '../../assets/images/no-thumbnail.jpg'
+import { default as NoThumbnail } from '../../assets/images/no-thumbnail.jpg';
 
 class CafeMenuList extends Component {
 	render() {

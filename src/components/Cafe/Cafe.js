@@ -107,8 +107,6 @@ class Cafe extends React.Component {
 						<div className="column-10">
 							{ this.renderCafeTypeContent() }
 							<Redirect from="/*" to={`${match.url}/${firstRoutePath}`} />
-
-							{/* { cafe.types.isLoaded ? cafeTypes.map(this.renderCafeTypeContent) : null } */}
 						</div>
 					</Row>
 				</Container>

@@ -66,6 +66,8 @@ class ReportTransactionListContainer extends Component {
 			start_date: period.start.format('YYYY/MM/DD'),
 			end_date: period.end.format('YYYY/MM/DD')
 		}
+		
+		console.log(requiredData);
 
 		dispatch(getTransactionReport(requiredData, accessToken))
 	}

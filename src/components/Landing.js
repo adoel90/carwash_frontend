@@ -52,7 +52,7 @@ class Landing extends React.Component {
 					<div className="landing__container">
 						<img src={CardIcon} style={{ width: '200px' }} />
 						<h3 className="fw-bold">Selamat datang di Carwash 805</h3>
-						<h5 className="padding-bottom-3">Silahkan gesek kartu member Anda.</h5>
+						<h5 className="padding-bottom-3 fw-semibold">Silahkan gesek kartu member Anda.</h5>
 						<FormGroup>
 							<Input
 								type="number"
@@ -62,19 +62,8 @@ class Landing extends React.Component {
 								selectOnFocus
 							/>
 						</FormGroup>
-						{/* <Button type="button" buttonTheme="secondary" disabled="true">
-							<small className="tt-uppercase ls-base fw-semibold clr-dark">Kartu belum terdeteksi</small>
-						</Button> */}
 					</div>
-
-
-					{/* <PageBlock primary className="flex align-items--center justify-content--center ta-center">
-					<img src={Store} className="column-8" />
-					<h4 className="fw-bold tt-uppercase ls-base">Carwash 805</h4>
-					<h5 className="fw-semibold">Member Area</h5>
-				</PageBlock> */}
 				</main>
-
 			</Form>
 		)
 	}

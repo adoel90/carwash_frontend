@@ -29,6 +29,7 @@ export const CHANGE_SERVICE_TYPE_STATUS_REQUESTED = 'CHANGE_SERVICE_TYPE_STATUS_
 export const CHANGE_SERVICE_TYPE_STATUS_FULFILLED = 'CHANGE_SERVICE_TYPE_STATUS_FULFILLED';
 export const CHANGE_SERVICE_TYPE_STATUS_REJECTED = 'CHANGE_SERVICE_TYPE_STATUS_FULFILLED';
 
+export const CREATE_SERVICE_TRANSACTION_REQUESTED = 'CREATE_SERVICE_TRANSACTION_REQUESTED';
 export const CREATE_SERVICE_TRANSACTION_FULFILLED = 'CREATE_SERVICE_TRANSACTION_FULFILLED';
 export const CREATE_SERVICE_TRANSACTION_REJECTED = 'CREATE_SERVICE_TRANSACTION_REJECTED';
 
@@ -54,8 +55,27 @@ export const getAllServiceList = (data, accessToken) => {
 	function handleError(data) { return { type: GET_SERVICE_LIST_REJECTED, payload: data } }
 }
 
+export const getAllService = (data, accessToken) => {
+	return async dispatch => {
+		dispatch(handleRequest());
+		return axios
+			.get(`${constant.API_PATH}service?accessToken=${accessToken}&type=${data.type}`)
+			.then((response) => {
+				dispatch(handleSuccess(response.data))
+			})
+			.catch((error) => {
+				dispatch(handleError(error))
+			})
+	}
+
+	function handleRequest() { return { type: GET_SERVICE_LIST_REQUESTED } }
+	function handleSuccess(data) { return { type: GET_SERVICE_LIST_FULFILLED, payload: data } }
+	function handleError(data) { return { type: GET_SERVICE_LIST_REJECTED, payload: data } }
+}
+
 export const getServiceList = (data, accessToken) => {
 	return async dispatch => {
+		dispatch(handleRequest());
 		return axios
 			.get(`${constant.API_PATH}service/list?accessToken=${accessToken}&type=${data.type}&limit=${data.limit}&offset=${data.offset}`)
 			.then((response) => {
@@ -240,19 +260,22 @@ export const changeServiceTypeStatus = (data, accessToken) => {
 
 export const createServiceTransaction = (data, accessToken) => {
 	return async dispatch => {
+		dispatch(handleRequest());
+		
 		return axios
 			.post(`${constant.API_PATH}service/transaction/create?accessToken=${accessToken}`, {
 				service: data.service
 			})
 			.then((response) => {
 				dispatch(handleSuccess(response.data));
-				cookies.set('member', response.data.data, { path: '/' });
+				// cookies.set('member', response.data.data, { path: '/' });
 			})
 			.catch((error) => {
 				dispatch(handleError(error))
 			})
 	}
 
+	function handleRequest() { return { type: CREATE_SERVICE_TRANSACTION_REQUESTED } };
 	function handleSuccess(data) { return { type: CREATE_SERVICE_TRANSACTION_FULFILLED, payload: data } };
 	function handleError(error) { return { type: CREATE_SERVICE_TRANSACTION_REJECTED, payload: error } };
 }

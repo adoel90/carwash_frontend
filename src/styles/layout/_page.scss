@@ -35,9 +35,18 @@
 		color: gray(100);
 	}
 
-	&.page-block--extension {
-		border-top: solid 1px gray(300) !important;
+	&:first-child {
+		&.page-block--extension {
+			border-bottom: solid 1px gray(300) !important;
+		}
 	}
+
+	&:last-child {
+		&.page-block--extension {
+			border-top: solid 1px gray(300) !important;
+		}
+	}
+
 
 	.page-block__container {
 		padding: $spacer;

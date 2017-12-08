@@ -5,6 +5,8 @@ import CashierNewCard from './CashierNewCard';
 import CashierNewCardForm from './CashierNewCardForm';
 import CashierChangeCard from './CashierChangeCard';
 import CashierChangeCardForm from './CashierChangeCardForm';
+import CashierRefund from './CashierRefund';
+import CashierRefundConfirmation from './CashierRefundConfirmation';
 
 export {
 	Cashier,
@@ -13,5 +15,7 @@ export {
 	CashierNewCard,
 	CashierNewCardForm,
 	CashierChangeCard,
-	CashierChangeCardForm
+	CashierChangeCardForm,
+	CashierRefund,
+	CashierRefundConfirmation
 }

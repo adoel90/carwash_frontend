@@ -3,14 +3,21 @@ import { constant } from '../config';
 import Cookies from 'universal-cookie';
 
 export const RESET_MEMBER_DATA = 'RESET_MEMBER_DATA';
+
 export const AUTHENTICATE_MEMBER_REQUESTED = 'AUTHENTICATE_MEMBER_REQUESTED';
 export const AUTHENTICATE_MEMBER_FULFILLED = 'AUTHENTICATE_MEMBER_FULFILLED';
 export const AUTHENTICATE_MEMBER_REJECTED = 'AUTHENTICATE_MEMBER_REJECTED';
+
 export const MEMBER_TOPUP_FULFILLED = 'MEMBER_TOPUP_FULFILLED';
 export const MEMBER_TOPUP_REJECTED = 'MEMBER_TOPUP_REJECTED';
+export const MEMBER_REFUND_REQUESTED = 'MEMBER_REFUND_REQUESTED';
+export const MEMBER_REFUND_FULFILLED = 'MEMBER_REFUND_FULFILLED';
+export const MEMBER_REFUND_REJECTED = 'MEMBER_REFUND_REJECTED';
+
 export const GET_MEMBER_LIST_REQUESTED = 'GET_MEMBER_LIST_REQUESTED';
 export const GET_MEMBER_LIST_FULFILLED = 'GET_MEMBER_LIST_FULFILLED';
 export const GET_MEMBER_LIST_REJECTED = 'GET_MEMBER_LIST_REJECTED';
+
 export const CREATE_MEMBER_REQUESTED = 'CREATE_MEMBER_LIST_REQUESTED';
 export const CREATE_MEMBER_FULFILLED = 'CREATE_MEMBER_FULFILLED';
 export const CREATE_MEMBER_REJECTED = 'CREATE_MEMBER_REJECTED';
@@ -22,6 +29,7 @@ export const CHANGE_MEMBER_STATUS_FULFILLED = 'CHANGE_MEMBER_STATUS_FULFILLED';
 export const CHANGE_MEMBER_STATUS_REJECTED = 'CHANGE_MEMBER_STATUS_REJECTED';
 export const DELETE_MEMBER_FULFILLED = 'DELETE_MEMBER_FULFILLED';
 export const DELETE_MEMBER_REJECTED = 'DELETE_MEMBER_REJECTED';
+
 export const LOGOUT_MEMBER_FULFILLED = 'LOGOUT_MEMBER_FULFILLED';
 
 const cookies = new Cookies();
@@ -77,6 +85,26 @@ export const memberTopup = (data, accessToken) => {
 
 	function handleSuccess(data) { return { type: MEMBER_TOPUP_FULFILLED, payload: data } }
 	function handleError(data) { return { type: MEMBER_TOPUP_REJECTED, payload: data } }
+}
+
+export const memberRefund = (data, accessToken) => {
+	return async dispatch => {
+		dispatch(handleRequest())
+		axios
+			.post(`${constant.API_PATH}member/refund?accessToken=${accessToken}`, {
+				card: data.card
+			})
+			.then((response) => {
+				dispatch(handleSuccess(response.data))
+			})
+			.catch((error) => {
+				dispatch(handleError(error))
+			})
+	}
+
+	function handleRequest() { return { type: MEMBER_REFUND_REQUESTED } }
+	function handleSuccess(data) { return { type: MEMBER_REFUND_FULFILLED, payload: data } }
+	function handleError(data) { return { type: MEMBER_REFUND_REJECTED, payload: data } }
 }
 
 export const getMemberList = (data, accessToken) => {

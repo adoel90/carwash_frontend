@@ -4,6 +4,7 @@ import { Cashier } from '../components/Cashier';
 import { CashierNewCard, CashierTopUp } from '../components/Cashier';
 import CashierTopUpContainer from '../containers/CashierTopUpContainer';
 import CashierNewCardContainer from '../containers/CashierNewCardContainer';
+import CashierRefundContainer from '../containers/CashierRefundContainer';
 import { resetMemberData } from '../actions/member.action';
 import {
 	showDialog,
@@ -19,7 +20,8 @@ class CashierContainer extends React.Component {
 		this.state = {
 			subRoutes: [
 				{ id: 1, name: 'Isi Ulang', component: CashierTopUpContainer },
-				{ id: 2, name: 'Kartu Baru', component: CashierNewCardContainer }
+				{ id: 2, name: 'Kartu Baru', component: CashierNewCardContainer },
+				{ id: 3, name: 'Refund Kartu', component: CashierRefundContainer }
 			],
 		}
 	}

@@ -26,6 +26,7 @@ import {
 	CHANGE_SERVICE_TYPE_STATUS_FULFILLED,
 	CHANGE_SERVICE_TYPE_STATUS_REJECTED,
 
+	CREATE_SERVICE_TRANSACTION_REQUESTED,	
 	CREATE_SERVICE_TRANSACTION_FULFILLED,
 	CREATE_SERVICE_TRANSACTION_REJECTED,
 
@@ -68,13 +69,13 @@ const initialState = {
 		isError: false,
 		error: {}
 	},
-	// isFetching: false,
-	// isLoaded: false,
-	// isDeleted: false,
-	// isCreated: false,
-	// isUpdated: false,
-	// isError: false,
-	// error: {}
+	transaction: {
+		data: {},
+		isPaying: false,
+		isPaid: false,
+		isError: false,
+		error: {}
+	}
 }
 
 const service = (state = initialState, action) => {
@@ -348,19 +349,45 @@ const service = (state = initialState, action) => {
 		}
 
 		//
+		case CREATE_SERVICE_TRANSACTION_REQUESTED: {
+			return {
+				...state,
+				transaction: {
+					...state.transaction,
+					data: {},
+					isPaying: true,
+					isPaid: false,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+		
 		case CREATE_SERVICE_TRANSACTION_FULFILLED: {
 			return {
 				...state,
-				service: action.payload,
-				error: {}
+				transaction: {
+					...state.transaction,
+					data: action.payload.data,
+					isPaid: true,
+					isPaying: false,
+					isError: false,
+					error: {}
+				}
 			}
 		}
 
-		case CREATE_SERVICE_TRANSACTION_FULFILLED: {
+		case CREATE_SERVICE_TRANSACTION_REJECTED: {
 			return {
 				...state,
-				service: {},
-				error: action.payload
+				transaction: {
+					...state.transaction,
+					data: {},
+					isPaid: false,
+					isPaying: false,
+					isError: true,
+					error: action.payload
+				}
 			}
 		}
 

@@ -1,15 +1,29 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Service from '../components/Service';
+import { Service } from '../components/Service';
 import PropTypes from 'prop-types';
-import { withCookies, Cookies } from 'react-cookie';
+import {
+	showDialog,
+	hideDialog
+} from '../actions/dialog.action';
+
+
 
 import { getServiceTypes } from '../actions/service.action.js';
 
 class ServiceContainer extends React.Component {
 	constructor() {
 		super();
+		this.toggleDialog = this.toggleDialog.bind(this);
+		this.showDialog = this.showDialog.bind(this);
+		this.hideDialog = this.hideDialog.bind(this);
 		this.addPathPropToTypes = this.addPathPropToTypes.bind(this);
+		this.state = {
+			serviceTypes: {
+				all: [],
+				active: []
+			}
+		}
 	}
 
 	componentDidMount = () => {
@@ -19,13 +33,61 @@ class ServiceContainer extends React.Component {
 		} = this.props;
 
 		dispatch(getServiceTypes(accessToken));
-
 	}
 
-	//	#1
-	//	A temporary function to manually add a path props
-	//	to each service. Should be dismissed when Backend
-	//	provides this to each object item.
+	componentDidUpdate = (prevProps) => {
+		const {
+			service
+		} = this.props;
+		
+		if(prevProps.service.types !== service.types) {
+			if(service.types.isLoaded) {
+				let activeTypes = [];
+
+				service.types.data.forEach((item) => {
+					if(item.status) {
+						activeTypes.push(item);
+					}
+				})
+
+				this.setState({
+					serviceTypes: {
+						all: service.types.data,
+						active: activeTypes
+					}
+				})
+			}
+		}
+	}
+
+	toggleDialog = (data) => {
+		const {
+			dialog,
+			dispatch
+		} = this.props;
+
+		console.log(data);
+
+		if(!dialog.isOpened) {
+			this.showDialog(data);
+		}
+		else {
+			this.hideDialog();
+		}
+	}
+
+	showDialog = (data) => {
+		const { dialog, dispatch } = this.props;
+
+		dispatch(showDialog(data))
+	}
+
+	hideDialog = () => {
+		const { dialog, dispatch } = this.props;
+
+		dispatch(hideDialog());
+	}
+
 	addPathPropToTypes = () => {
 		const {
 			service
@@ -47,10 +109,15 @@ class ServiceContainer extends React.Component {
 			this.addPathPropToTypes();
 		}
 
-
-		return service.isLoaded
-		? <Service {...this.state} {...this.props} />
-		: null
+		return (
+			<Service 
+				{...this.state}
+				{...this.props}
+				toggleDialog={this.toggleDialog}
+				showDialog={this.showDialog}
+				hideDialog={this.hideDialog}
+			/>
+		)
 	}
 }
 

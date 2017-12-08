@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { PageBlock } from '../Page';
+import { PageBlock, PageBlockGroup } from '../Page';
 import { CashierNewCardForm } from '../Cashier';
 import { Button } from '../Button';
 import { Modal } from 'reactstrap';
@@ -65,14 +65,16 @@ class CashierNewCard extends Component {
 
 		return (
 			<div className="inner-view">
-				<div className="padding-bottom-2">
-					<h5 className="fw-semibold">Pendaftaran Kartu Baru</h5>
-					<p className="clr-passive">Masukkan data customer baru dengan benar dan lengkap. Seluruh kolom harus diisi.</p>
-				</div>
-				<PageBlock className="margin-bottom-5">
-					<CashierNewCardForm {...this.props} />
-				</PageBlock>
-				{member.item.isCreated ? this.renderNewCardInstructionModal() : null}
+				<PageBlockGroup>
+					<PageBlock extension>
+						<h5 className="fw-semibold">Pendaftaran Kartu Baru</h5>
+						<p className="clr-passive">Masukkan data customer baru dengan benar dan lengkap. Seluruh kolom harus diisi.</p>
+					</PageBlock>
+					<PageBlock className="margin-bottom-5">
+						<CashierNewCardForm {...this.props} />
+					</PageBlock>
+					{member.item.isCreated ? this.renderNewCardInstructionModal() : null}
+				</PageBlockGroup>
 			</div>
 		);
 	}

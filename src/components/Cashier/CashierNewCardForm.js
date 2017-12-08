@@ -137,9 +137,11 @@ class CashierNewCardForm extends Component {
 						</FormGroup>
 					</div>
 				</Row>
-				<Button buttonTheme="primary" type="submit" className="clr-light" buttonFull>
-					<small className="fw-bold tt-uppercase ls-base">Lanjutkan</small>
-				</Button>
+				<div className="flex justify-content--flex-end">
+					<Button buttonTheme="primary" type="submit" className="clr-light">
+						<small className="fw-semibold tt-uppercase ls-base">Selanjutnya</small>
+					</Button>
+				</div>
 			</Form>
 		);
 	}

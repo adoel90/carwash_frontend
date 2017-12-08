@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { authenticateMember } from '../actions/member.action';
+import { authenticateMember, memberRefund } from '../actions/member.action';
 
 import { CashierRefund } from '../components/Cashier';
 
@@ -89,6 +89,21 @@ class CashierRefundContainer extends Component {
 
     handleRefundSubmit = (e) => {
         e.preventDefault();
+
+        const {
+            selectedMember
+        } = this.state;
+        
+        const {
+            dispatch,
+            accessToken
+        } = this.props;
+        
+        let requiredData = {
+            card: selectedMember.card.id
+        }
+
+        dispatch(memberRefund(requiredData, accessToken));
     }
     
     render() {
@@ -96,6 +111,7 @@ class CashierRefundContainer extends Component {
             <CashierRefund
                 {...this.state}
                 {...this.props}
+                toggleModal={this.toggleModal}
                 handleInputChange={this.handleInputChange}
                 handleAuthenticateMember={this.handleAuthenticateMember}
                 handleRefundSubmit={this.handleRefundSubmit}

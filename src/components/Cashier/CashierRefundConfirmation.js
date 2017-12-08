@@ -12,6 +12,7 @@ class CashierRefundConfirmation extends Component {
     render() {
         const {
             isModalOpen,
+            toggleModal,
             selectedMember,
             handleRefundSubmit
         } = this.props;
@@ -22,7 +23,7 @@ class CashierRefundConfirmation extends Component {
                 <ModalHeader align="center">
                     <h6 className="fw-semibold">Konfirmasi Refund</h6>
                 </ModalHeader>
-                <Form onSubmit={handleRefundSubmit}>
+                <Form onSubmit={(e) => handleRefundSubmit(e)}>
                     <ModalContent className="flex flex-column justify-content--center">
                         <Alert theme="secondary" className="flex align-items--center margin-bottom-2">
                             <i className="ion-alert-circled icon icon--base margin-right-2"></i>
@@ -46,10 +47,10 @@ class CashierRefundConfirmation extends Component {
                         </div>
                     </ModalContent>
                     <ModalFooter className="flex justify-content--center">
-                        <Button buttonTheme="danger" className="clr-light">
+                        <Button type="button" buttonTheme="danger" className="clr-light" onClick={() => toggleModal('refundConfirmation')}>
                             <small className="fw-semibold tt-uppercase ls-base">Kembali</small>
                         </Button>
-                        <Button buttonTheme="primary" className="margin-left-2 clr-light">
+                        <Button type="submit" buttonTheme="primary" className="margin-left-2 clr-light">
                             <small className="fw-semibold tt-uppercase ls-base">Proses Refund</small>
                         </Button>
                     </ModalFooter>

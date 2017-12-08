@@ -89,7 +89,7 @@ export const memberTopup = (data, accessToken) => {
 
 export const memberRefund = (data, accessToken) => {
 	return async dispatch => {
-		dispatch(handleRequest())
+		// dispatch(handleRequest())
 		axios
 			.post(`${constant.API_PATH}member/refund?accessToken=${accessToken}`, {
 				card: data.card

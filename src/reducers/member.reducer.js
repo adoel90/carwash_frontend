@@ -4,6 +4,9 @@ import {
 	AUTHENTICATE_MEMBER_REJECTED,
 	MEMBER_TOPUP_FULFILLED,
 	MEMBER_TOPUP_REJECTED,
+	MEMBER_REFUND_REQUESTED,
+	MEMBER_REFUND_FULFILLED,
+	MEMBER_REFUND_REJECTED,
 	GET_MEMBER_LIST_REQUESTED,
 	GET_MEMBER_LIST_FULFILLED,
 	GET_MEMBER_LIST_REJECTED,
@@ -199,6 +202,48 @@ const member = (state = initialState, action) => {
 					...state.item,
 					data: {},
 					isBalanceChanged: false,
+					isError: true,
+					error: action.payload
+				}
+			}
+		}
+
+		case MEMBER_REFUND_REQUESTED: {
+			return {
+				...state,
+				item: {
+					...state.item,
+					data: {},
+					isRefunding: true,
+					isRefunded: false,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case MEMBER_REFUND_FULFILLED: {
+			return {
+				...state,
+				item: {
+					...state.item,
+					data: action.payload.data,
+					isRefunding: false,
+					isRefunded: true,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case MEMBER_REFUND_REJECTED: {
+			return {
+				...state,
+				item: {
+					...state.item,
+					data: {},
+					isRefunding: false,
+					isRefunded: false,
 					isError: true,
 					error: action.payload
 				}

@@ -17,11 +17,11 @@ class CashierRefund extends Component {
         } = this.props;
 
         const renderAlert = () => {
-            if(member.isError) {
+            if(member.isError || member.item.isError) {
                 return (
                     <Alert theme="danger" className="flex align-items--center clr-light margin-bottom-2">
                         <i className="ion-alert-circled margin-right-2 icon icon--base"></i>
-                        <p className="fw-semibold">{member.error.message}</p>
+                        <p className="fw-semibold">{member.error.message || member.item.error.response.data.message}</p>
                     </Alert>
                 )
             }

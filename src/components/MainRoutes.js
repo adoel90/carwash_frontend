@@ -31,10 +31,8 @@ class MainRoutes extends Component {
 					name="logout"
 					path="/logout"
 					component={LogoutContainer}
-					isAuthenticated={isAuthenticated}
-					user={user}
-					accessToken={accessToken}
 					redirectTo="/"
+					{...this.props}
 				/>
 			</Switch>
 		)

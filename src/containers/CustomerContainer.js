@@ -9,6 +9,7 @@ import MainContent from '../components/MainContent';
 
 import LandingContainer from '../containers/LandingContainer';
 import ServiceContainer from '../containers/ServiceContainer';
+import ProfileContainer from '../containers/ProfileContainer';
 
 class CustomerContainer extends Component {
 	constructor() {
@@ -17,8 +18,7 @@ class CustomerContainer extends Component {
 		this.state = {
 			navigations: [
 				{ id: 1, name: 'Pilih Layanan', path: "/customer/service" },
-				{ id: 2, name: 'Profil Saya', path: "/customer/my-profile" },
-				{ id: 3, name: 'Kartu Saya', path: "/customer/my-card" },
+				{ id: 2, name: 'Profil Saya', path: "/customer/profile" },
 			]
 		}
 	}
@@ -62,6 +62,15 @@ class CustomerContainer extends Component {
 						member={member}
 						accessToken={accessToken}
 						redirectTo={`${match.url}/landing`}
+					/>
+					<PrivateRoute
+						name="profile"
+						path={`${match.url}/profile`}
+						component={ProfileContainer}
+						isAuthenticated={isAuthenticated}
+						member={member}
+						accessToken={accessToken}
+						redirectTO={`${match.url}/landing`}
 					/>
 					<Redirect from={`${match.url}`} to={`${match.url}/landing`} />
 					{ this.handleRouteRedirect() }

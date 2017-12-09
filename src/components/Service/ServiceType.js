@@ -17,7 +17,11 @@ class ServiceType extends React.Component {
 
 		const renderServiceItemList = () => {			
 			if(service.list.isFetching) {
-				return <p>Sedang memuat daftar layanan, mohon tunggu sebentar...</p>
+				return (
+					<PageBlock className="ta-center margin-top-2">
+						<p>Sedang memuat daftar layanan, mohon tunggu sebentar...</p>
+					</PageBlock>
+				)
 			}
 			
 			if(service.list.isLoaded) {
@@ -34,7 +38,11 @@ class ServiceType extends React.Component {
 				return <ServiceItemList {...this.props}  />
 			}
 
-			return <p>Oops! Sepertinya terdapat kesalahan dalam memuat daftar layanan. Silahkan hubungi operator kasir yang sedang bertugas.</p>
+			return (
+				<PageBlock className="ta-center margin-top-2">
+					<p>Oops! Sepertinya terdapat kesalahan dalam memuat daftar layanan. Silahkan hubungi operator kasir yang sedang bertugas.</p>
+				</PageBlock>
+			)
 		}
 
 		return (

@@ -10,20 +10,18 @@ import MainRoutes from './components/MainRoutes';
 class App extends React.Component {
 	constructor() {
 		super();
-		this.handleAccessToken = this.handleAccessToken.bind(this);
+		this.handleAuthentication = this.handleAuthentication.bind(this);
 		this.state = {
-			user: null,
-			member: null,
 			accessToken: '',
-			isAuthenticated: false,
+			isAuthenticated: {},
 		}
 	}
 
 	componentWillMount = () => {
-		this.handleAccessToken();
+		this.handleAuthentication();
 	}
 
-	handleAccessToken = () => {
+	handleAuthentication = () => {
 		const {
 			cookies
 		} = this.props;
@@ -33,10 +31,10 @@ class App extends React.Component {
 		const memberData = Object.assign({}, cookies.get('member') || null);
 
 		this.setState({
-			user: userData,
-			member: memberData,
+			isAuthenticated: accessToken ? true : false,
 			accessToken: accessToken,
-			isAuthenticated: accessToken ? true : false
+			user: userData,
+			member: memberData
 		});
 	}
 

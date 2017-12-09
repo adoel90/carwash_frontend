@@ -4,12 +4,18 @@ import { Redirect } from 'react-router-dom';
 import { userLogout } from '../actions/user.action.js';
 
 class LogoutContainer extends Component {
-	constructor() {
-		super();
+	componentWillReceiveProps = (nextProps) => {
+		console.log(nextProps);
 	}
 
-	componentDidMount = () => {
-		this.props.userLogout();
+	componentDidMount = (prevProps) => {
+		const {
+			dispatch
+		} = this.props;
+
+		dispatch(userLogout());
+
+		// this.props.userLogout();
 	}
 
 	render() {
@@ -24,4 +30,4 @@ const mapDispatchToProps = (state) => {
 	}
 }
 
-export default connect(mapDispatchToProps, { userLogout })(LogoutContainer);
+export default connect(mapDispatchToProps)(LogoutContainer);

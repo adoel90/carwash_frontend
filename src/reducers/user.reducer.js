@@ -7,12 +7,14 @@ import {
 } from '../actions/user.action'
 
 const initialState = {
-	user: {},
-    accessToken: '',
-	isLoggingIn: false,
-	isAuthenticated: false,
-	isError: false,
-	error: {}
+	item: {
+		data: {},
+		accessToken: '',
+		isAuthenticating: false,
+		isAuthenticated: false,
+		isError: false,
+		error: {}
+	}
 }
 
 const user = (state = initialState, action) => {
@@ -20,44 +22,50 @@ const user = (state = initialState, action) => {
 		case USER_LOGIN_REQUESTED: {
 			return {
 				...state,
-				isLoggingIn: true,
-				isAuthenticated: false
+				item: {
+					...state.item,
+					data: {},
+					accessToken: '',
+					isAuthenticating: true,
+					isAuthenticated: false,
+					isError: false,
+					error: {}
+				}
 			}
 		}
 
 		case USER_LOGIN_FULFILLED: {
 			return {
 				...state,
-                user: action.payload.user,
-				accessToken: action.payload.accessToken,
-				isLoggingIn: false,
-				isAuthenticated: true,
-				isError: false,
-				error: {}
+				item: {
+					...state.item,
+					user: action.payload.user,
+					accessToken: action.payload.accessToken,
+					isAuthenticating: false,
+					isAuthenticated: true,
+					isError: false,
+					error: {}
+				}
 			}
 		}
 
 		case USER_LOGIN_REJECTED: {
 			return {
 				...state,
-				user: {},
-				accessToken: '',
-				isError: true,
-				isLoggingIn: false,
-				isAuthenticated: false,
-				error: action.payload
+				item: {
+					...state.item,
+					user: {},
+					accessToken: '',
+					isAuthenticating: false,
+					isAuthenticated: false,
+					isError: true,
+					error: action.payload
+				}
 			}
 		}
 
 		case USER_LOGOUT_FULFILLED: {
-			return {
-				...state,
-				isLoggingIn: false,
-				isAuthenticated: false,
-				user: {},
-				accessToken: '',
-				error: {}
-			}
+			return initialState;
 		}
 
 		default: {

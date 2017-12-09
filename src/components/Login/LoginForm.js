@@ -7,31 +7,6 @@ import { Button } from '../Button';
 import { Alert } from '../Alert';
 
 class LoginForm extends React.Component {
-	constructor() {
-		super();
-		this.renderErrorAlert = this.renderErrorAlert.bind(this);
-	}
-
-	renderErrorAlert = () => {
-		const {
-			user
-		} = this.props;
-
-		if(user.isError) {
-			let errorMessage;
-
-			if(user.error.response.data.status == 403) {
-				errorMessage = 'User tidak ditemukan atau tidak aktif.'
-			}
-
-			return (
-				<Alert theme="warning" className="margin-bottom-2">
-					<p>{errorMessage}</p>
-				</Alert>
-			)
-		}
-	}
-
 	render() {
 		const {
 			user,
@@ -40,10 +15,31 @@ class LoginForm extends React.Component {
 			handleLoginSubmit
 		} = this.props;
 
+		const renderAlert = () => {
+			const {
+				user
+			} = this.props;
+
+			if(user.item.isError) {
+				let errorMessage;
+
+				if(user.item.error.response.data.status == 403) {
+					errorMessage = 'User tidak ditemukan atau tidak aktif.'
+				}
+
+				return (
+					<Alert theme="warning" className="margin-bottom-2">
+						<p>{errorMessage}</p>
+					</Alert>
+				)
+			}
+		}
+
+
 		return (
 			<Form onSubmit={handleLoginSubmit}>
-				{ this.renderErrorAlert() }
-				<FormGroup>
+				{ renderAlert() }
+				<FormGroup row>
 					<Label htmlFor="username">
 						<small className="tt-uppercase fw-semibold ls-base">Username</small>
 					</Label>
@@ -52,9 +48,10 @@ class LoginForm extends React.Component {
 						type="text"
 						placeholder="Masukkan username"
 						onChange={(e) => handleInputChange(loginData, e)}
+						required="true"
 					/>
 				</FormGroup>
-				<FormGroup>
+				<FormGroup row>
 					<Label htmlFor="password">
 						<small className="tt-uppercase fw-semibold ls-base">Password</small>
 					</Label>
@@ -63,10 +60,11 @@ class LoginForm extends React.Component {
 						type="password"
 						placeholder="Masukkan kata sandi"
 						onChange={(e) => handleInputChange(loginData, e)}
+						required="true"
 					/>
 				</FormGroup>
-				<Button type="submit" buttonTheme="dark" buttonFull disabled={user.isLoggingIn || !loginData.username || !loginData.password}>
-					<small className="fw-semibold ls-base tt-uppercase clr-light">{user.isLoggingIn ? 'Tunggu sebentar...' : 'Masuk'}</small>
+				<Button type="submit" buttonTheme="secondary" buttonFull disabled={user.item.isAuthenticating || !loginData.username || !loginData.password}>
+					<small className="fw-semibold ls-base tt-uppercase clr-dark">{user.item.isAuthenticating ? 'Tunggu sebentar...' : 'Masuk'}</small>
 				</Button>
 			</Form>
 		)

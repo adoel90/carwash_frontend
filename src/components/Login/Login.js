@@ -5,13 +5,11 @@ import LoginForm from './LoginForm';
 
 class Login extends React.Component {
 	render() {
-		console.log(this.props);
-
 		return (
 			<div className="login">
 				<div className="login-box">
 					<div className="padding-bottom-3 ta-center">
-						<h5 className="fw-semibold">805 Carwash Admin Panel</h5>
+						<h5 className="fw-semibold">805 Carwash Admin</h5>
 						<p>Silahkan masukkan data dengan lengkap dan benar.</p>
 					</div>
 					<LoginForm {...this.props} />

@@ -100,14 +100,14 @@ class Service extends React.Component {
 						</aside>
 						<div className="column-10">
 							<div className="heading padding-bottom-1">
-								<PageBlock>
+								<PageBlock theme="primary">
 									<Row>
 										<div className="column-9">
 											<h5 className="fw-medium">Selamat datang, <span className="fw-semibold">{member.name}.</span></h5>
-											<p className="clr-passive">Silahkan pilih layanan yang diinginkan.</p>
+											<p>Silahkan pilih layanan yang diinginkan.</p>
 										</div>
 										<div className="column-3 ta-center">
-											<h6 className="tt-uppercase ls-base clr-passive fw-semibold">Saldo Anda</h6>
+											<h6 className="tt-uppercase ls-base fw-semibold">Saldo Anda</h6>
 											<h5 className="fw-bold">
 												<Currency value={member.balance} />
 											</h5>

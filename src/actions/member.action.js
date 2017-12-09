@@ -8,6 +8,8 @@ export const AUTHENTICATE_MEMBER_REQUESTED = 'AUTHENTICATE_MEMBER_REQUESTED';
 export const AUTHENTICATE_MEMBER_FULFILLED = 'AUTHENTICATE_MEMBER_FULFILLED';
 export const AUTHENTICATE_MEMBER_REJECTED = 'AUTHENTICATE_MEMBER_REJECTED';
 
+export const LOGOUT_MEMBER_FULFILLED = 'LOGOUT_MEMBER_FULFILLED';
+
 export const MEMBER_TOPUP_FULFILLED = 'MEMBER_TOPUP_FULFILLED';
 export const MEMBER_TOPUP_REJECTED = 'MEMBER_TOPUP_REJECTED';
 export const MEMBER_REFUND_REQUESTED = 'MEMBER_REFUND_REQUESTED';
@@ -30,37 +32,22 @@ export const CHANGE_MEMBER_STATUS_REJECTED = 'CHANGE_MEMBER_STATUS_REJECTED';
 export const DELETE_MEMBER_FULFILLED = 'DELETE_MEMBER_FULFILLED';
 export const DELETE_MEMBER_REJECTED = 'DELETE_MEMBER_REJECTED';
 
-export const LOGOUT_MEMBER_FULFILLED = 'LOGOUT_MEMBER_FULFILLED';
-
 const cookies = new Cookies();
-
-export const resetMemberData = () => {
-	return async dispatch => {
-		dispatch({
-			type: RESET_MEMBER_DATA
-		})
-	}
-} 
 
 export const authenticateMember = (data) => {
 	return async dispatch => {
 		dispatch(handleRequest());
-		
 		axios
 			.post(`${constant.API_PATH}member/authenticate`, {
 				card: data.card
 			})
 			.then((response) => {
 				dispatch(handleSuccess(response.data.data));
-
-				if(!cookies.get('accessToken')) {
-					cookies.set('accessToken', response.data.data.accessToken, { path: '/' });
-				}
-
+				cookies.set('accessToken', response.data.data.accessToken, { path: '/' });
 				cookies.set('member', response.data.data.member, { path: '/' });
 			})
 			.catch((error) => {
-				dispatch(handleError(error.response.data))
+				dispatch(handleError(error))
 			})
 	}
 

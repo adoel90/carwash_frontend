@@ -20,8 +20,8 @@ class LandingContainer extends React.Component {
 			member
 		} = this.props;
 
-		if(prevProps !== this.props) {
-			if(member.data.id) {
+		if(prevProps.member !== this.props.member) {
+			if(member.item.isAuthenticated) {
 				window.location.reload();
 			}
 		}

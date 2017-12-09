@@ -9,7 +9,16 @@ class MainHeader extends React.Component {
 	}
 
 	renderHeaderProfile = () => {
-		const { match, isAuthenticated } = this.props;
+		const { 
+			member,
+			user,
+			match,
+			isAuthenticated,
+			location
+		} = this.props;
+
+		// console.log(user);
+		// console.log(member);
 
 		if(isAuthenticated) {
 			return (
@@ -18,8 +27,6 @@ class MainHeader extends React.Component {
 				</div>
 			)
 		}
-
-		return null;
 	}
 
 	render() {

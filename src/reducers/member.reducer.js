@@ -2,22 +2,28 @@ import {
 	AUTHENTICATE_MEMBER_REQUESTED,
 	AUTHENTICATE_MEMBER_FULFILLED,
 	AUTHENTICATE_MEMBER_REJECTED,
+
 	MEMBER_TOPUP_FULFILLED,
 	MEMBER_TOPUP_REJECTED,
 	MEMBER_REFUND_REQUESTED,
 	MEMBER_REFUND_FULFILLED,
 	MEMBER_REFUND_REJECTED,
+
 	GET_MEMBER_LIST_REQUESTED,
 	GET_MEMBER_LIST_FULFILLED,
 	GET_MEMBER_LIST_REJECTED,
+
 	CREATE_MEMBER_FULFILLED,
 	CREATE_MEMBER_REJECTED,
+
 	UPDATE_MEMBER_REQUESTED,
 	UPDATE_MEMBER_FULFILLED,
 	UPDATE_MEMBER_REJECTED,
+
 	CHANGE_MEMBER_STATUS_REQUESTED,
 	CHANGE_MEMBER_STATUS_FULFILLED,
 	CHANGE_MEMBER_STATUS_REJECTED,
+
 	LOGOUT_MEMBER_FULFILLED,
 	LOGOUT_MEMBER_REJECTED
 } from '../actions/member.action'
@@ -26,6 +32,9 @@ const initialState = {
 	item: {
 		id: null,
 		data: {},
+		accessToken: '',
+		isAuthenticating: false,
+		isAuthenticated: false,
 		isUpdating: false,
 		isUpdated: false,
 		isStatusChanging: false,
@@ -44,11 +53,6 @@ const initialState = {
 		isError: false,
 		error: {}
 	},
-	data: {},
-	accessToken: '',
-	isAuthenticated: false,
-	isError: false,
-	error: {},
 }
 
 const member = (state = initialState, action) => {
@@ -56,38 +60,43 @@ const member = (state = initialState, action) => {
 		case AUTHENTICATE_MEMBER_REQUESTED: {
 			return {
 				...state,
-				data: {},
-				accessToken: null,
-				isAuthenticating: true,
-				isAuthenticated: false,
-				isError: false,
-				error: {}
+				item: {
+					...state.item,
+					data: {},
+					accessToken: null,
+					isAuthenticating: true,
+					isAuthenticated: false,
+					isError: false,
+					error: {}
+				}
 			}
 		}
-		
+
 		case AUTHENTICATE_MEMBER_FULFILLED: {
 			return {
 				...state,
-				data: action.payload.member,
-				accessToken: action.payload.accessToken,
-				isLoaded: true,
-				isAuthenticating: false,
-				isAuthenticated: true,
-				isError: false,
-				error: {}
+				item: {
+					...state.item,
+					data: action.payload.data,
+					accessToken: action.payload.accessToken,
+					isAuthenticating: false,
+					isAuthenticated: true,
+					isError: false,
+					error: {}
+				}
 			}
 		}
 
 		case AUTHENTICATE_MEMBER_REJECTED: {
 			return {
 				...state,
-				data: {},
-				accessToken: '',
-				error: action.payload,
-				isAuthenticating: false,
-				isAuthenticated: false,
-				isLoaded: false,
-				isError: true
+				item: {
+					...state.item,
+					isAuthenticating: false,
+					isAuthenticated: false,
+					isError: true,
+					error: action.payload
+				}
 			}
 		}
 

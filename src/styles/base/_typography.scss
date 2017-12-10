@@ -107,7 +107,7 @@ $ta-offsets: left, center, right, justify;
 /*/
 /*	Text Alignment
 /*/
-$fw-offsets: thin light normal medium semibold bold black;
+$fw-offsets: thin light regular medium semibold bold black;
 @each $offset in $fw-offsets {
 	.fw-#{$offset} {
 		@include font-weight($offset);

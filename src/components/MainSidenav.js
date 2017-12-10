@@ -8,11 +8,17 @@ class MainSidenav extends React.Component {
 	}
 
 	renderSidenavItem = (item, i) => {
-		const path = item.path ? item.path : item.name.replace(/\s+/g, '-').toLowerCase();
+		const {
+			basePath
+		} = this.props;
+
+		const path = item.path 
+			? `${basePath}/${item.path}` 
+			: `${basePath}/${item.name.replace(/\s+/g, '-').toLowerCase()}`;
 
 		return (
 			<li className="sidenav__item" key={i}>
-				<NavLink to={`${this.props.basePath}/${path}`}>
+				<NavLink to={path}>
 					{ item.name }
 				</NavLink>
 			</li>

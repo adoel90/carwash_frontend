@@ -265,6 +265,7 @@ const member = (state = initialState, action) => {
 				item: {
 					...state.item,
 					id: action.id,
+					data: {},
 					isStatusChanging: true,
 					isStatusChanged: false,
 					isError: false,

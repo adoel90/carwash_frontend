@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
+
 import { Modal } from 'reactstrap';
 import { ModalDialog } from '../Modal';
 import { PropsRoute } from '../Route';
@@ -20,12 +22,12 @@ class Profile extends Component {
 		}
 
 		const renderRoutes = () => {
-			submodules.map((item, i) => {
+			return submodules.map((item, i) => {
 				return (
 					<PropsRoute
 						key={i}
 						name={item.name}
-						path={item.path}
+						path={`${match.url}/${item.path}`}
 						component={item.component}
 						{...this.props}
 					/>
@@ -49,15 +51,18 @@ class Profile extends Component {
 			)
 		}
 
+		let firstRoutePath = submodules[0].path;
+
 		return (
 			<main className="main main--has-subheader">
-				<Container className="padding-top-3">
+				<Container className="padding-top-3 padding-bottom-3">
 					<Row>
 						<aside className="sidebar column-2">
 							{ renderSidenav() }
 						</aside>
 						<div className="column-10">
 							{ renderRoutes() }
+							<Redirect from="/*" to={`${match.url}/${firstRoutePath}`} />
 						</div>
 					</Row>
 				</Container>

@@ -1,8 +1,15 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { ProfileAccount } from '../components/Profile';
 
-class ProfileAccountContainer extends React.Component {
+class ProfileAccountContainer extends Component {
 	render() {
-		return null;
+		return (
+			<ProfileAccount
+				{...this.state}
+				{...this.props}
+			/>
+		);
 	}
 }
 

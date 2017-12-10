@@ -13,7 +13,7 @@ class ProfileContainer extends Component {
 		super();
 		this.state = {
 			submodules: [
-				{ name: 'Informasi Akun', path: '/profile/account', component: ProfileAccountContainer },
+				{ name: 'Informasi Akun', path: 'account', component: ProfileAccountContainer },
 			]
 		}
 
@@ -74,7 +74,6 @@ class ProfileContainer extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-		member: state.member,
 		dialog: state.dialog
 	}
 }

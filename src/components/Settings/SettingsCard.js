@@ -76,10 +76,9 @@ class SettingsCard extends Component {
 						</FormGroup>
 						<FormGroup row>
 							<Label htmlFor="refundable" className="fw-semibold">Dapat refund?</Label>
-							<Input
-								type="checkbox"
-								name="refunable"
-								value={newCardType.refunable}
+							<InputSwitch
+								name="refundable"
+								value={newCardType.refundable}
 								onChange={(e) => handleInputChange(newCardType, e)}
 							/>
 						</FormGroup>

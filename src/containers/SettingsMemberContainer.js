@@ -81,21 +81,21 @@ class SettingsMemberContainer extends Component {
 			}
 		}
 
-		if(prevProps.member.updated !== this.props.member.updated) {
+		if(prevProps.member.item !== member.item) {
 			let dialogData = {};
 
-			if(member.updated.isStatusChanging) {
+			if(member.item.isStatusChanging) {
 				memberList.forEach((item) => {
-					if(item.id === member.updated.id) {
+					if(item.id === member.item.id) {
 						item.statusChanging = true;
 						this.forceUpdate();
 					}
 				})
 			}
 
-			if(member.updated.isStatusChanged) {
+			if(member.item.isStatusChanged) {
 				memberList.forEach((item) => {
-					if(item.id === member.updated.id) {
+					if(item.id === member.item.id) {
 						item.statusChanging = false;
 
 						if(item.status) {
@@ -110,7 +110,7 @@ class SettingsMemberContainer extends Component {
 				});
 			}
 
-			if(member.updated.isUpdated) {
+			if(member.item.isUpdated) {
 				dialogData = {
 					type: 'success',
 					title: 'Berhasil',
@@ -124,7 +124,7 @@ class SettingsMemberContainer extends Component {
 				toggleDialog(dialogData);
 			}
 
-			if(member.updated.isError) {
+			if(member.item.isError) {
 				dialogData = {
 					type: 'warning',
 					title: 'Perhatian!',

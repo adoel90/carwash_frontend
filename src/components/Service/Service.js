@@ -107,8 +107,8 @@ class Service extends React.Component {
 											<p>Silahkan pilih layanan yang diinginkan.</p>
 										</div>
 										<div className="column-3 ta-center">
-											<h6 className="tt-uppercase ls-base fw-semibold">Saldo Anda</h6>
-											<h5 className="fw-bold">
+											<small className="tt-uppercase ls-base fw-semibold">Saldo Saya</small>
+											<h5 className="fw-bold clr-primary">
 												<Currency value={member.balance} />
 											</h5>
 										</div>

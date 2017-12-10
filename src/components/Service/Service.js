@@ -100,7 +100,7 @@ class Service extends React.Component {
 						</aside>
 						<div className="column-10">
 							<div className="heading padding-bottom-1">
-								<PageBlock theme="primary">
+								<PageBlock>
 									<Row>
 										<div className="column-9">
 											<h5 className="fw-medium">Selamat datang, <span className="fw-semibold">{member.name}.</span></h5>

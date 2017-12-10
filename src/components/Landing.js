@@ -32,14 +32,6 @@ class Landing extends React.Component {
 		this.props.handleChange(value);
 	}
 
-	// componentDidUpdate = () => {
-	// 	if(this.props.member.data) {
-	// 		window.location.reload();
-	// 	}
-	//
-	// 	console.log(this.props.member);
-	// }
-
 	render() {
 		const {
 			member,

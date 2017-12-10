@@ -1,25 +1,82 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Profile } from '../components/Profile';
+import ProfileAccountContainer from './ProfileAccountContainer';
+import {
+	showDialog,
+	hideDialog
+} from '../actions/dialog.action';
 
-class ProfileContainer extends React.Component {
+
+class ProfileContainer extends Component {
 	constructor() {
 		super();
 		this.state = {
-			sidenavItems: [
-				{ title: 'Informasi Akun', path: '/profile/account' },
-				{ title: 'Daftar Transaksi', path: '/profile/transactions' }
+			submodules: [
+				{ name: 'Informasi Akun', path: '/profile/account', component: ProfileAccountContainer },
 			]
+		}
+
+		this.toggleDialog = this.toggleDialog.bind(this);
+		this.showDialog = this.showDialog.bind(this);
+		this.hideDialog = this.hideDialog.bind(this);
+	}
+
+	toggleDialog = (data) => {
+		const {
+			dialog,
+			dispatch
+		} = this.props;
+
+		if(!dialog.isOpened) {
+			this.showDialog(data);
+		}
+		else {
+			this.hideDialog();
 		}
 	}
 
+	showDialog = (data) => {
+		const { dialog, dispatch } = this.props;
+
+		dispatch(showDialog(data))
+	}
+
+	hideDialog = () => {
+		const { dialog, dispatch } = this.props;
+
+		dispatch(hideDialog());
+	}
+
+	addPathPropToTypes = () => {
+		const {
+			service
+		} = this.props;
+
+		service.types.map((type, i) => {
+			return type.path = type.name.replace(/\s+/g, '-').toLowerCase();
+		})
+	}
+
+
 	render() {
 		return (
-			<Profile 
-				{...this.state} 
-				{...this.props} 
+			<Profile
+				{...this.state}
+				{...this.props}
+				toggleDialog={this.toggleDialog}
+				showDialog={this.showDialog}
+				hideDialog={this.hideDialog}
 			/>
 		)
 	}
 }
 
-export default ProfileContainer;
+const mapStateToProps = (state) => {
+	return {
+		member: state.member,
+		dialog: state.dialog
+	}
+}
+
+export default connect(mapStateToProps)(ProfileContainer);

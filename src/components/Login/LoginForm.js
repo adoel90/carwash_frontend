@@ -21,14 +21,10 @@ class LoginForm extends React.Component {
 			} = this.props;
 
 			if(user.item.isError) {
-				let errorMessage;
-
-				if(user.item.error.response.data.status == 403) {
-					errorMessage = 'User tidak ditemukan atau tidak aktif.'
-				}
+				let errorMessage = user.item.error.response.data.message;
 
 				return (
-					<Alert theme="warning" className="margin-bottom-2">
+					<Alert theme="warning" className="ta-center margin-bottom-2 clr-danger">
 						<p>{errorMessage}</p>
 					</Alert>
 				)
@@ -39,7 +35,7 @@ class LoginForm extends React.Component {
 		return (
 			<Form onSubmit={handleLoginSubmit}>
 				{ renderAlert() }
-				<FormGroup row>
+				<FormGroup>
 					<Label htmlFor="username">
 						<small className="tt-uppercase fw-semibold ls-base">Username</small>
 					</Label>
@@ -51,7 +47,7 @@ class LoginForm extends React.Component {
 						required="true"
 					/>
 				</FormGroup>
-				<FormGroup row>
+				<FormGroup>
 					<Label htmlFor="password">
 						<small className="tt-uppercase fw-semibold ls-base">Password</small>
 					</Label>

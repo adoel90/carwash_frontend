@@ -22,8 +22,6 @@ class MainSubheader extends React.Component {
 			member
 		} = this.props;
 
-		console.log(navigations);
-
 		if(isAuthenticated) {
 			return (
 				<div className="header sub-header">

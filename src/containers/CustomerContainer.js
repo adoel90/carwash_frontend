@@ -7,9 +7,9 @@ import MainHeader from '../components/MainHeader';
 import MainSubheader from '../components/MainSubheader';
 import MainContent from '../components/MainContent';
 
-import LandingContainer from '../containers/LandingContainer';
-import ServiceContainer from '../containers/ServiceContainer';
-import ProfileContainer from '../containers/ProfileContainer';
+import LandingContainer from './LandingContainer';
+import ServiceContainer from './ServiceContainer';
+import ProfileContainer from './ProfileContainer';
 
 class CustomerContainer extends Component {
 	constructor() {

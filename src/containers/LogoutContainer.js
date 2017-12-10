@@ -14,8 +14,6 @@ class LogoutContainer extends Component {
 		} = this.props;
 
 		dispatch(userLogout());
-
-		// this.props.userLogout();
 	}
 
 	render() {

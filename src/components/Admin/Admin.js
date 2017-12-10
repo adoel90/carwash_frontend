@@ -39,7 +39,6 @@ class Admin extends Component {
 		} = this.props;
 
 		if(!isAuthenticated) {
-			console.log(123);
 			return <Redirect from="/*" to={`${match.url}/login`} />
 		}
 		else {

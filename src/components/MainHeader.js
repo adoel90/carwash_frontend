@@ -17,9 +17,6 @@ class MainHeader extends React.Component {
 			location
 		} = this.props;
 
-		// console.log(user);
-		// console.log(member);
-
 		if(isAuthenticated) {
 			return (
 				<div className="header-profile header__block">

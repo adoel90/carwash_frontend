@@ -32,8 +32,6 @@ class LoginContainer extends React.Component {
 				[name]: value
 			})
 		}
-
-		console.log(this.state);
 	}
 
 	handleLoginSubmit = (e) => {

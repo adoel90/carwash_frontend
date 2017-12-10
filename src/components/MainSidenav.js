@@ -8,7 +8,7 @@ class MainSidenav extends React.Component {
 	}
 
 	renderSidenavItem = (item, i) => {
-		const path = item.name.replace(/\s+/g, '-').toLowerCase();
+		const path = item.path ? item.path : item.name.replace(/\s+/g, '-').toLowerCase();
 
 		return (
 			<li className="sidenav__item" key={i}>
@@ -20,10 +20,14 @@ class MainSidenav extends React.Component {
 	}
 
 	render() {
+		const {
+			items
+		} = this.props;
+
 		return (
 			<nav className="sidenav">
 				<ul className="sidenav__list">
-					{ this.props.items.map(this.renderSidenavItem) }
+					{ items.map(this.renderSidenavItem) }
 				</ul>
 			</nav>
 		)

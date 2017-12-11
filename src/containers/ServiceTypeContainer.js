@@ -1,4 +1,6 @@
 import React from 'react';
+import { Route } from 'react-router-dom';
+
 import { ServiceType } from '../components/Service';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
@@ -8,7 +10,8 @@ import { connect } from 'react-redux';
 import {
 	getAllService,
 	getServiceList,
-	createServiceTransaction
+	createServiceTransaction,
+	printServiceTransaction
 } from '../actions/service.action';
 
 import {
@@ -22,13 +25,11 @@ class ServiceTypeContainer extends React.Component {
 		this.handleMemberLogout = this.handleMemberLogout.bind(this);
 		this.handleServicePayment = this.handleServicePayment.bind(this);
 		this.handleServicePaymentSubmit = this.handleServicePaymentSubmit.bind(this);
-		this.state = {
-			isModalOpen: false,
-			selectedService: {}
-		}
+		this.handlePrintReceipt = this.handlePrintReceipt.bind(this);
 		this.state = {
 			serviceList: [],
 			selectedService: {},
+			printData: {},
 			isModalOpen: {
 				paymentConfirmation: false,
 				paymentProcess: false
@@ -65,9 +66,9 @@ class ServiceTypeContainer extends React.Component {
 		
 		if(prevProps.service.transaction !== service.transaction) {
 			if(service.transaction.isPaid) {
-
+				
 				let balance = <Currency value={service.transaction.data.balance} />
-
+				
 				let dialogData = {
 					type: 'success',
 					title: 'Berhasil!',
@@ -75,8 +76,22 @@ class ServiceTypeContainer extends React.Component {
 					closeText: 'Keluar',
 					onClose: () => this.handleMemberLogout()
 				}
-
+				
 				toggleDialog(dialogData);
+				
+				this.handlePrintReceipt();
+			}
+		}
+
+		if(prevProps.service.print !== service.print) {
+			if(service.print.isPrinted) {
+				this.setState({
+					printData: service.print.data
+				})
+
+				console.log(this.state);
+				
+				window.print();
 			}
 		}
 	}
@@ -110,12 +125,11 @@ class ServiceTypeContainer extends React.Component {
 	handleMemberLogout = () => {
 		const {
 			match,
-			dispatch
+			dispatch,
+			history
 		} = this.props;
 
-		console.log(123);
-
-		return <Redirect to="/logout" />
+		return history.push('/logout');
 	}
 
 	handleServicePayment = (item) => {
@@ -144,6 +158,20 @@ class ServiceTypeContainer extends React.Component {
 		}
 
 		dispatch(createServiceTransaction(requiredData, accessToken));
+	}
+
+	handlePrintReceipt = () => {
+		const {
+			service,
+			accessToken,
+			dispatch
+		} = this.props;
+
+		let requiredData = {
+			id: service.transaction.data.transaction
+		}
+
+		dispatch(printServiceTransaction(requiredData, accessToken));
 	}
 
 	render() {

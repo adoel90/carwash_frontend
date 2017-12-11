@@ -6,6 +6,7 @@ import { Form, FormGroup } from '../Form';
 import { Input, InputGroup, InputAddon, InputCurrency, Label } from '../Input';
 import { PageBlock } from '../Page';
 import { Button } from '../Button';
+import { Alert } from '../Alert';
 import { default as CardIcon } from '../../assets/icons/Business/credit-card-3.svg';
 import { default as CardIcon2 } from '../../assets/icons/Business/credit-card-4.svg';
 import Currency from '../Currency';
@@ -33,16 +34,16 @@ class CashierTopUp extends Component {
 		const renderMemberInformation = () => {
 			return (
 				<div className="padding-bottom-3">
-					<h4 className="fw-semibold clr-primary">{member.data.name}</h4>
+					<h4 className="fw-semibold clr-primary">{member.item.data.name}</h4>
 					<h5 className="fw-semibold">
 						<NumberFormat
 							displayType={'text'}
 							format="#### #### #### ####"
-							value={member.data.card.id}
+							value={member.item.data.card ? member.item.data.card.id : null}
 						/>
 					</h5>
-					<p>{member.data.email}</p>
-					<p>{member.data.address}</p>
+					<p>{member.item.data.email}</p>
+					<p>{member.item.data.address}</p>
 				</div>
 			)
 		}
@@ -71,7 +72,7 @@ class CashierTopUp extends Component {
 									<small className="tt-uppercase fw-semibold ls-base">Rp</small>
 								</InputAddon>
 								<InputCurrency
-									value={member.data.balance}
+									value={member.item.data.balance}
 									readOnly="true"
 								/>
 							</InputGroup>
@@ -122,21 +123,34 @@ class CashierTopUp extends Component {
 			member
 		} = this.props;
 
+		const renderAlert = () => {
+            if(member.item.isError) {
+                return (
+                    <Alert theme="danger" className="flex align-items--center clr-light margin-bottom-2">
+                        <i className="ion-alert-circled margin-right-2 icon icon--base"></i>
+                        <p className="fw-semibold">{member.item.error.response.data.message}</p>
+                    </Alert>
+                )
+            }
+        }
+
 		return (
 			<div className="inner-view">
 				<PageBlock className="margin-bottom-5 ta-center">
 					<img src={CardIcon} style={{width: '150px'}}/>
 					<Row className="flex flex-column padding-bottom-3">
 						<h5 className="fw-semibold">Isi Ulang Saldo</h5>
-						<p className="clr-passive">Isi ulang saldo customer disini dengan mengikuti instruksi yang telah disediakan.</p>
+						<p className="clr-passive">Silahkan gesek kartu member untuk mengisi saldo customer pada kolom berikut.</p>
 					</Row>
-					<Row className="flex flex-row justify-content--center">
+					<Row className="flex flex-column align-items--center justify-content--center">
 						<div className="column-6">
 							<CashierTopUpForm {...this.props} />
 						</div>
+						{renderAlert()}
 					</Row>
 				</PageBlock>
 				{member.isAuthenticated ? this.renderTopupModal() : null}
+				{this.renderTopupModal()}
 			</div>
 		);
 	}

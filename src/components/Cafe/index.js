@@ -3,6 +3,7 @@ import CafeType from './CafeType';
 import CafeMenuList from './CafeMenuList';
 import CafePaymentDetail from './CafePaymentDetail';
 import CafePaymentCheckout from './CafePaymentCheckout';
+import CafePaymentReceipt from './CafePaymentReceipt';
 import CafeFooter from './CafeFooter';
 
 export {
@@ -11,5 +12,6 @@ export {
 	CafeMenuList,
 	CafePaymentDetail,
 	CafePaymentCheckout,
+	CafePaymentReceipt,
 	CafeFooter
 }

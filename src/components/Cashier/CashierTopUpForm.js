@@ -23,7 +23,7 @@ class CashierTopUpForm extends Component {
 						<Input
 							name="card"
 							type="number"
-							placeholder="Klik disini sebelum menggesek kartu"
+							placeholder="16-digit nomor kartu member"
 							onChange={(e) => handleInputChange(memberAuthData, e)}
 							autoFocus="true"
 							selectOnFocus

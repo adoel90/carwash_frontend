@@ -29,6 +29,9 @@ import {
 	CREATE_SERVICE_TRANSACTION_REQUESTED,	
 	CREATE_SERVICE_TRANSACTION_FULFILLED,
 	CREATE_SERVICE_TRANSACTION_REJECTED,
+	PRINT_SERVICE_TRANSACTION_REQUESTED,
+	PRINT_SERVICE_TRANSACTION_FULFILLED,
+	PRINT_SERVICE_TRANSACTION_REJECTED,
 
 } from '../actions/service.action';
 
@@ -73,6 +76,13 @@ const initialState = {
 		data: {},
 		isPaying: false,
 		isPaid: false,
+		isError: false,
+		error: {}
+	},
+	print: {
+		data: {},
+		isPrinting: false,
+		isPrinted: false,
 		isError: false,
 		error: {}
 	}
@@ -385,6 +395,48 @@ const service = (state = initialState, action) => {
 					data: {},
 					isPaid: false,
 					isPaying: false,
+					isError: true,
+					error: action.payload
+				}
+			}
+		}
+
+		case PRINT_SERVICE_TRANSACTION_REQUESTED: {
+			return {
+				...state,
+				print: {
+					...state.print,
+					data: {},
+					isPrinting: true,
+					isPrinted: false,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case PRINT_SERVICE_TRANSACTION_FULFILLED: {
+			return {
+				...state,
+				print: {
+					...state.print,
+					data: action.payload.data,
+					isPrinting: false,
+					isPrinted: true,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case PRINT_SERVICE_TRANSACTION_REJECTED: {
+			return {
+				...state,
+				print: {
+					...state.print,
+					data: {},
+					isPrinting: false,
+					isPrinted: false,
 					isError: true,
 					error: action.payload
 				}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ServiceItemList } from '../Service';
+import { ServiceItemList, ServicePaymentReceipt } from '../Service';
 import { PageBlock } from '../Page';
 import { Row } from '../Grid';
 import { Button } from '../Button';
@@ -48,6 +48,7 @@ class ServiceType extends React.Component {
 		return (
 			<div className="inner-view" id="category">
 				{ renderServiceItemList() }
+				<ServicePaymentReceipt {...this.props} />
 			</div>
 		)
 	}

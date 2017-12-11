@@ -41,8 +41,13 @@ class CustomerContainer extends Component {
 			isAuthenticated,
 			accessToken,
 			member,
+			user,
 			match
 		} = this.props;
+
+		if(user.id) {
+			return <p>You are not authorized to view this content.</p>
+		}
 
 		return (
 			<div>

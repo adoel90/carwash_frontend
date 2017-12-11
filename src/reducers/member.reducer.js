@@ -77,7 +77,7 @@ const member = (state = initialState, action) => {
 				...state,
 				item: {
 					...state.item,
-					data: action.payload.data,
+					data: action.payload.member,
 					accessToken: action.payload.accessToken,
 					isAuthenticating: false,
 					isAuthenticated: true,

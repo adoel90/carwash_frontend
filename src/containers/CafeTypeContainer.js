@@ -57,13 +57,13 @@ class CafeTypeContainer extends React.Component {
 			toggleDialog
 		} = this.props;
 
-		if(prevProps.member.isAuthenticated !== member.isAuthenticated) {
+		if(prevProps.member.item.isAuthenticated !== member.item.isAuthenticated) {
 			this.setState({
 				...this.state,
 				memberInfo: {
 					...this.state.memberInfo,
-					memberData: member.data,
-					memberToken: member.accessToken
+					memberData: member.item.data,
+					memberToken: member.item.accessToken
 				}
 			})
 		}
@@ -213,11 +213,11 @@ class CafeTypeContainer extends React.Component {
 			selectedMenuList
 		} = this.state;
 
-		dispatch(createCafeTransaction(selectedMenuList, memberInfo.memberToken))
+		dispatch(createCafeTransaction(selectedMenuList, memberInfo.memberToken));
 	}
 
 	handlePrintReceipt = () => {
-		console.log('PRINTING!')
+		window.print();
 	}
 
 	handleMemberAuthentication = (e) => {

@@ -52,10 +52,6 @@ class AdminContainer extends Component {
 			member,
 			isAuthenticated
 		} = this.props;
-
-		if(member.id) {
-			return <p>You are not authorized to view this content.</p>
-		}
  
 		return (
 			<Admin

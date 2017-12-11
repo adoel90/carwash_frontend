@@ -39,8 +39,8 @@ class CashierTopUpContainer extends Component {
 			topupData
 		} = this.state;
 
-		if(prevProps.member !== this.props.member) {
-			if(member.isAuthenticated) {
+		if(prevProps.member.item !== member.item) {
+			if(member.item.isAuthenticated) {
 				this.handleTopup();
 			}
 
@@ -100,8 +100,8 @@ class CashierTopUpContainer extends Component {
 		let requiredData = {
 			balance: parseInt(topupData.balance.replace(/,/g, ''))
 		}
-
-		dispatch(memberTopup(requiredData, member.accessToken));
+		
+		dispatch(memberTopup(requiredData, member.item.accessToken));
 	}
 
 	handleTopup = () => {

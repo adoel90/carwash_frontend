@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import NumberFormat from 'react-number-format';
 
-import { CafeMenuList, CafePaymentDetail, CafePaymentCheckout } from '../Cafe';
+import { 
+	CafeMenuList, 
+	CafePaymentDetail, 
+	CafePaymentCheckout,
+	CafePaymentReceipt
+} from '../Cafe';
 import SearchBar from '../SearchBar';
 import { Button } from '../Button';
 import { Modal } from 'reactstrap';
@@ -43,6 +48,7 @@ class CafeType extends Component {
 				{ renderCafeMenuList() }
 				<CafePaymentDetail {...this.props} />
 				<CafePaymentCheckout {...this.props} />
+				<CafePaymentReceipt {...this.props} />
 			</div>
 		);
 	}

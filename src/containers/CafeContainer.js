@@ -162,7 +162,7 @@ class CafeContainer extends React.Component {
 			dataArray.push(requiredData);
 		})
 
-		dispatch(createCafeTransaction(dataArray, member.accessToken));
+		dispatch(createCafeTransaction(dataArray, member.item.accessToken));
 	}
 
 	handlePaymentMemberAuthentication = (e) => {

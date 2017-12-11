@@ -7,8 +7,6 @@ import {
 	hideDialog
 } from '../actions/dialog.action';
 
-
-
 import { getServiceTypes } from '../actions/service.action.js';
 
 class ServiceContainer extends React.Component {

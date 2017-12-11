@@ -42,7 +42,7 @@ class CafePaymentCheckout extends Component {
         }
         
         const renderMemberInfo = () => {
-            if(member.isAuthenticated) {
+            if(member.item.isAuthenticated) {
                 return (
                     <div className="flex flex-column align-items--center">
                         { renderPaymentAvailability() }
@@ -68,7 +68,7 @@ class CafePaymentCheckout extends Component {
                 )
             }
 
-            if(member.isAuthenticating) {
+            if(member.item.isAuthenticating) {
                 return (
                     <div className="flex flex-column justify-content--center align-items--center">
                         <p>Mengotentikasi customer...</p>
@@ -76,7 +76,7 @@ class CafePaymentCheckout extends Component {
                 )
             }
 
-            if(member.isError) {
+            if(member.item.isError) {
                 return (
                     <div className="flex flex-column justify-content--center align-items--center">
                         <p className="clr-danger">Kartu tidak terbaca atau customer tidak terdeteksi.</p>

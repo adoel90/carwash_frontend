@@ -32,6 +32,9 @@ export const CHANGE_SERVICE_TYPE_STATUS_REJECTED = 'CHANGE_SERVICE_TYPE_STATUS_F
 export const CREATE_SERVICE_TRANSACTION_REQUESTED = 'CREATE_SERVICE_TRANSACTION_REQUESTED';
 export const CREATE_SERVICE_TRANSACTION_FULFILLED = 'CREATE_SERVICE_TRANSACTION_FULFILLED';
 export const CREATE_SERVICE_TRANSACTION_REJECTED = 'CREATE_SERVICE_TRANSACTION_REJECTED';
+export const PRINT_SERVICE_TRANSACTION_REQUESTED = 'PRINT_SERVICE_TRANSACTION_REQUESTED';
+export const PRINT_SERVICE_TRANSACTION_FULFILLED = 'PRINT_SERVICE_TRANSACTION_FULFILLED';
+export const PRINT_SERVICE_TRANSACTION_REJECTED = 'PRINT_SERVICE_TRANSACTION_REJECTED';
 
 const cookies = new Cookies();
 
@@ -278,4 +281,23 @@ export const createServiceTransaction = (data, accessToken) => {
 	function handleRequest() { return { type: CREATE_SERVICE_TRANSACTION_REQUESTED } };
 	function handleSuccess(data) { return { type: CREATE_SERVICE_TRANSACTION_FULFILLED, payload: data } };
 	function handleError(error) { return { type: CREATE_SERVICE_TRANSACTION_REJECTED, payload: error } };
+}
+
+export const printServiceTransaction = (data, accessToken) => {
+	return async dispatch => {
+		dispatch(handleRequest());
+
+		return axios
+			.get(`${constant.API_PATH}service/transaction/print?accessToken=${accessToken}&id=${data.id}`)
+			.then((response) => {
+				dispatch(handleSuccess(response.data))
+			})
+			.catch((error) => {
+				dispatch(handleError(error))
+			})
+	}
+
+	function handleRequest() { return { type: PRINT_SERVICE_TRANSACTION_REQUESTED } }
+	function handleSuccess(data) { return { type: PRINT_SERVICE_TRANSACTION_FULFILLED, payload: data } }
+	function handleError(data) { return { type: PRINT_SERVICE_TRANSACTION_REJECTED, payload: data } }
 }

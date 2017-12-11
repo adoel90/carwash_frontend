@@ -21,7 +21,7 @@ class CashierRefund extends Component {
                 return (
                     <Alert theme="danger" className="flex align-items--center clr-light margin-bottom-2">
                         <i className="ion-alert-circled margin-right-2 icon icon--base"></i>
-                        <p className="fw-semibold">{member.error.message || member.item.error.response.data.message}</p>
+                        <p className="fw-semibold">{member.item.error.response.data.message}</p>
                     </Alert>
                 )
             }

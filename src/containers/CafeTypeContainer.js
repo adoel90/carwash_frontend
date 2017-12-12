@@ -57,15 +57,17 @@ class CafeTypeContainer extends React.Component {
 			toggleDialog
 		} = this.props;
 
-		if(prevProps.member.item.isAuthenticated !== member.item.isAuthenticated) {
-			this.setState({
-				...this.state,
-				memberInfo: {
-					...this.state.memberInfo,
-					memberData: member.item.data,
-					memberToken: member.item.accessToken
-				}
-			})
+		if(prevProps.member.item !== member.item) {
+			if(member.item.isAuthenticated) {
+				this.setState({
+					...this.state,
+					memberInfo: {
+						...this.state.memberInfo,
+						memberData: member.item.data,
+						memberToken: member.item.accessToken
+					}
+				})
+			}
 		}
 
 		if(prevProps.cafe.list !== cafe.list) {

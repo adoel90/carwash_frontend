@@ -67,10 +67,22 @@ class SettingsCafeTypeContainer extends Component {
 		if(prevProps.cafe.menu !== cafe.menu) {
 			let dialogData = {};
 
+			if(cafe.menu.isCreated) {
+				dialogData = {
+					type: 'success',
+					title: 'Berhasil!',
+					message: 'Menu telah berhasil ditambahkan. Klik tombol berikut untuk kembali.',
+					onClose: () => window.location.reload(),
+					closeText: 'Kembali'
+				}
+
+				toggleDialog(dialogData);
+			}
+
 			if(cafe.menu.isUpdated) {
 				dialogData = {
 					type: 'success',
-					title: 'Berhasil',
+					title: 'Berhasil!',
 					message: 'Menu ini telah berhasil diperbarui. Klik tombol berikut untuk kembali.',
 					onClose: () => window.location.reload(),
 					closeText: 'Kembali'
@@ -79,6 +91,7 @@ class SettingsCafeTypeContainer extends Component {
 				toggleDialog(dialogData);
 			}
 
+			//
 			if(cafe.menu.isStatusChanging) {
 				cafeList.map((item) => {
 					if(item.id === cafe.menu.id) {
@@ -105,39 +118,6 @@ class SettingsCafeTypeContainer extends Component {
 				this.forceUpdate();
 			}
 		}
-
-	// 	if(prevProps.cafe !== this.props.cafe) {
-	// 		let dialogData = {
-	// 			success: {
-	// 				type: 'success',
-	// 				title: '',
-	// 				message: '',
-	// 				onClose: () => {
-	// 					window.location.reload()
-	// 				},
-	// 				closeText: 'Kembali'
-	// 			}
-	// 		}
-	//
-	// 		if(cafe.isUpdated) {
-	// 			dialogData.success.title = 'Berhasil!';
-	// 			dialogData.success.message = 'Perubahan terhadap menu cafe berhasil. Klik tombol berikut untuk kembali.';
-	// 			toggleDialog(dialogData.success);
-	// 		}
-	//
-	// 		if(cafe.isCreated) {
-	// 			dialogData.success.title = 'Berhasil';
-	// 			dialogData.success.message = 'Menu baru telah berhasil ditambah. Klik tombol berikut untuk kembali.';
-	// 			toggleDialog(dialogData.success);
-	// 		}
-	//
-	// 		if(cafe.isDeleted) {
-	// 			dialogData.success.title = 'Berhasil!';
-	// 			dialogData.success.message = 'Penghapusan menu cafe berhasil. Klik tombol berikut untuk kembali.';
-	// 			showDialog(dialogData.success);
-	// 		}
-	// 	}
-	// }
 	}
 
 	handleImageChange = (object, e) => {
@@ -198,7 +178,7 @@ class SettingsCafeTypeContainer extends Component {
 		let requiredData = {
 			cafe: type.id,
 			name: cafeMenuCreate.name,
-			price: parseInt(cafeMenuCreate.price.replace(/'/g, '')),
+			price: parseInt(cafeMenuCreate.price.replace(/,/g, '')),
 			description: cafeMenuCreate.description,
 			image: cafeMenuCreate.image
 		}

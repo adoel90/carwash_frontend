@@ -34,7 +34,6 @@ class LoginForm extends React.Component {
 
 		return (
 			<Form onSubmit={handleLoginSubmit}>
-				{ renderAlert() }
 				<FormGroup>
 					<Label htmlFor="username">
 						<small className="tt-uppercase fw-semibold ls-base">Username</small>

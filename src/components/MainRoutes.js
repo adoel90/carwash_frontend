@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Switch } from 'react-router-dom';
+import { Switch, Redirect } from 'react-router-dom';
 import { PropsRoute, PrivateRoute } from './Route';
 import AdminContainer from '../containers/AdminContainer';
 import CustomerContainer from '../containers/CustomerContainer';
@@ -31,8 +31,12 @@ class MainRoutes extends Component {
 					name="logout"
 					path="/logout"
 					component={LogoutContainer}
-					redirectTo="/"
+					redirectTo="/customer"
 					{...this.props}
+				/>
+				<Redirect
+					from="/"
+					to="/customer"
 				/>
 			</Switch>
 		)

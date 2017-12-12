@@ -1,31 +1,46 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { userLogout } from '../actions/user.action.js';
+import { userLogout } from '../actions/user.action';
 
 class LogoutContainer extends Component {
-	componentWillReceiveProps = (nextProps) => {
-		console.log(nextProps);
+	constructor() {
+		super();
+		this.handleLogout = this.handleLogout.bind(this);
 	}
 
-	componentDidMount = (prevProps) => {
+	componentDidUpdate = (prevProps) => {
+		const {
+			user
+		} = this.props;
+		
+		if(prevProps.user.item !== user.item) {
+			window.location.reload();
+		}
+	}
+	
+	componentWillMount = () => {
+		this.handleLogout();
+	}
+
+	handleLogout = () => {
 		const {
 			dispatch
 		} = this.props;
-
+		
 		dispatch(userLogout());
 	}
+
 
 	render() {
 		return null;
 	}
-
 }
 
-const mapDispatchToProps = (state) => {
+const mapStateToProps = (state) => {
 	return {
-		authentication: state.authentication
+		user: state.user
 	}
 }
-
-export default connect(mapDispatchToProps)(LogoutContainer);
+ 
+export default connect(mapStateToProps)(LogoutContainer);

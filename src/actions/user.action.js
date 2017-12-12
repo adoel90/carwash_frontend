@@ -46,9 +46,6 @@ export const userLogout = () => {
 				cookies.remove('user');
 				cookies.remove('member');
 			})
-			.then(() => {
-				window.location.reload();
-			})
 	}
 
 	function handleLogout() {

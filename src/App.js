@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import PrintProvider from 'react-easy-print';
 import {
 	withCookies,
 	Cookies
@@ -13,8 +12,8 @@ class App extends React.Component {
 		super();
 		this.handleAuthentication = this.handleAuthentication.bind(this);
 		this.state = {
-			accessToken: '',
-			isAuthenticated: {},
+			accessToken: null,
+			isAuthenticated: false,
 		}
 	}
 
@@ -40,7 +39,13 @@ class App extends React.Component {
 	}
 
 	render() {
-		return <MainRoutes {...this.state} {...this.props} />
+		return (
+			<MainRoutes 
+				{...this.state} 
+				{...this.props}
+				handleLogout={this.handleLogout}
+			/>
+		)
 	}
 }
 

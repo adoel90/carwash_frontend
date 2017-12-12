@@ -8,8 +8,7 @@ class SettingsServiceList extends Component {
 			table: {
 				columns: [
 					{ accessor: 'name', title: 'Nama' },
-					{ accessor: 'price', title: 'Harga', isCurrency: true },
-					{ accessor: 'status', title: 'Status', isStatus: true }
+					{ accessor: 'price', title: 'Harga', isCurrency: true }
 				]
 			}
 		}

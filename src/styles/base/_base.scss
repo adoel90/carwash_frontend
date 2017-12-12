@@ -4,8 +4,8 @@ body {
 
 * {
 	@include border-box;
-	font-family: $font-family-sans-serif !important;
-	line-height: $line-height-base !important;
+	font-family: $font-family-sans-serif;
+	line-height: $line-height-base;
 }
 
 #app {

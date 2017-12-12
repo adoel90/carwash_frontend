@@ -37,6 +37,8 @@ const initialState = {
 		data: {},
 		isUpdating: false,
 		isUpdated: false,
+		isCreating: false,
+		isCreated: false,
 		isStatusChanging: false,
 		isStatusChanged: false,
 		isError: false,
@@ -125,7 +127,7 @@ const cafe = (state = initialState, action) => {
 				menu: {
 					...state.menu,
 					id: action.id,
-					menu: {},
+					data: {},
 					isCreating: true,
 					isCreated: false,
 					isError: false,
@@ -140,7 +142,7 @@ const cafe = (state = initialState, action) => {
 				menu: {
 					...state.menu,
 					id: action.id,
-					menu: action.payload.data,
+					data: action.payload.data,
 					isCreating: false,
 					isCreated: true,
 					isError: false,
@@ -154,7 +156,7 @@ const cafe = (state = initialState, action) => {
 				...state,
 				menu: {
 					...state.menu,
-					menu: {},
+					data: {},
 					isCreating: false,
 					isCreated: false,
 					isError: true,

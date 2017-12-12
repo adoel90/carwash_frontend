@@ -1,35 +1,15 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-
-import { 
-	SettingsNewService, 
-	SettingsUpdateService, 
-	SettingsManageServiceType 
-} from '../Settings';
-import { Table, Modal } from 'reactstrap';
+import { Modal } from 'reactstrap';
 import { ModalHeader, ModalContent, ModalFooter } from '../Modal';
-import { PageBlock } from '../Page';
-import { Nav, NavTabLink, NavItem } from '../Nav';
-import { Form, FormGroup } from '../Form';
-import { Input, InputCurrency, InputGroup, InputAddon, Label } from '../Input';
-import { Button, ButtonGroup } from '../Button';
-import { TabContent } from '../Tab';
-import { PropsRoute } from '../Route';
-import { Row } from '../Grid';
-import { Alert } from '../Alert';
 import { ListGroup, ListGroupItem } from '../List';
+import { Form } from '../Form';
+import { Row } from '../Grid';
+import { Button } from '../Button';
+import { Input, InputGroup } from '../Input';
 
-import SettingsServiceTypeContainer from '../../containers/SettingsServiceTypeContainer';
-
-class SettingsService extends Component {
-	constructor() {
-		super();
-		this.renderTabNav = this.renderTabNav.bind(this);
-		this.renderTabContent = this.renderTabContent.bind(this);
-	}
-
-	renderServiceTypeSettingsModal = () => {
-		const {
+class SettingsManageServiceType extends Component {
+    render() {
+        const {
 			service,
 			serviceTypes,
 			newServiceType,
@@ -117,73 +97,7 @@ class SettingsService extends Component {
 				</ModalFooter>
 			</Modal>
 		)
-	}
-
-	renderTabContent = (type, i) => {
-		const {
-			match,
-			activeTab
-		} = this.props;
-
-		return (
-			<TabContent activeTab={activeTab} tabIndex={i}>
-				<PropsRoute
-					path={`${match.url}/${i}`}
-					component={SettingsServiceTypeContainer}
-					type={type}
-					{...this.props}
-				/>
-			</TabContent>
-		)
-	}
-
-	renderTabNav = (type, i) => {
-		const {
-			activeTab,
-			toggleTab
-		} = this.props;
-
-		return (
-			<NavItem>
-				<NavTabLink
-					active={activeTab === i}
-					onClick={() => toggleTab(i)}>
-					{type.name}
-				</NavTabLink>
-			</NavItem>
-		)
-	}
-
-	render() {
-		const {
-			service,
-			serviceTypes,
-			toggleModal,
-			handleServiceTypeSettings
-		} = this.props
-
-		return (
-			<div className="inner-view">
-				<div className="flex justify-content--space-between padding-bottom-2">
-					<div>
-						<h4 className="fw-semibold">Daftar Service</h4>
-					</div>
-					<div>
-						<Button type="button" buttonTheme="primary" className="clr-light" onClick={handleServiceTypeSettings}>
-							<small className="fw-semibold tt-uppercase ls-base">Pengaturan</small>
-						</Button>
-					</div>
-				</div>
-				<Nav tabs className="flex justify-content--space-between">
-					{service.types.isLoaded ? serviceTypes.active.map(this.renderTabNav) : null}
-				</Nav>
-				{ service.types.isLoaded ? serviceTypes.active.map(this.renderTabContent) : null}
-				<SettingsUpdateService {...this.props} />
-				<SettingsNewService {...this.props} />
-				<SettingsManageServiceType {...this.props} />
-			</div>
-		);
-	}
+    }
 }
 
-export default SettingsService;
+export default SettingsManageServiceType;

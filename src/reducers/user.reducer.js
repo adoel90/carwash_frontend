@@ -12,6 +12,7 @@ const initialState = {
 		accessToken: '',
 		isAuthenticating: false,
 		isAuthenticated: false,
+		isLoggedOut: false,
 		isError: false,
 		error: {}
 	}
@@ -65,7 +66,19 @@ const user = (state = initialState, action) => {
 		}
 
 		case USER_LOGOUT_FULFILLED: {
-			return initialState;
+			return {
+				...state,
+				item: {
+					...state.item,
+					data: {},
+					accessToken: '',
+					isAuthenticating: false,
+					isAuthenticated: false,
+					isLoggedOut: true,
+					isError: false,
+					error: {}
+				}
+			}
 		}
 
 		default: {

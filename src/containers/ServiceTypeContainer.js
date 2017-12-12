@@ -43,6 +43,10 @@ class ServiceTypeContainer extends React.Component {
 
 	componentDidUpdate = (prevProps) => {
 		const {
+			printData
+		} = this.state;
+
+		const {
 			service,
 			toggleDialog
 		} = this.props;
@@ -86,13 +90,13 @@ class ServiceTypeContainer extends React.Component {
 		if(prevProps.service.print !== service.print) {
 			if(service.print.isPrinted) {
 				this.setState({
+					...this.state,
 					printData: service.print.data
+				}, () => {
+					window.print();
 				})
-
-				console.log(this.state);
-				
-				window.print();
 			}
+			
 		}
 	}
 	

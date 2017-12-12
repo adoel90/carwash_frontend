@@ -7,6 +7,7 @@ import { Input, Label, InputAddon, InputGroup } from '../Input'
 import { Row } from '../Grid';
 import { TableSet } from '../Table';
 import { Alert } from '../Alert';
+import { Badge } from '../Badge';
 import Currency from '../Currency';
 import NumberFormat from 'react-number-format';
 
@@ -26,17 +27,17 @@ class CafePaymentCheckout extends Component {
         const renderPaymentAvailability = () => {
             if(memberInfo.memberData.balance > grandTotal) {
                 return (
-                    <Alert theme="success" className="flex align-items--center clr-light">
+                    <Alert theme="success" className="flex align-items--center clr-light ta-center">
                         <i className="ion-checkmark-circled icon icon--base margin-right-2"></i>
-                        <p>Saldo customer mencukupi untuk melakukan pembayaran sebesar <span className="fw-semibold"><Currency value={grandTotal} /></span>.</p>
+                        <p>Saldo customer (<span className="fw-semibold"><Currency value={memberInfo.memberData.balance} /></span>) mencukupi untuk melakukan pembayaran sebesar <span className="fw-semibold"><Currency value={grandTotal} /></span>.</p>
                     </Alert>
                 )
             }
 
             return (
-                <Alert theme="secondary" className="flex align-items--center">
+                <Alert theme="secondary" className="flex align-items--center ta-center">
                     <i className="ion-alert-circled icon icon--base margin-right-2"></i>
-                    <p>Saldo customer tidak mencukupi untuk melakukan pembayaran <span className="fw-semibold"><Currency value={grandTotal} /></span>.</p>
+                    <p>Saldo customer (<span className="fw-semibold"><Currency value={memberInfo.memberData.balance} /></span>) tidak mencukupi untuk melakukan pembayaran sebesar <span className="fw-semibold"><Currency value={grandTotal} /></span>.</p>
                 </Alert>
             )
         }
@@ -46,24 +47,25 @@ class CafePaymentCheckout extends Component {
                 return (
                     <div className="flex flex-column align-items--center">
                         { renderPaymentAvailability() }
-                        <div className="margin-top-3">
-                            <div className="ta-center margin-bottom-2">
-                                <h5 className="clr-primary">{memberInfo.memberData.name}</h5>
-                                <h6 className="clr-primary fw-semibold">
-                                    <NumberFormat
-                                        format="#### #### #### ####"
-                                        displayType={'text'}
-                                        value={memberInfo.memberData.card ? memberInfo.memberData.card.id : null}
+                        <div className="margin-top-3 margin-bottom-1 ta-center">
+                            <h5 className="clr-primary">{memberInfo.memberData.name}</h5>
+                            <h6 className="clr-primary fw-semibold">
+                                <NumberFormat
+                                    format="#### #### #### ####"
+                                    displayType={'text'}
+                                    value={memberInfo.memberData.card ? memberInfo.memberData.card.id : null}
                                     />
-                                </h6>
-                            </div>
-                            <h6 className="flex align-items--center ta-center">
-                                <small className="fw-semibold tt-uppercase ls-base">
-                                    Sisa Saldo: {' '}
-                                    <span className="fw-semibold"><Currency value={memberInfo.memberData.balance} /></span>
-                                </small>
                             </h6>
+                            {/* <h6 className="flex align-items--center ta-center">
+                                <small className="fw-semibold tt-uppercase ls-base">
+                                Sisa Saldo: {' '}
+                                <span className="fw-semibold"><Currency value={memberInfo.memberData.balance} /></span>
+                                </small>
+                            </h6> */}
                         </div>
+                        <Badge theme="secondary" className="clr-dark">
+                            <small className="tt-uppercase ls-base fw-semibold">{memberInfo.memberData.card ? memberInfo.memberData.card.type.name : null}</small>
+                        </Badge>
                     </div>
                 )
             }

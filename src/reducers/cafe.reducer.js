@@ -30,6 +30,11 @@ import {
 
 	CREATE_CAFE_TRANSACTION_FULFILLED,
 	CREATE_CAFE_TRANSACTION_REJECTED,
+	PRINT_CAFE_TRANSACTION_REQUESTED,
+	PRINT_CAFE_TRANSACTION_FULFILLED,
+	PRINT_CAFE_TRANSACTION_REJECTED,
+
+
 } from '../actions/cafe.action';
 
 const initialState = {
@@ -74,6 +79,12 @@ const initialState = {
 		data: {},
 		isPaying: false,
 		isPaid: false,
+		isError: false,
+		error: {}
+	},
+	print: {
+		data: {},
+		isPrinted: false,
 		isError: false,
 		error: {}
 	}
@@ -186,6 +197,32 @@ const cafe = (state = initialState, action) => {
 					...state.transaction,
 					data: {},
 					isPaid: false,
+					isError: true,
+					error: action.payload
+				}
+			}
+		}
+
+		case PRINT_CAFE_TRANSACTION_FULFILLED: {
+			return {
+				...state,
+				print: {
+					...state.print,
+					data: action.payload.data,
+					isPrinted: true,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case PRINT_CAFE_TRANSACTION_REJECTED: {
+			return {
+				...state,
+				print: {
+					...state.print,
+					data: {},
+					isPrinted: false,
 					isError: true,
 					error: action.payload
 				}

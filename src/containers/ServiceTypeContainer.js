@@ -48,7 +48,8 @@ class ServiceTypeContainer extends React.Component {
 
 		const {
 			service,
-			toggleDialog
+			toggleDialog,
+			showDialog
 		} = this.props;
 		
 		if(prevProps.service.list !== service.list) {
@@ -70,19 +71,17 @@ class ServiceTypeContainer extends React.Component {
 		
 		if(prevProps.service.transaction !== service.transaction) {
 			if(service.transaction.isPaid) {
-				
-				let balance = <Currency value={service.transaction.data.balance} />
-				
 				let dialogData = {
 					type: 'success',
 					title: 'Berhasil!',
 					message: `Transaksi Anda telah berhasil. Silahkan tunggu hingga struk pembayaran tercetak sepenuhnya sebelum menutup pesan ini. Terima kasih dan sampai jumpa kembali.`,
-					closeText: 'Keluar',
-					onClose: () => this.handleMemberLogout()
+					onConfirm: () => this.handlePrintReceipt(),
+					confirmText: 'Print Ulang',
+					onClose: () => this.handleMemberLogout(),
+					closeText: 'Selesai',
 				}
 				
-				toggleDialog(dialogData);
-				
+				showDialog(dialogData);
 				this.handlePrintReceipt();
 			}
 		}
@@ -154,14 +153,29 @@ class ServiceTypeContainer extends React.Component {
 		
 		const { 
 			dispatch, 
-			accessToken 
+			accessToken,
+			toggleDialog,
+			hideDialog
 		} = this.props;
 
 		const requiredData = {
 			service: selectedService.id
 		}
 
-		dispatch(createServiceTransaction(requiredData, accessToken));
+		let dialogData = {
+			type: 'confirm',
+			title: 'Konfirmasi Ulang',
+			message: 'Apakah Anda yakin atas pilihan Anda? (Pembayaran tidak dapat dibatalkan atau diuangkan kembali)',
+			onClose: () => hideDialog(),
+			closeText: 'Kembali',
+			confirmText: 'Ya, Lanjutkan',
+			onConfirm: () => {
+				dispatch(createServiceTransaction(requiredData, accessToken));
+			}
+		}
+
+		
+		toggleDialog(dialogData);
 	}
 
 	handlePrintReceipt = () => {

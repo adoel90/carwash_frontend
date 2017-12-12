@@ -186,10 +186,8 @@ class SettingsCardContainer extends Component {
 			bonus: parseInt(newCardType.minimum.replace(/,/g, '')),
 			refund: newCardType.refunable
 		}
-
-		console.log(requiredData);
 		
-		// dispatch(createNewCardType(requiredData, accessToken));
+		dispatch(createNewCardType(requiredData, accessToken));
 	}
 
 	handleCardTypeUpdate = (cardType, e) => {

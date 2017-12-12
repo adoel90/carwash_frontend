@@ -1,6 +1,7 @@
 .badge {
+	@include relative;
 	@include border-radius(border-radius(small));
-	padding: 1em;
+	padding: .3em 1em;
 
 	&.badge--pill {
 		@include border-radius(border-radius(rounded-edge));

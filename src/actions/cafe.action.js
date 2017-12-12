@@ -10,6 +10,10 @@ export const CREATE_CAFE_MENU_FULFILLED = 'CREATE_CAFE_MENU_FULFILLED';
 export const CREATE_CAFE_MENU_REJECTED = 'CREATE_CAFE_MENU_REJECTED';
 export const CREATE_CAFE_TRANSACTION_FULFILLED = 'CREATE_CAFE_TRANSACTION_FULFILLED';
 export const CREATE_CAFE_TRANSACTION_REJECTED = 'CREATE_CAFE_TRANSACTION_REJECTED';
+export const PRINT_CAFE_TRANSACTION_REQUESTED = 'PRINT_CAFE_TRANSACTION_REQUESTED';
+export const PRINT_CAFE_TRANSACTION_FULFILLED = 'PRINT_CAFE_TRANSACTION_FULFILLED';
+export const PRINT_CAFE_TRANSACTION_REJECTED = 'PRINT_CAFE_TRANSACTION_REJECTED';
+
 export const UPDATE_CAFE_MENU_REQUESTED = 'UPDATE_CAFE_MENU_REQUESTED';
 export const UPDATE_CAFE_MENU_FULFILLED = 'UPDATE_CAFE_MENU_FULFILLED';
 export const UPDATE_CAFE_MENU_REJECTED = 'UPDATE_CAFE_MENU_REJECTED';
@@ -113,6 +117,25 @@ export const createCafeTransaction = (data, accessToken) => {
 
 	function handleSuccess(data) { return { type: CREATE_CAFE_TRANSACTION_FULFILLED, payload: data }}
 	function handleError(data) { return { type: CREATE_CAFE_TRANSACTION_REJECTED, payload: data }}
+}
+
+export const printCafeTransaction = (data, accessToken) => {
+	return async dispatch => {
+		dispatch(handleRequest());
+		return axios
+			.get(`${constant.API_PATH}cafe/transaction/print?accessToken=${accessToken}&id=${data.id}`)
+			.then((response) => {
+				dispatch(handleSuccess(response.data))
+			})
+			.catch((error) => {
+				dispatch(handleError(error))
+			})
+	}
+
+	function handleRequest() { return { type: PRINT_CAFE_TRANSACTION_REQUESTED } }
+	function handleSuccess(data) { return { type: PRINT_CAFE_TRANSACTION_FULFILLED, payload: data } }
+	function handleError(data) { return { type: PRINT_CAFE_TRANSACTION_REJECTED, payload: data } }
+
 }
 
 export const updateCafeMenu = (data, accessToken) => {

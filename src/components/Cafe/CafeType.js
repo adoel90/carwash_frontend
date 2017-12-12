@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import NumberFormat from 'react-number-format';
-
 import { 
 	CafeMenuList, 
 	CafePaymentDetail, 

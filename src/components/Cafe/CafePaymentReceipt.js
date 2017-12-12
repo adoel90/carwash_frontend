@@ -1,74 +1,111 @@
 import React, { Component } from 'react';
+import moment from 'moment';
 import { Printable } from '../Print';
 import { ListGroup, ListGroupItem } from '../List';
+import NumberFormat from 'react-number-format';
 
 class CafePaymentReceipt extends Component {
     render() {
-        const renderItemList = () => {
+        const {
+            cafe,
+            printData,
+            selectedMenuList,
+            grandTotal
+        } = this.props;
+        
+        const renderItem = (item, i) => {
             return (
-                <tbody>
-                    <tr>
-                        <td>Paket Smart Wash</td>
-                        <td className="ta-right">18,000</td>
-                    </tr>
-                    <tr>
-                        <td>Paket Smart Wash</td>
-                        <td className="ta-right">18,000</td>
-                    </tr>
-                </tbody>
+                <tr>
+                    <td className="padding-right-1">{item.quantity}</td>
+                    <td>{item.name}</td>
+                    <td className="ta-right">
+                        <NumberFormat
+                            thousandSeparator={true}
+                            displayType={'text'}
+                            value={item.price}
+                        />
+                    </td>
+                </tr>
             )
+        }
+        
+        const renderItemList = () => {
+            if(printData.menu) {
+                return (
+                    <table className="margin-bottom-2" style={{width: '100%'}}>
+                        <tbody>
+                            {selectedMenuList.map(renderItem)}
+                        </tbody>
+                    </table>
+                )
+            }
         }
 
+
         const renderSummary = () => {
-            return (
-                <tbody>
-                    <tr>
-                        <td>Total Harga:</td>
-                        <td className="ta-right fw-bold">75,000</td>
-                    </tr>
-                    <tr>
-                        <td>Saldo Awal:</td>
-                        <td className="ta-right fw-bold">75,000</td>
-                    </tr>
-                    <tr>
-                        <td>Saldo Akhir:</td>
-                        <td className="ta-right fw-bold">75,000</td>
-                    </tr>
-                </tbody>
-            )
+            if(printData.member) {
+                return (
+                    <table style={{width: '100%'}}>
+                        <tbody>
+                            <tr>
+                                <td>Total Harga:</td>
+                                <td className="ta-right fw-bold">
+                                    <NumberFormat
+                                        thousandSeparator={true}
+                                        displayType={'text'}
+                                        value={grandTotal} 
+                                    />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Saldo Awal:</td>
+                                <td className="ta-right fw-bold">
+                                    <NumberFormat
+                                        thousandSeparator={true}
+                                        displayType={'text'}
+                                        value={parseInt(grandTotal) + parseInt(printData.member.balance)}
+                                    />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Saldo Akhir:</td>
+                                <td className="ta-right fw-bold">
+                                    <NumberFormat
+                                        thousandSeparator={true}
+                                        displayType={'text'}
+                                        value={printData.member.balance}
+                                    />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                )
+
+            }
         }
         
-        const renderReceiptBody = () => {
+        if(cafe.print.isPrinted) {
             return (
-                <table style={{width: '100%'}}>
-                    {renderItemList()}
-                    {renderSummary()}
-                </table>
-                
-                // <ListGroupItem>
-                //     <p className="fw-bold">Paket Smart Wash</p>
-                //     <p className="ta-right">Rp 18,000</p>
-                // </ListGroupItem>
-            )
+                <Printable>
+                    <div className="receipt">
+                        <div className="receipt-header ta-center margin-bottom-3">
+                            <p className="fw-bold">805 Carwash</p>
+                            <p>Kota Jkt Utara, Daerah Khusus Ibukota Jakarta. <br/> 0896-0457-8309</p>
+                        </div>
+                        <div className="receipt-body margin-bottom-3">
+                            {renderItemList()}
+                            {renderSummary()}
+                        </div>
+                        <div className="receipt-footer ta-center">
+                            <p className="fw-semibold">{moment(printData.date).format('LLL')}</p>
+                            <p>Thank you and please come again soon.</p>
+                        </div>
+                    </div>
+                </Printable>
+            );
         }
-        
-        return (
-            <Printable>
-                <div className="receipt">
-                    <div className="receipt-header ta-center margin-bottom-3">
-                        <p className="fw-bold">805 Carwash</p>
-                        <p>Kota Jkt Utara, Daerah Khusus Ibukota Jakarta. <br/> 0896-0457-8309</p>
-                    </div>
-                    <div className="receipt-body margin-bottom-3">
-                        {renderReceiptBody()}
-                    </div>
-                    <div className="receipt-footer ta-center">
-                        <p className="fw-semibold">11 Desember 2017 13:46</p>
-                        <p>Thank you and please come again soon.</p>
-                    </div>
-                </div>
-            </Printable>
-        );
+
+        return null;
     }
 }
 

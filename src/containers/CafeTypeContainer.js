@@ -5,7 +5,8 @@ import { connect } from 'react-redux';
 import {
 	getAllCafeMenu,
 	getCafeMenuList,
-	createCafeTransaction
+	createCafeTransaction,
+	printCafeTransaction
 } from '../actions/cafe.action';
 
 import {
@@ -29,6 +30,7 @@ class CafeTypeContainer extends React.Component {
 		this.state = {
 			cafeList: [],
 			selectedMenuList: [],
+			printData: {},
 			searchMenu: {
 				searchText: ''
 			},
@@ -100,9 +102,21 @@ class CafeTypeContainer extends React.Component {
 					closeText: 'Tutup'
 				}
 
-				this.handlePrintReceipt();
 				toggleDialog(dialogData);
+				this.handlePrintReceipt();
 			}
+		}
+
+		if(prevProps.cafe.print !== cafe.print) {
+			if(cafe.print.isPrinted) {
+				this.setState({
+					...this.state,
+					printData: cafe.print.data
+				}, () => {
+					window.print();
+				})
+			}
+			
 		}
 	}
 
@@ -219,7 +233,19 @@ class CafeTypeContainer extends React.Component {
 	}
 
 	handlePrintReceipt = () => {
-		window.print();
+		const {
+			cafe,
+			accessToken,
+			dispatch
+		} = this.props;
+
+		let requiredData = {
+			id: cafe.transaction.data.transaction
+		}
+
+		dispatch(printCafeTransaction(requiredData, accessToken));
+		
+		// window.print();
 	}
 
 	handleMemberAuthentication = (e) => {

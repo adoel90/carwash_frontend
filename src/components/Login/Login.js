@@ -14,6 +14,7 @@ class Login extends React.Component {
 					</div>
 					<LoginForm {...this.props} />
 				</div>
+				<span className="login-bg"></span>
 			</div>
 		);
 	}

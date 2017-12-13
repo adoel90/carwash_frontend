@@ -46,20 +46,10 @@ class Admin extends Component {
 			switch(userLevel) {
 				case 1: return <Redirect from="/*" to={`${match.url}/settings`} />
 				case 2: return <Redirect from="/*" to={`${match.url}/cafe`} />
+				case 5: return <Redirect from="/*" to={`${match.url}/cafe`} />
 				default: return null;
 			}
 		}
-
-		// if(!isAuthenticated) {
-		// 	return <Redirect from={`${match.url}`} to={`${match.url}/login`} />
-		// }
-		// else {
-		// 	switch(user.level.id) {
-		// 		case 1: return <Redirect from={match.url} to={`${match.url}/settings`} />
-		// 		case 2: return <Redirect from={match.url} to={`${match.url}/cafe`} />
-		// 		default: return null;
-		// 	}
-		// }
 	}
 
 	render() {

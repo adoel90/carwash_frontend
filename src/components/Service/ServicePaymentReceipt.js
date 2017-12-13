@@ -39,7 +39,7 @@ class ServicePaymentReceipt extends Component {
                         <tbody>
                             <tr>
                                 <td>Total Harga:</td>
-                                <td className="ta-right fw-bold">
+                                <td className="ta-right">
                                     <NumberFormat
                                         thousandSeparator={true}
                                         displayType={'text'}
@@ -49,7 +49,7 @@ class ServicePaymentReceipt extends Component {
                             </tr>
                             <tr>
                                 <td>Saldo Awal:</td>
-                                <td className="ta-right fw-bold">
+                                <td className="ta-right">
                                     <NumberFormat
                                         thousandSeparator={true}
                                         displayType={'text'}
@@ -59,7 +59,7 @@ class ServicePaymentReceipt extends Component {
                             </tr>
                             <tr>
                                 <td>Saldo Akhir:</td>
-                                <td className="ta-right fw-bold">
+                                <td className="ta-right">
                                     <NumberFormat
                                         thousandSeparator={true}
                                         displayType={'text'}

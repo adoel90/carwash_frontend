@@ -68,23 +68,7 @@ class SettingsCafeContainer extends React.Component {
 						all: cafe.types.data.sort(sortBy('name')),
 						active: activeTypes.sort(sortBy('name'))
 					}
-				})
-
-				// let sortedTypes = cafe.types.data.sort(sortBy('name'));
-				// let activeTypes = [];
-				//
-				// sortedTypes.map((type) => {
-				// 	if(type.status) {
-				// 		activeTypes.push(type);
-				// 	}
-				// });
-				//
-				// this.setState({
-				// 	cafeTypes: {
-				// 		all: sortedTypes,
-				// 		active: activeTypes
-				// 	}
-				// })
+				});
 			}
 		}
 
@@ -133,7 +117,10 @@ class SettingsCafeContainer extends React.Component {
 					type: 'success',
 					title: 'Berhasil',
 					message: 'Kategori berhasil ditambahkan. Klik tombol berikut untuk kembali.',
-					onClose: () => hideDialog(),
+					onClose: () => {
+						this.getCafeTypes();
+						hideDialog();
+					},
 					closeText: 'Tutup'
 				}
 

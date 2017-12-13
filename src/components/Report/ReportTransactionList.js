@@ -86,6 +86,10 @@ class ReportTransactionList extends Component {
 
 		console.log(transactionList);
 
+		if(report.transaction.isFetching) {
+			return <p>Tunggu sebentar, data sedang dimuat...</p>
+		}
+
 		if(report.transaction.isLoaded) {
 			return (
 				<TableSet
@@ -101,9 +105,6 @@ class ReportTransactionList extends Component {
 				/>
 			)
 		}
-		else {
-			return <p className="ta-center">Tunggu sebentar. Data sedang dimuat...</p>
-		}
 	}
 
 	render() {
@@ -112,8 +113,6 @@ class ReportTransactionList extends Component {
 			period,
 			transactionList
 		} = this.props;
-
-		console.log(transactionList);
 
 		return (
 			<PageBlock>

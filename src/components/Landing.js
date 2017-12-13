@@ -8,56 +8,39 @@ import { Input } from '../components/Input';
 import { Button } from '../components/Button';
 
 class Landing extends React.Component {
-	constructor() {
-		super();
-		this.handleChange = this.handleChange.bind(this);
-		this.handleSubmit = this.handleSubmit.bind(this);
-	}
-
-	componentDidMount = () => {
-		document.addEventListener('keydown', this.handleKeyPress);
-		document.addEventListener('keyup', this.handleKeyPress);
-	}
-
-	handleSubmit = (e) => {
-		e.preventDefault();
-		this.props.handleSubmit();
-	}
-
-	handleChange = (e) => {
-		const target = e.target;
-		const value = target.type === 'checkbox' ? target.checkbox : target.value;
-		const name = target.name;
-
-		this.props.handleChange(value);
-	}
-
 	render() {
 		const {
 			member,
-			match
+			match,
+			isAuthenticated,
+			handleInputChange,
+			handleAuthentication
 		} = this.props;
+		
+		if(!isAuthenticated) {
+			return (
+				<Form onSubmit={handleAuthentication}>
+					<main className="main landing">
+						<div className="landing__container">
+							<img src={StoreIcon} style={{ width: '150px' }} />
+							<h3 className="fw-bold">Selamat datang di Carwash 805</h3>
+							<h5 className="padding-bottom-3 fw-semibold">Silahkan gesek kartu member Anda.</h5>
+							<FormGroup>
+								<Input
+									type="number"
+									name="cardID"
+									onChange={(e) => handleInputChange('authData', e)}
+									autoFocus
+									selectOnFocus
+								/>
+							</FormGroup>
+						</div>
+					</main>
+				</Form>
+			)
+		}
 
-		return (
-			<Form onSubmit={this.handleSubmit}>
-				<main className="main landing">
-					<div className="landing__container">
-						<img src={StoreIcon} style={{ width: '200px' }} />
-						<h3 className="fw-bold">Selamat datang di Carwash 805</h3>
-						<h5 className="padding-bottom-3 fw-semibold">Silahkan gesek kartu member Anda.</h5>
-						<FormGroup>
-							<Input
-								type="number"
-								name="cardId"
-								onChange={this.handleChange}
-								autoFocus
-								selectOnFocus
-							/>
-						</FormGroup>
-					</div>
-				</main>
-			</Form>
-		)
+		return null;
 	}
 }
 

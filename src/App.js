@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-	withCookies,
-	Cookies
-} from 'react-cookie';
+import { connect } from 'react-redux';
+import { withCookies, Cookies } from 'react-cookie';
 
 import MainRoutes from './components/MainRoutes';
 
@@ -40,7 +38,7 @@ class App extends React.Component {
 
 	render() {
 		return (
-			<MainRoutes 
+			<MainRoutes
 				{...this.state} 
 				{...this.props}
 				handleLogout={this.handleLogout}

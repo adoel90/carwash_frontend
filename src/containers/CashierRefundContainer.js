@@ -29,11 +29,10 @@ class CashierRefundContainer extends Component {
             member
         } = this.props;
         
-        if(prevProps.member !== member) {
-            if(member.isAuthenticated) {
-                this.setState({
-                    selectedMember: member.data
-                })
+        if(prevProps.member.item !== member.item) {
+            if(member.item.isAuthenticated) {
+                this.state.selectedMember = member.item.data;
+                this.forceUpdate();
 
                 this.handleRefund();
             }

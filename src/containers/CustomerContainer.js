@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { Route, Redirect } from 'react-router-dom';
-import { PrivateRoute } from '../components/Route';
+import { PrivateRoute, PropsRoute } from '../components/Route';
 
 import MainHeader from '../components/MainHeader';
 import MainSubheader from '../components/MainSubheader';
@@ -55,10 +55,11 @@ class CustomerContainer extends Component {
 				<MainHeader {...this.state} {...this.props} />
 				<MainSubheader {...this.state} {...this.props} />
 				<MainContent>
-					<Route
+					<PropsRoute
 						name="landing"
 						path={`${match.url}/landing`}
 						component={LandingContainer}
+						{...this.props}
 					/>
 					<PrivateRoute
 						name="service"

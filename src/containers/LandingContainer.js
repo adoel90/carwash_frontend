@@ -1,6 +1,7 @@
 import React from 'react';
-
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+
 import { authenticateMember } from '../actions/member.action';
 import Landing from '../components/Landing';
 
@@ -8,16 +9,20 @@ class LandingContainer extends React.Component {
 	constructor() {
 		super();
 		this.state = {
-			cardId: ''
+			authData: {
+				cardID: ''
+			}
 		}
 
-		this.handleChange = this.handleChange.bind(this);
-		this.handleSubmit = this.handleSubmit.bind(this);
+		this.handleInputChange = this.handleInputChange.bind(this);
+		this.handleAuthentication = this.handleAuthentication.bind(this);
 	}
 
 	componentDidUpdate = (prevProps) => {
 		const {
-			member
+			member,
+			history,
+			handleAuthentication
 		} = this.props;
 
 		if(prevProps.member !== this.props.member) {
@@ -27,21 +32,31 @@ class LandingContainer extends React.Component {
 		}
 	}
 
-
-	handleChange = (value) => {
+	handleInputChange = (object, e) => {
+		const target = e.target;
+		const value = target.value;
+		const name = target.name;
+		
 		this.setState({
-			cardId: value
-		})
+			[object]: {
+				[name]: value
+			}
+		});
 	}
 
-	handleSubmit = () => {
-		const { dispatch } = this.props;
+	handleAuthentication = (e) => {
+		e.preventDefault();
+		
+		const { 
+			dispatch 
+		} = this.props;
+
 		const {
-			cardId
+			authData
 		} = this.state;
 
 		const requiredData = {
-			card: cardId
+			card: authData.cardID
 		}
 
 		dispatch(authenticateMember(requiredData));
@@ -52,8 +67,8 @@ class LandingContainer extends React.Component {
 			<Landing
 				{...this.state}
 				{...this.props}
-				handleChange={this.handleChange}
-				handleSubmit={this.handleSubmit}
+				handleInputChange={this.handleInputChange}
+				handleAuthentication={this.handleAuthentication}
 			/>
 		)
 	}

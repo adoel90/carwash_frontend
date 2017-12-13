@@ -3,11 +3,9 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { Container, Row } from '../Grid';
 import { PropsRoute } from '../Route';
-
 import { ModalDialog } from '../Modal';
 
 import MainSidenav from '../MainSidenav';
-
 import CafeTypeContainer from '../../containers/CafeTypeContainer';
 
 class Cafe extends React.Component {

@@ -151,7 +151,18 @@ class SettingsServiceContainer extends Component {
 			}
 
 			if(service.type.isCreated) {
-				this.getServiceTypes();
+				let dialogData = {
+					type: 'success',
+					title: 'Berhasil',
+					message: 'Tipe service telah berhasil ditambahkan. Klik tombol berikut untuk kembali.',
+					onClose: () => {
+						this.getServiceTypes();
+						hideDialog();
+					},
+					closeText: 'Tutup'
+				}
+
+				toggleDialog(dialogData);
 			}
 		}
 

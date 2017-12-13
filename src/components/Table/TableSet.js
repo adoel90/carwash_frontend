@@ -237,7 +237,10 @@ class TableSet extends Component {
 
 			return (
 				<TableBody>
-					{rows.map(this.renderTableRow)}
+					{rows
+						.map(this.renderTableRow)
+						.slice(lowerLimit, upperLimit)
+					}
 				</TableBody>
 			)
 		} else {

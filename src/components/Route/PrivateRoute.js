@@ -3,6 +3,8 @@ import { Route, Redirect } from 'react-router-dom';
 
 class PrivateRoute extends React.Component {
 	render() {
+		console.log(this.props);
+		
 		const {
 			component: Component,
 			isAuthenticated,
@@ -13,13 +15,13 @@ class PrivateRoute extends React.Component {
 			...rest
 		} = this.props;
 
-		const authenticateRoute = (props) => {
+		const renderComponent = (props) => {
 			return isAuthenticated
 			? <Component {...props} accessToken={accessToken} user={user} member={member} />
 			: <Redirect to={{pathname: redirectTo, state: {from: props.location}}} />
 		}
 
-		return <Route {...rest} render={Component ? authenticateRoute : null} />
+		return <Route {...rest} render={Component ? renderComponent : null} />
 	}
 }
 

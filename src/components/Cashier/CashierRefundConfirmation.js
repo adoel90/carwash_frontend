@@ -4,6 +4,7 @@ import { ModalHeader, ModalContent, ModalFooter } from '../Modal';
 import { Button } from '../Button';
 import { Form } from '../Form';
 import { Alert } from '../Alert/index';
+import { Badge } from '../Badge';
 import { default as CardIcon } from '../../assets/icons/Business/credit-card-3.svg';
 import Currency from '../Currency';
 import NumberFormat from 'react-number-format';
@@ -11,6 +12,7 @@ import NumberFormat from 'react-number-format';
 class CashierRefundConfirmation extends Component {
     render() {
         const {
+            member,
             isModalOpen,
             toggleModal,
             selectedMember,
@@ -34,16 +36,14 @@ class CashierRefundConfirmation extends Component {
                             <div className="flex-column">
                                 <h5 className="clr-primary">{selectedMember.name}</h5>
                                 <h6 className="fw-semibold">
-                                    <NumberFormat
-                                        displayType={'text'}
-                                        format="#### #### #### ####"
-                                        value={selectedMember.card ? selectedMember.card.id : null}
-                                    />
+                                    {selectedMember.card ? selectedMember.card.id : null}
+                                    
                                 </h6>
-                                <h6>
-                                    <small className="fw-semibold tt-uppercase ls-base">Sisa Saldo: <Currency value={selectedMember.balance}/></small>
-                                </h6>
+                                <p>Sisa Saldo: <Currency value={selectedMember.balance}/></p>
                             </div>
+                            <Badge theme="secondary">
+                                <small className="fw-semibold tt-uppercase ls-base">{selectedMember.card ? selectedMember.card.type.name: null}</small>
+                            </Badge>
                         </div>
                     </ModalContent>
                     <ModalFooter className="flex justify-content--center">
@@ -56,7 +56,7 @@ class CashierRefundConfirmation extends Component {
                     </ModalFooter>
                 </Form>
             </Modal>
-        );
+        );   
     }
 }
 

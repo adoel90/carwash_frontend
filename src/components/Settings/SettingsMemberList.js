@@ -4,16 +4,18 @@ import { TableSet } from '../Table';
 import { Button, ButtonGroup } from '../Button';
 
 class SettingsMemberList extends Component {
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 		this.state = {
-			memberListTable: {
-				data: [
+			table: {
+				columns: [
 					{ accessor: 'name', title: 'Nama' },
 					{ accessor: 'email', title: 'Alamat Email' },
-					{ accessor: 'cardType', title: 'Tipe Member', size: 'auto' },
-
-					// { accessor: 'status', title: 'Status', isStatus: true },
+					{ accessor: 'cardType', title: 'Tipe Member', size: 'auto' }
+				],
+				settings: [
+					{ name: 'Ubah', theme: 'primary', action: props.handleUpdateMember },
+					{ isStatus: true, activeText: 'Aktif', inactiveText: 'Non Aktif', action: props.handleChangeMemberStatus }
 				]
 			}
 		}
@@ -29,21 +31,20 @@ class SettingsMemberList extends Component {
 		} = this.props;
 
 		const {
-			memberListTable
+			table
 		} = this.state;
 
 		return (
 			<TableSet
-				columns={memberListTable.data}
+				columns={table.columns}
 				rows={memberList}
+				settings={table.settings}
+				onRowClick={handleViewMemberDetail}
 				placeholder="Cari member yang terdaftar..."
 				isStriped
 				isHoverable
 				hasPagination
 				hasSearchBar
-				onRowClick={handleViewMemberDetail}
-				onUpdate={handleUpdateMember}
-				onChangeStatus={handleChangeMemberStatus}
 				{...this.props}
 			/>
 		);

@@ -173,8 +173,6 @@ class SettingsMemberContainer extends Component {
 			selectedMember: member
 		});
 
-		console.log(member);
-
 		this.toggleModal('viewMemberDetail');
 	}
 

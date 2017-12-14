@@ -2,13 +2,17 @@ import React, { Component } from 'react';
 import { TableSet } from '../Table';
 
 class SettingsCafeMenuList extends Component {
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 		this.state = {
 			table: {
 				columns: [
 					{ accessor: 'name', title: 'Name' },
 					{ accessor: 'price', title: 'Price', isCurrency: true },
+				],
+				settings: [
+					{ name: 'Ubah', theme: 'primary', action: props.handleCafeMenuUpdate },
+					{ isStatus: true, activeText: 'Aktif', inactiveText: 'Non Aktif', action: props.handleChangeCafeMenuStatus }
 				]
 			}
 		}
@@ -30,14 +34,12 @@ class SettingsCafeMenuList extends Component {
 			<TableSet
 				columns={table.columns}
 				rows={cafeList}
+				settings={table.settings}
 				placeholder="Cari menu..."
 				isStriped
 				isHoverable
 				hasPagination
 				hasSearchBar
-				onUpdate={handleCafeMenuUpdate}
-				onChangeStatus={handleChangeCafeMenuStatus}
-				// onDelete={handleCafeMenuDelete}
 				{...this.props}
 			/>
 		);

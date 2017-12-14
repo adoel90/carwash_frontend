@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {
-	Settings,
-	SettingsMember,
-	SettingsCard,
-	SettingsService,
-	SettingsCafe
-} from '../components/Settings';
+import { Settings } from '../components/Settings';
+// import {
+// 	Settings,
+// 	SettingsMember,
+// 	SettingsUser,
+// 	SettingsCard,
+// 	SettingsService,
+// 	SettingsCafe
+// } from '../components/Settings';
 
 import {
 	showDialog,
@@ -14,6 +16,7 @@ import {
 } from '../actions/dialog.action';
 
 import SettingsMemberContainer from './SettingsMemberContainer';
+import SettingsUserContainer from './SettingsUserContainer';
 import SettingsServiceContainer from './SettingsServiceContainer';
 import SettingsCafeContainer from './SettingsCafeContainer';
 import SettingsCardContainer from './SettingsCardContainer';
@@ -27,9 +30,10 @@ class SettingsContainer extends Component {
 		this.state = {
 			subroutes: [
 				{ id: 1, name: 'Pengaturan Member', path: "/admin/settings/member-settings", component: SettingsMemberContainer },
-				{ id: 2, name: 'Pengaturan Service', path: "/admin/settings/service-settings", component: SettingsServiceContainer },
-				{ id: 3, name: 'Pengaturan Cafe', path: "/admin/settings/cafe-settings", component: SettingsCafeContainer },
-				{ id: 4, name: 'Pengaturan Tipe Kartu', path: "/admin/settings/card-settings", component: SettingsCardContainer}
+				{ id: 2, name: 'Pengaturan User', path: "/admin/settings/user-settings", component: SettingsUserContainer },
+				{ id: 3, name: 'Pengaturan Service', path: "/admin/settings/service-settings", component: SettingsServiceContainer },
+				{ id: 4, name: 'Pengaturan Cafe', path: "/admin/settings/cafe-settings", component: SettingsCafeContainer },
+				{ id: 5, name: 'Pengaturan Tipe Kartu', path: "/admin/settings/card-settings", component: SettingsCardContainer}
 			]
 		}
 	}

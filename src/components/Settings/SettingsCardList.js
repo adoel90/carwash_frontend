@@ -3,15 +3,18 @@ import { TableSet } from '../Table';
 import { PageBlock } from '../Page';
 
 class SettingsCardList extends Component {
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 		this.state = {
 			table: {
 				columns: [
 					{ accessor: 'name', title: 'Name' },
 					{ accessor: 'min', title: 'Minimum', isCurrency: true },
 					{ accessor: 'bonus', title: 'Bonus', isCurrency: true },
-					// { accessor: 'status', title: 'Status', isStatus: true }
+				],
+				settings: [
+					{ name: 'Ubah', theme: 'primary', action: props.handleCardTypeUpdate },
+					{ isStatus: true, activeText: 'Aktif', inactiveText: 'Non Aktif', action: props.handleChangeCardTypeStatus }
 				]
 			}
 		}
@@ -33,14 +36,12 @@ class SettingsCardList extends Component {
 			<TableSet
 				columns={table.columns}
 				rows={cardTypes}
+				settings={table.settings}
 				isStriped
 				isHoverable
 				hasPagination
 				hasSearchBar
 				placeholder="Cari tipe kartu..."
-				onUpdate={handleCardTypeUpdate}
-				onChangeStatus={handleChangeCardTypeStatus}
-				// onDelete={handleCardTypeDelete}
 				{...this.props}
 			/>
 		)

@@ -2,13 +2,17 @@ import React, { Component } from 'react';
 import { TableSet } from '../Table';
 
 class SettingsServiceList extends Component {
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 		this.state = {
 			table: {
 				columns: [
 					{ accessor: 'name', title: 'Nama' },
 					{ accessor: 'price', title: 'Harga', isCurrency: true }
+				],
+				settings: [
+					{ name: 'Ubah', theme: "primary", action: props.handleServiceUpdate },
+					{ isStatus: true, activeText: 'Aktif', inactiveText: 'Non Aktif', action: props.handleChangeServiceStatus }
 				]
 			}
 		}
@@ -35,14 +39,12 @@ class SettingsServiceList extends Component {
 			<TableSet
 				columns={table.columns}
 				rows={serviceList}
+				settings={table.settings}
 				placeholder="Cari service..."
 				isStriped
 				isHoverable
 				hasPagination
 				hasSearchBar
-				onUpdate={handleServiceUpdate}
-				onChangeStatus={handleChangeServiceStatus}
-				// onDelete={handleServiceDelete}
 				{...this.props}
 			/>
 		);

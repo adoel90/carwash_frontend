@@ -73,7 +73,7 @@ class TableSet extends Component {
 
 		const {
 			limit,
-			activePage
+			activePage,
 		} = this.state;
 
 		if(rows.length) {
@@ -100,6 +100,7 @@ class TableSet extends Component {
 	renderTableRow = (row, i) => {
 		const {
 			columns,
+			settings,
 			onUpdate,
 			onDelete,
 			onChangeStatus,
@@ -147,52 +148,33 @@ class TableSet extends Component {
 					else {
 						cells.push(<td>{row[key]}</td>)
 					}
-					// cells.push(row[key]);
 				}
 			}
 		})
 
-		if(onUpdate || onDelete || onChangeStatus) {
-			const action = (
+		if(settings) {
+			let settingsRow = (
 				<td>
 					<ButtonGroup className="flex justify-content--center">
-						{
-							onUpdate
-							? <Button type="button" buttonTheme="primary" buttonSize="small" onClick={(e) => onUpdate(row, e)}>
-								<small className="tt-uppercase ls-base fw-semibold clr-light">Ubah</small>
+						{ settings.map((item) => {
+							if(item.isStatus) {
+								return <Button buttonTheme={row.status ? 'success' : 'danger'} buttonSize="small" onClick={(e) => item.action(row, e)} disabled={row.statusChanging}>
+									<small className={`clr-light fw-semibold tt-uppercase ls-base`}>{row.statusChanging ? 'Merubah...' : (row.status ? item.activeText : item.inactiveText)}</small>
+								</Button>
+							}
+							
+							return <Button buttonTheme={item.theme} buttonSize="small" className="clr-light" onClick={(e) => item.action(row, e)}>
+								<small className="fw-semibold tt-uppercase ls-base">{item.name}</small>
 							</Button>
-							: null
-						}
-						{
-							onDelete
-							? <Button type="button" buttonTheme="danger" buttonSize="small" onClick={(e) => onDelete(row, e)}>
-								<small className="tt-uppercase ls-base fw-semibold clr-light">Hapus</small>
-							</Button>
-							: null
-						}
-						{
-							onChangeStatus
-							? <Button type="button" buttonTheme={row.status ? 'secondary' : 'danger' } buttonSize="small" onClick={(e) => onChangeStatus(row, e)} disabled={row.statusChanging}>
-								<small className={`tt-uppercase ls-base fw-semibold ${row.status ? 'clr-dark' : 'clr-light'}`}>{row.statusChanging ? 'Merubah...' : (row.status ? 'Aktif' : 'Tidak Aktif')}</small>
-							</Button>
-							: null
-						}
-
+						})}
 					</ButtonGroup>
 				</td>
 			)
 
-			cells.push(action);
+			cells.push(settingsRow);
 		}
 
-		if(onRowClick) {
-			return (
-				<tr onClick={() => onRowClick(row)}>{cells}</tr>
-			)
-
-		}
-
-		return <tr>{cells}</tr>
+		return <tr onClick={onRowClick ? () => onRowClick(row) : null}>{cells}</tr>
 	}
 
 	renderTableBody = () => {
@@ -213,7 +195,15 @@ class TableSet extends Component {
 		if(rows.length) {
 			if(hasSearchBar) {
 				let filteredRow = rows.filter((row) => {
-					return row.name.toLowerCase().includes(searchText.toLowerCase())
+					// let value;
+					
+					// Object.keys(row).some(key => {
+					// 	if(row[key]) {
+					// 		value = row[key].toString().toLowerCase().includes(searchText.toLowerCase());
+					// 	}
+					// })
+					
+					return row.name.toString().toLowerCase().includes(searchText.toLowerCase());
 				});
 
 				if(!filteredRow.length) {
@@ -255,6 +245,7 @@ class TableSet extends Component {
 	renderTableColumn = () => {
 		const {
 			columns,
+			settings,
 			onUpdate,
 			onDelete,
 			onChangeStatus
@@ -271,6 +262,10 @@ class TableSet extends Component {
 		})
 
 		if(onUpdate || onDelete || onChangeStatus) {
+			tableColumns.push(<th>Pengaturan</th>)
+		}
+
+		if(settings) {
 			tableColumns.push(<th>Pengaturan</th>)
 		}
 

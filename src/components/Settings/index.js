@@ -2,6 +2,7 @@ import Settings from './Settings';
 import SettingsMember from './SettingsMember';
 import SettingsMemberList from './SettingsMemberList';
 import SettingsUser from './SettingsUser';
+import SettingsUserList from './SettingsUserList';
 import SettingsService from './SettingsService';
 import SettingsServiceType from './SettingsServiceType';
 import SettingsServiceList from './SettingsServiceList';
@@ -22,6 +23,7 @@ export {
 	SettingsMember,
 	SettingsMemberList,
 	SettingsUser,
+	SettingsUserList,
 	SettingsService,
 	SettingsServiceType,
 	SettingsServiceList,

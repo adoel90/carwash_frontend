@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { getUserList } from '../actions/user.action';
+import { 
+	getUserList,
+	updateUser,
+	changeUserStatus
+} from '../actions/user.action';
 
 import { SettingsUser } from '../components/Settings';
 
@@ -9,10 +13,12 @@ class SettingsUserContainer extends Component {
 	constructor() {
 		super();
 		this.getUserList = this.getUserList.bind(this);
+		this.handleInputChange = this.handleInputChange.bind(this);
 		this.handleUpdateUser = this.handleUpdateUser.bind(this);
 		this.handleDeleteUser = this.handleDeleteUser.bind(this);
 		this.state = {
-			userList: []
+			userList: [],
+			searchText: ''
 		}
 	}
 
@@ -58,6 +64,21 @@ class SettingsUserContainer extends Component {
 		dispatch(getUserList(requiredData, accessToken));
 	}
 
+	handleInputChange = (object, e) => {
+		const target = e.target;
+		const value = target.value;
+		const name = target.name;
+
+		if(object) {
+			object[name] = value;
+			this.forceUpdate();
+		} else {
+			this.setState({
+				[name]: value
+			})
+		}
+	}
+
 	handleUpdateUser = () => {
 	}
 
@@ -70,6 +91,7 @@ class SettingsUserContainer extends Component {
 			<SettingsUser
 				{...this.state}
 				{...this.props}
+				handleInputChange={this.handleInputChange}
 				handleUpdateUser={this.handleUpdateUser}
 				handleDeleteUser={this.handleDeleteUser}
 			/>

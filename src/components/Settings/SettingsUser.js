@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
+
 import { SettingsUserList } from '../Settings';
+import { PageBlockGroup, PageBlock } from '../Page';
+import { Button } from '../Button';
 
 class SettingsUser extends Component {
 	render() {
@@ -10,7 +13,7 @@ class SettingsUser extends Component {
 		
 		const renderUserList = () => {
 			if(userList.isFetching) {
-				return <p>Tunggu sebentar, data user sedang dimuat...</p>
+				return <p>Sedang memuat data user. Tunggu sebentar...</p>
 			}
 			
 			if(userList.isLoaded) {
@@ -23,7 +26,16 @@ class SettingsUser extends Component {
 				<div className="padding-bottom-2">
 					<h4 className="fw-semibold">Daftar User</h4>
 				</div>
-				{ renderUserList() }
+				<PageBlockGroup>
+					<PageBlock>
+						{ renderUserList() }
+					</PageBlock>
+					<PageBlock extension className="flex justify-content--flex-end">
+						<Button buttonTheme="primary" className="clr-light">
+							<small className="fw-semibold tt-uppercase ls-base">Tambah User Baru</small>
+						</Button>
+					</PageBlock>
+				</PageBlockGroup>
 			</div>
 		);
 	}

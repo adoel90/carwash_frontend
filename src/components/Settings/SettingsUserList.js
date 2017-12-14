@@ -11,12 +11,13 @@ class SettingsUserList extends Component {
 				columns: [
 					{ id: 1, accessor: 'name', title: 'Nama' },
 					{ id: 2, accessor: 'email', title: 'Alamat Email' },
-					{ id: 3, accessor: 'levelName', title: 'Akses' }
+					{ id: 3, accessor: 'levelName', title: 'Level Akses' }
 				],
 				settings: [
 					{ name: 'Ubah', theme: 'primary', action: props.handleUpdateUser },
 					{ isStatus: true, activeText: 'Aktif', inactiveText: 'Non Aktif', theme: 'danger', action: props.handleDeleteUser },
-				]
+				],
+				searchBy: 'name'
 			}
 		}
 	}
@@ -40,6 +41,7 @@ class SettingsUserList extends Component {
 				isHoverable
 				hasPagination
 				hasSearchBar
+				searchBy={table.searchBy}
 				{...this.props}
 			/>
 		);

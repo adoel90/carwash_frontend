@@ -112,7 +112,7 @@ class TableSet extends Component {
 		let cells = [];
 
 		columns.map((column) => {
-			for(const key of Object.keys(row)) {
+			Object.keys(row).forEach((key) =>  {
 				if(key === column.accessor) {
 					if(column.isEditable) {
 						cells.push(
@@ -149,7 +149,7 @@ class TableSet extends Component {
 						cells.push(<td>{row[key]}</td>)
 					}
 				}
-			}
+			})
 		})
 
 		if(settings) {
@@ -181,7 +181,8 @@ class TableSet extends Component {
 		const {
 			rows,
 			searchText,
-			hasSearchBar
+			hasSearchBar,
+			searchBy
 		} = this.props;
 
 		const {
@@ -193,18 +194,10 @@ class TableSet extends Component {
 		const upperLimit = activePage * limit;
 
 		if(rows.length) {
-			if(hasSearchBar) {
+			if(hasSearchBar && searchBy) {
 				let filteredRow = rows.filter((row) => {
-					// let value;
-					
-					// Object.keys(row).some(key => {
-					// 	if(row[key]) {
-					// 		value = row[key].toString().toLowerCase().includes(searchText.toLowerCase());
-					// 	}
-					// })
-					
-					return row.name.toString().toLowerCase().includes(searchText.toLowerCase());
-				});
+					return row[searchBy].toString().toLowerCase().includes(searchText.toLowerCase())
+				})
 
 				if(!filteredRow.length) {
 					return (

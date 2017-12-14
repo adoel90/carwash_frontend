@@ -248,7 +248,9 @@ class SettingsMember extends React.Component {
 					<h4 className="fw-semibold">Daftar Member</h4>
 					{/* <p className="clr-passive">Untuk melihat informasi member, silahkan klik baris member yang diinginkan.</p> */}
 				</div>
-				{ this.renderMemberList() }
+				<PageBlock>
+					{ this.renderMemberList() }
+				</PageBlock>
 				{ this.renderEditMemberModal() }
 				{ this.renderViewMemberDetailModal() }
 			</div>

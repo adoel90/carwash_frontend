@@ -16,7 +16,8 @@ class SettingsMemberList extends Component {
 				settings: [
 					{ name: 'Ubah', theme: 'primary', action: props.handleUpdateMember },
 					{ isStatus: true, activeText: 'Aktif', inactiveText: 'Non Aktif', action: props.handleChangeMemberStatus }
-				]
+				],
+				searchBy: 'name'
 			}
 		}
 	}
@@ -45,6 +46,7 @@ class SettingsMemberList extends Component {
 				isHoverable
 				hasPagination
 				hasSearchBar
+				searchBy={table.searchBy}
 				{...this.props}
 			/>
 		);

@@ -2,6 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import { Form, FormGroup } from '../components/Form';
 import { Input, InputGroup, InputAddon } from '../components/Input';
+import { Row } from '../components/Grid';
 
 class SearchBar extends React.Component {
 	render() {
@@ -11,7 +12,9 @@ class SearchBar extends React.Component {
 			name,
 			value,
 			onSubmit,
-			onChange
+			onChange,
+			onSearchChange,
+			searchParams,
 		} = this.props;
 
 		const classes = classNames(
@@ -19,19 +22,40 @@ class SearchBar extends React.Component {
 			className
 		)
 
+		const searchOptions = () => {
+			if(searchParams) {				
+				return (
+					<Input
+						type="select"
+						name="searchBy"
+						style={{width: '50%'}}
+						onChange={onSearchChange}>
+						<option disabled="true" selected="true">Cari berdasarkan...</option>
+						{searchParams.map((item) => {
+							return <option value={item.accessor}>{item.name}</option>
+						})}
+					</Input>
+				)
+			}
+		}
+
 		return (
 			<Form onSubmit={onSubmit} className={classes}>
 				<InputGroup>
 					<InputAddon>
 						<i className="ion-search icon icon--base"></i>
 					</InputAddon>
-					<Input 
-						type="text" 
-						name={name} 
-						placeholder={placeholder} 
-						value={value} 
-						onChange={onChange} 
-					/>
+					<InputGroup>
+						<Input 
+							name="searchText"
+							type="text"
+							name={name} 
+							placeholder={placeholder} 
+							value={value} 
+							onChange={onChange} 
+						/>
+						{ searchOptions() }
+					</InputGroup>
 				</InputGroup>
 			</Form>
 		)

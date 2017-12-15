@@ -52,16 +52,18 @@ class TableSet extends Component {
 		const {
 			searchText,
 			placeholder,
+			searchParams,
 			handleInputChange
 		} = this.props;
 
 		return (
 			<SearchBar
-				name="searchText"
 				value={searchText}
 				placeholder={placeholder}
-				onChange={(e) => handleInputChange(null, e)}
+				onChange={(e) => handleInputChange('search', e)}
+				onSearchChange={(e) => handleInputChange('search', e)}
 				className="margin-bottom-2"
+				searchParams={searchParams}
 			/>
 		)
 	}
@@ -138,7 +140,7 @@ class TableSet extends Component {
 							</td>
 						)
 					}
-					else if(column.isStatus) {
+					else if(column.isToggleable) {
 						cells.push(
 							<td>
 								<small className={`fw-bold tt-uppercase ls-base ${row.status ? 'clr-primary' : 'clr-danger'}`}>{row.status ? 'Aktif' : 'Tidak Aktif'}</small>
@@ -157,7 +159,7 @@ class TableSet extends Component {
 				<td>
 					<ButtonGroup className="flex justify-content--center">
 						{ settings.map((item) => {
-							if(item.isStatus) {
+							if(item.isToggleable) {
 								return <Button buttonTheme={row.status ? 'success' : 'danger'} buttonSize="small" onClick={(e) => item.action(row, e)} disabled={row.statusChanging}>
 									<small className={`clr-light fw-semibold tt-uppercase ls-base`}>{row.statusChanging ? 'Merubah...' : (row.status ? item.activeText : item.inactiveText)}</small>
 								</Button>
@@ -182,6 +184,7 @@ class TableSet extends Component {
 			rows,
 			searchText,
 			hasSearchBar,
+			searchParams,
 			searchBy
 		} = this.props;
 
@@ -190,19 +193,24 @@ class TableSet extends Component {
 			limit
 		} = this.state;
 
+		/** Set the lower and upper limit of the pagination */
 		const lowerLimit = (activePage - 1) * limit;
 		const upperLimit = activePage * limit;
 
+		/** Checks if rows has array items */
 		if(rows.length) {
-			if(hasSearchBar && searchBy) {
+			if(hasSearchBar && searchParams) {
 				let filteredRow = rows.filter((row) => {
-					return row[searchBy].toString().toLowerCase().includes(searchText.toLowerCase())
+					if(row[searchBy]) {
+						return row[searchBy].toString().toLowerCase().includes(searchText.toLowerCase())
+					}
+
 				})
 
 				if(!filteredRow.length) {
 					return (
 						<TableBody className="ta-center">
-							<td colspan="100%" style={{ padding: '40px' }}>Data tidak dapat ditemukan.</td>
+							<td colspan="100%" style={{ padding: '40px' }}>Data tidak ditemukan.</td>
 						</TableBody>
 					)
 				}

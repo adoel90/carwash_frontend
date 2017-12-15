@@ -15,7 +15,10 @@ class SettingsMemberContainer extends Component {
 		super();
 		this.state = {
 			memberList: [],
-			searchText: '',
+			search: {
+				searchText: '',
+				searchBy: 'name'
+			},
 			selectedMember: {
 				name: '',
 				email: '',

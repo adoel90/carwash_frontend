@@ -15,15 +15,19 @@ class SettingsMemberList extends Component {
 				],
 				settings: [
 					{ name: 'Ubah', theme: 'primary', action: props.handleUpdateMember },
-					{ isStatus: true, activeText: 'Aktif', inactiveText: 'Non Aktif', action: props.handleChangeMemberStatus }
+					{ name: 'Status', isToggleable: true, activeText: 'Aktif', inactiveText: 'Non Aktif', action: props.handleChangeMemberStatus }
 				],
-				searchBy: 'name'
+				searchParams: [
+					{ accessor: 'name', name: 'Nama Member' },
+					{ accessor: 'email', name: 'Alamat Email' }
+				]
 			}
 		}
 	}
 
 	render() {
 		const {
+			search,
 			memberList,
 			handleViewMemberDetail,
 			handleUpdateMember,
@@ -46,7 +50,8 @@ class SettingsMemberList extends Component {
 				isHoverable
 				hasPagination
 				hasSearchBar
-				searchBy={table.searchBy}
+				searchParams={table.searchParams}
+				searchBy={search.searchBy}
 				{...this.props}
 			/>
 		);

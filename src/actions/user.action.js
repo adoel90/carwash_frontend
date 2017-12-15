@@ -55,6 +55,24 @@ export const userLogin = (data) => {
 	function handleError(error) { return { type: USER_LOGIN_REJECTED, payload: error } };
 }
 
+export const getAllUser = (accessToken) => {
+	return async dispatch => {
+		dispatch(handleRequest());
+		return axios
+			.get(`${constant.API_PATH}user?accessToken=${accessToken}`)
+			.then((response) => {
+				dispatch(handleSuccess(response.data))
+			})
+			.catch((error) => {
+				dispatch(handleError(error))
+			})
+	}
+
+	function handleRequest() { return { type: GET_USER_LIST_REQUESTED } }
+	function handleSuccess(data) { return { type: GET_USER_LIST_FULFILLED, payload: data } }
+	function handleError(data) { return { type: GET_USER_LIST_REJECTED, payload: data } }
+}
+
 export const getUserList = (data, accessToken) => {
 	return async dispatch => {
 		dispatch(handleRequest());

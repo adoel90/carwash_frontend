@@ -12,8 +12,13 @@ class SettingsServiceTypeContainer extends React.Component {
 	constructor() {
 		super();
 		this.getAllServiceList = this.getAllServiceList.bind(this);
+		this.handleInputChange = this.handleInputChange.bind(this);
 		this.state = {
-			serviceList: []
+			serviceList: [],
+			search: {
+				searchText: '',
+				searchBy: 'name'
+			}
 		}
 	}
 
@@ -78,11 +83,27 @@ class SettingsServiceTypeContainer extends React.Component {
 		dispatch(getAllServiceList(requiredData, accessToken));
 	}
 
+	handleInputChange = (object, e) => {
+		const target = e.target;
+		const value = target.value;
+		const name = target.name;
+
+		if(object) {
+			object[name] = value;
+			this.forceUpdate();
+		} else {
+			this.setState({
+				[name]: value
+			})
+		}
+	}
+
 	render() {
 		return (
 			<SettingsServiceType
 				{...this.state}
 				{...this.props}
+				handleInputChange={this.handleInputChange}
 			/>
 		)
 	}

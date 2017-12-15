@@ -12,7 +12,11 @@ class SettingsServiceList extends Component {
 				],
 				settings: [
 					{ name: 'Ubah', theme: "primary", action: props.handleServiceUpdate },
-					{ isStatus: true, activeText: 'Aktif', inactiveText: 'Non Aktif', action: props.handleChangeServiceStatus }
+					{ isToggleable: true, activeText: 'Aktif', inactiveText: 'Non Aktif', action: props.handleChangeServiceStatus }
+				],
+				searchParams: [
+					{ accessor: 'name', name: 'Nama Service' },
+					{ accessor: 'price', name: 'Harga' },
 				]
 			}
 		}
@@ -22,6 +26,7 @@ class SettingsServiceList extends Component {
 		const {
 			service,
 			serviceList,
+			search,
 			handleServiceUpdate,
 			handleServiceDelete,
 			handleChangeServiceStatus
@@ -45,6 +50,8 @@ class SettingsServiceList extends Component {
 				isHoverable
 				hasPagination
 				hasSearchBar
+				searchParams={table.searchParams}
+				searchBy={search.searchBy}
 				{...this.props}
 			/>
 		);

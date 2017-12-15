@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { 
-	getUserList,
+	getAllUser,
 	updateUser,
 	changeUserStatus
 } from '../actions/user.action';
@@ -12,19 +12,22 @@ import { SettingsUser } from '../components/Settings';
 class SettingsUserContainer extends Component {
 	constructor() {
 		super();
-		this.getUserList = this.getUserList.bind(this);
+		this.getAllUser = this.getAllUser.bind(this);
 		this.handleInputChange = this.handleInputChange.bind(this);
 		this.handleUpdateUser = this.handleUpdateUser.bind(this);
 		this.handleDeleteUser = this.handleDeleteUser.bind(this);
 		this.state = {
 			userList: [],
-			searchText: ''
+			search: {
+				searchText: '',
+				searchBy: 'name'
+			}
 		}
 	}
 
 	/** Lifecycle methods */
 	componentDidMount = () => {
-		this.getUserList();
+		this.getAllUser();
 	}
 
 	componentDidUpdate = (prevProps) => {
@@ -37,31 +40,28 @@ class SettingsUserContainer extends Component {
 		} = this.props;
 		
 		if(prevProps.user.list !== user.list) {
-			user.list.data.forEach((item) => {
-				item.levelId = item.level.id;
-				item.levelName = item.level.name;
-			})
+			console.log(user);
 			
-			this.setState({
-				userList: user.list
-			}, () => {
-				this.forceUpdate();
-			});
+			// user.list.data.forEach((item) => {
+			// 	item.levelId = item.level.id;
+			// 	item.levelName = item.level.name;
+			// })
+			
+			// this.setState({
+			// 	userList: user.list
+			// }, () => {
+			// 	this.forceUpdate();
+			// });
 		}
 	}
 
-	getUserList = () => {
+	getAllUser = () => {
 		const {
 			accessToken,
 			dispatch
 		} = this.props;
 
-		let requiredData = {
-			limit: null,
-			offset: null
-		}
-
-		dispatch(getUserList(requiredData, accessToken));
+		dispatch(getAllUser(accessToken));
 	}
 
 	handleInputChange = (object, e) => {

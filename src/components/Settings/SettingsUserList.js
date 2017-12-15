@@ -15,9 +15,12 @@ class SettingsUserList extends Component {
 				],
 				settings: [
 					{ name: 'Ubah', theme: 'primary', action: props.handleUpdateUser },
-					{ isStatus: true, activeText: 'Aktif', inactiveText: 'Non Aktif', theme: 'danger', action: props.handleDeleteUser },
+					{ isToggleable: true, activeText: 'Aktif', inactiveText: 'Non Aktif', theme: 'danger', action: props.handleDeleteUser },
 				],
-				searchBy: 'name'
+				searchParams: [
+					{ accessor: 'name', name: 'Nama User' },
+					{ accessor: 'email', name: 'Alamat Email' },
+				]
 			}
 		}
 	}
@@ -28,7 +31,8 @@ class SettingsUserList extends Component {
 		} = this.state;
 		
 		const {
-			userList
+			userList,
+			search
 		} = this.props;
 		
 		return (
@@ -41,7 +45,8 @@ class SettingsUserList extends Component {
 				isHoverable
 				hasPagination
 				hasSearchBar
-				searchBy={table.searchBy}
+				searchParams={table.searchParams}
+				searchBy={search.searchBy}
 				{...this.props}
 			/>
 		);

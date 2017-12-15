@@ -24,7 +24,10 @@ class SettingsCafeTypeContainer extends Component {
 
 		this.state = {
 			cafeList: [],
-			searchText: '',
+			search: {
+				searchText: '',
+				searchBy: 'name'
+			},
 			selectedCafeMenu: {
 				cafe: '',
 				id: '',

@@ -50,6 +50,8 @@ class TableSet extends Component {
 
 	renderTableSearchBar = () => {
 		const {
+			search,
+			searchBy,
 			searchText,
 			placeholder,
 			searchParams,
@@ -60,9 +62,10 @@ class TableSet extends Component {
 			<SearchBar
 				value={searchText}
 				placeholder={placeholder}
-				onChange={(e) => handleInputChange('search', e)}
-				onSearchChange={(e) => handleInputChange('search', e)}
+				onChange={(e) => handleInputChange(search, e)}
+				onSearchChange={(e) => handleInputChange(search, e)}
 				className="margin-bottom-2"
+				searchBy={searchBy}
 				searchParams={searchParams}
 			/>
 		)
@@ -182,7 +185,7 @@ class TableSet extends Component {
 	renderTableBody = () => {
 		const {
 			rows,
-			searchText,
+			search,
 			hasSearchBar,
 			searchParams,
 			searchBy
@@ -199,12 +202,11 @@ class TableSet extends Component {
 
 		/** Checks if rows has array items */
 		if(rows.length) {
-			if(hasSearchBar && searchParams) {
+			if(hasSearchBar || searchParams || searchBy) {
 				let filteredRow = rows.filter((row) => {
 					if(row[searchBy]) {
-						return row[searchBy].toString().toLowerCase().includes(searchText.toLowerCase())
+						return row[searchBy].toString().toLowerCase().includes(search.searchText.toLowerCase())
 					}
-
 				})
 
 				if(!filteredRow.length) {
@@ -217,8 +219,7 @@ class TableSet extends Component {
 
 				return (
 					<TableBody>
-						{
-							filteredRow
+						{ filteredRow
 							.map(this.renderTableRow)
 							.slice(lowerLimit, upperLimit)
 						}
@@ -228,7 +229,7 @@ class TableSet extends Component {
 
 			return (
 				<TableBody>
-					{rows
+					{ rows
 						.map(this.renderTableRow)
 						.slice(lowerLimit, upperLimit)
 					}

@@ -14,6 +14,7 @@ class SearchBar extends React.Component {
 			onSubmit,
 			onChange,
 			onSearchChange,
+			searchBy,
 			searchParams,
 		} = this.props;
 
@@ -32,7 +33,7 @@ class SearchBar extends React.Component {
 						onChange={onSearchChange}>
 						<option disabled="true" selected="true">Cari berdasarkan...</option>
 						{searchParams.map((item) => {
-							return <option value={item.accessor}>{item.name}</option>
+							return <option value={item.accessor} selected={item.accessor == searchBy}>{item.name}</option>
 						})}
 					</Input>
 				)
@@ -46,10 +47,9 @@ class SearchBar extends React.Component {
 						<i className="ion-search icon icon--base"></i>
 					</InputAddon>
 					<InputGroup>
-						<Input 
+						<Input
 							name="searchText"
 							type="text"
-							name={name} 
 							placeholder={placeholder} 
 							value={value} 
 							onChange={onChange} 

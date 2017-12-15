@@ -29,7 +29,10 @@ class SettingsCardContainer extends Component {
 
 		this.state = {
 			cardTypes: [],
-			searchText: '',
+			search: {
+				searchText: '',
+				searchBy: 'name'
+			},
 			isModalOpen: {
 				newCardType: false,
 				updateCardType: false,

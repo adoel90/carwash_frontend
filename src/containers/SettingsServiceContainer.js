@@ -39,7 +39,6 @@ class SettingsServiceContainer extends Component {
 		this.handleChangeServiceTypeStatus = this.handleChangeServiceTypeStatus.bind(this);
 
 		this.state = {
-			searchText: '',
 			serviceTypes: {
 				all: [],
 				active: []
@@ -60,6 +59,10 @@ class SettingsServiceContainer extends Component {
 				name: '',
 				price: '',
 				description: ''
+			},
+			search: {
+				searchText: '',
+				searchBy: 'name'
 			},
 			isModalOpen: {
 				editService: false,

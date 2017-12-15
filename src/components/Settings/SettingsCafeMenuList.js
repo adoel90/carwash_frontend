@@ -13,6 +13,9 @@ class SettingsCafeMenuList extends Component {
 				settings: [
 					{ name: 'Ubah', theme: 'primary', action: props.handleCafeMenuUpdate },
 					{ isStatus: true, activeText: 'Aktif', inactiveText: 'Non Aktif', action: props.handleChangeCafeMenuStatus }
+				],
+				searchParams: [
+					{ accessor: 'name', name: 'Nama' },
 				]
 			}
 		}
@@ -21,6 +24,7 @@ class SettingsCafeMenuList extends Component {
 	render() {
 		const {
 			cafeList,
+			search,
 			handleCafeMenuUpdate,
 			handleChangeCafeMenuStatus,
 			handleCafeMenuDelete
@@ -40,6 +44,8 @@ class SettingsCafeMenuList extends Component {
 				isHoverable
 				hasPagination
 				hasSearchBar
+				searchParams={table.searchParams}
+				searchBy={search.searchBy}
 				{...this.props}
 			/>
 		);

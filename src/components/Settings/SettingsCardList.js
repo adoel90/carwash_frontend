@@ -15,6 +15,11 @@ class SettingsCardList extends Component {
 				settings: [
 					{ name: 'Ubah', theme: 'primary', action: props.handleCardTypeUpdate },
 					{ isStatus: true, activeText: 'Aktif', inactiveText: 'Non Aktif', action: props.handleChangeCardTypeStatus }
+				],
+				searchParams: [
+					{ accessor: 'name', name: 'Nama Kartu' },
+					{ accessor: 'min', name: 'Minimum Harga' },
+					{ accessor: 'bonus', name: 'Bonus Saldo' },
 				]
 			}
 		}
@@ -27,6 +32,7 @@ class SettingsCardList extends Component {
 
 		const {
 			cardTypes,
+			search,
 			handleCardTypeUpdate,
 			handleCardTypeDelete,
 			handleChangeCardTypeStatus
@@ -42,6 +48,8 @@ class SettingsCardList extends Component {
 				hasPagination
 				hasSearchBar
 				placeholder="Cari tipe kartu..."
+				searchBy={search.searchBy}
+				searchParams={table.searchParams}
 				{...this.props}
 			/>
 		)

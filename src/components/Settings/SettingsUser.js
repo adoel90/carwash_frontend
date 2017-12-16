@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 
-import { SettingsUserList } from '../Settings';
+import { 
+	SettingsUserList,
+	SettingsUpdateUser
+} from '../Settings';
 import { PageBlockGroup, PageBlock } from '../Page';
 import { Button } from '../Button';
 
@@ -36,6 +39,7 @@ class SettingsUser extends Component {
 						</Button>
 					</PageBlock>
 				</PageBlockGroup>
+				<SettingsUpdateUser {...this.props} />
 			</div>
 		);
 	}

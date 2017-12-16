@@ -9,9 +9,9 @@ export const USER_LOGIN_FULFILLED = 'USER_LOGIN_FULFILLED';
 export const GET_USER_LIST_REQUESTED = 'GET_USER_LIST_REQUESTED';
 export const GET_USER_LIST_FULFILLED = 'GET_USER_LIST_FULFILLED';
 export const GET_USER_LIST_REJECTED = 'GET_USER_LIST_REJECTED';
-export const GET_ALL_USER_LIST_REQUESTED = 'GET_ALL_USER_LIST_REQUESTED';
-export const GET_ALL_USER_LIST_FULFILLED = 'GET_ALL_USER_LIST_FULFILLED';
-export const GET_ALL_USER_LIST_REJECTED = 'GET_ALL_USER_LIST_REJECTED';
+export const GET_ALL_USER_REQUESTED = 'GET_ALL_USER_REQUESTED';
+export const GET_ALL_USER_FULFILLED = 'GET_ALL_USER_FULFILLED';
+export const GET_ALL_USER_REJECTED = 'GET_ALL_USER_REJECTED';
 export const CREATE_USER_REQUESTED = 'CREATE_USER_REQUESTED';
 export const CREATE_USER_FULFILLED = 'CREATE_USER_FULFILLED';
 export const CREATE_USER_REJECTED = 'CREATE_USER_REJECTED';
@@ -68,9 +68,9 @@ export const getAllUser = (accessToken) => {
 			})
 	}
 
-	function handleRequest() { return { type: GET_USER_LIST_REQUESTED } }
-	function handleSuccess(data) { return { type: GET_USER_LIST_FULFILLED, payload: data } }
-	function handleError(data) { return { type: GET_USER_LIST_REJECTED, payload: data } }
+	function handleRequest() { return { type: GET_ALL_USER_REQUESTED } }
+	function handleSuccess(data) { return { type: GET_ALL_USER_FULFILLED, payload: data } }
+	function handleError(data) { return { type: GET_ALL_USER_REJECTED, payload: data } }
 }
 
 export const getUserList = (data, accessToken) => {

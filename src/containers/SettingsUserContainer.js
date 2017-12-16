@@ -13,14 +13,20 @@ class SettingsUserContainer extends Component {
 	constructor() {
 		super();
 		this.getAllUser = this.getAllUser.bind(this);
+		this.toggleModal = this.toggleModal.bind(this);
 		this.handleInputChange = this.handleInputChange.bind(this);
 		this.handleUpdateUser = this.handleUpdateUser.bind(this);
-		this.handleDeleteUser = this.handleDeleteUser.bind(this);
+		this.handleUpdateUserSubmit = this.handleUpdateUserSubmit.bind(this);
+		this.handleChangeUserStatus = this.handleChangeUserStatus.bind(this);
 		this.state = {
 			userList: [],
 			search: {
 				searchText: '',
 				searchBy: 'name'
+			},
+			selectedUser: {},
+			isModalOpen: {
+				updateUser: false
 			}
 		}
 	}
@@ -40,18 +46,16 @@ class SettingsUserContainer extends Component {
 		} = this.props;
 		
 		if(prevProps.user.list !== user.list) {
-			console.log(user);
+			user.list.data.forEach((item) => {
+				item.levelId = item.level.id;
+				item.levelName = item.level.name;
+			})
 			
-			// user.list.data.forEach((item) => {
-			// 	item.levelId = item.level.id;
-			// 	item.levelName = item.level.name;
-			// })
-			
-			// this.setState({
-			// 	userList: user.list
-			// }, () => {
-			// 	this.forceUpdate();
-			// });
+			this.setState({
+				userList: user.list
+			}, () => {
+				this.forceUpdate();
+			});
 		}
 	}
 
@@ -62,6 +66,17 @@ class SettingsUserContainer extends Component {
 		} = this.props;
 
 		dispatch(getAllUser(accessToken));
+	}
+
+	toggleModal = (name) => {
+		const { isModalOpen } = this.state;
+
+		this.setState({
+			isModalOpen: {
+				...isModalOpen,
+				[name]: !isModalOpen[name]
+			}
+		})
 	}
 
 	handleInputChange = (object, e) => {
@@ -79,11 +94,32 @@ class SettingsUserContainer extends Component {
 		}
 	}
 
-	handleUpdateUser = () => {
+	handleUpdateUser = (user) => {
+		const {
+			dispatch,
+			accessToken
+		} = this.props;
+
+		this.setState({
+			selectedUser: user
+		}, () => {
+			dispatch(getAllAccess(accessToken));
+			this.toggleModal('updateUser');
+		})
 	}
 
-	handleDeleteUser = () => {
-		
+	handleUpdateUserSubmit = (e) => {
+		e.preventDefault();
+	}
+
+	handleChangeUserStatus = () => {
+		const {
+			user,
+			dispatch,
+			accessToken
+		} = this.props;
+
+		/** Remaining codes for handling user status change */
 	}
 
 	render() {
@@ -91,8 +127,10 @@ class SettingsUserContainer extends Component {
 			<SettingsUser
 				{...this.state}
 				{...this.props}
+				toggleModal={this.toggleModal}
 				handleInputChange={this.handleInputChange}
 				handleUpdateUser={this.handleUpdateUser}
+				handleUpdateUserSubmit={this.handleUpdateUserSubmit}
 				handleDeleteUser={this.handleDeleteUser}
 			/>
 		);

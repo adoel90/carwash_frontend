@@ -6,9 +6,9 @@ import {
 	GET_USER_LIST_REQUESTED,
 	GET_USER_LIST_FULFILLED,
 	GET_USER_LIST_REJECTED,
-	GET_ALL_USER_LIST_REQUESTED,
-	GET_ALL_USER_LIST_FULFILLED,
-	GET_ALL_USER_LIST_REJECTED,
+	GET_ALL_USER_REQUESTED,
+	GET_ALL_USER_FULFILLED,
+	GET_ALL_USER_REJECTED,
 	CREATE_USER_REQUESTED,
 	CREATE_USER_FULFILLED,
 	CREATE_USER_REJECTED,
@@ -141,6 +141,48 @@ const user = (state = initialState, action) => {
 				list: {
 					...state.list,
 					data: {},
+					isFetching: false,
+					isLoaded: false,
+					isError: true,
+					error: action.payload
+				}
+			}
+		}
+
+		case GET_ALL_USER_REQUESTED: {
+			return {
+				...state,
+				list: {
+					...state.list,
+					data: [],
+					isFetching: true,
+					isLoaded: false,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case GET_ALL_USER_FULFILLED: {
+			return {
+				...state,
+				list: {
+					...state.list,
+					data: action.payload.data,
+					isFetching: false,
+					isLoaded: true,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case GET_ALL_USER_REJECTED: {
+			return {
+				...state,
+				list: {
+					...state.list,
+					data: [],
 					isFetching: false,
 					isLoaded: false,
 					isError: true,

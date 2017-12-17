@@ -62,6 +62,8 @@ class AdminContainer extends Component {
 			member,
 			isAuthenticated
 		} = this.props;
+		
+		console.log(user);
  
 		return (
 			<Admin

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { 
+import {
 	getAllUser,
 	updateUser,
 	changeUserStatus
@@ -103,7 +103,6 @@ class SettingsUserContainer extends Component {
 		this.setState({
 			selectedUser: user
 		}, () => {
-			dispatch(getAllAccess(accessToken));
 			this.toggleModal('updateUser');
 		})
 	}

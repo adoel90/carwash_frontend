@@ -12,7 +12,7 @@ class SettingsCafeMenuList extends Component {
 				],
 				settings: [
 					{ name: 'Ubah', theme: 'primary', action: props.handleCafeMenuUpdate },
-					{ isStatus: true, activeText: 'Aktif', inactiveText: 'Non Aktif', action: props.handleChangeCafeMenuStatus }
+					{ isToggleable: true, activeText: 'Aktif', inactiveText: 'Non Aktif', action: props.handleChangeCafeMenuStatus }
 				],
 				searchParams: [
 					{ accessor: 'name', name: 'Nama' },

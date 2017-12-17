@@ -14,7 +14,7 @@ class SettingsCardList extends Component {
 				],
 				settings: [
 					{ name: 'Ubah', theme: 'primary', action: props.handleCardTypeUpdate },
-					{ isStatus: true, activeText: 'Aktif', inactiveText: 'Non Aktif', action: props.handleChangeCardTypeStatus }
+					{ isToggleable: true, activeText: 'Aktif', inactiveText: 'Non Aktif', action: props.handleChangeCardTypeStatus }
 				],
 				searchParams: [
 					{ accessor: 'name', name: 'Nama Kartu' },

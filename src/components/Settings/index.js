@@ -18,6 +18,7 @@ import SettingsCafeMenuList from './SettingsCafeMenuList';
 import SettingsNewCafeMenu from './SettingsNewCafeMenu';
 import SettingsUpdateCafeMenu from './SettingsUpdateCafeMenu';
 import SettingsManageCafeType from './SettingsManageCafeType';
+import SettingsAccess from './SettingsAccess';
 
 export {
 	Settings,
@@ -39,5 +40,6 @@ export {
 	SettingsCardList,
 	SettingsNewCafeMenu,
 	SettingsUpdateCafeMenu,
-	SettingsManageCafeType
+	SettingsManageCafeType,
+	SettingsAccess
 }

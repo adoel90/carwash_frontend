@@ -25,7 +25,7 @@ class Settings extends React.Component {
 		} = this.props;
 
 		// let firstRoute = subroutes[0].name.replace(/\s+/g, '-').toLowerCase();
-		let firstRoutePath = subroutes[0].path;
+		let firstRoutePath = subroutes.default[0].path;
 
 		return <Redirect to={firstRoutePath} />
 	}
@@ -78,10 +78,16 @@ class Settings extends React.Component {
 				<div style={{ padding: '30px' }}>
 					<Row>
 						<div className="column-3">
-							<AdminSidebar navigations={subroutes} />
+							<div className="margin-bottom-3">
+								<AdminSidebar navigations={subroutes.default} />
+							</div>
+							<div>
+								<AdminSidebar navigations={subroutes.admin} />
+							</div>
 						</div>
 						<div className="column-9">
-							{ subroutes.map(this.renderSubroutes) }
+							{ subroutes.default.map(this.renderSubroutes) }
+							{ subroutes.admin.map(this.renderSubroutes) }
 						</div>
 					</Row>
 				</div>

@@ -6,6 +6,7 @@ import member from './member.reducer';
 import card from './card.reducer';
 import dialog from './dialog.reducer';
 import report from './report.reducer';
+import access from './access.reducer';
 
 const rootReducer = combineReducers({
 	user,
@@ -14,7 +15,8 @@ const rootReducer = combineReducers({
 	member,
 	card,
 	dialog,
-	report
+	report,
+	access
 });
 
 export default rootReducer;

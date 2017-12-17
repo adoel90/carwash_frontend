@@ -20,22 +20,37 @@ import SettingsUserContainer from './SettingsUserContainer';
 import SettingsServiceContainer from './SettingsServiceContainer';
 import SettingsCafeContainer from './SettingsCafeContainer';
 import SettingsCardContainer from './SettingsCardContainer';
+import SettingsAccessContainer from './SettingsAccessContainer';
 
 class SettingsContainer extends Component {
 	constructor() {
 		super();
+		this.handleAccessLevel = this.handleAccessLevel.bind(this);
 		this.toggleDialog = this.toggleDialog.bind(this);
 		this.showDialog = this.showDialog.bind(this);
 		this.hideDialog = this.hideDialog.bind(this);
 		this.state = {
-			subroutes: [
-				{ id: 1, name: 'Pengaturan Member', path: "/admin/settings/member-settings", component: SettingsMemberContainer },
-				{ id: 2, name: 'Pengaturan User', path: "/admin/settings/user-settings", component: SettingsUserContainer },
-				{ id: 3, name: 'Pengaturan Service', path: "/admin/settings/service-settings", component: SettingsServiceContainer },
-				{ id: 4, name: 'Pengaturan Cafe', path: "/admin/settings/cafe-settings", component: SettingsCafeContainer },
-				{ id: 5, name: 'Pengaturan Tipe Kartu', path: "/admin/settings/card-settings", component: SettingsCardContainer}
-			]
+			subroutes: {
+				default: [
+					{ id: 1, name: 'Pengaturan Member', path: "/admin/settings/member-settings", component: SettingsMemberContainer },
+					{ id: 3, name: 'Pengaturan Service', path: "/admin/settings/service-settings", component: SettingsServiceContainer },
+					{ id: 4, name: 'Pengaturan Cafe', path: "/admin/settings/cafe-settings", component: SettingsCafeContainer },
+					{ id: 5, name: 'Pengaturan Tipe Kartu', path: "/admin/settings/card-settings", component: SettingsCardContainer},
+				],
+				admin: [
+					{ id: 1, name: 'Pengaturan User', path: "/admin/settings/user-settings", component: SettingsUserContainer },
+					{ id: 2, name: 'Pengaturan Akses', path: "/admin/settings/access-settings", component: SettingsAccessContainer }
+				]
+			}
 		}
+	}
+
+	componentDidMount = (prevProps) => {
+		this.handleAccessLevel();
+	}
+
+	handleAccessLevel = () => {
+
 	}
 
 	toggleDialog = (data) => {

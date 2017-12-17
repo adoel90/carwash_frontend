@@ -39,17 +39,7 @@ class AdminContainer extends Component {
 				})
 				break;
 			}
-
-			case 5: {
-				this.setState({
-					navigations: [
-						{ name: 'Kafe', path: '/admin/cafe' },
-						{ name: 'Kasir', path: '/admin/cashier' },
-					]
-				})
-				break;
-			}
-
+			
 			default: {
 				return null;
 			}

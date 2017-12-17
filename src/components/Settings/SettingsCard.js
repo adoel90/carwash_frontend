@@ -198,7 +198,9 @@ class SettingsCard extends Component {
 					{/* <p className="clr-passive">Berikut merupakan daftar tipe kartu yang aktif dalam layanan.</p> */}
 				</div>
 				<PageBlockGroup>
-					<SettingsCardList {...this.props} />
+					<PageBlock>
+						<SettingsCardList {...this.props} />
+					</PageBlock>
 					<PageBlock className="flex justify-content--flex-end" extension>
 						<Button type="button" buttonTheme="primary" className="clr-light" onClick={handleNewCardType}>
 							<small className="fw-semibold tt-uppercase ls-base">Buat Tipe Kartu Baru</small>

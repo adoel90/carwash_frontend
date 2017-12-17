@@ -4,6 +4,7 @@ import { Modal } from 'reactstrap';
 import { ModalHeader, ModalContent, ModalFooter } from '../Modal';
 import { Form, FormGroup } from '../Form';
 import { Input, InputGroup, InputAddon, Label } from '../Input';
+import { Button } from '../Button';
 
 class SettingsUpdateUser extends Component {
 	render() {
@@ -20,7 +21,7 @@ class SettingsUpdateUser extends Component {
 				isOpen={isModalOpen.updateUser}
 				toggle={() => toggleModal('updateUser')}>
 				<ModalHeader align="center">
-					<h6 className="fw-semibold">Perbarui Data User</h6>
+					<h6 className="fw-semibold">Ubah Informasi User: <span className="fw-bold">{selectedUser.name}</span></h6>
 				</ModalHeader>
 				<Form onSubmit={handleUpdateUserSubmit}>
 					<ModalContent>
@@ -58,14 +59,20 @@ class SettingsUpdateUser extends Component {
 								<Input
 									name="password"
 									type="password"
-									placeholder="Masukkan kata sandi"
+									placeholder="Masukkan kata sandi (hiraukan jika tidak ingin mengganti)"
 									onChange={(e) => handleInputChange(selectedUser, e)}
 									value={selectedUser.password}
 								/>
 							</InputGroup>
 						</FormGroup>
 					</ModalContent>
-					<ModalFooter>
+					<ModalFooter className="flex justify-content--flex-end">
+						<Button buttonTheme="danger" className="clr-light" onClick={() => toggleModal('updateUser')}>
+							<small className="fw-semibold tt-uppercase ls-base">Batal</small>
+						</Button>
+						<Button buttonTheme="primary" className="clr-light margin-left-2">
+							<small className="fw-semibold tt-uppercase ls-base">Terapkan</small>
+						</Button>
 					</ModalFooter>
 				</Form>
 			</Modal>

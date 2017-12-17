@@ -1,19 +1,24 @@
 import React, { Component } from 'react';
 
+import { SettingsAccessList, SettingsUpdateAccess } from '../Settings';
 import { PageBlockGroup, PageBlock } from '../Page';
+import { Button } from '../Button';
 
 class SettingsAccess extends Component {
-	constructor(props) {
-		super(props);
-	}
-
 	render() {
 		const {
-			access
+			access,
+			accessList
 		} = this.props;
 
 		const renderAccessList = () => {
-			return null;
+			if(accessList.isFetching) {
+				return <p>Sedang memuat data akses level. Tunggu sebentar...</p>
+			}
+
+			if(accessList.isLoaded) {
+				return <SettingsAccessList {...this.props} />
+			}
 		}
 
 		return (
@@ -21,9 +26,17 @@ class SettingsAccess extends Component {
 				<div className="padding-bottom-2">
 					<h4 className="fw-semibold">Daftar Akses</h4>
 				</div>
-				<PageBlock>
-					{ renderAccessList() }
-				</PageBlock>
+				<PageBlockGroup>
+					<PageBlock>
+						{ renderAccessList() }
+					</PageBlock>
+					<PageBlock extension className="flex justify-content--flex-end">
+						<Button buttonTheme="primary" className="clr-light">
+							<small className="fw-semibold tt-uppercase ls-base">Tambah Akses Level</small>
+						</Button>
+					</PageBlock>
+				</PageBlockGroup>
+				<SettingsUpdateAccess {...this.props} />
 			</div>
 		);
 	}

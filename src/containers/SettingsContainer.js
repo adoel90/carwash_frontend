@@ -30,18 +30,14 @@ class SettingsContainer extends Component {
 		this.showDialog = this.showDialog.bind(this);
 		this.hideDialog = this.hideDialog.bind(this);
 		this.state = {
-			subroutes: {
-				default: [
-					{ id: 1, name: 'Pengaturan Member', path: "/admin/settings/member-settings", component: SettingsMemberContainer },
-					{ id: 3, name: 'Pengaturan Service', path: "/admin/settings/service-settings", component: SettingsServiceContainer },
-					{ id: 4, name: 'Pengaturan Cafe', path: "/admin/settings/cafe-settings", component: SettingsCafeContainer },
-					{ id: 5, name: 'Pengaturan Tipe Kartu', path: "/admin/settings/card-settings", component: SettingsCardContainer},
-				],
-				admin: [
-					{ id: 1, name: 'Pengaturan User', path: "/admin/settings/user-settings", component: SettingsUserContainer },
-					{ id: 2, name: 'Pengaturan Akses', path: "/admin/settings/access-settings", component: SettingsAccessContainer }
-				]
-			}
+			subroutes: [
+				{ id: 1, name: 'Pengaturan Member', path: "/admin/settings/member-settings", component: SettingsMemberContainer },
+				{ id: 2, name: 'Pengaturan User', path: "/admin/settings/user-settings", component: SettingsUserContainer },
+				{ id: 3, name: 'Pengaturan Service', path: "/admin/settings/service-settings", component: SettingsServiceContainer },
+				{ id: 4, name: 'Pengaturan Cafe', path: "/admin/settings/cafe-settings", component: SettingsCafeContainer },
+				{ id: 5, name: 'Pengaturan Tipe Kartu', path: "/admin/settings/card-settings", component: SettingsCardContainer},
+				{ id: 6, name: 'Pengaturan Akses Level', path: "/admin/settings/access-settings", component: SettingsAccessContainer }
+			]
 		}
 	}
 

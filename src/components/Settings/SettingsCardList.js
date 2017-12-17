@@ -8,7 +8,7 @@ class SettingsCardList extends Component {
 		this.state = {
 			table: {
 				columns: [
-					{ accessor: 'name', title: 'Name' },
+					{ accessor: 'name', title: 'Nama' },
 					{ accessor: 'min', title: 'Minimum', isCurrency: true },
 					{ accessor: 'bonus', title: 'Bonus', isCurrency: true },
 				],

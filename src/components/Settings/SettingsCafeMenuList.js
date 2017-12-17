@@ -15,7 +15,7 @@ class SettingsCafeMenuList extends Component {
 					{ isToggleable: true, activeText: 'Aktif', inactiveText: 'Non Aktif', action: props.handleChangeCafeMenuStatus }
 				],
 				searchParams: [
-					{ accessor: 'name', name: 'Nama' },
+					{ accessor: 'name', name: 'Nama Menu' },
 				]
 			}
 		}

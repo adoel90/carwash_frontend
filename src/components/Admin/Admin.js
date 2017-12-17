@@ -46,7 +46,6 @@ class Admin extends Component {
 			switch(userLevel) {
 				case 1: return <Redirect from="/*" to={`${match.url}/settings`} />
 				case 2: return <Redirect from="/*" to={`${match.url}/cafe`} />
-				case 5: return <Redirect from="/*" to={`${match.url}/cafe`} />
 				default: return null;
 			}
 		}

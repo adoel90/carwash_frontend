@@ -22,7 +22,7 @@ const access = (state = initialState, action) => {
 				...state,
 				list: {
 					...state.list,
-					data: {},
+					data: [],
 					isLoaded: false,
 					isFetching: true,
 					isError: false,

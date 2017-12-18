@@ -4,12 +4,17 @@ import { connect } from 'react-redux';
 import {
 	getAllUser,
 	updateUser,
-	changeUserStatus
+	changeUserStatus,
+	createUser
 } from '../actions/user.action';
 
 import {
 	getAllAccess
 } from '../actions/access.action';
+
+import {
+	getCafeTypes
+} from '../actions/cafe.action';
 
 import { SettingsUser } from '../components/Settings';
 
@@ -18,21 +23,32 @@ class SettingsUserContainer extends Component {
 		super();
 		this.getAllUser = this.getAllUser.bind(this);
 		this.getAllAccess = this.getAllAccess.bind(this);
+		this.getCafeTypes = this.getCafeTypes.bind(this);
 		this.toggleModal = this.toggleModal.bind(this);
 		this.handleInputChange = this.handleInputChange.bind(this);
 		this.handleUpdateUser = this.handleUpdateUser.bind(this);
 		this.handleUpdateUserSubmit = this.handleUpdateUserSubmit.bind(this);
 		this.handleChangeUserStatus = this.handleChangeUserStatus.bind(this);
 		this.handleCreateUser = this.handleCreateUser.bind(this);
+		this.handleCreateUserSubmit = this.handleCreateUserSubmit.bind(this);
 		this.state = {
 			userList: [],
 			accessList: [],
+			cafeTypes: [],
 			search: {
 				searchText: '',
 				searchBy: 'name'
 			},
 			selectedUser: {},
-			newUser: {},
+			newUser: {
+				username: '',
+				password: '',
+				confirmPassword: '',
+				name: '',
+				email: '',
+				level: 0,
+				cafe: 0
+			},
 			isModalOpen: {
 				updateUser: false
 			}
@@ -43,6 +59,7 @@ class SettingsUserContainer extends Component {
 	componentDidMount = () => {
 		this.getAllUser();
 		this.getAllAccess();
+		this.getCafeTypes();
 	}
 
 	componentDidUpdate = (prevProps) => {
@@ -52,7 +69,8 @@ class SettingsUserContainer extends Component {
 
 		const {
 			user,
-			access
+			access,
+			cafe
 		} = this.props;
 		
 		if(prevProps.user.list !== user.list) {
@@ -75,6 +93,14 @@ class SettingsUserContainer extends Component {
 				this.forceUpdate();
 			});
 		}
+
+		if(prevProps.cafe.types !== cafe.types) {
+			this.setState({
+				cafeTypes: cafe.types
+			}, () => {
+				this.forceUpdate();
+			})
+		}
 	}
 
 	getAllUser = () => {
@@ -93,6 +119,15 @@ class SettingsUserContainer extends Component {
 		} = this.props;
 
 		dispatch(getAllAccess(accessToken));
+	}
+
+	getCafeTypes = () => {
+		const {
+			accessToken,
+			dispatch
+		} = this.props;
+		
+		dispatch(getCafeTypes(accessToken));
 	}
 
 	toggleModal = (name) => {
@@ -148,8 +183,12 @@ class SettingsUserContainer extends Component {
 		/** Remaining codes for handling user status change */
 	}
 
-	handleCreateUser = (e) => {
+	handleCreateUser = () => {
 		this.toggleModal('createUser');
+	}
+
+	handleCreateUserSubmit = (e) => {
+		e.preventDefault();
 	}
 
 	render() {
@@ -162,6 +201,7 @@ class SettingsUserContainer extends Component {
 				handleUpdateUser={this.handleUpdateUser}
 				handleUpdateUserSubmit={this.handleUpdateUserSubmit}
 				handleCreateUser={this.handleCreateUser}
+				handleCreateUserSubmit={this.handleCreateUserSubmit}
 			/>
 		);
 	}
@@ -170,7 +210,8 @@ class SettingsUserContainer extends Component {
 const mapStateToProps = (state) => {
 	return {
 		user: state.user,
-		access: state.access
+		access: state.access,
+		cafe: state.cafe
 	}
 }
 

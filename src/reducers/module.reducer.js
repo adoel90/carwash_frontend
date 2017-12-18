@@ -1,8 +1,8 @@
 import {
-	GET_ALL_ACCESS_REQUESTED,
-	GET_ALL_ACCESS_FULFILLED,
-	GET_ALL_ACCESS_REJECTED
-} from '../actions/access.action';
+	GET_ALL_MODULE_REQUESTED,
+	GET_ALL_MODULE_FULFILLED,
+	GET_ALL_MODULE_REJECTED
+} from '../actions/module.action';
 
 const initialState = {
 	list: {
@@ -14,9 +14,9 @@ const initialState = {
 	}
 }
 
-const access = (state = initialState, action) => {
+const module = (state = initialState, action) => {
 	switch(action.type) {
-		case GET_ALL_ACCESS_REQUESTED: {
+		case GET_ALL_MODULE_REQUESTED: {
 			return {
 				...state,
 				list: {
@@ -30,7 +30,7 @@ const access = (state = initialState, action) => {
 			}
 		}
 
-		case GET_ALL_ACCESS_FULFILLED: {
+		case GET_ALL_MODULE_FULFILLED: {
 			return {
 				...state,
 				list: {
@@ -44,7 +44,7 @@ const access = (state = initialState, action) => {
 			}
 		}
 
-		case GET_ALL_ACCESS_REJECTED: {
+		case GET_ALL_MODULE_REJECTED: {
 			return {
 				...state,
 				list: {
@@ -64,5 +64,4 @@ const access = (state = initialState, action) => {
 	}
 }
 
-export default access;
-
+export default module;

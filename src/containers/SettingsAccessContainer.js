@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { getAllAccess } from '../actions/access.action';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { getAllAccess } from '../actions/access.action'
+import { getAllModule } from '../actions/module.action'
 
-import { SettingsAccess } from '../components/Settings';
+import { SettingsAccess } from '../components/Settings'
 
 class SettingsAccessContainer extends Component {
 	constructor() {
@@ -14,6 +15,7 @@ class SettingsAccessContainer extends Component {
 		this.handleChangeAccessStatus = this.handleChangeAccessStatus.bind(this);
 		this.state = {
 			accessList: {},
+			moduleList: {},
 			selectedAccess: {},
 			search: {
 				searchText: '',
@@ -27,15 +29,18 @@ class SettingsAccessContainer extends Component {
 
 	componentDidMount = () => {
 		this.getAllAccess();
+		this.getAllModule();
 	}
 
 	componentDidUpdate = (prevProps) => {
 		const {
-			access
+			access,
+			module
 		} = this.props;
 		
 		const {
-			accessList
+			accessList,
+			moduleList
 		} = this.state;
 
 		if(prevProps.access.list !== access.list) {
@@ -44,6 +49,14 @@ class SettingsAccessContainer extends Component {
 			}, () => {
 				this.forceUpdate();
 			});
+		}
+
+		if(prevProps.module.list !== module.list) {
+			this.setState({
+				moduleList: module.list
+			}, () => {
+				this.forceUpdate();
+			})
 		}
 	}
 
@@ -54,6 +67,15 @@ class SettingsAccessContainer extends Component {
 		} = this.props;
 
 		dispatch(getAllAccess(accessToken));
+	}
+
+	getAllModule = () => {
+		const {
+			dispatch,
+			accessToken
+		} = this.props;
+
+		dispatch(getAllModule(accessToken));
 	}
 
 	toggleModal = (name) => {
@@ -116,7 +138,8 @@ class SettingsAccessContainer extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-		access: state.access
+		access: state.access,
+		module: state.module
 	}
 }
 

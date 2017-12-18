@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 
 import { 
 	SettingsUserList,
-	SettingsUpdateUser
+	SettingsUpdateUser,
+	SettingsCreateUser
 } from '../Settings';
 import { PageBlockGroup, PageBlock } from '../Page';
 import { Button } from '../Button';
@@ -11,7 +12,8 @@ class SettingsUser extends Component {
 	render() {
 		const {
 			user,
-			userList
+			userList,
+			handleCreateUser
 		} = this.props;
 		
 		const renderUserList = () => {
@@ -34,12 +36,13 @@ class SettingsUser extends Component {
 						{ renderUserList() }
 					</PageBlock>
 					<PageBlock extension className="flex justify-content--flex-end">
-						<Button buttonTheme="primary" className="clr-light">
+						<Button type="button" buttonTheme="primary" className="clr-light" onClick={handleCreateUser}>
 							<small className="fw-semibold tt-uppercase ls-base">Tambah User Baru</small>
 						</Button>
 					</PageBlock>
 				</PageBlockGroup>
 				<SettingsUpdateUser {...this.props} />
+				<SettingsCreateUser {...this.props} />
 			</div>
 		);
 	}

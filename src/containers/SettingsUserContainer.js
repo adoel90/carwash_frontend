@@ -7,24 +7,32 @@ import {
 	changeUserStatus
 } from '../actions/user.action';
 
+import {
+	getAllAccess
+} from '../actions/access.action';
+
 import { SettingsUser } from '../components/Settings';
 
 class SettingsUserContainer extends Component {
 	constructor() {
 		super();
 		this.getAllUser = this.getAllUser.bind(this);
+		this.getAllAccess = this.getAllAccess.bind(this);
 		this.toggleModal = this.toggleModal.bind(this);
 		this.handleInputChange = this.handleInputChange.bind(this);
 		this.handleUpdateUser = this.handleUpdateUser.bind(this);
 		this.handleUpdateUserSubmit = this.handleUpdateUserSubmit.bind(this);
 		this.handleChangeUserStatus = this.handleChangeUserStatus.bind(this);
+		this.handleCreateUser = this.handleCreateUser.bind(this);
 		this.state = {
 			userList: [],
+			accessList: [],
 			search: {
 				searchText: '',
 				searchBy: 'name'
 			},
 			selectedUser: {},
+			newUser: {},
 			isModalOpen: {
 				updateUser: false
 			}
@@ -34,6 +42,7 @@ class SettingsUserContainer extends Component {
 	/** Lifecycle methods */
 	componentDidMount = () => {
 		this.getAllUser();
+		this.getAllAccess();
 	}
 
 	componentDidUpdate = (prevProps) => {
@@ -42,7 +51,8 @@ class SettingsUserContainer extends Component {
 		} = this.state;
 
 		const {
-			user
+			user,
+			access
 		} = this.props;
 		
 		if(prevProps.user.list !== user.list) {
@@ -57,6 +67,14 @@ class SettingsUserContainer extends Component {
 				this.forceUpdate();
 			});
 		}
+
+		if(prevProps.access.list !== access.list) {
+			this.setState({
+				accessList: access.list
+			}, () => {
+				this.forceUpdate();
+			});
+		}
 	}
 
 	getAllUser = () => {
@@ -66,6 +84,15 @@ class SettingsUserContainer extends Component {
 		} = this.props;
 
 		dispatch(getAllUser(accessToken));
+	}
+
+	getAllAccess = () => {
+		const {
+			accessToken,
+			dispatch
+		} = this.props;
+
+		dispatch(getAllAccess(accessToken));
 	}
 
 	toggleModal = (name) => {
@@ -121,6 +148,10 @@ class SettingsUserContainer extends Component {
 		/** Remaining codes for handling user status change */
 	}
 
+	handleCreateUser = (e) => {
+		this.toggleModal('createUser');
+	}
+
 	render() {
 		return (
 			<SettingsUser
@@ -130,7 +161,7 @@ class SettingsUserContainer extends Component {
 				handleInputChange={this.handleInputChange}
 				handleUpdateUser={this.handleUpdateUser}
 				handleUpdateUserSubmit={this.handleUpdateUserSubmit}
-				handleDeleteUser={this.handleDeleteUser}
+				handleCreateUser={this.handleCreateUser}
 			/>
 		);
 	}
@@ -138,7 +169,8 @@ class SettingsUserContainer extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-		user: state.user
+		user: state.user,
+		access: state.access
 	}
 }
 

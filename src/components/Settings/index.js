@@ -4,6 +4,7 @@ import SettingsMemberList from './SettingsMemberList';
 import SettingsUser from './SettingsUser';
 import SettingsUserList from './SettingsUserList';
 import SettingsUpdateUser from './SettingsUpdateUser';
+import SettingsCreateUser from './SettingsCreateUser';
 import SettingsService from './SettingsService';
 import SettingsServiceType from './SettingsServiceType';
 import SettingsServiceList from './SettingsServiceList';
@@ -29,6 +30,7 @@ export {
 	SettingsUser,
 	SettingsUserList,
 	SettingsUpdateUser,
+	SettingsCreateUser,
 	SettingsService,
 	SettingsServiceType,
 	SettingsServiceList,

@@ -1,6 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { getAllAccess } from '../actions/access.action'
+
+import { 
+	getAllAccess,
+	updateAccess
+} from '../actions/access.action'
+
 import { getAllModule } from '../actions/module.action'
 
 import { SettingsAccess } from '../components/Settings'
@@ -12,6 +17,7 @@ class SettingsAccessContainer extends Component {
 		this.toggleModal = this.toggleModal.bind(this);
 		this.handleInputChange = this.handleInputChange.bind(this);
 		this.handleUpdateAccess = this.handleUpdateAccess.bind(this);
+		this.handleUpdateAccessSubmit = this.handleUpdateAccessSubmit.bind(this);
 		this.handleChangeAccessStatus = this.handleChangeAccessStatus.bind(this);
 		this.state = {
 			accessList: {},
@@ -55,6 +61,7 @@ class SettingsAccessContainer extends Component {
 			this.setState({
 				moduleList: module.list
 			}, () => {
+				console.log(moduleList);
 				this.forceUpdate();
 			})
 		}
@@ -104,18 +111,44 @@ class SettingsAccessContainer extends Component {
 		}
 	}
 	
-	handleUpdateAccess = (data, e) => {
+	handleUpdateAccess = (access, e) => {
 		const {
 			dispatch,
 			accessToken
 		} = this.props;
-		
-		e.preventDefault();
+
+		let accessCopy = Object.assign({}, access);
+
 		this.setState({
-			selectedAccess: data
+			selectedAccess: {
+				id: accessCopy.id,
+				name: accessCopy.name,
+				module: accessCopy.module
+			}
 		}, () => {
 			this.toggleModal('updateAccess');
 		})
+	}
+
+	handleUpdateAccessSubmit = (e) => {
+		e.preventDefault();
+
+		const {
+			dispatch,
+			accessToken
+		} = this.props;
+
+		const {
+			selectedAccess
+		} = this.state;
+
+		let requiredData = {
+			id: selectedAccess.id,
+			name: selectedAccess.name,
+			module: selectedAccess.module
+		}
+
+		dispatch(updateAccess(requiredData, accessToken));
 	}
 
 	handleChangeAccessStatus = () => {
@@ -130,6 +163,7 @@ class SettingsAccessContainer extends Component {
 				toggleModal={this.toggleModal}
 				handleInputChange={this.handleInputChange}
 				handleUpdateAccess={this.handleUpdateAccess}
+				handleUpdateAccessSubmit={this.handleUpdateAccessSubmit}
 				handleChangeAccessStatus={this.handleChangeAccessStatus}
 			/>
 		);

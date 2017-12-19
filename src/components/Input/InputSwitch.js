@@ -7,11 +7,18 @@ class InputSwitch extends Component {
 			onChange,
 			className,
 			value,
+			fullWidth,
 			...attributes,
 		} = this.props;
 
+		const classes = classNames(
+			'form-switch',
+			fullWidth ? 'form-switch--full' : null,
+			className
+		)
+
 		return (
-			<div className="form-switch">
+			<div className={classes}>
 				<label className={`switch-label ${value ? 'switch-label--is-checked' : null}`}>
 					<span className="switch-track"></span>
 					<input type="checkbox" style={{ display: 'none' }} {...attributes} {...this.props} />

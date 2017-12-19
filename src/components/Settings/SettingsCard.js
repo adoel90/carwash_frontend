@@ -80,6 +80,7 @@ class SettingsCard extends Component {
 								name="refundable"
 								value={newCardType.refundable}
 								onChange={(e) => handleInputChange(newCardType, e)}
+								fullWidth
 							/>
 						</FormGroup>
 					</ModalContent>
@@ -168,6 +169,7 @@ class SettingsCard extends Component {
 								name="refundable"
 								value={selectedCardType.refundable}
 								onChange={(e) => handleInputChange(selectedCardType, e)}
+								fullWidth
 							/>
 						</FormGroup>
 					</ModalContent>

@@ -6,6 +6,7 @@ import { Form, FormGroup } from '../Form';
 import { Input, InputGroup, InputAddon, Label } from '../Input';
 import { Row } from '../Grid';
 import { Button } from '../Button';
+import { Alert } from '../Alert';
 
 class SettingsCreateUser extends Component {
     render() {
@@ -29,6 +30,14 @@ class SettingsCreateUser extends Component {
                 </ModalHeader>
                 <Form onSubmit={handleCreateUserSubmit}>
                     <ModalContent>
+                        {
+                            newUser.error
+                            ? <Alert theme="danger" className="flex clr-light margin-bottom-2">
+                                <i className="ion-alert-circled margin-right-2"></i>
+                                <p>{newUser.error.message}</p>
+                            </Alert>
+                            : null
+                        }
                         <Row>
                             <div className="column-6">
                                 <FormGroup>

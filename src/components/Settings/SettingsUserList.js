@@ -11,11 +11,11 @@ class SettingsUserList extends Component {
 				columns: [
 					{ id: 1, accessor: 'name', title: 'Nama' },
 					{ id: 2, accessor: 'email', title: 'Alamat Email' },
-					{ id: 3, accessor: 'levelName', title: 'Level Akses' }
+					{ id: 3, accessor: 'levelName', title: 'Level User' }
 				],
 				settings: [
 					{ name: 'Ubah', theme: 'primary', action: props.handleUpdateUser },
-					{ isToggleable: true, activeText: 'Aktif', inactiveText: 'Non Aktif', theme: 'danger', action: props.handleDeleteUser },
+					{ isToggleable: true, activeText: 'Aktif', inactiveText: 'Non Aktif', theme: 'danger', action: props.handleChangeUserStatus },
 				],
 				searchParams: [
 					{ accessor: 'name', name: 'Nama User' },

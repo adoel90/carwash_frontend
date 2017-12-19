@@ -18,6 +18,9 @@ export const CREATE_USER_REJECTED = 'CREATE_USER_REJECTED';
 export const UPDATE_USER_REQUESTED = 'UPDATE_USER_REQUESTED';
 export const UPDATE_USER_FULFILLED = 'UPDATE_USER_FULFILLED';
 export const UPDATE_USER_REJECTED = 'UPDATE_USER_REJECTED';
+export const CHANGE_USER_STATUS_REQUESTED = 'CHANGE_USER_STATUS_REQUESTED';
+export const CHANGE_USER_STATUS_FULFILLED = 'CHANGE_USER_STATUS_FULFILLED';
+export const CHANGE_USER_STATUS_REJECTED = 'CHANGE_USER_STATUS_REJECTED';
 export const DELETE_USER_REQUESTED = 'DELETE_USER_REQUESTED';
 export const DELETE_USER_FULFILLED = 'DELETE_USER_FULFILLED';
 export const DELETE_USER_REJECTED = 'DELETE_USER_REJECTED';
@@ -89,6 +92,76 @@ export const getUserList = (data, accessToken) => {
 	function handleRequest() { return { type: GET_USER_LIST_REQUESTED } }
 	function handleSuccess(data) { return { type: GET_USER_LIST_FULFILLED, payload: data } }
 	function handleError(data) { return { type: GET_USER_LIST_REJECTED, payload: data } }
+}
+
+export const createUser = (data, accessToken) => {
+	return async dispatch => { 
+		dispatch(handleRequest());
+		return axios
+			.post(`${constant.API_PATH}user/create?accessToken=${accessToken}`, {
+				name: data.name,
+				username: data.username,
+				password: data.password,
+				email: data.email,
+				level: data.level,
+				cafe: data.cafe
+			})
+			.then((response) => {
+				dispatch(handleSuccess(response.data))
+			})
+			.catch((error) => {
+				dispatch(handleError(error))
+			})
+	}
+
+	function handleRequest() { return { type: CREATE_USER_REQUESTED } }
+	function handleSuccess(data) { return { type: CREATE_USER_FULFILLED, payload: data } }
+	function handleError(data) { return { type: CREATE_USER_REJECTED, payload: data } }
+}
+
+export const updateUser = (data, accessToken) => {
+	return async dispatch => {
+		return axios
+			.put(`${constant.API_PATH}user/update?accessToken=${accessToken}`, {
+				id: data.id,
+				name: data.name,
+				username: data.username,
+				password: data.password,
+				email: data.email,
+				level: data.level,
+				cafe: data.cafe
+			})
+			.then((response) => {
+				dispatch(handleSuccess(response.data))
+			})
+			.catch((error) => {
+				dispatch(handleError(error))
+			})
+	}
+	
+	function handleRequest() { return { type: UPDATE_USER_REQUESTED } }
+	function handleSuccess(data) { return { type: UPDATE_USER_FULFILLED, payload: data } }
+	function handleError(data) { return { type: UPDATE_USER_REJECTED, payload: data } }
+}
+
+export const changeUserStatus = (data, accessToken) => {
+	return async dispatch => {
+		return axios
+			.put(`${constant.API_PATH}user/status?accessToken=${accessToken}`, {
+				id: data.id
+			})
+			.then((response) => {
+				dispatch(handleSuccess(response.data))
+			})
+			.catch((error) => {
+				dispatch(handleError(error))
+			})
+	}
+
+	function handleRequest() { return { type: CHANGE_USER_STATUS_REQUESTED } }
+	function handleSuccess(data) { return { type: CHANGE_USER_STATUS_FULFILLED, payload: data } }
+	function handleError(data) { return { type: CHANGE_USER_STATUS_REJECTED, payload: data } }
+	
 }
 
 export const userLogout = () => {

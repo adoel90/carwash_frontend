@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 
 import {
 	getAllUser,
+	createUser,
 	updateUser,
 	changeUserStatus,
-	createUser
 } from '../actions/user.action';
 
 import {
@@ -70,20 +70,52 @@ class SettingsUserContainer extends Component {
 		const {
 			user,
 			access,
-			cafe
+			cafe,
+			toggleDialog
 		} = this.props;
 		
-		if(prevProps.user.list !== user.list) {
-			user.list.data.forEach((item) => {
-				item.levelId = item.level.id;
-				item.levelName = item.level.name;
-			})
+		if(prevProps.user !== user) {
+			if(prevProps.user.list !== user.list) {
+				user.list.data.forEach((item) => {
+					item.levelId = item.level.id;
+					item.levelName = item.level.name;
+				})
+				
+				this.setState({
+					userList: user.list
+				}, () => {
+					this.forceUpdate();
+				});
+			}
+
+			if(prevProps.user.new !== user.new) {
+				if(user.new.isCreated) {
+					let dialogData = {
+						type: 'success',
+						title: 'Berhasil!',
+						message: 'User telah berhasil ditambahkan. Klik tombol berikut untuk kembali.',
+						onClose: () => window.location.reload(),
+						closeText: 'Kembali'
+					}
+
+					toggleDialog(dialogData);
+				}
+			}
 			
-			this.setState({
-				userList: user.list
-			}, () => {
-				this.forceUpdate();
-			});
+			if(prevProps.user.existing !== user.existing) {
+				if(user.existing.isUpdated) {
+					let dialogData = {
+						type: 'success',
+						title: 'Berhasil!',
+						message: 'User telah berhasil diperbarui. Klik tombol berikut untuk kembali.',
+						onClose: () => window.location.reload(),
+						closeText: 'Kembali'
+					}
+
+					toggleDialog(dialogData);
+				}
+			}
+
 		}
 
 		if(prevProps.access.list !== access.list) {
@@ -101,6 +133,7 @@ class SettingsUserContainer extends Component {
 				this.forceUpdate();
 			})
 		}
+		
 	}
 
 	getAllUser = () => {
@@ -162,8 +195,17 @@ class SettingsUserContainer extends Component {
 			accessToken
 		} = this.props;
 
+		let userCopy = Object.assign({}, user);
+
 		this.setState({
-			selectedUser: user
+			selectedUser: {
+				id: userCopy.id,
+				name: userCopy.name,
+				username: userCopy.username,
+				email: userCopy.email,
+				level: userCopy.level.id,
+				cafe: userCopy.cafe || 0
+			}
 		}, () => {
 			this.toggleModal('updateUser');
 		})
@@ -171,6 +213,27 @@ class SettingsUserContainer extends Component {
 
 	handleUpdateUserSubmit = (e) => {
 		e.preventDefault();
+
+		const {
+			selectedUser
+		} = this.state;
+
+		const {
+			dispatch,
+			accessToken
+		} = this.props;
+
+		let requiredData = {
+			id: selectedUser.id,
+			name: selectedUser.name,
+			username: selectedUser.username,
+			password: selectedUser.password,
+			email: selectedUser.email,
+			level: selectedUser.level,
+			cafe: selectedUser.cafe
+		}
+
+		dispatch(updateUser(requiredData, accessToken));
 	}
 
 	handleChangeUserStatus = () => {
@@ -184,11 +247,52 @@ class SettingsUserContainer extends Component {
 	}
 
 	handleCreateUser = () => {
+		this.setState({
+			newUser: {}
+		})
+		
 		this.toggleModal('createUser');
 	}
 
 	handleCreateUserSubmit = (e) => {
 		e.preventDefault();
+
+		const {
+			dispatch,
+			accessToken
+		} = this.props;
+
+		const {
+			newUser
+		} = this.state;
+		
+		if(newUser.password == newUser.confirmPassword) {
+			let requiredData = {
+				name: newUser.name,
+				username: newUser.username,
+				password: newUser.password,
+				email: newUser.email,
+				level: newUser.level,
+				cafe: newUser.cafe
+			}
+			
+			dispatch(createUser(requiredData, accessToken));
+		}
+		else {
+			let errorData = {
+				message: 'Password tidak sesuai dengan konfirmasi password.'
+			}
+			
+			this.setState({
+				...this.state,
+				newUser: {
+					...this.state.newUser,
+					error: errorData
+				}
+			}, () => {
+				this.forceUpdate();
+			})
+		}
 	}
 
 	render() {

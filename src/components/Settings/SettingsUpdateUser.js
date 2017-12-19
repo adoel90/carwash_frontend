@@ -5,6 +5,7 @@ import { ModalHeader, ModalContent, ModalFooter } from '../Modal';
 import { Form, FormGroup } from '../Form';
 import { Input, InputGroup, InputAddon, Label } from '../Input';
 import { Button } from '../Button';
+import { Row } from '../Grid';
 
 class SettingsUpdateUser extends Component {
 	render() {
@@ -12,6 +13,8 @@ class SettingsUpdateUser extends Component {
 			selectedUser,
 			isModalOpen,
 			toggleModal,
+			accessList,
+			cafeTypes,
 			handleInputChange,
 			handleUpdateUserSubmit
 		} = this.props;
@@ -19,59 +22,121 @@ class SettingsUpdateUser extends Component {
 		return (
 			<Modal
 				isOpen={isModalOpen.updateUser}
-				toggle={() => toggleModal('updateUser')}>
+				toggle={() => toggleModal('updateUser')}
+				className="modal-dialog--large">
 				<ModalHeader align="center">
-					<h6 className="fw-semibold">Ubah Informasi User: <span className="fw-bold">{selectedUser.name}</span></h6>
+					<h6 className="fw-semibold">Ubah Informasi User: <span>{selectedUser.name}</span></h6>
 				</ModalHeader>
 				<Form onSubmit={handleUpdateUserSubmit}>
 					<ModalContent>
-						<FormGroup row>
-							<Label htmlFor="name" className="fw-semibold">Nama</Label>
-							<Input
-								name="name"
-								type="text"
-								placeholder="Masukkan nama user"
-								onChange={(e) => handleInputChange(selectedUser, e)}
-								value={selectedUser.name}
-							/>
-						</FormGroup>
-						<FormGroup row>
-							<Label htmlFor="username" className="fw-semibold">Username</Label>
-							<InputGroup>
-								<InputAddon>
-									<i className="ion-person"></i>
-								</InputAddon>
-								<Input
-									name="username"
-									type="text"
-									placeholder="Masukkan username yang diubah"
-									onChange={(e) => handleInputChange(selectedUser, e)}
-									value={selectedUser.username}
-								/>
-							</InputGroup>
-						</FormGroup>
-						<FormGroup row>
-							<Label htmlFor="password" className="fw-semibold">Password</Label>
-							<InputGroup>
-								<InputAddon>
-									<i className="ion-person"></i>
-								</InputAddon>
-								<Input
-									name="password"
-									type="password"
-									placeholder="Masukkan kata sandi (hiraukan jika tidak ingin mengganti)"
-									onChange={(e) => handleInputChange(selectedUser, e)}
-									value={selectedUser.password}
-								/>
-							</InputGroup>
-						</FormGroup>
+						<Row>
+							<div className="column-6">
+								<FormGroup>
+									<Label className="fw-semibold">Nama</Label>
+									<InputGroup>
+										<InputAddon>
+											<i className="ion-person"></i>
+										</InputAddon>
+										<Input
+											name="name"
+											type="text"
+											placeholder="e.g: John Doe, Bill Appleseed, dll."
+											onChange={(e) => handleInputChange(selectedUser, e)}
+											value={selectedUser.name}
+											required="true"
+										/>
+									</InputGroup>
+								</FormGroup>
+								<FormGroup>
+									<Label className="fw-semibold">Username</Label>
+									<InputGroup>
+										<InputAddon>
+											<i className="ion-person"></i>
+										</InputAddon>
+										<Input
+											name="username"
+											type="text"
+											placeholder="Masukkan username user"
+											onChange={(e) => handleInputChange(selectedUser, e)}
+											value={selectedUser.username}
+											required="true"
+										/>
+									</InputGroup>
+								</FormGroup>
+								<FormGroup>
+									<Label className="fw-semibold">Kata Sandi</Label>
+									<InputGroup>
+										<InputAddon>
+											<i className="ion-locked"></i>
+										</InputAddon>
+										<Input
+											name="password"
+											type="password"
+											placeholder="Masukkan kata sandi"
+											onChange={(e) => handleInputChange(selectedUser, e)}
+										/>
+									</InputGroup>
+									<small className="clr-passive">Tinggalkan kolom ini jika tidak ingin mengubah kata sandi user.</small>
+								</FormGroup>
+							</div>
+							<div className="column-6">
+								<FormGroup>
+									<Label className="fw-semibold">Alamat Email</Label>
+									<InputGroup>
+										<InputAddon>
+											<i className="ion-email"></i>
+										</InputAddon>
+										<Input
+											name="email"
+											type="text"
+											placeholder="Masukkan alamat email"
+											onChange={(e) => handleInputChange(selectedUser, e)}
+											value={selectedUser.email}
+										/>
+									</InputGroup>
+								</FormGroup>
+								<FormGroup>
+									<Label className="fw-semibold">Akses Level</Label>
+									<Input
+										name="level"
+										type="select"
+										onChange={(e) => handleInputChange(selectedUser, e)}
+										value={selectedUser.level}>
+										<option disabled="true">Pilih akses level</option>
+										{ 
+											accessList.isLoaded ? accessList.data.map((item) => {
+												return <option value={item.id}>{item.name}</option>
+											})
+											: null
+										}
+									</Input>
+								</FormGroup>
+								<FormGroup>
+									<Label className="fw-semibold">Akses Cafe</Label>
+									<Input
+										name="cafe"
+										type="select"
+										onChange={(e) => handleInputChange(selectedUser, e)}
+										value={selectedUser.cafe}>
+										<option value={0}>Semua</option>
+										{ 
+											cafeTypes.isLoaded ? cafeTypes.data.map((item) => {
+												return <option value={item.id}>{item.name}</option>
+											}) 
+											: null
+										}
+
+									</Input>
+								</FormGroup>
+							</div>
+						</Row>
 					</ModalContent>
 					<ModalFooter className="flex justify-content--flex-end">
-						<Button buttonTheme="danger" className="clr-light" onClick={() => toggleModal('updateUser')}>
+						<Button type="button" buttonTheme="danger" className="clr-light" onClick={() => toggleModal('updateUser')}>
 							<small className="fw-semibold tt-uppercase ls-base">Batal</small>
 						</Button>
 						<Button buttonTheme="primary" className="clr-light margin-left-2">
-							<small className="fw-semibold tt-uppercase ls-base">Terapkan</small>
+							<small className="fw-semibold tt-uppercase ls-base">Ubah</small>
 						</Button>
 					</ModalFooter>
 				</Form>

@@ -40,6 +40,20 @@ const initialState = {
 		isLoaded: false,
 		isError: false,
 		error: {}
+	},
+	new: {
+		data: {},
+		isCreating: false,
+		isCreated: false,
+		isError: false,
+		error: {}
+	},
+	existing: {
+		data: {},
+		isUpdated: false,
+		isUpdating: false,
+		isError: false,
+		error: {}
 	}
 }
 
@@ -185,6 +199,90 @@ const user = (state = initialState, action) => {
 					data: [],
 					isFetching: false,
 					isLoaded: false,
+					isError: true,
+					error: action.payload
+				}
+			}
+		}
+
+		case CREATE_USER_REQUESTED: {
+			return {
+				...state,
+				new: {
+					...state.new,
+					data: {},
+					isCreating: true,
+					isCreated: false,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case CREATE_USER_FULFILLED: {
+			return {
+				...state,
+				new: {
+					...state.new,
+					data: action.payload.data,
+					isCreating: false,
+					isCreated: true,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case CREATE_USER_REJECTED: {
+			return {
+				...state,
+				new: {
+					...state.new,
+					data: {},
+					isCreating: false,
+					isCreated: false,
+					isError: true,
+					error: action.payload
+				}
+			}
+		}
+
+		case UPDATE_USER_REQUESTED: {
+			return {
+				...state,
+				existing: {
+					...state.exisitng,
+					data: {},
+					isUpdating: true,
+					isUpdated: false,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case UPDATE_USER_FULFILLED: {
+			return {
+				...state,
+				existing: {
+					...state.existing,
+					data: action.payload,
+					isUpdating: false,
+					isUpdated: true,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case UPDATE_USER_REJECTED: {
+			return {
+				...state,
+				existing: {
+					...state.exisintg,
+					data: {},
+					isUpdating: false,
+					isUpdated: false,
 					isError: true,
 					error: action.payload
 				}

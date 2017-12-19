@@ -125,8 +125,10 @@ class SettingsCreateUser extends Component {
                                         value={newUser.level}>
                                         <option disabled="true">Pilih akses level</option>
                                         { 
-                                            accessList.isLoaded ? accessList.data.map((item) => {
-                                                return <option value={item.id}>{item.name}</option>
+                                            accessList.isLoaded ? accessList.data.map((item, i) => {
+                                                if(item.status) {
+                                                    return <option value={item.id}>{item.name}</option>
+                                                }
                                             })
                                             : null
                                         }
@@ -142,7 +144,9 @@ class SettingsCreateUser extends Component {
                                         <option value={0}>Semua</option>
                                         { 
                                             cafeTypes.isLoaded ? cafeTypes.data.map((item) => {
-                                                return <option value={item.id}>{item.name}</option>
+                                                if(item.status) {
+                                                    return <option value={item.id}>{item.name}</option>
+                                                }
                                             }) 
                                             : null
                                         }

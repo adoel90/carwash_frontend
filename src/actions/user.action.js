@@ -146,21 +146,22 @@ export const updateUser = (data, accessToken) => {
 
 export const changeUserStatus = (data, accessToken) => {
 	return async dispatch => {
+		dispatch(handleRequest(data.id))
 		return axios
 			.put(`${constant.API_PATH}user/status?accessToken=${accessToken}`, {
 				id: data.id
 			})
 			.then((response) => {
-				dispatch(handleSuccess(response.data))
+				dispatch(handleSuccess(response.data, data.id))
 			})
 			.catch((error) => {
-				dispatch(handleError(error))
+				dispatch(handleError(error, data.id))
 			})
 	}
 
-	function handleRequest() { return { type: CHANGE_USER_STATUS_REQUESTED } }
-	function handleSuccess(data) { return { type: CHANGE_USER_STATUS_FULFILLED, payload: data } }
-	function handleError(data) { return { type: CHANGE_USER_STATUS_REJECTED, payload: data } }
+	function handleRequest(id) { return { type: CHANGE_USER_STATUS_REQUESTED, id: id } }
+	function handleSuccess(data, id) { return { type: CHANGE_USER_STATUS_FULFILLED, payload: data, id: id} }
+	function handleError(data, id) { return { type: CHANGE_USER_STATUS_REJECTED, payload: data, id: id } }
 	
 }
 

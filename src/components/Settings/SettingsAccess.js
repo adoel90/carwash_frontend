@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { SettingsAccessList, SettingsUpdateAccess } from '../Settings';
+import { SettingsAccessList, SettingsUpdateAccess, SettingsCreateAccess } from '../Settings';
 import { PageBlockGroup, PageBlock } from '../Page';
 import { Button } from '../Button';
 
@@ -8,7 +8,8 @@ class SettingsAccess extends Component {
 	render() {
 		const {
 			access,
-			accessList
+			accessList,
+			handleCreateAccess
 		} = this.props;
 
 		const renderAccessList = () => {
@@ -31,12 +32,13 @@ class SettingsAccess extends Component {
 						{ renderAccessList() }
 					</PageBlock>
 					<PageBlock extension className="flex justify-content--flex-end">
-						<Button buttonTheme="primary" className="clr-light">
+						<Button buttonTheme="primary" className="clr-light" onClick={handleCreateAccess}>
 							<small className="fw-semibold tt-uppercase ls-base">Tambah Akses Level</small>
 						</Button>
 					</PageBlock>
 				</PageBlockGroup>
 				<SettingsUpdateAccess {...this.props} />
+				<SettingsCreateAccess {...this.props} />
 			</div>
 		);
 	}

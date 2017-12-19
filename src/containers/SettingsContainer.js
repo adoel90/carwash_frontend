@@ -25,28 +25,85 @@ import SettingsAccessContainer from './SettingsAccessContainer';
 class SettingsContainer extends Component {
 	constructor() {
 		super();
-		this.handleAccessLevel = this.handleAccessLevel.bind(this);
+		this.handleSubroutes = this.handleSubroutes.bind(this);
 		this.toggleDialog = this.toggleDialog.bind(this);
 		this.showDialog = this.showDialog.bind(this);
 		this.hideDialog = this.hideDialog.bind(this);
 		this.state = {
-			subroutes: [
-				{ id: 1, name: 'Pengaturan Member', path: "/admin/settings/member-settings", component: SettingsMemberContainer },
-				{ id: 2, name: 'Pengaturan User', path: "/admin/settings/user-settings", component: SettingsUserContainer },
-				{ id: 3, name: 'Pengaturan Service', path: "/admin/settings/service-settings", component: SettingsServiceContainer },
-				{ id: 4, name: 'Pengaturan Cafe', path: "/admin/settings/cafe-settings", component: SettingsCafeContainer },
-				{ id: 5, name: 'Pengaturan Tipe Kartu', path: "/admin/settings/card-settings", component: SettingsCardContainer},
-				{ id: 6, name: 'Pengaturan Akses Level', path: "/admin/settings/access-settings", component: SettingsAccessContainer }
-			]
+			subroutes: []
 		}
 	}
 
-	componentDidMount = (prevProps) => {
-		this.handleAccessLevel();
+	componentWillMount = (prevProps) => {
+		this.handleSubroutes();
 	}
 
-	handleAccessLevel = () => {
+	handleSubroutes = () => {
+		const {
+			subroutes
+		} = this.state;
+		
+		const {
+			user
+		} = this.props;
+		
+		user.module.forEach((item) => {
+			if(item.id === 3) {
+				subroutes.push({ 
+					name: 'Pengaturan Member', 
+					path: "/admin/settings/member-settings", 
+					component: SettingsMemberContainer 
+				})
+			}
 
+			if(item.id === 5) {
+				subroutes.push({ 
+					name: 'Pengaturan Service', 
+					path: "/admin/settings/service-settings", 
+					component: SettingsServiceContainer 
+				})
+			}
+
+			if(item.id === 4) {
+				subroutes.push({ 
+					name: 'Pengaturan Kartu', 
+					path: "/admin/settings/card-settings", 
+					component: SettingsCardContainer 
+				})
+			}
+			
+			if(item.id === 2) {
+				subroutes.push({ 
+					name: 'Pengaturan Akses', 
+					path: "/admin/settings/access-settings", 
+					component: SettingsAccessContainer 
+				})
+			}
+
+			if(item.id === 1) {
+				subroutes.push({ 
+					name: 'Pengaturan User', 
+					path: "/admin/settings/user-settings", 
+					component: SettingsUserContainer 
+				})
+			}
+
+			if(item.id === 8) {
+				subroutes.push({ 
+					name: 'Pengaturan Cafe', 
+					path: "/admin/settings/cafe-settings", 
+					component: SettingsCafeContainer 
+				})
+			}
+
+		})
+		
+		// { id: 1, name: 'Pengaturan Member', path: "/admin/settings/member-settings", component: SettingsMemberContainer },
+		// { id: 2, name: 'Pengaturan User', path: "/admin/settings/user-settings", component: SettingsUserContainer },
+		// { id: 3, name: 'Pengaturan Service', path: "/admin/settings/service-settings", component: SettingsServiceContainer },
+		// { id: 4, name: 'Pengaturan Cafe', path: "/admin/settings/cafe-settings", component: SettingsCafeContainer },
+		// { id: 5, name: 'Pengaturan Tipe Kartu', path: "/admin/settings/card-settings", component: SettingsCardContainer},
+		// { id: 6, name: 'Pengaturan Akses Level', path: "/admin/settings/access-settings", component: SettingsAccessContainer }
 	}
 
 	toggleDialog = (data) => {

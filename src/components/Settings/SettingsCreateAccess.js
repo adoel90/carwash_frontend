@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import { Modal } from 'reactstrap';
 import { ModalContent, ModalHeader, ModalFooter } from '../Modal';
 import { Form, FormGroup } from '../Form';
@@ -7,23 +7,23 @@ import { ListGroup, ListGroupItem } from '../List/index';
 import { Row } from '../Grid/index';
 import { Button } from '../Button/index';
 
-class SettingsUpdateAccess extends Component {
+class SettingsCreateAccess extends Component {
     render () {
         const {
             isModalOpen,
             toggleModal,
-            selectedAccess,
             moduleList,
+            newAccess,
+            selectedAccess,
             handleInputChange,
             handleModuleChange,
-            handleUpdateAccessSubmit
+            handleCreateAccessSubmit
         } = this.props;
         
-
         const renderAccessList = () => {
             const checkModule = (module) => {
-                if(selectedAccess.module) {
-                    return selectedAccess.module.some((item) => {
+                if(newAccess.module) {
+                    return newAccess.module.some((item) => {
                         return module.id == item.id
                     })
 
@@ -35,14 +35,13 @@ class SettingsUpdateAccess extends Component {
             }
             
             if(moduleList.isLoaded) {
-                return moduleList.data.map((item) => {
-                    // console.log(selectedAccess.module ? selectedAccess.module.includes(item): null);
+                return moduleList.data.map((item, i) => {
                     return (
-                        <div className="column-6">
+                        <div className="column-6" key={i}>
                             <ListGroupItem className="flex justify-content--space-between">
                                 <Label className="fw-semibold">{item.name}</Label>
                                 <InputSwitch
-                                    onChange={(e) => handleModuleChange(selectedAccess, item, e)}
+                                    onChange={(e) => handleModuleChange(newAccess, item, e)}
                                     value={checkModule(item)}
                                 />
                             </ListGroupItem>
@@ -54,12 +53,12 @@ class SettingsUpdateAccess extends Component {
         
         return (
             <Modal
-                isOpen={isModalOpen.updateAccess}
-                toggle={() => toggleModal('updateAccess')}>
+                isOpen={isModalOpen.createAccess}
+                toggle={() => toggleModal('createAccess')}>
                 <ModalHeader align="center">
-                    <h6 className="fw-semibold">Ubah Pengaturan Akses: <span className="fw-bold">{selectedAccess.name}</span></h6>
+                    <h6 className="fw-semibold">Buat Level Akses Baru</h6>
                 </ModalHeader>
-                <Form onSubmit={handleUpdateAccessSubmit}>
+                <Form onSubmit={handleCreateAccessSubmit}>
                     <ModalContent>
                         <FormGroup>
                             <Label className="fw-semibold">Nama</Label>
@@ -71,8 +70,8 @@ class SettingsUpdateAccess extends Component {
                                     type="text"
                                     name="name"
                                     placeholder="Masukkan nama akses level"
-                                    onChange={(e) => handleInputChange(selectedAccess, e)}
-                                    value={selectedAccess.name}
+                                    onChange={(e) => handleInputChange(newAccess, e)}
+                                    value={newAccess.name}
                                     required="true"
                                 />
                             </InputGroup>
@@ -84,7 +83,7 @@ class SettingsUpdateAccess extends Component {
                         </ListGroup>
                     </ModalContent>
                     <ModalFooter className="flex justify-content--flex-end">
-                        <Button type="button" buttonTheme="danger" className="clr-light" onClick={() => toggleModal('updateAccess')}>
+                        <Button type="button" buttonTheme="danger" className="clr-light" onClick={() => toggleModal('createAccess')}>
                             <small className="fw-semibold tt-uppercase ls-base">Batal</small>
                         </Button>
                         <Button buttonTheme="primary" className="clr-light margin-left-2">
@@ -97,4 +96,4 @@ class SettingsUpdateAccess extends Component {
     }
 }
 
-export default SettingsUpdateAccess
+export default SettingsCreateAccess

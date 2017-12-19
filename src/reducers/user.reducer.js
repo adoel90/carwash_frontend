@@ -15,6 +15,9 @@ import {
 	UPDATE_USER_REQUESTED,
 	UPDATE_USER_FULFILLED,
 	UPDATE_USER_REJECTED,
+	CHANGE_USER_STATUS_REQUESTED,
+	CHANGE_USER_STATUS_FULFILLED,
+	CHANGE_USER_STATUS_REJECTED,
 	DELETE_USER_REQESTED,
 	DELETE_USER_FULFILLED,
 	DELETE_USER_REJECTED,
@@ -52,6 +55,8 @@ const initialState = {
 		data: {},
 		isUpdated: false,
 		isUpdating: false,
+		isStatusChanging: false,
+		isStatusChanged: false,
 		isError: false,
 		error: {}
 	}
@@ -279,10 +284,55 @@ const user = (state = initialState, action) => {
 			return {
 				...state,
 				existing: {
-					...state.exisintg,
+					...state.existing,
 					data: {},
 					isUpdating: false,
 					isUpdated: false,
+					isError: true,
+					error: action.payload
+				}
+			}
+		}
+
+		case CHANGE_USER_STATUS_REQUESTED: {
+			return {
+				...state,
+				existing: {
+					...state.existing,
+					data: {},
+					id: action.id,
+					isStatusChanging: true,
+					isStatusChanged: false,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case CHANGE_USER_STATUS_FULFILLED: {
+			return {
+				...state,
+				existing: {
+					...state.existing,
+					data: action.payload,
+					id: action.id,
+					isStatusChanging: false,
+					isStatusChanged: true,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case CHANGE_USER_STATUS_REJECTED: {
+			return {
+				...state,
+				exisitng: {
+					...state.existing,
+					data: {},
+					id: action.id,
+					isStatusChanging: false,
+					isStatusChanged: false,
 					isError: true,
 					error: action.payload
 				}

@@ -3,7 +3,10 @@ import { connect } from 'react-redux'
 
 import { 
 	getAllAccess,
-	updateAccess
+	getAccessDetail,
+	createAccess,
+	updateAccess,
+	changeAccessStatus
 } from '../actions/access.action'
 
 import { getAllModule } from '../actions/module.action'
@@ -16,19 +19,28 @@ class SettingsAccessContainer extends Component {
 		this.getAllAccess = this.getAllAccess.bind(this);
 		this.toggleModal = this.toggleModal.bind(this);
 		this.handleInputChange = this.handleInputChange.bind(this);
+		this.handleModuleChange = this.handleModuleChange.bind(this);
 		this.handleUpdateAccess = this.handleUpdateAccess.bind(this);
 		this.handleUpdateAccessSubmit = this.handleUpdateAccessSubmit.bind(this);
 		this.handleChangeAccessStatus = this.handleChangeAccessStatus.bind(this);
+		this.handleCreateAccess = this.handleCreateAccess.bind(this);
+		this.handleCreateAccessSubmit = this.handleCreateAccessSubmit.bind(this);
 		this.state = {
 			accessList: {},
+			accessDetail: {},
 			moduleList: {},
 			selectedAccess: {},
+			newAccess: {
+				name: '',
+				module: []
+			},
 			search: {
 				searchText: '',
 				searchBy: 'name'
 			},
 			isModalOpen: {
-				updateAccess: false
+				updateAccess: false,
+				createAccess: false
 			}
 		}
 	}
@@ -41,7 +53,8 @@ class SettingsAccessContainer extends Component {
 	componentDidUpdate = (prevProps) => {
 		const {
 			access,
-			module
+			module,
+			toggleDialog
 		} = this.props;
 		
 		const {
@@ -57,14 +70,55 @@ class SettingsAccessContainer extends Component {
 			});
 		}
 
+		if(prevProps.access.new !== access.new) {
+			if(access.new.isCreated) {
+				let dialogData = {
+					type: 'success',
+					title: 'Berhasil!',
+					message: 'Level akses baru telah berhasil ditambahkan. Klik tombol berikut untuk kembali.',
+					onClose: () => window.location.reload(),
+					closeText: 'Kembali'
+				}
+
+				toggleDialog(dialogData);
+			}
+		}
+
+		if(prevProps.access.item !== access.item) {
+			if(access.item.isDetailLoaded) {
+				this.setState({
+					accessDetail: access.item
+				}, () => {
+					let accessCopy = Object.assign({}, access.item.data);
+					this.setState({
+						selectedAccess: accessCopy
+					}, () => {
+						this.forceUpdate();
+					});
+				});
+			}
+
+			if(access.item.isUpdated) {
+				let dialogData = {
+					type: 'success',
+					title: 'Berhasil!',
+					message: 'Akses level telah berhasil diperbarui. Klik tombol berikut untuk kembali.',
+					onClose: () => window.location.reload(),
+					closeText: 'Kembali'
+				}
+				
+				toggleDialog(dialogData);
+			}
+		}
+
 		if(prevProps.module.list !== module.list) {
 			this.setState({
 				moduleList: module.list
 			}, () => {
-				console.log(moduleList);
 				this.forceUpdate();
 			})
 		}
+		
 	}
 
 	getAllAccess = () => {
@@ -110,6 +164,27 @@ class SettingsAccessContainer extends Component {
 			})
 		}
 	}
+
+	handleModuleChange = (object, selectedItem, e) => {
+		let objectCopy = Object.assign({}, object);
+
+		let found = objectCopy.module.some((item, i) => {
+			return selectedItem.id === item.id
+		})
+
+		if(!found) {
+			objectCopy.module.push(selectedItem);
+			this.forceUpdate();
+		}
+		else {
+			objectCopy.module.some((item, i) => {
+				if(selectedItem.id === item.id) {
+					objectCopy.module.splice(i, 1);
+					this.forceUpdate();
+				}
+			})
+		}
+	}
 	
 	handleUpdateAccess = (access, e) => {
 		const {
@@ -117,17 +192,13 @@ class SettingsAccessContainer extends Component {
 			accessToken
 		} = this.props;
 
-		let accessCopy = Object.assign({}, access);
+		let requiredData = {
+			id: access.id
+		}
 
-		this.setState({
-			selectedAccess: {
-				id: accessCopy.id,
-				name: accessCopy.name,
-				module: accessCopy.module
-			}
-		}, () => {
+		dispatch(getAccessDetail(requiredData, accessToken)).then(() => {
 			this.toggleModal('updateAccess');
-		})
+		});
 	}
 
 	handleUpdateAccessSubmit = (e) => {
@@ -142,17 +213,63 @@ class SettingsAccessContainer extends Component {
 			selectedAccess
 		} = this.state;
 
+		let moduleCopy = [];
+
+		selectedAccess.module.forEach((item) => {
+			moduleCopy.push(item.id);
+		})
+
 		let requiredData = {
 			id: selectedAccess.id,
 			name: selectedAccess.name,
-			module: selectedAccess.module
+			module: moduleCopy
 		}
-
 		dispatch(updateAccess(requiredData, accessToken));
 	}
 
-	handleChangeAccessStatus = () => {
+	handleChangeAccessStatus = (access, e) => {
+		e.stopPropagation();
 
+		const {
+			dispatch,
+			accessToken
+		} = this.props;
+
+		let requiredData = {
+			id: access.id
+		}
+
+		dispatch(changeAccessStatus(requiredData, accessToken));
+	}
+
+	handleCreateAccess = () =>  {
+		this.toggleModal('createAccess');
+	}
+
+	handleCreateAccessSubmit = (e) => {
+		e.preventDefault();
+
+		const {
+			newAccess
+		} = this.state;
+
+		const {
+			accessToken,
+			dispatch
+		} = this.props;
+
+		let moduleCopy = [];
+
+		newAccess.module.forEach((item) => {
+			moduleCopy.push(item.id);
+		})
+
+		let requiredData = {
+			name: newAccess.name,
+			module: moduleCopy
+		}
+
+		dispatch(createAccess(requiredData, accessToken));
 	}
 
 	render() {
@@ -162,9 +279,12 @@ class SettingsAccessContainer extends Component {
 				{...this.props}
 				toggleModal={this.toggleModal}
 				handleInputChange={this.handleInputChange}
+				handleModuleChange={this.handleModuleChange}
 				handleUpdateAccess={this.handleUpdateAccess}
 				handleUpdateAccessSubmit={this.handleUpdateAccessSubmit}
 				handleChangeAccessStatus={this.handleChangeAccessStatus}
+				handleCreateAccess={this.handleCreateAccess}
+				handleCreateAccessSubmit={this.handleCreateAccessSubmit}
 			/>
 		);
 	}

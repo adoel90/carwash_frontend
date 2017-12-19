@@ -105,7 +105,10 @@ class SettingsUpdateUser extends Component {
 										<option disabled="true">Pilih akses level</option>
 										{ 
 											accessList.isLoaded ? accessList.data.map((item) => {
-												return <option value={item.id}>{item.name}</option>
+												if(item.status) {
+													return <option value={item.id}>{item.name}</option>
+
+												}
 											})
 											: null
 										}
@@ -121,7 +124,9 @@ class SettingsUpdateUser extends Component {
 										<option value={0}>Semua</option>
 										{ 
 											cafeTypes.isLoaded ? cafeTypes.data.map((item) => {
-												return <option value={item.id}>{item.name}</option>
+												if(item.status) {
+													return <option value={item.id}>{item.name}</option>
+												}
 											}) 
 											: null
 										}

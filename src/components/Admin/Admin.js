@@ -19,7 +19,7 @@ class Admin extends Component {
 		this.handleRedirect = this.handleRedirect.bind(this);
 	}
 
-	componentDidMount = () => {
+	componentWillMount = () => {
 		const {
 			isAuthenticated,
 			handleNavigationItems,
@@ -35,19 +35,26 @@ class Admin extends Component {
 		const {
 			user,
 			match,
-			isAuthenticated
+			isAuthenticated,
+			navigations,
+			history
 		} = this.props;
 
 		if(!isAuthenticated) {
 			return <Redirect from="/*" to={`${match.url}/login`} />
 		}
 		else {
-			let userLevel = user.level.id;
-			switch(userLevel) {
-				case 1: return <Redirect from="/*" to={`${match.url}/settings`} />
-				case 2: return <Redirect from="/*" to={`${match.url}/cafe`} />
-				default: return null;
+			if(navigations.length) {
+				console.log(123);
+				return <Redirect to={navigations[0].path} />
 			}
+			
+			// let userLevel = user.level.id;
+			// switch(userLevel) {
+			// 	case 1: return <Redirect from="/*" to={`${match.url}/settings`} />
+			// 	case 2: return <Redirect from="/*" to={`${match.url}/cafe`} />
+			// 	default: return null;
+			// }
 		}
 	}
 

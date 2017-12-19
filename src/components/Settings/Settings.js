@@ -41,7 +41,7 @@ class Settings extends React.Component {
 		return (
 			<ModalDialog
 				isOpen={dialog.isOpened}
-				toggle={toggleDialog}
+				// toggle={toggleDialog}
 				type={dialog.data.type}
 				title={dialog.data.title}
 				message={dialog.data.message}

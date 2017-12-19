@@ -15,35 +15,56 @@ class AdminContainer extends Component {
 
 	handleNavigationItems = () => {
 		const {
+			navigations
+		} = this.state;
+		
+		const {
 			user
 		} = this.props;
 
-		const level = user.level.id;
+		user.module.every((item) => {
+			if(item.id == 1 || item.id == 4 || item.id == 9 || item.id == 3 || item.id == 2 || item.id == 5 ) {
+				navigations.push({name: 'Pengaturan', path: '/admin/settings'})
+			}
+		})
 
-		switch(level) {
-			case 1: {
-				this.setState({
-					navigations: [
-						{ name: 'Pengaturan', path: '/admin/settings' },
-						{ name: 'Laporan', path: '/admin/report' }
-					]
-				})
-				break;
+		user.module.forEach((item) => {
+			if(item.id == 10) {
+				navigations.push({ name: 'Cafe', path: '/admin/cafe' } )
+				navigations.push({ name: 'Kasir', path: '/admin/cashier' } )
 			}
-			case 2: {
-				this.setState({
-					navigations: [
-						{ name: 'Kafe', path: '/admin/cafe' },
-						{ name: 'Kasir', path: '/admin/cashier' },
-					]
-				})
-				break;
+
+			if(item.id == 11) {
+				navigations.push({ name: 'Laporan', path: '/admin/report'})
 			}
+		})
+
+		// const level = user.level.id;
+
+		// switch(level) {
+		// 	case 1: {
+		// 		this.setState({
+		// 			navigations: [
+		// 				{ name: 'Pengaturan', path: '/admin/settings' },
+		// 				{ name: 'Laporan', path: '/admin/report' }
+		// 			]
+		// 		})
+		// 		break;
+		// 	}
+		// 	case 2: {
+		// 		this.setState({
+		// 			navigations: [
+		// 				{ name: 'Kafe', path: '/admin/cafe' },
+		// 				{ name: 'Kasir', path: '/admin/cashier' },
+		// 			]
+		// 		})
+		// 		break;
+		// 	}
 			
-			default: {
-				return null;
-			}
-		}
+		// 	default: {
+		// 		return null;
+		// 	}
+		// }
 	}
 
 	render() {

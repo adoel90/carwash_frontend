@@ -20,7 +20,8 @@ class Cafe extends React.Component {
 		const {
 			cafe,
 			cafeTypes,
-			match
+			match,
+			user
 		} = this.props;
 
 		if(cafe.types.isFetching) {

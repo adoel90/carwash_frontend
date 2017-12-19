@@ -46,7 +46,7 @@ class SettingsUserContainer extends Component {
 				confirmPassword: '',
 				name: '',
 				email: '',
-				level: 0,
+				level: 1,
 				cafe: 0
 			},
 			isModalOpen: {
@@ -113,6 +113,32 @@ class SettingsUserContainer extends Component {
 					}
 
 					toggleDialog(dialogData);
+				}
+
+				if(user.existing.isStatusChanging) {
+					userList.data.forEach((item) => {
+						if(item.id === user.existing.id) {
+							item.statusChanging = true;
+							this.forceUpdate();
+						}
+					})
+				}
+
+				if(user.existing.isStatusChanged) {
+					userList.data.forEach((item) => {
+						if(item.id === user.existing.id) {
+							item.statusChanging = false;
+
+							if(item.status) {
+								item.status = false;
+							}
+							else {
+								item.status = true;
+							}
+	
+							this.forceUpdate();
+						}
+					})
 				}
 			}
 
@@ -236,19 +262,31 @@ class SettingsUserContainer extends Component {
 		dispatch(updateUser(requiredData, accessToken));
 	}
 
-	handleChangeUserStatus = () => {
+	handleChangeUserStatus = (selectedUser) => {
 		const {
 			user,
 			dispatch,
 			accessToken
 		} = this.props;
 
-		/** Remaining codes for handling user status change */
+		let requiredData = {
+			id: selectedUser.id
+		}
+
+		dispatch(changeUserStatus(requiredData, accessToken));
 	}
 
 	handleCreateUser = () => {
 		this.setState({
-			newUser: {}
+			newUser: {
+				username: '',
+				password: '',
+				confirmPassword: '',
+				name: '',
+				email: '',
+				level: 1,
+				cafe: 0
+			}
 		})
 		
 		this.toggleModal('createUser');
@@ -306,6 +344,7 @@ class SettingsUserContainer extends Component {
 				handleUpdateUserSubmit={this.handleUpdateUserSubmit}
 				handleCreateUser={this.handleCreateUser}
 				handleCreateUserSubmit={this.handleCreateUserSubmit}
+				handleChangeUserStatus={this.handleChangeUserStatus}
 			/>
 		);
 	}

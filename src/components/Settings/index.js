@@ -22,6 +22,7 @@ import SettingsManageCafeType from './SettingsManageCafeType';
 import SettingsAccess from './SettingsAccess';
 import SettingsAccessList from './SettingsAccessList';
 import SettingsUpdateAccess from './SettingsUpdateAccess';
+import SettingsCreateAccess from './SettingsCreateAccess';
 
 export {
 	Settings,
@@ -47,5 +48,6 @@ export {
 	SettingsManageCafeType,
 	SettingsAccess,
 	SettingsAccessList,
-	SettingsUpdateAccess
+	SettingsUpdateAccess,
+	SettingsCreateAccess
 }

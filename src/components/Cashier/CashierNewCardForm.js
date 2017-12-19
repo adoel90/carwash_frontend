@@ -69,7 +69,6 @@ class CashierNewCardForm extends Component {
 									type="email"
 									placeholder="e.g: john.doe@email.com"
 									onChange={(e) => handleInputChange(newCardData, e)}
-									required="true"
 								/>
 							</InputGroup>
 						</FormGroup>

@@ -82,6 +82,9 @@ class ServicePaymentReceipt extends Component {
                 <Printable>
                     <div className="receipt">
                         <div className="receipt-header ta-center margin-bottom-3">
+                            <div className="margin-bottom-3">
+                                <h5 className="fw-bold">{printData.id}</h5>
+                            </div>
                             <p className="fw-bold">805 Carwash</p>
                             <p>Kota Jkt Utara, Daerah Khusus Ibukota Jakarta. <br/> 0896-0457-8309</p>
                         </div>
@@ -90,6 +93,9 @@ class ServicePaymentReceipt extends Component {
                             {renderSummary()}
                         </div>
                         <div className="receipt-footer ta-center">
+                            <div className="margin-bottom-2">
+                                <p className="fw-semibold">For Customer <br/>{printData.member ? printData.member.name : null}</p>
+                            </div>
                             <p className="fw-semibold">{moment(printData.date).format('LLL')}</p>
                             <p>Thank you and please come again soon.</p>
                         </div>

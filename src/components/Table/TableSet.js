@@ -27,9 +27,9 @@ class TableSet extends Component {
 	}
 
 	componentDidUpdate = (prevProps) => {
-		if(prevProps.searchText !== this.props.searchText) {
-			this.handleResetPagination();
-		}
+		// if(prevProps.search.searchText !== this.props.search.searchText) {
+		// 	this.handleResetPagination();
+		// }
 	}
 
 	handlePageChange = (page) => {

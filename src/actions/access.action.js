@@ -98,7 +98,7 @@ export const updateAccess = (data, accessToken) => {
 
 export const changeAccessStatus = (data, accessToken) => {
 	return async dispatch => {
-		dispatch(handleRequest());
+		dispatch(handleRequest(data.id));
 		return axios
 			.put(`${constant.API_PATH}access/status?accessToken=${accessToken}`, {
 				id: data.id
@@ -111,7 +111,7 @@ export const changeAccessStatus = (data, accessToken) => {
 			})
 	}
 
-	function handleRequest() { return { type: CHANGE_ACCESS_STATUS_REQUESTED } }
+	function handleRequest(id) { return { type: CHANGE_ACCESS_STATUS_REQUESTED, id: id } }
 	function handleSuccess(data, id) { return { type: CHANGE_ACCESS_STATUS_FULFILLED, payload: data, id: id } }
 	function handleError(data, id) { return { type: CHANGE_ACCESS_STATUS_REJECTED, payload: data, id: id } }
 }

@@ -109,6 +109,32 @@ class SettingsAccessContainer extends Component {
 				
 				toggleDialog(dialogData);
 			}
+
+			if(access.item.isStatusChanging) {
+				accessList.data.forEach((item) => {
+					if(item.id === access.item.id) {
+						item.statusChanging = true;
+						this.forceUpdate();
+					}
+				})
+			}
+
+			if(access.item.isStatusChanged) {
+				accessList.data.forEach((item) => {
+					if(item.id === access.item.id) {
+						item.statusChanging = false;
+
+						if(item.status) {
+							item.status = false;
+						}
+						else {
+							item.status = true;
+						}
+
+						this.forceUpdate();
+					}
+				})
+			}
 		}
 
 		if(prevProps.module.list !== module.list) {

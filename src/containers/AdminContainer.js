@@ -29,13 +29,19 @@ class AdminContainer extends Component {
 		})
 
 		user.module.forEach((item) => {
+			// If cafe module is activated.
 			if(item.id == 10) {
 				navigations.push({ name: 'Cafe', path: '/admin/cafe' } )
-				navigations.push({ name: 'Kasir', path: '/admin/cashier' } )
 			}
 
+			// If report module is activated.
 			if(item.id == 11) {
 				navigations.push({ name: 'Laporan', path: '/admin/report'})
+			}
+
+			// If cashier module is activated.
+			if(item.id == 12) {
+				navigations.push({ name: 'Kasir', path: '/admin/cashier' } )
 			}
 		})
 

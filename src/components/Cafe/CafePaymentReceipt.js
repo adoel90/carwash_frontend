@@ -93,7 +93,7 @@ class CafePaymentReceipt extends Component {
                                 <h5 className="fw-bold">{printData.queue}</h5>
                             </div>
                             <p className="fw-bold">805 Carwash</p>
-                            <p>Kota Jkt Utara, Daerah Khusus Ibukota Jakarta. <br/> 0896-0457-8309</p>
+                            <p>Jln. Raya Pegangsaan 2 no 23-B <br/> 0896-0457-8309 <br/> 021-957-362-77</p>
                         </div>
                         <div className="receipt-body margin-bottom-3">
                             {renderItemList()}

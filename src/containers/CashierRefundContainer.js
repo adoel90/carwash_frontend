@@ -26,7 +26,8 @@ class CashierRefundContainer extends Component {
 
     componentDidUpdate = (prevProps) => {
         const {
-            member
+            member,
+            toggleDialog
         } = this.props;
         
         if(prevProps.member.item !== member.item) {
@@ -35,6 +36,18 @@ class CashierRefundContainer extends Component {
                 this.forceUpdate();
 
                 this.handleRefund();
+            }
+
+            if(member.item.isRefunded) {
+            	let dialogData = {
+            		type: 'success',
+            		title: 'Berhasil!',
+            		message: 'Proses refund berhasil. Klik tombol berikut untuk kembali.',
+            		onClose: () => window.location.reload(),
+            		closeText: 'Kembali'
+            	}
+
+            	toggleDialog(dialogData);
             }
         }
     }

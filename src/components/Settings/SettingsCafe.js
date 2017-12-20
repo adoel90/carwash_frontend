@@ -51,11 +51,10 @@ class SettingsCafe extends Component {
 
 		if(cafe.types.isLoaded) {
 			if(cafeTypes.active.length) {
-				cafeTypes.active.map((type, i) => {
+				return cafeTypes.active.map((type, i) => {
 					return (
 						<TabContent activeTab={activeTab} tabIndex={i}>
 							<PropsRoute
-								path={`${match.url}/${i}`}
 								component={SettingsCafeTypeContainer}
 								type={type}
 								{...this.props}
@@ -65,7 +64,11 @@ class SettingsCafe extends Component {
 				})
 			}
 			else {
-				return <p>Tidak terdapat data pada kategori ini. Silahkan klik pengaturan untuk membuat kategori baru.</p>
+				return (
+					<PageBlock className="ta-center">
+						<p>Silahkan klik tombol pengaturan untuk membuat kategori cafe terlebih dahulu untuk bisa menambahkan menu.</p>
+					</PageBlock>
+				)
 			}
 		}
 

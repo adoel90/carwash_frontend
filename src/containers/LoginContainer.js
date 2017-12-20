@@ -18,6 +18,20 @@ class LoginContainer extends React.Component {
 		}
 	}
 
+	componentDidUpdate = (prevProps) => {
+		const {
+			user
+		} = this.props;
+
+		if(prevProps.user.item !== user.item) {
+			if(user.item.isError) {
+				this.setState({
+					error: user.item.error.response.data
+				})
+			}
+		}
+	}
+
 	handleInputChange = (object, e) => {
 		const target = e.target;
 		const value = target.type === 'checkbox' ? target.checkbox : target.value;

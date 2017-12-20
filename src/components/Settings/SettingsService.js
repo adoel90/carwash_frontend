@@ -128,23 +128,28 @@ class SettingsService extends Component {
 		} = this.props;
 
 
-		service.types.isLoaded ? serviceTypes.active.map(this.renderTabContent) : null
+		// service.types.isLoaded ? serviceTypes.active.map(this.renderTabContent) : null
 		
 		if(service.types.isLoaded) {
 			if(serviceTypes.active.length) {
-				return (
-					<TabContent activeTab={activeTab} tabIndex={i}>
-						<PropsRoute
-							path={`${match.url}/${i}`}
-							component={SettingsServiceTypeContainer}
-							type={type}
-							{...this.props}
-						/>
-					</TabContent>
-				)
+				return serviceTypes.active.map((type, i) => {
+					return (
+						<TabContent activeTab={activeTab} tabIndex={i}>
+							<PropsRoute
+								component={SettingsServiceTypeContainer}
+								type={type}
+								{...this.props}
+							/>
+						</TabContent>
+					)
+				})
 			}
 			else {
-				return <p>Tidak terdapat data pada kategori ini. Silahkan klik pengaturan untuk membuat kategori baru.</p>
+				return (
+					<PageBlock className="ta-center">
+						<p>Silahkan klik tombol pengaturan untuk membuat kategori baru terlebih dahulu untuk bisa menambahkan service.</p>
+					</PageBlock>
+				)
 			}
 		}
 

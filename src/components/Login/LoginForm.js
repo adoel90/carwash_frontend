@@ -17,11 +17,12 @@ class LoginForm extends React.Component {
 
 		const renderAlert = () => {
 			const {
-				user
+				user,
+				error
 			} = this.props;
 
 			if(user.item.isError) {
-				let errorMessage = user.item.error.response.data.message;
+				let errorMessage = error ? error.message : null;
 
 				return (
 					<Alert theme="warning" className="ta-center margin-bottom-2 clr-danger">
@@ -34,6 +35,7 @@ class LoginForm extends React.Component {
 
 		return (
 			<Form onSubmit={handleLoginSubmit}>
+				{ renderAlert() }
 				<FormGroup>
 					<Label htmlFor="username">
 						<small className="tt-uppercase fw-semibold ls-base">Username</small>

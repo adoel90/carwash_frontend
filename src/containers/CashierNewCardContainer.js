@@ -55,6 +55,10 @@ class CashierNewCardContainer extends Component {
 			
 			if(card.types.isLoaded) {
 				this.setState({
+					newCardData: {
+						...this.state.newCardData,
+						card: card.types.data[0].id
+					},
 					cardTypes: card.types.data,
 					selectedCardType: {
 						id: card.types.data[0].id,
@@ -83,7 +87,8 @@ class CashierNewCardContainer extends Component {
 
 	handleNewCardSubmit = (e) => {
 		const {
-			newCardData
+			newCardData,
+			selectedCardType
 		} = this.state;
 
 		const {
@@ -100,6 +105,8 @@ class CashierNewCardContainer extends Component {
 			email: newCardData.email,
 			address: newCardData.address
 		}
+
+		console.log(requiredData);
 
 		dispatch(createNewMember(requiredData, accessToken));
 	}
@@ -154,6 +161,11 @@ class CashierNewCardContainer extends Component {
 
 			if(item.id === parseInt(selectedId)) {
 				this.setState({
+					...this.state,
+					newCardData: {
+						...this.state.newCardData,
+						card: item.id
+					},
 					selectedCardType: {
 						id: item.id,
 						min: item.min,

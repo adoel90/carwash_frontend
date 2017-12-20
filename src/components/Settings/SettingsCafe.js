@@ -39,22 +39,36 @@ class SettingsCafe extends Component {
 		)
 	}
 
-	renderTabContent = (type, i) => {
+	renderTabContent = () => {
 		const {
 			match,
-			activeTab
+			activeTab,
+			cafe,
+			cafeTypes,
 		} = this.props;
 
-		return (
-			<TabContent activeTab={activeTab} tabIndex={i}>
-				<PropsRoute
-					path={`${match.url}/${i}`}
-					component={SettingsCafeTypeContainer}
-					type={type}
-					{...this.props}
-				/>
-			</TabContent>
-		)
+		// cafe.types.isLoaded ? cafeTypes.active.map(this.renderTabContent) : null
+
+		if(cafe.types.isLoaded) {
+			if(cafeTypes.active.length) {
+				cafeTypes.active.map((type, i) => {
+					return (
+						<TabContent activeTab={activeTab} tabIndex={i}>
+							<PropsRoute
+								path={`${match.url}/${i}`}
+								component={SettingsCafeTypeContainer}
+								type={type}
+								{...this.props}
+							/>
+						</TabContent>
+					)
+				})
+			}
+			else {
+				return <p>Tidak terdapat data pada kategori ini. Silahkan klik pengaturan untuk membuat kategori baru.</p>
+			}
+		}
+
 	}
 
 	render = () => {
@@ -75,7 +89,7 @@ class SettingsCafe extends Component {
 				<Nav tabs className="flex justify-content--space-between">
 					{cafe.types.isLoaded ? cafeTypes.active.map(this.renderTabNav) : null}
 				</Nav>
-				{cafe.types.isLoaded ? cafeTypes.active.map(this.renderTabContent) : null}
+				{this.renderTabContent()}
 				<SettingsManageCafeType {...this.props} />
 			</div>
 		);

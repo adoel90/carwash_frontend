@@ -122,19 +122,32 @@ class SettingsService extends Component {
 	renderTabContent = (type, i) => {
 		const {
 			match,
-			activeTab
+			activeTab,
+			service,
+			serviceTypes
 		} = this.props;
 
-		return (
-			<TabContent activeTab={activeTab} tabIndex={i}>
-				<PropsRoute
-					path={`${match.url}/${i}`}
-					component={SettingsServiceTypeContainer}
-					type={type}
-					{...this.props}
-				/>
-			</TabContent>
-		)
+
+		service.types.isLoaded ? serviceTypes.active.map(this.renderTabContent) : null
+		
+		if(service.types.isLoaded) {
+			if(serviceTypes.active.length) {
+				return (
+					<TabContent activeTab={activeTab} tabIndex={i}>
+						<PropsRoute
+							path={`${match.url}/${i}`}
+							component={SettingsServiceTypeContainer}
+							type={type}
+							{...this.props}
+						/>
+					</TabContent>
+				)
+			}
+			else {
+				return <p>Tidak terdapat data pada kategori ini. Silahkan klik pengaturan untuk membuat kategori baru.</p>
+			}
+		}
+
 	}
 
 	renderTabNav = (type, i) => {
@@ -177,7 +190,7 @@ class SettingsService extends Component {
 				<Nav tabs className="flex justify-content--space-between">
 					{service.types.isLoaded ? serviceTypes.active.map(this.renderTabNav) : null}
 				</Nav>
-				{ service.types.isLoaded ? serviceTypes.active.map(this.renderTabContent) : null}
+				{ this.renderTabContent() }
 				<SettingsUpdateService {...this.props} />
 				<SettingsNewService {...this.props} />
 				<SettingsManageServiceType {...this.props} />

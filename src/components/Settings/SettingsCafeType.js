@@ -31,10 +31,13 @@ class SettingsCafeType extends Component {
 		}
 
 		if(cafe.list.isLoaded) {
+			console.log(cafeList);
+			
 			if(cafeList.length) {
 				return <SettingsCafeMenuList {...this.props} />
 			}
 			else {
+
 				return (
 					<div className="flex justify-content--center flex-column ta-center">
 						<i className="fi flaticon-warning icon icon--gigant clr-danger"></i>

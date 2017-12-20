@@ -38,7 +38,8 @@ class CashierNewCardForm extends Component {
 		return (
 			<Form onSubmit={handleNewCardSubmit}>
 				<Row className="margin-bottom-3">
-					<div className="column-6">
+					{ !selectedCardType.refund
+						? <div className="column-6">
 						<FormGroup>
 							<Label htmlFor="fullname">
 								<p className="fw-semibold">Nama Lengkap</p>
@@ -103,6 +104,8 @@ class CashierNewCardForm extends Component {
 							/>
 						</FormGroup>
 					</div>
+						: null
+					}
 					<div className="column-6">
 						<FormGroup>
 							<Label htmlFor="card">

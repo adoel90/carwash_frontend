@@ -26,7 +26,7 @@ class CashierNewCardContainer extends Component {
 			},
 			selectedCardType: {
 				id: '',
-				balance: ''
+				min: ''
 			},
 			newMember: {},
 			newCardData: {
@@ -58,7 +58,8 @@ class CashierNewCardContainer extends Component {
 					cardTypes: card.types.data,
 					selectedCardType: {
 						id: card.types.data[0].id,
-						min: card.types.data[0].min
+						min: card.types.data[0].min,
+						refund: card.types.data[0].refund
 					}
 				})
 			}
@@ -149,11 +150,14 @@ class CashierNewCardContainer extends Component {
 
 		let selectedId = e.target.value;
 		cardTypes.forEach((item) => {
+			console.log(item);
+
 			if(item.id === parseInt(selectedId)) {
 				this.setState({
 					selectedCardType: {
 						id: item.id,
-						min: item.min
+						min: item.min,
+						refund: item.refund
 					}
 				})
 			}

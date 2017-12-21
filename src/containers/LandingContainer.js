@@ -11,6 +11,10 @@ class LandingContainer extends React.Component {
 		this.state = {
 			authData: {
 				cardID: ''
+			},
+			error: {
+				data: {},
+				isError: false,
 			}
 		}
 
@@ -28,6 +32,16 @@ class LandingContainer extends React.Component {
 		if(prevProps.member !== this.props.member) {
 			if(member.item.isAuthenticated) {
 				window.location.reload();
+			}
+
+			if(member.item.isError) {
+				this.setState({
+					...this.state,
+					error: {
+						data: member.item.error.response.data,
+						isError: true,
+					}
+				})
 			}
 		}
 	}

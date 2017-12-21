@@ -18,11 +18,15 @@ class CashierTopUpContainer extends Component {
 			isModalOpen: {
 				topup: false
 			},
-			memberAuthData: {
+			memberData: {
 				card: ''
 			},
 			topupData: {
 				balance: ''
+			},
+			error: {
+				data: {},
+				isError: false
 			}
 		}
 	}
@@ -45,7 +49,6 @@ class CashierTopUpContainer extends Component {
 			}
 
 			if(member.item.isBalanceChanged) {
-				// let totalBalance = parseInt(member.data.balance) + parseInt(topupData.balance);
 				let message = (
 					<p>Proses isi ulang saldo member telah berhasil. Saldo member kini berjumlah <span className="clr-primary fw-semibold"><Currency value={member.item.data.balance} /></span>.</p>
 				)
@@ -62,12 +65,25 @@ class CashierTopUpContainer extends Component {
 
 				toggleDialog(dialogData);
 			}
+
+			if(member.item.isError) {
+				/** When an error occurs, set error data from reducer to local state */
+				this.setState({
+					...this.state,
+					error: {
+						data: member.item.error.response.data,
+						isError: true
+					}
+				}, () => {
+					this.forceUpdate();
+				});
+			}
 		}
 	}
 
 	handleMemberAuthenticateSubmit = (e) => {
 		const {
-			memberAuthData
+			memberData
 		} = this.state;
 
 		const {
@@ -78,7 +94,7 @@ class CashierTopUpContainer extends Component {
 		e.preventDefault();
 
 		let requiredData = {
-			card: memberAuthData.card
+			card: memberData.card
 		}
 
 		dispatch(authenticateMember(requiredData));
@@ -132,8 +148,6 @@ class CashierTopUpContainer extends Component {
 				[name]: value
 			})
 		}
-
-		console.log(this.state);
 	}
 
 	render() {

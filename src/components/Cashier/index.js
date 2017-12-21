@@ -1,6 +1,7 @@
 import Cashier from './Cashier';
 import CashierTopUp from './CashierTopUp';
 import CashierTopUpForm from './CashierTopUpForm';
+import CashierTopUpConfirmation from './CashierTopUpConfirmation';
 import CashierNewCard from './CashierNewCard';
 import CashierNewCardForm from './CashierNewCardForm';
 import CashierChangeCard from './CashierChangeCard';
@@ -12,6 +13,7 @@ export {
 	Cashier,
 	CashierTopUp,
 	CashierTopUpForm,
+	CashierTopUpConfirmation,
 	CashierNewCard,
 	CashierNewCardForm,
 	CashierChangeCard,

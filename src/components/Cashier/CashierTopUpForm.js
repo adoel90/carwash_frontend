@@ -3,18 +3,32 @@ import React, { Component } from 'react';
 import { Form, FormGroup } from '../Form';
 import { Input, InputGroup, InputAddon, InputCurrency, Label } from '../Input';
 import { Button } from '../Button';
+import { Alert } from '../Alert';
 
 class CashierTopUpForm extends Component {
 	render() {
 		const {
 			member,
-			memberAuthData,
+			memberData,
+			error,
 			handleInputChange,
 			handleMemberAuthenticateSubmit
 		} = this.props;
 
+		const renderAlert = () => {
+			if(error.isError) {
+				return (
+					<Alert theme="danger" className="flex justify-content--center clr-light margin-bottom-2">
+						<i className="ion-alert-circled margin-right-2"></i>
+						<p>{error.data.message}</p>
+					</Alert>
+				)
+			}
+		}
+
 		return (
 			<Form onSubmit={handleMemberAuthenticateSubmit}>
+				{ renderAlert() }
 				<FormGroup>
 					<InputGroup>
 						<InputAddon>
@@ -24,12 +38,11 @@ class CashierTopUpForm extends Component {
 							name="card"
 							type="number"
 							placeholder="16-digit nomor kartu member"
-							onChange={(e) => handleInputChange(memberAuthData, e)}
+							onChange={(e) => handleInputChange(memberData, e)}
 							autoFocus="true"
 							selectOnFocus
 						/>
 					</InputGroup>
-					{ member.isError ? <small className="clr-danger">{member.error.message}</small> : null}
 				</FormGroup>
 			</Form>
 		);
@@ -37,24 +50,3 @@ class CashierTopUpForm extends Component {
 }
 
 export default CashierTopUpForm;
-
-// renderSuccessDialog = () => {
-// 	const {
-// 		member
-// 	} = this.props;
-//
-// 	return (
-// 		<Modal isOpen={this.state.isDialogOpen} toggle={this.toggleDialog}>
-// 			<ModalContent className="flex flex-column align-items--center justify-content--center">
-// 				<i className="fi flaticon-success icon icon--gigant clr-success"></i>
-// 				<div className="ta-center">
-// 					<h4 className="fw-semibold clr-success">Berhasil!</h4>
-// 					<p>
-// 						Proses isi ulang saldo untuk customer <span className="fw-semibold">{member.data.name} berhasil!</span> <br />
-// 						Saldo customer kini berjumlah <span className="fw-semibold clr-primary"><Currency value={member.data.balance} /></span>
-// 					</p>
-// 				</div>
-// 			</ModalContent>
-// 		</Modal>
-// 	)
-// }

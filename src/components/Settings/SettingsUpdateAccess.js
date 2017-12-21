@@ -3,9 +3,10 @@ import { Modal } from 'reactstrap';
 import { ModalContent, ModalHeader, ModalFooter } from '../Modal';
 import { Form, FormGroup } from '../Form';
 import { InputGroup, InputAddon, Label, Input, InputSwitch } from '../Input';
-import { ListGroup, ListGroupItem } from '../List/index';
-import { Row } from '../Grid/index';
-import { Button } from '../Button/index';
+import { ListGroup, ListGroupItem } from '../List';
+import { Row } from '../Grid';
+import { Button } from '../Button';
+import { Alert } from '../Alert';
 
 class SettingsUpdateAccess extends Component {
     render () {
@@ -51,6 +52,17 @@ class SettingsUpdateAccess extends Component {
                 })    
             }
         }
+
+        const renderAlert = () => {
+        	if(selectedAccess.isError) {
+        		return (
+        			<Alert theme="danger" className="flex clr-light margin-bottom-2">
+        				<i className="ion-alert-circled margin-right-2"></i>
+        				<p>{selectedAccess.error.message}</p>
+        			</Alert>
+    			)
+        	}
+        }
         
         return (
             <Modal
@@ -61,6 +73,7 @@ class SettingsUpdateAccess extends Component {
                 </ModalHeader>
                 <Form onSubmit={handleUpdateAccessSubmit}>
                     <ModalContent>
+                    	{ renderAlert() }
                         <FormGroup>
                             <Label className="fw-semibold">Nama</Label>
                             <InputGroup>

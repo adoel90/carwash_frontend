@@ -46,6 +46,12 @@ const initialState = {
 		isError: false,
 		error: {}
 	},
+	updated: {
+
+	},
+	refund: {
+
+	},
 	list: {
 		data: [],
 		isLoaded: false,

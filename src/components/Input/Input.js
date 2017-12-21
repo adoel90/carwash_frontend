@@ -5,12 +5,18 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
 class Input extends React.Component {
-	// handleChange = (event) => {
-	// 	this.props.onChange(event);
-	// }
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 		this.handleFocus = this.handleFocus.bind(this);
+		this.handleScroll = this.handleScroll.bind(this);
+	}
+
+	componentDidMount = () => {
+		window.addEventListener("mousewheel", this.handleScroll);
+	}
+
+	handleScroll = (e) => {
+		e.preventDefault();
 	}
 
 	handleFocus = (e) => {
@@ -54,32 +60,6 @@ class Input extends React.Component {
 
 		return <Tag {...attributes} {...this.props} className={classes} />;
 	}
-//
-// const Input = (props, tag) => {
-//
-// 	const {
-// 		className,
-// 		type,
-// 		rows,
-// 		onChange,
-// 		...attributes
-// 	} = this.props;
-//
-// 	const classes = classNames(
-// 		className,
-// 		'form-control'
-// 	)
-//
-// 	const fileInput = type === 'file';
-// 	const textareaInput = type === 'textarea';
-// 	const selectInput = type === 'select';
-// 	let Tag = textareaInput || selectInput ? type : 'input';
-//
-// 	if(Tag === 'input') {
-// 		attributes.type = type;
-// 	}
-//
-// 	return <Tag className={classes} {...attributes} onChange={this.handleChange} />;
 }
 
 export default Input;

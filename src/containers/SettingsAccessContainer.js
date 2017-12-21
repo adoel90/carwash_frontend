@@ -32,7 +32,7 @@ class SettingsAccessContainer extends Component {
 			selectedAccess: {},
 			newAccess: {
 				name: '',
-				module: []
+				module: [],
 			},
 			search: {
 				searchText: '',
@@ -239,18 +239,35 @@ class SettingsAccessContainer extends Component {
 			selectedAccess
 		} = this.state;
 
-		let moduleCopy = [];
+		if(selectedAccess.module.length) {
+			let moduleCopy = [];
 
-		selectedAccess.module.forEach((item) => {
-			moduleCopy.push(item.id);
-		})
+			selectedAccess.module.forEach((item) => {
+				moduleCopy.push(item.id);
+			})
 
-		let requiredData = {
-			id: selectedAccess.id,
-			name: selectedAccess.name,
-			module: moduleCopy
+			let requiredData = {
+				id: selectedAccess.id,
+				name: selectedAccess.name,
+				module: moduleCopy
+			}
+
+			dispatch(updateAccess(requiredData, accessToken));
 		}
-		dispatch(updateAccess(requiredData, accessToken));
+		else {
+			let errorData = {
+				message: 'Modul harus dipilih setidaknya satu.'
+			}
+
+			this.setState({
+				selectedAccess: {
+					...this.state.selectedAccess,
+					error: errorData,
+					isError: true
+				}
+			})
+		}
+		
 	}
 
 	handleChangeAccessStatus = (access, e) => {
@@ -269,6 +286,13 @@ class SettingsAccessContainer extends Component {
 	}
 
 	handleCreateAccess = () =>  {
+		this.setState({
+			newAccess: {
+				name: '',
+				module: []
+			}
+		})
+
 		this.toggleModal('createAccess');
 	}
 
@@ -284,18 +308,33 @@ class SettingsAccessContainer extends Component {
 			dispatch
 		} = this.props;
 
-		let moduleCopy = [];
+		if(newAccess.module.length) {
+			let moduleCopy = [];
 
-		newAccess.module.forEach((item) => {
-			moduleCopy.push(item.id);
-		})
+			newAccess.module.forEach((item) => {
+				moduleCopy.push(item.id);
+			})
 
-		let requiredData = {
-			name: newAccess.name,
-			module: moduleCopy
+			let requiredData = {
+				name: newAccess.name,
+				module: moduleCopy
+			}
+
+			dispatch(createAccess(requiredData, accessToken));
 		}
+		else {
+			let errorData = {
+				message: 'Silahkan pilih setidaknya satu modul untuk membuat akses level baru.'
+			}
 
-		dispatch(createAccess(requiredData, accessToken));
+			this.setState({
+				newAccess: {
+					...this.state.newAccess,
+					error: errorData,
+					isError: true
+				}
+			})
+		}
 	}
 
 	render() {

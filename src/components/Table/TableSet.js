@@ -19,17 +19,11 @@ class TableSet extends Component {
 		this.renderTablePagination = this.renderTablePagination.bind(this);
 		this.handlePageChange = this.handlePageChange.bind(this);
 		this.handleResetPagination = this.handleResetPagination.bind(this);
-
+		
 		this.state = {
 			activePage: 1,
 			limit: 10
 		}
-	}
-
-	componentDidUpdate = (prevProps) => {
-		// if(prevProps.search.searchText !== this.props.search.searchText) {
-		// 	this.handleResetPagination();
-		// }
 	}
 
 	handlePageChange = (page) => {

@@ -3,9 +3,10 @@ import { Modal } from 'reactstrap';
 import { ModalContent, ModalHeader, ModalFooter } from '../Modal';
 import { Form, FormGroup } from '../Form';
 import { InputGroup, InputAddon, Label, Input, InputSwitch } from '../Input';
-import { ListGroup, ListGroupItem } from '../List/index';
-import { Row } from '../Grid/index';
-import { Button } from '../Button/index';
+import { ListGroup, ListGroupItem } from '../List';
+import { Row } from '../Grid';
+import { Button } from '../Button';
+import { Alert } from '../Alert';
 
 class SettingsCreateAccess extends Component {
     render () {
@@ -39,7 +40,7 @@ class SettingsCreateAccess extends Component {
                     return (
                         <div className="column-6" key={i}>
                             <ListGroupItem className="flex justify-content--space-between">
-                                <Label className="fw-semibold">{item.name}</Label>
+                                <Label>{item.name}</Label>
                                 <InputSwitch
                                     onChange={(e) => handleModuleChange(newAccess, item, e)}
                                     value={checkModule(item)}
@@ -47,8 +48,19 @@ class SettingsCreateAccess extends Component {
                             </ListGroupItem>
                         </div>
                     )
-                })    
+                })
             }
+        }
+
+        const renderAlert = () => {
+        	if(newAccess.isError) {
+        		return (
+        			<Alert theme="danger" className="flex clr-light margin-bottom-2">
+        				<i className="ion-alert-circled margin-right-2"></i>
+        				<p>{newAccess.error.message}</p>
+        			</Alert>
+        		)
+        	}
         }
         
         return (
@@ -60,8 +72,9 @@ class SettingsCreateAccess extends Component {
                 </ModalHeader>
                 <Form onSubmit={handleCreateAccessSubmit}>
                     <ModalContent>
+                    	{ renderAlert() }
                         <FormGroup>
-                            <Label className="fw-semibold">Nama</Label>
+                            <Label className="fw-semibold h6">Nama Akses Level</Label>
                             <InputGroup>
                                 <InputAddon>
                                     <i className="ion-person"></i>
@@ -77,6 +90,7 @@ class SettingsCreateAccess extends Component {
                             </InputGroup>
                         </FormGroup>
                         <ListGroup>
+                        	<h6>Pilih Modul</h6>
                             <Row>
                                 {renderAccessList()}
                             </Row>

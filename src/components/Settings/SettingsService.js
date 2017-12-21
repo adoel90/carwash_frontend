@@ -126,9 +126,6 @@ class SettingsService extends Component {
 			service,
 			serviceTypes
 		} = this.props;
-
-
-		// service.types.isLoaded ? serviceTypes.active.map(this.renderTabContent) : null
 		
 		if(service.types.isLoaded) {
 			if(serviceTypes.active.length) {

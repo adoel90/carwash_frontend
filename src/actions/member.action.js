@@ -19,6 +19,9 @@ export const MEMBER_REFUND_REJECTED = 'MEMBER_REFUND_REJECTED';
 export const GET_MEMBER_LIST_REQUESTED = 'GET_MEMBER_LIST_REQUESTED';
 export const GET_MEMBER_LIST_FULFILLED = 'GET_MEMBER_LIST_FULFILLED';
 export const GET_MEMBER_LIST_REJECTED = 'GET_MEMBER_LIST_REJECTED';
+export const GET_MEMBER_DETAIL_REQUESTED = 'GET_MEMBER_DETAIL_REQUESTED';
+export const GET_MEMBER_DETAIL_FULFILLED = 'GET_MEMBER_DETAIL_FULFILLED';
+export const GET_MEMBER_DETAIL_REJECTED = 'GET_MEMBER_DETAIL_REJECTED';
 
 export const CREATE_MEMBER_REQUESTED = 'CREATE_MEMBER_LIST_REQUESTED';
 export const CREATE_MEMBER_FULFILLED = 'CREATE_MEMBER_FULFILLED';
@@ -133,6 +136,24 @@ export const getAllMemberList = (accessToken) => {
 	function handleRequest() { return { type: GET_MEMBER_LIST_REQUESTED } }
 	function handleSuccess(data) { return { type: GET_MEMBER_LIST_FULFILLED, payload: data }}
 	function handleError(data) { return { type: GET_MEMBER_LIST_REJECTED, payload: data }}
+}
+
+export const getMemberDetail = (data, accessToken) => {
+	return async dispatch => {
+		dispatch(handleRequest())
+		return axios
+			.get(`${constant.API_PATH}member/detail?accessToken=${accessToken}&id=${data.id}`)
+			.then((response) => {
+				dispatch(handleSuccess(response.data.data))
+			})
+			.catch((error) => {
+				dispatch(handleError(error))
+			})
+	}
+
+	function handleRequest() { return { type: GET_MEMBER_DETAIL_REQUESTED } }
+	function handleSuccess(data) { return { type: GET_MEMBER_DETAIL_FULFILLED, payload: data } }
+	function handleError(data) { return { type: GET_MEMBER_DETAIL_REJECTED, payload: data } }
 }
 
 export const createNewMember = (data, accessToken) => {

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
 	getMemberList,
+	getMemberDetail,
 	getAllMemberList,
 	updateMember,
 	changeMemberStatus,
@@ -19,12 +20,7 @@ class SettingsMemberContainer extends Component {
 				searchText: '',
 				searchBy: 'name'
 			},
-			selectedMember: {
-				name: '',
-				email: '',
-				phone: '',
-				address: ''
-			},
+			selectedMember: {},
 			isModalOpen: {
 				viewMemberDetail: false,
 				editMember: false,
@@ -87,6 +83,14 @@ class SettingsMemberContainer extends Component {
 		if(prevProps.member.item !== member.item) {
 			let dialogData = {};
 
+			if(member.item.isLoaded) {
+				this.setState({
+					selectedMember: member.item.data
+				}, () => {
+					this.toggleModal('viewMemberDetail');
+				})
+			}
+			
 			if(member.item.isStatusChanging) {
 				memberList.forEach((item) => {
 					if(item.id === member.item.id) {
@@ -172,11 +176,17 @@ class SettingsMemberContainer extends Component {
 	}
 
 	handleViewMemberDetail = (member, e) => {
-		this.setState({
-			selectedMember: member
-		});
+		const {
+			dispatch, 
+			accessToken
+		} = this.props;
 
-		this.toggleModal('viewMemberDetail');
+		let requiredData = {
+			id: member.id
+		}
+		
+		dispatch(getMemberDetail(requiredData, accessToken));
+		// this.toggleModal('viewMemberDetail');
 	}
 
 	handleUpdateMember = (member, e) => {

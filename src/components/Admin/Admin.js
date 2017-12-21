@@ -19,18 +19,6 @@ class Admin extends Component {
 		this.handleRedirect = this.handleRedirect.bind(this);
 	}
 
-	componentWillMount = () => {
-		const {
-			isAuthenticated,
-			handleNavigationItems,
-			handleRedirect
-		} = this.props
-
-		if(isAuthenticated) {
-			handleNavigationItems();
-		}
-	}
-
 	handleRedirect = () => {
 		const {
 			user,
@@ -44,17 +32,9 @@ class Admin extends Component {
 			return <Redirect from="/*" to={`${match.url}/login`} />
 		}
 		else {
-			if(navigations.length) {
-				console.log(123);
-				return <Redirect to={navigations[0].path} />
-			}
-			
-			// let userLevel = user.level.id;
-			// switch(userLevel) {
-			// 	case 1: return <Redirect from="/*" to={`${match.url}/settings`} />
-			// 	case 2: return <Redirect from="/*" to={`${match.url}/cafe`} />
-			// 	default: return null;
-			// }
+			return navigations.length
+			? <Redirect to={navigations[0].path} />
+			: null
 		}
 	}
 

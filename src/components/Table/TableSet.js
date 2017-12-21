@@ -206,7 +206,9 @@ class TableSet extends Component {
 				if(!filteredRow.length) {
 					return (
 						<TableBody className="ta-center">
-							<td colspan="100%" style={{ padding: '40px' }}>Data tidak ditemukan.</td>
+							<td colspan="100%" style={{ padding: '60px' }}>
+								<p className="clr-passive fw-semibold">Data tidak ditemukan.</p>
+							</td>
 						</TableBody>
 					)
 				}

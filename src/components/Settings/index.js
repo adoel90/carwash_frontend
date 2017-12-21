@@ -1,6 +1,8 @@
 import Settings from './Settings';
 import SettingsMember from './SettingsMember';
 import SettingsMemberList from './SettingsMemberList';
+import SettingsMemberDetail from './SettingsMemberDetail';
+import SettingsUpdateMember from './SettingsUpdateMember';
 import SettingsUser from './SettingsUser';
 import SettingsUserList from './SettingsUserList';
 import SettingsUpdateUser from './SettingsUpdateUser';
@@ -28,6 +30,8 @@ export {
 	Settings,
 	SettingsMember,
 	SettingsMemberList,
+	SettingsMemberDetail,
+	SettingsUpdateMember,
 	SettingsUser,
 	SettingsUserList,
 	SettingsUpdateUser,

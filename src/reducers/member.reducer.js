@@ -12,6 +12,9 @@ import {
 	GET_MEMBER_LIST_REQUESTED,
 	GET_MEMBER_LIST_FULFILLED,
 	GET_MEMBER_LIST_REJECTED,
+	GET_MEMBER_DETAIL_REQUESTED,
+	GET_MEMBER_DETAIL_FULFILLED,
+	GET_MEMBER_DETAIL_REJECTED,
 
 	CREATE_MEMBER_FULFILLED,
 	CREATE_MEMBER_REJECTED,
@@ -35,6 +38,8 @@ const initialState = {
 		accessToken: '',
 		isAuthenticating: false,
 		isAuthenticated: false,
+		isFetching: false,
+		isLoaded: false,
 		isUpdating: false,
 		isUpdated: false,
 		isStatusChanging: false,
@@ -45,12 +50,6 @@ const initialState = {
 		isCreated: false,
 		isError: false,
 		error: {}
-	},
-	updated: {
-
-	},
-	refund: {
-
 	},
 	list: {
 		data: [],
@@ -139,6 +138,48 @@ const member = (state = initialState, action) => {
 					data: {},
 					isFetching: false,
 					isLoaded: false,
+					isError: true,
+					error: action.payload
+				}
+			}
+		}
+
+		case GET_MEMBER_DETAIL_REQUESTED: {
+			return {
+				...state,
+				item: {
+					...state.item,
+					data: {},
+					isFetching: true,
+					isLoaded: false,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case GET_MEMBER_DETAIL_FULFILLED: {
+			return {
+				...state,
+				item: {
+					...state.item,
+					data: action.payload,
+					isFetching: false,
+					isLoaded: true,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case GET_MEMBER_DETAIL_REJECTED: {
+			return {
+				...state,
+				item: {
+					...state.item,
+					data: {},
+					isFetching: false,
+					isLodaed: false,
 					isError: true,
 					error: action.payload
 				}

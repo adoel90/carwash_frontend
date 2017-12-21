@@ -47,7 +47,7 @@ class SettingsContainer extends Component {
 			user
 		} = this.props;
 		
-		user.module.forEach((item) => {
+		user.module.some((item) => {
 			if(item.id === 3) {
 				subroutes.push({ 
 					name: 'Pengaturan Member', 

@@ -13,6 +13,17 @@ class AdminContainer extends Component {
 		}
 	}
 
+	componentWillMount = () => {
+		const {
+			isAuthenticated,
+			handleRedirect
+		} = this.props
+
+		if(isAuthenticated) {
+			this.handleNavigationItems();
+		}
+	}
+
 	handleNavigationItems = () => {
 		const {
 			navigations
@@ -22,12 +33,18 @@ class AdminContainer extends Component {
 			user
 		} = this.props;
 
+		/**
+		 * 	Checks if the authenticated user has some or all of settings modules. 
+		 */
 		user.module.every((item) => {
 			if(item.id == 1 || item.id == 4 || item.id == 9 || item.id == 3 || item.id == 2 || item.id == 5 ) {
 				navigations.push({name: 'Pengaturan', path: '/admin/settings'})
 			}
 		})
 
+		/**
+		 * 	Checks if the authenticated user has some or all other modules aside from settings.
+		 */
 		user.module.forEach((item) => {
 			// If cafe module is activated.
 			if(item.id == 10) {
@@ -36,7 +53,7 @@ class AdminContainer extends Component {
 
 			// If report module is activated.
 			if(item.id == 11) {
-				navigations.push({ name: 'Laporan', path: '/admin/report'})
+				navigations.push({ name: 'Laporan', path: '/admin/report' } )
 			}
 
 			// If cashier module is activated.
@@ -44,33 +61,6 @@ class AdminContainer extends Component {
 				navigations.push({ name: 'Kasir', path: '/admin/cashier' } )
 			}
 		})
-
-		// const level = user.level.id;
-
-		// switch(level) {
-		// 	case 1: {
-		// 		this.setState({
-		// 			navigations: [
-		// 				{ name: 'Pengaturan', path: '/admin/settings' },
-		// 				{ name: 'Laporan', path: '/admin/report' }
-		// 			]
-		// 		})
-		// 		break;
-		// 	}
-		// 	case 2: {
-		// 		this.setState({
-		// 			navigations: [
-		// 				{ name: 'Kafe', path: '/admin/cafe' },
-		// 				{ name: 'Kasir', path: '/admin/cashier' },
-		// 			]
-		// 		})
-		// 		break;
-		// 	}
-			
-		// 	default: {
-		// 		return null;
-		// 	}
-		// }
 	}
 
 	render() {
@@ -79,14 +69,11 @@ class AdminContainer extends Component {
 			member,
 			isAuthenticated
 		} = this.props;
-		
-		console.log(user);
  
 		return (
 			<Admin
 				{...this.state}
 				{...this.props}
-				handleNavigationItems={this.handleNavigationItems}
 			/>
 		);
 	}

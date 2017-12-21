@@ -10,6 +10,7 @@ class CashierTopUpForm extends Component {
 		const {
 			member,
 			memberData,
+			authentication,
 			error,
 			handleInputChange,
 			handleMemberAuthenticateSubmit
@@ -35,10 +36,10 @@ class CashierTopUpForm extends Component {
 							<i className="ion-card" />
 						</InputAddon>
 						<Input
-							name="card"
+							name="cardId"
 							type="number"
 							placeholder="16-digit nomor kartu member"
-							onChange={(e) => handleInputChange(memberData, e)}
+							onChange={(e) => handleInputChange(authentication, e)}
 							autoFocus="true"
 							selectOnFocus
 						/>

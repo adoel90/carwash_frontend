@@ -18,11 +18,13 @@ class CashierTopUpContainer extends Component {
 			isModalOpen: {
 				topup: false
 			},
-			memberData: {
-				card: ''
+			authentication: {
+				cardId: '',
 			},
+			memberData: {},
 			topupData: {
-				balance: ''
+				balance: '',
+				payment: 1 /** Defaults to cash */
 			},
 			error: {
 				data: {},
@@ -45,7 +47,13 @@ class CashierTopUpContainer extends Component {
 
 		if(prevProps.member.item !== member.item) {
 			if(member.item.isAuthenticated) {
-				this.handleTopup();
+				this.setState({
+					...this.state,
+					memberData: member.item.data
+				}, () => {
+					this.forceUpdate();
+					this.handleTopup();
+				});
 			}
 
 			if(member.item.isBalanceChanged) {
@@ -57,9 +65,7 @@ class CashierTopUpContainer extends Component {
 					type: 'success',
 					title: 'Berhasil',
 					message: message,
-					onClose: () => {
-						window.location.reload()
-					},
+					onClose: () => window.location.reload(),
 					closeText: 'Tutup'
 				}
 
@@ -83,7 +89,7 @@ class CashierTopUpContainer extends Component {
 
 	handleMemberAuthenticateSubmit = (e) => {
 		const {
-			memberData
+			authentication
 		} = this.state;
 
 		const {
@@ -94,7 +100,7 @@ class CashierTopUpContainer extends Component {
 		e.preventDefault();
 
 		let requiredData = {
-			card: memberData.card
+			card: authentication.cardId
 		}
 
 		dispatch(authenticateMember(requiredData));

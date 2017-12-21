@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import DatePicker from 'react-datepicker';
@@ -12,7 +13,8 @@ class Input extends React.Component {
 	}
 
 	componentDidMount = () => {
-		window.addEventListener("mousewheel", this.handleScroll);
+		const inputElement = ReactDOM.findDOMNode(this.input);
+		inputElement.addEventListener('mousewheel', this.handleScroll);
 	}
 
 	handleScroll = (e) => {
@@ -58,7 +60,7 @@ class Input extends React.Component {
 			attributes.onFocus = this.handleFocus;
 		}
 
-		return <Tag {...attributes} {...this.props} className={classes} />;
+		return <Tag {...attributes} {...this.props} ref={(input) => this.input = input} className={classes} />;
 	}
 }
 

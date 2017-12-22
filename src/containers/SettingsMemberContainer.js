@@ -191,20 +191,12 @@ class SettingsMemberContainer extends Component {
 
 	handleUpdateMember = (member, e) => {
 		e.stopPropagation();
-
+		
 		this.setState({
-			selectedMember: {
-				id: member.id,
-				name: member.name,
-				email: member.email,
-				phone: member.phone,
-				address: member.address,
-				cardId: member.card.id,
-				cardType: member.card.type.name,
-			}
+			selectedMember: member
+		}, () => {
+			this.toggleModal('editMember');
 		})
-
-		this.toggleModal('editMember');
 	}
 
 	handleUpdateMemberSubmit = (e) => {

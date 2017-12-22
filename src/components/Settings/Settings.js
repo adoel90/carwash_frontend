@@ -78,9 +78,7 @@ class Settings extends React.Component {
 				<div style={{ padding: '30px' }}>
 					<Row>
 						<div className="column-3">
-							<div className="margin-bottom-3">
-								<AdminSidebar navigations={subroutes} />
-							</div>
+							<AdminSidebar navigations={subroutes} />
 						</div>
 						<div className="column-9">
 							{ subroutes.map(this.renderSubroutes) }

@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { SettingsMemberTransactionDetail } from '../Settings';
+
 import { Modal } from 'reactstrap';
 import { PageBlock } from '../Page';
 import { Row } from '../Grid';
@@ -140,6 +142,10 @@ class SettingsMemberDetail extends Component {
                             </Row>
                         </Form>
                     </TabContent>
+                    <TabContent activeTab={activeTab} tabIndex={1}>
+                    	<SettingsMemberTransactionDetail {...this.props} />
+                    </TabContent>
+
 				</ModalContent>
 				<ModalFooter className="flex justify-content--flex-end">
 					<Button buttonTheme="danger" className="clr-light" onClick={() => toggleModal('viewMemberDetail')}>

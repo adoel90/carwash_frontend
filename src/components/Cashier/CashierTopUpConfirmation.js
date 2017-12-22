@@ -17,6 +17,7 @@ class CashierTopUpConfirmation extends Component {
 	render() {
 		const {
 			member,
+			memberData,
 			isModalOpen,
 			toggleModal,
 			topupData,
@@ -27,16 +28,16 @@ class CashierTopUpConfirmation extends Component {
 		const renderMemberInformation = () => {
 			return (
 				<div className="padding-bottom-3">
-					<h4 className="fw-semibold clr-primary">{member.item.data.name}</h4>
+					<h4 className="fw-semibold clr-primary">{memberData.name}</h4>
 					<h5 className="fw-semibold">
 						<NumberFormat
 							displayType={'text'}
 							format="#### #### #### ####"
-							value={member.item.data.card ? member.item.data.card.id : null}
+							value={memberData.card ? memberData.card.id : null}
 						/>
 					</h5>
-					<p>{member.item.data.email}</p>
-					<p>{member.item.data.address}</p>
+					<p>{memberData.email}</p>
+					<p>{memberData.address}</p>
 				</div>
 			)
 		}
@@ -65,9 +66,21 @@ class CashierTopUpConfirmation extends Component {
 									<small className="tt-uppercase fw-semibold ls-base">Rp</small>
 								</InputAddon>
 								<InputCurrency
-									value={member.item.data.balance}
+									value={memberData.balance}
 									readOnly="true"
 								/>
+							</InputGroup>
+						</FormGroup>
+						<FormGroup row>
+							<Label className="fw-semibold">Metode Pembayaran</Label>
+							<InputGroup>
+								<InputAddon>
+									<small className="tt-uppercase fw-semibold ls-base">Rp</small>
+								</InputAddon>
+								<Input
+									type="select"
+
+									/>
 							</InputGroup>
 						</FormGroup>
 						<FormGroup row>

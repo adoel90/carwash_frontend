@@ -2,6 +2,7 @@ import Settings from './Settings';
 import SettingsMember from './SettingsMember';
 import SettingsMemberList from './SettingsMemberList';
 import SettingsMemberDetail from './SettingsMemberDetail';
+import SettingsMemberTransactionDetail from './SettingsMemberTransactionDetail';
 import SettingsUpdateMember from './SettingsUpdateMember';
 import SettingsUser from './SettingsUser';
 import SettingsUserList from './SettingsUserList';
@@ -31,6 +32,7 @@ export {
 	SettingsMember,
 	SettingsMemberList,
 	SettingsMemberDetail,
+	SettingsMemberTransactionDetail,
 	SettingsUpdateMember,
 	SettingsUser,
 	SettingsUserList,

@@ -13,8 +13,14 @@ class Input extends React.Component {
 	}
 
 	componentDidMount = () => {
-		const inputElement = ReactDOM.findDOMNode(this.input);
-		inputElement.addEventListener('mousewheel', this.handleScroll);
+		const {
+			type
+		} = this.props;
+
+		if(type == 'number') {
+			const inputElement = ReactDOM.findDOMNode(this.input);
+			inputElement.addEventListener('mousewheel', this.handleScroll);
+		}
 	}
 
 	handleScroll = (e) => {

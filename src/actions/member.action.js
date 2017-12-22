@@ -142,7 +142,7 @@ export const getMemberDetail = (data, accessToken) => {
 	return async dispatch => {
 		dispatch(handleRequest())
 		return axios
-			.get(`${constant.API_PATH}member/detail?accessToken=${accessToken}&id=${data.id}`)
+			.get(`${constant.API_PATH}member/detail?accessToken=${accessToken}&id=${data.id}&transaction=${true}`)
 			.then((response) => {
 				dispatch(handleSuccess(response.data.data))
 			})

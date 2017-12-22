@@ -118,7 +118,7 @@ class SettingsMemberDetail extends Component {
                                             </InputAddon>
                                             <Input
                                                 placeholder="Nomor kartu member"
-                                                value={selectedMember.cardId}
+                                                value={selectedMember.card ? selectedMember.card.id : null}
                                                 readOnly
                                             />
                                         </InputGroup>
@@ -131,7 +131,7 @@ class SettingsMemberDetail extends Component {
                                             </InputAddon>
                                             <Input
                                                 placeholder="Nama lengkap member"
-                                                value={selectedMember.cardType}
+                                                value={selectedMember.card ? selectedMember.card.type.name : null}
                                                 readOnly
                                             />
                                         </InputGroup>

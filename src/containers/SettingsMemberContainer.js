@@ -85,7 +85,7 @@ class SettingsMemberContainer extends Component {
 
 			if(member.item.isLoaded) {
 				this.setState({
-					selectedMember: member.item.data
+					selectedMember: member.item.data,
 				}, () => {
 					this.toggleModal('viewMemberDetail');
 				})
@@ -198,7 +198,9 @@ class SettingsMemberContainer extends Component {
 				name: member.name,
 				email: member.email,
 				phone: member.phone,
-				address: member.address
+				address: member.address,
+				cardId: member.card.id,
+				cardType: member.card.type.name,
 			}
 		})
 

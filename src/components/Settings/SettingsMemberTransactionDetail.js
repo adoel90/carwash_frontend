@@ -28,16 +28,14 @@ class SettingsMemberTransactionDetail extends Component {
 
 		if(selectedMember.transaction.length) {
 			return (
-				<div>
-					<TableSet
-						columns={table.columns}
-						rows={selectedMember.transaction}
-						isStriped
-						isHoverable
-						hasPagination
-						{...this.props}
-					/>
-				</div>
+				<TableSet
+					columns={table.columns}
+					rows={selectedMember.transaction}
+					isStriped
+					isHoverable
+					hasPagination
+					{...this.props}
+				/>
 			)
 		}
 		else {

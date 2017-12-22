@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import moment from 'moment';
 import { SettingsMemberDetail } from '../components/Settings';
 
 class SettingsMemberDetailContainer extends Component {

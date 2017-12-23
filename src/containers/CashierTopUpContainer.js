@@ -120,6 +120,7 @@ class CashierTopUpContainer extends Component {
 
 		const {
 			topupData,
+			paymentMethod,
 			authenticatedMember
 		} = this.state;
 
@@ -135,10 +136,26 @@ class CashierTopUpContainer extends Component {
 			payment: topupData.payment
 		}
 
+		let paymentMethodName;
+
+		paymentMethod.forEach((method) => {
+			if(method.id == topupData.payment) {
+				return paymentMethodName = method.name;
+			}
+		})
+
 		let dialogData = {
 			type: 'confirm',
 			title: 'Perhatian!',
-			message: <p>Silahkan konfirmasi kembali jumlah yang akan diisi ulang serta metode pembayaran yang diinginkan.</p>,
+			message: (
+				<p>
+					Konfirmasi terlebih dahulu informasi berikut sebelum melanjutkan.<br/>
+					Jumlah saldo yang akan diisi adalah
+					<span className="fw-semibold clr-primary">{' '}<Currency value={requiredData.balance} />{' '}</span>
+					dengan metode pembayaran <span className="fw-semibold">{paymentMethodName}</span>.<br/>
+					
+				</p>
+			),
 			onConfirm: () => {
 				dispatch(memberTopup(requiredData, authenticatedMember.accessToken))
 			},

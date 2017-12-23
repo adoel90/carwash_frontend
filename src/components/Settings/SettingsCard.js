@@ -197,7 +197,6 @@ class SettingsCard extends Component {
 			<div className="inner-view">
 				<div className="padding-bottom-2">
 					<h4 className="fw-semibold">Daftar Tipe Kartu</h4>
-					{/* <p className="clr-passive">Berikut merupakan daftar tipe kartu yang aktif dalam layanan.</p> */}
 				</div>
 				<PageBlockGroup>
 					<PageBlock>

@@ -38,6 +38,7 @@ body {
 		@include flexbox;
 		@include flex-direction(column);
 		height: 100%;
+		background-color: gray(100);
 	}
 
 	&.fade {

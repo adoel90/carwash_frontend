@@ -15,6 +15,7 @@ class CashierNewCardContainer extends Component {
 		this.handleInputChange = this.handleInputChange.bind(this);
 		this.handleChangeCardType = this.handleChangeCardType.bind(this);
 		this.handleNewCardSubmit = this.handleNewCardSubmit.bind(this);
+		this.handleNewCardConfirmation = this.handleNewCardConfirmation.bind(this);
 		this.handleNewCardInstruction = this.handleNewCardInstruction.bind(this);
 		this.handleNewCardInstructionSubmit = this.handleNewCardInstructionSubmit.bind(this);
 		this.getCardTypes = this.getCardTypes.bind(this);
@@ -22,13 +23,17 @@ class CashierNewCardContainer extends Component {
 		this.state = {
 			cardTypes: [],
 			isModalOpen: {
+				newCardConfirmation: false,
 				newCardInstruction: false
 			},
 			selectedCardType: {
 				id: '',
 				min: ''
 			},
-			newMember: {},
+			newMember: {
+				data: {},
+				isCreated: false
+			},
 			newCardData: {
 				card: 1,
 				name: '',
@@ -44,15 +49,17 @@ class CashierNewCardContainer extends Component {
 	}
 
 	componentDidUpdate = (prevProps) => {
-		const { newCardData } = this.state;
+		const { 
+			newCardData,
+			newMember
+		} = this.state;
+
 		const {
 			card,
 			member
 		} = this.props;
 
 		if(prevProps.card.types !== card.types) {
-			console.log(card.types);
-			
 			if(card.types.isLoaded) {
 				this.setState({
 					newCardData: {
@@ -71,7 +78,12 @@ class CashierNewCardContainer extends Component {
 
 		if(prevProps.member.item !== member.item) {
 			if(member.item.isCreated) {
-				this.handleNewCardInstruction();
+				this.setState({
+					createdMember: member.item
+				}, () => {
+					this.forceUpdate();
+					this.handleNewCardInstruction();
+				})
 			}
 		}
 	}
@@ -86,6 +98,16 @@ class CashierNewCardContainer extends Component {
 	}
 
 	handleNewCardSubmit = (e) => {
+		e.preventDefault();
+		
+		this.handleNewCardConfirmation();
+	}
+
+	handleNewCardConfirmation = () => {
+		this.toggleModal('newCardConfirmation')
+	}
+
+	handleNewCardConfirmationSubmit = (e) => {
 		const {
 			newCardData,
 			selectedCardType
@@ -105,8 +127,6 @@ class CashierNewCardContainer extends Component {
 			email: newCardData.email,
 			address: newCardData.address
 		}
-
-		console.log(requiredData);
 
 		dispatch(createNewMember(requiredData, accessToken));
 	}

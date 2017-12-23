@@ -101,7 +101,8 @@ class CashierTopUpConfirmation extends Component {
 								name="payment"
 								type="select"
 								onChange={(e) => handleInputChange(topupData, e)}
-								required="true">
+								required="true"
+								value={topupData.payment}>
 								<option selected="true" disabled="true">Pilih metode pembayaran</option>
 								{ 
 									paymentMethod.map((method) => {

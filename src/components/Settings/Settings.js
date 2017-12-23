@@ -24,7 +24,6 @@ class Settings extends React.Component {
 			subroutes
 		} = this.props;
 
-		// let firstRoute = subroutes[0].name.replace(/\s+/g, '-').toLowerCase();
 		let firstRoutePath = subroutes[0].path;
 
 		return <Redirect to={firstRoutePath} />

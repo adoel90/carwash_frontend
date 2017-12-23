@@ -49,23 +49,17 @@ class CafePaymentCheckout extends Component {
                         { renderPaymentAvailability() }
                         <div className="margin-top-3 margin-bottom-1 ta-center">
                             <h5 className="clr-primary">{memberInfo.memberData.name}</h5>
-                            <h6 className="clr-primary fw-semibold">
+                            <h6 className="fw-semibold">
                                 <NumberFormat
                                     format="#### #### #### ####"
                                     displayType={'text'}
                                     value={memberInfo.memberData.card ? memberInfo.memberData.card.id : null}
-                                    />
+                                   />
                             </h6>
-                            {/* <h6 className="flex align-items--center ta-center">
-                                <small className="fw-semibold tt-uppercase ls-base">
-                                Sisa Saldo: {' '}
-                                <span className="fw-semibold"><Currency value={memberInfo.memberData.balance} /></span>
-                                </small>
-                            </h6> */}
+                            <Badge theme="secondary" className="clr-dark margin-top-1">
+                                <small className="tt-uppercase ls-base fw-semibold">{memberInfo.memberData.card ? memberInfo.memberData.card.type.name : null}</small>
+                            </Badge>
                         </div>
-                        <Badge theme="secondary" className="clr-dark">
-                            <small className="tt-uppercase ls-base fw-semibold">{memberInfo.memberData.card ? memberInfo.memberData.card.type.name : null}</small>
-                        </Badge>
                     </div>
                 )
             }

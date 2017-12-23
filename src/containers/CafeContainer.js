@@ -39,7 +39,7 @@ class CafeContainer extends React.Component {
 			dispatch,
 			dialog,
 			cafe,
-			user
+			userData
 		} = this.props;
 
 		console.log(prevState);
@@ -49,7 +49,7 @@ class CafeContainer extends React.Component {
 				let activeTypes = [];
 
 				cafe.types.data.forEach((type) => {
-					if(type.status && (user.cafe == type.id || !user.cafe)) {
+					if(type.status && (userData.cafe == type.id || !userData.cafe)) {
 						activeTypes.push(type);
 					}
 				})

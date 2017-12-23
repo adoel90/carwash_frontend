@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { authenticateMember, memberTopup } from '../actions/member.action'
+import { authenticateMember, memberTopup, getMemberDetail } from '../actions/member.action'
 import { showDialog, hideDialog } from '../actions/dialog.action';
 import Currency from '../components/Currency';
 
@@ -21,11 +21,19 @@ class CashierTopUpContainer extends Component {
 			authentication: {
 				cardId: '',
 			},
-			memberData: {},
+			authenticatedMember: {
+				data: {},
+				isAuthenticated: false
+			},
 			topupData: {
 				balance: '',
-				payment: 1 /** Defaults to cash */
+				payment: 1
 			},
+			paymentMethod: [
+				{ id: 1, name: 'Cash' },
+				{ id: 2, name: 'Debit' },
+				{ id: 3, name: 'Credit' }
+			],
 			error: {
 				data: {},
 				isError: false
@@ -38,7 +46,8 @@ class CashierTopUpContainer extends Component {
 			dispatch,
 			member,
 			dialog,
-			toggleDialog
+			toggleDialog,
+			showDialog
 		} = this.props;
 
 		const {
@@ -49,11 +58,11 @@ class CashierTopUpContainer extends Component {
 			if(member.item.isAuthenticated) {
 				this.setState({
 					...this.state,
-					memberData: member.item.data
+					authenticatedMember: member.item
 				}, () => {
 					this.forceUpdate();
 					this.handleTopup();
-				});
+				})
 			}
 
 			if(member.item.isBalanceChanged) {
@@ -69,7 +78,7 @@ class CashierTopUpContainer extends Component {
 					closeText: 'Tutup'
 				}
 
-				toggleDialog(dialogData);
+				showDialog(dialogData);
 			}
 
 			if(member.item.isError) {
@@ -81,7 +90,7 @@ class CashierTopUpContainer extends Component {
 						isError: true
 					}
 				}, () => {
-					this.forceUpdate();
+					console.log(this.state);
 				});
 			}
 		}
@@ -110,20 +119,35 @@ class CashierTopUpContainer extends Component {
 		e.preventDefault();
 
 		const {
-			topupData
+			topupData,
+			authenticatedMember
 		} = this.state;
 
 		const {
 			dispatch,
 			accessToken,
-			member
+			toggleDialog,
+			hideDialog
 		} = this.props;
 
 		let requiredData = {
-			balance: parseInt(topupData.balance.replace(/,/g, ''))
+			balance: parseInt(topupData.balance.replace(/,/g, '')),
+			payment: topupData.payment
 		}
-		
-		dispatch(memberTopup(requiredData, member.item.accessToken));
+
+		let dialogData = {
+			type: 'confirm',
+			title: 'Perhatian!',
+			message: <p>Silahkan konfirmasi kembali jumlah yang akan diisi ulang serta metode pembayaran yang diinginkan.</p>,
+			onConfirm: () => {
+				dispatch(memberTopup(requiredData, authenticatedMember.accessToken))
+			},
+			confirmText: 'Selesai',
+			onClose: () => hideDialog(),
+			closeText: 'Batal'
+		}
+
+		toggleDialog(dialogData);
 	}
 
 	handleTopup = () => {

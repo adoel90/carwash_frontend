@@ -61,6 +61,8 @@ class CashierContainer extends React.Component {
 				{...this.props}
 				{...this.state}
 				toggleDialog={this.toggleDialog}
+				showDialog={this.showDialog}
+				hideDialog={this.hideDialog}
 			/>
 		)
 	}

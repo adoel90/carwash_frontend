@@ -8,6 +8,7 @@ import { PageBlock } from '../Page';
 import { Button } from '../Button';
 import { Alert } from '../Alert';
 import { Row } from '../Grid';
+import { Badge } from '../Badge';
 import { default as CardIcon } from '../../assets/icons/Business/credit-card-3.svg';
 import { default as CardIcon2 } from '../../assets/icons/Business/credit-card-4.svg';
 import Currency from '../Currency';
@@ -16,8 +17,8 @@ import NumberFormat from 'react-number-format';
 class CashierTopUpConfirmation extends Component {
 	render() {
 		const {
-			member,
-			memberData,
+			authenticatedMember,
+			paymentMethod,
 			isModalOpen,
 			toggleModal,
 			topupData,
@@ -27,38 +28,33 @@ class CashierTopUpConfirmation extends Component {
 
 		const renderMemberInformation = () => {
 			return (
-				<div className="padding-bottom-3">
-					<h4 className="fw-semibold clr-primary">{memberData.name}</h4>
+				<div className="padding-bottom-3">	
+					<h4 className="fw-semibold clr-primary">{authenticatedMember.data.name}</h4>
 					<h5 className="fw-semibold">
 						<NumberFormat
 							displayType={'text'}
 							format="#### #### #### ####"
-							value={memberData.card ? memberData.card.id : null}
+							value={authenticatedMember.data.card ? authenticatedMember.data.card.id : null}
 						/>
 					</h5>
-					<p>{memberData.email}</p>
-					<p>{memberData.address}</p>
+					<Badge theme="secondary" className="margin-top-1">
+						<small className="fw-semibold tt-uppercase ls-base">{authenticatedMember.data.card ? authenticatedMember.data.card.type.name : null}</small>
+					</Badge>
 				</div>
 			)
 		}
 
 		return (
 			<Modal
-				isOpen={isModalOpen.topup}
-				toggle={() => toggleModal('topup')}>
+				isOpen={isModalOpen.topup}>
 				<Form onSubmit={handleTopupSubmit}>
 					<ModalHeader>
 						<h6 className="fw-semibold ta-center">Isi Ulang Saldo Customer</h6>
 					</ModalHeader>
 					<ModalContent>
-						<Row className="flex align-items--center">
-							<div className="column-3 flex flex-column align-items--center">
-								<img src={CardIcon} />
-							</div>
-							<div className="column-9">
-								{renderMemberInformation()}
-							</div>
-						</Row>
+						<div className="ta-center">
+							{renderMemberInformation()}
+						</div>
 						<FormGroup row>
 							<Label className="fw-semibold">Saldo saat ini</Label>
 							<InputGroup>
@@ -66,21 +62,21 @@ class CashierTopUpConfirmation extends Component {
 									<small className="tt-uppercase fw-semibold ls-base">Rp</small>
 								</InputAddon>
 								<InputCurrency
-									value={memberData.balance}
+									value={authenticatedMember.data.balance}
 									readOnly="true"
 								/>
 							</InputGroup>
 						</FormGroup>
 						<FormGroup row>
-							<Label className="fw-semibold">Metode Pembayaran</Label>
+							<Label className="fw-semibold">Minimum Saldo</Label>
 							<InputGroup>
 								<InputAddon>
 									<small className="tt-uppercase fw-semibold ls-base">Rp</small>
 								</InputAddon>
-								<Input
-									type="select"
-
-									/>
+								<InputCurrency
+									value={authenticatedMember.data.card ? authenticatedMember.data.card.type.min : null}
+									readOnly="true"
+								/>
 							</InputGroup>
 						</FormGroup>
 						<FormGroup row>
@@ -99,12 +95,27 @@ class CashierTopUpConfirmation extends Component {
 								/>
 							</InputGroup>
 						</FormGroup>
+						<FormGroup row>
+							<Label className="fw-semibold">Metode Pembayaran</Label>
+							<Input
+								name="payment"
+								type="select"
+								onChange={(e) => handleInputChange(topupData, e)}
+								required="true">
+								<option selected="true" disabled="true">Pilih metode pembayaran</option>
+								{ 
+									paymentMethod.map((method) => {
+										return <option value={method.id}>{method.name}</option>
+									})
+								}
+							</Input>
+						</FormGroup>
 					</ModalContent>
 					<ModalFooter className="flex justify-content--center">
 						<Button type="button" buttonTheme="danger" className="clr-light" onClick={() => toggleModal('topup')}>
 							<small className="tt-uppercase fw-semibold ls-base">Kembali</small>
 						</Button>
-						<Button buttonTheme="primary" className="clr-light margin-left-2">
+						<Button type="submit" buttonTheme="primary" className="clr-light margin-left-2">
 							<small className="tt-uppercase fw-semibold ls-base">Selesai & Print Struk</small>
 						</Button>
 					</ModalFooter>

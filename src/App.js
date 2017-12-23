@@ -31,8 +31,8 @@ class App extends React.Component {
 		this.setState({
 			isAuthenticated: accessToken ? true : false,
 			accessToken: accessToken,
-			user: userData,
-			member: memberData
+			userData: userData,
+			memberData: memberData
 		});
 	}
 

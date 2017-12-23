@@ -9,7 +9,6 @@ class MainRoutes extends Component {
 	render() {
 		const {
 			isAuthenticated,
-			user,
 			accessToken
 		} = this.props;
 

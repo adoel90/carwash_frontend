@@ -41,8 +41,6 @@ class Cashier extends React.Component {
 		const { match, user } = this.props;
 		const path = route.name.replace(/\s+/g, '-').toLowerCase();
 
-		console.log(user);
-
 		return (
 			<PropsRoute
 				key={i}

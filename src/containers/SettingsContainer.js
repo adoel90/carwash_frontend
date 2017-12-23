@@ -44,10 +44,10 @@ class SettingsContainer extends Component {
 		} = this.state;
 		
 		const {
-			user
+			userData
 		} = this.props;
 		
-		user.module.some((item) => {
+		userData.module.some((item) => {
 			if(item.id === 3) {
 				subroutes.push({ 
 					name: 'Pengaturan Member', 

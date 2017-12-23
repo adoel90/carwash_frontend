@@ -17,12 +17,7 @@ import NumberFormat from 'react-number-format';
 import CashierTopUpForm from './CashierTopUpForm';
 
 class CashierTopUp extends Component {
-
 	render() {
-		const {
-			member
-		} = this.props;
-
 		return (
 			<div className="inner-view">
 				<PageBlock className="margin-bottom-5 ta-center">

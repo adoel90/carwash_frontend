@@ -30,13 +30,13 @@ class AdminContainer extends Component {
 		} = this.state;
 		
 		const {
-			user
+			userData
 		} = this.props;
 
 		/**
 		 * 	Checks if the authenticated user has some or all of settings modules. 
 		 */
-		user.module.every((item) => {
+		userData.module.every((item) => {
 			if(item.id == 1 || item.id == 4 || item.id == 9 || item.id == 3 || item.id == 2 || item.id == 5 ) {
 				navigations.push({name: 'Pengaturan', path: '/admin/settings'})
 			}
@@ -45,7 +45,7 @@ class AdminContainer extends Component {
 		/**
 		 * 	Checks if the authenticated user has some or all other modules aside from settings.
 		 */
-		user.module.forEach((item) => {
+		userData.module.forEach((item) => {
 			// If cafe module is activated.
 			if(item.id == 10) {
 				navigations.push({ name: 'Cafe', path: '/admin/cafe' } )
@@ -65,8 +65,6 @@ class AdminContainer extends Component {
 
 	render() {
 		const {
-			user,
-			member,
 			isAuthenticated
 		} = this.props;
  

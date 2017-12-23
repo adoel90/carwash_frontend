@@ -182,11 +182,11 @@ class SettingsMemberContainer extends Component {
 		} = this.props;
 
 		let requiredData = {
-			id: member.id
+			id: member.id,
+			transaction: true
 		}
 		
 		dispatch(getMemberDetail(requiredData, accessToken));
-		// this.toggleModal('viewMemberDetail');
 	}
 
 	handleUpdateMember = (member, e) => {

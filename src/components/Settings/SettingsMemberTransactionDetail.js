@@ -24,8 +24,6 @@ class SettingsMemberTransactionDetail extends Component {
 			selectedMember
 		} = this.props;
 
-		console.log(selectedMember);
-
 		if(selectedMember.transaction.length) {
 			return (
 				<TableSet

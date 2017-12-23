@@ -41,12 +41,12 @@ class CustomerContainer extends Component {
 		const {
 			isAuthenticated,
 			accessToken,
-			member,
-			user,
+			memberData,
+			userData,
 			match
 		} = this.props;
 
-		if(user.id) {
+		if(userData.id) {
 			return <p>You are not authorized to view this content.</p>
 		}
 
@@ -66,7 +66,7 @@ class CustomerContainer extends Component {
 						path={`${match.url}/service`}
 						component={ServiceContainer}
 						isAuthenticated={isAuthenticated}
-						member={member}
+						memberData={memberData}
 						accessToken={accessToken}
 						redirectTo={`${match.url}/landing`}
 					/>
@@ -75,9 +75,9 @@ class CustomerContainer extends Component {
 						path={`${match.url}/profile`}
 						component={ProfileContainer}
 						isAuthenticated={isAuthenticated}
-						member={member}
+						memberData={memberData}
 						accessToken={accessToken}
-						redirectTO={`${match.url}/landing`}
+						redirectTo={`${match.url}/landing`}
 					/>
 					<Redirect from={`${match.url}`} to={`${match.url}/landing`} />
 					{ this.handleRouteRedirect() }

@@ -3,9 +3,6 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 
 import { PropsRoute, PrivateRoute } from '../Route';
 import { AdminHeader, AdminSubheader, AdminContent } from '../Admin';
-// import MainHeader from '../MainHeader';
-// import MainSubheader from '../MainSubheader';
-// import MainContent from '../MainContent';
 
 import LoginContainer from '../../containers/LoginContainer';
 import SettingsContainer from '../../containers/SettingsContainer';
@@ -42,7 +39,7 @@ class Admin extends Component {
 		const {
 			match,
 			isAuthenticated,
-			user,
+			userData,
 			accessToken
 		} = this.props;
 
@@ -58,7 +55,7 @@ class Admin extends Component {
 						path={`${match.url}/settings`}
 						component={SettingsContainer}
 						isAuthenticated={isAuthenticated}
-						user={user}
+						userData={userData}
 						accessToken={accessToken}
 						redirectTo={`${match.url}/login`}
 					/>
@@ -68,7 +65,7 @@ class Admin extends Component {
 						component={ReportContainer}
 						isAuthenticated={isAuthenticated}
 						redirectTo={`${match.url}/login`}
-						user={user}
+						userData={userData}
 						accessToken={accessToken}
 					/>
 
@@ -78,7 +75,7 @@ class Admin extends Component {
 						component={CafeContainer}
 						isAuthenticated={isAuthenticated}
 						redirectTo={`${match.url}/login`}
-						user={user}
+						userData={userData}
 						accessToken={accessToken}
 					/>
 					<PrivateRoute
@@ -87,7 +84,7 @@ class Admin extends Component {
 						component={CashierContainer}
 						isAuthenticated={isAuthenticated}
 						redirectTo={`${match.url}/login`}
-						user={user}
+						userData={userData}
 						accessToken={accessToken}
 					/>
 				</AdminContent>

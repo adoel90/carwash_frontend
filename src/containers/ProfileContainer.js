@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { getMemberDetail } from '../actions/member.action';
+
 import { Profile } from '../components/Profile';
 import ProfileAccountContainer from './ProfileAccountContainer';
+import ProfileTransactionContainer from './ProfileTransactionContainer';
 import {
 	showDialog,
 	hideDialog
@@ -14,12 +17,43 @@ class ProfileContainer extends Component {
 		this.state = {
 			submodules: [
 				{ name: 'Informasi Akun', path: 'account', component: ProfileAccountContainer },
+				{ name: 'Daftar Transaksi', path: 'transaction', component: ProfileTransactionContainer }
 			]
 		}
 
+		this.getMemberDetail = this.getMemberDetail.bind(this);
 		this.toggleDialog = this.toggleDialog.bind(this);
 		this.showDialog = this.showDialog.bind(this);
 		this.hideDialog = this.hideDialog.bind(this);
+	}
+
+	componentDidMount = () => {
+		this.getMemberDetail();
+	}
+
+	componentDidUdpate = (prevProps) => {
+		const {
+			member
+		} = this.props;
+
+		if(prevProps.member.item !== member.item) {
+
+		}
+	}
+
+	getMemberDetail = () => {
+		const {
+			memberData,
+			dispatch,
+			accessToken
+		} = this.props;
+
+		let requiredData = {
+			id: memberData.id,
+			transaction: true
+		}
+
+		dispatch(getMemberDetail(requiredData, accessToken));
 	}
 
 	toggleDialog = (data) => {
@@ -74,6 +108,7 @@ class ProfileContainer extends Component {
 
 const mapStateToProps = (state) => {
 	return {
+		member: state.member,
 		dialog: state.dialog
 	}
 }

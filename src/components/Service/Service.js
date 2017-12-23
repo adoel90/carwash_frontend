@@ -80,7 +80,7 @@ class Service extends React.Component {
 	render() {
 		const {
 			match,
-			member,
+			memberDetail,
 			service,
 			serviceTypes
 		} = this.props;
@@ -101,18 +101,22 @@ class Service extends React.Component {
 						<div className="column-10">
 							<div className="heading padding-bottom-1">
 								<PageBlock>
-									<Row>
-										<div className="column-9">
-											<h5 className="fw-medium">Selamat datang, <span className="fw-semibold">{member.name}.</span></h5>
-											<p>Silahkan pilih layanan yang diinginkan.</p>
-										</div>
-										<div className="column-3 ta-center">
-											<small className="tt-uppercase ls-base fw-semibold">Saldo Saya</small>
-											<h5 className="fw-bold clr-primary">
-												<Currency value={member.balance} />
-											</h5>
-										</div>
-									</Row>
+										{
+											memberDetail.isLoaded
+											? <Row> 
+												<div className="column-9">
+													<h5 className="fw-medium">Selamat datang, <span className="fw-semibold">{memberDetail.data.name}.</span></h5>
+													<p>Silahkan pilih layanan yang diinginkan.</p>
+												</div>
+												<div className="column-3 ta-center">
+													<small className="tt-uppercase ls-base fw-semibold">Saldo Saya</small>
+													<h5 className="fw-bold clr-primary">
+														<Currency value={memberDetail.data.balance} />
+													</h5>
+												</div>
+											</Row>
+											: <p>Sedang memuat informasi Anda. Tunggu sebentar...</p>
+										}
 								</PageBlock>
 
 							</div>

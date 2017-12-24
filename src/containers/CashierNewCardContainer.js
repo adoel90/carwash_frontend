@@ -36,11 +36,17 @@ class CashierNewCardContainer extends Component {
 			},
 			newCardData: {
 				card: 1,
+				payment: 1,
 				name: '',
 				phone: '',
 				email: '',
 				address: '',
-			}
+			},
+			paymentMethod: [
+				{ id: 1, name: 'Cash' },
+				{ id: 2, name: 'Debit' },
+				{ id: 3, name: 'Credit' },
+			]
 		}
 	}
 
@@ -205,6 +211,7 @@ class CashierNewCardContainer extends Component {
 				handleInputChange={this.handleInputChange}
 				handleChangeCardType={this.handleChangeCardType}
 				handleNewCardSubmit={this.handleNewCardSubmit}
+				handleNewCardConfirmationSubmit={this.handleNewCardConfirmationSubmit}
 				handleNewCardInstructionSubmit={this.handleNewCardInstructionSubmit}
 			/>
 		);

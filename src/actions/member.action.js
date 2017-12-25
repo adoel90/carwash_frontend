@@ -165,7 +165,8 @@ export const createNewMember = (data, accessToken) => {
 				phone: data.phone,
 				email: data.email,
 				address: data.address,
-				card: data.card
+				card: data.card,
+				payment: data.payment
 			})
 			.then((response) => {
 				dispatch(handleSuccess(response.data.data))

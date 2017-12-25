@@ -85,7 +85,7 @@ class CashierNewCardContainer extends Component {
 		if(prevProps.member.item !== member.item) {
 			if(member.item.isCreated) {
 				this.setState({
-					createdMember: member.item
+					newMember: member.item
 				}, () => {
 					this.forceUpdate();
 					this.handleNewCardInstruction();
@@ -128,6 +128,7 @@ class CashierNewCardContainer extends Component {
 
 		let requiredData = {
 			card: newCardData.card,
+			payment: newCardData.payment,
 			name: newCardData.name,
 			phone: newCardData.phone,
 			email: newCardData.email,
@@ -135,6 +136,7 @@ class CashierNewCardContainer extends Component {
 		}
 
 		dispatch(createNewMember(requiredData, accessToken));
+		this.toggleModal('newCardModal');
 	}
 
 	handleNewCardInstruction = () => {
@@ -169,8 +171,6 @@ class CashierNewCardContainer extends Component {
 				[name]: value
 			})
 		}
-
-		console.log(this.state);
 	}
 
 	handleChangeCardType = (e) => {

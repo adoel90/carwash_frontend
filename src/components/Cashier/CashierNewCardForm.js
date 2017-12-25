@@ -143,7 +143,8 @@ class CashierNewCardForm extends Component {
 							<Input
 								name="payment"
 								type="select"
-								value={newCardData.payment}>
+								onChange={(e) => handleInputChange(newCardData, e)}
+								deafultValue={newCardData.payment}>
 								{
 									paymentMethod.map((method) => {
 										return <option value={method.id}>{method.name}</option>

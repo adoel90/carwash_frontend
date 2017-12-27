@@ -55,7 +55,6 @@ body {
 	}
 
 	.modal__header,
-	.modal__content,
 	.modal__footer {
 		padding: $spacer * .5;
 	}
@@ -72,6 +71,7 @@ body {
 		min-height: 20em;
 		max-height: 30em;
 		overflow-y: auto;
+		padding: ($spacer * .5) ($spacer * .5) 0 ($spacer * .5);
 	}
 
 	.modal__footer {

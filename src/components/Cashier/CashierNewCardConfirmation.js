@@ -15,6 +15,7 @@ class CashierNewCardConfirmation extends Component {
 			paymentMethod,
 			toggleModal,
 			isModalOpen,
+			selectedCardType,
 			handleNewCardConfirmationSubmit
 		} = this.props;
 
@@ -37,6 +38,87 @@ class CashierNewCardConfirmation extends Component {
 			})
 		}
 
+		const renderMemberInformation = () => {
+			console.log(selectedCardType);
+
+			if(!selectedCardType.refund) {
+				return (
+					<div className="column-6">
+						<FormGroup>
+							<Label className="fw-semibold">Nama Lengkap</Label>
+							<InputGroup>
+								<InputAddon>
+									<i className="ion-person"></i>
+								</InputAddon>
+								<Input
+									type="text"
+									value={newCardData.name}
+									readonly="true"
+								/>
+							</InputGroup>
+						</FormGroup>
+						<FormGroup>
+							<Label className="fw-semibold">Alamat E-mail</Label>
+							<InputGroup>	
+								<InputAddon>
+									<i className="ion-email"></i>
+								</InputAddon>
+								<Input
+									type="text"
+									value={newCardData.email}
+									readonly="true"
+								/>
+							</InputGroup>
+						</FormGroup>
+						<FormGroup>
+							<Label className="fw-semibold">Nomor Telepon</Label>
+							<InputGroup>
+								<InputAddon>
+									<i className="ion-ios-telephone"></i>
+								</InputAddon>
+								<Input
+									type="text"
+									value={newCardData.phone}
+									readonly="true"
+								/>
+							</InputGroup>
+						</FormGroup>
+						<FormGroup>
+							<Label className="fw-semibold">Alamat</Label>
+							<Input
+								type="textarea"
+								value={newCardData.address}
+								readonly="true"
+							/>
+						</FormGroup>
+					</div>
+				)
+			}
+		}
+
+		const renderCardInformation = () => {
+			return (
+				<div className="column-6">
+					<FormGroup>
+						<Label className="fw-semibold">Tipe Member</Label>
+						<Input
+							type="text"
+							value={selectedCardName}
+							readonly="true"
+						/>
+					</FormGroup>
+					<FormGroup>
+						<Label className="fw-semibold">Metode Pembayaran</Label>
+						<Input
+							type="text"
+							value={selectedPaymentMethod}
+							readonly="true"
+						/>
+					</FormGroup>
+				</div>
+			)
+		}
+
 		return (
 			<Modal
 				isOpen={isModalOpen.newCardConfirmation}
@@ -50,73 +132,8 @@ class CashierNewCardConfirmation extends Component {
 							<p>Periksa kembali informasi calon member berikut sebelum melanjutkan.</p>
 						</Alert>
 						<Row>
-							<div className="column-6">
-								<FormGroup>
-									<Label className="fw-semibold">Nama Lengkap</Label>
-									<InputGroup>
-										<InputAddon>
-											<i className="ion-person"></i>
-										</InputAddon>
-										<Input
-											type="text"
-											value={newCardData.name}
-											readonly="true"
-										/>
-									</InputGroup>
-								</FormGroup>
-								<FormGroup>
-									<Label className="fw-semibold">Alamat E-mail</Label>
-									<InputGroup>	
-										<InputAddon>
-											<i className="ion-email"></i>
-										</InputAddon>
-										<Input
-											type="text"
-											value={newCardData.email}
-											readonly="true"
-										/>
-									</InputGroup>
-								</FormGroup>
-								<FormGroup>
-									<Label className="fw-semibold">Nomor Telepon</Label>
-									<InputGroup>
-										<InputAddon>
-											<i className="ion-ios-telephone"></i>
-										</InputAddon>
-										<Input
-											type="text"
-											value={newCardData.phone}
-											readonly="true"
-										/>
-									</InputGroup>
-								</FormGroup>
-								<FormGroup>
-									<Label className="fw-semibold">Alamat</Label>
-									<Input
-										type="textarea"
-										value={newCardData.address}
-										readonly="true"
-									/>
-								</FormGroup>
-							</div>
-							<div className="column-6">
-								<FormGroup>
-									<Label className="fw-semibold">Tipe Member</Label>
-									<Input
-										type="text"
-										value={selectedCardName}
-										readonly="true"
-									/>
-								</FormGroup>
-								<FormGroup>
-									<Label className="fw-semibold">Metode Pembayaran</Label>
-									<Input
-										type="text"
-										value={selectedPaymentMethod}
-										readonly="true"
-									/>
-								</FormGroup>
-							</div>
+							{ renderMemberInformation() }
+							{ renderCardInformation() }
 						</Row>
 					</ModalContent>
 					<ModalFooter className="flex justify-content--center">

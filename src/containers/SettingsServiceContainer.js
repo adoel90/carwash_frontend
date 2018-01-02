@@ -307,12 +307,15 @@ class SettingsServiceContainer extends Component {
 	}
 
 	handleServiceUpdate = (service) => {
+		console.log(service);
+
 		this.setState({
 			selectedService: {
 				id: service.id,
 				name: service.name,
 				price: service.price,
-				description: service.description
+				description: service.description,
+				image: service.image
 			}
 		})
 
@@ -335,7 +338,8 @@ class SettingsServiceContainer extends Component {
 			id: selectedService.id,
 			name: selectedService.name,
 			price: parseInt(selectedService.price.replace(/,/g, '')),
-			description: selectedService.description
+			description: selectedService.description,
+			image: selectedService.image
 		}
 
 		dispatch(updateService(requiredData, accessToken));

@@ -148,7 +148,8 @@ export const updateCafeMenu = (data, accessToken) => {
 				id: data.id,
 				name: data.name,
 				price: data.price,
-				description: data.description
+				description: data.description,
+				image: data.image
 			})
 			.then((response) => {
 				dispatch(handleSuccess(response.data, data.id));

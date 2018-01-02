@@ -49,7 +49,7 @@ class SettingsUpdateService extends Component {
 				<Form onSubmit={handleServiceUpdateSubmit}>
 					<ModalContent>
 						<Row>
-							<div className="column-4  flex flex-column align-items--center justify-content--center">
+							<div className="column-4 flex flex-column align-items--center justify-content--center">
 								{ renderPhotoPreview() }
 								<Input
 								    name="image"

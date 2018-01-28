@@ -84,8 +84,6 @@ class ReportTransactionList extends Component {
 			transactionList
 		} = this.props;
 
-		console.log(transactionList);
-
 		if(report.transaction.isFetching) {
 			return <p>Tunggu sebentar, data sedang dimuat...</p>
 		}
@@ -98,9 +96,6 @@ class ReportTransactionList extends Component {
 					isStriped
 					isHoverable
 					hasPagination
-					// hasSearchBar
-					// onUpdate={handleServiceUpdate}
-					// onDelete={handleServiceDelete}
 					{...this.props}
 				/>
 			)

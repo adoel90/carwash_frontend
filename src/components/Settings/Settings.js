@@ -74,7 +74,7 @@ class Settings extends React.Component {
 
 		return (
 			<main className="main main--has-subheader">
-				<div style={{ padding: '30px' }}>
+				<Container style={{padding: '30px 0'}}>
 					<Row>
 						<div className="column-3">
 							<AdminSidebar navigations={subroutes} />
@@ -83,7 +83,7 @@ class Settings extends React.Component {
 							{ subroutes.map(this.renderSubroutes) }
 						</div>
 					</Row>
-				</div>
+				</Container>
 				{ this.handleSubrouteRedirect() }
 				{ dialog.isOpened ? this.renderDialog() : null }
 			</main>

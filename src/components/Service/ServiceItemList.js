@@ -32,8 +32,8 @@ class ServiceItemList extends React.Component {
 		return (
 			<div key={i} className="column-6 padding-top-2 padding-bottom-2">
 				<Card>
-					<CardHeading>
-						<h6 className="card__title">{item.name}</h6>
+					<CardHeading align="center">
+						<h5 className="card__title">{item.name}</h5>
 						<h4 className="card__price">
 							<Currency value={item.price} />
 						</h4>

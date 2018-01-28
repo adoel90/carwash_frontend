@@ -25,6 +25,7 @@ body {
 		height: auto;
 		background-color: gray(100);
 		overflow: hidden;
+		border-bottom: solid 5px secondary-color(base);
 
 		&.modal-dialog--large {
 			width: 978px;
@@ -72,10 +73,6 @@ body {
 		max-height: 30em;
 		overflow-y: auto;
 		padding: ($spacer * .5) ($spacer * .5) 0 ($spacer * .5);
-	}
-
-	.modal__footer {
-		// @include justify-content(flex-end);
 	}
 
 }

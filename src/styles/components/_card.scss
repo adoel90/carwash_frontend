@@ -21,6 +21,7 @@
 	box-shadow: map-get($box-shadow, base);
 	overflow: hidden;
 	min-height: auto;
+	border-bottom: solid 10px secondary-color(base);
 	// border: solid 1px gray(300);
 
 	@each $theme, $color in $theme-colors {
@@ -37,7 +38,6 @@
 
 	.card__heading {
 		@include relative;
-		text-align: center;
 		padding: $spacer * .5;
 
 		.card__title {

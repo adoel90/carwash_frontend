@@ -125,7 +125,7 @@ class Service extends React.Component {
 						</div>
 					</Row>
 				</Container>
-				{this.renderDialog()}
+				{ this.renderDialog() }
 			</main>
 		)
 	}

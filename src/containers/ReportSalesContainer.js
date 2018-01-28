@@ -8,8 +8,8 @@ class ReportSalesContainer extends Component {
 		super();
 		this.state = {
 			salesTypes: [
-				{ id: 1, name: 'Penjualan Cafe', type: 'cafe' },
-				{ id: 2, name: 'Penjualan Service', type: 'service' }
+				{ id: 1, name: 'Penjualan Service', type: 'service' },
+				{ id: 2, name: 'Penjualan Cafe', type: 'cafe' },
 			],
 			activeTab: 0
 		}

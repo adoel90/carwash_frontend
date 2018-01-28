@@ -42,6 +42,8 @@
 	}
 
 	&:last-child {
+		border-bottom: solid 5px secondary-color(base);
+
 		&.page-block--extension {
 			border-top: solid 1px gray(300) !important;
 		}

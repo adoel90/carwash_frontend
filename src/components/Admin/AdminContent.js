@@ -3,9 +3,7 @@ import MainContent from '../MainContent';
 
 class AdminContent extends Component {
     render() {
-        return (
-            <MainContent {...this.props} />
-        );
+        return <MainContent {...this.props} />
     }
 }
 

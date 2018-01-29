@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-
 import { Admin } from '../components/Admin';
 
 class AdminContainer extends Component {
@@ -37,7 +36,7 @@ class AdminContainer extends Component {
 		 * 	Checks if the authenticated user has some or all of settings modules. 
 		 */
 		userData.module.every((item) => {
-			if(item.id == 1 || item.id == 4 || item.id == 9 || item.id == 3 || item.id == 2 || item.id == 5 ) {
+			if(item.id == 1 || item.id == 2 || item.id == 3 || item.id == 4 || item.id == 5 || item.id == 9 ) {
 				navigations.push({name: 'Pengaturan', path: '/admin/settings'})
 			}
 		})
@@ -48,12 +47,12 @@ class AdminContainer extends Component {
 		userData.module.forEach((item) => {
 			// If cafe module is activated.
 			if(item.id == 10) {
-				navigations.push({ name: 'Cafe', path: '/admin/cafe' } )
+				navigations.push({ name: 'Cafe', path: '/admin/cafe' })
 			}
 
 			// If report module is activated.
 			if(item.id == 11) {
-				navigations.push({ name: 'Laporan', path: '/admin/report' } )
+				navigations.push({ name: 'Laporan', path: '/admin/report' })
 			}
 
 			// If cashier module is activated.

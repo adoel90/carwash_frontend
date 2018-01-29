@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react'
-import { Bar } from 'react-chartjs-2'
+import { Bar, Line } from 'react-chartjs-2'
 
 const Chart = props => {
     const {
@@ -11,7 +11,7 @@ const Chart = props => {
         ...attributes
     } = props;
 
-    return <Bar data={chartData} {...attributes} />
+    return <Line data={chartData} {...attributes} />
 }
 
 

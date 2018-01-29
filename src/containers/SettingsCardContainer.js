@@ -80,8 +80,24 @@ class SettingsCardContainer extends Component {
 			}
 		}
 
-		if(prevProps.card.created !== card.created) {
-			if(card.created.isCreated) {
+		// if(prevProps.card.created !== card.created) {
+		// 	if(card.created.isCreated) {
+		// 		dialogData = {
+		// 			type: 'success',
+		// 			title: 'Berhasil',
+		// 			message: 'Tipe kartu telah berhasil ditambahkan. Klik tombol berikut untuk kembali.',
+		// 			onClose: () => {
+		// 				window.location.reload()
+		// 			},
+		// 			closeText: 'Kembali'
+		// 		}
+
+		// 		toggleDialog(dialogData);
+		// 	}
+		// }
+
+		if(prevProps.card.type !== card.type) {
+			if(card.type.isCreated) {
 				dialogData = {
 					type: 'success',
 					title: 'Berhasil',
@@ -94,9 +110,7 @@ class SettingsCardContainer extends Component {
 
 				toggleDialog(dialogData);
 			}
-		}
 
-		if(prevProps.card.type !== card.type) {
 			if(card.type.isUpdated) {
 				dialogData = {
 					type: 'success',
@@ -186,7 +200,7 @@ class SettingsCardContainer extends Component {
 		const requiredData = {
 			name: newCardType.name,
 			minimum: parseInt(newCardType.minimum.replace(/,/g, '')),
-			bonus: parseInt(newCardType.minimum.replace(/,/g, '')),
+			bonus: parseInt(newCardType.bonus.replace(/,/g, '')),
 			refund: newCardType.refunable
 		}
 		

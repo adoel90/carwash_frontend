@@ -13,6 +13,7 @@ class ServicePaymentConfirmation extends Component {
     render() {
         const {
             member,
+            memberData,
             isModalOpen,
             toggleModal,
             selectedService,
@@ -20,13 +21,13 @@ class ServicePaymentConfirmation extends Component {
         } = this.props;
 
         const renderMemberContent = () => {
-            if(member.balance >= selectedService.price) {
+            if(memberData.balance >= selectedService.price) {
                 return (
                     <ModalContent className="flex flex-column justify-content--center align-items--center ta-center">
                         <img style={{ width: '100px' }} src={CashierIcon} />
                         <h3 className="fw-bold clr-primary"><Currency value={selectedService.price} /></h3>
                         <Alert theme="secondary">
-                            <p>Saldo Anda sebesar <span className="fw-semibold"><Currency value={member.balance} /></span> mencukupi untuk pembayaran <span className="fw-semibold">{selectedService.name}</span>. <br /> Silahkan konfirmasi kembali pilihan Anda sebelum melanjutkan.</p>
+                            <p>Saldo Anda sebesar <span className="fw-semibold"><Currency value={memberData.balance} /></span> mencukupi untuk pembayaran <span className="fw-semibold">{selectedService.name}</span>. <br /> Silahkan konfirmasi kembali pilihan Anda sebelum melanjutkan.</p>
                         </Alert>
                     </ModalContent>
                 )
@@ -36,7 +37,7 @@ class ServicePaymentConfirmation extends Component {
                     <ModalContent className="flex flex-column justify-content--center align-items--center ta-center">
                         <img style={{ width: '100px' }} src={CashierIcon} />
                         <h3 className="fw-bold clr-danger"><Currency value={selectedService.price} /></h3>
-                        <p>Maaf, saldo Anda sebesar <span className="fw-semibold"><Currency value={member.balance} /></span> tidak cukup untuk melakukan pembayaran <span className="fw-semibold">{selectedService.name}</span>. Silahkan ke counter kasir untuk mengisi saldo terlebih dahulu.</p>
+                        <p>Maaf, saldo Anda sebesar <span className="fw-semibold"><Currency value={memberData.balance} /></span> tidak cukup untuk melakukan pembayaran <span className="fw-semibold">{selectedService.name}</span>. Silahkan ke counter kasir untuk mengisi saldo terlebih dahulu.</p>
                         
                     </ModalContent>
                 )
@@ -57,7 +58,7 @@ class ServicePaymentConfirmation extends Component {
                             <small className="tt-uppercase ls-base fw-semibold">Kembali</small>
                         </Button>
                         {
-                            member.balance >= selectedService.price
+                            memberData.balance >= selectedService.price
                             ? <Button type="submit" buttonTheme="primary" className="clr-light margin-left-2" buttonFull>
                                 <small className="tt-uppercase ls-base fw-semibold">Bayar</small>
                             </Button>

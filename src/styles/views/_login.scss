@@ -1,41 +1,50 @@
-.login {
-	@include relative;
-	@include flexbox;
+.login-view {
+	position: relative;
 	height: 100vh;
-
-	.login-box {
-		@include flexbox;
-		@include flex-direction(column);
-		@include justify-content(center);
-		// @include align-items(center);
-		// @include border-radius(base);
-		padding: $spacer;
-		background-color: primary-color(base);
-		color: gray(100);
-	}
-
-	.login-bg {
-		@include absolute {
-			top: 0;
-			left: 0;
-		}
-		height: 100%;
-		width: 100%;
-		// background-color: gray(1800);
-		background: url('../assets/images/login-bg.jpg');
-		background-position: center;
-		background-size: cover;
-		z-index: -1;
-
-		&:before {
-			content: "";
-			@include absolute {
-				top: 0;
-				left: 0;
-			}
-			height: 100%;
-			width: 100%;
-			background-color: rgba(gray(1800), 0.7);
-		}
+	
+	&.login-view--service {
+		background-color: secondary-color(base);
 	}
 }
+
+// .login {
+// 	@include relative;
+// 	@include flexbox;
+// 	height: 100vh;
+
+// 	.login-box {
+// 		@include flexbox;
+// 		@include flex-direction(column);
+// 		@include justify-content(center);
+// 		// @include align-items(center);
+// 		// @include border-radius(base);
+// 		padding: $spacer;
+// 		background-color: primary-color(base);
+// 		color: gray(100);
+// 	}
+
+// 	.login-bg {
+// 		@include absolute {
+// 			top: 0;
+// 			left: 0;
+// 		}
+// 		height: 100%;
+// 		width: 100%;
+// 		// background-color: gray(1800);
+// 		background: url('../assets/images/login-bg.jpg');
+// 		background-position: center;
+// 		background-size: cover;
+// 		z-index: -1;
+
+// 		&:before {
+// 			content: "";
+// 			@include absolute {
+// 				top: 0;
+// 				left: 0;
+// 			}
+// 			height: 100%;
+// 			width: 100%;
+// 			background-color: rgba(gray(1800), 0.7);
+// 		}
+// 	}
+// }

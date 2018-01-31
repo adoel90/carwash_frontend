@@ -1,36 +1,29 @@
 import React from 'react';
-import { Switch } from 'react-router-dom';
-import { AuthRoute } from '../../utilities/Route';
+import { Switch, Route } from 'react-router-dom';
+
+import { PropsRoute } from '../../utilities/Route';
 import { Service, Cafe, Admin } from '../../views';
 
 const MainView = props => {
-    const {
-        userData,
-        authenticatedAs
-    } = props;
-    
     return (
         <Switch>
-            <AuthRoute
-                name="Service"
+            <PropsRoute
+                name="service"
                 path="/service"
                 component={Service}
-                isAuthenticated={authenticatedAs == 'member'}
-                redirectTo="/service/login"
+                {...props}
             />
-            <AuthRoute
-                name="Admin"
+            <PropsRoute
+                name="admin"
                 path="/admin"
                 component={Admin}
-                isAuthenticated={authenticatedAs == 'admin'}
-                redirectTo="/admin/login"
+                {...props}
             />
-            <AuthRoute
-                name="Cafe"
+            <PropsRoute
+                name="cafe"
                 path="/cafe"
                 component={Cafe}
-                isAuthenticated={authenticatedAs == 'cafe'}
-                redirectTo="/cafe/login"
+                {...props}
             />
         </Switch>
     );

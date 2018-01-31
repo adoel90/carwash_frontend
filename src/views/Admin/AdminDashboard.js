@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { ServiceHomeView } from '../ServiceHome';
 
 function mapStateToProps(state) {
     return {
@@ -8,12 +7,16 @@ function mapStateToProps(state) {
     };
 }
 
-class ServiceHome extends Component {
+class AdminDashboard extends Component {
     render() {
-        return <ServiceHomeView {...this.props} {...this.state} />
+        return (
+            <div>
+                <p>This is the dashboard page.</p>
+            </div>
+        );
     }
 }
 
 export default connect(
     mapStateToProps,
-)(ServiceHome);
+)(AdminDashboard);

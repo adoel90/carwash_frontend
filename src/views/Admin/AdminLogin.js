@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { ServiceView } from '../Service';
+import AdminLoginView from './AdminLoginView';
 
 function mapStateToProps(state) {
     return {
@@ -8,15 +8,12 @@ function mapStateToProps(state) {
     };
 }
 
-class Service extends Component {
+class AdminLogin extends Component {
     render() {
-        console.log(this.props);
-        
-
-        return <ServiceView {...this.props} {...this.state} />
+        return <AdminLoginView {...this.props} {...this.state} />
     }
 }
 
 export default connect(
     mapStateToProps,
-)(Service);
+)(AdminLogin);

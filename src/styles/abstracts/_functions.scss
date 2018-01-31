@@ -1,13 +1,12 @@
-/*/
-/*	Font-based Functions
-/*/
 //	Convert into rem value.
+//
 @function calculateRem($font-size) {
 	$rem: $font-size / 16px;
 	@return $rem * 1rem;
 }
 
 //	A function for converting a number into unitless (without px, em, etc.)
+//
 @function strip-unit($number) {
 	@if type-of($number) == 'number' and not unitless($number) {
 		@return $number / ($number * 0 + 1);
@@ -16,9 +15,15 @@
 	@return $number;
 }
 
+//	Used to get a spacer value from the provided map.
+//
+@function spacer($value, $map: $spacers) {
+	@return map-get($map, $value);
+}
+
 
 //	A function for getting one of the predetermined letter spacing sizes.
-//	Usage: letter-spacing: letter-spacing($value)
+//
 @function letter-spacing($key: base) {
 	@return map-get($letter-spacing, $key);
 }
@@ -64,6 +69,20 @@
 
 @function box-shadow($key: "base") {
 	@return map-get($box-shadow, $key);
+}
+
+@function color-yiq($color) {
+	$r: red($color);
+	$g: green($color);
+	$b: blue($color);
+  
+	$yiq: (($r * 299) + ($g * 587) + ($b * 114)) / 1000;
+  
+	@if ($yiq >= $yiq-contrasted-threshold) {
+	  @return $yiq-text-dark;
+	} @else {
+	  @return $yiq-text-light;
+	}
 }
 
 /*/

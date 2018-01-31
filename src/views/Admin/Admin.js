@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import AdminView from './AdminView';
 
 function mapStateToProps(state) {
     return {
@@ -9,10 +10,7 @@ function mapStateToProps(state) {
 
 class Admin extends Component {
     render() {
-        return (
-            <div>
-            </div>
-        );
+        return <AdminView {...this.props} {...this.state} />
     }
 }
 

@@ -1,9 +1,2 @@
-import AuthRoute from './AuthRoute';
-import PropsRoute from './PropsRoute';
-import PrivateRoute from './PrivateRoute';
-
-export {
-	AuthRoute,
-	PropsRoute,
-	PrivateRoute
-}
+export { default as PropsRoute } from './PropsRoute';
+export { default as PrivateRoute } from './PrivateRoute';

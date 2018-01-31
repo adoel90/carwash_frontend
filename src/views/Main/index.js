@@ -1,7 +1,2 @@
-import Main from './Main';
-import MainView from './MainView';
-
-export {
-    Main,
-    MainView
-}
+export { default as Main } from './Main';
+export { default as MainView } from './MainView';

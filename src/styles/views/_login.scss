@@ -1,9 +1,16 @@
 .login-view {
+	@include flexbox;
+	@include justify-content(center);
+	@include align-items(center);
 	position: relative;
 	height: 100vh;
 	
 	&.login-view--service {
 		background-color: secondary-color(base);
+	}
+
+	&.login-view--admin-panel {
+		background-color: gray(200);
 	}
 }
 

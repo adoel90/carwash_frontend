@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { ServiceLoginView } from '../ServiceLogin';
 
 function mapStateToProps(state) {
     return {
@@ -8,12 +7,16 @@ function mapStateToProps(state) {
     };
 }
 
-class ServiceLogin extends Component {
+class ServiceHome extends Component {
     render() {
-        return <ServiceLoginView {...this.props} {...this.state} />
+        return (
+            <div>
+                <p>ini home</p>
+            </div>
+        );
     }
 }
 
 export default connect(
     mapStateToProps,
-)(ServiceLogin);
+)(ServiceHome);

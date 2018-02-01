@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import { Main } from './views/Main';
 
-function mapStateToProps() {
-    
-}
 
 class App extends Component {
     constructor() {

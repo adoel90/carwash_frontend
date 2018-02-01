@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { PrivateRoute, PropsRoute } from '../../utilities/Route';
 import { AdminLogin, AdminDashboard } from '../Admin';
 
 class AdminView extends Component {
-    componentDidMount = () => {
+    constructor() {
+        super();
+        this.handleRedirect = this.handleRedirect.bind(this);
+    }
+    
+    handleRedirect = () => {
         const {
             match,
             history,
@@ -14,10 +19,10 @@ class AdminView extends Component {
         } = this.props;
 
         if(isAuthenticated) {
-            return history.push(`${match.url}/dashboard`)
+            return <Redirect from="/*" to={`${match.url}/dashboard`} />
         }
         else {
-            return history.push(`${match.url}/login`)             
+            return <Redirect from="/*" to={`${match.url}/login`} />
         }
     }
     
@@ -30,9 +35,10 @@ class AdminView extends Component {
         } = this.props;
         
         return (
-            <Switch>
+            <div>
+                {this.handleRedirect()}
                 <PropsRoute
-                    name="admin"
+                    name="login"
                     path={`${match.url}/login`}
                     component={AdminLogin}
                     userData={userData}
@@ -46,13 +52,9 @@ class AdminView extends Component {
                     userData={userData}
                 />
                 <Redirect from={match.url} to={`${match.url}/login`} />
-            </Switch>
+            </div>
         );
     }
 }
-
-AdminView.propTypes = {
-    
-};
 
 export default AdminView;

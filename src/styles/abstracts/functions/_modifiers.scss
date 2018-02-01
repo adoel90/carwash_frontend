@@ -1,0 +1,7 @@
+@function box-shadow($key: base) {
+	@return map-get($box-shadow, $key);
+}
+
+@function border-radius($value: base, $map: $border-radius) {
+	@return map-get($map, $value);
+}

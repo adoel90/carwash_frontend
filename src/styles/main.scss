@@ -1,63 +1,82 @@
-/**
-**	Abstracts
-*/
-@import
-	'./abstracts/functions',
-	'./abstracts/variables',
-	'./abstracts/mixins',
-	'./abstracts/placeholders';
+//--------------------------------------------------------------------------------------------------------
+//	A B S T R A C T S
+//
 
-/**
-**	Base
-*/
 @import
-	'./base/base',
-	'./base/reset',
-	'./base/animations',
-	'./base/colors',
-	'./base/iconography',
-	'./base/typography';
+'./abstracts/functions',
+'./abstracts/variables',
+'./abstracts/mixins';
 
-/**
-**	Components
-*/
-@import
-	'./components/alerts',
-	'./components/buttons',
-	'./components/card',
-	'./components/inputs',
-	'./components/search',
-	'./components/figure',
-	'./components/badges',
-	'./components/images',
-	'./components/showcase',
-	'./components/forms',
-	'./components/modal',
-	'./components/tables',
-	'./components/pagination',
-	'./components/toast',
-	'./components/list';
+//
+//--------------------------------------------------------------------------------------------------------
 
-/**
-**	Layout
-*/
-@import
-	'./layout/header',
-	'./layout/navigation',
-	'./layout/sidenav',
-	'./layout/page',
-	'./layout/sidebar',
-	'./layout/grid',
-	'./layout/media',
-	'./layout/flex',
-	'./layout/spacing',
-	'./layout/position';
+//--------------------------------------------------------------------------------------------------------
+//	B A S E
+//
 
-/**
-**	Views
-*/
 @import
-	"./views/home",
-	"./views/login",
-	"./views/register",
-	"./views/topup";
+'./base/base',
+'./base/reset',
+'./base/animations',
+'./base/colors',
+'./base/iconography',
+'./base/typography';
+
+//
+//--------------------------------------------------------------------------------------------------------
+
+//--------------------------------------------------------------------------------------------------------
+//	C O M P O N E N T S
+//
+
+@import
+'./components/alerts',
+'./components/buttons',
+'./components/card',
+'./components/inputs',
+'./components/search',
+'./components/figure',
+'./components/badges',
+'./components/images',
+'./components/showcase',
+'./components/forms',
+'./components/modal',
+'./components/tables',
+'./components/pagination',
+'./components/toast',
+'./components/list';
+
+//
+//--------------------------------------------------------------------------------------------------------
+
+//--------------------------------------------------------------------------------------------------------
+//	L A Y O U T S
+//
+
+@import
+'./layout/header',
+'./layout/navigation',
+'./layout/sidenav',
+'./layout/page',
+'./layout/sidebar',
+'./layout/grid',
+'./layout/media',
+'./layout/flex',
+'./layout/spacing',
+'./layout/position';
+
+//
+//--------------------------------------------------------------------------------------------------------
+
+//--------------------------------------------------------------------------------------------------------
+//	V I E W S
+//
+
+@import
+"./views/home",
+"./views/login",
+"./views/register",
+"./views/topup";
+
+//
+//--------------------------------------------------------------------------------------------------------

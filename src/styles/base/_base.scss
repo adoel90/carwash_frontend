@@ -1,46 +1,5 @@
-body {
-	overflow-y: scroll;
-}
-
-* {
-	@include border-box;
-	font-family: $font-family-sans-serif;
-	line-height: $line-height-base;
-}
-
-#app {
-	@include font-size($font-size-base);
-	@include font-weight(light);
-	line-height: $line-height-base;
-	color: gray(100);
-
+html {
+	font-size: font-size(base);
+	font-weight: font-weight(base);
 	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-}
-
-
-//
-.main {
-	@include flexbox;
-	@include flex-direction(column);
-	background-color: gray(200);
-	min-height: 100vh;
-	padding-top: 4em;
-
-	&.main--has-subheader {
-		padding-top: 8em;
-	}
-
-	&.landing-main {
-		@include relative;
-		height: 100vh;
-
-		// .row {
-		// 	height: 100%;
-		// }
-		//
-		// .page-block {
-		// 	height: 100%;
-		// }
-	}
 }

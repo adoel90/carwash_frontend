@@ -1,0 +1,5 @@
+//	Used to get a spacer value from the provided map.
+//
+@function spacer($value, $map: $spacers) {
+	@return map-get($map, $value);
+}

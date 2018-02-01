@@ -1,329 +1,98 @@
-//------------------------------------------------------------
-//
-//	##	Typography
-//
-//------------------------------------------------------------
-//	Google Font
-//
-@import url(https://fonts.googleapis.com/css?family=Barlow:300,400,500,600,700);
-@import url(http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css);
-
-//
-//	Font Family
-//
-$font-family-sans-serif				: 'Barlow', Helvetica, Arial, sans-serif;
-// $font-family-sans-serif				: 'HK Grotesk', Helvetica, Arial, sans-serif;
-$font-family-serif					: Georgia, 'Times New Roman', Times, serif;
-$font-family-monospace				: Menlo, Monaco, Consolas, 'Courier New', monospace;
-
-//
-//	Font Sizes
-//
-$font-size-base			: 18px;
-$font-size-large		: ceil(($font-size-base * 1.25)) !default;
-$font-size-x-large		: ceil(($font-size-base * 1.75)) !default;
-$font-size-xx-large		: ceil(($font-size-base * 2.6)) !default;
-$font-size-xxx-large	: ceil(($font-size-base * 3.4)) !default;
-$font-size-xxxx-large	: ceil(($font-size-base * 6.4)) !default;
-$font-size-small		: ceil(($font-size-base * 0.85)) !default;
-$font-size-x-small		: ceil(($font-size-base * 0.75)) !default;
-
-$font-sizes: (
-	base		: $font-size-base,
-	large		: $font-size-large,
-	x-large		: $font-size-x-large,
-	xx-large	: $font-size-xx-large,
-	xxx-large	: $font-size-xxx-large,
-	xxxx-large	: $font-size-xxxx-large,
-	small		: $font-size-small,
-	x-small		: $font-size-x-small
-) !default;
-
-//
-//	Icon Sizes
-//
-$icon-size-base			: $font-size-large;
-$icon-size-large		: $font-size-x-large;
-$icon-size-x-large		: $font-size-xx-large;
-$icon-size-xx-large		: $font-size-xxx-large;
-$icon-size-xxx-large	: $font-size-xxxx-large;
-
-//
-//	Font Weight
-//
-$font-weights: (
-	thin: 100,
-	extra-light: 200,
-	ultra-light: 200,
-	light: 300,
-	normal: 400,
-	book: 400,
-	regular: 400,
-	medium: 500,
-	semi-bold: 600,
-	semibold: 600,
-	demi-bold: 600,
-	bold: 700,
-	extra-bold: 800,
-	ultra-bold: 900,
-	heavy: 900,
-	black: 900,
-	ultra: 900,
-	ultra-black: 900,
-	extra-ultra: 900
-);
-
-/**
-/*	Headings
-/*/
-$headings: (
-	h1: $font-size-xxxx-large,
-	h2: $font-size-xxx-large,
-	h3: $font-size-xx-large,
-	h4: $font-size-x-large,
-	h5: $font-size-large,
-	h6: $font-size-base
-) !default;
-
-/**
-/*	Line Height
-/*/
-$line-height-base	: 1.75 !default;
-
-/**
-/*	Letter Spacing
-/*/
-$letter-spacing-small: 1px;
-$letter-spacing-base: 2px;
-$letter-spacing-large: 4px;
-
-$letter-spacing: () !default;
-$letter-spacing: map-merge((
-	small: 1px,
-	base: 2px,
-	large: 4px
-), $letter-spacing);
-
-//---------------------------------------------------------------------
-//
-//	Colors
-//
-//	Below is the variable defintion of colors which are used in
-//	components throughout the project.
-//
-//---------------------------------------------------------------------
-/*/
-/*	Blue Color Pallete (Primary Color Pallete)
-/*
-/*	The main color used within the project that defines the brand.
-/*	Used for primary CTA buttons, heading colors, etc.
-/*/
-$iceberg					: #71B9D8;	// Lightest
-$maximum-blue				: #43A3CA;	// Lighter
-$cyan-cornflower-blue		: #158DBC;	// Base
-$sea-blue					: #117196;	// Darker
-$blue-sapphire				: #0D5570;	// Darkest
-
-/*/
-/*	Yellow Color Pallete (Secondary Color Pallete)
-/*/
-$orange-yellow	: #FCD068;
-$saffron		: #FAC036;
-$ucla-gold		: #F8B004;
-$vivid-amber	: #C68C04;
-$gamboge-orange	: #946804;
-
-$primary-shades: (
-	base: $cyan-cornflower-blue,
-	100: $iceberg,
-	200: $maximum-blue,
-	300: $cyan-cornflower-blue,
-	400: $sea-blue,
-	500: $blue-sapphire
-) !default;
-
-//
-//	Blue Color Pallete (Secondary Color)
-//
-//	A completely contrasting color accent from primary color. Used in different
-//	areas where the primary color does not reside.
-//
-$secondary-shades: (
-	base: $ucla-gold,
-	100: $orange-yellow,
-	200: $saffron,
-	300: $ucla-gold,
-	400: $vivid-amber,
-	500: $gamboge-orange
-) !default;
-
-//	Red Color Pallete
-//
-$old-rose			: #CA817B;	// Lightest shade
-$giant-club			: #BB5D56;	// Light shade
-$sweet-brown		: #AC3931;	// Base shade
-$burnt-umber		: #8D2F29;	// Darker shade
-$liver				: #6E2520; 	// Darkest shade
-
-//
-//	Grays
-//
-//	Gray color scheme scales differently than the usual RGB colors.
-//	There are two endpoints of which will generate multiple gray
-//	colored shades that are used in decorative components such as
-//	background, border colors, etc.
-//
-
-$white				: #FFFFFF;
-$isabelline			: #EBF2EC;
-$gainsboro			: #D9E1DC;
-$pastel-gray		: #C7D0CC;
-$ash-grey			: #B5BFBC;
-$silver-chalice		: #A3AEAC;
-$spanish-gray		: #919D9C;
-$mummy-tomb			: #7F8C8C;
-$aurometalsaurus	: #6D7B7C;
-$cadet				: #5B6A6C;
-$feldgrau			: #49595C;	// Base Gray
-$outer-space		: #425053;
-$arsenic			: #3B474A;
-$onyx				: #343E41;
-$gunmetal			: #2D3538;
-$charleston-green	: #1F2326;
-$eerie-black		: #181A1D;
-$licorice			: #111114;
-$smoky-black		: #0A080B;
-$black				: #000000;
-
-$grays: () !default;
-$grays: map-merge((
-	base	: $feldgrau,
-	white	: $white,
-	100		: $isabelline,
-	200		: $gainsboro,
-	300		: $pastel-gray,
-	400		: $ash-grey,
-	500		: $silver-chalice,
-	600		: $spanish-gray,
-	700		: $mummy-tomb,
-	800		: $aurometalsaurus,
-	900		: $cadet,
-	1000	: $feldgrau,	// Base Gray
-	1100	: $outer-space,
-	1200	: $arsenic,
-	1300	: $onyx,
-	1400	: $gunmetal,
-	1500	: $charleston-green,
-	1600	: $eerie-black,
-	1700	: $licorice,
-	1800	: $smoky-black,
-	black	: $black
-), $grays);
+@import 'variables/colors';
+@import 'variables/fonts';
 
 
-//	# Theme Colors
-$theme-colors: (
-	primary		: $cyan-cornflower-blue,
-	secondary	: $ucla-gold,
-	passive 	: $mummy-tomb,
-	muted		: $silver-chalice,
-	success		: green,
-	danger		: red,
-	warning		: yellow,
-	light 		: $isabelline,
-	dark 		: $smoky-black
-) !default;
 
-//	
-$yiq-contrasted-threshold: 150 !default;
-
-// Customize the light and dark text colors for use in our YIQ color contrast function.
-$yiq-text-dark: gray(1700) !default;
-$yiq-text-light: gray(100) !default;
-
-
-///--------------------------------------------------------------------
-//
-//	Spacing
+//--------------------------------------------------------------------------------------------------------
+//	S P A C I N G
 //
 //	Controls the default styling of most Bootstrap elements by modifying these
 //	variables. Mostly focused on spacing.
 //
-//---------------------------------------------------------------------
-$spacer: 30px !default;
-$spacers: (
-	0: 0,
-	1: ($spacer * .25),
-	2: ($spacer * .5),
-	3: $spacer,
-	4: ($spacer * 1.5),
-	5: ($spacer * 3)
+$spacer		: 30px !default;
+$spacers	: (
+	0		: 0,
+	1		: ($spacer * .25),
+	2		: ($spacer * .5),
+	3		: $spacer,
+	4		: ($spacer * 1.5),
+	5		: ($spacer * 3)
 ) !default;
 
 
-//---------------------------------------------------------------------
-//
-//	Containers
+//--------------------------------------------------------------------------------------------------------
+//	C O N T A I N E R S
 //
 //	Define the maximum width of container class for different screen
 //	sizes.
 //
-//---------------------------------------------------------------------
-$containers: (
-	small: 540px,
-	medium: 720px,
-	large: 960px,
-	extra-large: 1140px
+
+$containers		: (
+	extra-small	: 320px,
+	small		: 540px,
+	medium		: 720px,
+	large		: 960px,
+	extra-large	: 1140px
 ) !default;
 
-
-//---------------------------------------------------------------------
 //
-//	Media Query Breakpoints
+//--------------------------------------------------------------------------------------------------------
+
+
+//--------------------------------------------------------------------------------------------------------
+//	B R E A K P O I N T S
 //
 //	Sizes used for media queries used throughout the project.
 //	Do not use any function to determine the size (for example
 //	using em() function), instead use the usual pixels (px) to
 //	determine breakpoints.
 //
-//---------------------------------------------------------------------
-$breakpoints: (
+
+$breakpoints		: (
 	phone			: 576px,
 	tablet			: 768px,
 	desktop			: 992px,
 	large-desktop	: 1200px
 ) !default;
 
+//
+//--------------------------------------------------------------------------------------------------------
 
-//---------------------------------------------------------------------
+
+//--------------------------------------------------------------------------------------------------------
+//	M O D I F I E R S
 //
-//	Components
+//	Set of variables intended for modifying the looks of a component.
 //
-//---------------------------------------------------------------------
-/*/
-/*	Border Radius
-/*/
-$border-radius: (
-	small: 2px,
-	base: 4px,
-	large: 10px,
-	rounded-edge: 20px,
-	round: 100%
+
+//
+//	Border Radius
+//
+$border-radius-base		: 4px;
+$border-radius			: (
+	small				: 2px,
+	base				: 4px,
+	large				: 10px,
+	rounded-edge		: 20px,
+	circled				: 100%
 ) !default;
 
-/*/
-/*	Box Shadow
-/*/
+//
+//	Box Shadow
+//
 $box-shadow: (
-	small: (0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)),
-	base: (0 3px 6px rgba(0,0,0,0.05), 0 3px 6px rgba(0,0,0,0.05)),
-	large: (0 10px 20px rgba(0,0,0,0.1), 0 6px 6px rgba(0,0,0,0.1))
+	small	: (0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)),
+	base	: (0 3px 6px rgba(0,0,0,0.05), 0 3px 6px rgba(0,0,0,0.05)),
+	large	: (0 10px 20px rgba(0,0,0,0.1), 0 6px 6px rgba(0,0,0,0.1))
 ) !default;
 
-//---------------------------------------------------------------------
 //
-//	Transitions
+//--------------------------------------------------------------------------------------------------------
+
+
+//--------------------------------------------------------------------------------------------------------
+//	T R A N S I T I O N S
 //
-//---------------------------------------------------------------------
+
 $bouncy					: cubic-bezier(0.2, 0.85, 0.2, 1.1);
 $transition-primary		: $bouncy;

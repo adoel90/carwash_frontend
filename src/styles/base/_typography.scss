@@ -1,134 +1,24 @@
-//------------------------------------------------------------------
-//	##	Headings
-//------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------------
+//	H E A D I N G S
+//
 
-@each $heading, $value in $headings {
+@each $heading in $headings {
 	.#{$heading},
 	#{$heading} {
-		font-size: $value;
-		margin: 0;
+		font-size: heading($heading);
 	}
 }
 
-// @each $heading, $value in $headings {
-// 	.#{$heading},
-// 	#{$heading} {
-// 		font-size: $value;
-// 		margin: 0;
-// 	}
-// }
+.heading {
+	&.heading__title {
+		font-weight: font-weight(bold);
+	}
 
-/** Display Headings */
-/*
-/*	Traditional heading elements are designed to work best in the
-/*	meat of your page content. When you need a heading to stand out,
-/*	consider using a display heading—a larger, slightly more opinionated
-/*	heading style. Use this to force a text element to stand out.
-/*/
-.display {
-	@include font-weight(light);
-	color: primary-color(base);
-}
-
-//------------------------------------------------------------------
-//
-//	##	Paragraph
-//
-//	Different paragraph style modifier that can be used in different
-//	context.
-//
-//------------------------------------------------------------------
-p {
-	margin: 0;
-
-	&.lead {
-		@include font-size($font-size-large);
+	&.heading__subtitle {
+		font-weight: font-weight(regular);
 	}
 }
 
-small {
-	font-size: 80%;
-}
 
-//------------------------------------------------------------------
-//
-//	##	Links
-//
-//------------------------------------------------------------------
-a {
-	cursor: pointer;
-	color: inherit;
-	text-decoration: none;
 
-	&.link {
-		@include relative;
-
-		&:before {
-			content: "";
-			background-color: primary-color(base);
-			opacity: 0.7;
-			z-index: -1;
-			@include transition(all 250ms ease-in-out);
-			@include absolute {
-				top: 100%;
-				left: 0;
-				right: 0;
-				bottom: -1px;
-			}
-		}
-
-		&:hover {
-			&:before {
-				@include absolute {
-					top: 0;
-					bottom: -1px;
-				}
-			}
-		}
-	}
-}
-
-//------------------------------------------------------------------
-//
-//	##	Text Formatting
-//
-//------------------------------------------------------------------
-/*/
-/*	Text Alignment
-/*/
-$ta-offsets: left, center, right, justify;
-@each $offset in $ta-offsets {
-	.ta-#{$offset} {
-		text-align: #{$offset};
-	}
-}
-
-/*/
-/*	Text Alignment
-/*/
-$fw-offsets: thin light regular medium semibold bold black;
-@each $offset in $fw-offsets {
-	.fw-#{$offset} {
-		@include font-weight($offset);
-	}
-}
-
-/*/
-/*	Text Transformation
-/*/
-$tt-offsets: uppercase, lowercase, capitalize;
-@each $offset in $tt-offsets {
-	.tt-#{$offset} {
-		text-transform: $offset;
-	}
-}
-
-/*/
-/*	Letter Spacing
-/*/
-$ls-offsets: small, base, large;
-@each $offset in $ls-offsets {
-	.ls-#{$offset} {
-		letter-spacing: letter-spacing($offset);
-	}
-}
+//--------------------------------------------------------------------------------------------------------

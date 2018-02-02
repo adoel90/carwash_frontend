@@ -13,7 +13,7 @@
 
 /**/
 .card {
-	@include relative;
+	position: relative;
 	@include border-radius(base);
 	@include flexbox;
 	@include flex-direction(column);
@@ -38,21 +38,21 @@
 	}
 
 	.card__heading {
-		@include relative;
+		position: relative;
 		padding: $spacer * .5;
 
 		.card__title {
-			@include font-weight(semibold);
+			font-weight: font-weight(semibold);
 		}
 
 		.card__price {
-			@include font-weight(semibold);
+			font-weight: font-weight(semibold);
 			color: primary-color(base);
 		}
 	}
 
 	.card__image {
-		@include relative;
+		position: relative;
 		height: 15em;
 		overflow: hidden;
 

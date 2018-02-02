@@ -6,21 +6,19 @@ body {
 
 .modal {
 	@include transform(scale(0.9));
-	@include fixed {
-		top: 0;
-		right: 0;
-		left: 0;
-		bottom: 0;
-	}
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
 	z-index: 5000;
 
 	.modal-dialog {
-		@include absolute {
-			top: 50%;
-			left: 50%;
-		}
 		@include transform(translate(-50%, -50%));
 		@include border-radius(base);
+		position: absolute;
+		top: 50%;
+		left: 50%;
 		width: 648px;
 		height: auto;
 		background-color: gray(100);
@@ -64,7 +62,6 @@ body {
 		border-bottom: solid 1px gray(300);
 		background-color: primary-color(base);
 		color: gray(100);
-		// background-color: primary(base);
 	}
 
 	.modal__content {
@@ -78,12 +75,10 @@ body {
 }
 
 .modal-backdrop {
-	@include fixed {
-		top: 0;
-		left: 0;
-	}
-
 	@include transition(opacity 250ms $transition-primary);
+	position: fixed;
+	top: 0;
+	left: 0;
 	height: 100%;
 	width: 100%;
 	background-color: rgba(gray(1700), 0.5);

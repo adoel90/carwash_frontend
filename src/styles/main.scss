@@ -56,9 +56,8 @@
 @import
 './layout/header',
 './layout/navigation',
-'./layout/sidenav',
+'./layout/menu',
 './layout/page',
-'./layout/sidebar',
 './layout/grid',
 './layout/media',
 './layout/flex',
@@ -74,9 +73,7 @@
 
 @import
 "./views/home",
-"./views/login",
-"./views/register",
-"./views/topup";
+"./views/login";
 
 //
 //--------------------------------------------------------------------------------------------------------

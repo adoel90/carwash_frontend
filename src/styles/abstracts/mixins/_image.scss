@@ -1,0 +1,15 @@
+//-----------------------------------------------------------------------------
+//	I M A G E   O B J E C T
+//
+//  The `image-object` mixin helps generate the `object-fit` and `object-position`
+//  properties in one go.
+//
+
+@mixin image-object($fit: fill, $position: 50% 50%) {
+    object-fit: $fit;
+    object-position: $position;
+}
+
+
+
+//-----------------------------------------------------------------------------

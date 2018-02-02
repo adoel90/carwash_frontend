@@ -2,11 +2,13 @@
 	@include border-radius(base);
 	padding: ($spacer * .4) ($spacer * .5);
 
+	/*
+	//	Generates multiple alerts with different themes.
+	//	Defaults to `alert--danger`.
+	*/
 	@each $theme, $color in $theme-colors {
 		&.alert--#{$theme} {
 			background-color: $color;
-			// border: solid 1px shade($color, 8%);
-			// color: shade($color, 80%);
 		}
 	}
 }

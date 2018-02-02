@@ -1,5 +1,5 @@
 .pagination {
-	@include relative;
+	position: relative;
 
 	&.pagination--table {
 		background-color: gray(100);

@@ -3,9 +3,8 @@
 //
 //	Generates media queries based on breakpoints declared in variables.
 //
-@mixin media($breakpoint, $type: min) {
-	$breakpoints: $grid-breakpoints;
 
+@mixin media($breakpoint, $type: min) {
 	@if map-has-key($breakpoints, $breakpoint) {
 		$width: map-get($breakpoints, $breakpoint);
 
@@ -23,6 +22,5 @@
 	}
 }
 
-//
 //-----------------------------------------------------------------------------
 

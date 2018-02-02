@@ -5,7 +5,7 @@
 	background-color: gray(100);
 
 	table {
-		@include relative;
+		position: relative;
 		min-width: 100%;
 		width: 100%;
 	}
@@ -29,7 +29,7 @@
 		border-bottom: solid 5px gray(200);
 
 		th {
-			@include font-weight(semibold);
+			font-weight: font-weight(semibold);
 			vertical-align: middle;
 			padding: $spacer * .5;
 			min-width: 10em;
@@ -66,15 +66,15 @@
 		}
 	}
 
-	&.table--hoverable {
-		tbody {
-			tr {
-				&:hover {
-					background-color: rgba(secondary-color(base), 0.3) !important;
-				}
-			}
-		}
-	}
+	// &.table--hoverable {
+	// 	tbody {
+	// 		tr {
+	// 			&:hover {
+	// 				background-color: rgba(secondary-color(base), 0.3) !important;
+	// 			}
+	// 		}
+	// 	}
+	// }
 
 	&.table--striped {
 		tbody {

@@ -1,31 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
-const Card = props => {
+const Select = props => {
     const {
         tag: Tag,
-        className,
         children,
+        className,
         ...attributes
     } = props;
-
-    attributes.className = classNames(
-        'card',
-        className
-    );
     
     return <Tag {...attributes}>{children}</Tag>
 };
 
-Card.defaultProps = {
-    tag: 'div'
+Select.defaultProps = {
+    tag: 'select'
 }
 
-Card.propTypes = {
+Select.propTypes = {
     tag: PropTypes.oneOfType([
         PropTypes.func, PropTypes.string,
     ]),
 };
 
-export default Card;
+export default Select;

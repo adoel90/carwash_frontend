@@ -38,5 +38,5 @@
 	}
 }
 
-.slide-in-down { @include animation(slideInDown 250ms $transition-primary); }
-.scale-in { @include animation(scaleIn 250ms $transition-primary); }
+.slide-in-down 	{ @include animation(slideInDown 250ms $transition-base); }
+.scale-in 		{ @include animation(scaleIn 250ms $transition-base); }

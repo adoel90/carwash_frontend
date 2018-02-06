@@ -1,33 +1,42 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { Link } from 'react-router-dom';
 
-class Button extends React.Component {
-	render() {
-		const {
-			buttonTheme,
-			buttonSize,
-			buttonOutline,
-			buttonFull,
-			children,
-			className,
-			...rest
-		} = this.props;
+const Button = props => {
+	const {
+		tag: Tag,
+		theme,
+		size,
+		outlined,
+		block,
+		children,
+		className,
+		...attributes
+	} = this.props;
 
-		const classes = classNames(
-			'button',
-			buttonTheme ? `button--${buttonTheme}` : null,
-			buttonSize ? `button--${buttonSize}` : null,
-			buttonFull ? 'button--full' : null,
-			className
-		)
+	attributes.className = classNames(
+		'button',
+		theme ? `button--${theme}` : null,
+		size ? `button--${size}` : null,
+		block ? 'button--block' : null,
+		className
+	)
 
-		return (
-			<button {...rest} className={classes}>
-				{ children }
-			</button>
-		)
-	}
+	return <Tag {...attributes}>{children}</Tag>
+};
+
+Button.defaultProps = {
+	tag: 'button',
+	theme: 'primary'
 }
+
+Button.propTypes = {
+	tag: PropTypes.oneOfType([
+		PropTypes.func, PropTypes.string,
+	]),
+	theme: PropTypes.string,
+	size: PropTypes.string,
+	block: PropTypes.bool,
+};
 
 export default Button;

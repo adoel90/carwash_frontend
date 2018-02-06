@@ -2,12 +2,12 @@
 //  F O N T   S I Z E
 //
 
-@function font-size($value: base, $map: $font-sizes) {
-    @return map-get($map, $value);
+@function font-size($key: base, $map: $font-sizes) {
+    @return map-get($map, $key);
 }
 
-@function heading($value, $map: $headings) {
-    @return map-get($map, $value);
+@function heading($key, $map: $headings) {
+    @return map-get($map, $key);
 }
 
 //-----------------------------------------------------------------------------

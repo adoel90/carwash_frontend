@@ -4,25 +4,23 @@ import classNames from 'classnames';
 
 const FormField = props => {
     const {
+        label,
         children,
-        className,
-        tag: Tag,
-        ...attributes
+        className
     } = props;
 
-    attributes.className = classNames(
-        'form__field',
-        className
-    );
+    const renderLabel = label ? <label className="form__label">{label}</label> : null;
     
-    return <Tag {...attributes}>{children}</Tag>
+    return (
+        <div className="form__field">
+            { renderLabel }
+            { children }
+        </div>
+    )
 };
 
-FormField.defaultProps = {
-    tag: 'div'
-}
-
 FormField.propTypes = {
+    label: PropTypes.string,
     tag: PropTypes.oneOfType([
         PropTypes.func, PropTypes.string,
     ]),

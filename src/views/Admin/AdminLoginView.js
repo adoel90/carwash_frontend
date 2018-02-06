@@ -1,36 +1,60 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { Row, Column } from '../../layouts/Grid';
 import { Form, FormField } from '../../layouts/Form';
-import { Container } from '../../components/Grid';
 import { Card } from '../../components/Card';
-import { Input, InputGroup, InputAddon, Label } from '../../components/Input';
+import { Input } from '../../components/Input';
 import { Button } from '../../components/Button';
 
 const AdminLoginView = props => {
     return (
-        <main className="login-view login-view--admin-panel">
-            <Card theme="primary">
-                <div className="padding-bottom-3 ta-center">
-                    <h5>805 Carwash Admin Panel</h5>
-                    <p>Silahkan masukan kolom berikut dengan sesuai.</p>
-                </div>
-                <Form>
-                    <FormField>
-                        <Label className="fw-semibold">Username</Label>
-                        <Input type="text" placeholder="Masukkan username" />
-                    </FormField>
-                    <FormField>
-                        <Label className="fw-semibold">Password</Label>
-                        <Input type="password" placeholder="Masukkan password" />
-                    </FormField>
-                    <Button type="submit" buttonTheme="secondary" buttonFull>
-                        <small className="tt-uppercase fw-semibold ls-base">Masuk</small>
-                    </Button>
-                </Form>
-            </Card>
+        <main className="admin-panel">
+            <Row className="admin-panel__container">
+                <Column md={3}>
+                    <p>LOL</p>
+                </Column>
+                <Column md={9}>
+                    <div className="admin-panel__content">
+                        <div className="admin-panel__heading">
+                            <h5 className="heading-title">805 Carwash Admin Panel</h5>
+                            <h6 className="heading-subtitle">Silahkan masukkan username dan password Anda untuk masuk.</h6>
+                        </div>
+                        <Form>
+                            <FormField
+                                label="Username">
+                                <Input type="text" />
+                            </FormField>
+                            <FormField 
+                                label="Password">
+                                <Input type="password" />
+                            </FormField>
+                            <FormField 
+                                label="Email">
+                                <Input type="email" />
+                            </FormField>
+                        </Form>
+                    </div>
+                </Column>
+            </Row>
         </main>
     );
+
+    // return (
+    //     <Form>
+    //         <FormField
+    //             label="Username">
+    //             <Input type="text" placeholder="Masukkan username" />
+    //         </FormField>
+    //         <FormField
+    //             label="Password">
+    //             <Input type="password" placeholder="Masukkan password" />
+    //         </FormField>
+    //         <Button type="submit" buttonTheme="secondary" buttonFull>
+    //             <small className="tt-uppercase fw-semibold ls-base">Masuk</small>
+    //         </Button>
+    //     </Form>
+    // );
 };
 
 AdminLoginView.propTypes = {

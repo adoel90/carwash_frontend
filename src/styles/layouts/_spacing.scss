@@ -1,21 +1,21 @@
-$spacing-directions: top left bottom right;
-
 @each $spacing, $size in $spacings {
-	.padding--#{$size} {
+	$spacing-directions: top left bottom right;
+
+	.padding-#{$spacing} {
 		padding: $size;
 	}
-
-	.margin--#{$size} {
+	
+	.margin-#{$spacing} {
 		margin: $size;
 	}
 
 	@each $direction in $spacing-directions {
-		.padding-#{$direction}--#{$spacing} {
+		.padding-#{$direction}-#{$spacing} {
 			padding-#{$direction}: $size;
 		}
 
-		.margin-#{$direction}--#{$size} {
-			margin-#{$direction}: $spacer;
+		.margin-#{$direction}-#{$spacing} {
+			margin-#{$direction}: $size;
 		}
 	}
 }

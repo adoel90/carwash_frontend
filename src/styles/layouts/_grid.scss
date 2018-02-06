@@ -31,7 +31,7 @@
 
 .row {
 	@include flexbox();
-	@include flex-wrap(wrap);
+	@include flex-wrap(nowrap);
 	margin: 0 ($grid-gutter-width / -2);
 }
 

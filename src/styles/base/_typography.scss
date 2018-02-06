@@ -2,23 +2,30 @@
 //	H E A D I N G S
 //
 
-@each $heading in $headings {
+@each $heading, $size in $headings {
 	.#{$heading},
 	#{$heading} {
 		font-size: heading($heading);
 	}
 }
 
-.heading {
-	&.heading__title {
-		font-weight: font-weight(bold);
-	}
-
-	&.heading__subtitle {
-		font-weight: font-weight(regular);
-	}
+.heading-title {
+	font-weight: font-weight(bold);
 }
 
+.heading-subtitle {
+	font-weight: font-weight(regular);
+}
 
+//--------------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------------
+//	F O N T   W E I G H T
+//
+
+@each $weight in $font-weights {
+	.font-weight-#{$weight} {
+		font-weight: font-weight($weight);
+	}
+}
 
 //--------------------------------------------------------------------------------------------------------

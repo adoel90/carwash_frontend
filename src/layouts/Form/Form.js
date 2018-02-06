@@ -4,14 +4,16 @@ import classNames from 'classnames';
 
 const Form = props => {
     const {
+        tag: Tag,
         children,
         className,
-        tag: Tag,
+        layout,
         ...attributes
     } = props;
     
     attributes.className = classNames(
         'form',
+        layout ? `form--${layout}` : null,
         className
     );
     
@@ -19,13 +21,15 @@ const Form = props => {
 };
 
 Form.defaultProps = {
-    tag: 'form'
+    tag: 'form',
+    layout: 'horizontal'
 }
 
 Form.propTypes = {
     tag: PropTypes.oneOfType([
         PropTypes.func, PropTypes.string,
     ]),
+    layout: PropTypes.string,
 };
 
 export default Form;

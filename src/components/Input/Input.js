@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 const Input = props => {
     const {
@@ -16,6 +17,10 @@ const Input = props => {
     
     return <Tag {...attributes}>{children}</Tag>
 };
+
+Input.defaultProps = {
+    tag: 'input'
+}
 
 Input.propTypes = {
     tag: PropTypes.oneOfType([

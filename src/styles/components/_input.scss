@@ -1,0 +1,26 @@
+.input {
+    position: relative;
+    display: inline-block;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    list-style: none;
+    line-height: line-height(tight);
+    font-family: $font-family-text;
+    font-size: font-size(base);
+    border: solid 1px gray(300);
+    border-radius: border-radius(base);
+    background-image: none;
+    padding: 0.5rem;
+    @include transition(all 250ms $transition-base);
+
+    &:focus {
+        outline: none;
+        border: solid 1px primary-color(300);
+    }
+
+    &:not(:focus):hover {
+        border: solid 1px primary-color(300);
+    }
+}

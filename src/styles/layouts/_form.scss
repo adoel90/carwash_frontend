@@ -1,0 +1,9 @@
+$form-field-spacing        : spacing(base);
+
+.form {
+    position: relative;
+
+    .form__field {
+        margin-bottom: $form-field-spacing;
+    }
+}

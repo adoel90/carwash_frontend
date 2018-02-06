@@ -1,0 +1,20 @@
+$input-padding-x-base	: 1.25rem;
+$input-padding-y-base	: 1rem;
+$input-paddings			: (
+	extra-small			: ($input-padding-y-base * .5) ($input-padding-x-base * .5),
+	small				: ($input-padding-y-base * .75) ($input-padding-x-base * .75),
+	base				: $input-padding-y-base $input-padding-x-base,
+	large				: ($input-padding-y-base * 1.25) ($input-padding-x-base * 1.25),
+	extra-large			: ($input-padding-y-base * 2) ($input-padding-x-base * 2)
+) !default;
+
+$input-text-color				: gray(1700);
+$input-text-color-disabled		: gray(1000);
+$input-background-color-base	: gray(0);
+
+$input-border-base				: solid 1px gray(200);
+$input-border-focused			: solid 1px theme-color(primary);
+$input-border-radius-base		: border-radius(base);
+$input-border-radius-rounded	: border-radius(rounded);
+
+$input-transition-base			: all 250ms ease-in-out;

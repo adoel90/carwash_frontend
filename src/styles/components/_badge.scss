@@ -1,0 +1,15 @@
+.badge {
+	@include border-radius(border-radius(small));
+	display: inline-block;
+	padding: .3em 1em;
+
+	&.badge--pill {
+		@include border-radius(border-radius(rounded-edge));
+	}
+
+	@each $theme, $color in $theme-colors {
+		&.badge--#{$theme} {
+			background-color: $color;
+		}
+	}
+}

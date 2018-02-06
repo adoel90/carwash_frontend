@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { Form, FormField } from '../../layouts/Form';
 import { Container } from '../../components/Grid';
 import { Card } from '../../components/Card';
-import { Form, FormGroup } from '../../components/Form';
 import { Input, InputGroup, InputAddon, Label } from '../../components/Input';
 import { Button } from '../../components/Button';
 
@@ -16,14 +16,14 @@ const AdminLoginView = props => {
                     <p>Silahkan masukan kolom berikut dengan sesuai.</p>
                 </div>
                 <Form>
-                    <FormGroup>
+                    <FormField>
                         <Label className="fw-semibold">Username</Label>
                         <Input type="text" placeholder="Masukkan username" />
-                    </FormGroup>
-                    <FormGroup>
+                    </FormField>
+                    <FormField>
                         <Label className="fw-semibold">Password</Label>
                         <Input type="password" placeholder="Masukkan password" />
-                    </FormGroup>
+                    </FormField>
                     <Button type="submit" buttonTheme="secondary" buttonFull>
                         <small className="tt-uppercase fw-semibold ls-base">Masuk</small>
                     </Button>

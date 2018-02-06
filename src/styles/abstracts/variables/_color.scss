@@ -1,0 +1,185 @@
+//--------------------------------------------------------------------------------------------------------
+//	C O L O R   P A L L E T E
+//
+//	You can customize this section with your own set of variables.
+//
+//	To help with naming your preferred colors, it is recommended to use
+//	http://chir.ag/projects/name-that-color/ as this online generator
+// 	provides a vast range of unique names for your color choices.
+//
+
+$cornflower-blue        : #158DBC !default;
+$yellow-sea             : #F8B004 !default;
+$river-bed				: #49595C !default;
+
+$malachite				: #48A900 !default;
+$corn					: #EBC500 !default;
+$tango					: #E85915 !default;
+$tangerine				: #E68903 !default;
+$cello					: #1C415B !default;
+$deep-cerulean			: #007EA7 !default;
+$pelorous				: #45A1BF !default;
+
+$primary-color-base     : $cornflower-blue;
+$secondary-color-base   : $yellow-sea;
+$success-color-base		: $malachite;
+$warning-color-base		: $corn;
+$danger-color-base		: $tango;
+$gray-base				: $river-bed;
+
+//--------------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------------
+//  C O L O R   S H A D E S 
+//
+//	Below is the variable defintion of colors which are used in
+//	components throughout the project.
+//
+
+$color-shades: (
+
+    /*
+    //	PRIMARY COLOR SHADES
+    //  Refers to a color that appears the most frequently inside of an app.
+    */
+	primary: (
+		100: tint($primary-color-base, 40%),
+		200: tint($primary-color-base, 32%),
+		300: tint($primary-color-base, 24%),
+		400: tint($primary-color-base, 16%),
+		500: tint($primary-color-base, 8%),
+		600: $primary-color-base,
+		700: shade($primary-color-base, 8%),
+		800: shade($primary-color-base, 16%),
+		900: shade($primary-color-base, 24%),
+		1000: shade($primary-color-base, 32%),
+		1100: shade($primary-color-base, 40%)
+    ),
+    
+    /*
+    //	SECONDARY COLOR SHADES
+    //  Refers to a color used to accent key parts of the UI.
+    */
+	secondary: (
+		100: tint($secondary-color-base, 40%),
+		200: tint($secondary-color-base, 32%),
+		300: tint($secondary-color-base, 24%),
+		400: tint($secondary-color-base, 16%),
+		500: tint($secondary-color-base, 8%),
+		600: $secondary-color-base,
+		700: shade($secondary-color-base, 8%),
+		800: shade($secondary-color-base, 16%),
+		900: shade($secondary-color-base, 24%),
+		1000: shade($secondary-color-base, 32%),
+		1100: shade($secondary-color-base, 40%)
+	),
+
+    /*
+    //	SUCCESS COLOR SHADES
+    //  Refers to a color that are used to indicate a successful visual cue.
+    */
+	success: (
+		100: tint($success-color-base, 40%),
+		200: tint($success-color-base, 32%),
+		300: tint($success-color-base, 24%),
+		400: tint($success-color-base, 16%),
+		500: tint($success-color-base, 8%),
+		600: $success-color-base,
+		700: shade($success-color-base, 8%),
+		800: shade($success-color-base, 16%),
+		900: shade($success-color-base, 24%),
+		1000: shade($success-color-base, 32%),
+		1100: shade($success-color-base, 40%)
+    ),
+    
+    /*
+    //	WARNING COLOR SHADES
+    //  Refers to a color that are used to indicate a warning visual cue.
+    */
+	warning: (
+		100: tint($warning-color-base, 40%),
+		200: tint($warning-color-base, 32%),
+		300: tint($warning-color-base, 24%),
+		400: tint($warning-color-base, 16%),
+		500: tint($warning-color-base, 8%),
+		600: $warning-color-base,
+		700: shade($warning-color-base, 8%),
+		800: shade($warning-color-base, 16%),
+		900: shade($warning-color-base, 24%),
+		1000: shade($warning-color-base, 32%),
+		1100: shade($warning-color-base, 40%)
+    ),
+    
+    /*
+    //	DANGER COLOR SHADES
+    */
+	danger: (
+		100: tint($danger-color-base, 40%),
+		200: tint($danger-color-base, 32%),
+		300: tint($danger-color-base, 24%),
+		400: tint($danger-color-base, 16%),
+		500: tint($danger-color-base, 8%),
+		600: $danger-color-base,
+		700: shade($danger-color-base, 8%),
+		800: shade($danger-color-base, 16%),
+		900: shade($danger-color-base, 24%),
+		1000: shade($danger-color-base, 32%),
+		1100: shade($danger-color-base, 40%)
+	),
+
+	/*
+    //	THE GRAYS
+    //  The grays are a bit different than any other color schemes, but offers a vast range of flexibility
+    //  in its usage.
+    */
+	gray: (
+		0: tint($gray-base, 100%),
+		100: tint($gray-base, 90%),
+		200: tint($gray-base, 80%),
+		300: tint($gray-base, 70%),
+		400: tint($gray-base, 60%),
+		500: tint($gray-base, 50%),
+		600: tint($gray-base, 40%),
+		700: tint($gray-base, 30%),
+		800: tint($gray-base, 20%),
+		900: tint($gray-base, 10%),
+		1000: $gray-base,
+		1100: shade($gray-base, 10%),
+		1200: shade($gray-base, 20%),
+		1300: shade($gray-base, 30%),
+		1400: shade($gray-base, 40%),
+		1500: shade($gray-base, 50%),
+		1600: shade($gray-base, 60%),
+		1700: shade($gray-base, 70%),
+		1800: shade($gray-base, 80%),
+		1900: shade($gray-base, 90%),
+		2000: shade($gray-base, 100%),
+		
+	)
+) !default;
+
+
+//--------------------------------------------------------------------------------------------------------
+//  T H E M E   C O L O R S
+//
+$theme-colors: (
+    primary     : $primary-color-base,
+    secondary   : $secondary-color-base,
+    success     : $success-color-base,
+    warning     : $warning-color-base,
+    danger      : $danger-color-base,
+    light       : gray(100),
+    dark        : gray(1900)
+) !default;
+
+//--------------------------------------------------------------------------------------------------------
+
+//--------------------------------------------------------------------------------------------------------
+//  Y I Q
+//
+
+$yiq-contrasted-threshold: 150 !default;
+
+$yiq-text-dark: gray(1700) !default;
+$yiq-text-light: gray(100) !default;
+
+//--------------------------------------------------------------------------------------------------------

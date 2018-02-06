@@ -1,26 +1,31 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
-const Input = props => {
+const Form = props => {
     const {
-        className,
         children,
+        className,
         tag: Tag,
         ...attributes
     } = props;
     
     attributes.className = classNames(
-        'input',
+        'form',
         className
     );
     
     return <Tag {...attributes}>{children}</Tag>
 };
 
-Input.propTypes = {
+Form.defaultProps = {
+    tag: 'form'
+}
+
+Form.propTypes = {
     tag: PropTypes.oneOfType([
         PropTypes.func, PropTypes.string,
     ]),
 };
 
-export default Input;
+export default Form;

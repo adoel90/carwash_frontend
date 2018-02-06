@@ -1,4 +1,3 @@
-
 @function breakpoint($key: phone) {
 	@return map-get($breakpoints, $key);
 }

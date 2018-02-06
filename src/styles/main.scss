@@ -15,10 +15,10 @@
 //
 
 @import
-'./base/base',
 './base/reset',
-'./base/animations',
-'./base/colors',
+'./base/base',
+'./base/animation',
+'./base/color',
 './base/iconography',
 './base/typography';
 
@@ -30,21 +30,10 @@
 //
 
 @import
-'./components/alerts',
-'./components/buttons',
-'./components/card',
-'./components/inputs',
-'./components/search',
-'./components/figure',
-'./components/badges',
-'./components/images',
-'./components/showcase',
-'./components/forms',
-'./components/modal',
-'./components/tables',
-'./components/pagination',
-'./components/toast',
-'./components/list';
+'./components/alert',
+'./components/button',
+'./components/badge',
+'./components/card';
 
 //
 //--------------------------------------------------------------------------------------------------------
@@ -54,15 +43,12 @@
 //
 
 @import
-'./layout/header',
-'./layout/navigation',
-'./layout/menu',
-'./layout/page',
-'./layout/grid',
-'./layout/media',
-'./layout/flex',
-'./layout/spacing',
-'./layout/position';
+'./layouts/menu',
+'./layouts/flex',
+'./layouts/form',
+'./layouts/grid',
+'./layouts/media',
+'./layouts/spacing';
 
 //
 //--------------------------------------------------------------------------------------------------------

@@ -1,8 +1,9 @@
 //-----------------------------------------------------------------------------
-//  S P A C I N G
+//  B O R D E R   R A D I U S
 //
-@function spacing($key, $map: $spacings) {
-	@return map-get($map, $key);
+
+@function border-radius($value, $map: $border-radius) {
+	@return map-get($map, $value);
 }
 
 //-----------------------------------------------------------------------------

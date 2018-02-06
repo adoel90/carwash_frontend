@@ -1,0 +1,16 @@
+$justify-contents: (
+    flex-start
+    flex-end
+    center
+    space-between
+    space-around
+    space-evenly
+) !default;
+
+$align-items: (
+    flex-start
+    flex-end
+    center
+    baseline
+    stretch
+) !default;

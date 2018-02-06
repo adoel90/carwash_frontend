@@ -1,0 +1,10 @@
+$border-radius-base         : .25rem !default;
+$border-radius-rounded      : 50px !default;
+$border-radius-circled      : 100% !default;
+$border-radius              : (
+    base                    : $border-radius-base,  
+    medium                  : ($border-radius-base * 1.5),
+    large                   : ($border-radius-base * 2),
+    rounded                 : $border-radius-rounded,
+    circled                 : $border-radius-circled
+) !default;

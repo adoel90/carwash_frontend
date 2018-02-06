@@ -1,0 +1,27 @@
+//-----------------------------------------------------------------------------
+//	B U T T O N   V A R I A B L E S
+//	
+//	Set of variables used in classes that modifies a button component.
+//
+
+$button-border-radius-base		: border-radius(base) !default;
+$button-border-radius-rounded	: border-radius(rounded) !default;
+$button-font-weight-base		: font-weight(semibold) !default;
+$button-line-height-base		: line-height(base) !default;
+
+$button-padding-x-base			: .5rem !default;
+$button-padding-y-base			: 1.25rem !default;
+$button-padding-base			: $button-padding-x-base $button-padding-y-base;
+$button-paddings: (
+	small	: ($button-padding-x-base * .5) ($button-padding-y-base * .5),
+	base	: $button-padding-base,
+	medium	: ($button-padding-x-base * 1.25) ($button-padding-y-base * 1.25),
+	large	: ($button-padding-x-base * 1.75) ($button-padding-y-base * 1.75)
+) !default;
+
+$button-transition-base		: all 250ms ease-in-out;
+
+$button-disabled-opacity	: 0.3;
+
+//
+//-----------------------------------------------------------------------------

@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
-const Input = props => {
+const Column = props => {
     const {
         className,
         children,
@@ -9,18 +10,17 @@ const Input = props => {
         ...attributes
     } = props;
     
-    attributes.className = classNames(
-        'input',
-        className
-    );
-    
     return <Tag {...attributes}>{children}</Tag>
 };
 
-Input.propTypes = {
+Column.defaultProps = {
+    tag: 'div'
+}
+
+Column.propTypes = {
     tag: PropTypes.oneOfType([
         PropTypes.func, PropTypes.string,
     ]),
 };
 
-export default Input;
+export default Column;

@@ -1,5 +1,9 @@
-//	A function for getting one of the predetermined letter spacing sizes.
+//-----------------------------------------------------------------------------
+//  L E T T E R   S P A C I N G
 //
+
 @function letter-spacing($key: base) {
-	@return map-get($letter-spacing, $key);
+    @return map-get($letter-spacings, $key);
 }
+
+//-----------------------------------------------------------------------------

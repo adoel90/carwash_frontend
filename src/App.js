@@ -13,7 +13,12 @@ class App extends Component {
     }
     
     render() {
-        return <Main {...this.state} {...this.props} />
+        return (
+            <Main 
+                {...this.state} 
+                {...this.props} 
+            />
+        )
     }
 }
 

@@ -3,7 +3,7 @@
 	.card-list__footer {
 		position: sticky;
 		bottom: 0;
-		padding: $spacer * .5;
+		padding: spacing(base);
 		background-color: gray(200);
 		border-top: solid 1px gray(300);
 		width: 100%;
@@ -22,7 +22,7 @@
 	overflow: hidden;
 	min-height: auto;
 	border-bottom: solid 10px secondary-color(base);
-	padding: spacer(2);
+	padding: spacing(base);
 
 	@each $theme, $color in $theme-colors {
 		&.card--#{$theme} {
@@ -39,7 +39,7 @@
 
 	.card__heading {
 		position: relative;
-		padding: $spacer * .5;
+		padding: spacing(base);
 
 		.card__title {
 			font-weight: font-weight(semibold);
@@ -66,10 +66,10 @@
 	.card__body {
 		@include flex(1 1 100%);
 		min-height: 5em;
-		padding: $spacer * .5;
+		padding: spacing(base);
 	}
 
 	.card__footer {
-		padding: $spacer * .5;
+		padding: spacing(base);
 	}
 }

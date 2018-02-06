@@ -1,0 +1,14 @@
+.alert {
+	@include border-radius(base);
+	padding: spacing(base);
+
+	/*
+	//	Generates multiple alerts with different themes.
+	//	Defaults to `alert--danger`.
+	*/
+	@each $theme, $color in $theme-colors {
+		&.alert--#{$theme} {
+			background-color: $color;
+		}
+	}
+}

@@ -1,0 +1,8 @@
+$spacing-base       : .75rem !default;
+$spacings           : (
+    extra-small     : ($spacing-base / 4),
+    small           : ($spacing-base / 2),
+    base            : $spacing-base,
+    large           : ($spacing-base * 2),
+    extra-large     : ($spacing-base * 4)
+) !default;

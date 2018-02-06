@@ -6,13 +6,13 @@
     padding: 0;
     width: 100%;
     list-style: none;
-    line-height: line-height(tight);
+    line-height: line-height(base);
     font-family: $font-family-text;
     font-size: font-size(base);
     border: solid 1px gray(300);
     border-radius: border-radius(base);
     background-image: none;
-    padding: 0.5rem;
+    padding: .75rem;
     @include transition(all 250ms $transition-base);
 
     &:focus {

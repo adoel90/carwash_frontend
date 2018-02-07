@@ -27,8 +27,8 @@ const AdminLoginView = props => {
                                     <Input 
                                         name="username"
                                         type="text" 
-                                        placeholder="Masukkan nama pengguna" 
-                                        disabled />
+                                        placeholder="Masukkan nama pengguna"
+                                    />
                                 </FormControl>
                             </FormField>
                             <FormField>
@@ -39,7 +39,7 @@ const AdminLoginView = props => {
                             </FormField>
                             <Button 
                                 type="button"
-                                theme="secondary">
+                                size="large">
                                 Masuk
                             </Button>
                         </Form>

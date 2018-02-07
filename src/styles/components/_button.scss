@@ -9,6 +9,10 @@
 	background: none;
 	cursor: pointer;
 
+	/*
+	//	BUTTON THEMES
+	//	Modifier classes that changes a button component's color theme.
+	*/
 	@each $name, $color in $button__themes {
 		&.button--#{$name} {
 			background-color: $color;
@@ -23,10 +27,27 @@
 		}
 	}
 
+	/*
+	//	BUTTON SIZES
+	//	Modifier classes that changes the size of a button component.
+	*/
+	@each $name, $size in $button__sizes {
+		
+	}
+
+	/*
+	//	BUTTON MODIFIERS
+	//	Modifier classes that alters the appearance of a button component.
+	*/
 	&.button--rounded {
 		border-radius: $button--rounded__border-radius;
 	}
 
+	/*
+	//	BUTTON STATES
+	//	Pseudo classes of a button component that changes the way a button component
+	//	looks based on the form of interaction it received.
+	*/
 	&:hover {
 		&:not(:disabled) {
 			@include transform(translateY(-3px));

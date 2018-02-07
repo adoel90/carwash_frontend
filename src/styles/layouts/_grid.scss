@@ -8,6 +8,7 @@
 .container {
 	margin: 0 auto;
 	padding: 0 ($grid-gutter-width / 2);
+	width: 100%;
 	
 	@each $breakpoint, $width in $breakpoints {
 		@include media($breakpoint) {
@@ -31,8 +32,16 @@
 
 .row {
 	@include flexbox();
-	@include flex-wrap(nowrap);
-	margin: 0 ($grid-gutter-width / -2);
+	@include flex-wrap(wrap);
+	padding: 0 ($grid-gutter-width / -2);
+
+	&.row--gutterless {
+		padding: 0;
+
+		[class*=column-] {
+			padding: 0;
+		}
+	}
 }
 
 //-----------------------------------------------------------------------------
@@ -46,7 +55,10 @@
 	padding: 0 ($grid-gutter-width / 2);
 	
 	@each $breakpoint, $breakpoint-width in $breakpoints {
+
+		/*
 		//	Generates basic `.col-#{bp}` classes.
+		*/
 		&.column-#{$breakpoint} {
 			@include flex-grow(1);
 			@include flex-basis(0);

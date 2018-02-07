@@ -2,13 +2,17 @@
     position: relative;
     @include flexbox;
     @include flex-direction(column);
+
+    .form__label {
+        font-weight: font-weight(semibold);
+    }
+
+    .form__control {
+        position: relative;
+    }
     
     .form__field {
         position: relative;
         margin-bottom: spacing(base);
-    }
-
-    .form__label {
-        font-weight: font-weight(semibold);
     }
 }

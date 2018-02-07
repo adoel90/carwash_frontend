@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { Row, Column } from '../../layouts/Grid';
-import { Form, FormField } from '../../layouts/Form';
+import { Form, FormField, FormLabel, FormControl } from '../../layouts/Form';
 import { Card } from '../../components/Card';
 import { Input } from '../../components/Input';
 import { Button } from '../../components/Button';
@@ -10,7 +10,7 @@ import { Button } from '../../components/Button';
 const AdminLoginView = props => {
     return (
         <main className="admin-panel">
-            <Row className="admin-panel__container">
+            <Row gutterless className="admin-panel__container">
                 <Column md={3}>
                     <p>LOL</p>
                 </Column>
@@ -21,17 +21,20 @@ const AdminLoginView = props => {
                             <h6 className="heading-subtitle">Silahkan masukkan username dan password Anda untuk masuk.</h6>
                         </div>
                         <Form>
-                            <FormField
-                                label="Username">
-                                <Input type="text" />
+                            <FormField>
+                                <FormLabel htmlFor="username">Username</FormLabel>
+                                <FormControl>
+                                    <Input 
+                                        name="username"
+                                        type="text" 
+                                        placeholder="Masukkan nama pengguna" />
+                                </FormControl>
                             </FormField>
-                            <FormField 
-                                label="Password">
-                                <Input type="password" />
-                            </FormField>
-                            <FormField 
-                                label="Email">
-                                <Input type="email" />
+                            <FormField>
+                                <FormLabel htmlFor="password">Password</FormLabel>
+                                <Input 
+                                    type="password"
+                                    placeholder="Masukkan kata sandi" />
                             </FormField>
                         </Form>
                     </div>

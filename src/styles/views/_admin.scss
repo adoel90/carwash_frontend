@@ -8,14 +8,14 @@
     }
 
     .admin-panel__content {
-        position: relative;
-        height: 100%;
-        width: 50%;
-        margin: 0 auto; 
         @include flexbox;
         @include flex-direction(column);
         @include justify-content(center);
-        @include align-items(center);
+        position: relative;
+        width: 90%;
+        max-width: 576px;
+        margin: 0 auto;
+        height: 100%;
     }
     
     .admin-panel__heading {

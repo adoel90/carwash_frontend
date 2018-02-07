@@ -1,18 +1,24 @@
 .form {
-    position: relative;
     @include flexbox;
     @include flex-direction(column);
+    position: relative;
 
-    .form__label {
+    &__label {
         font-weight: font-weight(semibold);
     }
 
-    .form__control {
+    &__control {
         position: relative;
     }
     
-    .form__field {
+    &__field {
         position: relative;
         margin-bottom: spacing(base);
+
+        &:last-of-type {
+            margin-bottom: spacing(large)
+        }
     }
+
+    
 }

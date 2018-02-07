@@ -54,6 +54,10 @@
 	@return color-shade(gray, $key);
 }
 
+@function theme-color($key: primary, $map: $theme-colors) {
+	@return map-get($map, $key);
+}	
+
 //-----------------------------------------------------------------------------
 //-----------------------------------------------------------------------------
 //  C O L O R   Y I Q

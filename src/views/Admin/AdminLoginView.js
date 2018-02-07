@@ -7,14 +7,14 @@ import { Card } from '../../components/Card';
 import { Input } from '../../components/Input';
 import { Button } from '../../components/Button';
 
+import { default as AdminPanelBanner } from '../../assets/images/admin-panel-bg.jpg';
+
 const AdminLoginView = props => {
     return (
         <main className="admin-panel">
             <Row gutterless className="admin-panel__container">
-                <Column md={3}>
-                    <p>LOL</p>
-                </Column>
-                <Column md={9}>
+                <Column md={3} sm={12} className="admin-panel__banner" style={{backgroundImage: `url(${AdminPanelBanner})`}} />
+                <Column md={9} sm={12}>
                     <div className="admin-panel__content">
                         <div className="admin-panel__heading">
                             <h5 className="heading-title">805 Carwash Admin Panel</h5>
@@ -27,7 +27,8 @@ const AdminLoginView = props => {
                                     <Input 
                                         name="username"
                                         type="text" 
-                                        placeholder="Masukkan nama pengguna" />
+                                        placeholder="Masukkan nama pengguna" 
+                                        disabled />
                                 </FormControl>
                             </FormField>
                             <FormField>
@@ -36,6 +37,11 @@ const AdminLoginView = props => {
                                     type="password"
                                     placeholder="Masukkan kata sandi" />
                             </FormField>
+                            <Button 
+                                type="button"
+                                theme="secondary">
+                                Masuk
+                            </Button>
                         </Form>
                     </div>
                 </Column>

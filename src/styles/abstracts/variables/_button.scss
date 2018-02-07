@@ -1,27 +1,58 @@
 //-----------------------------------------------------------------------------
-//	B U T T O N   V A R I A B L E S
-//	
-//	Set of variables used in classes that modifies a button component.
+//	T H E M E S
 //
 
-$button-border-radius-base		: border-radius(base) !default;
-$button-border-radius-rounded	: border-radius(rounded) !default;
-$button-font-weight-base		: font-weight(semibold) !default;
-$button-line-height-base		: line-height(base) !default;
+$button__themes					: $theme-colors !default;
 
-$button-padding-x-base			: .5rem !default;
-$button-padding-y-base			: 1.25rem !default;
-$button-padding-base			: $button-padding-x-base $button-padding-y-base;
-$button-paddings: (
-	small	: ($button-padding-x-base * .5) ($button-padding-y-base * .5),
-	base	: $button-padding-base,
-	medium	: ($button-padding-x-base * 1.25) ($button-padding-y-base * 1.25),
-	large	: ($button-padding-x-base * 1.75) ($button-padding-y-base * 1.75)
+//-----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
+//	B U T T O N   F O N T S
+//
+
+$button__font-size				: $font-size-base !default;
+$button__font-weight			: font-weight(semibold) !default;
+$button__line-height			: line-height(base) !default;
+
+//-----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
+//	B U T T O N   M O D I F I E R S
+//
+
+$button__border					: solid 1px gray(300) !default;
+$button__border-radius			: border-radius(base) !default;
+$button__box-shadow				: 0px 8px 15px rgba(0, 0, 0, 0.1) !default;
+
+$button__size-horizontal		: 1.25rem !default;
+$button__size-vertical			: .75rem !default;
+$button__size					: $button__size-vertical $button__size-horizontal !default;
+$button__sizes					: (
+	small						: ($button__size-vertical * .5) ($button__size-horizontal * .5),
+	base						: $button__size,
+	large						: ($button__size-vertical * 1.5) ($button__size-horizontal * 1.5)
 ) !default;
 
-$button-transition-base		: all 250ms ease-in-out;
+$button--rounded__border-radius	: border-radius(rounded);
 
-$button-disabled-opacity	: 0.3;
+
+//-----------------------------------------------------------------------------
+
+$button__transition				: all 150ms ease-in-out;
+
+//-----------------------------------------------------------------------------
+//	B U T T O N   S T A T E S
+//
+
+$button--hovered__color			: primary-color(300);
+$button--hovered__bg-color		: primary-color(300);
+$button--hovered__border		: solid 1px gray(300);
+$button--hovered__box-shadow	: 0px 10px 20px rgba(46, 229, 157, 0.4);
+
+/*
+//	Disabled Button
+*/
+$button--disabled__color		: gray(500) !default; 		
+$button--disabled__bg-color		: gray(300) !default;
+$button--disabled__opacity		: 0.5 !default;
 
 //
 //-----------------------------------------------------------------------------

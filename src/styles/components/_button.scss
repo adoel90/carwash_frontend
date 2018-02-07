@@ -1,81 +1,46 @@
-.button-group {
-	@include flexbox;
-
-	.button:first-of-type {
-		border-top-right-radius: 0;
-		border-bottom-right-radius: 0;
-	}
-
-	.button:last-of-type {
-		border-top-left-radius: 0;
-		border-bottom-left-radius: 0;
-	}
-}
-
 .button {
-	@include flexbox;
-	@include flex-direction(row);
-	@include align-items(center);
-	@include transition(all 200ms ease-in-out);
-	user-select: none;
-	white-space: nowrap;
-	vertical-align: middle;
+	@include transition($button__transition);
+	font-size: $button__font-size;
+	font-weight: $button__font-weight;
+	border: $button__border;
+	padding: $button__size;
+	border-radius: $button__border-radius;
+	box-shadow: $button__box-shadow;
 	background: none;
-	border: none;
-	font-size: inherit;
-	padding: 15px 30px;
-	border-radius: 2px;
-	outline: none;
 	cursor: pointer;
 
-	@each $theme, $color in $theme-colors {
-		&.button--#{$theme} {
+	@each $name, $color in $button__themes {
+		&.button--#{$name} {
 			background-color: $color;
-
-			&:disabled {
-				opacity: 0.5;
-			}
-
-			&:hover {
-				background-color: tint($color, 18%);
-			}
-		}
-	}
-
-	$button-sizes: (
-		small: 10px 20px,
-		base: 15px 30px,
-		large: 25px 50px
-	);
-
-	@each $size, $padding in $button-sizes {
-		&.button--#{$size} {
-			padding: $padding;
-		}
-	}
-
-	/**
-	/*	Another kind of button that has transparent background and border.
-	/*/
-	@each $theme, $color in $theme-colors {
-		&.button-outline--#{$theme} {
-			background-color: transparent;
-			color: $color;
+			color: color-yiq($color);
 			border: solid 1px $color;
 
 			&:hover {
-				background-color: $color;
-				color: inherit;
+				&:not(:disabled) {
+					background-color: tint($color, 18%);
+				}
 			}
 		}
 	}
 
-	/**
-	/*	A modifier for buttons to make it span over the entire its parent's
-	/*	width by adding a block element and full width configuration.
-	/*/
-	&.button--full {
-		display: block;
-		width: 100%;
+	&.button--rounded {
+		border-radius: $button--rounded__border-radius;
+	}
+
+	&:hover {
+		&:not(:disabled) {
+			@include transform(translateY(-3px));
+			box-shadow: $button--hovered__box-shadow;
+		}
+	}
+	
+	&:focus {
+		border: solid 1px primary-color(600);
+		outline: none;
+	}
+
+	&:disabled {
+		opacity: $button--disabled__opacity;
+		cursor: not-allowed;
 	}
 }

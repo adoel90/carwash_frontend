@@ -6,21 +6,31 @@
     padding: 0;
     width: 100%;
     list-style: none;
-    line-height: line-height(base);
-    font-family: $font-family-text;
-    font-size: font-size(base);
-    border: solid 1px gray(300);
-    border-radius: border-radius(base);
+    line-height: $input__line-height;
+    border: $input__border;
+    border-radius: $input__border-radius;
+    padding: $input__size;
     background-image: none;
-    padding: .75rem;
-    @include transition(all 250ms $transition-base);
+    @include transition($input__transition);
+
+    &:hover {
+        border: solid 1px primary-color(300);
+    }
 
     &:focus {
         outline: none;
         border: solid 1px primary-color(300);
+        border-left: solid 5px primary-color(600);
     }
 
-    &:not(:focus):hover {
-        border: solid 1px primary-color(300);
+    &:disabled {
+        border: solid 1px gray(100);
+        background-color: gray(100);
+        cursor: not-allowed;
+    }
+
+
+    &::placeholder {
+        color: gray(300);
     }
 }

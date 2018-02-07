@@ -8,16 +8,18 @@ const Button = props => {
 		theme,
 		size,
 		outlined,
+		rounded,
 		block,
 		children,
 		className,
 		...attributes
-	} = this.props;
+	} = props;
 
 	attributes.className = classNames(
 		'button',
 		theme ? `button--${theme}` : null,
 		size ? `button--${size}` : null,
+		rounded ? `button--rounded` : null,
 		block ? 'button--block' : null,
 		className
 	)
@@ -37,6 +39,7 @@ Button.propTypes = {
 	theme: PropTypes.string,
 	size: PropTypes.string,
 	block: PropTypes.bool,
+	rounded: PropTypes.bool,
 };
 
 export default Button;

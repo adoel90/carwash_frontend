@@ -1,4 +1,6 @@
 import { combineReducers } from 'redux';
+import authentication from './authentication.reducer';
+
 import user from './user.reducer';
 import service from './service.reducer';
 import cafe from './cafe.reducer';
@@ -10,6 +12,7 @@ import access from './access.reducer';
 import module from './module.reducer';
 
 const rootReducer = combineReducers({
+	authentication,
 	user,
 	service,
 	cafe,

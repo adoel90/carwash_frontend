@@ -24,6 +24,21 @@
 					background-color: tint($color, 18%);
 				}
 			}
+
+			&.button--outlined {
+				background-color: transparent;
+				border: solid 1px $color;
+				color: $color;
+				box-shadow: none;
+
+				&:hover {
+					&:not(:disabled) {
+						background-color: $color;
+						color: color-yiq($color);
+						border: solid 1px $color;
+					}
+				}
+			}
 		}
 	}
 
@@ -32,7 +47,9 @@
 	//	Modifier classes that changes the size of a button component.
 	*/
 	@each $name, $size in $button__sizes {
-		
+		&.button--#{$name} {
+			padding: $size;
+		}
 	}
 
 	/*
@@ -48,13 +65,6 @@
 	//	Pseudo classes of a button component that changes the way a button component
 	//	looks based on the form of interaction it received.
 	*/
-	&:hover {
-		&:not(:disabled) {
-			@include transform(translateY(-3px));
-			box-shadow: $button--hovered__box-shadow;
-		}
-	}
-	
 	&:focus {
 		border: solid 1px primary-color(600);
 		outline: none;

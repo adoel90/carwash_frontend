@@ -10,6 +10,14 @@ import { Button } from '../../components/Button';
 import { default as AdminPanelBanner } from '../../assets/images/admin-panel-bg.jpg';
 
 const AdminLoginView = props => {
+    const {
+        credentials,
+        handleInputChange,
+        onLoginSubmit
+    } = props;
+
+    console.log(credentials);
+
     return (
         <main className="admin-panel">
             <Row gutterless className="admin-panel__container">
@@ -20,7 +28,9 @@ const AdminLoginView = props => {
                             <h5 className="heading-title">805 Carwash Admin Panel</h5>
                             <h6 className="heading-subtitle">Silahkan masukkan username dan password Anda untuk masuk.</h6>
                         </div>
-                        <Form>
+
+                        {/** Login Form */}
+                        <Form onSubmit={onLoginSubmit}>
                             <FormField>
                                 <FormLabel htmlFor="username">Username</FormLabel>
                                 <FormControl>
@@ -28,18 +38,20 @@ const AdminLoginView = props => {
                                         name="username"
                                         type="text" 
                                         placeholder="Masukkan nama pengguna"
+                                        onChange={(e) => handleInputChange(credentials, e)}
                                     />
                                 </FormControl>
                             </FormField>
                             <FormField>
                                 <FormLabel htmlFor="password">Password</FormLabel>
                                 <Input 
+                                    name="password"
                                     type="password"
-                                    placeholder="Masukkan kata sandi" />
+                                    placeholder="Masukkan kata sandi"
+                                    onChange={(e) => handleInputChange(credentials, e)}
+                                />
                             </FormField>
-                            <Button 
-                                type="button"
-                                size="large">
+                            <Button type="submit" disabled={!credentials.username || !credentials.password}>
                                 Masuk
                             </Button>
                         </Form>
@@ -48,22 +60,6 @@ const AdminLoginView = props => {
             </Row>
         </main>
     );
-
-    // return (
-    //     <Form>
-    //         <FormField
-    //             label="Username">
-    //             <Input type="text" placeholder="Masukkan username" />
-    //         </FormField>
-    //         <FormField
-    //             label="Password">
-    //             <Input type="password" placeholder="Masukkan password" />
-    //         </FormField>
-    //         <Button type="submit" buttonTheme="secondary" buttonFull>
-    //             <small className="tt-uppercase fw-semibold ls-base">Masuk</small>
-    //         </Button>
-    //     </Form>
-    // );
 };
 
 AdminLoginView.propTypes = {

@@ -21,6 +21,7 @@ const Button = props => {
 		size ? `button--${size}` : null,
 		rounded ? `button--rounded` : null,
 		block ? 'button--block' : null,
+		outlined ? 'button--outlined' : null,
 		className
 	)
 
@@ -39,6 +40,7 @@ Button.propTypes = {
 	theme: PropTypes.string,
 	size: PropTypes.string,
 	block: PropTypes.bool,
+	outlined: PropTypes.bool,
 	rounded: PropTypes.bool,
 };
 

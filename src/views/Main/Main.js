@@ -5,13 +5,21 @@ import { withCookies, Cookies } from 'react-cookie';
 
 function mapStateToProps(state) {
     return {
-
     };
 }
 
 class Main extends Component {
+    constructor() {
+        super();
+    }
+
     render() {
-        return <MainView {...this.props} {...this.state} />
+        return (
+            <MainView
+                {...this.state}
+                {...this.props}
+            />
+        )
     }
 }
 

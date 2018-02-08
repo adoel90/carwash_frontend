@@ -5,52 +5,30 @@ import { PrivateRoute, PropsRoute } from '../../utilities/Route';
 import { AdminLogin, AdminDashboard } from '../Admin';
 
 class AdminView extends Component {
-    constructor() {
-        super();
-        this.handleRedirect = this.handleRedirect.bind(this);
-    }
-    
-    handleRedirect = () => {
-        const {
-            match,
-            history,
-            isAuthenticated,
-            authenticatedAs
-        } = this.props;
-
-        if(isAuthenticated) {
-            return <Redirect from="/*" to={`${match.url}/dashboard`} />
-        }
-        else {
-            return <Redirect from="/*" to={`${match.url}/login`} />
-        }
-    }
-    
     render() {
         const {
             match,
-            isAuthenticated,
-            authenticatedAs,
-            userData
+            userData,
+            handleRedirect
         } = this.props;
         
         return (
             <div>
-                {this.handleRedirect()}
+                {handleRedirect()}
                 <PropsRoute
                     name="login"
                     path={`${match.url}/login`}
                     component={AdminLogin}
-                    userData={userData}
+                    {...this.props}
                 />
-                <PrivateRoute
+                {/*<PrivateRoute
                     name="dashboard"
                     path={`${match.url}/dashboard`}
                     component={AdminDashboard}
                     isAuthenticated={isAuthenticated && authenticatedAs == 'admin'}
                     redirectTo={`${match.url}/login`}
                     userData={userData}
-                />
+                />*/}
                 <Redirect from={match.url} to={`${match.url}/login`} />
             </div>
         );

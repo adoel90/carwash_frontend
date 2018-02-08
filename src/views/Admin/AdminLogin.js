@@ -1,29 +1,17 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import AdminLoginView from './AdminLoginView';
 
-function mapStateToProps(state) {
-    return {
-        
-    };
-}
-
-class AdminLogin extends Component {
-    handleAuthentication = () => {
-
-    }
-    
+class AdminLogin extends Component {    
     render() {
         return (
             <AdminLoginView 
                 {...this.props} 
-                {...this.state} 
-                handleAuthentication={() => this.handleAuthentication}
+                {...this.state}
             />
         )
     }
 }
 
-export default connect(
-    mapStateToProps,
-)(AdminLogin);
+export default AdminLogin;

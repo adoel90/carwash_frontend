@@ -15,16 +15,14 @@ const AdminLoginView = props => {
         handleInputChange,
         onLoginSubmit
     } = props;
-
-    console.log(credentials);
-
+    
     return (
-        <main className="admin-panel">
-            <Row gutterless className="admin-panel__container">
+        <main className="admin-login">
+            <Row gutterless className="admin-login__container">
                 <Column md={3} sm={12} className="admin-panel__banner" style={{backgroundImage: `url(${AdminPanelBanner})`}} />
                 <Column md={9} sm={12}>
-                    <div className="admin-panel__content">
-                        <div className="admin-panel__heading">
+                    <div className="admin-login__content">
+                        <div className="admin-login__heading">
                             <h5 className="heading-title">805 Carwash Admin Panel</h5>
                             <h6 className="heading-subtitle">Silahkan masukkan username dan password Anda untuk masuk.</h6>
                         </div>
@@ -38,7 +36,7 @@ const AdminLoginView = props => {
                                         name="username"
                                         type="text" 
                                         placeholder="Masukkan nama pengguna"
-                                        onChange={(e) => handleInputChange(credentials, e)}
+                                        onChange={(e) => handleInputChange('credentials', e)}
                                     />
                                 </FormControl>
                             </FormField>
@@ -48,7 +46,7 @@ const AdminLoginView = props => {
                                     name="password"
                                     type="password"
                                     placeholder="Masukkan kata sandi"
-                                    onChange={(e) => handleInputChange(credentials, e)}
+                                    onChange={(e) => handleInputChange('credentials', e)}
                                 />
                             </FormField>
                             <Button type="submit" disabled={!credentials.username || !credentials.password}>

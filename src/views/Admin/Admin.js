@@ -1,88 +1,65 @@
 import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
-import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { adminLogin } from '../../actions/authentication.action';
-
-import AdminView from './AdminView';
+import { Redirect } from 'react-router-dom';
+import { AdminView, AdminDashboard } from '../Admin';
 
 function mapStateToProps(state) {
     return {
-        authentication: state.authentication 
-    };
-}
-
-function mapDispatchToProps(dispatch) {
-    return {
-        adminLogin: bindActionCreators(adminLogin, dispatch)
+        authentication: state.authentication
     }
 }
 
 class Admin extends Component {    
-    constructor() {
-        super();
-        this.onLoginSubmit = this.onLoginSubmit.bind(this);
-        this.handleInputChange = this.handleInputChange.bind(this);
+    constructor(props) {
+        super(props);
         this.handleRedirect = this.handleRedirect.bind(this);
-        this.handleAuthentication = this.handleAuthentication.bind(this);
         this.state = {
-            isAuthenticated: false,
-            authenticatedAs: null,
-            userData: {},
-            credentials: {
-                username: '',
-                password: ''
-            }
+            isAuthenticated: localStorage.getItem('accessToken') ? true : false,
+            authenticatedAs: localStorage.getItem('accessToken') ? 'admin' : null,
+            userData: localStorage.getItem('userData') ? localStorage.getItem('userData') : {}
         }
     }
 
-    onLoginSubmit = (e) => {
-        e.preventDefault();
-
-        this.handleAuthentication();
+    componentDidMount = () => {
+        this.handleRedirect();
     }
 
-    handleInputChange = (object, e) => {        
-        const target = e.target;
-        const value = target.value;
-        const name = target.name;
+    componentDidUpdate = (prevProps) => {
+        const {
+            authentication
+        } = this.props;
         
-        object[name] = value;
-
-        this.setState({
-            ...this.state,
-            [object]: object
-        });
+        if(prevProps.authentication != authentication) {
+            if(authentication.isAuthenticated) {
+                this.setState({
+                    ...this.state,
+                    isAuthenticated: true,
+                    authenticatedAs: 'admin',
+                    userData: authentication.userData
+                }, () => {
+                    this.handleRedirect();
+                });
+            }
+        }        
     }
 
     handleRedirect = () => {
         const {
-            match,
-            history,
             isAuthenticated,
             authenticatedAs
-        } = this.props;
-
-        if(isAuthenticated) {
-            return <Redirect from="/*" to={`${match.url}/dashboard`} />
-        }
-
-        else {
-            return <Redirect from="/*" to={`${match.url}/login`} />
-        }
-    }
-
-    handleAuthentication = (e) => {
-        const {
-            loginData
         } = this.state;
         
-        const requiredData = {
-            username: loginData.username,
-            password: loginData.password
+        const {
+            match,
+            history
+        } = this.props;
+
+        if(isAuthenticated && authenticatedAs == 'admin') {
+            return history.push(`${match.url}`)
         }
-        
-        this.props.adminLogin(requiredData);
+        else {
+            return history.push(`${match.url}/login`);
+        }
     }
     
     render() {
@@ -90,15 +67,11 @@ class Admin extends Component {
             <AdminView
                 {...this.state}
                 {...this.props}
-                handleInputChange={this.handleInputChange}
-                handleRedirect={this.handleRedirect}
-                handleAuthentication={this.handleAuthentication}
             />
         )
     }
 }
 
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps
+    mapStateToProps
 )(Admin);

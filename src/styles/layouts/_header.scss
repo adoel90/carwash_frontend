@@ -1,0 +1,34 @@
+.header {
+    position: relative;
+    min-height: 4.5rem;
+    height: 4.5rem;
+    border-bottom: solid 1px gray(200);
+
+    .header__container {
+        @extend .container;
+        @include flexbox;
+        @include flex-direction(row);
+        @include justify-content(justify-content);
+        height: 100%;
+        
+        &--block {
+            @extend .container--block;
+        }
+    }
+
+    .header__block {
+        @include flexbox;
+        @include align-items(center);
+        position: relative;
+        height: 100%;
+    }
+
+    .header__navigation {
+        @include flexbox;
+        @include flex-direction(row);
+
+        &--primary {
+            background-color: primary-color(600);
+        }
+    }
+}

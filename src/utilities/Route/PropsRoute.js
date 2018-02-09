@@ -8,7 +8,7 @@ class PropsRoute extends Component {
 			...rest
 		} = this.props;
 		
-		return <Route {...rest} render={(props) => <Component {...props} {...rest} /> } />
+		return <Route {...rest} render={(props) => <Component {...props} /> } />
 	}
 }
 

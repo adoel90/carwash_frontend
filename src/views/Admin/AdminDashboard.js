@@ -1,22 +1,10 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-
-function mapStateToProps(state) {
-    return {
-
-    };
-}
+import AdminDashboardView from './AdminDashboardView';
 
 class AdminDashboard extends Component {
     render() {
-        return (
-            <div>
-                <p>This is the dashboard page.</p>
-            </div>
-        );
+        return <AdminDashboardView {...this.state} {...this.props} />
     }
 }
 
-export default connect(
-    mapStateToProps,
-)(AdminDashboard);
+export default AdminDashboard;

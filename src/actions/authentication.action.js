@@ -23,11 +23,11 @@ export const adminLogin = (data) => {
                 let result = response.data.result;
                 
                 localStorage.setItem('accessToken', result.accessToken);
-                localStorage.setItem('userData', result.user);
-                dispatch(loginSuccess(data));
+                localStorage.setItem('userData', result.data);
+                dispatch(loginSuccess(result));
             })
             .catch((error) => {
-                dispatch(loginError(data));
+                dispatch(loginError(error));
             })
     }
 

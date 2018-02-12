@@ -12,11 +12,11 @@ class PrivateRoute extends Component {
 
         const renderComponent = (props) => {
             return isAuthenticated
-            ? <Component {...props} {...rest} />
+            ? <Component {...props} />
             : <Redirect to={{ pathname: redirectTo, state: { from: props.location }} } />
         }
         
-        return <Route {...rest} render={Component ? renderComponent : null} />
+        return <Route {...rest} render={renderComponent} />
     }
 }
 

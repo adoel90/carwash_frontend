@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-
-import { adminLogin } from '../../actions/authentication.action';
-import AdminLoginView from './AdminLoginView';
+import { adminLogin } from '../../../actions/authentication.action';
+import { AdminLoginView } from '../AdminLogin';
 
 function mapStateToProps(state) {
     return {

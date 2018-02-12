@@ -38,6 +38,7 @@
 	&.row--gutterless {
 		padding: 0;
 
+		.column,
 		[class*=column-] {
 			padding: 0;
 		}

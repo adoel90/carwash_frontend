@@ -2,34 +2,30 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-const Menu = props => {
+const Sidebar = props => {
     const {
         tag: Tag,
-        theme,
-        aside,
-        children,
         className,
+        children,
         ...attributes
     } = props;
 
     attributes.className = classNames(
-        `menu`,
-        theme ? `menu--${theme}` : null,
+        `sidebar`,
         className
     );
     
     return <Tag {...attributes}>{children}</Tag>
 };
 
-Menu.defaultProps = {
-    tag: 'div'
+Sidebar.defaultProps = {
+    tag: 'aside'
 }
 
-Menu.propTypes = {
+Sidebar.propTypes = {
     tag: PropTypes.oneOfType([
         PropTypes.func, PropTypes.string,
     ]),
-    theme: PropTypes.string,
 };
 
-export default Menu;
+export default Sidebar;

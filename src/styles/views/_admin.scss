@@ -1,7 +1,3 @@
-.admin-panel {
-    
-}
-
 .admin-login {
     position: relative;
     height: 100vh;
@@ -42,5 +38,26 @@
     
     .admin-login__heading {
         margin-bottom: spacing(base);
+    }
+}
+
+.admin-panel {
+    position: relative;
+    min-height: 100vh;
+    height: 100vh;
+
+    .admin-panel__container {
+        @include flexbox;
+        @include flex-direction(row);
+        height: 100%;
+    }
+
+    .admin-panel__sidebar {
+        @include flex-basis(300px);
+        background-color: gray(1600);
+    }
+    
+    .admin-panel__content {
+        @include flex-basis(100%);
     }
 }

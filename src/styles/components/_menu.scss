@@ -1,8 +1,0 @@
-.menu {
-    position: relative;
-
-    .menu__list {
-        @include flexbox;
-        @include flex-direction(column);
-    }
-}

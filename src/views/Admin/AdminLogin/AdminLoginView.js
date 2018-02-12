@@ -1,13 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
-import { Row, Column } from '../../layouts/Grid';
-import { Form, FormField, FormLabel, FormControl } from '../../layouts/Form';
-import { Card } from '../../components/Card';
-import { Input } from '../../components/Input';
-import { Button } from '../../components/Button';
-
-import { default as AdminPanelBanner } from '../../assets/images/admin-panel-bg.jpg';
+import { Row, Column } from '../../../layouts/Grid';
+import { Form, FormField, FormLabel, FormControl } from '../../../layouts/Form';
+import { Card } from '../../../components/Card';
+import { Input } from '../../../components/Input';
+import { Button } from '../../../components/Button';
+import { default as AdminPanelBanner } from '../../../assets/images/admin-panel-bg.jpg';
 
 const AdminLoginView = props => {
     const {
@@ -19,8 +17,8 @@ const AdminLoginView = props => {
     return (
         <main className="admin-login">
             <Row gutterless className="admin-login__container">
-                <Column md={3} sm={12} className="admin-panel__banner" style={{backgroundImage: `url(${AdminPanelBanner})`}} />
-                <Column md={9} sm={12}>
+                <Column md={4} sm={12} className="admin-login__banner" style={{backgroundImage: `url(${AdminPanelBanner})`}} />
+                <Column md={8} sm={12}>
                     <div className="admin-login__content">
                         <div className="admin-login__heading">
                             <h5 className="heading-title">805 Carwash Admin Panel</h5>
@@ -58,10 +56,6 @@ const AdminLoginView = props => {
             </Row>
         </main>
     );
-};
-
-AdminLoginView.propTypes = {
-    
 };
 
 export default AdminLoginView;

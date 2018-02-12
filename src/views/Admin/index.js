@@ -1,10 +1,6 @@
 export { default as Admin } from './Admin';
-export { default as AdminHeader } from './AdminHeader';
-export { default as AdminHeaderView } from './AdminHeaderView';
 export { default as AdminView } from './AdminView';
-export { default as AdminLogin } from './AdminLogin';
-export { default as AdminLoginView } from './AdminLoginView';
-export { default as AdminDashboard } from './AdminDashboard';
-export { default as AdminDashboardView } from './AdminDashboardView';
-export { default as AdminPanel } from './AdminPanel';
-export { default as AdminPanelView } from './AdminPanelView';
+export * from './AdminDashboard';
+export * from './AdminLogin';
+export * from './AdminPanel';
+export * from './AdminLayout';

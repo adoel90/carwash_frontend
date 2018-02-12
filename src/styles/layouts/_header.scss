@@ -1,14 +1,19 @@
 .header {
     position: relative;
-    min-height: 4.5rem;
-    height: 4.5rem;
+    min-height: 4rem;
+    height: 4rem;
     border-bottom: solid 1px gray(200);
+    background-color: theme-color(primary);
+
+    > * {
+        color: color-yiq(theme-color(primary)) !important;
+    }
 
     .header__container {
         @extend .container;
         @include flexbox;
         @include flex-direction(row);
-        @include justify-content(justify-content);
+        @include justify-content(space-between);
         height: 100%;
         
         &--block {
@@ -19,6 +24,7 @@
     .header__block {
         @include flexbox;
         @include align-items(center);
+        @include flex(1 1 100%);
         position: relative;
         height: 100%;
     }

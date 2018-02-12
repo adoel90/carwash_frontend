@@ -23,7 +23,7 @@ export const adminLogin = (data) => {
                 let result = response.data.result;
                 
                 localStorage.setItem('accessToken', result.accessToken);
-                localStorage.setItem('userData', result.data);
+                localStorage.setItem('userData', JSON.stringify(result.data));
                 dispatch(loginSuccess(result));
             })
             .catch((error) => {

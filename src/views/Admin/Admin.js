@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { AdminView, AdminDashboard } from '../Admin';
+import { AdminView } from '../Admin';
 
 function mapStateToProps(state) {
     return {
@@ -16,7 +16,7 @@ class Admin extends Component {
         this.state = {
             isAuthenticated: localStorage.getItem('accessToken') ? true : false,
             authenticatedAs: localStorage.getItem('accessToken') ? 'admin' : null,
-            userData: localStorage.getItem('userData') ? localStorage.getItem('userData') : {}
+            userData: localStorage.getItem('userData') ? JSON.parse(localStorage.getItem('userData')) : {}
         }
     }
 
@@ -40,7 +40,7 @@ class Admin extends Component {
                     this.handleRedirect();
                 });
             }
-        }        
+        }
     }
 
     handleRedirect = () => {
@@ -53,13 +53,12 @@ class Admin extends Component {
             match,
             history
         } = this.props;
-
+        
         if(isAuthenticated && authenticatedAs == 'admin') {
-            return history.push(`${match.url}`)
+            return history.push(`${match.url}`);
         }
-        else {
-            return history.push(`${match.url}/login`);
-        }
+
+        return history.push(`${match.url}/login`);
     }
     
     render() {

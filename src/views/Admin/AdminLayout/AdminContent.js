@@ -1,16 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Content } from '../../../layouts/Content';
 
 const AdminContent = props => {
     const {
-        children
+        children,
+        className
     } = props;
     
-    return (
-        <div className="admin-panel__content">
-            {children}
-        </div>
-    )
+    return <Content className="admin-panel__content">{children}</Content>
 };
 
 export default AdminContent;

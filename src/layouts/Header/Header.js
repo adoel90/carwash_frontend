@@ -5,7 +5,6 @@ import classNames from 'classnames';
 const Header = props => {
     const {
         children,
-        block,
         className
     } = props;
 
@@ -15,8 +14,7 @@ const Header = props => {
             className
         ),
         headerContainer: classNames(
-            `header__container`,
-            `header__container${block ? '--block' : null}`
+            `header__container`
         )
     }
     
@@ -28,13 +26,5 @@ const Header = props => {
         </header>
     )
 };
-
-Header.defaultProps = {
-    block: false
-}
-
-Header.propTypes = {
-    block: PropTypes.bool,
-}
 
 export default Header;

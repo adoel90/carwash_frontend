@@ -1,9 +1,9 @@
 .header {
     position: relative;
-    min-height: 4rem;
-    height: 4rem;
-    border-bottom: solid 1px gray(200);
-    background-color: theme-color(primary);
+    min-height: 4.5rem;
+    height: 4.5rem;
+    border-bottom: solid 1px gray(100);
+    background-color: gray(0);
 
     > * {
         color: color-yiq(theme-color(primary)) !important;

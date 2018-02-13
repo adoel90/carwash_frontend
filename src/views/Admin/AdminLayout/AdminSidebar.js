@@ -7,8 +7,16 @@ const AdminSidebar = props => {
     const {
         routes
     } = props;
+
+    const renderMenu = () => {
+        <Menu>
+            <MenuList>
+                { renderMenuItem() }
+            </MenuList>
+        </Menu>
+    }
     
-    const renderMenuItems = () => {
+    const renderMenuItem = () => {
         return routes.map((route, i) => {
             return <MenuItem>{route.name}</MenuItem>
         })
@@ -16,11 +24,7 @@ const AdminSidebar = props => {
     
     return (
         <Sidebar className="admin-panel__sidebar">
-            <Menu>
-                <MenuList>
-                    { renderMenuItems() }
-                </MenuList>
-            </Menu>
+            { renderMenu() }
         </Sidebar>
     );
 };

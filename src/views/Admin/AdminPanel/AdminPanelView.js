@@ -1,41 +1,38 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Switch } from 'react-router-dom';
-import { Container, Row, Column } from '../../../layouts/Grid';
 import { PropsRoute } from '../../../utilities/Route';
-import { AdminHeader, AdminSidebar, AdminContent } from '../AdminLayout';
-import { AdminDashboard } from '../AdminDashboard';
+import { AdminPage, AdminHeader, AdminContent, AdminSidebar } from '../../Admin';
+import { Row, Column } from '../../../layouts/Grid';
 
 const AdminPanelView = props => {
     const {
-        match,
         routes,
     } = props;
 
+    /** Renders routes with props inheritance. */
     const renderRoutes = () => {
         return routes.map((route, i) => {
-            return (
-                <PropsRoute
-                    name={route.name}
-                    path={route.path}
-                    component={route.component}
-                    {...this.props}
-                />
-            )
+            return <PropsRoute
+                name={route.name}
+                path={route.path}
+                component={route.component}
+                {...this.props}
+            />
         })
     }
-    
+
     return (
         <div className="admin-panel">
-            <div className="admin-panel__container">
-                <AdminSidebar {...props} />
+            <AdminSidebar {...props} />
+            <AdminPage>
+                <AdminHeader {...props} />
                 <AdminContent>
-                    <AdminHeader {...props} />
                     { renderRoutes() }
                 </AdminContent>
-            </div>
+            </AdminPage>
         </div>
-    );
+    )
 };
 
 export default AdminPanelView;

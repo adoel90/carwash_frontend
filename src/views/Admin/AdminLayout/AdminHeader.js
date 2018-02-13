@@ -4,9 +4,12 @@ import { Header, HeaderBlock } from '../../../layouts/Header';
 
 const AdminHeader = props => {
     return (
-        <Header className="admin-panel__header" block>
+        <Header className="admin-panel__header">
             <HeaderBlock>
-                <h6>805 Carwash</h6>
+                
+            </HeaderBlock>
+            <HeaderBlock>
+
             </HeaderBlock>
         </Header>
     );

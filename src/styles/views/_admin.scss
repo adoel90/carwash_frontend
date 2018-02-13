@@ -1,3 +1,17 @@
+.admin-panel {
+    @include flexbox;
+    @include flex-direction(row);
+    position: relative;
+    height: 100vh;
+    min-height: 100vh;
+    background-color: gray(100);
+    
+    .admin-panel__page {
+        position: relative;
+        width: 100%;
+    }
+}
+
 .admin-login {
     position: relative;
     height: 100vh;
@@ -38,26 +52,5 @@
     
     .admin-login__heading {
         margin-bottom: spacing(base);
-    }
-}
-
-.admin-panel {
-    position: relative;
-    min-height: 100vh;
-    height: 100vh;
-
-    .admin-panel__container {
-        @include flexbox;
-        @include flex-direction(row);
-        height: 100%;
-    }
-
-    .admin-panel__sidebar {
-        @include flex-basis(300px);
-        background-color: gray(1600);
-    }
-    
-    .admin-panel__content {
-        @include flex-basis(100%);
     }
 }

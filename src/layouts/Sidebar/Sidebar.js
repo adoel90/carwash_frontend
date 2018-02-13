@@ -4,28 +4,33 @@ import classNames from 'classnames';
 
 const Sidebar = props => {
     const {
-        tag: Tag,
+        size,
         className,
         children,
-        ...attributes
     } = props;
 
-    attributes.className = classNames(
-        `sidebar`,
-        className
-    );
+    const classes = {
+        sidebar: classNames(
+            `sidebar`,
+            size ? `sidebar--${size}` : null,
+            className
+        ),
+        sidebarContainer: classNames(
+            `sidebar__container`
+        )
+    }
     
-    return <Tag {...attributes}>{children}</Tag>
+    return (
+        <aside className={classes.sidebar}>
+            <div className={classes.sidebarContainer}>
+                {children}
+            </div>
+        </aside>
+    )
 };
 
-Sidebar.defaultProps = {
-    tag: 'aside'
-}
-
 Sidebar.propTypes = {
-    tag: PropTypes.oneOfType([
-        PropTypes.func, PropTypes.string,
-    ]),
+    size: PropTypes.string,
 };
 
 export default Sidebar;

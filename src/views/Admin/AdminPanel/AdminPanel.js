@@ -9,7 +9,7 @@ class AdminPanel extends Component {
         this.state = {
             routes: [
                 { id: 1, name: 'Dashboard', path: `${props.match.url}/dashboard`, component: AdminDashboard }
-            ]
+            ],
         }
     }
     

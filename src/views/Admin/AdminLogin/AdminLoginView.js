@@ -21,11 +21,9 @@ const AdminLoginView = props => {
                 <Column md={8} sm={12}>
                     <div className="admin-login__content">
                         <div className="admin-login__heading">
-                            <h5 className="heading-title">805 Carwash Admin Panel</h5>
+                            <h4 className="heading-title">805 Carwash Admin Panel</h4>
                             <h6 className="heading-subtitle">Silahkan masukkan username dan password Anda untuk masuk.</h6>
                         </div>
-
-                        {/** Login Form */}
                         <Form onSubmit={onLoginSubmit}>
                             <FormField>
                                 <FormLabel htmlFor="username">Username</FormLabel>

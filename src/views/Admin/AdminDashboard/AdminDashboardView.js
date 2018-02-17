@@ -4,7 +4,9 @@ import PropTypes from 'prop-types';
 const AdminDashboardView = props => {
     return (
         <main className="admin-dashboard">
-            <p>Welcome Admin. This is your dashboard page.</p>
+            <div className="admin-dashboard__heading">
+                <h4 className="heading-title">Dashboard</h4>
+            </div>
         </main>
     )
 };

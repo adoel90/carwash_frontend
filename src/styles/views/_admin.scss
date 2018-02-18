@@ -1,23 +1,11 @@
 .admin-panel {
     @include flexbox;
     @include flex-direction(row);
-    position: relative;
     min-height: 100vh;
-    background-color: gray(100);
-    
-    .admin-panel__page {
-        @include flex(1 1 auto);
-        position: relative;
-    }
 
-    .admin-panel__content {
-        background-color: gray(0);
-        margin: spacing(base);
-        padding: spacing(large);
-        border-radius: border-radius(base);
-        height: 50em;
+    .admin-panel__page {
+        background-color: gray(200);
     }
-    
 }
 
 .admin-login {

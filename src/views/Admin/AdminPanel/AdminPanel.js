@@ -8,7 +8,7 @@ class AdminPanel extends Component {
         super(props);
         this.state = {
             routes: [
-                { id: 1, name: 'Dashboard', path: `${props.match.url}`, component: AdminDashboard }
+                { id: 1, name: 'Dashboard', path: `${props.match.url}/dashboard`, component: AdminDashboard },
             ],
         }
     }

@@ -3,6 +3,6 @@
 //
 
 $bouncy					: cubic-bezier(0.2, 0.85, 0.2, 1.1);
-$transition-base		: $bouncy;
+$transition-base		: all 250ms $bouncy;
 
 //-----------------------------------------------------------------------------

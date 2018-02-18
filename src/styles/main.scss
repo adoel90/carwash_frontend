@@ -2,60 +2,54 @@
 //	A B S T R A C T S
 //
 
-@import
-'./abstracts/functions',
-'./abstracts/variables',
-'./abstracts/mixins';
+@import './abstracts/functions';
+@import './abstracts/variables';
+@import './abstracts/mixins';
 
 //--------------------------------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------------------------------
 //	B A S E
 //
 
-@import
-'./base/reset',
-'./base/global',
-'./base/animation',
-'./base/color',
-'./base/text',
-'./base/iconography',
-'./base/typography';
+@import './base/reset';
+@import './base/global';
+@import './base/animation';
+@import './base/color';
+@import './base/text';
+@import './base/iconography';
+@import './base/typography';
 
 //--------------------------------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------------------------------
 //	C O M P O N E N T S
 //
 
-@import
-'./components/alert',
-'./components/button',
-'./components/badge',
-'./components/input',
-'./components/card';
+@import './components/alert';
+@import './components/button';
+@import './components/badge';
+@import './components/input';
+@import './components/card';
+@import './components/menu';
 
 //--------------------------------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------------------------------
 //	L A Y O U T S
 //
 
-@import
-'./layouts/header',
-'./layouts/sidebar',
-'./layouts/content',
-'./layouts/page',
-'./layouts/flex',
-'./layouts/form',
-'./layouts/grid',
-'./layouts/media',
-'./layouts/spacing';
+@import './layouts/header';
+@import './layouts/sidebar';
+@import './layouts/layout';
+@import './layouts/flex';
+@import './layouts/form';
+@import './layouts/grid';
+@import './layouts/media';
+@import './layouts/spacing';
 
 //--------------------------------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------------------------------
 //	V I E W S
 //
 
-@import
-"./views/home",
-"./views/admin";
+@import "./views/admin";
 
 //--------------------------------------------------------------------------------------------------------

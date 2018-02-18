@@ -1,0 +1,55 @@
+.menu {
+    position: relative;
+    height: 100%;
+
+    @each $theme, $color in $theme-colors {
+        &.menu--#{$theme} {
+            background-color: $color;
+
+            .menu__category {
+                color: color-yiq($color);
+            }
+
+            .menu__item {
+                color: shade(color-yiq($color), 50%);
+
+                &:hover {
+                    color: color-yiq($color);
+                }
+
+                &--active {
+                    border-right: solid 7px theme-color(secondary);
+                    background-color: tint($color, 4%);
+                    font-weight: font-weight(semibold);
+                    color: color-yiq($color);
+                }
+
+            }
+        }
+    }
+
+    .menu__list {
+        position: relative;    
+    }
+
+    .menu__category {
+        padding: spacing(base);
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-size: 85%;
+    }
+    
+    .menu__item {
+        position: relative;
+        @include transition($transition-base);
+
+        > a {
+            display: block;
+            padding: spacing(base);
+            padding-left: spacing(large);
+            color: inherit;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    }
+}

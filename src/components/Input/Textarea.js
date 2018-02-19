@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 const Textarea = props => {
     const {
@@ -8,6 +9,11 @@ const Textarea = props => {
         children,
         ...attributes
     } = props;
+
+    attributes.className = classNames(
+        `textarea`,
+        className
+    )
     
     return <Tag {...attributes}>{children}</Tag>
 };

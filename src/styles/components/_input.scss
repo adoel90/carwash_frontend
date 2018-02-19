@@ -1,4 +1,5 @@
-.input {
+.input,
+.textarea {
     @include transition($input__transition);
     position: relative;
     display: inline-block;
@@ -30,5 +31,30 @@
         border: $input--disabled__border;
         background-color: gray(100);
         cursor: not-allowed;
+    }
+}
+
+.input-group {
+    @include flexbox;
+    @include flex-direction(row);
+
+    .input {
+        border-radius: 0;
+
+        &:hover,
+        &:focus {
+            z-index: 1;
+        }
+    }
+    
+    .input:first-of-type {
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+    }
+
+    .input:last-of-type {
+        margin-left: -1px;
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
     }
 }

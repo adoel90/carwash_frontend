@@ -20,13 +20,7 @@ const Sidebar = props => {
         )
     }
     
-    return (
-        <aside className={classes.sidebar}>
-            <div className={classes.sidebarContainer}>
-                {children}
-            </div>
-        </aside>
-    )
+    return <aside className={classes.sidebar}>{children}</aside>
 };
 
 Sidebar.propTypes = {

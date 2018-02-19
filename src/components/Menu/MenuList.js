@@ -4,28 +4,31 @@ import classNames from 'classnames';
 
 const MenuList = props => {
     const {
-        tag: Tag,
-        children,
+        category,
         className,
-        ...attributes
+        children
     } = props;
 
-    attributes.className = classNames(
-        `menu__list`,
-        className
-    );
-    
-    return <Tag {...attributes}>{children}</Tag>
+    const classes = {
+        menuList: classNames(
+            `menu__list`,
+            className
+        ),
+        menuCategory: classNames(
+            `menu__category`
+        )
+    }
+
+    return (
+        <ul className={classes.menuList}>
+            { category ? <h6 className={classes.menuCategory}>{category}</h6> : null }
+            { children }
+        </ul>
+    )
 };
 
-MenuList.defaultProps = {
-    tag: 'div'
-}
-
 MenuList.propTypes = {
-    tag: PropTypes.oneOfType([
-        PropTypes.func, PropTypes.string,
-    ]),
+    category: PropTypes.string,
 };
 
 export default MenuList;

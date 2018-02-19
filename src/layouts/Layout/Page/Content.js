@@ -12,17 +12,10 @@ const Content = props => {
         content: classNames(
             `content`,
             className
-        ),
-        contentContainer: classNames(
-            `content__container`
         )
     }
     
-    return <main className={classes.content}>{children}</main>
-};
-
-Content.propTypes = {
-    
+    return <div className={classes.content}>{children}</div>
 };
 
 export default Content;

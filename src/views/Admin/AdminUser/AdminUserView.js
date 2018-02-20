@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Section } from '../../../layouts/Section';
 import { Panel, PanelStack } from '../../../components/Panel';
 import { Table, TableHead, TableBody } from '../../../components/Table';
+import { Button } from '../../../components/Button';
 
 const AdminUserView = props => {
     const {
@@ -14,8 +15,13 @@ const AdminUserView = props => {
             return userList.data.data.result.map((user, i) => {
                 return (
                     <tr>
-                        <td>{user.id}</td>
+                        <td style={{ width: '5%', whiteSpace: 'nowrap'}}>{user.id}</td>
                         <td>{user.name}</td>
+                        <td>{user.email}</td>
+                        <td>
+                            <Button className="margin-right-small">Ubah</Button>
+                            <Button theme="secondary">Hapus</Button>
+                        </td>
                     </tr>
                 )
             })            
@@ -34,7 +40,8 @@ const AdminUserView = props => {
                         <TableHead>
                             <tr>
                                 <th>ID</th>
-                                <th>Nama Member</th>
+                                <th>Nama User</th>
+                                <th>Alamat Email</th>
                                 <th>Aksi</th>
                             </tr>
                         </TableHead>

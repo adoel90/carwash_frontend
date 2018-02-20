@@ -30,6 +30,10 @@ class AdminLogin extends Component {
         }
     }
 
+    componentDidMount = () => {
+        this.props.handleRedirect();
+    }
+
     handleInputChange = (object, e) => {        
         const target = e.target;
         const value = target.value;

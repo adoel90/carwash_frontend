@@ -45,7 +45,10 @@ const AdminLoginView = props => {
                                     onChange={(e) => handleInputChange('credentials', e)}
                                 />
                             </FormField>
-                            <Button type="submit" disabled={!credentials.username || !credentials.password}>
+                            <Button 
+                                type="submit" 
+                                disabled={!credentials.username || !credentials.password}
+                                block>
                                 Masuk
                             </Button>
                         </Form>

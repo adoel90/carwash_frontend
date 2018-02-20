@@ -20,10 +20,6 @@ class Admin extends Component {
         }
     }
 
-    componentDidMount = () => {
-        this.handleRedirect();
-    }
-
     componentDidUpdate = (prevProps) => {
         const {
             authentication
@@ -66,6 +62,7 @@ class Admin extends Component {
             <AdminView
                 {...this.state}
                 {...this.props}
+                handleRedirect={this.handleRedirect}
             />
         )
     }

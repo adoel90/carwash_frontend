@@ -1,5 +1,6 @@
 .button {
 	@include transition($button__transition);
+	display: inline-block;
 	font-size: $button__font-size;
 	font-weight: $button__font-weight;
 	border: $button__border;
@@ -58,6 +59,11 @@
 	*/
 	&.button--rounded {
 		border-radius: $button--rounded__border-radius;
+	}
+
+	&.button--block {
+		display: block;
+		width: 100%;
 	}
 
 	/*

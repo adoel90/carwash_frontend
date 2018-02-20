@@ -1,0 +1,28 @@
+.table {
+    min-height: 10em;
+    border: solid 1px gray(100);
+    border-collapse: seperate;
+    border-radius: border-radius(base);
+    overflow: hidden;
+
+    > table {
+        width: 100%;
+    }
+
+    .table__content {
+        
+    }
+
+    .table__head {
+        background-color: gray(100);
+        
+        tr {
+
+        }
+
+        th {
+            padding: spacing(base);
+        }
+        
+    }
+}

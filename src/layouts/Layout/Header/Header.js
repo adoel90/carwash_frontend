@@ -4,6 +4,7 @@ import classNames from 'classnames';
 
 const Header = props => {
     const {
+        block,
         children,
         className
     } = props;
@@ -14,7 +15,8 @@ const Header = props => {
             className
         ),
         headerContainer: classNames(
-            `header__container`
+            `header__container`,
+            block ? `header__container--block` : null
         )
     }
     

@@ -9,10 +9,7 @@ class AdminPanel extends Component {
         this.state = {
             routes: [
                 { id: 1, name: 'dashboard', path: `${props.match.url}`, component: AdminDashboard },
-                { id: 2, name: 'user', path: `${props.match.url}/user`, component: AdminUser },
-                { id: 3, name: 'add-user', path: `${props.match.url}/user/add`, component: AdminAddUser },
-                { id: 4, name: 'member', path: `${props.match.url}/member` },
-                { id: 5, name: 'card', path: `${props.match.url}/card` },
+                { id: 2, name: 'user', path: `${props.match.url}/user`, component: AdminUser }
             ],
             menus: [
                 { 
@@ -25,15 +22,6 @@ class AdminPanel extends Component {
                     category: 'Manajemen User',
                     items: [
                         { id: 1, name: 'Daftar User', path: `${props.match.url}/user` },
-                        { id: 2, name: 'Tambah User Baru', path: `${props.match.url}/user/add` },
-                        { id: 3, name: 'Pengaturan User', path: `${props.match.url}/user/settings` },
-                    ]
-                },
-                {
-                    category: 'Manajemen Member',
-                    items: [
-                        { id: 1, name: 'Daftar Member', path: `${props.match.url}/member` },
-                        { id: 2, name: 'Pengaturan Member', path: `${props.match.url}/member/add` },
                     ]
                 }
             ]

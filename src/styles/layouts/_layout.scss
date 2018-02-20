@@ -2,19 +2,17 @@
     @include flexbox;
     @include flex-direction(row);
     min-height: 100vh;
+    overflow-x: hidden;
     
     .sidebar {
-        @include flex(1 0 250px);
-        position: relative;
-        max-width: 250px;
-        width: 250px;
+        @include flex(0 0 256px);
+        max-width: 256px;
+        min-width: 256px;
+        width: 256px;
     }
 
     .page {
-        @include flexbox;
-        @include flex-direction(column);
-        @include flex(1 0 auto);
-        position: relative;
+        @include flex(auto);
         background-color: gray(100);
 
         .content {

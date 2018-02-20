@@ -1,10 +1,9 @@
 .form {
-    @include flexbox;
-    @include flex-direction(column);
     position: relative;
 
     &__label {
         font-weight: font-weight(semibold);
+        line-height: 2;
     }
 
     &__control {

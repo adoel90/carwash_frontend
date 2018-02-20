@@ -2,11 +2,13 @@ $panel__themes              : $theme-colors;
 $panel__background-color    : gray(0);
 $panel__spacing             : spacing(large);
 $panel__border-radius       : border-radius(base);
+$panel__box-shadow          : 0px 8px 15px rgba(0, 0, 0, 0.025);
 
 .panel {
     @include border-radius(base);
     position: relative;
     background-color: $panel__background-color;
+    box-shadow: $panel__box-shadow;
     min-height: 5em;
     padding: $panel__spacing;
     border-radius: $panel__border-radius;
@@ -17,4 +19,12 @@ $panel__border-radius       : border-radius(base);
             color: color-yiq($color);
         }
     }
+}
+
+/*
+//  PANEL STACK
+//  A wrapper component that can be filled with multiple panel to form a single panel entity.
+*/
+.panel-stack {
+    position: relative;
 }

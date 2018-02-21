@@ -15,7 +15,7 @@ const PaginationItem = props => {
         )
     }
     
-    return <li className={classes.paginationItem}></li>
+    return <li className={classes.paginationItem}>{children}</li>
 };
 
 PaginationItem.propTypes = {

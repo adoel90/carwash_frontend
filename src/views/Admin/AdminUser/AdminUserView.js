@@ -2,11 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Section } from '../../../layouts/Section';
 import { Panel, PanelStack } from '../../../components/Panel';
-import { Table, TableHead, TableBody } from '../../../components/Table';
+import { TableSet } from '../../../components/Table';
 import { Button } from '../../../components/Button';
 
 const AdminUserView = props => {
     const {
+        table,
         userList
     } = props;
     
@@ -36,7 +37,15 @@ const AdminUserView = props => {
                     <h6 className="heading-subtitle">Tempor nostrud cupidatat officia sit ullamco eu pariatur ullamco quis laborum nulla ipsum.</h6>
                 </div>
                 <div className="admin-user__content">
-                    <Table striped fullWidth>
+                    <TableSet
+                        columns={table.columns}
+                        rows={table.rows}
+                        striped 
+                        fullWidth
+                        pagination
+                    />
+                
+                    {/* <Table striped fullWidth>
                         <TableHead>
                             <tr>
                                 <th>ID</th>
@@ -48,7 +57,7 @@ const AdminUserView = props => {
                         <TableBody>
                             { renderTableBody() }
                         </TableBody>
-                    </Table>
+                    </Table> */}
                 </div>
             </Panel>
         </div>

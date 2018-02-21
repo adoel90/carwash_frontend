@@ -20,9 +20,15 @@ class AdminUser extends Component {
     constructor() {
         super();
         this.getUserList = this.getUserList.bind(this);
+        this.populateTableData = this.populateTableData.bind(this);
         this.state = {
             user: {},
-            userList: {}
+            userList: {},
+            table: {
+                columns: [],
+                rows: [],
+                limit: 10
+            }
         }
     }
 
@@ -39,8 +45,57 @@ class AdminUser extends Component {
             this.setState({
                 ...this.state,
                 userList: user.list
+            }, () => {
+                this.populateTableData();
             });
         }
+    }
+
+    populateTableData = () => {
+        const { userList } = this.state;
+        
+        const columns = [{
+            title: 'ID',
+            accessor: 'id'
+        }, {
+            title: 'Nama User',
+            accessor: 'name'
+        }, {
+            title: 'Alamat Email',
+            accessor: 'email'
+        }, {
+            title: 'Aksi',
+            accessor: 'action',
+            render: (
+                <span>
+                    <a href="#">Ubah</a> — &nbsp;
+                    <a href="#">Hapus</a>
+                </span>
+            )
+        }]
+
+        const rows = [] 
+        
+        if(userList.isLoaded) {
+            userList.data.data.result.map((user, i) => {
+                let row = {
+                    id: user.id,
+                    name: user.name,
+                    email: user.email,
+                }
+
+                rows.push(row);
+            })
+        }
+
+        this.setState({
+            ...this.state,
+            table: {
+                ...this.state.table,
+                columns: columns,
+                rows: rows
+            }
+        })
     }
 
     getUserList = () => {

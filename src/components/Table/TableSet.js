@@ -6,11 +6,28 @@ import { PaginationSet } from '../Pagination';
 class TableSet extends Component {
     constructor() {
         super();
+        this.handlePageChange = this.handlePageChange.bind(this);
         this.state = {
             offset: 0,
             limit: 10,
             activePage: 1
         }
+    }
+
+    handlePageChange = (page) => {
+        const {
+            activePage
+        } = this.props;
+        
+        const {
+            offset,
+            limit,
+        } = this.state;
+        
+        this.setState({
+            ...this.state,
+            activePage: page
+        });
     }
     
     render() {
@@ -23,10 +40,12 @@ class TableSet extends Component {
         const {
             columns,
             rows,
-            defaultLimit,
             pagination,
             ...attributes
         } = this.props;
+
+        let lowerBound = (activePage - 1) * limit;
+        let upperBound = activePage * limit;
         
         const renderTableHead = () => (
             <TableHead>
@@ -50,7 +69,7 @@ class TableSet extends Component {
 
         const renderTableRows = () => {
             return rows
-                .slice(offset, limit)
+                .slice(lowerBound, upperBound)
                 .map((row, i) => {
                 return <tr key={i}>{ renderTableCell(row) }</tr>
             })
@@ -59,7 +78,7 @@ class TableSet extends Component {
         const renderTableCell = (row) => {            
             return columns.map((column, i) => {
                 if(column.render) {
-                    return <td key={i}>{column.render}</td>
+                    return column.render(row);
                 }
                 
                 for(var key in row) {
@@ -72,7 +91,12 @@ class TableSet extends Component {
 
         const renderTablePagination = () => {
             if(pagination) {
-                return <PaginationSet activePage={activePage} limit={limit} total={rows.length} />
+                return <PaginationSet 
+                    activePage={activePage} 
+                    total={rows.length} 
+                    limit={limit}  
+                    onPageChange={this.handlePageChange} 
+                />
             }
         }
         
@@ -83,7 +107,7 @@ class TableSet extends Component {
                     { renderTableBody() }
                 </Table>
                 <div className="flex justify-content--space-between" style={{padding: '30px 0'}}>
-                    <small>Menunjukan {rows.length} baris.</small>
+                    <small>Menunjukan {upperBound > rows.length ? rows.length : upperBound} dari {rows.length} baris.</small>
                     { renderTablePagination() }
                 </div>
             </div>

@@ -16,7 +16,7 @@ class PaginationSet extends Component {
         }
     }
 
-    updatePagination = () => {
+    updatePagination = () => {        
         const {
             total,
             limit
@@ -29,6 +29,7 @@ class PaginationSet extends Component {
             pages: pages
         });
     }
+
     
     render() {
         const {
@@ -37,49 +38,54 @@ class PaginationSet extends Component {
         
         const {
             activePage,
-            total
+            total,
+            onPageChange,
         } = this.props;
         
-        const renderPaginationItems = () => {
+        const renderPagers = () => {
             let page = 1;
+            let pagers = [];
             while(page <= pages) {
-                return (
+                let pager = page;
+                
+                pagers.push(
                     <PaginationItem>
-                        <PaginationLink>{page}</PaginationLink>
+                        <PaginationLink 
+                            onClick={() => onPageChange(pager)} 
+                            active={pager === activePage}>
+                            {pager}
+                        </PaginationLink>
                     </PaginationItem>
                 )
+
+                page++;
             }
-            
-            
-            // return (
-            //     <PaginationItem>
-            //         <PaginationLink active>1</PaginationLink>
-            //     </PaginationItem>
-            //     <PaginationItem>
-            //         <PaginationLink>2</PaginationLink>
-            //     </PaginationItem>
-            //     <PaginationItem>
-            //         <PaginationLink>3</PaginationLink>
-            //     </PaginationItem>
-            //     <PaginationItem>
-            //         <PaginationLink disabled>...</PaginationLink>
-            //     </PaginationItem>
-            //     <PaginationItem>
-            //         <PaginationLink>50</PaginationLink>
-            //     </PaginationItem>
-            // )
+
+            return pagers;
+        }
+
+        const renderPreviousPager = () => {
+            return (
+                <PaginationItem>
+                    <PaginationLink previous disabled={activePage === 1} onClick={() => onPageChange(activePage - 1)} />
+                </PaginationItem>
+            )
+        }
+
+        const renderNextPager = () => {
+            return (
+                <PaginationItem>
+                    <PaginationLink next disabled={activePage === pages} onClick={() => onPageChange(activePage + 1)} />
+                </PaginationItem>
+            )
         }
         
         return (
             <Pagination>
                 <PaginationList>
-                    <PaginationItem>
-                        <PaginationLink previous disabled={activePage == 1} />
-                    </PaginationItem>
-                    { renderPaginationItems() }
-                    <PaginationItem>
-                        <PaginationLink next disabled={activePage == pages} />
-                    </PaginationItem>
+                    {renderPreviousPager()}
+                    {renderPagers()}
+                    {renderNextPager()}
                 </PaginationList>
             </Pagination>
         )

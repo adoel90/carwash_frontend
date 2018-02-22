@@ -1,10 +1,18 @@
 import {
 	GET_USER_LIST_REQUESTED,
 	GET_USER_LIST_FULFILLED,
-	GET_USER_LIST_REJECTED
+	GET_USER_LIST_REJECTED,
+	CREATE_USER_FULFILLED,
+	CREATE_USER_REJECTED
 } from '../actions/user.action'
 
 const initialState = {
+	item: {
+		data: {},
+		isCreated: false,
+		isError: false,
+		error: {}
+	},
 	list: {
 		data: {},
 		isFetching: false,
@@ -52,6 +60,32 @@ const user = (state = initialState, action) => {
 					data: {},
 					isLoaded: false,
 					isFetching: false,
+					isError: true,
+					error: action.payload
+				}
+			}
+		}
+
+		case CREATE_USER_FULFILLED: {
+			return {
+				...state,
+				item: {
+					...state.item,
+					data: action.payload,
+					isCreated: true,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case CREATE_USER_REJECTED: {
+			return {
+				...state,
+				item: {
+					...state.item,
+					data: {},
+					isCreated: false,
 					isError: true,
 					error: action.payload
 				}

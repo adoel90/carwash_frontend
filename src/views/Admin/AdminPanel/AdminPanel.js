@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { AdminDashboard, AdminUser, AdminAddUser } from '../../Admin';
+import { AdminDashboard, AdminUser, AdminUserCreate } from '../../Admin';
 import { AdminPanelView } from '../AdminPanel';
 
 class AdminPanel extends Component {    
@@ -9,7 +9,8 @@ class AdminPanel extends Component {
         this.state = {
             routes: [
                 { id: 1, name: 'dashboard', path: `${props.match.url}`, component: AdminDashboard },
-                { id: 2, name: 'user', path: `${props.match.url}/user`, component: AdminUser }
+                { id: 2, name: 'user', path: `${props.match.url}/user`, component: AdminUser },
+                { id: 3, name: 'create-user', path: `${props.match.url}/user/create-new`, component: AdminUserCreate }
             ],
             menus: [
                 { 

@@ -5,7 +5,7 @@ $table__background-color                : gray(0);
 $table__border                          : solid 1px gray(100);
 $table__border-radius                   : border-radius(base);
 $table__spacing                         : spacing(base);
-$table__spacing--small                  : spacing(small);
+$table__spacing--compact                : spacing(small);
 
 $table-head__font-weight                : font-weight(bold);
 $table-head__background-color           : gray(100);
@@ -64,10 +64,10 @@ $table-cell__background-color--even     : gray(100);
         }
     }
 
-    &--small {
+    &--compact {
         .table__head > tr > th,
         .table__body > tr > td {
-            padding: $table__spacing--small;
+            padding: $table__spacing--compact;
         }
     }
 }

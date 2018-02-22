@@ -10,25 +10,7 @@ const AdminUserView = props => {
         table,
         userList
     } = props;
-    
-    const renderTableBody = () => {
-        if(userList.isLoaded) {
-            return userList.data.data.result.map((user, i) => {
-                return (
-                    <tr>
-                        <td style={{ width: '5%', whiteSpace: 'nowrap'}}>{user.id}</td>
-                        <td>{user.name}</td>
-                        <td>{user.email}</td>
-                        <td>
-                            <Button className="margin-right-small">Ubah</Button>
-                            <Button theme="secondary">Hapus</Button>
-                        </td>
-                    </tr>
-                )
-            })            
-        }
-    }
-    
+
     return (
         <div className="admin-user">
             <Panel>
@@ -44,20 +26,6 @@ const AdminUserView = props => {
                         fullWidth
                         pagination
                     />
-                
-                    {/* <Table striped fullWidth>
-                        <TableHead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Nama User</th>
-                                <th>Alamat Email</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </TableHead>
-                        <TableBody>
-                            { renderTableBody() }
-                        </TableBody>
-                    </Table> */}
                 </div>
             </Panel>
         </div>

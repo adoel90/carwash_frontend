@@ -1,25 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 const Select = props => {
     const {
-        tag: Tag,
         children,
         className,
         ...attributes
     } = props;
+
+    const classes = {
+        select: classNames(
+            `select`,
+            className
+        )
+    }
     
-    return <Tag {...attributes}>{children}</Tag>
-};
 
-Select.defaultProps = {
-    tag: 'select'
-}
-
-Select.propTypes = {
-    tag: PropTypes.oneOfType([
-        PropTypes.func, PropTypes.string,
-    ]),
+    return (
+        <select {...attributes} className={classes.select}>
+            {children}
+        </select>
+    )
+    
 };
 
 export default Select;

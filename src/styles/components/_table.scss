@@ -1,28 +1,73 @@
-.table {
-    min-height: 10em;
-    border: solid 1px gray(100);
-    border-collapse: seperate;
-    border-radius: border-radius(base);
-    overflow: hidden;
+/*
+//  V A R I A B L E S
+*/
+$table__background-color                : gray(0);
+$table__border                          : solid 1px gray(100);
+$table__border-radius                   : border-radius(base);
+$table__spacing                         : spacing(base);
+$table__spacing--compact                : spacing(small);
 
+$table-head__font-weight                : font-weight(bold);
+$table-head__background-color           : gray(100);
+$table-head__border-bottom              : solid 2px gray(200);
+
+$table-cell__border                     : solid 1px gray(100);
+$table-cell__background-color           : gray(0);
+$table-cell__background-color--even     : gray(100); 
+
+/*
+//  R U L E S
+*/
+.table {
+    background-color: $table__background-color;
+    overflow: hidden;
+    
     > table {
-        width: 100%;
+        border: $table__border;
+        border-radius: $table__border-radius;
+        overflow: hidden;
     }
 
-    .table__content {
-        
+    .table__head > tr > th,
+    .table__body > tr > td {
+        padding: spacing(base);
+        word-break: break-all;
+        text-align: left;
     }
 
     .table__head {
-        background-color: gray(100);
-        
-        tr {
+        > tr {
+            > th {
+                font-weight: $table-head__font-weight;
+                border-bottom: $table-head__border-bottom;
+            }
+        }   
+    }
 
+    .table__body {
+        > tr {
+            border-bottom: $table-cell__border;
         }
+    }
 
-        th {
-            padding: spacing(base);
+    &--full-width {
+        > table {
+            width: 100%;
         }
-        
+    }
+
+    &--striped {
+        .table__body > tr {
+            &:nth-child(2n - 2) {
+                background-color: $table-cell__background-color--even;
+            }
+        }
+    }
+
+    &--compact {
+        .table__head > tr > th,
+        .table__body > tr > td {
+            padding: $table__spacing--compact;
+        }
     }
 }

@@ -1,136 +1,35 @@
 import {
-	USER_LOGIN_REQUESTED,
-	USER_LOGIN_FULFILLED,
-	USER_LOGIN_REJECTED,
-
 	GET_USER_LIST_REQUESTED,
 	GET_USER_LIST_FULFILLED,
 	GET_USER_LIST_REJECTED,
-	GET_ALL_USER_REQUESTED,
-	GET_ALL_USER_FULFILLED,
-	GET_ALL_USER_REJECTED,
-	CREATE_USER_REQUESTED,
 	CREATE_USER_FULFILLED,
-	CREATE_USER_REJECTED,
-	UPDATE_USER_REQUESTED,
-	UPDATE_USER_FULFILLED,
-	UPDATE_USER_REJECTED,
-	CHANGE_USER_STATUS_REQUESTED,
-	CHANGE_USER_STATUS_FULFILLED,
-	CHANGE_USER_STATUS_REJECTED,
-	DELETE_USER_REQESTED,
-	DELETE_USER_FULFILLED,
-	DELETE_USER_REJECTED,
-	
-	USER_LOGOUT_FULFILLED,
-	USER_LOGOUT_REJECTED,
+	CREATE_USER_REJECTED
 } from '../actions/user.action'
 
 const initialState = {
 	item: {
 		data: {},
-		accessToken: '',
-		isAuthenticating: false,
-		isAuthenticated: false,
-		isLoggedOut: false,
+		isCreated: false,
 		isError: false,
 		error: {}
 	},
 	list: {
-		data: [],
-		rows: 0,
+		data: {},
 		isFetching: false,
 		isLoaded: false,
 		isError: false,
 		error: {}
 	},
-	new: {
-		data: {},
-		isCreating: false,
-		isCreated: false,
-		isError: false,
-		error: {}
-	},
-	existing: {
-		data: {},
-		isUpdated: false,
-		isUpdating: false,
-		isStatusChanging: false,
-		isStatusChanged: false,
-		isError: false,
-		error: {}
-	}
 }
 
 const user = (state = initialState, action) => {
 	switch(action.type) {
-		case USER_LOGIN_REQUESTED: {
-			return {
-				...state,
-				item: {
-					...state.item,
-					data: {},
-					accessToken: '',
-					isAuthenticating: true,
-					isAuthenticated: false,
-					isError: false,
-					error: {}
-				}
-			}
-		}
-
-		case USER_LOGIN_FULFILLED: {
-			return {
-				...state,
-				item: {
-					...state.item,
-					user: action.payload.user,
-					accessToken: action.payload.accessToken,
-					isAuthenticating: false,
-					isAuthenticated: true,
-					isError: false,
-					error: {}
-				}
-			}
-		}
-
-		case USER_LOGIN_REJECTED: {
-			return {
-				...state,
-				item: {
-					...state.item,
-					user: {},
-					accessToken: '',
-					isAuthenticating: false,
-					isAuthenticated: false,
-					isError: true,
-					error: action.payload
-				}
-			}
-		}
-
-		case USER_LOGOUT_FULFILLED: {
-			return {
-				...state,
-				item: {
-					...state.item,
-					data: {},
-					accessToken: '',
-					isAuthenticating: false,
-					isAuthenticated: false,
-					isLoggedOut: true,
-					isError: false,
-					error: {}
-				}
-			}
-		}
-
 		case GET_USER_LIST_REQUESTED: {
 			return {
 				...state,
 				list: {
 					...state.list,
-					data: [],
+					data: {},
 					isFetching: true,
 					isLoaded: false,
 					isError: false,
@@ -144,10 +43,9 @@ const user = (state = initialState, action) => {
 				...state,
 				list: {
 					...state.list,
-					data: action.payload.user,
-					rows: action.payload.row,
-					isFetching: false,
+					data: action.payload,
 					isLoaded: true,
+					isFetching: false,
 					isError: false,
 					error: {}
 				}
@@ -160,66 +58,10 @@ const user = (state = initialState, action) => {
 				list: {
 					...state.list,
 					data: {},
-					isFetching: false,
 					isLoaded: false,
+					isFetching: false,
 					isError: true,
 					error: action.payload
-				}
-			}
-		}
-
-		case GET_ALL_USER_REQUESTED: {
-			return {
-				...state,
-				list: {
-					...state.list,
-					data: [],
-					isFetching: true,
-					isLoaded: false,
-					isError: false,
-					error: {}
-				}
-			}
-		}
-
-		case GET_ALL_USER_FULFILLED: {
-			return {
-				...state,
-				list: {
-					...state.list,
-					data: action.payload.data,
-					isFetching: false,
-					isLoaded: true,
-					isError: false,
-					error: {}
-				}
-			}
-		}
-
-		case GET_ALL_USER_REJECTED: {
-			return {
-				...state,
-				list: {
-					...state.list,
-					data: [],
-					isFetching: false,
-					isLoaded: false,
-					isError: true,
-					error: action.payload
-				}
-			}
-		}
-
-		case CREATE_USER_REQUESTED: {
-			return {
-				...state,
-				new: {
-					...state.new,
-					data: {},
-					isCreating: true,
-					isCreated: false,
-					isError: false,
-					error: {}
 				}
 			}
 		}
@@ -227,10 +69,9 @@ const user = (state = initialState, action) => {
 		case CREATE_USER_FULFILLED: {
 			return {
 				...state,
-				new: {
-					...state.new,
-					data: action.payload.data,
-					isCreating: false,
+				item: {
+					...state.item,
+					data: action.payload,
 					isCreated: true,
 					isError: false,
 					error: {}
@@ -241,98 +82,10 @@ const user = (state = initialState, action) => {
 		case CREATE_USER_REJECTED: {
 			return {
 				...state,
-				new: {
-					...state.new,
+				item: {
+					...state.item,
 					data: {},
-					isCreating: false,
 					isCreated: false,
-					isError: true,
-					error: action.payload
-				}
-			}
-		}
-
-		case UPDATE_USER_REQUESTED: {
-			return {
-				...state,
-				existing: {
-					...state.exisitng,
-					data: {},
-					isUpdating: true,
-					isUpdated: false,
-					isError: false,
-					error: {}
-				}
-			}
-		}
-
-		case UPDATE_USER_FULFILLED: {
-			return {
-				...state,
-				existing: {
-					...state.existing,
-					data: action.payload,
-					isUpdating: false,
-					isUpdated: true,
-					isError: false,
-					error: {}
-				}
-			}
-		}
-
-		case UPDATE_USER_REJECTED: {
-			return {
-				...state,
-				existing: {
-					...state.existing,
-					data: {},
-					isUpdating: false,
-					isUpdated: false,
-					isError: true,
-					error: action.payload
-				}
-			}
-		}
-
-		case CHANGE_USER_STATUS_REQUESTED: {
-			return {
-				...state,
-				existing: {
-					...state.existing,
-					data: {},
-					id: action.id,
-					isStatusChanging: true,
-					isStatusChanged: false,
-					isError: false,
-					error: {}
-				}
-			}
-		}
-
-		case CHANGE_USER_STATUS_FULFILLED: {
-			return {
-				...state,
-				existing: {
-					...state.existing,
-					data: action.payload,
-					id: action.id,
-					isStatusChanging: false,
-					isStatusChanged: true,
-					isError: false,
-					error: {}
-				}
-			}
-		}
-
-		case CHANGE_USER_STATUS_REJECTED: {
-			return {
-				...state,
-				exisitng: {
-					...state.existing,
-					data: {},
-					id: action.id,
-					isStatusChanging: false,
-					isStatusChanged: false,
 					isError: true,
 					error: action.payload
 				}

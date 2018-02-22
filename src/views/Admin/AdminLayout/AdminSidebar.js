@@ -12,7 +12,7 @@ const AdminSidebar = props => {
     const renderMenuItems = (items) => {
         return items.map((item, i) => {
             return (
-                <MenuItem key={item.id} active={location.pathname === item.path }>
+                <MenuItem key={i} active={location.pathname === item.path }>
                     <MenuLink to={item.path}>{item.name}</MenuLink>
                 </MenuItem>
             )
@@ -22,7 +22,7 @@ const AdminSidebar = props => {
     const renderMenuList = () => {
         return menus.map((menu, i) => {
             return (
-                <MenuList key={menu.id} category={menu.category}>
+                <MenuList key={i} category={menu.category}>
                     { renderMenuItems(menu.items) }
                 </MenuList>
             )

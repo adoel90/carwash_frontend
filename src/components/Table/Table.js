@@ -5,6 +5,9 @@ import classNames from 'classnames';
 const Table = props => {
     const {
         theme,
+        size,
+        fullWidth,
+        striped,
         className,
         children
     } = props;
@@ -13,6 +16,9 @@ const Table = props => {
         table: classNames(
             `table`,
             theme ? `table--${theme}` : null,
+            size ? `table--${size}` : null,
+            fullWidth ? `table--full-width` : null,
+            striped ? `table--striped` : null,
             className
         )
     }
@@ -26,6 +32,8 @@ const Table = props => {
 
 Table.propTypes = {
     theme: PropTypes.string,
+    size: PropTypes.string,
+    fullWidth: PropTypes.bool,
 };
 
 export default Table;

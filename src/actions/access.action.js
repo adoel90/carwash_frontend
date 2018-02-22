@@ -18,6 +18,7 @@ export const CHANGE_ACCESS_STATUS_FULFILLED = 'CHANGE_ACCESS_STATUS_FULFILLED';
 export const CHANGE_ACCESS_STATUS_REJECTED = 'CHANGE_ACCESS_STATUS_REJECTED';
 
 export const getAllAccess = (accessToken) => {
+
 	return async dispatch => {
 		dispatch(handleRequest());
 		return axios

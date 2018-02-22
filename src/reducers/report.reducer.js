@@ -8,6 +8,7 @@ import {
 } from '../actions/report.action';
 
 const initialState = {
+	
 	transaction: {
 		data: {},
 		isFetching: false,

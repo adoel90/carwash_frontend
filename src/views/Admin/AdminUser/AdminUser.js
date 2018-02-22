@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { AdminUserView } from '../AdminUser';
 
 function mapStateToProps(state) {
+    
     return {
 
     };

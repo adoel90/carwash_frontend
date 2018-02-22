@@ -89,6 +89,7 @@ class ReportSalesListContainer extends Component {
 			accessToken,
 			dispatch,
 			type
+			
 		} = this.props;
 
 		let requiredData = {

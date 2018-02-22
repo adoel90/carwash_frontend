@@ -7,8 +7,11 @@ const accessToken = localStorage.getItem('accessToken') ? localStorage.getItem('
 //  GET USER LIST
 */
 export const getUserList = (data) => {
+    
     return async dispatch => {
+        
         dispatch(fetchRequest());
+
         return axios
             .get(`${constant.API_PATH}admin/user/list?accessToken=${accessToken}`)
             .then((response) => {

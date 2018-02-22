@@ -10,7 +10,7 @@
 }
 
 .heading-title {
-	font-weight: font-weight(semibold);
+	font-weight: font-weight(bold);
 }
 
 .heading-subtitle {
@@ -44,3 +44,23 @@
 		text-transform: $transform;
 	}
 }
+
+//--------------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------------
+//	
+//
+
+$link__color			: primary-color(600);
+$link--hovered__color	: lighten(primary-color(600), 18%);
+
+a {
+	color: $link__color;
+	text-decoration: none;
+
+	&:hover {
+		color: $link--hovered__color;
+	}
+}
+
+
+//--------------------------------------------------------------------------------------------------------

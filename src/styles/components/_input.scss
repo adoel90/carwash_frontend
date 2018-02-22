@@ -1,5 +1,6 @@
 .input,
-.textarea {
+.textarea,
+.select {
     @include transition($input__transition);
     position: relative;
     display: inline-block;

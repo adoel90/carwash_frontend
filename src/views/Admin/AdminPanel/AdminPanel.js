@@ -16,7 +16,7 @@ class AdminPanel extends Component {
                 { id: 3, name: 'user-management', path: `${props.match.url}/user-management`, component: AdminUserManagement },
                 { id: 4, name: 'management-user', path: `${props.match.url}/management-user`, component: AdminManagementUser},
 
-                { id: 4, name: 'create-user', path: `${props.match.url}/user/create-new`, component: AdminUserCreate }
+                { id: 5, name: 'create-user', path: `${props.match.url}/user/create-new`, component: AdminUserCreate }
 
             ],
             menus: [

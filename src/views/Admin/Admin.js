@@ -9,7 +9,8 @@ function mapStateToProps(state) {
     }
 }
 
-class Admin extends Component {    
+class Admin extends Component {
+        
     constructor(props) {
         super(props);
         this.handleRedirect = this.handleRedirect.bind(this);

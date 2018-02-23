@@ -15,14 +15,12 @@ const Select = props => {
             className
         )
     }
-    
 
     return (
         <select {...attributes} className={classes.select}>
             {children}
         </select>
     )
-    
 };
 
 export default Select;

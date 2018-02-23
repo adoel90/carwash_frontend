@@ -33,7 +33,7 @@
 .row {
 	@include flexbox();
 	@include flex-wrap(wrap);
-	padding: 0 ($grid-gutter-width / -2);
+	margin: 0 ($grid-gutter-width / -2);
 
 	&.row--gutterless {
 		padding: 0;

@@ -1,0 +1,58 @@
+$modal-dialog__border-radius            : border-radius(base);
+$modal-dialog__background-color         : gray(0);
+$modal-backdrop__background-color       : gray(1800);
+$modal-content__padding                 : spacing(base);
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 1500;
+    overflow: hidden;
+
+    .modal__dialog {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: $modal-dialog__background-color;
+        border-radius: $modal-dialog__border-radius;
+        width: 90%;
+        max-width: 90%;
+        max-height: 90%;
+        z-index: 10;
+        overflow: hidden;
+
+        @include media(md) {
+            width: 840px;
+        }
+    }
+
+    .modal__backdrop {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: $modal-backdrop__background-color;
+        opacity: 0.8;
+        z-index: 5;
+    }
+
+    .modal__header,
+    .modal__body,
+    .modal__footer {
+        padding: $modal-content__padding;
+
+        @each $theme, $color in $theme-colors {
+            &.modal__header--#{$theme},
+            &.modal__body--#{$theme},
+            &.modal__footer--#{$theme} {
+                background-color: $color;
+                color: color-yiq($color);
+            }
+        }
+    }
+}

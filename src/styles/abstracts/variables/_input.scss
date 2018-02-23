@@ -6,4 +6,4 @@ $input__size                : .75rem;
 $input--hovered__border     : solid 1px primary-color(200);
 $input--focused__border     : solid 1px primary-color(600);
 $input--disabled__border    : solid 1px gray(200);
-$input__transition          : all 250ms $transition-base;
+$input__transition          : $transition-base;

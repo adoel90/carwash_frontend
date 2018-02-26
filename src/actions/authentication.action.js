@@ -19,7 +19,7 @@ export const adminLogin = (data) => {
         dispatch(loginRequest());
 
         return axios
-            .post(`${constant.API_PATH}admin/authenticate`, {
+            .post(`${constant.API_PATH}user/authenticate`, {
                 username: data.username,
                 password: data.password
             })

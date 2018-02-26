@@ -17,6 +17,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 class AdminUser extends Component {
+    
     constructor() {
         super();
         this.getUserList = this.getUserList.bind(this);

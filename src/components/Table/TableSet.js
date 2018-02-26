@@ -38,6 +38,8 @@ class TableSet extends Component {
         } = this.state;
         
         const {
+            loaded,
+            loading,
             columns,
             rows,
             pagination,
@@ -68,11 +70,17 @@ class TableSet extends Component {
         )
 
         const renderTableRows = () => {
-            return rows
-                .slice(lowerBound, upperBound)
-                .map((row, i) => {
-                return <tr key={i}>{ renderTableCell(row) }</tr>
-            })
+            if(loading) {
+                return <td colSpan={columns.length} style={{padding: '30px', textAlign: 'center'}}>Tunggu sebentar, mengambil data dari sistem...</td>
+            }
+
+            if(loaded) {
+                return rows
+                    .slice(lowerBound, upperBound)
+                    .map((row, i) => {
+                    return <tr key={i}>{ renderTableCell(row) }</tr>
+                })
+            }
         }
 
         const renderTableCell = (row) => {            
@@ -123,6 +131,8 @@ TableSet.propTypes = {
     ]),
     striped: PropTypes.bool,
     fullWidth: PropTypes.bool,
+    loading: PropTypes.bool,
+    loaded: PropTypes.bool,
 }
 
 export default TableSet;

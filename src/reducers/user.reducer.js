@@ -2,6 +2,9 @@ import {
 	GET_USER_LIST_REQUESTED,
 	GET_USER_LIST_FULFILLED,
 	GET_USER_LIST_REJECTED,
+	GET_USER_ACCESS_LIST_REQUESTED,
+	GET_USER_ACCESS_LIST_FULFILLED,
+	GET_USER_ACCESS_LIST_REJECTED,
 	CREATE_USER_FULFILLED,
 	CREATE_USER_REJECTED
 } from '../actions/user.action'
@@ -20,6 +23,13 @@ const initialState = {
 		isError: false,
 		error: {}
 	},
+	accessList: {
+		data: {},
+		isFetching: false,
+		isLoaded: false,
+		isError: false,
+		error: {}
+	}
 }
 
 const user = (state = initialState, action) => {
@@ -65,6 +75,49 @@ const user = (state = initialState, action) => {
 				}
 			}
 		}
+
+		case GET_USER_ACCESS_LIST_REQUESTED: {
+			return {
+				...state,
+				accessList: {
+					...state.accessList,
+					data: {},
+					isLoaded: false,
+					isFetching: true,
+					isError: false,
+					error: action.payload
+				}
+			}
+		}
+
+		case GET_USER_ACCESS_LIST_FULFILLED: {
+			return {
+				...state,
+				accessList: {
+					...state.accessList,
+					data: action.payload,
+					isLoaded: true,
+					isFetching: false,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case GET_USER_ACCESS_LIST_REJECTED: {
+			return {
+				...state,
+				accessList: {
+					...state.accessList,
+					data: {},
+					isLoaded: false,
+					isFetching: false,
+					isError: true,
+					error: action.payload
+				}
+			}
+		}
+
 
 		case CREATE_USER_FULFILLED: {
 			return {

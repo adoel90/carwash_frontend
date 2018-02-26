@@ -2,24 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-const ModalFooter = props => {
+const PanelBody = props => {
     const {
         className,
         children
     } = props;
 
     const classes = {
-        modalFooter: classNames(
-            `modal__footer`,
+        panelBody: classNames(
+            `panel__body`,
             className
         )
     }
     
-    return <div className={classes.modalFooter}>{children}</div>
+    return <div className={classes.panelBody}>{children}</div>
 };
 
-ModalFooter.propTypes = {
-    
-};
-
-export default ModalFooter;
+export default PanelBody;

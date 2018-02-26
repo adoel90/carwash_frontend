@@ -5,13 +5,15 @@ import classNames from 'classnames';
 const Container = (props) => {
 	const {
 		tag: Tag,
+		block,
 		children,
 		className,
 		...attributes,
 	} = props;
 
 	attributes.className = classNames(
-		'container',
+		`container`,
+		block ? `container--block` : null,
 		className
 	);
 

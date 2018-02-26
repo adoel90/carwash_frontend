@@ -2,24 +2,24 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-const PanelStack = props => {
+const ModalBody = props => {
     const {
         className,
         children
     } = props;
 
     const classes = {
-        panelStack: classNames(
-            `panel-stack`,
+        modalBody: classNames(
+            `modal__body`,
             className
         )
     }
     
-    return <div className={classes.panelStack}>{children}</div>
+    return <div className={classes.modalBody}>{children}</div>
 };
 
-PanelStack.propTypes = {
+ModalBody.propTypes = {
     
 };
 
-export default PanelStack;
+export default ModalBody;

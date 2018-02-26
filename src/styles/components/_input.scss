@@ -59,3 +59,49 @@
         border-bottom-right-radius: 4px;
     }
 }
+
+.switch {
+    position: relative;
+    display: block;
+    height: 2rem;
+    width: 4rem;
+
+    .switch__checkbox {
+        display: none;
+
+        &:checked {
+            + .switch__slider {
+                @include transition($transition-base);
+                background-color: primary-color(600);
+                
+                &:before {
+                    left: 57.5%;
+                }
+            }
+        }
+    }
+
+    .switch__slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border-radius: border-radius(rounded);
+        background-color: gray(200);
+
+        &:before {
+            @include transition($transition-base);
+            content: "";
+            position: absolute;
+            left: 7.5%;
+            top: 50%;
+            transform: translateY(-50%);
+            border-radius: border-radius(circled);
+            height: 1.5rem;
+            width: 1.5rem;
+            background-color: gray(0);
+        }
+    }
+}

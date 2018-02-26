@@ -1,19 +1,31 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-const ModalHeader = (props) => {
-	const {
-		align,
-		className,
-		children
-	} = props;
+const ModalHeader = props => {
+    const {
+        theme,
+        className,
+        children
+    } = props;
 
-	const classes = classNames(
-		'modal__header',
-		`ta-${align}`
-	)
+    const classes = {
+        modalHeader: classNames(
+            `modal__header`,
+            theme ? `modal__header--${theme}` : null,
+            className
+        )
+    }
+    
+    return <div className={classes.modalHeader}>{children}</div>
+};
 
-	return <div className={classes}>{children}</div>
+ModalHeader.defaultProps = {
+    theme: 'primary'
 }
+
+ModalHeader.propTypes = {
+    theme: PropTypes.string,
+};
 
 export default ModalHeader;

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { AdminManagementUserView } from '../AdminManagementUser';
+import { AdminVendorView } from '../AdminVendor';
 
 function mapStateToProps(state) {
     return {
@@ -8,10 +8,10 @@ function mapStateToProps(state) {
     };
 }
 
-class AdminManagementUser extends Component {
+class AdminVendor extends Component {
     render() {
         return (
-            <AdminManagementUserView
+            <AdminVendorView
                 {...this.state}
                 {...this.props}
             />
@@ -19,4 +19,6 @@ class AdminManagementUser extends Component {
     }
 }
 
-export default connect(mapStateToProps,)(AdminManagementUser);
+export default connect(
+    mapStateToProps,
+)(AdminVendor);

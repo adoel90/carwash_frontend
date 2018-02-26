@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
-import { AdminView } from '../Admin';
+// import { Redirect } from 'react-router-dom';
+import { VendorView } from '../Vendor';
 
 function mapStateToProps(state) {
     return {
@@ -9,14 +9,14 @@ function mapStateToProps(state) {
     }
 }
 
-class Admin extends Component {
+class Vendor extends Component {
         
     constructor(props) {
         super(props);
         this.handleRedirect = this.handleRedirect.bind(this);
         this.state = {
             isAuthenticated: localStorage.getItem('accessToken') ? true : false,
-            authenticatedAs: localStorage.getItem('accessToken') ? 'admin' : null,
+            authenticatedAs: localStorage.getItem('accessToken') ? 'vendor' : null,
             userData: localStorage.getItem('userData') ? JSON.parse(localStorage.getItem('userData')) : {}
         }
     }
@@ -31,7 +31,7 @@ class Admin extends Component {
                 this.setState({
                     ...this.state,
                     isAuthenticated: true,
-                    authenticatedAs: 'admin',
+                    authenticatedAs: 'vendor',
                     userData: authentication.userData
                 }, () => {
                     this.handleRedirect();
@@ -51,7 +51,7 @@ class Admin extends Component {
             history
         } = this.props;
         
-        if(isAuthenticated && authenticatedAs == 'admin') {
+        if(isAuthenticated && authenticatedAs == 'vendor') {
             return history.push(`${match.url}`);
         }
 
@@ -60,7 +60,7 @@ class Admin extends Component {
     
     render() {
         return (
-            <AdminView
+            <VendorView
                 {...this.state}
                 {...this.props}
                 handleRedirect={this.handleRedirect}
@@ -71,4 +71,4 @@ class Admin extends Component {
 
 export default connect(
     mapStateToProps
-)(Admin);
+)(Vendor);

@@ -34,6 +34,7 @@ class AdminPanel extends Component {
                 {
                     category: 'Manajemen User',
                     items: [
+
                         { name: 'Daftar User', path: `${props.match.url}/user` },
                         { name: 'Buat User Baru', path: `${props.match.url}/user/create-new` },
                         { name: 'Pengaturan User', path: `${props.match.url}/user/settings` },

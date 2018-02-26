@@ -1,8 +1,8 @@
 {
-  "main.css": "static/css/main.18decbfa.css",
-  "main.css.map": "static/css/main.18decbfa.css.map",
-  "main.js": "static/js/main.70c21f68.js",
-  "main.js.map": "static/js/main.70c21f68.js.map",
+  "main.css": "static/css/main.b284a3c9.css",
+  "main.css.map": "static/css/main.b284a3c9.css.map",
+  "main.js": "static/js/main.6ef4086a.js",
+  "main.js.map": "static/js/main.6ef4086a.js.map",
   "static/media/Flaticon.eot": "static/media/Flaticon.96850e10.eot",
   "static/media/Flaticon.svg": "static/media/Flaticon.0c6755dd.svg",
   "static/media/Flaticon.ttf": "static/media/Flaticon.90bc8831.ttf",
@@ -11,11 +11,5 @@
   "static/media/MaterialIcons-Regular.ttf": "static/media/MaterialIcons-Regular.a37b0c01.ttf",
   "static/media/MaterialIcons-Regular.woff": "static/media/MaterialIcons-Regular.012cf6a1.woff",
   "static/media/MaterialIcons-Regular.woff2": "static/media/MaterialIcons-Regular.570eb838.woff2",
-  "static/media/cashier.svg": "static/media/cashier.ae01808a.svg",
-  "static/media/credit-card-3.svg": "static/media/credit-card-3.12713ca9.svg",
-  "static/media/credit-card-4.svg": "static/media/credit-card-4.7cacec4a.svg",
-  "static/media/login-bg.jpg": "static/media/login-bg.13bc9d85.jpg",
-  "static/media/no-thumbnail.jpg": "static/media/no-thumbnail.1f46b499.jpg",
-  "static/media/store-2.svg": "static/media/store-2.040c1584.svg",
-  "static/media/wallet-1.svg": "static/media/wallet-1.f10e5408.svg"
+  "static/media/admin-panel-bg.jpg": "static/media/admin-panel-bg.db2a0e0c.jpg"
 }

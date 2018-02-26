@@ -8,7 +8,7 @@ import { getVendorUserList } from '../../../actions/vendor.action';
 function mapStateToProps(state) {
     
     return {
-        vendorList: state.vendorList
+        user: state.user
     };
 }
 
@@ -53,15 +53,15 @@ class VendorUser extends Component {
 
     componentDidUpdate = (prevProps) => {
         const {
-            vendorList
+            user
         } = this.props;
         
-        if(prevProps.vendorList.list !== vendorList.list) {
+        if(prevProps.user.list !== user.list) {
 
             this.setState({
 
                 ...this.state,
-                vendorUserList: vendorList.list
+                vendorList: user.list
 
             }, () => {
                 this.populateTableData();
@@ -148,11 +148,11 @@ class VendorUser extends Component {
         if(vendorList.isLoaded) {
         // if(vendorUserList.isLoaded) {
             
-            vendorList.data.data.result.forEach((vendor, i) => {
+            vendorList.data.data.result.forEach((vendorList, i) => {
 
                 let row = {
-                    id: vendor.id,
-                    name: vendor.name
+                    id: vendorList.id,
+                    name: vendorList.name
                     // email: user.email,
                     // accessLevel: user.level.name
                 }

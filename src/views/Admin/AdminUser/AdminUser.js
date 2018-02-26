@@ -42,6 +42,7 @@ class AdminUser extends Component {
 
     componentDidMount = () => {
         this.getUserList();
+        
     }
 
     componentDidUpdate = (prevProps) => {

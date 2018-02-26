@@ -21,6 +21,8 @@ const VendorUserView = props => {
         updateVendor, 
         selectedUser } = props;
 
+     
+
     const renderVendorDetailModal = () => {
 
         if(selectedUser){

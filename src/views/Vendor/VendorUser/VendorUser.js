@@ -53,12 +53,11 @@ class VendorUser extends Component {
     }
 
     componentDidUpdate = (prevProps) => {
+
         const {
             vendor
         } = this.props;
         
-        
-       
         if(prevProps.vendor.list !== vendor.list) {
 
             this.setState({
@@ -124,7 +123,7 @@ class VendorUser extends Component {
             title: 'ID',
             accessor: 'id'
         }, {
-            title: 'Nama User',
+            title: 'Nama Vendor',
             accessor: 'name'
         },
         
@@ -177,7 +176,7 @@ class VendorUser extends Component {
     }
     
     render() {
-        console.log(this.props)
+        // console.log(this.props)
         
         return (
             <VendorUserView

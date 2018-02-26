@@ -11,6 +11,9 @@ import report from './report.reducer';
 import access from './access.reducer';
 import module from './module.reducer';
 import vendor from './vendor.user.reducer';
+import admin_vendor from './admin.vendor.reducer';
+
+
 
 const rootReducer = combineReducers({
 	authentication,
@@ -23,7 +26,8 @@ const rootReducer = combineReducers({
 	report,
 	access,
 	module,
-	vendor
+	vendor,
+	admin_vendor
 });
 
 export default rootReducer;

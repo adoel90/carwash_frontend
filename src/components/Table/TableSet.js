@@ -4,6 +4,7 @@ import { Table, TableHead, TableBody } from '../Table';
 import { PaginationSet } from '../Pagination';
 
 class TableSet extends Component {
+    
     constructor() {
         super();
         this.handlePageChange = this.handlePageChange.bind(this);

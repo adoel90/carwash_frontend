@@ -19,13 +19,13 @@ const VendorUserView = props => {
         toggleModal, 
         handleInputChange, 
         updateVendor, 
-        selectedUser } = props;
+        selectedVendor } = props;
 
      
 
     const renderVendorDetailModal = () => {
 
-        if(selectedUser){
+        if(selectedVendor){
 
             return(
                 <Modal
@@ -36,13 +36,12 @@ const VendorUserView = props => {
                         <h5>Ubah Informasi Vendor</h5>
                     </ModalHeader>
                 
-
                     <Form onSubmit={updateVendor}>
                         <ModalBody>
                             <Row>
                                 <Column>
-                                    <FormField label="Hai">
-                                        <Input name="username" placeholder={selectedUser.name} defaultValue={selectedUser.name} onChange={(e) => handleInputChange('selectedUser', e)} />
+                                    <FormField label="Nama Vendor">
+                                        <Input name="username" placeholder={selectedVendor.name} defaultValue={selectedVendor.name} onChange={(e) => handleInputChange('selectedVendor', e)} />
                                     </FormField>
                                 </Column>
                                 <Column>
@@ -61,10 +60,11 @@ const VendorUserView = props => {
     }
 
     return (
+
         <div className="admin-user">
             <Panel>
                 <PanelHeader>
-                    <h4 className="heading-title">Daftar User</h4>
+                    <h4 className="heading-title">Daftar Vendor</h4>
                     <h6 className="heading-subtitle">Tempor nostrud cupidatat officia sit ullamco eu pariatur ullamco quis laborum nulla ipsum.</h6>
                     
                 </PanelHeader>
@@ -85,31 +85,6 @@ const VendorUserView = props => {
             { renderVendorDetailModal() }
         </div>
     );
-
-
-    // return (
-    //     <div className="admin-user">
-    //         <Panel>
-    //             <div className="admin-user__heading padding-bottom-large">
-    //                 <h4 className="heading-title">Daftar User</h4>
-    //                 <h6 className="heading-subtitle">Tempor nostrud cupidatat officia sit ullamco eu pariatur ullamco quis laborum nulla ipsum.</h6>
-    //             </div>
-    //             <div className="admin-user__content">
-
-    //                 <TableSet
-    //                     columns={table.columns}
-    //                     rows={table.rows}
-    //                     striped 
-    //                     fullWidth
-    //                     pagination
-    //                 />
-    //             </div>
-    //         </Panel>
-    //     </div>
-    // );
-
-
-
 };
 
 VendorUserView.propTypes = {

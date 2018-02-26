@@ -13,7 +13,7 @@ export const getUserList = (data) => {
         dispatch(fetchRequest());
 
         return axios
-            .get(`${constant.API_PATH}admin/user/list?accessToken=${accessToken}`)
+            .get(`${constant.API_PATH}user/list?accessToken=${accessToken}`)
             .then((response) => {
                 dispatch(fetchSuccess(response))
             })
@@ -34,7 +34,7 @@ export const createUser = (data) => {
     return async dispatch => {
         dispatch(createRequest());
         return axios
-            .post(`${constant.API_PATH}admin/user/create?accessToken=${accessToken}`, {
+            .post(`${constant.API_PATH}user/create?accessToken=${accessToken}`, {
                 username: data.username,
                 password: data.password,
                 name: data.name,

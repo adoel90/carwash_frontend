@@ -1,19 +1,25 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-const ModalFooter = (props) => {
-	const {
-		children,
-		className
-	} = props;
+const ModalFooter = props => {
+    const {
+        className,
+        children
+    } = props;
 
-	const classes = classNames(
-		'modal__footer',
-		className
-	)
+    const classes = {
+        modalFooter: classNames(
+            `modal__footer`,
+            className
+        )
+    }
+    
+    return <div className={classes.modalFooter}>{children}</div>
+};
 
-	return <div className={classes}>{children}</div>
-
-}
+ModalFooter.propTypes = {
+    
+};
 
 export default ModalFooter;

@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { AdminUserView } from '../AdminUser';
 import { getUserList } from '../../../actions/user.action';
-import { Button } from '../../../components/Button';
 
 function mapStateToProps(state) {
     
@@ -22,7 +20,10 @@ class AdminUser extends Component {
     constructor() {
         super();
         this.getUserList = this.getUserList.bind(this);
-        this.handleChangeUser = this.handleChangeUser.bind(this);
+        this.toggleModal = this.toggleModal.bind(this);
+        this.handleInputChange = this.handleInputChange.bind(this);
+        this.openUserDetail = this.openUserDetail.bind(this);
+        this.updateUser = this.updateUser.bind(this);
         this.populateTableData = this.populateTableData.bind(this);
         this.state = {
             user: {},
@@ -31,6 +32,9 @@ class AdminUser extends Component {
                 columns: [],
                 rows: [],
                 limit: 10
+            },
+            isModalOpen: {
+                updateUser: false
             }
         }
     }
@@ -54,8 +58,42 @@ class AdminUser extends Component {
         }
     }
 
-    handleChangeUser = (data) => {
-        console.log(data);
+    toggleModal = (name) => {
+        const { isModalOpen } = this.state;
+        
+        this.setState({
+            ...this.state,
+            isModalOpen: {
+                [name]: !isModalOpen[name]
+            }
+        })
+    }
+
+    handleInputChange = (object, e) => {
+        const target = e.target;
+        const name = target.name;
+        const value = target.value;
+
+        this.setState({
+            ...this.state,
+            [object]: {
+                ...this.state[object],
+                [name]: value
+            }
+        });
+    }
+
+    openUserDetail = (row) => {
+        this.setState({
+            ...this.state,
+            selectedUser: row.data
+        }, () => {
+            this.toggleModal('updateUser');
+        })
+    }
+
+    updateUser = () => {
+
     }
 
     populateTableData = () => {
@@ -76,9 +114,9 @@ class AdminUser extends Component {
         }, {
             title: 'Aksi',
             accessor: 'action',
-            render: (data) => (
+            render: (row) => (
                 <td>
-                    <a href="#" onClick={() => this.handleChangeUser(data)}>Ubah</a>
+                    <a href="#" onClick={() => this.openUserDetail(row)}>Ubah</a>
                 </td>
             )
         }]
@@ -91,7 +129,8 @@ class AdminUser extends Component {
                     id: user.id,
                     name: user.name,
                     email: user.email,
-                    accessLevel: user.level.name
+                    accessLevel: user.level.name,
+                    data: user
                 }
 
                 rows.push(row);
@@ -121,6 +160,8 @@ class AdminUser extends Component {
             <AdminUserView
                 {...this.state}
                 {...this.props}
+                handleInputChange={this.handleInputChange}
+                toggleModal={this.toggleModal}
             />
         )
     }

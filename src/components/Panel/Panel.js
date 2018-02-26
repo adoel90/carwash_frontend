@@ -20,6 +20,10 @@ const Panel = props => {
     return <div className={classes.panel}>{children}</div>
 };
 
+Panel.defaultProps = {
+    theme: 'primary'
+}
+
 Panel.propTypes = {
     theme: PropTypes.string,
 }

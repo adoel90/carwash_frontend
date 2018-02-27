@@ -5,3 +5,4 @@ export * from './VendorLayout';
 export * from './VendorUser';
 export * from './VendorPanel';
 export * from './VendorDashboard';
+export * from './VendorLogOut';

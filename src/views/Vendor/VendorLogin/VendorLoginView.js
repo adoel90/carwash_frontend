@@ -24,8 +24,8 @@ const VendorLoginView = props => {
                 <Column md={8} sm={12}>
                     <div className="admin-login__content">
                         <div className="admin-login__heading">
-                            <h4 className="heading-title">805 Carwash Vendor Panel</h4>
-                            <h6 className="heading-subtitle">Silahkan masukkan username dan password Anda untuk masuk.</h6>
+                            <h4 className="heading-title">805 Carwash Vendor </h4>
+                            <h6 className="heading-subtitle">Silahkan masukkan username Vendor dan password Anda untuk masuk.</h6>
                         </div>
                         <Form onSubmit={onLoginSubmit}>
                             <FormField>

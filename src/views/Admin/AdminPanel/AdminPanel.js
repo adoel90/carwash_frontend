@@ -6,7 +6,8 @@ import {
     AdminUser, 
     AdminUserCreate,
     AdminUserSettings,
-    AdminVendor
+    AdminVendor,
+    AdminVendorCreate
 } from '../../Admin';
 
 import { AdminPanelView } from '../AdminPanel';
@@ -22,6 +23,7 @@ class AdminPanel extends Component {
                 { name: 'create-user', path: `${props.match.url}/user/create-new`, component: AdminUserCreate },
                 { name: 'user-settings', path: `${props.match.url}/user/settings`, component: AdminUserSettings },
                 { name: 'vendor', path: `${props.match.url}/vendor`, component: AdminVendor },                
+                { name: 'create-new-vendor', path: `${props.match.url}/vendor/create-new-vendor`, component: AdminVendorCreate },                
 
             ],
             menus: [
@@ -44,7 +46,7 @@ class AdminPanel extends Component {
                     category: 'Manajemen Vendor',
                     items: [
                         { name: 'Daftar Vendor', path: `${props.match.url}/vendor` },
-                        { name: 'Buat Vendor Baru', path: `${props.match.url}/vendor/create-new` },
+                        { name: 'Buat Vendor Baru', path: `${props.match.url}/vendor/create-new-vendor` },
                         { name: 'Pengaturan Vendor', path: `${props.match.url}/vendor/settings`}
 
                     ]

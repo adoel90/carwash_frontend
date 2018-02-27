@@ -6,7 +6,7 @@ import { getAdminVendorList } from '../../../actions/admin.vendor.action';
 function mapStateToProps(state) {
     
     return {
-        admin_vendor : state.admin_vendor
+        adminVendorState : state.adminVendorState
     };
 }
 
@@ -58,14 +58,14 @@ class AdminVendor extends Component {
 
     componentDidUpdate = (prevProps) => {
 
-        const { admin_vendor } = this.props;
+        const { adminVendorState } = this.props;
         
-        if(prevProps.admin_vendor.list !== admin_vendor.list) {
+        if(prevProps.adminVendorState.list !== adminVendorState.list) {
 
             this.setState({
 
                 ...this.state,
-                adminVendorList: admin_vendor.list
+                adminVendorList: adminVendorState.list
 
             }, () => {
                 this.populateTableData();

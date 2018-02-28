@@ -85,7 +85,7 @@ class VendorPanel extends Component {
                 vendorList: vendorState.list
             });
         }
-        console.log(this.props);
+        // console.log(this.props);
     }
 
     render() {

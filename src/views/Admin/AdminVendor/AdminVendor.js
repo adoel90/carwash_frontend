@@ -48,17 +48,20 @@ class AdminVendor extends Component {
     componentDidMount = () => {
 
         this.getAdminVendorList();
+        
     }
 
     getAdminVendorList(){
 
         const{getAdminVendorDispatch } = this.props;
         getAdminVendorDispatch();
+        // console.log(this.props);
     }
 
     componentDidUpdate = (prevProps) => {
 
         const { adminVendorState } = this.props;
+        console.log(this.props);
         
         if(prevProps.adminVendorState.list !== adminVendorState.list) {
 

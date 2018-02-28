@@ -18,8 +18,9 @@ export const GET_MENU_VENDOR_LIST_REQUESTED = 'GET_MENU_VENDOR_LIST_REQUESTED';
 export const GET_MENU_VENDOR_LIST_FULFILLED = 'GET_MENU_VENDOR_LIST_FULFILLED';
 export const GET_MENU_VENDOR_LIST_REJECTED = 'GET_MENU_VENDOR_LIST_REJECTED';
 
-
 const accessToken = localStorage.getItem('accessToken') ? localStorage.getItem('accessToken') : null;
+const userLoginNow = localStorage.getItem('userData') ? localStorage.getItem('userData') : null;
+const dataVendorLoginNow = JSON.parse(userLoginNow);
 
 export const getVendorUserList = (data) => {
 	return async dispatch => {
@@ -85,8 +86,7 @@ export const getVendorDetail = (data) => {
 		dispatch(fetchRequest());
 		return axios
             // .get(`${constant.API_PATH}vendor/employee/detail?accessToken=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MywibmFtZSI6IkFuZHJlIFJpemtpYW5hIFdhbmRpcmEiLCJ1c2VybmFtZSI6ImFuZHJlcnciLCJlbWFpbCI6ImFuZHJlci5yaXpraWFuYS53QGdtYWlsLmNvbSIsInZlbmRvciI6MjksImFjY2VzcyI6eyJjb2RlIjowLCJuYW1lIjoiQWRtaW4ifSwic3RhdHVzIjp0cnVlfQ.9tgN_WWjZ-uUJOLvH-Enu5muz_kUDFgV58WhcRjUv58&id=3`)
-            // .get(`${constant.API_PATH}vendor/employee/detail?accessToken=${accessToken}&id={data.vendor}`)
-            .get(`${constant.API_PATH}vendor/employee/detail?accessToken=${accessToken}&id=3`)
+            .get(`${constant.API_PATH}vendor/employee/detail?accessToken=${accessToken}&id=${dataVendorLoginNow.id}`)
 			.then((response) => {
 				dispatch(fetchSuccess(response));
 
@@ -110,8 +110,8 @@ export const getMenuVendorList = (data) => {
 		dispatch(fetchRequest());
 		return axios
     
-			.get(`${constant.API_PATH}vendor/menu?accessToken=${accessToken}&cafe=29`)
-		
+			// .get(`${constant.API_PATH}vendor/menu?accessToken=${accessToken}&cafe=29`)
+			.get(`${constant.API_PATH}vendor/menu?accessToken=${accessToken}&cafe=${dataVendorLoginNow.vendor}`)
 			.then((response) => {
 				dispatch(fetchSuccess(response));
 			})

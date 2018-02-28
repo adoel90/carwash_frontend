@@ -34,7 +34,6 @@ class VendorPanel extends Component {
             routes: [
                 
                 { id: 1, name: 'dashboard', path: `${props.match.url}`, component: VendorDashboard },
-                // { id: 2, name: 'list-vendor', path: `${props.match.url}/list-vendor`, component: VendorUser },
                 { id: 2, name: 'list-menu', path: `${props.match.url}/list-menu`, component: VendorMenu },
                 { id: 3, name: 'log-out', path: `${props.match.url}/vendor/log-out`, component: VendorLogOut },
 
@@ -42,8 +41,8 @@ class VendorPanel extends Component {
             menus: [
                 { 
                     category: 'Vendor Name Selected',
+                    // category: '',
 
-                    
                     items: [
                         { id: 1, name: 'Dasbor', path: `${props.match.url}` },
                     ]
@@ -51,7 +50,6 @@ class VendorPanel extends Component {
                 {
                     category: 'Manajemen Menu',
                     items: [
-                        // { id: 1, name: 'Daftar Menu', path: `${props.match.url}/list-vendor` },
                         { id: 1, name: 'Daftar Menu', path: `${props.match.url}/list-menu` },
                         { id: 2, name: 'Akun Saya', path: `${props.match.url}/vendor/log-out` },
 
@@ -78,14 +76,34 @@ class VendorPanel extends Component {
 
     componentDidUpdate = (prevProps) => {
         const { vendorState } = this.props;
-        
+
         if(prevProps.vendorState.list !== vendorState.list) {
-            this.setState({
+            // let menus = {
+            //     category: vendorState.list.isLoaded ? vendorState.list.data.data.result.name : null,
+            //     items: [
+            //         { id: 1, name: 'Dasbor', path: `${this.props.match.url}` },
+            //     ]
+
+            // }
+
+            // this.setState({
+            //     ...this.state,
+            //     vendorList: vendorState.list,
+            //     menus: [
+            //         menus,
+            //         ...this.state.menus
+            //     ]
+                
+            // });
+             this.setState({
                 ...this.state,
                 vendorList: vendorState.list
+                
             });
         }
-        // console.log(this.props);
+        // console.log(this.props.data.data.result.name);
+        // console.log(vendorState.list.data.data);
+        // console.log(this.state.menus[0]);
     }
 
     render() {

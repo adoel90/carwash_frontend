@@ -22,6 +22,7 @@ class VendorLogin extends Component {
         super();
         this.onLoginSubmit = this.onLoginSubmit.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
+        
         this.handleAuthentication = this.handleAuthentication.bind(this);
         this.state = {
             credentials: {
@@ -67,6 +68,8 @@ class VendorLogin extends Component {
             username: credentials.username,
             password: credentials.password
         }
+
+        // console.log(requiredData);
         
         vendorLogin(requiredData);
     }

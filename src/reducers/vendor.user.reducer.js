@@ -4,7 +4,15 @@ import {
 	GET_VENDOR_USER_LIST_FULFILLED,
 	GET_VENDOR_USER_LIST_REJECTED,
 	CREATE_NEW_VENDOR_FULFILLED,
-	CREATE_NEW_VENDOR_REJECTED
+	CREATE_NEW_VENDOR_REJECTED,
+
+	GET_VENDOR_DETAIL_REQUESTED,// Get Vendor Detail
+	GET_VENDOR_DETAIL_FULFILLED,
+	GET_VENDOR_DETAIL_REJECTED,
+
+	GET_MENU_VENDOR_LIST_REQUESTED,//Get Menu Vendor List
+	GET_MENU_VENDOR_LIST_FULFILLED,
+	GET_MENU_VENDOR_LIST_REJECTED
 } from '../actions/vendor.action'
 
 const initialState = {
@@ -24,9 +32,10 @@ const initialState = {
 	},
 }
 
-const vendorUser = (state = initialState, action) => {
+const vendorState = (state = initialState, action) => {
 	
 	switch(action.type) {
+
 		case GET_VENDOR_USER_LIST_REQUESTED: {
 			return {
 				...state,
@@ -96,10 +105,96 @@ const vendorUser = (state = initialState, action) => {
 			}
 		}
 
+		//Get Vendor Detail
+		case GET_VENDOR_DETAIL_REQUESTED: {
+			return {
+				...state,
+				list: {
+					...state.list,
+					data: {},
+					isFetching: true,
+					isLoaded: false,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case GET_VENDOR_DETAIL_FULFILLED: {
+			return {
+				...state,
+				list: {
+					...state.list,
+					data: action.payload,
+					isLoaded: true,
+					isFetching: false,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case GET_VENDOR_DETAIL_REJECTED: {
+			return {
+				...state,
+				list: {
+					...state.list,
+					data: {},
+					isLoaded: false,
+					isFetching: false,
+					isError: true,
+					error: action.payload
+				}
+			}
+		}
+
+		//Get Vendor Menu List
+		case GET_MENU_VENDOR_LIST_REQUESTED: {
+			return {
+				...state,
+				list: {
+					...state.list,
+					data: {},
+					isFetching: true,
+					isLoaded: false,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case GET_MENU_VENDOR_LIST_FULFILLED: {
+			return {
+				...state,
+				list: {
+					...state.list,
+					data: action.payload,
+					isLoaded: true,
+					isFetching: false,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case GET_MENU_VENDOR_LIST_REJECTED: {
+			return {
+				...state,
+				list: {
+					...state.list,
+					data: {},
+					isLoaded: false,
+					isFetching: false,
+					isError: true,
+					error: action.payload
+				}
+			}
+		}
+
 		default: {
 			return state;
 		}
 	}
 }
 
-export default vendorUser;
+export default vendorState;

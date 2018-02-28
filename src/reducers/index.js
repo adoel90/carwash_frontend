@@ -10,7 +10,7 @@ import dialog from './dialog.reducer';
 import report from './report.reducer';
 import access from './access.reducer';
 import module from './module.reducer';
-import vendor from './vendor.user.reducer';
+import vendorState from './vendor.user.reducer';
 import adminVendorState from './admin.vendor.reducer';
 
 
@@ -26,7 +26,7 @@ const rootReducer = combineReducers({
 	report,
 	access,
 	module,
-	vendor,
+	vendorState,
 	adminVendorState
 });
 

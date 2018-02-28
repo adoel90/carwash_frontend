@@ -42,6 +42,7 @@ class AdminUser extends Component {
 
     componentDidMount = () => {
         this.getUserList();
+        console.log(this.props);
         
     }
 

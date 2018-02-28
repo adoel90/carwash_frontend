@@ -5,6 +5,7 @@ import { adminLogin } from '../../../actions/authentication.action';
 import { AdminLoginView } from '../AdminLogin';
 
 function mapStateToProps(state) {
+    
     return {
         authentication: state.authentication 
     };

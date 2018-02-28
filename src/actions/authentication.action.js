@@ -40,7 +40,8 @@ export const adminLogin = (data) => {
     function loginError(data) { return { type: ADMIN_LOGIN_REJECTED, payload: data } }
 }
 
-export const vendorLogin = (data) => {    
+export const vendorLogin = (data) => {   
+     
     return async dispatch => {
         
         dispatch(loginRequest());
@@ -52,9 +53,11 @@ export const vendorLogin = (data) => {
             })
             .then((response) => {
                 let result = response.data.result;
+                // console.log(result); hasil-nya ada atribute 'employee'
                 
                 localStorage.setItem('accessToken', result.accessToken);
-                localStorage.setItem('userData', JSON.stringify(result.data));
+                localStorage.setItem('userData', JSON.stringify(result.employee.username));
+               
                 dispatch(loginSuccess(result));
             })
             .catch((error) => {

@@ -1,7 +1,7 @@
 //VendorPanel.js
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { VendorDashboard, VendorMenu,VendorLogOut   } from '../../Vendor';
+import { VendorDashboard, VendorMenu,VendorLogOut, VendorEmployee   } from '../../Vendor';
 import { VendorPanelView } from '../VendorPanel';
 import { getVendorDetail } from '../../../actions/vendor.action';
 
@@ -36,6 +36,7 @@ class VendorPanel extends Component {
                 { id: 1, name: 'dashboard', path: `${props.match.url}`, component: VendorDashboard },
                 { id: 2, name: 'list-menu', path: `${props.match.url}/list-menu`, component: VendorMenu },
                 { id: 3, name: 'log-out', path: `${props.match.url}/vendor/log-out`, component: VendorLogOut },
+                { id: 4, name: 'employee-management', path: `${props.match.url}/vendor/employee`, component: VendorEmployee },
 
             ],
             menus: [
@@ -52,8 +53,7 @@ class VendorPanel extends Component {
                     items: [
                         { id: 1, name: 'Daftar Menu', path: `${props.match.url}/list-menu` },
                         { id: 2, name: 'Akun Saya', path: `${props.match.url}/vendor/log-out` },
-
-                        
+                        { id: 3, name: 'Employee Management', path: `${props.match.url}/vendor/employee` }
                     ]
                 }
             ]

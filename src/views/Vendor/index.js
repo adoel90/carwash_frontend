@@ -7,3 +7,4 @@ export * from './VendorPanel';
 export * from './VendorDashboard';
 export * from './VendorLogOut';
 export * from './VendorMenu';
+export * from './VendorEmployee';

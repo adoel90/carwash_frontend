@@ -27,7 +27,7 @@ const VendorMenuView = props => {
             return(
                 <Modal
                     isOpen={isModalOpen.updateMenuVendor}
-                    toggle={() => toggleModal('updateVendor')}>
+                    toggle={() => toggleModal('updateMenuVendor')}>
 
                     <ModalHeader>
                         <h5>Ubah Informasi Vendor</h5>

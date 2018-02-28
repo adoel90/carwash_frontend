@@ -12,7 +12,12 @@ import {
 
 	GET_MENU_VENDOR_LIST_REQUESTED,//Get Menu Vendor List
 	GET_MENU_VENDOR_LIST_FULFILLED,
-	GET_MENU_VENDOR_LIST_REJECTED
+	GET_MENU_VENDOR_LIST_REJECTED,
+
+	GET_EMPLOYEE_VENDOR_LIST_REQUESTED,//Get List Vendor Employee 
+	GET_EMPLOYEE_VENDOR_LIST_FULFILLED,
+	GET_EMPLOYEE_VENDOR_LIST_REJECTED
+
 } from '../actions/vendor.action'
 
 const initialState = {
@@ -190,6 +195,51 @@ const vendorState = (state = initialState, action) => {
 				}
 			}
 		}
+
+		//Get List Vendor Employee 
+		case GET_EMPLOYEE_VENDOR_LIST_REQUESTED: {
+			return {
+				...state,
+				list: {
+					...state.list,
+					data: {},
+					isFetching: true,
+					isLoaded: false,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case GET_EMPLOYEE_VENDOR_LIST_FULFILLED: {
+			return {
+				...state,
+				list: {
+					...state.list,
+					data: action.payload,
+					isLoaded: true,
+					isFetching: false,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case GET_EMPLOYEE_VENDOR_LIST_REJECTED: {
+			return {
+				...state,
+				list: {
+					...state.list,
+					data: {},
+					isLoaded: false,
+					isFetching: false,
+					isError: true,
+					error: action.payload
+				}
+			}
+		}
+
+		
 
 		default: {
 			return state;

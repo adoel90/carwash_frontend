@@ -23,6 +23,11 @@ export const GET_EMPLOYEE_VENDOR_LIST_REQUESTED = 'GET_EMPLOYEE_VENDOR_LIST_REQU
 export const GET_EMPLOYEE_VENDOR_LIST_FULFILLED = 'GET_EMPLOYEE_VENDOR_LIST_FULFILLED';
 export const GET_EMPLOYEE_VENDOR_LIST_REJECTED = 'GET_EMPLOYEE_VENDOR_LIST_REJECTED';
 
+//Get List Report Vendor
+export const GET_REPORT_VENDOR_LIST_REQUESTED = 'GET_REPORT_VENDOR_LIST_REQUESTED';
+export const GET_REPORT_VENDOR_LIST_FULFILLED = 'GET_REPORT_VENDOR_LIST_FULFILLED';
+export const GET_REPORT_VENDOR_LIST_REJECTED = 'GET_REPORT_VENDOR_LIST_REJECTED';
+
 const accessToken = localStorage.getItem('accessToken') ? localStorage.getItem('accessToken') : null;
 const userLoginNow = localStorage.getItem('userData') ? localStorage.getItem('userData') : null;
 const dataVendorLoginNow = JSON.parse(userLoginNow);
@@ -105,7 +110,6 @@ export const getVendorDetail = (data) => {
 	function fetchError(data) { return { type: GET_VENDOR_DETAIL_REJECTED, payload: data } }
 }
 
-
 //GET LIST MENU VENDOR
 export const getMenuVendorList = (data) => {
 
@@ -152,4 +156,25 @@ export const getVendorEmployeeList = (data) => {
 	function fetchRequest() { return { type: GET_EMPLOYEE_VENDOR_LIST_REQUESTED } }
 	function fetchSuccess(data) { return { type: GET_EMPLOYEE_VENDOR_LIST_FULFILLED, payload: data } }
 	function fetchError(data) { return { type: GET_EMPLOYEE_VENDOR_LIST_REJECTED, payload: data } }
+}
+
+//Get List Report Vendor
+export const getVendorReportList = (data) => {
+
+	return async dispatch => {
+
+		dispatch(fetchRequest());
+		return axios
+			.get(`${constant.API_PATH}vendor/report?accessToken=${accessToken}&type=&start_date=2018-12-01&end_date=2018-01-30&cafe=${dataVendorLoginNow.vendor}`)
+			.then((response) => {
+				dispatch(fetchSuccess(response));
+			})
+			.catch((error) => {
+				dispatch(fetchError(error));
+			})
+	}
+
+	function fetchRequest() { return { type: GET_REPORT_VENDOR_LIST_REQUESTED } }
+	function fetchSuccess(data) { return { type: GET_REPORT_VENDOR_LIST_FULFILLED, payload: data } }
+	function fetchError(data) { return { type: GET_REPORT_VENDOR_LIST_REJECTED, payload: data } }
 }

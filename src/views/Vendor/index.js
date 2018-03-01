@@ -8,3 +8,4 @@ export * from './VendorDashboard';
 export * from './VendorLogOut';
 export * from './VendorMenu';
 export * from './VendorEmployee';
+export * from './VendorReport';

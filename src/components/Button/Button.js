@@ -15,10 +15,8 @@ const Button = props => {
 		...attributes
 	} = props;
 
-	attributes.className = classNames(
-		'button',
-		theme ? `button--${theme}` : null,
-		size ? `button--${size}` : null,
+	attributes.className = classNames('button', theme ? `button--${theme}` : null,
+												size ? `button--${size}` : null,
 		rounded ? `button--rounded` : null,
 		block ? 'button--block' : null,
 		outlined ? 'button--outlined' : null,
@@ -34,6 +32,7 @@ Button.defaultProps = {
 }
 
 Button.propTypes = {
+	
 	tag: PropTypes.oneOfType([
 		PropTypes.func, PropTypes.string,
 	]),

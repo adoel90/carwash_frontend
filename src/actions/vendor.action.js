@@ -24,9 +24,9 @@ export const GET_EMPLOYEE_VENDOR_LIST_FULFILLED = 'GET_EMPLOYEE_VENDOR_LIST_FULF
 export const GET_EMPLOYEE_VENDOR_LIST_REJECTED = 'GET_EMPLOYEE_VENDOR_LIST_REJECTED';
 
 //Get List Report Vendor
-export const GET_REPORT_VENDOR_LIST_REQUESTED = 'GET_REPORT_VENDOR_LIST_REQUESTED';
-export const GET_REPORT_VENDOR_LIST_FULFILLED = 'GET_REPORT_VENDOR_LIST_FULFILLED';
-export const GET_REPORT_VENDOR_LIST_REJECTED = 'GET_REPORT_VENDOR_LIST_REJECTED';
+// export const GET_REPORT_VENDOR_LIST_REQUESTED = 'GET_REPORT_VENDOR_LIST_REQUESTED';
+// export const GET_REPORT_VENDOR_LIST_FULFILLED = 'GET_REPORT_VENDOR_LIST_FULFILLED';
+// export const GET_REPORT_VENDOR_LIST_REJECTED = 'GET_REPORT_VENDOR_LIST_REJECTED';
 
 const accessToken = localStorage.getItem('accessToken') ? localStorage.getItem('accessToken') : null;
 const userLoginNow = localStorage.getItem('userData') ? localStorage.getItem('userData') : null;
@@ -159,22 +159,23 @@ export const getVendorEmployeeList = (data) => {
 }
 
 //Get List Report Vendor
-export const getVendorReportList = (data) => {
+// export const getVendorReportList = (data) => {
 
-	return async dispatch => {
+// 	return async dispatch => {
 
-		dispatch(fetchRequest());
-		return axios
-			.get(`${constant.API_PATH}vendor/report?accessToken=${accessToken}&type=&start_date=2018-12-01&end_date=2018-01-30&cafe=${dataVendorLoginNow.vendor}`)
-			.then((response) => {
-				dispatch(fetchSuccess(response));
-			})
-			.catch((error) => {
-				dispatch(fetchError(error));
-			})
-	}
+// 		dispatch(fetchRequest());
+// 		return axios
+// 			// .get(`${constant.API_PATH}dashboard/graph?accessToken=${accessToken}&type=${data.type}&start_date=${data.start_date}&end_date=${data.end_date}&company=${data.company}`)
+// 			.get(`${constant.API_PATH}vendor/report?accessToken=${accessToken}&type=&start_date=2018-12-01&end_date=2018-01-30&cafe=${dataVendorLoginNow.vendor}`)
+// 			.then((response) => {
+// 				dispatch(fetchSuccess(response));
+// 			})
+// 			.catch((error) => {
+// 				dispatch(fetchError(error));
+// 			})
+// 	}
 
-	function fetchRequest() { return { type: GET_REPORT_VENDOR_LIST_REQUESTED } }
-	function fetchSuccess(data) { return { type: GET_REPORT_VENDOR_LIST_FULFILLED, payload: data } }
-	function fetchError(data) { return { type: GET_REPORT_VENDOR_LIST_REJECTED, payload: data } }
-}
+// 	function fetchRequest() { return { type: GET_REPORT_VENDOR_LIST_REQUESTED } }
+// 	function fetchSuccess(data) { return { type: GET_REPORT_VENDOR_LIST_FULFILLED, payload: data } }
+// 	function fetchError(data) { return { type: GET_REPORT_VENDOR_LIST_REJECTED, payload: data } }
+// }

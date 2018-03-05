@@ -37,12 +37,19 @@ const VendorMenuView = props => {
                         <ModalBody>
                             <Row>
                                 <Column>
-                                    <FormField label="Nama Menu">
-                                        <Input name="username" placeholder={selectedMenuVendor.name} defaultValue={selectedMenuVendor.name} onChange={(e) => handleInputChange('selectedMenuVendor', e)} />
+                                    <FormField label="Ubah Nama Menu">
+                                        <Input name="name" placeholder={selectedMenuVendor.name} defaultValue={selectedMenuVendor.name} onChange={(e) => handleInputChange('selectedMenuVendor', e)} />
                                     </FormField>
                                 </Column>
                                 <Column>
-
+                                    <FormField label="Ubah Detail Description">
+                                        <Input name="description" placeholder={selectedMenuVendor.description} defaultValue={selectedMenuVendor.description} onChange={(e) => handleInputChange('selectedMenuVendor', e)} />
+                                    </FormField>
+                                </Column>
+                                <Column>
+                                    <FormField label="Ubah Price">
+                                        <Input name="price" placeholder={selectedMenuVendor.price} defaultValue={selectedMenuVendor.price} onChange={(e) => handleInputChange('selectedMenuVendor', e)} />
+                                    </FormField>
                                 </Column>
                             </Row>
                         </ModalBody>

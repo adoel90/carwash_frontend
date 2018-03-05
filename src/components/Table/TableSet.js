@@ -93,11 +93,11 @@ class TableSet extends Component {
                 for(var key in row) {
                     if(column.accessor == key) {
                         return <td key={i}>{row[key]}</td>
-                    }
+                    }      
                 }
             })
         }
-
+    
         const renderTablePagination = () => {
             if(pagination) {
                 return <PaginationSet 

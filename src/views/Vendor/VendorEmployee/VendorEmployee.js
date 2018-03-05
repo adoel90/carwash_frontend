@@ -59,7 +59,7 @@ class VendorEmployee extends Component {
     componentDidUpdate = (prevProps) => {
         const { vendorState } = this.props;
 
-        // console.log(this.props);
+        console.log(this.props);
         
         if(prevProps.vendorState.list !== vendorState.list) {
             this.setState({
@@ -102,7 +102,7 @@ class VendorEmployee extends Component {
     
         ]
 
-        const rows = [] 
+        const rows = [];
         
         if(vendorEmployeeList.isLoaded) {
               
@@ -143,7 +143,7 @@ class VendorEmployee extends Component {
 
     openVendorEmployeeModal = (row) => {
 
-        console.log(row);
+        // console.log(row);
         this.setState({
             ...this.state,
             selectedVendorEmployee : row.data

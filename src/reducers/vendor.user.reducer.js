@@ -14,6 +14,10 @@ import {
 	GET_MENU_VENDOR_LIST_FULFILLED,
 	GET_MENU_VENDOR_LIST_REJECTED,
 
+	UPDATE_MENU_VENDOR_REQUESTED, //UPDATE LIST MENU VENDOR
+	UPDATE_MENU_VENDOR_FULFILLED,
+	UPDATE_MENU_VENDOR_REJECTED,
+
 	GET_EMPLOYEE_VENDOR_LIST_REQUESTED,//Get List Vendor Employee 
 	GET_EMPLOYEE_VENDOR_LIST_FULFILLED,
 	GET_EMPLOYEE_VENDOR_LIST_REJECTED
@@ -42,6 +46,15 @@ const initialState = {
 		isError: false,
 		error: {}
 	},
+	existing: {
+		data: {},
+		isUpdated: false,
+		isUpdating: false,
+		isStatusChanging: false,
+		isStatusChanged: false,
+		isError: false,
+		error: {}
+	},
 	employee:{
 		data:{},
 		isFetching:false,
@@ -49,6 +62,7 @@ const initialState = {
 		isError:false,
 		error:{}
 	}
+
 }
 
 const vendorState = (state = initialState, action) => {
@@ -209,6 +223,52 @@ const vendorState = (state = initialState, action) => {
 				}
 			}
 		}
+
+		//UPDATE LIST MENU VENDOR
+		case UPDATE_MENU_VENDOR_REQUESTED: {
+			return {
+				...state,
+				existing: {
+					...state.exisitng,
+					data: {},
+					isUpdating: true,
+					isUpdated: false,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case UPDATE_MENU_VENDOR_FULFILLED: {
+			return {
+				...state,
+				existing: {
+					...state.existing,
+					data: action.payload,
+					isUpdating: false,
+					isUpdated: true,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case UPDATE_MENU_VENDOR_REJECTED: {
+			return {
+				...state,
+				existing: {
+					...state.existing,
+					data: {},
+					isUpdating: false,
+					isUpdated: false,
+					isError: true,
+					error: action.payload
+				}
+			}
+		}
+
+
+
 
 		//Get List Vendor Employee 
 		case GET_EMPLOYEE_VENDOR_LIST_REQUESTED: {

@@ -36,7 +36,7 @@ class VendorPanel extends Component {
                 { id: 1, name: 'dashboard', path: `${props.match.url}`, component: VendorDashboard },
                 { id: 2, name: 'list-menu', path: `${props.match.url}/list-menu`, component: VendorMenu },
                 { id: 3, name: 'log-out', path: `${props.match.url}/log-out`, component: VendorLogOut },
-                { id: 4, name: 'employee-management', path: `${props.match.url}/employee`, component: VendorEmployee },
+                { id: 4, name: 'employee', path: `${props.match.url}/employee`, component: VendorEmployee },
                 { id: 5, name: 'report', path: `${props.match.url}/report`, component: VendorReport }
 
             ],

@@ -18,6 +18,12 @@ export const GET_MENU_VENDOR_LIST_REQUESTED = 'GET_MENU_VENDOR_LIST_REQUESTED';
 export const GET_MENU_VENDOR_LIST_FULFILLED = 'GET_MENU_VENDOR_LIST_FULFILLED';
 export const GET_MENU_VENDOR_LIST_REJECTED = 'GET_MENU_VENDOR_LIST_REJECTED';
 
+//#UPDATE LIST MENU VENDOR
+export const UPDATE_MENU_VENDOR_REQUESTED = 'UPDATE_MENU_VENDOR_REQUESTED';
+export const UPDATE_MENU_VENDOR_FULFILLED = 'UPDATE_MENU_VENDOR_FULFILLED';
+export const UPDATE_MENU_VENDOR_REJECTED = 'UPDATE_MENU_VENDOR_REJECTED';
+
+
 //#Get List Vendor Employee 
 export const GET_EMPLOYEE_VENDOR_LIST_REQUESTED = 'GET_EMPLOYEE_VENDOR_LIST_REQUESTED';
 export const GET_EMPLOYEE_VENDOR_LIST_FULFILLED = 'GET_EMPLOYEE_VENDOR_LIST_FULFILLED';
@@ -31,6 +37,8 @@ export const GET_EMPLOYEE_VENDOR_LIST_REJECTED = 'GET_EMPLOYEE_VENDOR_LIST_REJEC
 const accessToken = localStorage.getItem('accessToken') ? localStorage.getItem('accessToken') : null;
 const userLoginNow = localStorage.getItem('userData') ? localStorage.getItem('userData') : null;
 const dataVendorLoginNow = JSON.parse(userLoginNow);
+
+
 
 export const getVendorUserList = (data) => {
 	return async dispatch => {
@@ -131,6 +139,40 @@ export const getMenuVendorList = (data) => {
 	function fetchRequest() { return { type: GET_MENU_VENDOR_LIST_REQUESTED } }
 	function fetchSuccess(data) { return { type: GET_MENU_VENDOR_LIST_FULFILLED, payload: data } }
 	function fetchError(data) { return { type: GET_MENU_VENDOR_LIST_REJECTED, payload: data } }
+}
+
+//UPDATE LIST MENU VENDOR
+export const updateMenuVendor = (data) =>{
+
+	// console.log(data);
+	return async dispatch => {
+
+		dispatch(fetchRequest());
+
+		return axios
+    
+			// /vendor/menu/update?accessToken={accessToken} 	
+			.put(`${constant.API_PATH}vendor/menu/update?accessToken=${accessToken}`, {
+				id: data.id,
+				name: data.name,
+				description: data.description,
+				price: data.price,				
+				cafe: data.cafe
+			})
+			.then((response) => {
+				dispatch(fetchSuccess(response));
+			})
+			.catch((error) => {
+				dispatch(fetchError(error));
+			})
+			
+	}
+
+
+
+	function fetchRequest() { return { type: UPDATE_MENU_VENDOR_REQUESTED } }
+	function fetchSuccess(data) { return { type: UPDATE_MENU_VENDOR_FULFILLED, payload: data } }
+	function fetchError(data) { return { type: UPDATE_MENU_VENDOR_REJECTED, payload: data } }
 }
 
 

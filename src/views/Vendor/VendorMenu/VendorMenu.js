@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { VendorMenuView} from '../VendorMenu';
-import { getMenuVendorList } from '../../../actions/vendor.action';
+import { getMenuVendorList, updateMenuVendor } from '../../../actions/vendor.action';
 
 function mapStateToProps(state) {
     return {
@@ -12,7 +12,9 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
 
     return {
-        getVendorState: () => dispatch(getMenuVendorList())
+        getVendorState: () => dispatch(getMenuVendorList()),
+        updateVendorMenuState: (object) => dispatch(updateMenuVendor(object))
+        
     }
 }
 
@@ -42,16 +44,18 @@ class VendorMenu extends Component {
             },
             selectedMenuVendor:{}
         }
+
+        
     }
 
     componentDidMount = () => {
 
         this.getMenuVendorList();
+
     }
 
     getMenuVendorList = () => {
 
-        // console.log(this.props);
         const { getVendorState } = this.props;
 
         getVendorState();
@@ -143,6 +147,8 @@ class VendorMenu extends Component {
 
     openMenuVendorModal = (row) => {
 
+      
+
         this.setState({
             ...this.state,
             selectedMenuVendor : row.data
@@ -170,9 +176,34 @@ class VendorMenu extends Component {
     handleUpdateSubmitVendorMenu = (e)=>{
 
         e.preventDefault();
+        
+        //#
+        const userLoginNow = localStorage.getItem('userData') ? localStorage.getItem('userData') : null;
+        const dataVendorLoginNow = JSON.parse(userLoginNow);
 
-        const {selectedMenuVendor} = this.state;
-        console.log(selectedMenuVendor);
+        //#
+        const {selectedMenuVendor,isModalOpen } = this.state;
+        const {updateVendorMenuState} = this.props;
+
+        let requireDataUpdate = {
+            id : selectedMenuVendor.id,
+            name: selectedMenuVendor.name,
+            description: selectedMenuVendor.description,
+            price: selectedMenuVendor.price ,
+            cafe: dataVendorLoginNow.vendor
+        };
+
+        // console.log(requireDataUpdate);
+        updateVendorMenuState(requireDataUpdate);
+        console.log(this.state);
+
+        this.setState({
+            ...this.state,
+            isModalOpen: {
+                updateMenuVendor: false
+            }
+        });
+    
     }
 
 
@@ -183,6 +214,7 @@ class VendorMenu extends Component {
                 {...this.props}
                 toggleModal= {this.toggleModal}
                 handleInputChange= {this.handleInputChange}
+                handleUpdateSubmitVendorMenu={this.handleUpdateSubmitVendorMenu}
             />
         )
     }
@@ -191,4 +223,5 @@ class VendorMenu extends Component {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
+    // mapDispatchToPropsUpdate
 )(VendorMenu);

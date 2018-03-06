@@ -24,11 +24,11 @@ class VendorEmployee extends Component {
 
         super();
         this.getVendorEmployeeList = this.getVendorEmployeeList.bind(this);
-        this.populateTableData= this.populateTableData.bind(this);
         this.toggleModal = this.toggleModal.bind(this);
         this.openVendorEmployeeModal = this.openVendorEmployeeModal.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
-
+        // this.handleUpdateSubmitVendorEmployee = this.handleUpdateSubmitVendorEmployee.bind(this);
+        this.populateTableData= this.populateTableData.bind(this);
         this.state = {
 
             vendorEmployee: {},
@@ -38,9 +38,10 @@ class VendorEmployee extends Component {
                 rows: [],
                 limit: 10
             },
-            isModalOpen:{
+            isModalOpen: {
                 updateVendorEmployee: false
-            }
+            },
+            selectedVendorEmployee:{}
         }
     }
 
@@ -59,7 +60,7 @@ class VendorEmployee extends Component {
     componentDidUpdate = (prevProps) => {
         const { vendorState } = this.props;
 
-        console.log(this.props);
+        // console.log(this.props);
         
         if(prevProps.vendorState.employee !== vendorState.employee) {
             this.setState({
@@ -69,7 +70,6 @@ class VendorEmployee extends Component {
                 this.populateTableData();
             });
         }
-        // console.log(this.props);
     }
 
     populateTableData = () => {
@@ -96,6 +96,7 @@ class VendorEmployee extends Component {
                 render: (row) => (
                     <td>
                         <a href="#" onClick={() => this.openVendorEmployeeModal(row)}>Ubah</a>
+                        
                     </td>
                 )
             }
@@ -130,29 +131,6 @@ class VendorEmployee extends Component {
         }) 
     }
 
-    toggleModal = (name) => {
-        const { isModalOpen } = this.state;
-        
-        this.setState({
-            ...this.state,
-            isModalOpen: {
-                [name]: !isModalOpen[name]
-            }
-        })
-    }
-
-    openVendorEmployeeModal = (row) => {
-
-        // console.log(row);
-        this.setState({
-            ...this.state,
-            selectedVendorEmployee : row.data
-
-        }, () => {
-            this.toggleModal('updateVendorEmployee')
-        })
-    }
-
     handleInputChange = (object, e) => {
 
         const target = e.target;
@@ -168,6 +146,38 @@ class VendorEmployee extends Component {
         });
     }
 
+
+    toggleModal = (name) => {
+        const { isModalOpen } = this.state;
+        
+        this.setState({
+            ...this.state,
+            isModalOpen: {
+                [name]: !isModalOpen[name]
+            }
+        })
+    }
+
+    openVendorEmployeeModal = (row) => {
+
+        // console.log(this.state);
+        // console.log(row);
+        this.setState({
+            ...this.state,
+            // selectedVendorEmployee : row.data
+            selectedVendorEmployee : row
+
+        }, () => {
+            this.toggleModal('updateVendorEmployee')
+        })
+    }
+
+    handleUpdateSubmitVendorEmployee = (e) => {
+
+        e.preventDefault();
+        console.log(e);
+    }
+
     render() {
         return (
             <VendorEmployeeView
@@ -175,6 +185,7 @@ class VendorEmployee extends Component {
                 {...this.props}
                 toggleModal= {this.toggleModal}
                 handleInputChange= {this.handleInputChange}
+                // handleUpdateSubmitVendorEmployee = {this.handleUpdateSubmitVendorEmployee}
             />
         )
     }

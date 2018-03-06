@@ -61,10 +61,10 @@ class VendorEmployee extends Component {
 
         console.log(this.props);
         
-        if(prevProps.vendorState.list !== vendorState.list) {
+        if(prevProps.vendorState.employee !== vendorState.employee) {
             this.setState({
                 ...this.state,
-                vendorEmployeeList: vendorState.list
+                vendorEmployeeList: vendorState.employee
             }, () => {
                 this.populateTableData();
             });

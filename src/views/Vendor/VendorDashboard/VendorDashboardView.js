@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Section } from '../../../layouts/Section';
 import { Panel } from '../../../components/Panel';
+import { ButtonDewek } from '../../../components/ButtonDewek';
 
 const VendorDashboardView = props => {
 
@@ -13,6 +14,8 @@ const VendorDashboardView = props => {
                         <h4 className="heading-title">Dasbor</h4>
                         <h6 className="heading-subtitle">Non veniam do cupidatat culpa dolor consectetur fugiat dolore qui id amet ad incididunt.</h6>
                     </div>
+
+                    <ButtonDewek>Okey !!!</ButtonDewek>
                 </Panel>
             </Section>
         </div>

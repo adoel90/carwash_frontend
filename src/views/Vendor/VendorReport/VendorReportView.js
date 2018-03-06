@@ -44,11 +44,8 @@ const VendorDashboardView = props => {
         handleClick,
         handlePeriodChange,
         handleShow,
-        tableMonth: {
-
-            // dataMonth:[]
-            dataMonth:{}
-        }
+        // tableMonth: {}
+        results
     } = props;
 
     const data = [
@@ -68,6 +65,8 @@ const VendorDashboardView = props => {
 
     ];
 
+
+
     const dataDummy = [
 
         { month: "May 2017", transaction: 0, pv: 24},
@@ -84,6 +83,17 @@ const VendorDashboardView = props => {
         { month: "Apr 2018", transaction: 9, pv: 43}
     ]
 
+
+
+
+
+
+
+
+
+
+
+    
     return (
         <div>
             <div className="vendor-menu">    
@@ -124,13 +134,13 @@ const VendorDashboardView = props => {
 
                         {/* ****************************** */}
 
-                    
-                        {/* <CardBody>
+{/*                     
+                        <CardBody>
                             <CardTitle className="font-weight-bold mb-2">Month</CardTitle>
                             <ResponsiveContainer width='80%' aspect={7.0/3.0}>
                                 <BarChart
-                                    // data={dashboard.graph.dataMonth}
-                                    data={this.props}
+                                    data={vendorReportList}
+                                    // data={this.props}
                                     margin={{top: 5, right: 30, left: 20, bottom: 5}}
                                 >
                                     <XAxis dataKey="name"/>

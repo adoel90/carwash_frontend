@@ -18,7 +18,8 @@ const VendorMenuView = props => {
         toggleModal, 
         handleInputChange, 
         updateMenuVendor, 
-        selectedMenuVendor } = props;
+        selectedMenuVendor,
+        handleUpdateSubmitVendorMenu } = props;
 
     const renderMenuVendorModal = () => {
 
@@ -33,7 +34,8 @@ const VendorMenuView = props => {
                         <h5>Ubah Informasi Vendor</h5>
                     </ModalHeader>
                 
-                    <Form onSubmit={updateMenuVendor}>
+                    {/* <Form onSubmit={updateMenuVendor}> */}
+                    <Form onSubmit={handleUpdateSubmitVendorMenu}>
                         <ModalBody>
                             <Row>
                                 <Column>
@@ -88,13 +90,16 @@ const VendorMenuView = props => {
                             />
                         </div>
 
-                        {/* <h1>Hai</h1> */}
                     </PanelBody>
                 </Panel>
             { renderMenuVendorModal() }
             </div>
         </div>
     )
+};
+
+VendorMenuView.propTypes = {
+    
 };
 
 export default VendorMenuView;

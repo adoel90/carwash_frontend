@@ -3,6 +3,16 @@ import { connect } from 'react-redux';
 import { VendorReportView } from '../VendorReport';
 import { getVendorReportList } from '../../../actions/vendor.report.action';
 
+
+import {
+	Container, Row, Col,
+	Card, CardBody, CardTitle, CardText, CardSubtitle, CardDeck, CardFooter,
+	Form, FormGroup, Input, InputGroup, InputGroupAddon, Button,
+	Table
+} from 'reactstrap';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,LineChart, Line } from 'recharts';
+import NumberFormat from 'react-number-format';
+
 import moment from 'moment';
 
 function mapStateToProps(state) {
@@ -44,11 +54,6 @@ class VendorReport extends Component {
             type: '',
             company: '',
             scanning: false,
-            results: [],
-            tableMonth: {
-
-                dataMonth:[]
-            }
         }
     }
 
@@ -82,6 +87,7 @@ class VendorReport extends Component {
     //#
     componentDidUpdate = (prevProps) => {
         const { vendorReportState } = this.props;
+        
         // console.log(this.props);
         
         if(prevProps.vendorReportState.summary !== vendorReportState.summary) {
@@ -90,7 +96,7 @@ class VendorReport extends Component {
                 ...this.state,
                 vendorReportList: vendorReportState.summary
             }, () => {
-                this.renderSummaryCards();;
+                this.renderSummaryCards();
             });
         }   
     }
@@ -102,7 +108,11 @@ class VendorReport extends Component {
 
         } = this.props;
 
-        const dataMonth = [];
+        // const priceFormatter = function (data) {
+        //     return `$ ${parseFloat(data).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+        // };
+
+        const dataMonth = {};
 
         if(vendorReportState.summary.isLoaded) {
 
@@ -117,34 +127,48 @@ class VendorReport extends Component {
 
             this.setState({
                 ...this.state,
-                tableMonth:{
-                    ...this.state.tableMonth,
-                    dataMonth:reportMonth
+                // results: reportMonth
+                vendorReportList: {
+                    ...this.state.vendorReportList,
+                        data:{
+                            ...this.state.vendorReportList.data,
+                            data:{
+                                ...this.state.vendorReportList.data.data
+                            }
+                        }
                 }
             })
-            console.log(this.state.tableMonth);
-
-            // console.log(dataMonth);
+            console.log(this.state.vendorReportList);
         }
+
+        return(
+			<CardBody>
+				<CardTitle className="font-weight-bold mb-2">Month</CardTitle>
+				<ResponsiveContainer width='100%' aspect={7.0/3.0}>
+					<BarChart
+						// data={dashboard.graph.dataMonth}
+						data={vendorReportState.summary.data.data}
+						margin={{top: 5, right: 30, left: 20, bottom: 5}}
+					>
+						<XAxis dataKey="name"/>
+						<YAxis
+							type="number"
+							// tickFormatter={priceFormatter}
+							allowDecimal={true}
+							width={100}
+						/>
+						<CartesianGrid strokeDasharray="3 3"/>
+						{/* <Tooltip formatter={priceFormatter}/> */}
+						<Legend />
+						<Bar dataKey="transaction" fill="#52c467" />
+						
+					</BarChart>
+				</ResponsiveContainer>
+			</CardBody>
+		)
     }
 
-    // getGraphStatisticsMonth = (data) => {
-    //     const {
-    //         action
-    //     } = this.props;
-
-    // 	let requiredData = {
-    //         type: 'month',
-    // 		start_date: data.period.from.format('YYYY-MM-DD'),
-    // 		end_date: data.period.to.format('YYYY-MM-DD'),
-    //         company: data.company
-    // 	}
-
-    // 	action.getDashboardGraphMonth(requiredData)
-    //         .then(() => {
-    //             console.log(this.props);
-    //         });
-    // }
+   
 
     render() {
         return <VendorReportView 

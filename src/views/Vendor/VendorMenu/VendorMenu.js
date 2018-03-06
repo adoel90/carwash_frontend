@@ -3,9 +3,7 @@ import { connect } from 'react-redux';
 import { VendorMenuView} from '../VendorMenu';
 import { getMenuVendorList } from '../../../actions/vendor.action';
 
-
 function mapStateToProps(state) {
-    
     return {
         vendorState : state.vendorState
     };
@@ -24,10 +22,11 @@ class VendorMenu extends Component {
 
         super();
         this.getMenuVendorList = this.getMenuVendorList.bind(this);
-        this.populateTableData= this.populateTableData.bind(this);
         this.toggleModal = this.toggleModal.bind(this);
         this.openMenuVendorModal = this.openMenuVendorModal.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleUpdateSubmitVendorMenu = this.handleUpdateSubmitVendorMenu.bind(this);
+        this.populateTableData= this.populateTableData.bind(this);
 
         this.state = {
 
@@ -40,7 +39,8 @@ class VendorMenu extends Component {
             },
             isModalOpen:{
                 updateMenuVendor: false
-            }
+            },
+            selectedMenuVendor:{}
         }
     }
 
@@ -57,21 +57,18 @@ class VendorMenu extends Component {
         getVendorState();
     }
 
-
     componentDidUpdate = (prevProps) => {
         const { vendorState } = this.props;
 
-        // console.log(this.props);
-        
-        if(prevProps.vendorState.list !== vendorState.list) {
+        if(prevProps.vendorState.menu !== vendorState.menu) {
             this.setState({
                 ...this.state,
-                menuVendorList: vendorState.list
+                menuVendorList: vendorState.menu
+
             }, () => {
                 this.populateTableData();
             });
         }
-        // console.log(this.props);
     }
 
     populateTableData = () => {
@@ -104,14 +101,13 @@ class VendorMenu extends Component {
     
         ]
 
-        const rows = [] 
-        
+        const rows = []; 
+
         if(menuVendorList.isLoaded) {
-              
-            menuVendorList.data.data.result.forEach((menu, i) => {
+            menuVendorList.data.data.result.map((menu, i)=>{
 
                 let row = {
-                    // id: menu.id,
+                    id:menu.id,
                     name: menu.name,
                     description: menu.description,
                     price: menu.price,
@@ -120,7 +116,8 @@ class VendorMenu extends Component {
 
                 rows.push(row);
             })
-        }
+   
+        };
 
         this.setState({
             ...this.state,
@@ -133,6 +130,7 @@ class VendorMenu extends Component {
     }
 
     toggleModal = (name) => {
+
         const { isModalOpen } = this.state;
         
         this.setState({
@@ -168,6 +166,15 @@ class VendorMenu extends Component {
             }
         });
     }
+
+    handleUpdateSubmitVendorMenu = (e)=>{
+
+        e.preventDefault();
+
+        const {selectedMenuVendor} = this.state;
+        console.log(selectedMenuVendor);
+    }
+
 
     render() {
         return (

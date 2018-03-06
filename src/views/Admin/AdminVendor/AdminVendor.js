@@ -61,7 +61,7 @@ class AdminVendor extends Component {
     componentDidUpdate = (prevProps) => {
 
         const { adminVendorState } = this.props;
-        console.log(this.props);
+        // console.log(this.props);
         
         if(prevProps.adminVendorState.list !== adminVendorState.list) {
 

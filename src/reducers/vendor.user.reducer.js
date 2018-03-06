@@ -34,6 +34,20 @@ const initialState = {
 		isLoaded: false,
 		isError: false,
 		error: {}
+	},
+	menu: {
+		data: {},
+		isFetching: false,
+		isLoaded: false,
+		isError: false,
+		error: {}
+	},
+	employee:{
+		data:{},
+		isFetching:false,
+		isLoaded:false,
+		isError:false,
+		error:{}
 	}
 }
 
@@ -157,8 +171,8 @@ const vendorState = (state = initialState, action) => {
 		case GET_MENU_VENDOR_LIST_REQUESTED: {
 			return {
 				...state,
-				list: {
-					...state.list,
+				menu: {
+					...state.menu,
 					data: {},
 					isFetching: true,
 					isLoaded: false,
@@ -171,8 +185,8 @@ const vendorState = (state = initialState, action) => {
 		case GET_MENU_VENDOR_LIST_FULFILLED: {
 			return {
 				...state,
-				list: {
-					...state.list,
+				menu: {
+					...state.menu,
 					data: action.payload,
 					isLoaded: true,
 					isFetching: false,
@@ -185,8 +199,8 @@ const vendorState = (state = initialState, action) => {
 		case GET_MENU_VENDOR_LIST_REJECTED: {
 			return {
 				...state,
-				list: {
-					...state.list,
+				menu: {
+					...state.menu,
 					data: {},
 					isLoaded: false,
 					isFetching: false,
@@ -200,8 +214,8 @@ const vendorState = (state = initialState, action) => {
 		case GET_EMPLOYEE_VENDOR_LIST_REQUESTED: {
 			return {
 				...state,
-				list: {
-					...state.list,
+				employee: {
+					...state.employee,
 					data: {},
 					isFetching: true,
 					isLoaded: false,
@@ -214,8 +228,8 @@ const vendorState = (state = initialState, action) => {
 		case GET_EMPLOYEE_VENDOR_LIST_FULFILLED: {
 			return {
 				...state,
-				list: {
-					...state.list,
+				employee: {
+					...state.employee,
 					data: action.payload,
 					isLoaded: true,
 					isFetching: false,
@@ -228,8 +242,8 @@ const vendorState = (state = initialState, action) => {
 		case GET_EMPLOYEE_VENDOR_LIST_REJECTED: {
 			return {
 				...state,
-				list: {
-					...state.list,
+				employee: {
+					...state.employee,
 					data: {},
 					isLoaded: false,
 					isFetching: false,

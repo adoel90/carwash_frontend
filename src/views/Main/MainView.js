@@ -4,6 +4,7 @@ import { PropsRoute } from '../../utilities/Route';
 import { Service, Vendor, Admin } from '../../views';
 
 class MainView extends Component {
+    
     render() {
         return (
             <Switch>

@@ -22,14 +22,10 @@ const VendorEmployeeView = props => {
         selectedVendorEmployee,
         handleUpdateSubmitVendorEmployee } = props;
 
-   
-
     const renderVendorEmployeeModal = () => {
 
-       
-        
         if(selectedVendorEmployee){
-              //#
+            //#
             const userLoginNow = localStorage.getItem('userData') ? localStorage.getItem('userData') : null;
             const dataVendorLoginNow = JSON.parse(userLoginNow);
 

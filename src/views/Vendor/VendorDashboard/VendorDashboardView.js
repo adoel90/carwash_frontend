@@ -16,7 +16,7 @@ const VendorDashboardView = props => {
                     </div>
 
                     <ButtonDewek>Okey !!!</ButtonDewek>
-                </Panel>
+                </Panel> 
             </Section>
         </div>
     )

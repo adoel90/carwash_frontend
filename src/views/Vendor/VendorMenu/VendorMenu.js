@@ -147,8 +147,6 @@ class VendorMenu extends Component {
 
     openMenuVendorModal = (row) => {
 
-      
-
         this.setState({
             ...this.state,
             selectedMenuVendor : row.data
@@ -195,7 +193,7 @@ class VendorMenu extends Component {
 
         // console.log(requireDataUpdate);
         updateVendorMenuState(requireDataUpdate);
-        console.log(this.state);
+        // console.log(this.state);
 
         this.setState({
             ...this.state,

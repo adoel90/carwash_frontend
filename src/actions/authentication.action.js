@@ -57,6 +57,7 @@ export const vendorLogin = (data) => {
                 
                 localStorage.setItem('accessToken', result.accessToken);
                 localStorage.setItem('userData', JSON.stringify(result.employee.username));
+                // localStorage.setItem('userData', JSON.stringify(result.data));
                
                 dispatch(loginSuccess(result));
             })

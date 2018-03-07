@@ -45,14 +45,15 @@ class VendorPanel extends Component {
                     category: 'Vendor Name Selected',
 
                     items: [
-                        { id: 1, name: 'Dasbor', path: `${props.match.url}` },
+                        { id: 1, name: 'Dashboard', path: `${props.match.url}` },
                     ]
                 },
                 {
                     category: 'Manajemen Menu',
                     items: [
-                        { id: 1, name: 'Daftar Menu', path: `${props.match.url}/list-menu` },
-                        { id: 2, name: 'Akun Saya', path: `${props.match.url}/log-out` },
+                        { id: 1, name: 'Pengaturan Akun', path: `${props.match.url}/log-out` },
+                        { id: 2, name: 'Daftar Produk', path: `${props.match.url}/list-menu` },
+                        
                         { id: 3, name: 'Employee Management', path: `${props.match.url}/employee` },
                         { id: 4, name: 'Report', path: `${props.match.url}/report` }
                     ]

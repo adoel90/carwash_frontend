@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { PropsRoute } from '../../utilities/Route';
-import { Service, Vendor, Admin } from '../../views';
+import { Service, Vendor, Admin, CustomerMain } from '../../views';
 
 class MainView extends Component {
     
@@ -12,6 +12,7 @@ class MainView extends Component {
                 <Route name="admin" path="/admin" component={Admin} />
                 {/* <Route name="cafe" path="/cafe" component={Cafe} /> */}
                 <Route name="vendor" path="/vendor" component={Vendor} />
+                <Route name="customer" path="/customer" component={CustomerMain} />
             </Switch>
         );
     }

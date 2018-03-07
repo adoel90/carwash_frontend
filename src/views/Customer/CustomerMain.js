@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { VendorView } from '../Vendor';
+import { CustomerMainView } from '../Customer';
 
 function mapStateToProps(state) {
     
@@ -10,14 +10,14 @@ function mapStateToProps(state) {
     }
 }
 
-class Vendor extends Component {
+class CustomerMain extends Component {
         
     constructor(props) {
         super(props);
         this.handleRedirect = this.handleRedirect.bind(this);
         this.state = {
             isAuthenticated: localStorage.getItem('accessToken') ? true : false,
-            authenticatedAs: localStorage.getItem('accessToken') ? 'vendor' : null,
+            authenticatedAs: localStorage.getItem('accessToken') ? 'customer' : null,
             userData: localStorage.getItem('userData') ? JSON.parse(localStorage.getItem('userData')) : {}
 
         }
@@ -33,7 +33,7 @@ class Vendor extends Component {
                 this.setState({
                     ...this.state,
                     isAuthenticated: true,
-                    authenticatedAs: 'vendor',
+                    authenticatedAs: 'customer',
                     userData: authentication.userData
                 }, () => {
                     this.handleRedirect();
@@ -53,7 +53,7 @@ class Vendor extends Component {
             history
         } = this.props;
         
-        if(isAuthenticated && authenticatedAs == 'vendor') {
+        if(isAuthenticated && authenticatedAs == 'customer') {
             return history.push(`${match.url}`);
         }
 
@@ -62,7 +62,7 @@ class Vendor extends Component {
     
     render() {
         return (
-            <VendorView
+            <CustomerMainView
                 {...this.state}
                 {...this.props}
                 handleRedirect={this.handleRedirect}
@@ -73,4 +73,4 @@ class Vendor extends Component {
 
 export default connect(
     mapStateToProps
-)(Vendor);
+)(CustomerMain);

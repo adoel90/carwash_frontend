@@ -81,15 +81,15 @@ class VendorMenu extends Component {
          
         const columns = [
             {
-                title: 'Menu',
+                title: 'Nama Produk',
                 accessor: 'name'
             },
             {
-                title: 'Detail Desc',
+                title: 'Deskripsi Produk',
                 accessor: 'description'
             },
             {
-                title: 'Price',
+                title: 'Harga',
                 accessor: 'price'
             },    
             {

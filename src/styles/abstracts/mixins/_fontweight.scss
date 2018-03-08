@@ -1,0 +1,56 @@
+
+///------------------------------------------------------------------------
+//
+//	##	Font
+//
+//-------------------------------------------------------------------------
+/*/
+/*	A mixin container for those who prefer encapsulating font related
+/*	style properties.
+/*/
+@mixin font {
+	@content;
+}
+
+/*/
+/*	Font Size
+/*
+/*	A special mixin for calculating received value (unitless or in px),
+/*	that will convert into rem value. This is exclusively used, but not
+/*	limited to font size declaration.
+/*/
+@mixin font-size($font-size) {
+	@if map-has-key($font-sizes, $font-size) {
+		$font-size: map-get($font-sizes, $font-size);
+	}
+
+	@include compute-font-size($font-size);
+}
+
+/*/
+/*	Font Weight
+/*
+/*	A specialized mixin for declaring font weight. See the list of
+/*	font-weights to determine whether the declared font weight is
+/*	valid or not. (See $font-weights in variables file).
+/*/
+@mixin font-weight($font-weight) {
+	@if map-has-key($font-weights, $font-weight) {
+		$font-weight: map-get($font-weights, $font-weight);
+	}
+
+	font-weight: $font-weight;
+}
+
+
+@mixin compute-font-size($font-size) {
+	@if(unitless($font-size)) { // if unitless, defaults to px.
+		font-size: $font-size + px; // for old browsers, e.g: IE legacy versions.
+		font-size: (0.0625 * $font-size) + rem;
+	}
+	@else {
+		$converted-size: strip-unit($font-size);
+		font-size: $converted-size + px;
+		font-size: (0.0625 * $converted-size) + rem;
+	}
+}

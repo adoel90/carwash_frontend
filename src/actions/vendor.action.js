@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { constant } from '../config';
 
+//GET VENDOR USER LIST
 export const GET_VENDOR_USER_LIST_REQUESTED = 'GET_VENDOR_USER_LIST_REQUESTED';
 export const GET_VENDOR_USER_LIST_FULFILLED = 'GET_VENDOR_USER_LIST_FULFILLED';
 export const GET_VENDOR_USER_LIST_REJECTED = 'GET_VENDOR_USER_LIST_REJECTED';
@@ -8,7 +9,7 @@ export const GET_VENDOR_USER_LIST_REJECTED = 'GET_VENDOR_USER_LIST_REJECTED';
 export const CREATE_NEW_VENDOR_FULFILLED = 'CREATE_NEW_VENDOR_FULFILLED';
 export const CREATE_NEW_VENDOR_REJECTED = 'CREATE_NEW_VENDOR_REJECTED';
 
-//GET Vendor Detail
+//GET VENDOR DETAIL
 export const GET_VENDOR_DETAIL_REQUESTED = 'GET_VENDOR_DETAIL_REQUESTED';
 export const GET_VENDOR_DETAIL_FULFILLED = 'GET_VENDOR_DETAIL_FULFILLED';
 export const GET_VENDOR_DETAIL_REJECTED = 'GET_VENDOR_DETAIL_REJECTED';
@@ -18,18 +19,23 @@ export const GET_MENU_VENDOR_LIST_REQUESTED = 'GET_MENU_VENDOR_LIST_REQUESTED';
 export const GET_MENU_VENDOR_LIST_FULFILLED = 'GET_MENU_VENDOR_LIST_FULFILLED';
 export const GET_MENU_VENDOR_LIST_REJECTED = 'GET_MENU_VENDOR_LIST_REJECTED';
 
-//#UPDATE LIST MENU VENDOR
+//#UPDATE MENU VENDOR
 export const UPDATE_MENU_VENDOR_REQUESTED = 'UPDATE_MENU_VENDOR_REQUESTED';
 export const UPDATE_MENU_VENDOR_FULFILLED = 'UPDATE_MENU_VENDOR_FULFILLED';
 export const UPDATE_MENU_VENDOR_REJECTED = 'UPDATE_MENU_VENDOR_REJECTED';
 
 
-//#Get List Vendor Employee 
+//#GET LIST VENDOR EMPLOYEE  
 export const GET_EMPLOYEE_VENDOR_LIST_REQUESTED = 'GET_EMPLOYEE_VENDOR_LIST_REQUESTED';
 export const GET_EMPLOYEE_VENDOR_LIST_FULFILLED = 'GET_EMPLOYEE_VENDOR_LIST_FULFILLED';
 export const GET_EMPLOYEE_VENDOR_LIST_REJECTED = 'GET_EMPLOYEE_VENDOR_LIST_REJECTED';
 
-//Get List Report Vendor
+//#UPDATE VENDOR EMPLOYEE
+export const UPDATE_VENDOR_EMPLOYEE_REQUESTED = 'UPDATE_VENDOR_EMPLOYEE_REQUESTED';
+export const UPDATE_VENDOR_EMPLOYEE_FULFILLED = 'UPDATE_VENDOR_EMPLOYEE_FULFILLED';
+export const UPDATE_VENDOR_EMPLOYEE_REJECTED = 'UPDATE_VENDOR_EMPLOYEE_REJECTED';
+
+//GET LIST REPORT VENDOR
 // export const GET_REPORT_VENDOR_LIST_REQUESTED = 'GET_REPORT_VENDOR_LIST_REQUESTED';
 // export const GET_REPORT_VENDOR_LIST_FULFILLED = 'GET_REPORT_VENDOR_LIST_FULFILLED';
 // export const GET_REPORT_VENDOR_LIST_REJECTED = 'GET_REPORT_VENDOR_LIST_REJECTED';
@@ -37,9 +43,10 @@ export const GET_EMPLOYEE_VENDOR_LIST_REJECTED = 'GET_EMPLOYEE_VENDOR_LIST_REJEC
 const accessToken = localStorage.getItem('accessToken') ? localStorage.getItem('accessToken') : null;
 const userLoginNow = localStorage.getItem('userData') ? localStorage.getItem('userData') : null;
 const dataVendorLoginNow = JSON.parse(userLoginNow);
+console.log(dataVendorLoginNow);
 
 
-
+//GET VENDOR USER LIST
 export const getVendorUserList = (data) => {
 	return async dispatch => {
 		dispatch(fetchRequest());
@@ -62,11 +69,10 @@ export const getVendorUserList = (data) => {
 export const createNewVendor = (data) => {
 
 	return async dispatch => {
+
 		return axios
-	
 			.post(`${constant.API_PATH}vendor/create?accessToken=${accessToken}`, {
 				
-
 				cafe_name: data.cafe_name,
                 fullname: data.fullname,
                 email: data.email,
@@ -98,7 +104,7 @@ export const createNewVendor = (data) => {
 	}
 }
 
-//GET Vendor Detail
+//GET VENDOR DETAIL
 export const getVendorDetail = (data) => {
 	return async dispatch => {
 		dispatch(fetchRequest());
@@ -141,7 +147,7 @@ export const getMenuVendorList = (data) => {
 	function fetchError(data) { return { type: GET_MENU_VENDOR_LIST_REJECTED, payload: data } }
 }
 
-//UPDATE LIST MENU VENDOR
+//UPDATE MENU VENDOR
 export const updateMenuVendor = (data) =>{
 
 	// console.log(data);
@@ -168,15 +174,13 @@ export const updateMenuVendor = (data) =>{
 			
 	}
 
-
-
 	function fetchRequest() { return { type: UPDATE_MENU_VENDOR_REQUESTED } }
 	function fetchSuccess(data) { return { type: UPDATE_MENU_VENDOR_FULFILLED, payload: data } }
 	function fetchError(data) { return { type: UPDATE_MENU_VENDOR_REJECTED, payload: data } }
 }
 
 
-//Get List Vendor Employee 
+//GET LIST VENDOR EMPLOYEE 
 export const getVendorEmployeeList = (data) => {
 
 	return async dispatch => {
@@ -200,7 +204,38 @@ export const getVendorEmployeeList = (data) => {
 	function fetchError(data) { return { type: GET_EMPLOYEE_VENDOR_LIST_REJECTED, payload: data } }
 }
 
-//Get List Report Vendor
+//UPDATE VENDOR EMPLOYEE
+export const updateVendorEmployee = (data) => {
+
+	return async dispatch => {
+
+		dispatch(fetchRequest());
+
+		return axios	
+
+			.put(`${constant.API_PATH}vendor/employee/update?accessToken=${accessToken}`, {
+				id : data.id,
+                name: data.name,
+                email: data.email,
+                access: data.access ,
+                password: data.password
+			})
+			.then((response) => {
+				dispatch(fetchSuccess(response));
+			})
+			.catch((error) => {
+				dispatch(fetchError(error));
+			})			
+	}
+
+	function fetchRequest() { return { type: UPDATE_VENDOR_EMPLOYEE_REQUESTED } }
+	function fetchSuccess(data) { return { type: UPDATE_VENDOR_EMPLOYEE_FULFILLED, payload: data } }
+	function fetchError(data) { return { type: UPDATE_VENDOR_EMPLOYEE_REJECTED, payload: data } }
+}
+
+
+
+//GET LIST REPORT VENDOR
 // export const getVendorReportList = (data) => {
 
 // 	return async dispatch => {

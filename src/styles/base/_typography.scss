@@ -64,3 +64,49 @@ a {
 
 
 //--------------------------------------------------------------------------------------------------------
+
+
+//------------------------------------------------------------------
+//
+//	##	Text Formatting
+//
+//------------------------------------------------------------------
+/*/
+/*	Text Alignment
+/*/
+$ta-offsets: left, center, right, justify;
+@each $offset in $ta-offsets {
+	.ta-#{$offset} {
+		text-align: #{$offset};
+	}
+}
+
+/*/
+/*	Text Alignment
+/*/
+$fw-offsets: thin light regular medium semibold bold black;
+@each $offset in $fw-offsets {
+	.fw-#{$offset} {
+		@include font-weight($offset);
+	}
+}
+
+/*/
+/*	Text Transformation
+/*/
+$tt-offsets: uppercase, lowercase, capitalize;
+@each $offset in $tt-offsets {
+	.tt-#{$offset} {
+		text-transform: $offset;
+	}
+}
+
+/*/
+/*	Letter Spacing
+/*/
+$ls-offsets: small, base, large;
+@each $offset in $ls-offsets {
+	.ls-#{$offset} {
+		letter-spacing: letter-spacing($offset);
+	}
+}

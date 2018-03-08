@@ -1,0 +1,28 @@
+///------------------------------------------------------------------------
+//
+//	##	Position
+//
+//	The position CSS property specifies how an element is positioned
+//	in a document. The top, right, bottom, and left properties determine the
+//	final location of positioned elements.
+//
+//	The mixins below are specifically used in conjunction with position CSS.
+//	It creates a container that can be used within a SCSS rule to contain top,
+//	right, bottom and left properties.
+//
+//-------------------------------------------------------------------------
+@mixin fixed($args: ()) {
+	position: fixed;
+	@content;
+}
+
+@mixin absolute($args: ()) {
+	position: absolute;
+	@content;
+}
+
+@mixin relative($args: ()) {
+	position: relative;
+	@content;
+}
+

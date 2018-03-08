@@ -30,11 +30,14 @@ const CustomerSidebar = props => {
     }
     
     return (
-        <Sidebar>
-            <Menu theme="dark">
-                { renderMenuList() }
-            </Menu>
-        </Sidebar>
+        // <Sidebar>
+        //     <Menu theme="dark">
+        //         { renderMenuList() }
+        //     </Menu>
+        // </Sidebar>
+        <div>
+            { renderMenuList() }
+        </div>
     )
 };
 

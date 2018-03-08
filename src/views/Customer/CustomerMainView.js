@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { PrivateRoute, PropsRoute } from '../../utilities/Route';
-// import { VendorLogin, VendorPanel } from '../Vendor';
 import { CustomerLogin, CustomerPanel } from '../Customer';
+// import { CustomerLogin, CustomerPanelNew } from '../Customer';
 
 
 // const CustomerMainView = () => {
@@ -37,6 +37,7 @@ class CustomerMainView extends Component {
                     name="panel"
                     path={`${match.url}`}
                     component={CustomerPanel}
+                    // component={CustomerPanelNew}
                     isAuthenticated={isAuthenticated && authenticatedAs == 'customer'}
                     redirectTo={`${match.url}/login`}
                 />

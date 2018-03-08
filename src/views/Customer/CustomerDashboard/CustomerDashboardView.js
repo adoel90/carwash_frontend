@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Section } from '../../../layouts/Section';
 import { Panel } from '../../../components/Panel';
 import { ButtonDewek } from '../../../components/ButtonDewek';
+// import { MainHeader } from '../../../components/MainHeader';
 
 const CustomerDashboardView = props => {
 
@@ -19,6 +20,8 @@ const CustomerDashboardView = props => {
                 </Panel> 
             </Section>
         </div>
+        // <MainHeader {...this.state} {...this.props} />
+        
     )
 };
 

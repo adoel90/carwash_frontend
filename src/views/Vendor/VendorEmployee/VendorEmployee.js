@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { VendorEmployeeView } from '../VendorEmployee';
-import { getVendorEmployeeList } from '../../../actions/vendor.action';
+import { getVendorEmployeeList, updateVendorEmployee } from '../../../actions/vendor.action';
 
 function mapStateToProps(state) {
 
@@ -13,7 +13,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
 
     return {
-        getVendorState: () => dispatch(getVendorEmployeeList())
+        getVendorState: () => dispatch(getVendorEmployeeList()),
+        updateVendorEmployeeState: (object) => dispatch(updateVendorEmployee(object))
     }
 }
 
@@ -159,8 +160,6 @@ class VendorEmployee extends Component {
 
     openVendorEmployeeModal = (row) => {
 
-        // console.log(this.state);
-        // console.log(row);
         this.setState({
             ...this.state,
             // selectedVendorEmployee : row.data
@@ -175,8 +174,24 @@ class VendorEmployee extends Component {
 
         e.preventDefault();
         const { selectedVendorEmployee } = this.state;
+        const { updateVendorEmployeeState } = this.props;
         console.log(e);
-        console.log(selectedVendorEmployee);
+
+        if(selectedVendorEmployee.password === selectedVendorEmployee.passwordConfirm){
+
+            let requireDataUpdate = {
+                id : selectedVendorEmployee.id,
+                name: selectedVendorEmployee.name,
+                email: selectedVendorEmployee.email,
+                access: selectedVendorEmployee.access ,
+                password: selectedVendorEmployee.password
+            };
+            console.log(requireDataUpdate);
+            updateVendorEmployeeState(requireDataUpdate);
+
+        }else{
+            console.log("Password tidak sama");
+        }
     }
 
     render() {

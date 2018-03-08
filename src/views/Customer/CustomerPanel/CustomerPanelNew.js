@@ -2,9 +2,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { CustomerDashboard  } from '../../Customer';
-import { CustomerPanelView } from '../CustomerPanel';
+import { CustomerPanelNewView } from '../CustomerPanel';
 
-class CustomerPanel extends Component {   
+
+class CustomerPanelNew extends Component {   
 
     constructor(props) {
 
@@ -38,12 +39,14 @@ class CustomerPanel extends Component {
 
     render() {
         return (
-            <CustomerPanelView
+            <CustomerPanelNewView
                 {...this.state} 
                 {...this.props} 
             />
+
+            
         )
     }
 }
 
-export default CustomerPanel;
+export default CustomerPanelNew;

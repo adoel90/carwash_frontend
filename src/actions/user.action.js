@@ -11,6 +11,7 @@ export const CREATE_USER_FULFILLED = 'CREATE_USER_FULFILLED';
 export const CREATE_USER_REJECTED = 'CREATE_USER_REJECTED';
 
 const accessToken = localStorage.getItem('accessToken') ? localStorage.getItem('accessToken') : null;
+// console.log(accessToken);
 
 export const getUserList = (data) => {
 	return async dispatch => {

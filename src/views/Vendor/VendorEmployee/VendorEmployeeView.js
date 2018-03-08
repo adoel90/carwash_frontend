@@ -6,7 +6,8 @@ import { TableSet } from '../../../components/Table';
 import { Form, FormField } from '../../../layouts/Form';
 import { Row, Column } from '../../../layouts/Grid';
 import { Input, InputGroup, Switch } from '../../../components/Input';
-import { Button } from '../../../components/Button';
+// import { Button } from '../../../components/Button';
+import { ButtonDewek } from '../../../components/ButtonDewek';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from '../../../components/Modal';
 
 const VendorEmployeeView = props => {
@@ -35,7 +36,7 @@ const VendorEmployeeView = props => {
                     toggle={() => toggleModal('updateVendorEmployee')}>
 
                     <ModalHeader>
-                        <h5>Ubah Informasi Vendor</h5>
+                        <h5>Ubah Informasi Store</h5>
                     </ModalHeader>
                 
                     <Form onSubmit={handleUpdateSubmitVendorEmployee}>
@@ -52,6 +53,13 @@ const VendorEmployeeView = props => {
                                         <Input name="name" placeholder={selectedVendorEmployee.name} defaultValue={selectedVendorEmployee.name} onChange={(e) => handleInputChange('selectedVendorEmployee', e)} />
                                     </FormField>
                                 </Column>
+                            </Row>
+                            <Row>
+                                {/* <Column>
+                                    <FormField label="Ubah Username Log-in">
+                                        <Input name="username" placeholder={dataVendorLoginNow.username} defaultValue={dataVendorLoginNow.username} onChange={(e) => handleInputChange('selectedVendorEmployee', e)} />
+                                    </FormField>
+                                </Column> */}
                                 <Column>
                                     <FormField label="Ubah Email Karyawan">
                                         <Input name="email" placeholder={selectedVendorEmployee.email} defaultValue={selectedVendorEmployee.email} onChange={(e) => handleInputChange('selectedVendorEmployee', e)} />
@@ -63,43 +71,29 @@ const VendorEmployeeView = props => {
                                     </FormField>
                                 </Column>
                             </Row>
-                            <Row>
-                                <Column>
-                                    <FormField label="Id Vendor">
-                                        <Input name="vendor" placeholder={dataVendorLoginNow.vendor} defaultValue={dataVendorLoginNow.vendor} onChange={(e) => handleInputChange('selectedVendorEmployee', e)} />
-                                    </FormField>
-                                </Column>
-                                <Column>
-                                    <FormField label="Username Vendor">
-                                        <Input name="username" placeholder={dataVendorLoginNow.username} defaultValue={dataVendorLoginNow.username} onChange={(e) => handleInputChange('selectedVendorEmployee', e)} />
-                                    </FormField>
-                                </Column>
-                            </Row>
 
-                            {/* ROW-02 */}
                             <Row>
                                 <Column>
                                     <FormField label="Ubah Password">
-                                        <Input name="id" placeholder="Ketik Password" defaultValue={selectedVendorEmployee.password} onChange={(e) => handleInputChange('selectedVendorEmployee', e)} />
+                                        <Input name="password" placeholder="Ketik Password" defaultValue={selectedVendorEmployee.password} onChange={(e) => handleInputChange('selectedVendorEmployee', e)} />
                                     </FormField>
                                 </Column>
                                 <Column>
                                     <FormField label="Confirm Password">
-                                        <Input name="id" placeholder="Ketik Ulang Password" defaultValue={selectedVendorEmployee.passwordConfirm} onChange={(e) => handleInputChange('selectedVendorEmployee', e)} />
+                                        <Input name="passwordConfirm" placeholder="Ketik Ulang Password" defaultValue={selectedVendorEmployee.passwordConfirm} onChange={(e) => handleInputChange('selectedVendorEmployee', e)} />
                                     </FormField>
                                 </Column>
                             </Row>
                         </ModalBody>
                         <ModalFooter className="flex justify-content--flex-end">
-                            <Button>Simpan</Button>
+                            <ButtonDewek>Cancel</ButtonDewek>
+                            <ButtonDewek variant="raised" type="submit">Simpan</ButtonDewek>
                         </ModalFooter>
-
                     </Form>
                 </Modal>
             )
         }
     }
-
 
     return (
         <div>
@@ -107,7 +101,7 @@ const VendorEmployeeView = props => {
             <div className="admin-user">
                 <Panel>
                     <PanelHeader>
-                        <h4 className="heading-title">Employee Management</h4>
+                        <h4 className="heading-title">Manajemen Karyawan</h4>
                         <h6 className="heading-subtitle">Tempor nostrud cupidatat officia sit ullamco eu pariatur ullamco quis laborum nulla ipsum.</h6>
                         
                     </PanelHeader>

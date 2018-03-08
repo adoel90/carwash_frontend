@@ -86,7 +86,7 @@ const VendorDashboardView = props => {
                         
                         <LineChart width={900} height={300} data={table.vendorReportListResults} margin={{ top: 5, right: 20, bottom: 5, left: 0}}>
                             <Line type="monotone" dataKey="transaction" stroke="#8884d8" />
-                            <CartesianGrid width="5" stroke="#ccc" strokeDasharray="5 5"/>
+                            <CartesianGrid stroke="#ccc" strokeDasharray="5 5"/>
                             <XAxis dataKey="name" />
                             <YAxis dataKey='transaction'/>
                             <Tooltip />

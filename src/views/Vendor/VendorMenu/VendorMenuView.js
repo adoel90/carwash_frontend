@@ -6,7 +6,8 @@ import { TableSet } from '../../../components/Table';
 import { Form, FormField } from '../../../layouts/Form';
 import { Row, Column } from '../../../layouts/Grid';
 import { Input, InputGroup, Switch } from '../../../components/Input';
-import { Button } from '../../../components/Button';
+// import { Button } from '../../../components/Button';
+import { ButtonDewek } from '../../../components/ButtonDewek';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from '../../../components/Modal';
 
 const VendorMenuView = props => {
@@ -31,7 +32,7 @@ const VendorMenuView = props => {
                     toggle={() => toggleModal('updateMenuVendor')}>
 
                     <ModalHeader>
-                        <h5>Ubah Informasi Vendor</h5>
+                        <h5>Ubah Informasi Store</h5>
                     </ModalHeader>
                 
                     {/* <Form onSubmit={updateMenuVendor}> */}
@@ -39,12 +40,12 @@ const VendorMenuView = props => {
                         <ModalBody>
                             <Row>
                                 <Column>
-                                    <FormField label="Ubah Nama Menu">
+                                    <FormField label="Ubah Nama Produk">
                                         <Input name="name" placeholder={selectedMenuVendor.name} defaultValue={selectedMenuVendor.name} onChange={(e) => handleInputChange('selectedMenuVendor', e)} />
                                     </FormField>
                                 </Column>
                                 <Column>
-                                    <FormField label="Ubah Detail Description">
+                                    <FormField label="Ubah Produk Description">
                                         <Input name="description" placeholder={selectedMenuVendor.description} defaultValue={selectedMenuVendor.description} onChange={(e) => handleInputChange('selectedMenuVendor', e)} />
                                     </FormField>
                                 </Column>
@@ -56,7 +57,9 @@ const VendorMenuView = props => {
                             </Row>
                         </ModalBody>
                         <ModalFooter className="flex justify-content--flex-end">
-                            <Button>Simpan</Button>
+                            <ButtonDewek>Cancel</ButtonDewek>
+                            <ButtonDewek variant="raised" type="submit">Simpan</ButtonDewek>
+                            
                         </ModalFooter>
 
                     </Form>
@@ -73,7 +76,7 @@ const VendorMenuView = props => {
             <div className="admin-user">
                 <Panel>
                     <PanelHeader>
-                        <h4 className="heading-title">Daftar Menu</h4>
+                        <h4 className="heading-title">Daftar Produk</h4>
                         <h6 className="heading-subtitle">Tempor nostrud cupidatat officia sit ullamco eu pariatur ullamco quis laborum nulla ipsum.</h6>
                         
                     </PanelHeader>

@@ -28,6 +28,7 @@ class VendorPanel extends Component {
         this.getVendorDetail = this.getVendorDetail.bind(this);        
 
         this.state = {
+
             vendor : {},
             vendorList :{},
 
@@ -81,12 +82,26 @@ class VendorPanel extends Component {
 
         const { vendorState } = this.props;
 
+        const { menus, vendorList } = this.state;
+
+
+        console.log(menus[0].category);
+        console.log(vendorList);
+        /*
+            Sekarang akar permasalahan-nya gimana cara setState() "Store Name Selected" menjadi string kosong  
+
+        */
+
+        let dataUntukMenu = {
+
+        }
+        
         if(prevProps.vendorState.list !== vendorState.list) {
        
              this.setState({
                 ...this.state,
-                vendorList: vendorState.list
-                
+                vendorList: vendorState.list,
+            
             });
         }
     }

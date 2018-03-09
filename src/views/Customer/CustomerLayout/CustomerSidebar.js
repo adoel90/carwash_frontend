@@ -12,9 +12,14 @@ const CustomerSidebar = props => {
     const renderMenuItems = (items) => {
         return items.map((item, i) => {
             return (
-                <MenuItem key={i} active={location.pathname === item.path }>
-                    <MenuLink to={item.path}>{item.name}</MenuLink>
-                </MenuItem>
+                // <MenuItem key={i} active={location.pathname === item.path }>
+                //     <MenuLink to={item.path}>{item.name}</MenuLink>
+                // </MenuItem>
+                <div>
+                    <div key={i} active={location.pathname === item.path }>
+                        <MenuLink to={item.path}>{item.name}</MenuLink>
+                    </div>
+                </div>
             )
         })
     }

@@ -29,6 +29,8 @@ class VendorEmployee extends Component {
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleUpdateSubmitVendorEmployee = this.handleUpdateSubmitVendorEmployee.bind(this);
         this.populateTableData = this.populateTableData.bind(this);
+        this.handleCancelModal = this.handleCancelModal.bind(this);
+
         this.state = {
 
             vendorEmployee: {},
@@ -186,12 +188,25 @@ class VendorEmployee extends Component {
                 access: selectedVendorEmployee.access ,
                 password: selectedVendorEmployee.password
             };
-            console.log(requireDataUpdate);
+
             updateVendorEmployeeState(requireDataUpdate);
 
         }else{
             console.log("Password tidak sama");
         }
+    }
+
+    handleCancelModal = (e) => {
+
+        e.preventDefault();
+
+        const {isModalOpen} = this.state;
+        this.setState({
+            ...this.state,
+            isModalOpen:{
+                updateMenuVendor:false
+            }
+        });
     }
 
     render() {
@@ -202,6 +217,7 @@ class VendorEmployee extends Component {
                 toggleModal={this.toggleModal}
                 handleInputChange={this.handleInputChange}
                 handleUpdateSubmitVendorEmployee={this.handleUpdateSubmitVendorEmployee}
+                handleCancelModal= {this.handleCancelModal}
             />
         )
     }

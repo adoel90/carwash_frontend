@@ -20,7 +20,8 @@ const VendorMenuView = props => {
         handleInputChange, 
         updateMenuVendor, 
         selectedMenuVendor,
-        handleUpdateSubmitVendorMenu } = props;
+        handleUpdateSubmitVendorMenu,
+        handleCancelModal } = props;
 
     const renderMenuVendorModal = () => {
 
@@ -57,7 +58,8 @@ const VendorMenuView = props => {
                             </Row>
                         </ModalBody>
                         <ModalFooter className="flex justify-content--flex-end">
-                            <ButtonDewek>Cancel</ButtonDewek>
+                            <ButtonDewek onClick={(e) => handleCancelModal(e)} >Cancel</ButtonDewek>
+                            {/* <ButtonDewek onClick={handleCancelModal} variant="raised" type="submit">Simpan</ButtonDewek> */}
                             <ButtonDewek variant="raised" type="submit">Simpan</ButtonDewek>
                             
                         </ModalFooter>

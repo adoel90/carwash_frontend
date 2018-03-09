@@ -73,8 +73,7 @@ class VendorReport extends Component {
         let requiredDataMonth = {
             type: 'month',
     		start_date: period.from.format('YYYY-MM-DD'),
-    		end_date: period.to.format('YYYY-MM-DD'),
-            // company: companyVal
+    		end_date: period.to.format('YYYY-MM-DD')
         }
 
         getVendorReportState(requiredDataMonth);
@@ -102,7 +101,6 @@ class VendorReport extends Component {
             vendorReportList
         } = this.state;
 
-        // console.log(this.state.vendorReportList);
         const vendorReportListResults = []; 
 
         if(vendorReportList.isLoaded) {
@@ -132,32 +130,18 @@ class VendorReport extends Component {
     	const { period } = this.state;
     	period[type] = date;
         this.forceUpdate();
-        // console.log(this.state);
     }
 
     handleShow = () => {
-        // console.log(this.props);
-        // console.log(this.state);
 
         const {period,vendorReportList} = this.state;
 
-
         const requiredDataMonth = {
+
             type: 'month',
     		start_date: period.from.format('YYYY-MM-DD'),
-    		end_date: period.to.format('YYYY-MM-DD'),
-            // company: companyVal
+    		end_date: period.to.format('YYYY-MM-DD')
         }        
-        // this.setState({
-        //     ...this.state,
-        //     requiredData:{
-    
-        //         ...this.state,
-        //         dataRequire:requiredDataMonth
-        //     }
-        // });
-
-        console.log(this.state);
     }
 
     render() {

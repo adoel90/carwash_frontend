@@ -29,6 +29,7 @@ class VendorMenu extends Component {
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleUpdateSubmitVendorMenu = this.handleUpdateSubmitVendorMenu.bind(this);
         this.populateTableData= this.populateTableData.bind(this);
+        this.handleCancelModal = this.handleCancelModal.bind(this);
 
         this.state = {
 
@@ -44,8 +45,6 @@ class VendorMenu extends Component {
             },
             selectedMenuVendor:{}
         }
-
-        
     }
 
     componentDidMount = () => {
@@ -62,6 +61,7 @@ class VendorMenu extends Component {
     }
 
     componentDidUpdate = (prevProps) => {
+
         const { vendorState } = this.props;
 
         if(prevProps.vendorState.menu !== vendorState.menu) {
@@ -181,7 +181,9 @@ class VendorMenu extends Component {
 
         //#
         const {selectedMenuVendor,isModalOpen } = this.state;
-        const {updateVendorMenuState} = this.props;
+        const {updateVendorMenuState,vendorState} = this.props;
+
+        const rowsUpdate = [];
 
         let requireDataUpdate = {
             id : selectedMenuVendor.id,
@@ -191,19 +193,36 @@ class VendorMenu extends Component {
             cafe: dataVendorLoginNow.vendor
         };
 
-        // console.log(requireDataUpdate);
         updateVendorMenuState(requireDataUpdate);
-        // console.log(this.state);
+        
+        rowsUpdate.push(requireDataUpdate);
+     
+            this.setState({
+                ...this.state,
+                table:{
+                    ...this.state.table,
+                    rows:rowsUpdate
+                },
+                isModalOpen: {
 
-        this.setState({
-            ...this.state,
-            isModalOpen: {
-                updateMenuVendor: false
-            }
-        });
-    
+                    updateMenuVendor: false
+                 }
+            });  
     }
 
+    handleCancelModal = (e) =>{
+
+        e.preventDefault();
+
+        const {isModalOpen} = this.state;
+        this.setState({
+            ...this.state,
+            isModalOpen:{
+                updateMenuVendor:false
+            }
+        });
+
+    }
 
     render() {
         return (
@@ -213,6 +232,7 @@ class VendorMenu extends Component {
                 toggleModal= {this.toggleModal}
                 handleInputChange= {this.handleInputChange}
                 handleUpdateSubmitVendorMenu={this.handleUpdateSubmitVendorMenu}
+                handleCancelModal={this.handleCancelModal}
             />
         )
     }
@@ -221,5 +241,4 @@ class VendorMenu extends Component {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-    // mapDispatchToPropsUpdate
 )(VendorMenu);

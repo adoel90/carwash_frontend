@@ -24,12 +24,16 @@ const CustomerPage = props => {
     }
     
     return (
-        <Page>
-            {/* <Header block></Header> */}
-            <Content>
-                { renderRoutes() }
-            </Content>
-        </Page>
+        <div>
+            <h1>Hello</h1>
+            <Page>
+            
+                {/* <Header block></Header> */}
+                <Content>
+                    { renderRoutes() }
+                </Content>
+            </Page>
+        </div>
     );
 };
 

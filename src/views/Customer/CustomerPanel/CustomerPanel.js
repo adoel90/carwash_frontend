@@ -17,7 +17,7 @@ class CustomerPanel extends Component {
             ],
             menus: [
                 { 
-                    category: 'Vendor Name Selected',
+                    category: '',
 
                     items: [
                         { id: 1, name: 'Dashboard', path: `${props.match.url}` },

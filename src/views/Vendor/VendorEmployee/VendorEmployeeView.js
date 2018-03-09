@@ -21,7 +21,8 @@ const VendorEmployeeView = props => {
         handleInputChange, 
         updateVendorEmployee, 
         selectedVendorEmployee,
-        handleUpdateSubmitVendorEmployee } = props;
+        handleUpdateSubmitVendorEmployee,
+        handleCancelModal } = props;
 
     const renderVendorEmployeeModal = () => {
 
@@ -86,7 +87,7 @@ const VendorEmployeeView = props => {
                             </Row>
                         </ModalBody>
                         <ModalFooter className="flex justify-content--flex-end">
-                            <ButtonDewek>Cancel</ButtonDewek>
+                            <ButtonDewek onClick={(e) => handleCancelModal(e)}>Cancel</ButtonDewek>
                             <ButtonDewek variant="raised" type="submit">Simpan</ButtonDewek>
                         </ModalFooter>
                     </Form>

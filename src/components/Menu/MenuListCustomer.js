@@ -11,7 +11,7 @@ const MenuListCustomer = props => {
 
     const classes = {
         menuList: classNames(
-            `menu__list-customer`,
+            `menu__list_customer`,
             className
         ),
         menuCategory: classNames(

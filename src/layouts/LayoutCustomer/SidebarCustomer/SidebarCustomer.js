@@ -9,14 +9,25 @@ const SidebarCustomer = props => {
         children,
     } = props;
 
+    // const classes = {
+    //     sidebar: classNames(
+    //         `sidebar`,
+    //         size ? `sidebar--${size}` : null,
+    //         className
+    //     ),
+    //     sidebarContainer: classNames(
+    //         `sidebar__container`
+    //     )
+    // }
+
     const classes = {
         sidebar: classNames(
-            `sidebar`,
+            `sidebar_customer`,
             size ? `sidebar--${size}` : null,
             className
         ),
         sidebarContainer: classNames(
-            `sidebar__container`
+            `sidebar__container_customer`
         )
     }
     

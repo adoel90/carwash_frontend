@@ -8,9 +8,15 @@ const PageCustomer = props => {
         children
     } = props;
     
+    // const classes = {
+    //     page: classNames(
+    //         `page`,
+    //         className
+    //     )
+    // }
     const classes = {
         page: classNames(
-            `page`,
+            `page_customer`,
             className
         )
     }

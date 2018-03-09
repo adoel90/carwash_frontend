@@ -5,16 +5,16 @@ import { Panel } from '../../../components/Panel';
 import { ButtonDewek } from '../../../components/ButtonDewek';
 import { MainHeader } from '../../../components/MainHeader';
 
-const CustomerDashboardView = props => {
+const CustomerOurServiceView = props => {
 
     return (
         <div>
-            <h1>Hai</h1>
+           
             <div className="admin-dashboard">
                 <Section>
                     <Panel>
-                        <div className="admin-dashboard__heading">
-                            <h4 className="heading-title">Dasbor</h4>
+                        <div className="admin-dashboard__heading">  
+                            <h4 className="heading-title">Layanan Kami</h4>
                             <h6 className="heading-subtitle">Non veniam do cupidatat culpa dolor consectetur fugiat dolore qui id amet ad incididunt.</h6>
                         </div>
 
@@ -27,4 +27,4 @@ const CustomerDashboardView = props => {
     )
 };
 
-export default CustomerDashboardView;
+export default CustomerOurServiceView;

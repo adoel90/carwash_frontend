@@ -17,8 +17,8 @@ $panel__box-shadow          : 0px 8px 15px rgba(0, 0, 0, 0.025);
         &.panel--#{$theme} {
 
             .panel__header {
-                // background-color: $color;
-                background-color: magenta;
+                background-color: $color;
+                // background-color: magenta;
                 color: color-yiq($color);
             }
         }

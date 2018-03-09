@@ -1,0 +1,32 @@
+.menu__list-customer {
+    
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color:cyan;
+    display: flex;
+
+}
+
+// .menu__category {
+//     padding: spacing(base);
+//     text-transform: uppercase;
+//     letter-spacing: 2px;
+//     font-size: 80%;
+ 
+// }
+
+.menu__item {
+    position: relative;
+    @include transition($transition-base);
+
+    > a {
+        display: block;
+        padding: spacing(small);
+        padding-left: spacing(base);
+        color: inherit;
+        text-decoration: none;
+        cursor: pointer;
+    }
+}

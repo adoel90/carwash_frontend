@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-const MenuList = props => {
+const MenuListCustomer = props => {
     const {
         category,
         className,
@@ -11,25 +11,32 @@ const MenuList = props => {
 
     const classes = {
         menuList: classNames(
-            `menu__list`,
+            `menu__list-customer`,
             className
         ),
         menuCategory: classNames(
-            `menu__category`
+            `menu__category-customer`
         )
+    }
+
+    const tesLi = {
+        
+        'display':'flex',
+        'float': 'left',
+        'color': 'magenta'
     }
 
     return (
         <ul className={classes.menuList}>
-            { category ? <h6 className={classes.menuCategory}>{category}</h6> : null }
-            
+        {/* <ul className="menu__listCustomer"> */}
+            { category ? <h6 className={classes.menuCategory}>{category}</h6> : null }    
             { children }
         </ul>
     )
 };
 
-MenuList.propTypes = {
+MenuListCustomer.propTypes = {
     category: PropTypes.string,
 };
 
-export default MenuList;
+export default MenuListCustomer;

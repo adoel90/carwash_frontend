@@ -27,11 +27,8 @@ const CustomerLoginView = props => {
         handleAuthentication
     } = props;
 
-
-    
     return (
 
-        
         <div><br/><br/><br/><br/>
             <Form onSubmit={handleAuthentication}>
                 <main className="main landing" >

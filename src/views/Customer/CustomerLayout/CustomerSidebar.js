@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Sidebar } from '../../../layouts/Layout';
-import { Menu, MenuList, MenuItem, MenuLink } from '../../../components/Menu';
+import { SidebarCustomer } from '../../../layouts/Layout';
+// import { Menu, MenuList, MenuItem, MenuLink } from '../../../components/Menu';
+import { MenuListCustomer, MenuItemCustomer, MenuLinkCustomer } from '../../../components/Menu';
 
 const CustomerSidebar = props => {
     const {
@@ -9,17 +10,24 @@ const CustomerSidebar = props => {
         menus
     } = props;
 
+    const tes ={
+        'margin-left': '10px'
+
+    
+    }
+    const font ={'color': 'white'}
+
     const renderMenuItems = (items) => {
         return items.map((item, i) => {
             return (
-                // <MenuItem key={i} active={location.pathname === item.path }>
-                //     <MenuLink to={item.path}>{item.name}</MenuLink>
-                // </MenuItem>
-                <div>
-                    <div key={i} active={location.pathname === item.path }>
-                        <MenuLink to={item.path}>{item.name}</MenuLink>
-                    </div>
-                </div>
+                <MenuItemCustomer key={i} active={location.pathname === item.path }>
+                    <MenuLinkCustomer to={item.path}>{item.name}</MenuLinkCustomer>
+                </MenuItemCustomer>
+                // <div>
+                //     <div style={tes} key={i} active={location.pathname === item.path }>
+                //         <MenuLink to={item.path} style={font}>{item.name}</MenuLink>
+                //     </div>
+                // </div>
             )
         })
     }
@@ -27,9 +35,10 @@ const CustomerSidebar = props => {
     const renderMenuList = () => {
         return menus.map((menu, i) => {
             return (
-                <MenuList key={i} category={menu.category}>
+                
+                <MenuListCustomer key={i} category={menu.category}>
                     { renderMenuItems(menu.items) }
-                </MenuList>
+                </MenuListCustomer>
             )
         })
     }

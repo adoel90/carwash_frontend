@@ -1,29 +1,26 @@
-// .layout {
-//     @include flexbox;
-//     @include flex-direction(row);
-//     min-height: 100vh;
-//     overflow-x: hidden;
+.layout {
+    @include flexbox;
+    @include flex-direction(row);
+    min-height: 100vh;
+    overflow-x: hidden;
 
     
-//     .sidebar {
-//         @include flex(0 0 256px);
-//         max-width: 256px;
-//         min-width: 256px;
-//         width: 256px;
-//         // background-color: black;
-//     }
+    .sidebar {
+        @include flex(0 0 256px);
+        max-width: 256px;
+        min-width: 256px;
+        width: 256px;
+        background-color: black;
+    }
 
-//     .page {
-//         @include flex(auto);
-//         // background-color: gray(100);
+    .page {
+        @include flex(auto);
+        background-color: gray(100);
 
-//         .content {
-//             margin: spacing(large);
-//             border-radius: border-radius(base);
-//         }
-//     }
-// }
-
-.layout {
-    background-color: magenta;
+        .content {
+            margin: spacing(large);
+            border-radius: border-radius(base);
+        }
+    }
 }
+

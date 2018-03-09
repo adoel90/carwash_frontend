@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { PropsRoute } from '../../../utilities/Route';
-import { Page, Header, Content } from '../../../layouts/Layout';
+// import { Page, Header, Content } from '../../../layouts/Layout';
+import { PageCustomer, ContentCustomer } from '../../../layouts/LayoutCustomer';
 
 const CustomerPage = props => {
     const {
@@ -25,14 +26,13 @@ const CustomerPage = props => {
     
     return (
         <div>
-            <h1>Hello</h1>
-            <Page>
-            
+            {/* <h1>Hello</h1> */}
+            <PageCustomer>
                 {/* <Header block></Header> */}
-                <Content>
+                <ContentCustomer>
                     { renderRoutes() }
-                </Content>
-            </Page>
+                </ContentCustomer>
+            </PageCustomer>
         </div>
     );
 };

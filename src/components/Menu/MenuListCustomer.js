@@ -23,7 +23,7 @@ const MenuListCustomer = props => {
         
         'display':'flex',
         'float': 'left',
-        'color': 'magenta'
+        // 'color': 'magenta'
     }
 
     return (

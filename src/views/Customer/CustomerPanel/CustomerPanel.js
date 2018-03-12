@@ -1,7 +1,7 @@
 //VendorPanel.js
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { CustomerOurService  } from '../../Customer';
+import { CustomerOurService, CustomerMyProfile  } from '../../Customer';
 import { CustomerPanelView } from '../CustomerPanel';
 
 class CustomerPanel extends Component {   
@@ -13,7 +13,8 @@ class CustomerPanel extends Component {
         this.state = {
 
             routes: [
-                { id: 1, name: 'dashboard', path: `${props.match.url}`, component: CustomerOurService }
+                { id: 1, name: 'customerourservice', path: `${props.match.url}`, component: CustomerOurService },
+                { id: 2, name: 'customermyprofile', path: `${props.match.url}/myprofile`, component: CustomerMyProfile }
             ],
             menus: [
                 // { 
@@ -27,7 +28,7 @@ class CustomerPanel extends Component {
                     category: '',
                     items: [
                         { id: 1, name: 'Layanan Kami', path: `${props.match.url}` },
-                        { id: 2, name: 'Profil Anda', path: `${props.match.url}/my-profile` },
+                        { id: 2, name: 'Profil Anda', path: `${props.match.url}/myprofile` },
                         
                         
                     ]

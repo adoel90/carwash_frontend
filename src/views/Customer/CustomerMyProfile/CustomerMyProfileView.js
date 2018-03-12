@@ -4,8 +4,7 @@ import { Section } from '../../../layouts/Section';
 import { Panel } from '../../../components/Panel';
 import { ButtonDewek } from '../../../components/ButtonDewek';
 
-
-const CustomerOurServiceView = props => {
+const CustomerMyProfileView = props => {
 
     return (
         <div>
@@ -14,7 +13,7 @@ const CustomerOurServiceView = props => {
                 <Section>
                     <Panel>
                         <div className="admin-dashboard__heading">  
-                            <h4 className="heading-title">Layanan Kami</h4>
+                            <h4 className="heading-title">Profile GW</h4>
                             <h6 className="heading-subtitle">Non veniam do cupidatat culpa dolor consectetur fugiat dolore qui id amet ad incididunt.</h6>
                         </div>
 
@@ -26,4 +25,4 @@ const CustomerOurServiceView = props => {
     )
 };
 
-export default CustomerOurServiceView;
+export default CustomerMyProfileView;

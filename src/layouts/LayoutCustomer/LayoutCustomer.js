@@ -10,12 +10,15 @@ const LayoutCustomer = props => {
 
     const classes = {
         layout: classNames(
-            `layout_customer`,
+            `navigation`,
             className
         )
     }
     
-    return <main className={classes.layout}>{children}</main>
+    return (
+    
+        <main className={classes.layout}>{children}</main>
+    )
 };
 
 export default LayoutCustomer;

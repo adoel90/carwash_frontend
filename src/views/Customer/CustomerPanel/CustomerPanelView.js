@@ -4,21 +4,22 @@ import PropTypes from 'prop-types';
 import { Switch } from 'react-router-dom';
 import { PropsRoute } from '../../../utilities/Route';
 import { CustomerSidebar, CustomerPage } from '../CustomerLayout';
-// import { MainHeader } from '../../../components/MainHeader';
-import { LayoutCustomer } from '../../../layouts/LayoutCustomer';
+import { LayoutCustomer, HeaderCustomer } from '../../../layouts/LayoutCustomer';
 
 
 
 const CustomerPanelView = props => {
  
-
     return (
-        <LayoutCustomer>
-            {/* <MainHeader {...this.state} {...this.props} /> */}
-            {/* <div><h1>Heading</h1></div> */}
-            <CustomerSidebar {...props} />
-            <CustomerPage {...props} />
-        </LayoutCustomer>        
+        <div>
+           <br/>
+           <br/>
+            <LayoutCustomer>
+                <HeaderCustomer {...props} />
+                <CustomerSidebar {...props} />
+                <CustomerPage {...props} />
+            </LayoutCustomer>   
+        </div>     
     )
 };
 

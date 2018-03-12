@@ -1,0 +1,1 @@
+export { default as HeaderCustomer } from './HeaderCustomer';

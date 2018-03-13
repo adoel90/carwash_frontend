@@ -43,7 +43,7 @@ export const UPDATE_VENDOR_EMPLOYEE_REJECTED = 'UPDATE_VENDOR_EMPLOYEE_REJECTED'
 const accessToken = localStorage.getItem('accessToken') ? localStorage.getItem('accessToken') : null;
 const userLoginNow = localStorage.getItem('userData') ? localStorage.getItem('userData') : null;
 const dataVendorLoginNow = JSON.parse(userLoginNow);
-console.log(dataVendorLoginNow);
+// console.log(dataVendorLoginNow);
 
 
 //GET VENDOR USER LIST

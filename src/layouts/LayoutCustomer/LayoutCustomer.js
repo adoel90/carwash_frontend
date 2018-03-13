@@ -10,7 +10,7 @@ const LayoutCustomer = props => {
 
     const classes = {
         layout: classNames(
-            `navigation`,
+            `layout_customer`,
             className
         )
     }

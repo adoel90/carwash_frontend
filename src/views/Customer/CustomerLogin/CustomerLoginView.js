@@ -19,10 +19,10 @@ const CustomerLoginView = props => {
     const background = { 'background-color': '#268dbc'}
 
     const {
-        // member,
-        // match,
-        // error,
-        // isAuthenticated,
+        member,
+        match,
+        error,
+        isAuthenticated,
         handleInputChange,
         handleAuthentication
     } = props;

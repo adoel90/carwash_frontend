@@ -12,6 +12,13 @@ $modal-content__padding                 : spacing(base);
     z-index: 1500;
     overflow: hidden;
 
+    .modal-content {
+		@include flexbox;
+		@include flex-direction(column);
+		height: 100%;
+		background-color: gray(100);
+	}
+
     .modal__dialog {
         position: absolute;
         top: 50%;

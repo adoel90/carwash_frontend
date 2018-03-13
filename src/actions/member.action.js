@@ -36,6 +36,7 @@ export const DELETE_MEMBER_FULFILLED = 'DELETE_MEMBER_FULFILLED';
 export const DELETE_MEMBER_REJECTED = 'DELETE_MEMBER_REJECTED';
 
 const cookies = new Cookies();
+const accessToken = localStorage.getItem('accessToken') ? localStorage.getItem('accessToken') : null;
 
 export const authenticateMember = (data) => {
 	return async dispatch => {
@@ -140,12 +141,17 @@ export const getAllMemberList = (accessToken) => {
 }
 
 export const getMemberDetail = (data, accessToken) => {
+// export const getMemberDetail = (data) => {
 	return async dispatch => {
 		dispatch(handleRequest())
+		
+		// console.log(data);
 		return axios
-			.get(`${constant.API_PATH}member/detail?accessToken=${accessToken}&id=${data.id}&transaction=${data.transaction}`)
+			// .get(`${constant.API_PATH}member/detail?accessToken=${accessToken}&id=${data.id}&transaction=${data.transaction}`)
+			.get(`${constant.API_PATH}member/detail?accessToken=${accessToken}&id=${data.id}`)
+			// .get(`${constant.API_PATH}member/detail?accessToken=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6NiwiY2FyZCI6IjAwMTE1MDk2OTU3NDA3MzgiLCJ0eXBlIjoxLCJleHBpcmVkIjoiMjAxOC0wMy0wOVQxMjo1Nzo1OC44MzhaIn0.YgNrjFZqlRx2vhXKOcuPwlQrl-P3_Uemodrj_qi5384&id=6`)
 			.then((response) => {
-				dispatch(handleSuccess(response.data.data))
+				dispatch(handleSuccess(response.data))
 			})
 			.catch((error) => {
 				dispatch(handleError(error))

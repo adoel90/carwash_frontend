@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom';
 import { Modal } from 'reactstrap';
 import { ModalDialog } from '../Modal';
 import { PropsRoute } from '../Route';
-import { Row, Container } from '../../layouts/GridOld';
+import { Row, Container, Column } from '../../layouts/Grid';
 import MainSidenav from '../MainSidenav';
 
 
@@ -64,13 +64,28 @@ class Profile extends Component {
 			<main className="main main--has-subheader">
 				<Container className="padding-top-3 padding-bottom-3">
 					<Row>
-						<aside className="sidebar column-2">
+						<Column md={2} sm={12}>
+							<aside>
+								{ renderSidenav() }
+							</aside>
+							
+						</Column>
+						<Column md={10} sm={12}>
+							<div>
+								{ renderRoutes() }
+								<Redirect from="/*" to={`${match.url}/${firstRoutePath}`} />
+							</div>
+						</Column>
+						
+						{/* <aside className="sidebar column-2">
 							{ renderSidenav() }
 						</aside>
 						<div className="column-10">
 							{ renderRoutes() }
 							<Redirect from="/*" to={`${match.url}/${firstRoutePath}`} />
-						</div>
+						</div> */}
+
+					
 					</Row>
 				</Container>
 				{ renderDialog() }

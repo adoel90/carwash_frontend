@@ -1,0 +1,22 @@
+// .customer{
+//     background-color: magenta;
+// }
+
+//Page-Block
+.page-block-group {
+	.page-block:first-of-type {
+		border-radius: 0;
+		border-top-left-radius: border-radius(base);
+		border-top-right-radius: border-radius(base);
+	}
+
+	.page-block:last-of-type {
+		border-radius: 0;
+		border-bottom-left-radius: border-radius(base);
+		border-bottom-right-radius: border-radius(base);
+	}
+}
+
+h5.fw-semibold {
+    font-weight: 600;
+}

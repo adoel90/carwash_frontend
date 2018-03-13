@@ -39,6 +39,8 @@ class MainHeader extends React.Component {
 						<div className="header-logo header__block">
 							<h6 className="header__logo">Carwash 805</h6>
 						</div>
+
+						
 						{ this.renderHeaderProfile() }
 					</Container>
 				</header>

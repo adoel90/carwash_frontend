@@ -1,0 +1,49 @@
+.sidenav {
+
+	.sidenav__list {
+		@include flexbox;
+		@include flex-direction(column);
+
+		.sidenav__item {
+			@include relative;
+			@include transition(all 500ms $transition-base);
+			margin-bottom: $spacing-base * .5;
+			padding-top: 100%;
+
+			> a {
+				@include transition(all 500ms $transition-base);
+				@include border-radius(base);
+				@include font-weight(semibold);
+				@include flexbox;
+				@include align-items(center);
+				@include justify-content(center);
+				@include absolute {
+					top: 0;
+					left: 0;
+				}
+				box-shadow: map-get($box-shadow, base);
+				text-align: center;
+				color: gray(600);
+				background-color: shade(gray(100), 4.5%);
+				padding: $spacing-base * .5;
+				width: 100%;
+				height: 100%;
+
+				&.is-active {
+					border-bottom: solid 5px secondary-color(base);
+					background-color: gray(100);
+					color: gray(1800);
+				}
+
+				&:hover {
+					box-shadow: map-get($box-shadow, large);
+				}
+			}
+
+			/*/
+			/*	Adds top margin to the first sidenav item.
+			/*/
+		}
+	}
+}
+

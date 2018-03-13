@@ -7,7 +7,7 @@ class ProfileTransaction extends Component {
 			<div className="inner-view">
 				<PageBlockGroup>
 					<PageBlock extension>
-						<h5 className="fw-semibold">Daftar Transaksi</h5>
+						<h3 className="fw-semibold">Daftar Transaksi</h3>
 						<p>Berikut daftar transaksi terakhir Anda.</p>
 					</PageBlock>
 					<PageBlock>

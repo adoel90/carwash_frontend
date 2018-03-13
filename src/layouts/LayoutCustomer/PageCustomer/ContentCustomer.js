@@ -8,19 +8,19 @@ const ContentCustomer = props => {
         className
     } = props;
 
-    // const classes = {
-    //     content: classNames(
-    //         `content`,
-    //         className
-    //     )
-    // }
-
     const classes = {
         content: classNames(
-            `content_customer`,
+            `content`,
             className
         )
     }
+
+    // const classes = {
+    //     content: classNames(
+    //         `content_customer`,
+    //         className
+    //     )
+    // }
     
     return <div className={classes.content}>{children}</div>
 };

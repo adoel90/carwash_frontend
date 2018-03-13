@@ -7,10 +7,13 @@ import { Profile } from '../../../components/Profile';
 import ProfileAccountContainer from './ProfileAccountContainer';
 import ProfileTransactionContainer from './ProfileTransactionContainer';
 // import { showDialog, hideDialog } from '../actions/dialog.action';
+import { showDialog, hideDialog } from '../../../actions/dialog.action';
 
 
 class ProfileContainer extends Component {
+	
 	constructor() {
+
 		super();
 		this.state = {
 			submodules: [

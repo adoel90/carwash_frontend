@@ -8,18 +8,18 @@ const PageCustomer = props => {
         children
     } = props;
     
-    // const classes = {
-    //     page: classNames(
-    //         `page`,
-    //         className
-    //     )
-    // }
     const classes = {
         page: classNames(
-            `page_customer`,
+            `page`,
             className
         )
     }
+    // const classes = {
+    //     page: classNames(
+    //         `page_customer`,
+    //         className
+    //     )
+    // }
     
     return <main className={classes.page}>{children}</main>
 };

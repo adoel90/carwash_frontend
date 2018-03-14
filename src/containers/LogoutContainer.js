@@ -24,8 +24,7 @@ class LogoutContainer extends Component {
 	}
 
 	handleLogout = () => {
-		const {
-			dispatch
+		const { dispatch
 		} = this.props;
 		
 		dispatch(userLogout());

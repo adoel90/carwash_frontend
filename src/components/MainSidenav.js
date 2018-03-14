@@ -27,6 +27,7 @@ class MainSidenav extends React.Component {
 			<li className="sidenav__item" key={i}>
 				<NavLink to={path}>
 					{ item.name }
+				
 				</NavLink>
 			</li>
 		)

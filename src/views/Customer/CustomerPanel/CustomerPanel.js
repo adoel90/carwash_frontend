@@ -21,14 +21,14 @@ class CustomerPanel extends Component {
 
             //#Ini Navigation "MainSubHeader"
             navigations: [
-				{ id: 1, name: 'Pilih Layanan', path: "/customer/service" },
+				{ id: 1, name: 'Layanan Kami', path: "/customer/store" },
 				{ id: 2, name: 'Profil Anda', path: "/customer/profile" },
 			],
 
             //#Ini Routing untuk COmponent
             routes: [
-                { id: 1, name: 'customerourservice', path: `${props.match.url}`, component: CustomerOurService },
-                { id: 2, name: 'customermyprofile', path: `${props.match.url}/account`, component: CustomerMyProfile }
+                // { id: 1, name: 'customerourservice', path: `${props.match.url}`, component: CustomerOurService },
+                // { id: 2, name: 'customermyprofile', path: `${props.match.url}/account`, component: CustomerMyProfile }
                 // { id: 2, name: 'customermyprofile', path: `${props.match.url}/account`, component: CustomerMyProfile }
             ],
             menus: [
@@ -42,8 +42,8 @@ class CustomerPanel extends Component {
                 {
                     category: '',
                     items: [
-                        { id: 1, name: 'Layanan Kami', path: `${props.match.url}` },
-                        { id: 2, name: 'Profil Anda', path: `${props.match.url}/account` },
+                        // { id: 1, name: 'Layanan Kami', path: `${props.match.url}` },
+                        // { id: 2, name: 'Profil Anda', path: `${props.match.url}/account` },
                         
                         
                     ]
@@ -93,7 +93,7 @@ class CustomerPanel extends Component {
 		} = this.props;
 
 		if(isAuthenticated) {
-			return <Redirect from={`${match.url}`} to={`${match.url}/service`} />
+			return <Redirect from={`${match.url}`} to={`${match.url}/store`} />
 		} else {
 			return <Redirect from={`${match.url}`} to={`${match.url}/landing`} />
 		}

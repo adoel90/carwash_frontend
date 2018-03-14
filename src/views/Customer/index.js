@@ -5,4 +5,5 @@ export * from './CustomerPanel';
 export * from './CustomerOurService';
 export * from './CustomerMyProfile';
 export * from './CustomerLayout';
+export * from './CustomerLogOut';
 

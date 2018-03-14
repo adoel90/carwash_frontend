@@ -57,8 +57,6 @@ class Profile extends Component {
 		}
 
 		let firstRoutePath = submodules[0].path;
-// 
-		// console.log(this.props)
 
 		return (
 			<main className="main main--has-subheader">
@@ -67,6 +65,7 @@ class Profile extends Component {
 						<Column md={2} sm={12}>
 							<aside>
 								{ renderSidenav() }
+								
 							</aside>
 							
 						</Column>
@@ -75,17 +74,7 @@ class Profile extends Component {
 								{ renderRoutes() }
 								<Redirect from="/*" to={`${match.url}/${firstRoutePath}`} />
 							</div>
-						</Column>
-						
-						{/* <aside className="sidebar column-2">
-							{ renderSidenav() }
-						</aside>
-						<div className="column-10">
-							{ renderRoutes() }
-							<Redirect from="/*" to={`${match.url}/${firstRoutePath}`} />
-						</div> */}
-
-					
+						</Column>					
 					</Row>
 				</Container>
 				{ renderDialog() }

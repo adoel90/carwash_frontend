@@ -2,15 +2,18 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { AdminUserCreateView } from '../AdminUser';
 import { createUser } from '../../../actions/user.action';
+import { getAccessList } from '../../../actions/access.action';
 
 function mapStateToProps(state) {
     return {
-        user: state.user
+        user: state.user,
+        access: state.access
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
+        getAccessList: () => dispatch(getAccessList()),
         createUser: (data) => dispatch(createUser(data))
     }
 }
@@ -18,6 +21,7 @@ function mapDispatchToProps(dispatch) {
 class AdminUserCreate extends Component {
     constructor() {
         super();
+        this.getAccessList = this.getAccessList.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
         this.state = {
@@ -30,6 +34,18 @@ class AdminUserCreate extends Component {
                 level: 0
             }
         }
+    }
+
+    componentDidMount = () => {
+        this.getAccessList();
+    }
+
+    getAccessList = () => {
+        const {
+            getAccessList
+        } = this.props;
+
+        getAccessList();
     }
 
     handleInputChange = (object, e) => {

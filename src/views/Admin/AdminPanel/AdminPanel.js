@@ -7,7 +7,12 @@ import {
     AdminUserCreate,
     AdminUserSettings,
     AdminVendor,
-    AdminVendorCreate
+    AdminVendorCreate,
+    AdminMember,
+    AdminCard,
+    AdminCardCreate,
+    AdminAccess,
+    AdminAccessCreate
 } from '../../Admin';
 
 import { AdminPanelView } from '../AdminPanel';
@@ -22,8 +27,13 @@ class AdminPanel extends Component {
                 { name: 'user', path: `${props.match.url}/user`, component: AdminUser },
                 { name: 'create-user', path: `${props.match.url}/user/create-new`, component: AdminUserCreate },
                 { name: 'user-settings', path: `${props.match.url}/user/settings`, component: AdminUserSettings },
-                { name: 'vendor', path: `${props.match.url}/vendor`, component: AdminVendor },                
-                { name: 'create-new-vendor', path: `${props.match.url}/vendor/create-new-vendor`, component: AdminVendorCreate },                
+                { name: 'vendor', path: `${props.match.url}/vendor`, component: AdminVendor },           
+                { name: 'create-new-vendor', path: `${props.match.url}/vendor/create-new-vendor`, component: AdminVendorCreate },
+                { name: 'member', path: `${props.match.url}/member`, component: AdminMember },
+                { name: 'card', path: `${props.match.url}/card`, component: AdminCard },
+                { name: 'create-new-card', path: `${props.match.url}/create-new-card`, component: AdminCardCreate },
+                { name: 'access', path: `${props.match.url}/access`, component: AdminAccess },
+                { name: 'create-new-access', path: `${props.match.url}/create-new-access`, component: AdminAccessCreate }
 
             ],
             menus: [
@@ -38,8 +48,7 @@ class AdminPanel extends Component {
                     items: [
 
                         { name: 'Daftar User', path: `${props.match.url}/user` },
-                        { name: 'Buat User Baru', path: `${props.match.url}/user/create-new` },
-                        { name: 'Pengaturan User', path: `${props.match.url}/user/settings` },
+                        { name: 'Buat User Baru', path: `${props.match.url}/user/create-new` }
                     ]
                 },
                 {
@@ -49,6 +58,29 @@ class AdminPanel extends Component {
                         { name: 'Buat Vendor Baru', path: `${props.match.url}/vendor/create-new-vendor` },
                         { name: 'Pengaturan Vendor', path: `${props.match.url}/vendor/settings`}
 
+                    ]
+                },
+                {
+                    category: 'Manajemen Member',
+                    items: [
+
+                        { name: 'Daftar Member', path: `${props.match.url}/member` }
+                    ]
+                },
+                {
+                    category: 'Manajemen Card',
+                    items: [
+
+                        { name: 'Daftar Kartu', path: `${props.match.url}/card` },
+                        { name: 'Buat Kartu Baru', path: `${props.match.url}/create-new-card` }
+                    ]
+                },
+                {
+                    category: 'Manajemen Akses',
+                    items: [
+
+                        { name: 'Daftar Akses', path: `${props.match.url}/access` },
+                        { name: 'Buat Akses Baru', path: `${props.match.url}/create-new-access` }
                     ]
                 }
             ]

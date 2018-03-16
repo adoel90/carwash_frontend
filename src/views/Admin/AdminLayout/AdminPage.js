@@ -25,7 +25,7 @@ const AdminPage = props => {
     
     return (
         <Page>
-            <Header block></Header>
+            {/* <Header block></Header> */}
             <Content>
                 { renderRoutes() }
             </Content>

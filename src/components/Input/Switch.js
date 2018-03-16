@@ -24,8 +24,6 @@ const Switch = props => {
             `switch__slider`
         )
     }
-
-    console.log(attributes);
     
     return (
         <label className={classes.switch}>

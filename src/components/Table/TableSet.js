@@ -60,7 +60,13 @@ class TableSet extends Component {
 
         const renderTableColumns = () => {
             return columns.map((column, i) => {
-                return <th key={i}>{column.title}</th>
+                return (
+                    <th key={i} width={column.width}>
+                        <p className={`text-align-${column.align}`}>
+                            {column.title}
+                        </p>
+                    </th>
+                )
             })
         }
 
@@ -92,7 +98,13 @@ class TableSet extends Component {
                 
                 for(var key in row) {
                     if(column.accessor == key) {
-                        return <td key={i}>{row[key]}</td>
+                        return (
+                            <td key={i}>
+                                <p className={`text-align-${column.rowAlign}`}>
+                                    {row[key]}
+                                </p>
+                            </td>
+                        )
                     }      
                 }
             })

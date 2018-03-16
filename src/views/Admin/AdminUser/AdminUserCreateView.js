@@ -11,7 +11,8 @@ const AdminUserCreateView = props => {
     const {
         handleInputChange,
         handleFormSubmit,
-        newUser
+        newUser,
+        access
     } = props;
     
     return (
@@ -43,8 +44,12 @@ const AdminUserCreateView = props => {
                                     </FormField>
                                     <FormField label="Level Akses">
                                         <Select name="level" defaultValue={newUser.level} onChange={(e) => handleInputChange('newUser', e) }>
-                                            <option value={0}>Administrator</option>
-                                            <option value={1}>Kasir</option>
+                                            {
+                                                access.list.isLoaded ? access.list.data.result.map((item, i) => {
+                                                    return <option value={item.id}>{item.name}</option>
+                                                })
+                                                : null
+                                            }
                                         </Select>
                                     </FormField>
                                     <Button type="submit">Simpan</Button>

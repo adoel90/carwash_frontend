@@ -11,7 +11,7 @@ import MainSubheader from '../../../components/MainSubheader';
 import MainContent from '../../../components/MainContent';
 
 import ProfileContainer from '../CustomerMyProfile/ProfileContainer'
-import ServiceContainer from '../CustomerOurService/ServiceContainer'
+import StoreContainer from '../CustomerOurService/StoreContainer'
 
 import { CustomerLoginView } from '../../Customer/CustomerLogin';
 
@@ -58,7 +58,7 @@ const CustomerPanelView = props => {
                     <PrivateRoute
 						name="store"
 						path={`${match.url}/store`}
-						component={ServiceContainer}
+						component={StoreContainer}
 						isAuthenticated={isAuthenticated}
 						memberData={memberData}
 						accessToken={accessToken}

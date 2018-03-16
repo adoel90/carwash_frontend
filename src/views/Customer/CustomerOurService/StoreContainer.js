@@ -1,45 +1,39 @@
 import React from 'react';
 import { connect } from 'react-redux';
-// import { Service } from '../components/Service';
 import { Service, ServiceType } from '../../../components/Service';
 import PropTypes from 'prop-types';
-// import { getMemberDetail } from '../actions/member.action';
-// import { getMemberDetail } from '../../../actions/member.action';
-
 import { showDialog, hideDialog } from '../../../actions/dialog.action';
-
-
 import { getStoreList } from '../../../actions/store.action';
 
+/*
+	Jadi action "getServiceTypes itu sama dengan "getStoreList"
 
-// const mapStateToProps = (state, props) => {
-// 	return {
-// 		member: state.member,
-// 		dialog: state.dialog,
-// 		service: state.service
-// 	}
-// }
+	Jadi "ServiceContainer" itu sama dengan "StoreContainer"
+
+*/
+
 
 function mapStateToProps(state) {
-    return {
-		storeState : state.storeState,
+	return {
+		storeState: state.storeState,
 		member: state.member,
 		dialog: state.dialog,
 		service: state.service
-    };
+	};
 }
 
 function mapDispatchToProps(dispatch) {
 
-    return {
+	return {
 
-        getStoreState: () => dispatch(getStoreList()),
-        
-    }
+		getStoreState: () => dispatch(getStoreList()),
+		// getMenuListStoreState: (data) => dispatch(getMenuListStore(data))
+
+	}
 }
 
+class StoreContainer extends React.Component {
 
-class ServiceContainer extends React.Component {
 	constructor() {
 		super();
 		this.toggleDialog = this.toggleDialog.bind(this);
@@ -48,10 +42,20 @@ class ServiceContainer extends React.Component {
 		this.addPathPropToTypes = this.addPathPropToTypes.bind(this);
 
 		this.getStoreList = this.getStoreList.bind(this);
+		// this.getMenuListStore = this.getMenuListStore.bind(this);
+
+		// this.populateData = this.populateData.bind(this);
 
 		this.state = {
-			memberDetail: {},
+
+			// memberDetail: {},
 			serviceTypes: {
+				all: [],
+				active: []
+			},
+
+			storeState:{},
+			storeList:{
 				all: [],
 				active: []
 			}
@@ -59,69 +63,92 @@ class ServiceContainer extends React.Component {
 	}
 
 	componentDidMount = () => {
+
 		const {
 			// memberData,
-			member,
-			accessToken,
-			dispatch
+			member
 		} = this.props;
 
-		// console.log(this.props.member);
-		
 		let requiredData = {
 			// id: memberData.id,
 			id: member.id,
 			transaction: false
+
 		};
 
 		this.getStoreList();
-		// console.log(requiredData)
+		// this.getMenuListStore();
 
-		// dispatch(getMemberDetail(requiredData, accessToken));
-		// dispatch(getServiceTypes(accessToken));
-	}
-
-	getStoreList = () => {
-		const { getStoreState } = this.props;
-
-        getStoreState();
 	}
 
 	componentDidUpdate = (prevProps) => {
+
 		const {
+			storeState,
 			member,
-			service
+			// service,
+			// storeDetail
 		} = this.props;
 
-		if(prevProps.member.item !== member.item) {
-			if(member.item.isLoaded) {
-				this.setState({
-					memberDetail: member.item
-				}, () => {
-					console.log(this.state);
-				});
-			}
-		}
-		
-		if(prevProps.service.types !== service.types) {
-			if(service.types.isLoaded) {
-				let activeTypes = [];
+		if (prevProps.storeState.store !== storeState.store) {
+			if (storeState.store.isLoaded) {
 
-				service.types.data.forEach((item) => {
+				let activeStoreList = [];
+
+				storeState.store.data.data.result.store.forEach((item) => {
 					if(item.status) {
-						activeTypes.push(item);
-					}
-				})
+						activeStoreList.push(item);
+					}		
+				});
 
+				// console.log(activeStoreList);
+				
 				this.setState({
-					serviceTypes: {
-						all: service.types.data,
-						active: activeTypes
+	
+					storeList : {
+						all: storeState.store.data.data.result.store,
+						active: activeStoreList
 					}
-				})
+				}, () => {
+					console.log(this.state)
+				});				
 			}
 		}
+	
+		// if(prevProps.service.types !== service.types) {
+		// 	if(service.types.isLoaded) {
+		// 		let activeTypes = [];
+
+		// 		service.types.data.forEach((item) => {
+		// 			if(item.status) {
+		// 				activeTypes.push(item);
+		// 			}
+		// 		})
+
+		// 		this.setState({
+		// 			serviceTypes: {
+		// 				all: service.types.data,
+		// 				active: activeTypes
+		// 			}
+		// 		})
+		// 	}
+		// }
 	}
+
+
+	getStoreList = () => {
+
+		const { getStoreState } = this.props;
+		getStoreState();
+
+	}
+
+	// getMenuListStore = () => {
+
+	// 	const { getMenuListStoreState, storeState } = this.props;
+
+	// }
+
 
 	toggleDialog = (data) => {
 		const {
@@ -131,7 +158,7 @@ class ServiceContainer extends React.Component {
 
 		console.log(data);
 
-		if(!dialog.isOpened) {
+		if (!dialog.isOpened) {
 			this.showDialog(data);
 		}
 		else {
@@ -167,23 +194,22 @@ class ServiceContainer extends React.Component {
 			accessToken
 		} = this.props;
 
-		if(service.isLoaded) {
+		if (service.isLoaded) {
 			this.addPathPropToTypes();
 		}
 
 		return (
-			<Service 
+			<Service
 				{...this.state}
 				{...this.props}
 				toggleDialog={this.toggleDialog}
 				showDialog={this.showDialog}
 				hideDialog={this.hideDialog}
+				populateData={this.populateData}
 			/>
 		)
 	}
 }
 
-
-
-export default connect(mapStateToProps,mapDispatchToProps )(ServiceContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(StoreContainer);
 

@@ -12,51 +12,82 @@ import MainSidenav from '../MainSidenav';
 
 // import ServiceTypeContainer from '../../containers/ServiceTypeContainer';
 import ServiceTypeContainer from '../../views/Customer/CustomerOurService/ServiceTypeContainer';
+import ServiceItemList from '.';
 
 class Service extends React.Component {
 	constructor() {
 		super();
 		this.renderDialog = this.renderDialog.bind(this);
 		this.renderSidenav = this.renderSidenav.bind(this);
-		this.renderServiceType = this.renderServiceType.bind(this);
+		this.renderMenuStore = this.renderMenuStore.bind(this);
+
+		this.state = {
+
+			storeList : {}
+		}
 	}
 
-	renderServiceType = () => {
+	// renderServiceType = () => {
+	renderMenuStore =() => {
 
 		const {
-			service,
-			serviceTypes,
+			// service,
+			// serviceTypes,
 			match,
-			storeState
+			storeState,
+			dataStore,
+			storeList
+
 		} = this.props;
 
+		
+		
+		// let dataStoreArrayObject = this.props.storeState.storemenu.isLoaded ? this.props.storeState.storemenu.data.data.result.store : null;
+		// const dataStores = [];
 
-
-		/*
-		Service.js
-
-				GW MESTI TESTING API :
+		// if(storeState.store.isLoaded && storeState.storemenu.isLoaded){ 
+		// if(storeState.store.isLoaded ){ 
 				
-					- CREATE STORE
-					
-					- UPDATE STORE
+		// 	dataStoreArrayObject.map((data, i) => {
+				
+		// 		let dataStore = {
+		// 			id : data.id,
+		// 			name: data.name,
+		// 			// status:data.status
+		// 		}
+			
+		// 		dataStores.push(dataStore);
+		// 	});
 
-					- CREATE MENU STORE
 
-					- LIST MENU STORE
+		// 	return dataStores.map((type, i) => {
+			
+		// 		let path = type.name.replace(/\s+/g, '-').toLowerCase();
+		// 		// console.log(type);
+			
+		// 		return (
+		// 			<PropsRoute
+		// 				key={i}
+		// 				// name={type.name}
+		// 				name={type.name}
+		// 				path={`${match.url}/${path}`}
+		// 				component={ServiceTypeContainer}
+		// 				type={type}
+		// 				{...this.props}
+		// 			/>
+		// 		)
+		// 	})
+		// }
 
+		if(storeState.store.isLoaded){
 
-
-
-		*/
-
-		if(service.types.isLoaded) {
-			return serviceTypes.active.map((type, i) => {
+			return storeList.active.map((type, i) => {
 				let path = type.name.replace(/\s+/g, '-').toLowerCase();
 
 				return (
 					<PropsRoute
 						key={i}
+						// name={type.name}
 						name={type.name}
 						path={`${match.url}/${path}`}
 						component={ServiceTypeContainer}
@@ -65,6 +96,7 @@ class Service extends React.Component {
 					/>
 				)
 			})
+
 		}
 	};
 
@@ -73,28 +105,35 @@ class Service extends React.Component {
 		const {
 			// serviceTypes,
 			match,
-			storeState
+			storeState,
+			storeList
+
 		} = this.props;
-	
+
+		
+		
+		
 		//How to get LONG JSON in React.
-		let dataStoreArrayObject = this.props.storeState.store.isLoaded ? this.props.storeState.store.data.data.result.store : null;
+		let dataStoreArrayObject = storeState.store.isLoaded || storeState.storemenu.isLoaded ? this.props.storeState.store.data.data.result.store : null;
 		
-        const dataStores = []; 
+		const dataStores = []; 
 
-        if(this.props.storeState.store.isLoaded ) {
-            dataStoreArrayObject.map((data, i)=>{
+        // if(storeState.store.isLoaded && storeState.storemenu.isLoaded) {
+		if(storeState.store.isLoaded || storeState.storemenu.isLoaded) {
+			
+			dataStoreArrayObject.map((data, i)=>{
 
-                let dataStore = {
-                    id:data.id,
-                    name: data.name
-                }
-                dataStores.push(dataStore);
-            })
-        };
-
-		if(dataStores.length){
+				let dataStore = {
+					id:data.id,
+					name: data.name
+				}
 		
-			return <MainSidenav items={dataStores} basePath={match.path} />
+				dataStores.push(dataStore);
+			})
+		};
+
+		if(dataStores.length || storeState.store.isLoaded || storeState.storemenu.isLoaded ){
+			return <MainSidenav  items={dataStores} basePath={match.path} />
 		}
 	}
 
@@ -129,7 +168,8 @@ class Service extends React.Component {
 			service,
 			serviceTypes,
 			storeState,
-			member,
+			member
+
 		} = this.props;
 
 		let firstRoutePath;
@@ -140,6 +180,7 @@ class Service extends React.Component {
 
 		return (
 			<main className="main main--has-subheader">
+			
 				<Container className="padding-top-3">
 					<Row>
 
@@ -178,7 +219,8 @@ class Service extends React.Component {
 									</PageBlock>
 
 								</div>
-								{ this.renderServiceType() }
+								{/* { this.renderServiceType() } */}
+								{ this.renderMenuStore() }
 								<Redirect from="/*" to={`${match.url}/${firstRoutePath}`} />
 							</div>
 						</Column>

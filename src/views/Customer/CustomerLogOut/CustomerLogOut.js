@@ -11,9 +11,6 @@ class CustomerLogOut extends Component  {
 
         this.handleLogOut = this.handleLogOut.bind(this);
 
-        
-
-
     }
 
     componentWillMount = () => {

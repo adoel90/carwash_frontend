@@ -9,6 +9,7 @@ import Currency from '../Currency';
 import { default as WalletIcon } from '../../assets/icons/Business/wallet-1.svg';
 
 class ServiceType extends React.Component {
+
 	render() {
 		const {
 			storeState,
@@ -18,10 +19,12 @@ class ServiceType extends React.Component {
 			member
 		} = this.props;
 
-		console.log(this.props.storeState);
+		let dataStoreArrayObject = this.props.storeState.store.isLoaded ? this.props.storeState.store.data.data.result.store : null;
+	
+		const renderServiceItemList = () => {	
 
-		const renderServiceItemList = () => {			
-			if(service.list.isFetching){
+			// if(service.list.isFetching){
+			if(storeState.store.isFetching){
 				return (
 					<PageBlock className="ta-center margin-top-2">
 						<p>Sedang memuat daftar layanan, mohon tunggu sebentar...</p>
@@ -29,9 +32,8 @@ class ServiceType extends React.Component {
 				)
 			}
 			
-			// if(service.list.isLoaded) {
-			if(storeState.isLoaded) {
-				if(!serviceList.length) {
+			if(storeState.store.isLoaded) {
+				if(!dataStoreArrayObject.length) {
 					return (
 						<PageBlock className="flex flex-column ta-center justify-content--center align-items--center margin-top-2 margin-bottom-2">
 							<i className="fi flaticon-warning icon icon--gigant clr-danger"></i>
@@ -43,7 +45,7 @@ class ServiceType extends React.Component {
 
 			// console.log(storeState);
 
-				return <ServiceItemList {...this.props}  />
+			return <ServiceItemList {...this.props}  />
 			}
 
 			return (

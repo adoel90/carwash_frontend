@@ -12,7 +12,8 @@ import {
     AdminCard,
     AdminCardCreate,
     AdminAccess,
-    AdminAccessCreate
+    AdminAccessCreate,
+    AdminStore
 } from '../../Admin';
 
 import { AdminPanelView } from '../AdminPanel';
@@ -33,7 +34,8 @@ class AdminPanel extends Component {
                 { name: 'card', path: `${props.match.url}/card`, component: AdminCard },
                 { name: 'create-new-card', path: `${props.match.url}/create-new-card`, component: AdminCardCreate },
                 { name: 'access', path: `${props.match.url}/access`, component: AdminAccess },
-                { name: 'create-new-access', path: `${props.match.url}/create-new-access`, component: AdminAccessCreate }
+                { name: 'create-new-access', path: `${props.match.url}/create-new-access`, component: AdminAccessCreate },
+                { name: 'store', path: `${props.match.url}/store`, component: AdminStore }
 
             ],
             menus: [
@@ -52,14 +54,22 @@ class AdminPanel extends Component {
                     ]
                 },
                 {
-                    category: 'Manajemen Vendor',
+                    category: 'Manajemen Store',
                     items: [
-                        { name: 'Daftar Vendor', path: `${props.match.url}/vendor` },
-                        { name: 'Buat Vendor Baru', path: `${props.match.url}/vendor/create-new-vendor` },
-                        { name: 'Pengaturan Vendor', path: `${props.match.url}/vendor/settings`}
+                        { name: 'Daftar Store', path: `${props.match.url}/store` },
+                        { name: 'Buat Store Baru', path: `${props.match.url}/store/create-new-store` }
 
                     ]
                 },
+                // {
+                //     category: 'Manajemen Vendor',
+                //     items: [
+                //         { name: 'Daftar Vendor', path: `${props.match.url}/vendor` },
+                //         { name: 'Buat Vendor Baru', path: `${props.match.url}/vendor/create-new-vendor` },
+                //         { name: 'Pengaturan Vendor', path: `${props.match.url}/vendor/settings`}
+
+                //     ]
+                // },
                 {
                     category: 'Manajemen Member',
                     items: [

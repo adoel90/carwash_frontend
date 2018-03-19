@@ -9,3 +9,4 @@ export * from './AdminLayout';
 export * from './AdminMember';
 export * from './AdminCard';
 export * from './AdminAccess';
+export * from './AdminStore';

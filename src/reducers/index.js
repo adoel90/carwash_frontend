@@ -13,7 +13,7 @@ import module from './module.reducer';
 import vendorState from './vendor.user.reducer';
 import vendorReportState from './vendor.report.reducer';
 import adminVendorState from './admin.vendor.reducer';
-
+import store from './store.reducer';
 
 
 const rootReducer = combineReducers({
@@ -29,7 +29,8 @@ const rootReducer = combineReducers({
 	module,
 	vendorState,
 	adminVendorState,
-	vendorReportState
+	vendorReportState,
+	store
 });
 
 export default rootReducer;

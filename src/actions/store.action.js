@@ -44,11 +44,6 @@ export const getMenuListStore = (data) => {
 		return axios
 			
             .get(`${constant.API_PATH}store/menu/list?accessToken=${accessToken}&store=${data.id}`)
-            // .get(`${constant.API_PATH}store/menu/list?accessToken=${accessToken}&store=${data.store}&name=${data.name}`)
-            // .get(`${constant.API_PATH}store/menu/list?accessToken=${accessToken}`,{
-			// 	store : data.store,
-			// 	name: data.name
-			// })
 			.then((response) => {
 				dispatch(fetchSuccess(response));
 			})
@@ -57,7 +52,7 @@ export const getMenuListStore = (data) => {
 			})
 	}
 
-	function fetchRequest() { return { type: GET_STORE_LIST_REQUESTED } }
-	function fetchSuccess(data) { return { type: GET_STORE_LIST_FULFILLED, payload: data } }
-	function fetchError(data) { return { type: GET_STORE_LIST_REJECTED, payload: data } }
+	function fetchRequest() { return { type: GET_MENU_LIST_STORE_REQUESTED } }
+	function fetchSuccess(data) { return { type: GET_MENU_LIST_STORE_FULFILLED, payload: data } }
+	function fetchError(data) { return { type: GET_MENU_LIST_STORE_REJECTED, payload: data } }
 }

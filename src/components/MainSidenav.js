@@ -6,23 +6,6 @@ import { NavLink } from '../components/Nav';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-// import { getMenuListStore } from '../actions/store.action';
-// function mapStateToProps(state) {
-
-//     return {
-// 		storeState : state.storeState,
-
-//     };
-// }
-
-// function mapDispatchToProps(dispatch) {
-
-//     return {
-
-// 		getMenuListStoreState : (data) => dispatch(getMenuListStore(data))
-
-//     }
-// }
 
 class MainSidenav extends React.Component {
 
@@ -30,7 +13,7 @@ class MainSidenav extends React.Component {
 		super();
 		this.renderSidenavItem = this.renderSidenavItem.bind(this);
 		this.handleid = this.handleid.bind(this);
-		// this.getMenuListStore = this.getMenuListStore.bind(this);
+
 
 		this.state = {
 
@@ -39,18 +22,6 @@ class MainSidenav extends React.Component {
 			}
 		}
 	}
-
-	// componentDidMount = () => {
-
-	// 	const { storeState } = this.props;
-	// 	this.getMenuListStore();
-
-	// }
-
-
-	// getMenuListStore = () => {
-
-	// }
 
 
 	renderSidenavItem = (item, i) => {
@@ -73,17 +44,13 @@ class MainSidenav extends React.Component {
 
 	handleid = (id, e) => {
 		e.preventDefault();
-		// console.log(id)
-		const { getMenuListStoreState } = this.props;
-
+	
 		const data = {
 			id: id
 		};
 
-		// console.log(data);
-
 		this.setState({
-			storeId: data
+			storeId: data.id
 		}, () => {
 			console.log(this.state);
 

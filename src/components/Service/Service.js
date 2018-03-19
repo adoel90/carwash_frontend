@@ -10,7 +10,6 @@ import { ModalDialog } from '../Modal';
 import Currency from '../Currency';
 import MainSidenav from '../MainSidenav';
 
-// import ServiceTypeContainer from '../../containers/ServiceTypeContainer';
 import ServiceTypeContainer from '../../views/Customer/CustomerOurService/ServiceTypeContainer';
 import ServiceItemList from '.';
 
@@ -31,59 +30,62 @@ class Service extends React.Component {
 	renderMenuStore =() => {
 
 		const {
-			// service,
-			// serviceTypes,
+			service,
+			serviceTypes,
 			match,
 			storeState,
 			dataStore,
-			storeList
+			storeList,
+			storemenu,
+			storeActiveMenuList
 
 		} = this.props;
 
 		
-		
-		// let dataStoreArrayObject = this.props.storeState.storemenu.isLoaded ? this.props.storeState.storemenu.data.data.result.store : null;
-		// const dataStores = [];
 
-		// if(storeState.store.isLoaded && storeState.storemenu.isLoaded){ 
-		// if(storeState.store.isLoaded ){ 
-				
-		// 	dataStoreArrayObject.map((data, i) => {
-				
-		// 		let dataStore = {
-		// 			id : data.id,
-		// 			name: data.name,
-		// 			// status:data.status
-		// 		}
-			
-		// 		dataStores.push(dataStore);
-		// 	});
+		// if (storeState.storemenu.isLoaded){
+		// 	// console.log("Hai hai hai");
+		// 	console.log(storeState.storemenu.data.data.result.menu);
 
+		// 	return storeState.storemenu.data.data.result.menu.map((menu, i)=> {
 
-		// 	return dataStores.map((type, i) => {
-			
-		// 		let path = type.name.replace(/\s+/g, '-').toLowerCase();
-		// 		// console.log(type);
-			
+		// 		let path = menu.name.replace(/\s+/g, '-').toLowerCase();
+
 		// 		return (
 		// 			<PropsRoute
 		// 				key={i}
 		// 				// name={type.name}
-		// 				name={type.name}
+		// 				name={menu.name}
 		// 				path={`${match.url}/${path}`}
 		// 				component={ServiceTypeContainer}
-		// 				type={type}
+		// 				type={menu}
 		// 				{...this.props}
 		// 			/>
 		// 		)
 		// 	})
 		// }
 
-		if(storeState.store.isLoaded){
-
-			return storeList.active.map((type, i) => {
+		//Condition of "store"
+		let dataStoreArrayObject = this.props.storeState.store.isLoaded ? this.props.storeState.store.data.data.result.store : null;
+		const dataStores = [];
+		if(storeState.store.isLoaded ){ 
+				
+			dataStoreArrayObject.map((data, i) => {
+				
+				let dataStore = {
+					id : data.id,
+					name: data.name,
+					// status:data.status
+				}
+			
+				dataStores.push(dataStore);
+			});
+			
+			return dataStores.map((type, i) => {
+			
 				let path = type.name.replace(/\s+/g, '-').toLowerCase();
-
+				// console.log(type);
+			
 				return (
 					<PropsRoute
 						key={i}
@@ -96,7 +98,7 @@ class Service extends React.Component {
 					/>
 				)
 			})
-
+		
 		}
 	};
 
@@ -110,8 +112,6 @@ class Service extends React.Component {
 
 		} = this.props;
 
-		
-		
 		
 		//How to get LONG JSON in React.
 		let dataStoreArrayObject = storeState.store.isLoaded || storeState.storemenu.isLoaded ? this.props.storeState.store.data.data.result.store : null;

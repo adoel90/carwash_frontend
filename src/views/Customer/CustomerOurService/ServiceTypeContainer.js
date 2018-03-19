@@ -42,16 +42,16 @@ class ServiceTypeContainer extends React.Component {
 
 		this.getMenuListStore = this.getMenuListStore.bind(this);
 
-
 		this.state = {
-
 			serviceList: [],
 			selectedService: {},
 			printData: {},
 			isModalOpen: {
 				paymentConfirmation: false,
 				paymentProcess: false
-			}
+			},
+
+			storeActiveMenuList:[]
 		}
 	}
 
@@ -62,32 +62,22 @@ class ServiceTypeContainer extends React.Component {
 		
 	}
 
-	getMenuListStore = (requiredData) => {
+	// getMenuListStore = (requiredData) => {
+	getMenuListStore = () => {
 
+		// console.log(this.props.type.id) -------> Di sini lo mesti teliti dul liat props apaan aja yang ada.
 		const { getMenuListStoreState} = this.props;
-
-		const { storeId } = this.state;
-
 		
-		// let dataStoreArrayObject = this.props.storeState.store.isLoaded ? this.props.storeState.store.data.data.result.store : null;
+		const requiredData = {
+			id: this.props.type.id
+		}
 		
-		// console.log(this.props.storemenu);
-		
-		// const requiredData = {
-		// 	id: storemenu.id
-		// }
-		
-		// console.log(requiredData);
-		console.log(storeId);
-		
-		
-		getMenuListStoreState(storeId);
+		console.log(requiredData);
+		getMenuListStoreState(requiredData);
 				
 	}
 
 	componentDidUpdate = (prevProps) => {
-
-		// console.log(prevProps);
 
 		const {
 			printData
@@ -99,7 +89,36 @@ class ServiceTypeContainer extends React.Component {
 			showDialog,
 			storeState
 		} = this.props;
+
+		console.log(this.props.storeState.storemenu);
 		
+		
+		
+		
+		if(prevProps.storeState.storemenu !== storeState.storemenu){
+			if(storeState.storemenu.isLoaded){
+				console.log("Hai Hai");
+				let activeMenus = [];
+
+				storeState.storemenu.data.data.result.menu.map(item => {
+					// console.log(item);
+					if(item.status){
+						activeMenus.push(item);
+					}
+				});
+
+				console.log(activeMenus);
+				
+				this.setState({
+					...this.state,
+					storeActiveMenuList: activeMenus
+				})
+				
+			}
+		}
+
+
+		//#Get list service
 		if(prevProps.service.list !== service.list) {
 			if(service.list.isLoaded) {
 				let activeList = [];

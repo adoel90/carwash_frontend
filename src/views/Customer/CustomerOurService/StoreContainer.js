@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Service, ServiceType } from '../../../components/Service';
+import { Service } from '../../../components/Service';
 import PropTypes from 'prop-types';
 import { showDialog, hideDialog } from '../../../actions/dialog.action';
-import { getStoreList } from '../../../actions/store.action';
+import { getStoreList, getMenuListStore } from '../../../actions/store.action';
 
 /*
 	Jadi action "getServiceTypes itu sama dengan "getStoreList"
@@ -27,7 +27,7 @@ function mapDispatchToProps(dispatch) {
 	return {
 
 		getStoreState: () => dispatch(getStoreList()),
-		// getMenuListStoreState: (data) => dispatch(getMenuListStore(data))
+		getMenuListStoreState: (data) => dispatch(getMenuListStore(data))
 
 	}
 }
@@ -43,7 +43,6 @@ class StoreContainer extends React.Component {
 
 		this.getStoreList = this.getStoreList.bind(this);
 		// this.getMenuListStore = this.getMenuListStore.bind(this);
-
 		// this.populateData = this.populateData.bind(this);
 
 		this.state = {
@@ -100,9 +99,8 @@ class StoreContainer extends React.Component {
 						activeStoreList.push(item);
 					}		
 				});
-
-				// console.log(activeStoreList);
 				
+				//#versi-01
 				this.setState({
 	
 					storeList : {
@@ -110,31 +108,34 @@ class StoreContainer extends React.Component {
 						active: activeStoreList
 					}
 				}, () => {
-					console.log(this.state)
-				});				
+					// console.log(this.state.storeList)
+
+				});		
+				
+				//#Versi-02
+				// this.setState({
+	
+				// 	storeList : {
+				// 		all: storeState.store.data.data.result.store,
+				// 		active: activeStoreList
+				// 	}
+				// }, () => {
+
+					
+				// 	this.getMenuListStore(this.state.storeList);
+
+				// });	
 			}
 		}
-	
-		// if(prevProps.service.types !== service.types) {
-		// 	if(service.types.isLoaded) {
-		// 		let activeTypes = [];
-
-		// 		service.types.data.forEach((item) => {
-		// 			if(item.status) {
-		// 				activeTypes.push(item);
-		// 			}
-		// 		})
-
-		// 		this.setState({
-		// 			serviceTypes: {
-		// 				all: service.types.data,
-		// 				active: activeTypes
-		// 			}
-		// 		})
-		// 	}
-		// }
 	}
 
+	// getMenuListStore = (data) => {
+
+	// 	const { getMenuListStoreState, storeList} = this.props;
+
+	// 	console.log(data);
+	// 	getMenuListStoreState(data);
+	// }
 
 	getStoreList = () => {
 
@@ -142,13 +143,6 @@ class StoreContainer extends React.Component {
 		getStoreState();
 
 	}
-
-	// getMenuListStore = () => {
-
-	// 	const { getMenuListStoreState, storeState } = this.props;
-
-	// }
-
 
 	toggleDialog = (data) => {
 		const {

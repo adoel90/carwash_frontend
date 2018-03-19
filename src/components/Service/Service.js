@@ -36,34 +36,16 @@ class Service extends React.Component {
 			storeState,
 			dataStore,
 			storeList,
-			storemenu,
-			storeActiveMenuList
+			// storemenu,
+			// storeActiveMenuList
 
 		} = this.props;
 
-		
-
-		// if (storeState.storemenu.isLoaded){
-		// 	// console.log("Hai hai hai");
-		// 	console.log(storeState.storemenu.data.data.result.menu);
-
-		// 	return storeState.storemenu.data.data.result.menu.map((menu, i)=> {
-
-		// 		let path = menu.name.replace(/\s+/g, '-').toLowerCase();
-
-		// 		return (
-		// 			<PropsRoute
-		// 				key={i}
-		// 				// name={type.name}
-		// 				name={menu.name}
-		// 				path={`${match.url}/${path}`}
-		// 				component={ServiceTypeContainer}
-		// 				type={menu}
-		// 				{...this.props}
-		// 			/>
-		// 		)
-		// 	})
-		// }
+		//Condition of storemenu
+		if(storeState.storemenu.isLoaded){
+			console.log("Hai Hai Hai Hai ");
+			
+		}
 
 		//Condition of "store"
 		let dataStoreArrayObject = this.props.storeState.store.isLoaded ? this.props.storeState.store.data.data.result.store : null;
@@ -118,7 +100,6 @@ class Service extends React.Component {
 		
 		const dataStores = []; 
 
-        // if(storeState.store.isLoaded && storeState.storemenu.isLoaded) {
 		if(storeState.store.isLoaded || storeState.storemenu.isLoaded) {
 			
 			dataStoreArrayObject.map((data, i)=>{
@@ -187,6 +168,9 @@ class Service extends React.Component {
 						<Column md={2} sm={12}>
 							<aside>
 								{this.renderSidenav()}
+
+								{/* { this.renderMenuStore() } */}
+								{/* <Redirect from="/*" to={`${match.url}/${firstRoutePath}`} /> */}
 								
 							</aside>
 						</Column>

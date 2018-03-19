@@ -1,11 +1,7 @@
 import React from 'react';
-// import { NavLink } from '../components/Nav';
 import { NavLink } from '../components/Nav';
-
-
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-
 
 class MainSidenav extends React.Component {
 
@@ -13,7 +9,6 @@ class MainSidenav extends React.Component {
 		super();
 		this.renderSidenavItem = this.renderSidenavItem.bind(this);
 		this.handleid = this.handleid.bind(this);
-
 
 		this.state = {
 
@@ -43,19 +38,19 @@ class MainSidenav extends React.Component {
 	}
 
 	handleid = (id, e) => {
+		
 		e.preventDefault();
 	
-		const data = {
-			id: id
-		};
+		// const data = {
+		// 	id: id
+		// };
 
-		this.setState({
-			storeId: data.id
-		}, () => {
-			console.log(this.state);
+		// this.setState({
+		// 	storeId: data.id
+		// }, () => {
+		// 	console.log(this.state);
 
-		})
-		// getMenuListStoreState(data);
+		// })
 	}
 
 	render() {
@@ -64,13 +59,6 @@ class MainSidenav extends React.Component {
 		} = this.props;
 
 		return (
-
-			// <nav className="sidenav">
-			// 	<ul className="sidenav__list">
-			// 		{ items.map(this.renderSidenavItem) }
-			// 	</ul>
-			// </nav>
-
 			<nav className="sidenav">
 				<ul className="sidenav__list">
 					{items.map(this.renderSidenavItem)}
@@ -80,5 +68,4 @@ class MainSidenav extends React.Component {
 	}
 }
 
-// export default connect(mapStateToProps, mapDispatchToProps)(MainSidenav);
 export default MainSidenav;

@@ -61,31 +61,55 @@ class ServiceItemList extends React.Component {
 			storeList
 		} = this.props;
 		
-		let dataStoreArrayObject = this.props.storeState.store.isLoaded ? this.props.storeState.store.data.data.result.store : null;
-		// console.log(dataStoreArrayObject);
+		//#Versi-01
+		// let dataStoreArrayObject = this.props.storeState.store.isLoaded ? this.props.storeState.store.data.data.result.store : null;
+		// const dataStores = [];
 
-		const dataStores = [];
+		// if(this.props.storeState.store.isLoaded){ 
+				
+		// 	dataStoreArrayObject.map((data, i) => {
+				
+		// 		let dataStore = {
+		// 			id : data.id,
+		// 			name: data.name,
+		// 			status:data.status
+		// 		}
+			
+		// 		dataStores.push(dataStore);
+				
+		// 	});
+		// }
 
-		if(this.props.storeState.store.isLoaded){ 
+		//#Versi-02
+		let dataStoreMenuArrayObject = this.props.storeState.storemenu.isLoaded ? this.props.storeState.storemenu.data.data.result.menu : null;
+		console.log(dataStoreMenuArrayObject);
+		
+		const dataMenuStores = [];
+
+		if(this.props.storeState.storemenu.isLoaded){ 
 				
-			dataStoreArrayObject.map((data, i) => {
+			dataStoreMenuArrayObject.map((data, i) => {
 				
-				let dataStore = {
+				let dataMenuStore = {
 					id : data.id,
 					name: data.name,
+					description:data.description,
+					price: data.price,
+					image: data.image,
 					status:data.status
 				}
 			
-				dataStores.push(dataStore);
+				dataMenuStores.push(dataMenuStore);
 				
 			});
 		}
-		// console.log(storeState);
 
+		// console.log(dataMenuStores);
+		
+	
 		return (
 			<CardList>
-				{/* { serviceList.map(this.renderServiceItem) } */}
-				{ dataStoreArrayObject.map(this.renderServiceItem) }
+				{ dataMenuStores.map(this.renderServiceItem) }
 				<ServicePaymentConfirmation {...this.props} />
 			</CardList>
 		)

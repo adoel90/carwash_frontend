@@ -72,7 +72,7 @@ class ServiceTypeContainer extends React.Component {
 			id: this.props.type.id
 		}
 		
-		console.log(requiredData);
+		// console.log(requiredData);
 		getMenuListStoreState(requiredData);
 				
 	}
@@ -90,24 +90,19 @@ class ServiceTypeContainer extends React.Component {
 			storeState
 		} = this.props;
 
-		console.log(this.props.storeState.storemenu);
-		
-		
-		
-		
+		// console.log(this.props.storeState.storemenu);
+	
 		if(prevProps.storeState.storemenu !== storeState.storemenu){
 			if(storeState.storemenu.isLoaded){
-				console.log("Hai Hai");
 				let activeMenus = [];
 
 				storeState.storemenu.data.data.result.menu.map(item => {
-					// console.log(item);
 					if(item.status){
 						activeMenus.push(item);
 					}
 				});
 
-				console.log(activeMenus);
+				// console.log(activeMenus);
 				
 				this.setState({
 					...this.state,
@@ -116,7 +111,6 @@ class ServiceTypeContainer extends React.Component {
 				
 			}
 		}
-
 
 		//#Get list service
 		if(prevProps.service.list !== service.list) {
@@ -165,21 +159,6 @@ class ServiceTypeContainer extends React.Component {
 			
 		}
 	}
-	
-	// getAllService = () => {
-	// 	const {
-	// 		accessToken,
-	// 		member,
-	// 		dispatch,
-	// 		type
-	// 	} = this.props;
-
-	// 	const requiredData = {
-	// 		type: type.id,
-	// 	}
-
-	// 	dispatch(getAllService(requiredData, accessToken));
-	// }
 
 	toggleModal = (name) => {
 		const { isModalOpen } = this.state;
@@ -275,6 +254,4 @@ class ServiceTypeContainer extends React.Component {
 	}
 }
 
-
 export default connect(mapStateToProps, mapDispatchToProps)(ServiceTypeContainer);
-// export default ServiceTypeContainer;

@@ -40,10 +40,11 @@ export const getStoreList = (data) => {
 export const getMenuListStore = (data) => {
 
 	return async dispatch => {
+
 		dispatch(fetchRequest());
 		return axios
 			
-            .get(`${constant.API_PATH}store/menu/list?accessToken=${accessToken}&store=${data.id}`)
+			.get(`${constant.API_PATH}store/menu/list?accessToken=${accessToken}&store=${data.id}`)
 			.then((response) => {
 				dispatch(fetchSuccess(response));
 			})
@@ -55,4 +56,11 @@ export const getMenuListStore = (data) => {
 	function fetchRequest() { return { type: GET_MENU_LIST_STORE_REQUESTED } }
 	function fetchSuccess(data) { return { type: GET_MENU_LIST_STORE_FULFILLED, payload: data } }
 	function fetchError(data) { return { type: GET_MENU_LIST_STORE_REJECTED, payload: data } }
+	
+	
+	// return {
+	// 	type: null
+	// }
+	
+
 }

@@ -13,7 +13,8 @@ import {
     AdminCardCreate,
     AdminAccess,
     AdminAccessCreate,
-    AdminStore
+    AdminStore,
+    AdminStoreCreate
 } from '../../Admin';
 
 import { AdminPanelView } from '../AdminPanel';
@@ -35,7 +36,8 @@ class AdminPanel extends Component {
                 { name: 'create-new-card', path: `${props.match.url}/create-new-card`, component: AdminCardCreate },
                 { name: 'access', path: `${props.match.url}/access`, component: AdminAccess },
                 { name: 'create-new-access', path: `${props.match.url}/create-new-access`, component: AdminAccessCreate },
-                { name: 'store', path: `${props.match.url}/store`, component: AdminStore }
+                { name: 'store', path: `${props.match.url}/store`, component: AdminStore },
+                { name: 'create-new-store', path: `${props.match.url}/create-new-store`, component: AdminStoreCreate }
 
             ],
             menus: [
@@ -57,7 +59,7 @@ class AdminPanel extends Component {
                     category: 'Manajemen Store',
                     items: [
                         { name: 'Daftar Store', path: `${props.match.url}/store` },
-                        { name: 'Buat Store Baru', path: `${props.match.url}/store/create-new-store` }
+                        { name: 'Buat Store Baru', path: `${props.match.url}/create-new-store` }
 
                     ]
                 },

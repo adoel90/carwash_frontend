@@ -85,8 +85,8 @@ class VendorPanel extends Component {
         const { menus, vendorList } = this.state;
 
 
-        console.log(menus[0].category);
-        console.log(vendorList);
+        // console.log(menus[0].category);
+        // console.log(vendorList);
         /*
             Sekarang akar permasalahan-nya gimana cara setState() "Store Name Selected" menjadi string kosong  
 

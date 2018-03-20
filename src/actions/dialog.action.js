@@ -2,7 +2,12 @@ export const SHOW_DIALOG_FULFILLED = 'SHOW_DIALOG_FULFILLED';
 export const HIDE_DIALOG_FULFILLED = 'HIDE_DIALOG_FULFILLED';
 
 export const showDialog = (data) => {
+
+	// console.log("Hai hai hai hai hai show dialog")
+	// console.log(data);
+
 	return async dispatch => {
+
 		let dialogData = {
 			type: data.type,
 			title: data.title,
@@ -22,6 +27,10 @@ export const showDialog = (data) => {
 			payload: data
 		}
 	}
+
+	// return {
+	// 	type: null
+	// }
 }
 
 export const hideDialog = () => {

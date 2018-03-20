@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { VendorMenuView} from '../VendorMenu';
-import { getMenuVendorList, updateMenuVendor } from '../../../actions/vendor.action';
+import { getMenuVendorList, updateMenuVendor, getMenuStoreList } from '../../../actions/vendor.action';
+import { getStoreList } from '../../../actions/store.action';
 
 function mapStateToProps(state) {
+
     return {
         vendorState : state.vendorState
     };
@@ -13,7 +15,8 @@ function mapDispatchToProps(dispatch) {
 
     return {
         getVendorState: () => dispatch(getMenuVendorList()),
-        updateVendorMenuState: (object) => dispatch(updateMenuVendor(object))
+        updateVendorMenuState: (object) => dispatch(updateMenuVendor(object)),
+        getMenuStoreListDispatch: (data) => { dispatch(getMenuStoreList(data))}
         
     }
 }
@@ -31,6 +34,9 @@ class VendorMenu extends Component {
         this.populateTableData= this.populateTableData.bind(this);
         this.handleCancelModal = this.handleCancelModal.bind(this);
 
+        this.getMenuStoreList = this.getMenuStoreList.bind(this);
+        this.getId = this.getId.bind(this);
+
         this.state = {
 
             menuVendor: {},
@@ -43,13 +49,17 @@ class VendorMenu extends Component {
             isModalOpen:{
                 updateMenuVendor: false
             },
-            selectedMenuVendor:{}
+            selectedMenuVendor:{},
+
+            storeList:{},
+            storeProductList:{}
         }
     }
 
     componentDidMount = () => {
 
         this.getMenuVendorList();
+        // this.getMenuStoreList();
 
     }
 
@@ -60,25 +70,53 @@ class VendorMenu extends Component {
         getVendorState();
     }
 
+    //#
+    getMenuStoreList = () => {
+        const { getMenuStoreListDispatch, storeList, vendorState } = this.props;
+
+        let dataStoreArrayObject = vendorState.menu.isLoaded ? vendorState.menu.data.data.result.store : null;
+     
+
+        if(this.props.vendorState.menu.isLoaded){
+            dataStoreArrayObject.map((item)=> {
+                getMenuStoreListDispatch(item.id);
+            })
+        }
+  
+    }
+
     componentDidUpdate = (prevProps) => {
 
         const { vendorState } = this.props;
 
         if(prevProps.vendorState.menu !== vendorState.menu) {
+
+
+            
             this.setState({
                 ...this.state,
-                menuVendorList: vendorState.menu
+                storeList: vendorState.menu //INI MESTI LO GANTI JADI MENU STORE BENERAN (YANG SEKARANG MASIH DATA SI STORE)
 
             }, () => {
-                this.populateTableData();
+                // this.populateTableData();
+                this.getId();
             });
         }
+
+        // console.log(prevProps);
+        
+    }
+
+    getId = () => {
+        // console.log("Oke");
+        this.getMenuStoreList();
+        
     }
 
     populateTableData = () => {
 
-        const { menuVendorList } = this.state;   
-         
+        const { storeList } = this.state;  
+        
         const columns = [
             {
                 title: 'Nama Produk',
@@ -102,13 +140,13 @@ class VendorMenu extends Component {
                     </td>
                 )
             }
-    
         ]
 
         const rows = []; 
 
-        if(menuVendorList.isLoaded) {
-            menuVendorList.data.data.result.map((menu, i)=>{
+        if(storeList.isLoaded) {
+
+            storeList.data.data.result.store.map((menu, i)=>{
 
                 let row = {
                     id:menu.id,

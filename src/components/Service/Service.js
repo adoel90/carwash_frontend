@@ -1,17 +1,14 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
-
-// import { PageBlock } from '../Page';
 import { PageBlock } from '../Page';
 import { PropsRoute } from '../Route';
-// import { Container, Row } from '../Grid';
 import { Container, Row, Column } from '../../layouts/Grid';
 import { ModalDialog } from '../Modal';
 import Currency from '../Currency';
 import MainSidenav from '../MainSidenav';
-
-import ServiceTypeContainer from '../../views/Customer/CustomerOurService/ServiceTypeContainer';
-import ServiceItemList from '.';
+import StoreMenuContainer from '../../views/Customer/CustomerOurService/StoreMenuContainer';
+// import ServiceItemList from '.';
+import StoreMenuList from '.';
 
 class Service extends React.Component {
 	constructor() {
@@ -30,8 +27,8 @@ class Service extends React.Component {
 	renderMenuStore =() => {
 
 		const {
-			service,
-			serviceTypes,
+			// service,
+			// serviceTypes,
 			match,
 			storeState,
 			dataStore,
@@ -43,7 +40,7 @@ class Service extends React.Component {
 
 		//Condition of storemenu
 		if(storeState.storemenu.isLoaded){
-			console.log("Hai Hai Hai Hai ");
+			// console.log("Hai Hai Hai Hai ");
 			
 		}
 
@@ -57,7 +54,6 @@ class Service extends React.Component {
 				let dataStore = {
 					id : data.id,
 					name: data.name,
-					// status:data.status
 				}
 			
 				dataStores.push(dataStore);
@@ -66,15 +62,13 @@ class Service extends React.Component {
 			return dataStores.map((type, i) => {
 			
 				let path = type.name.replace(/\s+/g, '-').toLowerCase();
-				// console.log(type);
 			
 				return (
 					<PropsRoute
 						key={i}
-						// name={type.name}
 						name={type.name}
 						path={`${match.url}/${path}`}
-						component={ServiceTypeContainer}
+						component={StoreMenuContainer}
 						type={type}
 						{...this.props}
 					/>

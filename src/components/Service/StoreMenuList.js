@@ -13,7 +13,7 @@ import { default as NoThumbnail } from '../../assets/images/no-thumbnail.jpg'
 import { Column, Row } from '../../layouts/Grid';
 
  
-class ServiceItemList extends React.Component {
+class StoreMenuList extends React.Component {
 
 	constructor() {
 		super();
@@ -22,7 +22,7 @@ class ServiceItemList extends React.Component {
 
 	renderServiceItem = (item, i) => {
 		const {
-			handleServicePayment
+			handleStoreMenuPayment
 		} = this.props;
 
 		
@@ -42,7 +42,7 @@ class ServiceItemList extends React.Component {
 						<p className="card__text">{item.description}</p>
 					</CardBody>
 					<CardFooter>
-						<Button type="button" buttonTheme="primary" buttonFull onClick={() => handleServicePayment(item)} className="clr-light">
+						<Button type="button" buttonTheme="primary" buttonFull onClick={() => handleStoreMenuPayment(item)} className="clr-light">
 							<small className="tt-uppercase fw-bold ls-base">Pilih</small>
 						</Button>
 					</CardFooter>
@@ -82,7 +82,6 @@ class ServiceItemList extends React.Component {
 
 		//#Versi-02
 		let dataStoreMenuArrayObject = this.props.storeState.storemenu.isLoaded ? this.props.storeState.storemenu.data.data.result.menu : null;
-		console.log(dataStoreMenuArrayObject);
 		
 		const dataMenuStores = [];
 
@@ -116,4 +115,4 @@ class ServiceItemList extends React.Component {
 	}
 }
 
-export default ServiceItemList;
+export default StoreMenuList;

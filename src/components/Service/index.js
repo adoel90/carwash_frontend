@@ -1,13 +1,17 @@
 import Service from './Service';
-import ServiceType from './ServiceType';
-import ServiceItemList from './ServiceItemList';
+import StoreMenu from './StoreMenu';
+// import ServiceType from './ServiceType';
+// import ServiceItemList from './ServiceItemList';
+import StoreMenuList from './StoreMenuList';
 import ServicePaymentConfirmation from './ServicePaymentConfirmation';
 import ServicePaymentReceipt from './ServicePaymentReceipt'; 
 
 export {
     Service,
-    ServiceType,
-    ServiceItemList,
+    StoreMenu,
+    // ServiceType,
+    // ServiceItemList,
+    StoreMenuList,
     ServicePaymentConfirmation,
     ServicePaymentReceipt
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 // import { ServiceItemList, ServicePaymentReceipt } from '../Service';
-import { ServiceItemList, ServicePaymentReceipt } from '../Service';
+import { StoreMenuList, ServicePaymentReceipt } from '../Service';
 import { PageBlock } from '../Page';
 // import { Row } from '../Grid';
 import { Row } from '../../layouts/Grid';
@@ -8,7 +8,7 @@ import { Button } from '../Button';
 import Currency from '../Currency';
 import { default as WalletIcon } from '../../assets/icons/Business/wallet-1.svg';
 
-class ServiceType extends React.Component {
+class StoreMenu extends React.Component {
 
 	render() {
 		const {
@@ -21,7 +21,7 @@ class ServiceType extends React.Component {
 
 		let dataStoreArrayObject = this.props.storeState.store.isLoaded ? this.props.storeState.store.data.data.result.store : null;
 	
-		const renderServiceItemList = () => {	
+		const renderStoreMenuList = () => {	
 
 			// if(service.list.isFetching){
 			if(storeState.store.isFetching){
@@ -42,14 +42,12 @@ class ServiceType extends React.Component {
 						</PageBlock>
 					)
 				}
-
-			// console.log(storeState);
-
-			return <ServiceItemList {...this.props}  />
+				
+			return <StoreMenuList {...this.props}  />
 			}
 
 			return (
-				<PageBlock className="ta-center margin-top-2">
+				<PageBlock className="ta-center margin-top-2"> 
 					<p>Oops! Sepertinya terdapat kesalahan dalam memuat daftar layanan. Silahkan hubungi operator kasir yang sedang bertugas.</p>
 				</PageBlock>
 			)
@@ -57,11 +55,11 @@ class ServiceType extends React.Component {
 
 		return (
 			<div className="inner-view" id="category">
-				{ renderServiceItemList() }
+				{ renderStoreMenuList() }
 				<ServicePaymentReceipt {...this.props} />
 			</div>
 		)
 	}
 }
 
-export default ServiceType;
+export default StoreMenu;

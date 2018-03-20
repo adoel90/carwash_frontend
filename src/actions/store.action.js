@@ -11,6 +11,10 @@ export const GET_MENU_LIST_STORE_REQUESTED = 'GET_MENU_LIST_STORE_REQUESTED';
 export const GET_MENU_LIST_STORE_FULFILLED = 'GET_MENU_LIST_STORE_FULFILLED';
 export const GET_MENU_LIST_STORE_REJECTED = 'GET_MENU_LIST_STORE_REJECTED';
 
+//CREATE MENU TRANSACTION
+export const CREATE_MENU_TRANSACTION_FULFILLED = "CREATE_MENU_TRANSACTION_FULFILLED";
+export const CREATE_MENU_TRANSACTION_REJECTED = "CREATE_MENU_TRANSACTION_REJECTED";
+
 const accessToken = localStorage.getItem('accessToken') ? localStorage.getItem('accessToken') : null;
 
 
@@ -63,4 +67,14 @@ export const getMenuListStore = (data) => {
 	// }
 	
 
+}
+
+//#CREATE MENU TRANSACTION
+export const createMenuTransaction = (data) => {
+
+	console.log(data);
+	
+	return {
+		type: null
+	}
 }

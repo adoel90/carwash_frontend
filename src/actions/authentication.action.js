@@ -58,7 +58,8 @@ export const vendorLogin = (data) => {
         dispatch(loginRequest());
 
         return axios
-            .post(`${constant.API_PATH}vendor/authenticate`, {
+            // .post(`${constant.API_PATH}vendor/authenticate`, {
+            .post(`${constant.API_PATH}user/authenticate`, {
                 username: data.username,
                 password: data.password
             })
@@ -68,7 +69,7 @@ export const vendorLogin = (data) => {
                 
                 localStorage.setItem('accessToken', result.accessToken);
                 // localStorage.setItem('userData', JSON.stringify(result.employee.username));
-                localStorage.setItem('userData', JSON.stringify(result.employee));
+                localStorage.setItem('userData', JSON.stringify(result));
                
                 dispatch(loginSuccess(result));
             })

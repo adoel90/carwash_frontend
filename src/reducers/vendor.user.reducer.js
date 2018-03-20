@@ -20,7 +20,12 @@ import {
 
 	GET_EMPLOYEE_VENDOR_LIST_REQUESTED,//Get List Vendor Employee 
 	GET_EMPLOYEE_VENDOR_LIST_FULFILLED,
-	GET_EMPLOYEE_VENDOR_LIST_REJECTED
+	GET_EMPLOYEE_VENDOR_LIST_REJECTED,
+
+	GET_MENU_STORE_LIST_REQUESTED, //GET MENU STORE LIST
+	GET_MENU_STORE_LIST_FULFILLED,
+	GET_MENU_STORE_LIST_REJECTED
+
 
 } from '../actions/vendor.action'
 
@@ -65,6 +70,15 @@ const initialState = {
 
 }
 
+/*
+
+	#Reducer Formula
+	
+		type Reducer<S, A> = (state: S, action: A) => return S
+
+
+
+*/
 const vendorState = (state = initialState, action) => {
 	
 	switch(action.type) {
@@ -312,6 +326,51 @@ const vendorState = (state = initialState, action) => {
 				}
 			}
 		}
+
+		//GET MENU STORE LIST
+		case GET_MENU_STORE_LIST_REQUESTED: {
+			return {
+				...state,
+				storemenu: {
+					...state.storemenu,
+					data: {},
+					isFetching: true,
+					isLoaded: false,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case GET_EMPLOYEE_VENDOR_LIST_FULFILLED: {
+			return {
+				...state,
+				storemenu: {
+					...state.storemenu,
+					data: action.payload,
+					isLoaded: true,
+					isFetching: false,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case GET_EMPLOYEE_VENDOR_LIST_REJECTED: {
+			return {
+				...state,
+				storemenu: {
+					...state.storemenu,
+					data: {},
+					isLoaded: false,
+					isFetching: false,
+					isError: true,
+					error: action.payload
+				}
+			}
+		}
+
+
 
 		default: {
 			return state;

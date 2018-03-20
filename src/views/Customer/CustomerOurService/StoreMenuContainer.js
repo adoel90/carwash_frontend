@@ -2,13 +2,11 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
-
-import { ServiceType } from '../../../components/Service';
+import { StoreMenu } from '../../../components/Service';
 import Currency from '../../../components/Currency';
-
 import { connect } from 'react-redux';
 
-import { getMenuListStore } from '../../../actions/store.action'
+import { getMenuListStore, createMenuTransaction } from '../../../actions/store.action'
 
 // import {memberLogout } from '../actions/member.action';
 // import {memberLogout } from '../../../actions/member.action';
@@ -26,25 +24,27 @@ function mapDispatchToProps(dispatch) {
 
     return {
 
-		getMenuListStoreState : (data) => dispatch(getMenuListStore(data))
+		getMenuListStoreState : (data) => dispatch(getMenuListStore(data)),
+		createMenuTransactionDispatch: (data) => dispatch(createMenuTransaction(data))
         
     }
 }
 
-class ServiceTypeContainer extends React.Component {
+class StoreMenuContainer extends React.Component {
 	constructor() {
 		super();
 		// this.getAllService = this.getAllService.bind(this);
 		// this.handleMemberLogout = this.handleMemberLogout.bind(this);
-		// this.handleServicePayment = this.handleServicePayment.bind(this);
-		// this.handleServicePaymentSubmit = this.handleServicePaymentSubmit.bind(this);
+		this.handleStoreMenuPayment = this.handleStoreMenuPayment.bind(this);
+		this.handleServicePaymentSubmit = this.handleServicePaymentSubmit.bind(this);
 		// this.handlePrintReceipt = this.handlePrintReceipt.bind(this);
 
 		this.getMenuListStore = this.getMenuListStore.bind(this);
+		this.createMenuTransaction = this.createMenuTransaction.bind(this);
 
 		this.state = {
 			serviceList: [],
-			selectedService: {},
+			selectedMenu: {},
 			printData: {},
 			isModalOpen: {
 				paymentConfirmation: false,
@@ -89,8 +89,6 @@ class ServiceTypeContainer extends React.Component {
 			showDialog,
 			storeState
 		} = this.props;
-
-		// console.log(this.props.storeState.storemenu);
 	
 		if(prevProps.storeState.storemenu !== storeState.storemenu){
 			if(storeState.storemenu.isLoaded){
@@ -101,8 +99,6 @@ class ServiceTypeContainer extends React.Component {
 						activeMenus.push(item);
 					}
 				});
-
-				// console.log(activeMenus);
 				
 				this.setState({
 					...this.state,
@@ -181,46 +177,64 @@ class ServiceTypeContainer extends React.Component {
 		return history.push('/logout');
 	}
 
-	handleServicePayment = (item) => {
-		console.log(item);
+	//handleButton
+	handleStoreMenuPayment = (item) => {
 		
 		this.setState({
-			selectedService: item
+			selectedMenu: item
 		}, () => this.toggleModal('paymentConfirmation'))
 
 	}
 
+	//#
+	createMenuTransaction = (data) => {
+		const { createMenuTransactionDispatch} = this.props;
+		
+		// console.log(requiredData);
+		createMenuTransactionDispatch(data);
+	}
+
+	//#
 	handleServicePaymentSubmit = (e) => {
 		e.preventDefault();
 		
 		const {
-			selectedService
+			selectedMenu
 		} = this.state;
 		
 		const { 
-			dispatch, 
-			accessToken,
+			// dispatch, 
+			// accessToken,
 			toggleDialog,
 			hideDialog
 		} = this.props;
 
+		console.log(this.props.toggleDialog);
+
+		// const requiredData = {
+		// 	service: selectedMenu.id
+		// }
+
 		const requiredData = {
-			service: selectedService.id
+			menu: selectedMenu.id
 		}
+
+		// console.log(requiredData);
 
 		let dialogData = {
 			type: 'confirm',
 			title: 'Konfirmasi Ulang',
-			message: 'Apakah Anda yakin atas pilihan Anda? (Pembayaran tidak dapat dibatalkan atau diuangkan kembali)',
+			message: 'Lanjutkan pembayaran ? ',
 			onClose: () => hideDialog(),
 			closeText: 'Kembali',
 			confirmText: 'Ya, Lanjutkan',
 			onConfirm: () => {
 				// dispatch(createServiceTransaction(requiredData, accessToken));
+				createMenuTransaction(requiredData)
+
 			}
 		}
 
-		
 		toggleDialog(dialogData);
 	}
 
@@ -240,18 +254,18 @@ class ServiceTypeContainer extends React.Component {
 
 	render() {
 		return (
-			<ServiceType
+			<StoreMenu
 				{...this.state}
 				{...this.props}
 				toggleModal={this.toggleModal}
 				// handleMemberLogout={this.handleMemberLogout}
-				// handleServicePayment={this.handleServicePayment}
+				handleStoreMenuPayment={this.handleStoreMenuPayment}
 				// handleServicePaymentConfirm={this.handleServicePaymentConfirm}
-				// handleServicePaymentSubmit={this.handleServicePaymentSubmit}
+				handleServicePaymentSubmit={this.handleServicePaymentSubmit}
 				// getMenuListStore= {this.getMenuListStore}
 			/>
 		)
 	}
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ServiceTypeContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(StoreMenuContainer);

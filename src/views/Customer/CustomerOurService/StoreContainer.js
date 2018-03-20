@@ -27,7 +27,9 @@ function mapDispatchToProps(dispatch) {
 	return {
 
 		getStoreState: () => dispatch(getStoreList()),
-		getMenuListStoreState: (data) => dispatch(getMenuListStore(data))
+		getMenuListStoreState: (data) => dispatch(getMenuListStore(data)),
+		showDialogDispatch: (data) => dispatch(showDialog(data)),
+		hideDialogDispatch: ()=> dispatch(hideDialog())
 
 	}
 }
@@ -128,15 +130,6 @@ class StoreContainer extends React.Component {
 			}
 		}
 	}
-
-	// getMenuListStore = (data) => {
-
-	// 	const { getMenuListStoreState, storeList} = this.props;
-
-	// 	console.log(data);
-	// 	getMenuListStoreState(data);
-	// }
-
 	getStoreList = () => {
 
 		const { getStoreState } = this.props;
@@ -150,7 +143,7 @@ class StoreContainer extends React.Component {
 			dispatch
 		} = this.props;
 
-		console.log(data);
+		// console.log(data);
 
 		if (!dialog.isOpened) {
 			this.showDialog(data);
@@ -161,15 +154,16 @@ class StoreContainer extends React.Component {
 	}
 
 	showDialog = (data) => {
-		const { dialog, dispatch } = this.props;
-
-		dispatch(showDialog(data))
+		const {dialog, showDialogDispatch } = this.props;
+		// dispatch(showDialog(data));
+		showDialogDispatch(data);
 	}
 
 	hideDialog = () => {
-		const { dialog, dispatch } = this.props;
+		const { dialog,hideDialogDispatch  } = this.props;
 
-		dispatch(hideDialog());
+		// dispatch(hideDialog());
+		hideDialogDispatch();
 	}
 
 	addPathPropToTypes = () => {

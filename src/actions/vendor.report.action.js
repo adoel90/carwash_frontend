@@ -12,7 +12,7 @@ const dataVendorLoginNow = JSON.parse(userLoginNow);
 
 //Get List Report Vendor
 export const getVendorReportList = (data) => {
-	console.log(data);
+	
 	return async dispatch => {
 
 		dispatch(fetchRequest());

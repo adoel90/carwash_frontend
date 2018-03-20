@@ -4,7 +4,8 @@ import { bindActionCreators } from 'redux';
 import { getAccessList, updateAccess, changeStatusAccess } from '../../../actions/access.action';
 import { getAllModule } from '../../../actions/module.action';
 import { Button } from '../../../components/Button';
-
+import { openDialog, closeDialog } from '../../../actions/dialog.action';
+import { Dialog } from '../../../components/Dialog';
 import AdminAccessView from './AdminAccessView';
 
 class AdminAccess extends Component {
@@ -31,6 +32,7 @@ class AdminAccess extends Component {
             this.changeStatusAccess = this.changeStatusAccess.bind(this);
             this.updateAccess = this.updateAccess.bind(this);
             this.populateTableData = this.populateTableData.bind(this);
+            this.renderDialog = this.renderDialog.bind(this);
       }
       
       componentDidMount = () => {
@@ -92,6 +94,42 @@ class AdminAccess extends Component {
                         [name]: !isModalOpen[name]
                   }
             })
+      }
+
+      toggleDialog = (data) => {
+            const {
+                dialog,
+                action
+            } = this.props;
+    
+            if(!dialog.isOpened) {
+                action.openDialog(data);
+            } else {
+                action.closeDialog();
+            }
+      }
+
+      renderDialog = () => {
+            const {
+                dialog,
+                toggleDialog
+            } = this.props;
+    
+            console.log(this.props)
+            
+            return (
+                <Dialog
+                    isOpen={dialog.isOpened}
+                    toggle={toggleDialog}
+                    type={dialog.data.type}
+                    title={dialog.data.title}
+                    message={dialog.data.message}
+                    onConfirm={dialog.data.onConfirm}
+                    confirmText={dialog.data.confirmText}
+                    onClose={dialog.data.onClose}
+                    closeText={dialog.data.closeText}
+                />
+            )
       }
 
       populateTableData = () => {
@@ -172,9 +210,36 @@ class AdminAccess extends Component {
             e.preventDefault();
       
             // action.updateAccess(selectedAccess).then(() => {
-            //       this.toggleModal('updateAccess');
+            //       const {
+            //             access
+            //       } = this.props;
+
+            //       if (access.item.isUpdated) {
+            //             let dialogData = {
+            //                 type: 'success',
+            //                 title: 'Berhasil',
+            //                 message: 'Access telah berhasil diubah. Klik tombol berikut untuk kembali.',
+            //                 onClose: () => window.location.reload(),
+            //                 closeText: 'Kembali'
+            //             }
+                
+            //             this.toggleDialog(dialogData);
+            //       }
+      
+            //       if (access.item.isError) {
+            //             let dialogData = {
+            //                 type: 'danger',
+            //                 title: 'Gagal',
+            //                 message: 'Access gagal diubah. Klik tombol berikut untuk kembali.',
+            //                 onClose: () => this.toggleDialog(),
+            //                 closeText: 'Kembali'
+            //             }
+                
+            //             this.toggleDialog(dialogData);
+            //       }
+            //       // this.toggleModal('updateAccess');
                   
-            //       window.location.reload();
+            //       // window.location.reload();
             // })
       }
 
@@ -211,13 +276,16 @@ class AdminAccess extends Component {
       render() {
             console.log(this.props)
             return (
-                  <AdminAccessView 
-                        {...this.state}
-                        {...this.props}
-                        handleInputChange={this.handleInputChange}
-                        updateAccess={this.updateAccess}
-                        toggleModal={this.toggleModal}
-                  />
+                  <div>
+                        <AdminAccessView 
+                              {...this.state}
+                              {...this.props}
+                              handleInputChange={this.handleInputChange}
+                              updateAccess={this.updateAccess}
+                              toggleModal={this.toggleModal}
+                        />
+                        {this.renderDialog()}
+                  </div>
             )
       }
 }
@@ -225,7 +293,8 @@ class AdminAccess extends Component {
 const mapStateToProps = (state) => {
       return {
           access: state.access,
-          module: state.module
+          module: state.module,
+          dialog: state.dialog
       };
 }
   
@@ -233,7 +302,7 @@ const mapDispatchToProps = (dispatch) => {
       return {
           getAccessList: () => dispatch(getAccessList()),
           getAllModule: () => dispatch(getAllModule()),
-          action: bindActionCreators({ updateAccess, changeStatusAccess }, dispatch)
+          action: bindActionCreators({ updateAccess, changeStatusAccess, openDialog, closeDialog }, dispatch)
       }
 }
 

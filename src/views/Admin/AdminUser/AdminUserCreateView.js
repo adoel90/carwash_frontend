@@ -23,7 +23,7 @@ const AdminUserCreateView = props => {
                         <Panel>
                             <PanelHeader>
                                 <h4 className="heading-title">Buat User Baru</h4>
-                                <h6 className="heading-subtitle">Tempor nostrud cupidatat officia sit ullamco eu pariatur ullamco quis laborum nulla ipsum.</h6>
+                                {/* <h6 className="heading-subtitle">Membuat user baru.</h6> */}
                             </PanelHeader>
                             <PanelBody>
                                 <Form onSubmit={handleFormSubmit}>
@@ -33,7 +33,7 @@ const AdminUserCreateView = props => {
                                     <FormField label="Password">
                                         <InputGroup>
                                             <Input name="password" type="password" placeholder="Masukkan kata sandi" onChange={(e) => handleInputChange('newUser', e) } />
-                                            <Input name="confirmPassword" type="password" placeholder="Ulangi kata sandi" onChange={(e) => handleInputChange('newUser', e) } />                            
+                                            <Input name="confirmPassword" type="password" placeholder="Ulangi kata sandi" onChange={(e) => handleInputChange('newUser', e) } />
                                         </InputGroup>
                                     </FormField>
                                     <FormField label="Nama lengkap">
@@ -44,6 +44,7 @@ const AdminUserCreateView = props => {
                                     </FormField>
                                     <FormField label="Level Akses">
                                         <Select name="level" defaultValue={newUser.level} onChange={(e) => handleInputChange('newUser', e) }>
+                                            <option value="">Select</option>
                                             {
                                                 access.list.isLoaded ? access.list.data.result.map((item, i) => {
                                                     return <option value={item.id}>{item.name}</option>

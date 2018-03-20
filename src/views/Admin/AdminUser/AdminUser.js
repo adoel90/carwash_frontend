@@ -4,6 +4,8 @@ import { bindActionCreators } from 'redux';
 import { AdminUserView } from '../AdminUser';
 import { getUserList, updateUser, changeStatusUser } from '../../../actions/user.action';
 import { getAccessList } from '../../../actions/access.action';
+import { openDialog, closeDialog } from '../../../actions/dialog.action';
+import { Dialog } from '../../../components/Dialog';
 import { Button } from '../../../components/Button';
 
 class AdminUser extends Component {
@@ -13,6 +15,7 @@ class AdminUser extends Component {
         this.getUserList = this.getUserList.bind(this);
         this.getAccessList = this.getAccessList.bind(this);
         this.toggleModal = this.toggleModal.bind(this);
+        this.renderDialog = this.renderDialog.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
         this.openUserDetail = this.openUserDetail.bind(this);
         this.changeStatusUser = this.changeStatusUser.bind(this);
@@ -95,6 +98,42 @@ class AdminUser extends Component {
         })
     }
 
+    toggleDialog = (data) => {
+        const {
+            dialog,
+            action
+        } = this.props;
+
+        if(!dialog.isOpened) {
+            action.openDialog(data);
+        } else {
+            action.closeDialog();
+        }
+    }
+
+    renderDialog = () => {
+        const {
+            dialog,
+            toggleDialog
+        } = this.props;
+
+        console.log(this.props)
+        
+        return (
+            <Dialog
+                isOpen={dialog.isOpened}
+                toggle={toggleDialog}
+                type={dialog.data.type}
+                title={dialog.data.title}
+                message={dialog.data.message}
+                onConfirm={dialog.data.onConfirm}
+                confirmText={dialog.data.confirmText}
+                onClose={dialog.data.onClose}
+                closeText={dialog.data.closeText}
+            />
+        )
+    }
+
     handleInputChange = (object, e) => {
         const target = e.target;
         const name = target.name;
@@ -142,9 +181,36 @@ class AdminUser extends Component {
         e.preventDefault();
 
         action.updateUser(selectedUser).then(() => {
-            this.toggleModal('updateUser');
+            const {
+                user
+            } = this.props;
+
+            if (user.updateUser.isUpdated) {
+                let dialogData = {
+                    type: 'success',
+                    title: 'Berhasil',
+                    message: 'User telah berhasil diubah. Klik tombol berikut untuk kembali.',
+                    onClose: () => window.location.reload(),
+                    closeText: 'Kembali'
+                }
+        
+                this.toggleDialog(dialogData);
+            }
+
+            if (user.updateUser.isError) {
+                let dialogData = {
+                    type: 'danger',
+                    title: 'Gagal',
+                    message: 'User gagal diubah. Klik tombol berikut untuk kembali.',
+                    onClose: () => this.toggleDialog(),
+                    closeText: 'Kembali'
+                }
+        
+                this.toggleDialog(dialogData);
+            }
+            // this.toggleModal('updateUser');
             
-            window.location.reload();
+            // window.location.reload();
         })
     }
 
@@ -218,13 +284,16 @@ class AdminUser extends Component {
     
     render() {
         return (
-            <AdminUserView
-                {...this.state}
-                {...this.props}
-                handleInputChange={this.handleInputChange}
-                updateUser={this.updateUser}
-                toggleModal={this.toggleModal}
-            />
+            <div>
+                <AdminUserView
+                    {...this.state}
+                    {...this.props}
+                    handleInputChange={this.handleInputChange}
+                    updateUser={this.updateUser}
+                    toggleModal={this.toggleModal}
+                />
+                {this.renderDialog()}
+            </div>
         )
     }
 }
@@ -232,7 +301,8 @@ class AdminUser extends Component {
 function mapStateToProps(state) {
     return {
         user: state.user,
-        access: state.access
+        access: state.access,
+        dialog: state.dialog
     };
 }
 
@@ -240,7 +310,7 @@ function mapDispatchToProps(dispatch) {
     return {
         getUserList: () => dispatch(getUserList()),
         getAccessList: () => dispatch(getAccessList()),
-        action: bindActionCreators({ updateUser, changeStatusUser }, dispatch)
+        action: bindActionCreators({ updateUser, changeStatusUser, openDialog, closeDialog }, dispatch)
     }
 }
 

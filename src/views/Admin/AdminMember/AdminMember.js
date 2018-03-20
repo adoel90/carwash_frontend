@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getAllMemberList, updateMember, changeMemberStatus } from '../../../actions/member.action';
 import { Button } from '../../../components/Button';
-
+import { openDialog, closeDialog } from '../../../actions/dialog.action';
+import { Dialog } from '../../../components/Dialog';
 import AdminMemberView from './AdminMemberView';
 
 class AdminMember extends Component {
@@ -24,6 +25,7 @@ class AdminMember extends Component {
 
             this.getMemberList = this.getMemberList.bind(this);
             this.toggleModal = this.toggleModal.bind(this);
+            this.renderDialog = this.renderDialog.bind(this);
             this.handleInputChange = this.handleInputChange.bind(this);
             this.openMemberDetail = this.openMemberDetail.bind(this);
             this.changeMemberStatus = this.changeMemberStatus.bind(this);
@@ -89,6 +91,42 @@ class AdminMember extends Component {
                         [name]: !isModalOpen[name]
                   }
             })
+      }
+
+      toggleDialog = (data) => {
+            const {
+                dialog,
+                action
+            } = this.props;
+    
+            if(!dialog.isOpened) {
+                action.openDialog(data);
+            } else {
+                action.closeDialog();
+            }
+      }
+
+      renderDialog = () => {
+            const {
+                dialog,
+                toggleDialog
+            } = this.props;
+    
+            console.log(this.props)
+            
+            return (
+                <Dialog
+                    isOpen={dialog.isOpened}
+                    toggle={toggleDialog}
+                    type={dialog.data.type}
+                    title={dialog.data.title}
+                    message={dialog.data.message}
+                    onConfirm={dialog.data.onConfirm}
+                    confirmText={dialog.data.confirmText}
+                    onClose={dialog.data.onClose}
+                    closeText={dialog.data.closeText}
+                />
+            )
       }
 
       populateTableData = () => {
@@ -179,9 +217,36 @@ class AdminMember extends Component {
             e.preventDefault();
       
             action.updateMember(selectedMember).then(() => {
-                  this.toggleModal('updateMember');
+                  const {
+                        member
+                  } = this.props;
+
+                  if (member.item.isUpdated) {
+                        let dialogData = {
+                            type: 'success',
+                            title: 'Berhasil',
+                            message: 'Member telah berhasil diubah. Klik tombol berikut untuk kembali.',
+                            onClose: () => window.location.reload(),
+                            closeText: 'Kembali'
+                        }
+                
+                        this.toggleDialog(dialogData);
+                  }
+      
+                  if (member.item.isError) {
+                        let dialogData = {
+                            type: 'danger',
+                            title: 'Gagal',
+                            message: 'Member gagal diubah. Klik tombol berikut untuk kembali.',
+                            onClose: () => this.toggleDialog(),
+                            closeText: 'Kembali'
+                        }
+                
+                        this.toggleDialog(dialogData);
+                  }
+                  // this.toggleModal('updateMember');
                   
-                  window.location.reload();
+                  // window.location.reload();
             })
       }
 
@@ -209,27 +274,31 @@ class AdminMember extends Component {
 
       render() {
             return (
-                  <AdminMemberView 
-                        {...this.state}
-                        {...this.props}
-                        handleInputChange={this.handleInputChange}
-                        updateMember={this.updateMember}
-                        toggleModal={this.toggleModal}
-                  />
+                  <div>
+                        <AdminMemberView 
+                              {...this.state}
+                              {...this.props}
+                              handleInputChange={this.handleInputChange}
+                              updateMember={this.updateMember}
+                              toggleModal={this.toggleModal}
+                        />
+                        {this.renderDialog()}
+                  </div>
             )
       }
 }
 
 function mapStateToProps(state) {
       return {
-          member: state.member
+          member: state.member,
+          dialog: state.dialog
       };
 }
   
 function mapDispatchToProps(dispatch) {
       return {
           getAllMemberList: () => dispatch(getAllMemberList()),
-          action: bindActionCreators({ updateMember, changeMemberStatus }, dispatch)
+          action: bindActionCreators({ updateMember, changeMemberStatus, openDialog, closeDialog }, dispatch)
       }
 }
 

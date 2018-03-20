@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { AdminCardCreateView } from '../AdminCard';
 import { createNewCardType } from '../../../actions/card.action';
 import { getAccessList } from '../../../actions/access.action';
+import { openDialog, closeDialog } from '../../../actions/dialog.action';
+import { Dialog } from '../../../components/Dialog';
 
 class AdminCardCreate extends Component {
       constructor() {
             super();
             this.handleInputChange = this.handleInputChange.bind(this);
             this.handleFormSubmit = this.handleFormSubmit.bind(this);
+            this.renderDialog = this.renderDialog.bind(this);
             this.state = {
                   newCard: {
                         name: '',
@@ -17,6 +21,40 @@ class AdminCardCreate extends Component {
                         refund: 0
                   }
             }
+      }
+
+      toggleDialog = (data) => {
+            const {
+                dialog,
+                action
+            } = this.props;
+    
+            if(!dialog.isOpened) {
+                action.openDialog(data);
+            } else {
+                action.closeDialog();
+            }
+      }
+
+      renderDialog = () => {
+            const {
+                dialog,
+                toggleDialog
+            } = this.props;
+            
+            return (
+                <Dialog
+                    isOpen={dialog.isOpened}
+                    toggle={toggleDialog}
+                    type={dialog.data.type}
+                    title={dialog.data.title}
+                    message={dialog.data.message}
+                    onConfirm={dialog.data.onConfirm}
+                    confirmText={dialog.data.confirmText}
+                    onClose={dialog.data.onClose}
+                    closeText={dialog.data.closeText}
+                />
+            )
       }
 
       handleInputChange = (object, e) => {
@@ -39,41 +77,74 @@ class AdminCardCreate extends Component {
             } = this.state;
             
             const {
-                  createNewCardType
+                  createNewCardType,
+                  action
             } = this.props;
             
             e.preventDefault();
-                  const requiredData = {
-                        name: newCard.name,
-                        minimum: newCard.minimum,
-                        bonus: newCard.bonus,
-                        refund: newCard.refund
+
+            const requiredData = {
+                  name: newCard.name,
+                  minimum: newCard.minimum,
+                  bonus: newCard.bonus,
+                  refund: newCard.refund
+            }
+
+            action.createNewCardType(requiredData).then(() => {
+                  const {
+                        card
+                  } = this.props;
+
+                  if(card.type.isCreated) {
+                        let dialogData = {
+                            type: 'success',
+                            title: 'Berhasil',
+                            message: 'Card telah berhasil ditambahkan. Klik tombol berikut untuk kembali.',
+                            onClose: () => window.location.reload(),
+                            closeText: 'Kembali'
+                        }
+                
+                        this.toggleDialog(dialogData);
                   }
-      
-                  createNewCardType(requiredData);
+                  if (card.type.isError) {
+                        let dialogData = {
+                            type: 'danger',
+                            title: 'Gagal',
+                            message: 'Card gagal ditambahkan. Klik tombol berikut untuk kembali.',
+                            onClose: () => this.toggleDialog(),
+                            closeText: 'Kembali'
+                        }
+                
+                        this.toggleDialog(dialogData);
+                  }
+            });
       }
 
       render() {
             return (
-                  <AdminCardCreateView 
-                        {...this.state} 
-                        {...this.props} 
-                        handleInputChange={this.handleInputChange}
-                        handleFormSubmit={this.handleFormSubmit}
-                  />
+                  <div>
+                        <AdminCardCreateView 
+                              {...this.state} 
+                              {...this.props} 
+                              handleInputChange={this.handleInputChange}
+                              handleFormSubmit={this.handleFormSubmit}
+                        />
+                        {this.renderDialog()}
+                  </div>
             )
       }
 }
 
 const mapStateToProps = (state) => {
       return {
-            card: state.card
+            card: state.card,
+            dialog: state.dialog
       };
 }
 
 const mapDispatchToProps = (dispatch) => {
       return {
-            createNewCardType: (data) => dispatch(createNewCardType(data))
+            action: bindActionCreators({ createNewCardType, openDialog, closeDialog }, dispatch)
       }
 }
 

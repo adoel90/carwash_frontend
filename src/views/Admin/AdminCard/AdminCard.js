@@ -4,6 +4,8 @@ import { bindActionCreators } from 'redux';
 import { getAllCardType, updateCardType, changeCardTypeStatus } from '../../../actions/card.action';
 import { Button } from '../../../components/Button';
 import AdminCardView from './AdminCardView';
+import { openDialog, closeDialog } from '../../../actions/dialog.action';
+import { Dialog } from '../../../components/Dialog';
 
 class AdminCard extends Component {
       constructor() {
@@ -27,6 +29,7 @@ class AdminCard extends Component {
             this.openCardDetail = this.openCardDetail.bind(this);
             this.changeCardStatus = this.changeCardStatus.bind(this);
             this.updateCard = this.updateCard.bind(this);
+            this.renderDialog = this.renderDialog.bind(this);
       }
 
       componentDidMount = () => {
@@ -87,6 +90,42 @@ class AdminCard extends Component {
                         [name]: !isModalOpen[name]
                   }
             })
+      }
+
+      toggleDialog = (data) => {
+            const {
+                dialog,
+                action
+            } = this.props;
+    
+            if(!dialog.isOpened) {
+                action.openDialog(data);
+            } else {
+                action.closeDialog();
+            }
+      }
+
+      renderDialog = () => {
+            const {
+                dialog,
+                toggleDialog
+            } = this.props;
+    
+            console.log(this.props)
+            
+            return (
+                <Dialog
+                    isOpen={dialog.isOpened}
+                    toggle={toggleDialog}
+                    type={dialog.data.type}
+                    title={dialog.data.title}
+                    message={dialog.data.message}
+                    onConfirm={dialog.data.onConfirm}
+                    confirmText={dialog.data.confirmText}
+                    onClose={dialog.data.onClose}
+                    closeText={dialog.data.closeText}
+                />
+            )
       }
 
       populateTableData = () => {
@@ -180,7 +219,34 @@ class AdminCard extends Component {
             e.preventDefault();
       
             action.updateCardType(selectedCard).then(() => {
-                  this.toggleModal('updateCard');
+                  const {
+                        card
+                  } = this.props;
+
+                  if (card.type.isUpdated) {
+                        let dialogData = {
+                            type: 'success',
+                            title: 'Berhasil',
+                            message: 'Card telah berhasil diubah. Klik tombol berikut untuk kembali.',
+                            onClose: () => window.location.reload(),
+                            closeText: 'Kembali'
+                        }
+                
+                        this.toggleDialog(dialogData);
+                  }
+      
+                  if (card.type.isError) {
+                        let dialogData = {
+                            type: 'danger',
+                            title: 'Gagal',
+                            message: 'Card gagal diubah. Klik tombol berikut untuk kembali.',
+                            onClose: () => this.toggleDialog(),
+                            closeText: 'Kembali'
+                        }
+                
+                        this.toggleDialog(dialogData);
+                  }
+                  // this.toggleModal('updateCard');
                   
                   // window.location.reload();
             })
@@ -210,27 +276,31 @@ class AdminCard extends Component {
       
       render() {
             return (
-                  <AdminCardView
-                        {...this.state}
-                        {...this.props}
-                        handleInputChange={this.handleInputChange}
-                        updateCard={this.updateCard}
-                        toggleModal={this.toggleModal}
-                  />
+                  <div>
+                        <AdminCardView
+                              {...this.state}
+                              {...this.props}
+                              handleInputChange={this.handleInputChange}
+                              updateCard={this.updateCard}
+                              toggleModal={this.toggleModal}
+                        />
+                        {this.renderDialog()}
+                  </div>
             );
       }
 }
 
 const mapStateToProps = (state) => {
       return {
-            card: state.card
+            card: state.card,
+            dialog: state.dialog
       }
 }
 
 const mapDispatchToProps = (dispatch) => {
       return {
             getAllCardType: () => dispatch(getAllCardType()),
-            action: bindActionCreators({ updateCardType, changeCardTypeStatus }, dispatch)
+            action: bindActionCreators({ updateCardType, changeCardTypeStatus, openDialog, closeDialog }, dispatch)
       }
 }
 

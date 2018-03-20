@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getStoreList, getCategoryList, updateStore, changeStatusStore } from '../../../actions/store.action.js';
 import { Button } from '../../../components/Button';
-
+import { openDialog, closeDialog } from '../../../actions/dialog.action';
+import { Dialog } from '../../../components/Dialog';
 import { AdminStoreView } from '../AdminStore';
 
 class AdminStore extends Component {
@@ -13,6 +14,7 @@ class AdminStore extends Component {
             this.getStoreList = this.getStoreList.bind(this);
             this.getCategoryList = this.getCategoryList.bind(this);
             this.toggleModal = this.toggleModal.bind(this);
+            this.renderDialog = this.renderDialog.bind(this);
             this.handleInputChange = this.handleInputChange.bind(this);
             this.openStoreDetail = this.openStoreDetail.bind(this);
             this.changeStatusStore = this.changeStatusStore.bind(this);
@@ -96,6 +98,42 @@ class AdminStore extends Component {
             })
       }
 
+      toggleDialog = (data) => {
+            const {
+                dialog,
+                action
+            } = this.props;
+    
+            if(!dialog.isOpened) {
+                action.openDialog(data);
+            } else {
+                action.closeDialog();
+            }
+      }
+    
+        renderDialog = () => {
+            const {
+                dialog,
+                toggleDialog
+            } = this.props;
+    
+            console.log(this.props)
+            
+            return (
+                  <Dialog
+                        isOpen={dialog.isOpened}
+                        toggle={toggleDialog}
+                        type={dialog.data.type}
+                        title={dialog.data.title}
+                        message={dialog.data.message}
+                        onConfirm={dialog.data.onConfirm}
+                        confirmText={dialog.data.confirmText}
+                        onClose={dialog.data.onClose}
+                        closeText={dialog.data.closeText}
+                  />
+            )
+      }
+
       handleInputChange = (object, e) => {
             const target = e.target;
             const name = target.name;
@@ -143,9 +181,36 @@ class AdminStore extends Component {
             e.preventDefault();
     
             action.updateStore(selectedStore).then(() => {
-                this.toggleModal('updateStore');
+                  const {
+                        store
+                  } = this.props;
+
+                  if (store.updateStore.isUpdated) {
+                        let dialogData = {
+                              type: 'success',
+                              title: 'Berhasil',
+                              message: 'Store telah berhasil diubah. Klik tombol berikut untuk kembali.',
+                              onClose: () => window.location.reload(),
+                              closeText: 'Kembali'
+                        }
                 
-                window.location.reload();
+                        this.toggleDialog(dialogData);
+                  }
+      
+                  if (store.updateStore.isError) {
+                        let dialogData = {
+                              type: 'danger',
+                              title: 'Gagal',
+                              message: 'Store gagal diubah. Klik tombol berikut untuk kembali.',
+                              onClose: () => this.toggleDialog(),
+                              closeText: 'Kembali'
+                        }
+                
+                        this.toggleDialog(dialogData);
+                  }
+            //     this.toggleModal('updateStore');
+                
+            //     window.location.reload();
             })
       }
     
@@ -220,20 +285,24 @@ class AdminStore extends Component {
       render() {
             console.log(this.props)
             return (
-                  <AdminStoreView
-                        {...this.state}
-                        {...this.props}
-                        handleInputChange={this.handleInputChange}
-                        updateStore={this.updateStore}
-                        toggleModal={this.toggleModal}
-                  />
+                  <div>
+                        <AdminStoreView
+                              {...this.state}
+                              {...this.props}
+                              handleInputChange={this.handleInputChange}
+                              updateStore={this.updateStore}
+                              toggleModal={this.toggleModal}
+                        />
+                        {this.renderDialog()}
+                  </div>
             );
       }
 }
 
 const mapStateToProps = (state) => {
       return {
-            store: state.store
+            store: state.store,
+            dialog: state.dialog
       }
 }
 
@@ -241,7 +310,7 @@ const mapDispatchToProps = (dispatch) => {
       return {
             getStoreList: () => dispatch(getStoreList()),
             getCategoryList: () => dispatch(getCategoryList()),
-            action: bindActionCreators({ updateStore, changeStatusStore }, dispatch)
+            action: bindActionCreators({ updateStore, changeStatusStore, openDialog, closeDialog }, dispatch)
       }
 }
 

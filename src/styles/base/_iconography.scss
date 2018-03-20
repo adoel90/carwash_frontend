@@ -1,3 +1,17 @@
+.icon {
+	&.icon--base {
+		font-size: font-size(base);
+	}
+
+	&.icon--large {
+		font-size: font-size(large);
+	}
+
+	&.icon--gigant {
+		font-size: font-size(extra-largest);
+	}
+}
+
 /*
 	Flaticon icon font: Flaticon
 	Creation date: 22/06/2016 15:41

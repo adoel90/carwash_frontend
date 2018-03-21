@@ -73,6 +73,14 @@ export const getMenuListStore = (data) => {
 export const createMenuTransaction = (data) => {
 
 	console.log(data);
+
+	/*
+
+		Create new store transaction
+
+		/store/transaction/create?accessToken={accessToken} 
+	
+	*/
 	
 	return {
 		type: null

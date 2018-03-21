@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { VendorReportView } from '../VendorReport';
-import { getVendorReportList } from '../../../actions/vendor.report.action';
+import { getStoreReportList } from '../../../actions/vendor.report.action';
 import NumberFormat from 'react-number-format';
-
 import moment from 'moment';
+import { getStoreList } from '../../../actions/vendor.action';
 
 function mapStateToProps(state) {
-    
     return {
 
         vendorReportState : state.vendorReportState
@@ -17,7 +16,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
 
     return {
-        getVendorReportState: (object) => dispatch(getVendorReportList(object))
+        getStoreReportDispatch: (data) => dispatch(getStoreReportList(data)),
+        getStoreListDispatch: () => dispatch(getStoreList())
     }
 }
 
@@ -26,22 +26,22 @@ class VendorReport extends Component {
     constructor(){
         
         super();
-        this.getVendorReportList = this.getVendorReportList.bind(this);
+        this.getStoreReportList = this.getStoreReportList.bind(this);
         // this.getGraphStatisticsMonth = this.getGraphStatisticsMonth.bind(this);
         this.handlePeriodChange = this.handlePeriodChange.bind(this);
         // this.handleClick = this.handleClick.bind(this);
         // this.renderSummaryCards = this.renderSummaryCards.bind(this);
         this.populateData = this.populateData.bind(this);
         this.handleShow = this.handleShow.bind(this);
-    
+
+        this.getStoreList = this.getStoreList.bind(this);
+
         this.state = {
 
             vendorReport : {},
             vendorReportList : {},
             table: {
-
                 vendorReportListResults: [],
-                
             },
 
         	period: {
@@ -51,23 +51,25 @@ class VendorReport extends Component {
             
             requiredData: {
                 type:'',
-                start_date:'',
-                end_date:'',
+                start_date: moment().add(-1, 'month'),
+                end_date: moment()
                 
-            }
+            },
+            storeReportMonth: {}
         }
     }
 
     componentDidMount = () => {
         const {requiredData } = this.state;
-        this.getVendorReportList(requiredData);
+        this.getStoreReportList(requiredData);
+        this.getStoreList();
 
+        // console.log(this.state);
     }
 
-    getVendorReportList = (object) => {
+    getStoreReportList = (object) => {
 
-        const { getVendorReportState } = this.props;
-        
+        const { getStoreReportDispatch } = this.props;
         const {period, requiredData} = this.state;
 
         let requiredDataMonth = {
@@ -76,8 +78,14 @@ class VendorReport extends Component {
     		end_date: period.to.format('YYYY-MM-DD')
         }
 
-        getVendorReportState(requiredDataMonth);
+        getStoreReportDispatch(requiredDataMonth);
 
+    }
+
+    //Get Store List
+    getStoreList = ()=> {
+        const { getStoreListDispatch } = this.props;
+        getStoreListDispatch();
     }
 
     //#
@@ -86,9 +94,11 @@ class VendorReport extends Component {
         
         if(prevProps.vendorReportState.summary !== vendorReportState.summary) {
 
+            console.log(this.state);
+            
             this.setState({
                 ...this.state,
-                vendorReportList: vendorReportState.summary
+                storeReportMonth: vendorReportState.summary
             }, () => {
                 this.populateData();
             });
@@ -97,14 +107,11 @@ class VendorReport extends Component {
 
     populateData = () => {
 
-        const {
-            vendorReportList
-        } = this.state;
-
+        const { storeReportMonth } = this.state;
         const vendorReportListResults = []; 
 
-        if(vendorReportList.isLoaded) {
-            vendorReportList.data.data.result.map((data, i)=>{
+        if(storeReportMonth.isLoaded) {
+            storeReportMonth.data.data.result.map((data, i)=>{
 
                 let vendorReportListResult = {
                     transaction:data.transaction,
@@ -132,16 +139,25 @@ class VendorReport extends Component {
         this.forceUpdate();
     }
 
+    //#
     handleShow = () => {
 
-        const {period,vendorReportList} = this.state;
+        const {period,storeReportMonth} = this.state;
+        const { getStoreReportDispatch } = this.props;
 
         const requiredDataMonth = {
 
             type: 'month',
     		start_date: period.from.format('YYYY-MM-DD'),
     		end_date: period.to.format('YYYY-MM-DD')
-        }        
+        }
+
+        console.log(requiredDataMonth);
+        // FIRE dispatch in here !!!
+        getStoreReportDispatch(requiredDataMonth).then(()=> {
+            console.log("Hai hai ");
+            
+        });
     }
 
     render() {

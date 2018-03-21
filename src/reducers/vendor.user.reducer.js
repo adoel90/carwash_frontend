@@ -10,9 +10,9 @@ import {
 	GET_VENDOR_DETAIL_FULFILLED,
 	GET_VENDOR_DETAIL_REJECTED,
 
-	GET_MENU_VENDOR_LIST_REQUESTED,//Get Menu Vendor List
-	GET_MENU_VENDOR_LIST_FULFILLED,
-	GET_MENU_VENDOR_LIST_REJECTED,
+	GET_STORE_LIST_REQUESTED,//Get Menu Vendor List || GET STORE LIST
+	GET_STORE_LIST_FULFILLED,
+	GET_STORE_LIST_REJECTED,
 
 	UPDATE_MENU_VENDOR_REQUESTED, //UPDATE LIST MENU VENDOR
 	UPDATE_MENU_VENDOR_FULFILLED,
@@ -196,11 +196,11 @@ const vendorState = (state = initialState, action) => {
 		}
 
 		//Get Vendor Menu List
-		case GET_MENU_VENDOR_LIST_REQUESTED: {
+		case GET_STORE_LIST_REQUESTED: {
 			return {
 				...state,
-				menu: {
-					...state.menu,
+				store: {
+					...state.store,
 					data: {},
 					isFetching: true,
 					isLoaded: false,
@@ -210,11 +210,11 @@ const vendorState = (state = initialState, action) => {
 			}
 		}
 
-		case GET_MENU_VENDOR_LIST_FULFILLED: {
+		case GET_STORE_LIST_FULFILLED: {
 			return {
 				...state,
-				menu: {
-					...state.menu,
+				store: {
+					...state.store,
 					data: action.payload,
 					isLoaded: true,
 					isFetching: false,
@@ -224,11 +224,11 @@ const vendorState = (state = initialState, action) => {
 			}
 		}
 
-		case GET_MENU_VENDOR_LIST_REJECTED: {
+		case GET_STORE_LIST_REJECTED: {
 			return {
 				...state,
-				menu: {
-					...state.menu,
+				store: {
+					...state.store,
 					data: {},
 					isLoaded: false,
 					isFetching: false,
@@ -280,10 +280,7 @@ const vendorState = (state = initialState, action) => {
 				}
 			}
 		}
-
-
-
-
+		
 		//Get List Vendor Employee 
 		case GET_EMPLOYEE_VENDOR_LIST_REQUESTED: {
 			return {
@@ -342,7 +339,7 @@ const vendorState = (state = initialState, action) => {
 			}
 		}
 
-		case GET_EMPLOYEE_VENDOR_LIST_FULFILLED: {
+		case GET_MENU_STORE_LIST_FULFILLED: {
 			return {
 				...state,
 				storemenu: {
@@ -356,7 +353,7 @@ const vendorState = (state = initialState, action) => {
 			}
 		}
 
-		case GET_EMPLOYEE_VENDOR_LIST_REJECTED: {
+		case GET_MENU_STORE_LIST_REJECTED: {
 			return {
 				...state,
 				storemenu: {
@@ -369,8 +366,6 @@ const vendorState = (state = initialState, action) => {
 				}
 			}
 		}
-
-
 
 		default: {
 			return state;

@@ -14,10 +14,10 @@ export const GET_VENDOR_DETAIL_REQUESTED = 'GET_VENDOR_DETAIL_REQUESTED';
 export const GET_VENDOR_DETAIL_FULFILLED = 'GET_VENDOR_DETAIL_FULFILLED';
 export const GET_VENDOR_DETAIL_REJECTED = 'GET_VENDOR_DETAIL_REJECTED';
 
-//#GET LIST MENU VENDOR
-export const GET_MENU_VENDOR_LIST_REQUESTED = 'GET_MENU_VENDOR_LIST_REQUESTED';
-export const GET_MENU_VENDOR_LIST_FULFILLED = 'GET_MENU_VENDOR_LIST_FULFILLED';
-export const GET_MENU_VENDOR_LIST_REJECTED = 'GET_MENU_VENDOR_LIST_REJECTED';
+//#GET LIST MENU VENDOR || GET STORE LIST
+export const GET_STORE_LIST_REQUESTED = 'GET_STORE_LIST_REQUESTED';
+export const GET_STORE_LIST_FULFILLED = 'GET_STORE_LIST_FULFILLED';
+export const GET_STORE_LIST_REJECTED = 'GET_STORE_LIST_REJECTED';
 
 //#UPDATE MENU VENDOR
 export const UPDATE_MENU_VENDOR_REQUESTED = 'UPDATE_MENU_VENDOR_REQUESTED';
@@ -43,7 +43,7 @@ export const GET_MENU_STORE_LIST_REJECTED = "GET_MENU_STORE_LIST_REJECTED";
 const accessToken = localStorage.getItem('accessToken') ? localStorage.getItem('accessToken') : null;
 const userLoginNow = localStorage.getItem('userData') ? localStorage.getItem('userData') : null;
 const dataVendorLoginNow = JSON.parse(userLoginNow);
-console.log(dataVendorLoginNow);
+// console.log(dataVendorLoginNow);
 
 
 //GET VENDOR USER LIST
@@ -107,7 +107,7 @@ export const createNewVendor = (data) => {
 //GET VENDOR DETAIL
 export const getVendorDetail = (data) => {
 
-	console.log(data);
+	// console.log(data);
 	
 	return {
 		type: null
@@ -130,9 +130,9 @@ export const getVendorDetail = (data) => {
 	// function fetchError(data) { return { type: GET_VENDOR_DETAIL_REJECTED, payload: data } }
 }
 
-//GET LIST MENU VENDOR
-export const getMenuVendorList = (data) => {
-
+//GET LIST MENU VENDOR || GET STORE LIST
+export const getStoreList = (data) => {
+	
 	return async dispatch => {
 
 		dispatch(fetchRequest());
@@ -141,6 +141,7 @@ export const getMenuVendorList = (data) => {
 			// .get(`${constant.API_PATH}vendor/menu?accessToken=${accessToken}&cafe=29`)
 			// .get(`${constant.API_PATH}vendor/menu?accessToken=${accessToken}&cafe=${dataVendorLoginNow.id}`)
 			.get(`${constant.API_PATH}store/list?accessToken=${accessToken}&id=${dataVendorLoginNow.data.id}`)
+			// .get(`${constant.API_PATH}store/list?accessToken=${accessToken}`)
 			.then((response) => {
 				dispatch(fetchSuccess(response));
 			})
@@ -149,28 +150,28 @@ export const getMenuVendorList = (data) => {
 			})
 	}
 
-	function fetchRequest() { return { type: GET_MENU_VENDOR_LIST_REQUESTED } }
-	function fetchSuccess(data) { return { type: GET_MENU_VENDOR_LIST_FULFILLED, payload: data } }
-	function fetchError(data) { return { type: GET_MENU_VENDOR_LIST_REJECTED, payload: data } }
+	function fetchRequest() { return { type: GET_STORE_LIST_REQUESTED } }
+	function fetchSuccess(data) { return { type: GET_STORE_LIST_FULFILLED, payload: data } }
+	function fetchError(data) { return { type: GET_STORE_LIST_REJECTED, payload: data } }
 }
 
 //UPDATE MENU VENDOR
 export const updateMenuVendor = (data) =>{
 
-	// console.log(data);
+	console.log(data);
+
 	return async dispatch => {
 
 		dispatch(fetchRequest());
 
 		return axios
-    
-			// /vendor/menu/update?accessToken={accessToken} 	
-			.put(`${constant.API_PATH}vendor/menu/update?accessToken=${accessToken}`, {
+
+			.put(`${constant.API_PATH}store/menu/update?accessToken=${accessToken}`, {
 				id: data.id,
 				name: data.name,
 				description: data.description,
-				price: data.price,				
-				cafe: data.cafe
+				price: data.price,
+				image:data.image			
 			})
 			.then((response) => {
 				dispatch(fetchSuccess(response));
@@ -194,10 +195,8 @@ export const getVendorEmployeeList = (data) => {
 
 		dispatch(fetchRequest());
 		return axios
-    
-			// .get(`${constant.API_PATH}vendor/menu?accessToken=${accessToken}&cafe=29`)
-			// .get(`${constant.API_PATH}vendor/menu?accessToken=${accessToken}&cafe=${dataVendorLoginNow.vendor}`)
-			.get(`${constant.API_PATH}vendor/employee/list?accessToken=${accessToken}&cafe=${dataVendorLoginNow.vendor}`)
+
+			.get(`${constant.API_PATH}store/staff/list?accessToken=${accessToken}&id=${data.id}`)
 			.then((response) => {
 				dispatch(fetchSuccess(response));
 			})
@@ -215,17 +214,19 @@ export const getVendorEmployeeList = (data) => {
 export const updateVendorEmployee = (data) => {
 
 	return async dispatch => {
-
 		dispatch(fetchRequest());
 
 		return axios	
 
-			.put(`${constant.API_PATH}vendor/employee/update?accessToken=${accessToken}`, {
+			// .put(`${constant.API_PATH}vendor/employee/update?accessToken=${accessToken}`, {
+			.put(`${constant.API_PATH}store/staff/update?accessToken=${accessToken}`, {
 				id : data.id,
-                name: data.name,
-                email: data.email,
-                access: data.access ,
-                password: data.password
+				name: data.name,
+				username: data.username,
+				password: data.password,
+				email: data.email,
+				level: data.level
+
 			})
 			.then((response) => {
 				dispatch(fetchSuccess(response));
@@ -243,21 +244,12 @@ export const updateVendorEmployee = (data) => {
 //#GET MENU STORE LIST
 export const getMenuStoreList = (data) => {
 
-	// console.log("Hai hai getMenuStoreList");
-	// console.log(data);
-	
-	
-
-	// return {
-	// 	type: null
-	// }
 	return async dispatch => {
 
 		dispatch(fetchRequest());
 		return axios
 		
-			// .get(`${constant.API_PATH}store/menu/list?accessToken=${accessToken}&store=${dataVendorLoginNow.data.id}`)
-			.get(`${constant.API_PATH}store/menu/list?accessToken=${accessToken}&store=${data}`)
+			.get(`${constant.API_PATH}store/menu/list?accessToken=${accessToken}&store=${data.id}`)
 			.then((response) => {
 				dispatch(fetchSuccess(response));
 			})

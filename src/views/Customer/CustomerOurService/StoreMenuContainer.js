@@ -209,17 +209,28 @@ class StoreMenuContainer extends React.Component {
 			hideDialog
 		} = this.props;
 
-		console.log(this.props.toggleDialog);
 
-		// const requiredData = {
-		// 	service: selectedMenu.id
-		// }
+		/*
 
-		const requiredData = {
-			menu: selectedMenu.id
-		}
+			"dataArray" di pakai untuk di kirim ke stage "Action"
 
-		// console.log(requiredData);
+			***
+				const dataArray= [];
+
+				const requiredData = {
+					menu: selectedMenu.id,
+					quantity: selectedMenu.quantity
+				}
+
+				dataArray.push(requiredData);
+
+
+			***
+
+
+		*/
+
+	
 
 		let dialogData = {
 			type: 'confirm',
@@ -230,7 +241,7 @@ class StoreMenuContainer extends React.Component {
 			confirmText: 'Ya, Lanjutkan',
 			onConfirm: () => {
 				// dispatch(createServiceTransaction(requiredData, accessToken));
-				createMenuTransaction(requiredData)
+				// createMenuTransaction(requiredData)
 
 			}
 		}

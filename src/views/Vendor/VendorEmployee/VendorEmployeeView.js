@@ -56,11 +56,11 @@ const VendorEmployeeView = props => {
                                 </Column>
                             </Row>
                             <Row>
-                                {/* <Column>
+                                <Column>
                                     <FormField label="Ubah Username Log-in">
                                         <Input name="username" placeholder={dataVendorLoginNow.username} defaultValue={dataVendorLoginNow.username} onChange={(e) => handleInputChange('selectedVendorEmployee', e)} />
                                     </FormField>
-                                </Column> */}
+                                </Column>
                                 <Column>
                                     <FormField label="Ubah Email Karyawan">
                                         <Input name="email" placeholder={selectedVendorEmployee.email} defaultValue={selectedVendorEmployee.email} onChange={(e) => handleInputChange('selectedVendorEmployee', e)} />
@@ -68,7 +68,7 @@ const VendorEmployeeView = props => {
                                 </Column>
                                 <Column>
                                     <FormField label="Akses Level Karyawan">
-                                        <Input type='number' name="access" placeholder="Only Number" defaultValue={selectedVendorEmployee.access} onChange={(e) => handleInputChange('selectedVendorEmployee', e)} />
+                                        <Input type='number' name="access" placeholder="Only Number" defaultValue={selectedVendorEmployee.level} onChange={(e) => handleInputChange('selectedVendorEmployee', e)} />
                                     </FormField>
                                 </Column>
                             </Row>
@@ -103,7 +103,7 @@ const VendorEmployeeView = props => {
                 <Panel>
                     <PanelHeader>
                         <h4 className="heading-title">Manajemen Karyawan</h4>
-                        <h6 className="heading-subtitle">Tempor nostrud cupidatat officia sit ullamco eu pariatur ullamco quis laborum nulla ipsum.</h6>
+                        {/* <h6 className="heading-subtitle">Tempor nostrud cupidatat officia sit ullamco eu pariatur ullamco quis laborum nulla ipsum.</h6> */}
                         
                     </PanelHeader>
                     <PanelBody>

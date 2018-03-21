@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { VendorEmployeeView } from '../VendorEmployee';
 import { getVendorEmployeeList, updateVendorEmployee } from '../../../actions/vendor.action';
+import { getStoreList } from '../../../actions/vendor.action';
 
 function mapStateToProps(state) {
 
@@ -13,8 +14,9 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
 
     return {
-        getVendorState: () => dispatch(getVendorEmployeeList()),
-        updateVendorEmployeeState: (object) => dispatch(updateVendorEmployee(object))
+        getVendorState: (data) => dispatch(getVendorEmployeeList(data)),
+        updateVendorEmployeeState: (object) => dispatch(updateVendorEmployee(object)),
+        getStoreListDispatch: () => dispatch(getStoreList())
     }
 }
 
@@ -31,6 +33,8 @@ class VendorEmployee extends Component {
         this.populateTableData = this.populateTableData.bind(this);
         this.handleCancelModal = this.handleCancelModal.bind(this);
 
+        this.getStoreList = this.getStoreList.bind(this);
+
         this.state = {
 
             vendorEmployee: {},
@@ -43,34 +47,52 @@ class VendorEmployee extends Component {
             isModalOpen: {
                 updateVendorEmployee: false
             },
-            selectedVendorEmployee: {}
+            selectedVendorEmployee: {},
+            storeList:{},
+            storeActive: 0
         }
     }
 
     componentDidMount = () => {
 
         this.getVendorEmployeeList();
+        this.getStoreList();
     }
 
     getVendorEmployeeList = () => {
+        /* Only declare this function so that NOT ERROR */
+    }
 
-        // console.log(this.props);
-        const { getVendorState } = this.props;
-        getVendorState();
+    getStoreList = () => {
+        const { getStoreListDispatch } = this.props;
+        getStoreListDispatch();
     }
 
     componentDidUpdate = (prevProps) => {
-        const { vendorState } = this.props;
+        const { vendorState, storeMenuList, getVendorState } = this.props;
+        const { storeActive } = this.state;
 
-        // console.log(this.props);
+        if(prevProps.vendorState.store !== vendorState.store){
+            if(vendorState.store.isLoaded){
+
+                this.setState({
+                    ...this.state,
+                    storeList: vendorState.store.data.data.result.store
+                }, ()=> {
+                    getVendorState(vendorState.store.data.data.result.store[storeActive]);
+                })  
+            }
+        } 
 
         if (prevProps.vendorState.employee !== vendorState.employee) {
-            this.setState({
-                ...this.state,
-                vendorEmployeeList: vendorState.employee
-            }, () => {
-                this.populateTableData();
-            });
+            if(vendorState.employee.isLoaded){
+                this.setState({
+                    ...this.state,
+                    vendorEmployeeList: vendorState.employee
+                }, () => {
+                    this.populateTableData();
+                });
+            }           
         }
     }
 
@@ -102,27 +124,29 @@ class VendorEmployee extends Component {
                     </td>
                 )
             }
-
         ]
 
         const rows = [];
 
         if (vendorEmployeeList.isLoaded) {
-
-            vendorEmployeeList.data.data.result.employee.forEach((employee, i) => {
-
+            
+            vendorEmployeeList.data.data.result.staff.forEach((employee, i) => {
                 let row = {
                     id: employee.id,
                     name: employee.name,
+                    username: employee.username,
                     email: employee.email,
+                    level: employee.level,
+                    status: employee.status,
+                    password: employee.password
                     // price: employee.price,
                     // data: menu
                 }
 
                 rows.push(row);
             })
-        }
-
+        } 
+        
         this.setState({
             ...this.state,
             table: {
@@ -177,30 +201,38 @@ class VendorEmployee extends Component {
         e.preventDefault();
         const { selectedVendorEmployee } = this.state;
         const { updateVendorEmployeeState } = this.props;
-        console.log(e);
 
         if(selectedVendorEmployee.password === selectedVendorEmployee.passwordConfirm){
 
             let requireDataUpdate = {
                 id : selectedVendorEmployee.id,
                 name: selectedVendorEmployee.name,
+                username: selectedVendorEmployee.username,
                 email: selectedVendorEmployee.email,
-                access: selectedVendorEmployee.access ,
+                level: selectedVendorEmployee.level.id,
+                status: selectedVendorEmployee.status,
                 password: selectedVendorEmployee.password
             };
 
             updateVendorEmployeeState(requireDataUpdate);
 
-        }else{
+            this.setState({
+                ...this.state,
+                isModalOpen: {
+                    updateMenuVendor:false
+                }
+            })
+        } else {
             console.log("Password tidak sama");
+            alert("Ulangi ketik Password! Password tidak sama");
         }
     }
 
     handleCancelModal = (e) => {
 
         e.preventDefault();
-
         const {isModalOpen} = this.state;
+
         this.setState({
             ...this.state,
             isModalOpen:{

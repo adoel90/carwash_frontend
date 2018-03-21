@@ -36,7 +36,7 @@ const VendorDashboardView = props => {
                 <Panel>
                     <PanelHeader>
                         <h4 className="heading-title">Laporan Transaksi</h4>
-                        <h6 className="heading-subtitle">Tempor nostrud cupidatat officia sit ullamco eu pariatur ullamco quis laborum nulla ipsum.</h6>                        
+                        {/* <h6 className="heading-subtitle">Tempor nostrud cupidatat officia sit ullamco eu pariatur ullamco quis laborum nulla ipsum.</h6>                         */}
                     </PanelHeader>
 
                     <PanelBody>

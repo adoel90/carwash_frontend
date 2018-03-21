@@ -1,23 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { VendorMenuView} from '../VendorMenu';
-import { getMenuVendorList, updateMenuVendor, getMenuStoreList } from '../../../actions/vendor.action';
-import { getStoreList } from '../../../actions/store.action';
+import { getStoreList, updateMenuVendor, getMenuStoreList } from '../../../actions/vendor.action';
+
 
 function mapStateToProps(state) {
-
     return {
         vendorState : state.vendorState
     };
 }
 
 function mapDispatchToProps(dispatch) {
-
     return {
-        getVendorState: () => dispatch(getMenuVendorList()),
+        getStoreListDispatch: () => dispatch(getStoreList()),
         updateVendorMenuState: (object) => dispatch(updateMenuVendor(object)),
         getMenuStoreListDispatch: (data) => { dispatch(getMenuStoreList(data))}
-        
     }
 }
 
@@ -26,7 +24,6 @@ class VendorMenu extends Component {
     constructor(){
 
         super();
-        this.getMenuVendorList = this.getMenuVendorList.bind(this);
         this.toggleModal = this.toggleModal.bind(this);
         this.openMenuVendorModal = this.openMenuVendorModal.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -34,13 +31,14 @@ class VendorMenu extends Component {
         this.populateTableData= this.populateTableData.bind(this);
         this.handleCancelModal = this.handleCancelModal.bind(this);
 
+        this.getStoreList = this.getStoreList.bind(this);
         this.getMenuStoreList = this.getMenuStoreList.bind(this);
-        this.getId = this.getId.bind(this);
+        this.getListIdStoreFromUserLogin = this.getListIdStoreFromUserLogin.bind(this);
 
         this.state = {
 
-            menuVendor: {},
-            menuVendorList: {},
+            // menuVendor: {},
+            // menuVendorList: {},
             table: {
                 columns: [],
                 rows: [],
@@ -49,74 +47,108 @@ class VendorMenu extends Component {
             isModalOpen:{
                 updateMenuVendor: false
             },
-            selectedMenuVendor:{},
+            // selectedMenuVendor:{},
+            selectedMenuStore:{},
 
             storeList:{},
-            storeProductList:{}
+            storeActiveList:{},
+            idStore:[],
+            storeActive: 0,
+            storeMenuList:{}
         }
     }
 
+    //#
     componentDidMount = () => {
-
-        this.getMenuVendorList();
-        // this.getMenuStoreList();
-
+        this.getStoreList();
     }
 
-    getMenuVendorList = () => {
-
-        const { getVendorState } = this.props;
-
-        getVendorState();
+    getStoreList = () => {
+        const { getStoreListDispatch } = this.props;
+        getStoreListDispatch();
     }
 
     //#
     getMenuStoreList = () => {
-        const { getMenuStoreListDispatch, storeList, vendorState } = this.props;
-
-        let dataStoreArrayObject = vendorState.menu.isLoaded ? vendorState.menu.data.data.result.store : null;
-     
-
-        if(this.props.vendorState.menu.isLoaded){
-            dataStoreArrayObject.map((item)=> {
-                getMenuStoreListDispatch(item.id);
-            })
-        }
-  
+        /* Only declare this function so that NOT ERROR */
     }
 
+    //#
     componentDidUpdate = (prevProps) => {
 
-        const { vendorState } = this.props;
+        const { vendorState, getMenuStoreListDispatch } = this.props;
+        const { storeList, storeActive } = this.state;
 
-        if(prevProps.vendorState.menu !== vendorState.menu) {
-
-
-            
+        //Get store
+        if(prevProps.vendorState.store !== vendorState.store) {   
             this.setState({
                 ...this.state,
-                storeList: vendorState.menu //INI MESTI LO GANTI JADI MENU STORE BENERAN (YANG SEKARANG MASIH DATA SI STORE)
+                storeList: vendorState.store 
 
             }, () => {
                 // this.populateTableData();
-                this.getId();
+                this.getListIdStoreFromUserLogin();
             });
         }
 
-        // console.log(prevProps);
+        //Get menu store
+        if(prevProps.vendorState.store !== vendorState.store){
+
+            if(vendorState.store.isLoaded){
+                
+                this.setState({
+                    ...this.state,
+                    storeActiveList: vendorState.store.data.data.result.store
+                }, () => {
+                    getMenuStoreListDispatch(vendorState.store.data.data.result.store[storeActive]);
+                });
+            }
+        }
         
+        //Populate Data based on id store 
+        if(prevProps.vendorState.storemenu !== vendorState.storemenu){
+            
+            if(vendorState.storemenu.isLoaded){
+                this.setState({
+                    ...this.state,
+                    storeMenuList: vendorState.storemenu.data.data.result.menu
+                },()=>{
+                    this.populateTableData();
+                })
+            }
+        }
     }
 
-    getId = () => {
-        // console.log("Oke");
-        this.getMenuStoreList();
+    getListIdStoreFromUserLogin = () => {
+
+        const { getStoreListDispatch } = this.props;
+        const { storeList, dispatch } = this.state;
+
+        const idObjects = [];
+        if (storeList.isLoaded){
+            storeList.data.data.result.store.map((data, i)=>{
+
+                let idObject = {
+                    id:data.id
+                }
+
+                idObjects.push(idObject)
+            })
+        }
         
+        this.setState({
+            ...this.state,
+            idStore: idObjects
+        }, ()=> {
+            console.log(this.state);
+            
+        })
     }
 
     populateTableData = () => {
 
-        const { storeList } = this.state;  
-        
+        const { storeMenuList, storeList  } = this.state;  
+    
         const columns = [
             {
                 title: 'Nama Produk',
@@ -142,25 +174,43 @@ class VendorMenu extends Component {
             }
         ]
 
-        const rows = []; 
+        // const rows = []; 
 
-        if(storeList.isLoaded) {
+        // if(storeMenuList.isLoaded) {
 
-            storeList.data.data.result.store.map((menu, i)=>{
+        //     storeMenuList.data.data.result.store.map((menu, i)=>{
 
-                let row = {
-                    id:menu.id,
-                    name: menu.name,
-                    description: menu.description,
-                    price: menu.price,
-                    data: menu
-                }
+        //         let row = {
+        //             id:menu.id,
+        //             name: menu.name,
+        //             description: menu.description,
+        //             price: menu.price,
+        //             data: menu
+        //         }
 
-                rows.push(row);
-            })
-   
-        };
+        //         rows.push(row);
+        //     })
 
+        //     console.log("Populate");
+        // };
+
+        // console.log(storeMenuList);
+
+        const rows = [];
+        storeMenuList.map((menu, i)=> {
+            let row = {
+                id: menu.id,
+                description:menu.description,
+                name: menu.name,
+                price: menu.price,
+                image: menu.image,
+                status: menu.status
+
+            }
+
+            rows.push(row);
+        });
+        
         this.setState({
             ...this.state,
             table: {
@@ -174,7 +224,6 @@ class VendorMenu extends Component {
     toggleModal = (name) => {
 
         const { isModalOpen } = this.state;
-        
         this.setState({
             ...this.state,
             isModalOpen: {
@@ -185,9 +234,12 @@ class VendorMenu extends Component {
 
     openMenuVendorModal = (row) => {
 
+        console.log(row);
+        
         this.setState({
             ...this.state,
-            selectedMenuVendor : row.data
+            // selectedMenuVendor : row.data
+            selectedMenuStore : row
 
         }, () => {
             this.toggleModal('updateMenuVendor')
@@ -212,25 +264,29 @@ class VendorMenu extends Component {
     handleUpdateSubmitVendorMenu = (e)=>{
 
         e.preventDefault();
-        
+
         //#
         const userLoginNow = localStorage.getItem('userData') ? localStorage.getItem('userData') : null;
         const dataVendorLoginNow = JSON.parse(userLoginNow);
 
         //#
-        const {selectedMenuVendor,isModalOpen } = this.state;
+        const {selectedMenuStore,isModalOpen } = this.state;
         const {updateVendorMenuState,vendorState} = this.props;
 
         const rowsUpdate = [];
 
         let requireDataUpdate = {
-            id : selectedMenuVendor.id,
-            name: selectedMenuVendor.name,
-            description: selectedMenuVendor.description,
-            price: selectedMenuVendor.price ,
-            cafe: dataVendorLoginNow.vendor
+            id : selectedMenuStore.id,
+            name: selectedMenuStore.name,
+            description: selectedMenuStore.description,
+            price: selectedMenuStore.price ,
+            // cafe: selectedMenuStore.vendor
+            image:selectedMenuStore.image,
+            status:selectedMenuStore.status
         };
-
+        
+        console.log(requireDataUpdate);
+        
         updateVendorMenuState(requireDataUpdate);
         
         rowsUpdate.push(requireDataUpdate);
@@ -259,7 +315,6 @@ class VendorMenu extends Component {
                 updateMenuVendor:false
             }
         });
-
     }
 
     render() {

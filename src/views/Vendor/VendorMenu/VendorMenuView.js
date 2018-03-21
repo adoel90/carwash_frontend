@@ -16,16 +16,17 @@ const VendorMenuView = props => {
         isModalOpen, 
         table, 
         menuVendorList, 
+        storeMenuList,
         toggleModal, 
         handleInputChange, 
         updateMenuVendor, 
-        selectedMenuVendor,
+        selectedMenuStore,
         handleUpdateSubmitVendorMenu,
         handleCancelModal } = props;
 
     const renderMenuVendorModal = () => {
 
-        if(selectedMenuVendor){
+        if(selectedMenuStore){
 
             return(
                 <Modal
@@ -42,17 +43,17 @@ const VendorMenuView = props => {
                             <Row>
                                 <Column>
                                     <FormField label="Ubah Nama Produk">
-                                        <Input name="name" placeholder={selectedMenuVendor.name} defaultValue={selectedMenuVendor.name} onChange={(e) => handleInputChange('selectedMenuVendor', e)} />
+                                        <Input name="name" placeholder={selectedMenuStore.name} defaultValue={selectedMenuStore.name} onChange={(e) => handleInputChange('selectedMenuStore', e)} />
                                     </FormField>
                                 </Column>
                                 <Column>
                                     <FormField label="Ubah Produk Description">
-                                        <Input name="description" placeholder={selectedMenuVendor.description} defaultValue={selectedMenuVendor.description} onChange={(e) => handleInputChange('selectedMenuVendor', e)} />
+                                        <Input name="description" placeholder={selectedMenuStore.description} defaultValue={selectedMenuStore.description} onChange={(e) => handleInputChange('selectedMenuStore', e)} />
                                     </FormField>
                                 </Column>
                                 <Column>
                                     <FormField label="Ubah Price">
-                                        <Input name="price" placeholder={selectedMenuVendor.price} defaultValue={selectedMenuVendor.price} onChange={(e) => handleInputChange('selectedMenuVendor', e)} />
+                                        <Input name="price" placeholder={selectedMenuStore.price} defaultValue={selectedMenuStore.price} onChange={(e) => handleInputChange('selectedMenuStore', e)} />
                                     </FormField>
                                 </Column>
                             </Row>
@@ -61,9 +62,7 @@ const VendorMenuView = props => {
                             <ButtonDewek onClick={(e) => handleCancelModal(e)} >Cancel</ButtonDewek>
                             {/* <ButtonDewek onClick={handleCancelModal} variant="raised" type="submit">Simpan</ButtonDewek> */}
                             <ButtonDewek variant="raised" type="submit">Simpan</ButtonDewek>
-                            
                         </ModalFooter>
-
                     </Form>
                 </Modal>
             )
@@ -79,14 +78,14 @@ const VendorMenuView = props => {
                 <Panel>
                     <PanelHeader>
                         <h4 className="heading-title">Daftar Produk</h4>
-                        <h6 className="heading-subtitle">Tempor nostrud cupidatat officia sit ullamco eu pariatur ullamco quis laborum nulla ipsum.</h6>
+                        {/* <h6 className="heading-subtitle">Lorem Ipsum.</h6> */}
                         
                     </PanelHeader>
                     <PanelBody>
                         <div className="admin-user__content">
                             <TableSet
-                                loading={menuVendorList.isFetching}
-                                loaded={menuVendorList.isLoaded}
+                                loading={storeMenuList.isFetching}
+                                loaded={storeMenuList}
                                 columns={table.columns}
                                 rows={table.rows}
                                 striped 

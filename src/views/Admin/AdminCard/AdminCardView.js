@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 import { Form, FormField } from '../../../layouts/Form';
 import { Row, Column } from '../../../layouts/Grid';
-import { Input, SwitchSquare, Textarea, InputGroup } from '../../../components/Input';
+import { Input, InputGroup, InputAddon, SwitchSquare, Textarea } from '../../../components/Input';
 import { Panel, PanelHeader, PanelBody } from '../../../components/Panel';
 import { TableSet } from '../../../components/Table';
 import { Button } from '../../../components/Button';
@@ -37,15 +37,26 @@ const AdminCardView = props => {
                                     <Row>
                                           <Column>
                                                 <FormField label="Nama Kartu">
-                                                      <Input type="text" name="name" placeholder={selectedCard.name} defaultValue={selectedCard.name} onChange={(e) => handleInputChange('selectedCard', e)} />
+                                                      <InputGroup>
+                                                            <InputAddon>
+                                                                  <i class="far fa-credit-card"></i>
+                                                            </InputAddon>
+                                                            <Input type="text" name="name" placeholder={selectedCard.name} defaultValue={selectedCard.name} onChange={(e) => handleInputChange('selectedCard', e)} />
+                                                      </InputGroup>
                                                 </FormField>
                                                 <FormField label="Minimum Saldo">
                                                       <InputGroup>
+                                                            <InputAddon>
+                                                                  <small class="fw-semibold tt-uppercase ls-base">Rp</small>
+                                                            </InputAddon>
                                                             <Input type="text" name="min" placeholder={selectedCard.min} defaultValue={selectedCard.min} onChange={(e) => handleInputChange('selectedCard', e)} />
                                                       </InputGroup>
                                                 </FormField>
                                                 <FormField label="Bonus Saldo">
                                                       <InputGroup>
+                                                            <InputAddon>
+                                                                  <small class="fw-semibold tt-uppercase ls-base">Rp</small>
+                                                            </InputAddon>
                                                             <Input type="text" name="bonus" placeholder={selectedCard.bonus} defaultValue={selectedCard.bonus} onChange={(e) => handleInputChange('selectedCard', e)} />
                                                       </InputGroup>
                                                 </FormField>
@@ -69,8 +80,8 @@ const AdminCardView = props => {
             <div>
                   <Panel>
                         <PanelHeader>
-                              <h4 className="heading-title">Daftar Card</h4>
-                              <h6 className="heading-subtitle">Tempor nostrud cupidatat officia sit ullamco eu pariatur ullamco quis laborum nulla ipsum.</h6>
+                              <h4 className="heading-title">Daftar Kartu</h4>
+                              {/* <h6 className="heading-subtitle">Tempor nostrud cupidatat officia sit ullamco eu pariatur ullamco quis laborum nulla ipsum.</h6> */}
                         </PanelHeader>
                         <PanelBody>
                               <div className="admin-Card__content">

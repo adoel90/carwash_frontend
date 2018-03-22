@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 import { Form, FormField } from '../../../layouts/Form';
 import { Row, Column } from '../../../layouts/Grid';
-import { Input, Switch, Textarea } from '../../../components/Input';
+import { Input, InputGroup, InputAddon, Switch, Textarea } from '../../../components/Input';
 import { Panel, PanelHeader, PanelBody } from '../../../components/Panel';
 import { TableSet } from '../../../components/Table';
 import { Button } from '../../../components/Button';
@@ -37,13 +37,28 @@ const AdminMemberView = props => {
                                           <Row>
                                                 <Column>
                                                       <FormField label="Nama Member">
-                                                            <Input type="text" name="name" placeholder={selectedMember.name} defaultValue={selectedMember.name} onChange={(e) => handleInputChange('selectedMember', e)} />
+                                                            <InputGroup>
+                                                                  <InputAddon>
+                                                                        <i className="far fa-user"></i>
+                                                                  </InputAddon>
+                                                                  <Input type="text" name="name" placeholder={selectedMember.name} defaultValue={selectedMember.name} onChange={(e) => handleInputChange('selectedMember', e)} />
+                                                            </InputGroup>
                                                       </FormField>
                                                       <FormField label="Alamat Email">
-                                                            <Input type="text" name="email" placeholder={selectedMember.email} defaultValue={selectedMember.email} onChange={(e) => handleInputChange('selectedMember', e)} />
+                                                            <InputGroup>
+                                                                  <InputAddon>
+                                                                        <i className="far fa-envelope"></i>
+                                                                  </InputAddon>
+                                                                  <Input type="text" name="email" placeholder={selectedMember.email} defaultValue={selectedMember.email} onChange={(e) => handleInputChange('selectedMember', e)} />
+                                                            </InputGroup>
                                                       </FormField>
                                                       <FormField label="No. Telepon">
-                                                            <Input type="text" name="phone" placeholder={selectedMember.phone} defaultValue={selectedMember.phone} onChange={(e) => handleInputChange('selectedMember', e)} />
+                                                            <InputGroup>
+                                                                  <InputAddon>
+                                                                        <i className="fas fa-phone"></i>
+                                                                  </InputAddon>
+                                                                  <Input type="text" name="phone" placeholder={selectedMember.phone} defaultValue={selectedMember.phone} onChange={(e) => handleInputChange('selectedMember', e)} />
+                                                            </InputGroup>
                                                       </FormField>
                                                       <FormField label="Alamat">
                                                             <Textarea name="address" placeholder={selectedMember.address} defaultValue={selectedMember.address} onChange={(e) => handleInputChange('selectedMember', e)} />
@@ -66,7 +81,7 @@ const AdminMemberView = props => {
                   <Panel>
                         <PanelHeader>
                               <h4 className="heading-title">Daftar Member</h4>
-                              <h6 className="heading-subtitle">Tempor nostrud cupidatat officia sit ullamco eu pariatur ullamco quis laborum nulla ipsum.</h6>
+                              {/* <h6 className="heading-subtitle">Tempor nostrud cupidatat officia sit ullamco eu pariatur ullamco quis laborum nulla ipsum.</h6> */}
                         </PanelHeader>
                         <PanelBody>
                               <div className="admin-Member__content">

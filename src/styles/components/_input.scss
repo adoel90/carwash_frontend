@@ -38,6 +38,7 @@
 .input-group {
     @include flexbox;
     @include flex-direction(row);
+    @include align-items(center);
 
     .input {
         border-radius: 0;
@@ -47,10 +48,20 @@
             z-index: 1;
         }
     }
-    
-    .input:first-of-type {
+
+    .input-addon {
+        background-color: #158DBC;
+        padding: 13px;
+        color: gray(100);
         border-top-left-radius: 4px;
         border-bottom-left-radius: 4px;
+    }
+    
+    .input:first-of-type {
+        border-top-left-radius: 0px;
+        border-bottom-left-radius: 0px;
+        // border-top-left-radius: 4px;
+        // border-bottom-left-radius: 4px;
     }
 
     .input:last-of-type {

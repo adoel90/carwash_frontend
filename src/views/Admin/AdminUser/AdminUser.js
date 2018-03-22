@@ -271,7 +271,12 @@ class AdminUser extends Component {
             getUserList
         } = this.props;
 
-        getUserList();
+        let requiredData = {
+            access : null,
+            active : false
+      }
+
+        getUserList(requiredData);
     }
 
     getAccessList = () => {
@@ -279,7 +284,11 @@ class AdminUser extends Component {
             getAccessList
         } = this.props;
 
-        getAccessList();
+        let requiredData = {
+            active : true
+        }
+
+        getAccessList(requiredData);
     }
     
     render() {
@@ -308,8 +317,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        getUserList: () => dispatch(getUserList()),
-        getAccessList: () => dispatch(getAccessList()),
+        getUserList: (requiredData) => dispatch(getUserList(requiredData)),
+        getAccessList: (data) => dispatch(getAccessList(data)),
         action: bindActionCreators({ updateUser, changeStatusUser, openDialog, closeDialog }, dispatch)
     }
 }

@@ -45,11 +45,15 @@ export const getAllAccess = () => {
 	function fetchError(data) { return { type: GET_ALL_ACCESS_REJECTED, payload: data } }
 }
 
-export const getAccessList = () => {
+export const getAccessList = (e) => {
+	let data = {
+		active: e.active ? e.active : ""
+	}
+	
 	return async dispatch => {
 		dispatch(fetchRequest());
 		return axios
-			.get(`${constant.API_PATH}access/list?accessToken=${accessToken}`)
+			.get(`${constant.API_PATH}access/list?accessToken=${accessToken}&active=${data.active}`)
 			.then((response) => {
 				dispatch(fetchSuccess(response));
 			})

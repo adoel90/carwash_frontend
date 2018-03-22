@@ -139,7 +139,12 @@ class AdminStoreCreate extends Component {
                   action
             } = this.props;
 
-            action.getUserList();
+            let requiredData = {
+                  access : 4,
+                  active : true
+            }
+
+            action.getUserList(requiredData);
       }
       
       render() {

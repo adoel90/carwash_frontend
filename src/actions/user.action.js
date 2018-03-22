@@ -23,11 +23,16 @@ export const CHANGE_STATUS_USER_REJECTED = 'CHANGE_STATUS_USER_REJECTED';
 
 const accessToken = localStorage.getItem('accessToken') ? localStorage.getItem('accessToken') : null;
 
-export const getUserList = (data) => {
+export const getUserList = (e) => {
+	let data = {
+		access: e.access ? e.access : "",
+		active: e.active ? e.active : ""
+	}
+	
 	return async dispatch => {
 		dispatch(fetchRequest());
 		return axios
-			.get(`${constant.API_PATH}user/list?accessToken=${accessToken}`)
+			.get(`${constant.API_PATH}user/list?accessToken=${accessToken}&access=${data.access}&active=${data.active}`)
 			.then((response) => {
 				dispatch(fetchSuccess(response));
 			})

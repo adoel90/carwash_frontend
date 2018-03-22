@@ -4,7 +4,7 @@ import { Section } from '../../../layouts/Section';
 import { Container, Row, Column } from '../../../layouts/Grid';
 import { Form, FormField } from '../../../layouts/Form';
 import { Panel, PanelHeader, PanelBody } from '../../../components/Panel';
-import { Input, InputGroup, Select } from '../../../components/Input';
+import { Input, InputGroup, InputAddon, Select } from '../../../components/Input';
 import { Button } from '../../../components/Button';
 
 const AdminUserCreateView = props => {
@@ -27,20 +27,38 @@ const AdminUserCreateView = props => {
                             </PanelHeader>
                             <PanelBody>
                                 <Form onSubmit={handleFormSubmit}>
+                                    <FormField label="Nama lengkap">
+                                        <InputGroup>
+                                            <InputAddon>
+                                                <i className="far fa-user"></i>
+                                            </InputAddon>
+                                            <Input name="name" type="text" placeholder="Masukkan nama lengkap user" onChange={(e) => handleInputChange('newUser', e) } />
+                                        </InputGroup>
+                                    </FormField>
+                                    <FormField label="Alamat Email">
+                                        <InputGroup>
+                                            <InputAddon>
+                                                <i className="far fa-envelope"></i>
+                                            </InputAddon>
+                                            <Input name="email" type="text" placeholder="Masukkan alamat email user (jika ada)" onChange={(e) => handleInputChange('newUser', e) } />
+                                        </InputGroup>
+                                    </FormField>
                                     <FormField label="Username">
-                                        <Input name="username" type="text" placeholder="Masukkan username" onChange={(e) => handleInputChange('newUser', e) } />
+                                        <InputGroup>
+                                            <InputAddon>
+                                                <i className="far fa-user"></i>
+                                            </InputAddon>
+                                            <Input name="username" type="text" placeholder="Masukkan username" onChange={(e) => handleInputChange('newUser', e) } />
+                                        </InputGroup>
                                     </FormField>
                                     <FormField label="Password">
                                         <InputGroup>
+                                            <InputAddon>
+                                                <i className="fas fa-lock"></i>
+                                            </InputAddon>
                                             <Input name="password" type="password" placeholder="Masukkan kata sandi" onChange={(e) => handleInputChange('newUser', e) } />
                                             <Input name="confirmPassword" type="password" placeholder="Ulangi kata sandi" onChange={(e) => handleInputChange('newUser', e) } />
                                         </InputGroup>
-                                    </FormField>
-                                    <FormField label="Nama lengkap">
-                                        <Input name="name" type="text" placeholder="Masukkan nama lengkap user" onChange={(e) => handleInputChange('newUser', e) } />
-                                    </FormField>
-                                    <FormField label="Alamat Email">
-                                        <Input name="email" type="text" placeholder="Masukkan alamat email user (jika ada)" onChange={(e) => handleInputChange('newUser', e) } />
                                     </FormField>
                                     <FormField label="Level Akses">
                                         <Select name="level" defaultValue={newUser.level} onChange={(e) => handleInputChange('newUser', e) }>

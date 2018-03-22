@@ -4,7 +4,7 @@ import { Section } from '../../../layouts/Section';
 import { Container, Row, Column } from '../../../layouts/Grid';
 import { Form, FormField } from '../../../layouts/Form';
 import { Panel, PanelHeader, PanelBody } from '../../../components/Panel';
-import { Input, InputGroup, Select } from '../../../components/Input';
+import { Input, InputGroup, InputAddon, Select } from '../../../components/Input';
 import { Button } from '../../../components/Button';
 
 const AdminStoreCreateView = props => {
@@ -25,12 +25,17 @@ const AdminStoreCreateView = props => {
                         <Panel>
                             <PanelHeader>
                                 <h4 className="heading-title">Buat Store Baru</h4>
-                                <h6 className="heading-subtitle">Tempor nostrud cupidatat officia sit ullamco eu pariatur ullamco quis laborum nulla ipsum.</h6>
+                                {/* <h6 className="heading-subtitle">Tempor nostrud cupidatat officia sit ullamco eu pariatur ullamco quis laborum nulla ipsum.</h6> */}
                             </PanelHeader>
                             <PanelBody>
                                 <Form onSubmit={handleFormSubmit}>
                                     <FormField label="Nama Store">
-                                        <Input name="name" type="text" placeholder="Masukkan nama lengkap store" onChange={(e) => handleInputChange('newStore', e) } />
+                                        <InputGroup>
+                                            <InputAddon>
+                                                <i className="fas fa-shopping-cart"></i>
+                                            </InputAddon>
+                                            <Input name="name" type="text" placeholder="Masukkan nama lengkap store" onChange={(e) => handleInputChange('newStore', e) } />
+                                        </InputGroup>
                                     </FormField>
                                     <FormField label="Category">
                                           <Select name="category" defaultValue={newStore.category} onChange={(e) => handleInputChange('newStore', e) }>

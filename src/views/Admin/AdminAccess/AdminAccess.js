@@ -262,7 +262,11 @@ class AdminAccess extends Component {
                   getAccessList
             } = this.props;
 
-            getAccessList();
+            let requiredData = {
+                  active : false
+            }
+
+            getAccessList(requiredData);
       }
 
       getModuleList = () => {
@@ -300,7 +304,7 @@ const mapStateToProps = (state) => {
   
 const mapDispatchToProps = (dispatch) => {
       return {
-          getAccessList: () => dispatch(getAccessList()),
+          getAccessList: (data) => dispatch(getAccessList(data)),
           getAllModule: () => dispatch(getAllModule()),
           action: bindActionCreators({ updateAccess, changeStatusAccess, openDialog, closeDialog }, dispatch)
       }

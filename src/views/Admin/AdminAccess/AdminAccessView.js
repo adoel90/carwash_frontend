@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 import { Form, FormField } from '../../../layouts/Form';
 import { Row, Column } from '../../../layouts/Grid';
-import { Input, Switch, Textarea } from '../../../components/Input';
+import { Input, InputGroup, InputAddon, Switch, Textarea } from '../../../components/Input';
 import { Panel, PanelHeader, PanelBody } from '../../../components/Panel';
 import { TableSet } from '../../../components/Table';
 import { Button } from '../../../components/Button';
@@ -36,16 +36,16 @@ const AdminAccessView = props => {
                                     <Row>
                                           <Column>
                                                 <FormField label="Nama Access">
-                                                      <Input type="text" name="name" placeholder={selectedAccess.name} defaultValue={selectedAccess.name} onChange={(e) => handleInputChange('selectedAccess', e)} />
+                                                      <InputGroup>
+                                                            <InputAddon>
+                                                                  <i class="far fa-user"></i>
+                                                            </InputAddon>
+
+                                                            <Input type="text" name="name" placeholder={selectedAccess.name} defaultValue={selectedAccess.name} onChange={(e) => handleInputChange('selectedAccess', e)} />
+                                                      </InputGroup>
                                                 </FormField>
-                                                <FormField label="Alamat Email">
+                                                <FormField label="Pilih Modul">
                                                       <Input type="text" name="email" placeholder={selectedAccess.email} defaultValue={selectedAccess.email} onChange={(e) => handleInputChange('selectedAccess', e)} />
-                                                </FormField>
-                                                <FormField label="No. Telepon">
-                                                      <Input type="text" name="phone" placeholder={selectedAccess.phone} defaultValue={selectedAccess.phone} onChange={(e) => handleInputChange('selectedAccess', e)} />
-                                                </FormField>
-                                                <FormField label="Alamat">
-                                                      <Textarea name="address" placeholder={selectedAccess.address} defaultValue={selectedAccess.address} onChange={(e) => handleInputChange('selectedAccess', e)} />
                                                 </FormField>
                                           </Column>
                                     </Row>
@@ -64,8 +64,8 @@ const AdminAccessView = props => {
             <div>
                   <Panel>
                         <PanelHeader>
-                              <h4 className="heading-title">Daftar Access</h4>
-                              <h6 className="heading-subtitle">Tempor nostrud cupidatat officia sit ullamco eu pariatur ullamco quis laborum nulla ipsum.</h6>
+                              <h4 className="heading-title">Daftar Akses</h4>
+                              {/* <h6 className="heading-subtitle">Tempor nostrud cupidatat officia sit ullamco eu pariatur ullamco quis laborum nulla ipsum.</h6> */}
                         </PanelHeader>
                         <PanelBody>
                               <div className="admin-access__content">

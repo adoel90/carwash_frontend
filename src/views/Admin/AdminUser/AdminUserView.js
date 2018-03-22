@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Section } from '../../../layouts/Section';
 import { Form, FormField } from '../../../layouts/Form';
 import { Row, Column } from '../../../layouts/Grid';
-import { Input, InputGroup, Switch, Select } from '../../../components/Input';
+import { Input, InputGroup, InputAddon, Switch, Select } from '../../../components/Input';
 import { Panel, PanelHeader, PanelBody } from '../../../components/Panel';
 import { TableSet } from '../../../components/Table';
 import { Button } from '../../../components/Button';
@@ -35,10 +35,20 @@ const AdminUserView = props => {
                             <Row>
                                 <Column>
                                     <FormField label="Nama Lengkap">
-                                        <Input name="name" placeholder={selectedUser.name} defaultValue={selectedUser.name} onChange={(e) => handleInputChange('selectedUser', e)} />
+                                        <InputGroup>
+                                            <InputAddon>
+                                                <i className="far fa-user"></i>
+                                            </InputAddon>
+                                            <Input name="name" placeholder={selectedUser.name} defaultValue={selectedUser.name} onChange={(e) => handleInputChange('selectedUser', e)} />
+                                        </InputGroup>
                                     </FormField>
                                     <FormField label="Alamat Email">
-                                        <Input name="email" placeholder={selectedUser.email} defaultValue={selectedUser.email} onChange={(e) => handleInputChange('selectedUser', e)} />
+                                        <InputGroup>
+                                            <InputAddon>
+                                                <i className="far fa-envelope"></i>
+                                            </InputAddon>
+                                            <Input name="email" placeholder={selectedUser.email} defaultValue={selectedUser.email} onChange={(e) => handleInputChange('selectedUser', e)} />
+                                        </InputGroup>
                                     </FormField>
                                     <FormField label="Status">
                                         <Select name="level" defaultValue={selectedUser.level.id} onChange={(e) => handleInputChange('selectedUser', e) }>
@@ -54,13 +64,28 @@ const AdminUserView = props => {
                                 </Column>
                                 <Column>
                                     <FormField label="Username">
-                                        <Input type="text" name="username" defaultValue={selectedUser.username} placeholder={selectedUser.username} onChange={(e) => handleInputChange('selectedUser', e)} />
+                                        <InputGroup>
+                                            <InputAddon>
+                                                <i className="far fa-user"></i>
+                                            </InputAddon>
+                                            <Input type="text" name="username" defaultValue={selectedUser.username} placeholder={selectedUser.username} onChange={(e) => handleInputChange('selectedUser', e)} />
+                                        </InputGroup>
                                     </FormField>
                                     <FormField label="Password">
-                                        <Input type="password" name="password" placeholder="Masukkan kata sandi baru" onChange={(e) => handleInputChange('selectedUser', e)} />
+                                        <InputGroup>
+                                            <InputAddon>
+                                                <i className="fas fa-lock"></i>
+                                            </InputAddon>
+                                            <Input type="password" name="password" placeholder="Masukkan kata sandi baru" onChange={(e) => handleInputChange('selectedUser', e)} />
+                                        </InputGroup>
                                     </FormField>
                                     <FormField label="Konfirmasi Password">
-                                        <Input type="password" name="confirmPassword" placeholder="Masukkan ulang kata sandi" onChange={(e) => handleInputChange('selectedUser', e)} />
+                                        <InputGroup>
+                                            <InputAddon>
+                                                <i className="fas fa-lock"></i>
+                                            </InputAddon>
+                                            <Input type="password" name="confirmPassword" placeholder="Masukkan ulang kata sandi" onChange={(e) => handleInputChange('selectedUser', e)} />
+                                        </InputGroup>
                                     </FormField>
                                 </Column>
                             </Row>
@@ -80,7 +105,7 @@ const AdminUserView = props => {
             <Panel>
                 <PanelHeader>
                     <h4 className="heading-title">Daftar User</h4>
-                    <h6 className="heading-subtitle">Daftar user menampilkan semua user yang sudah terdaftar.</h6>
+                    {/* <h6 className="heading-subtitle">Menampilkan semua daftar user</h6> */}
                 </PanelHeader>
                 <PanelBody>
                     <div className="admin-user__content">

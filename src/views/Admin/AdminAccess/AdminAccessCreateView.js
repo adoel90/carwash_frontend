@@ -4,7 +4,7 @@ import { Section } from '../../../layouts/Section';
 import { Container, Row, Column } from '../../../layouts/Grid';
 import { Form, FormField } from '../../../layouts/Form';
 import { Panel, PanelHeader, PanelBody } from '../../../components/Panel';
-import { Input, InputGroup, Select } from '../../../components/Input';
+import { Input, InputGroup, InputAddon, Select } from '../../../components/Input';
 import { Button } from '../../../components/Button';
 
 const AdminAccessCreateView = props => {
@@ -21,13 +21,18 @@ const AdminAccessCreateView = props => {
                               <Column md={7}>
                                     <Panel>
                                     <PanelHeader>
-                                          <h4 className="heading-title">Buat Access Baru</h4>
-                                          <h6 className="heading-subtitle">Tempor nostrud cupidatat officia sit ullamco eu pariatur ullamco quis laborum nulla ipsum.</h6>
+                                          <h4 className="heading-title">Buat Akses Baru</h4>
+                                          {/* <h6 className="heading-subtitle">Tempor nostrud cupidatat officia sit ullamco eu pariatur ullamco quis laborum nulla ipsum.</h6> */}
                                     </PanelHeader>
                                     <PanelBody>
                                           <Form onSubmit={handleFormSubmit}>
                                                 <FormField label="Nama Kartu">
-                                                      <Input name="name" type="text" placeholder="Masukkan nama kartu" onChange={(e) => handleInputChange('newAccess', e) } />
+                                                      <InputGroup>
+                                                            <InputAddon>
+                                                                  <i class="far fa-user"></i>
+                                                            </InputAddon>
+                                                            <Input name="name" type="text" placeholder="Masukkan nama kartu" onChange={(e) => handleInputChange('newAccess', e) } />
+                                                      </InputGroup>
                                                 </FormField>
                                                 <FormField label="Pilih Modul">
                                                 {/* <Select name="level" defaultValue={newAccess.level} onChange={(e) => handleInputChange('newAccess', e) }>

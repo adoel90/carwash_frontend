@@ -35,7 +35,11 @@ class AdminUserCreate extends Component {
             getAccessList
         } = this.props;
 
-        getAccessList();
+        let requiredData = {
+            active : true
+        }
+
+        getAccessList(requiredData);
     }
 
     toggleDialog = (data) => {
@@ -174,7 +178,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getAccessList: () => dispatch(getAccessList()),
+        getAccessList: (data) => dispatch(getAccessList(data)),
         action: bindActionCreators({ createUser, openDialog, closeDialog }, dispatch)
     }
 }

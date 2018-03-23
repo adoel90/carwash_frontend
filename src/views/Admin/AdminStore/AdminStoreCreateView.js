@@ -28,6 +28,17 @@ const AdminStoreCreateView = props => {
                                 {/* <h6 className="heading-subtitle">Tempor nostrud cupidatat officia sit ullamco eu pariatur ullamco quis laborum nulla ipsum.</h6> */}
                             </PanelHeader>
                             <PanelBody>
+                                <FormField label="User">
+                                        <Select name="user" defaultValue={newStore.user} onChange={(e) => handleInputChange('newStore', e) }>
+                                            <option value="">Select</option> 
+                                            {
+                                                    user.list.isLoaded ? user.list.data.data.result.map((item, i) => {
+                                                        return <option value={item.id}>{item.name}</option>
+                                                    })
+                                                    : null
+                                            }
+                                        </Select>
+                                </FormField>
                                 <Form onSubmit={handleFormSubmit}>
                                     <FormField label="Nama Store">
                                         <InputGroup>
@@ -37,23 +48,12 @@ const AdminStoreCreateView = props => {
                                             <Input name="name" type="text" placeholder="Masukkan nama lengkap store" onChange={(e) => handleInputChange('newStore', e) } />
                                         </InputGroup>
                                     </FormField>
-                                    <FormField label="Category">
+                                    <FormField label="Kategori">
                                           <Select name="category" defaultValue={newStore.category} onChange={(e) => handleInputChange('newStore', e) }>
                                                 <option value="">Select</option>
                                                 {
                                                       store.category.isLoaded ? store.category.data.data.result.map((item, i) => {
                                                       return <option value={item.id}>{item.name}</option>
-                                                      })
-                                                      : null
-                                                }
-                                          </Select>
-                                    </FormField>
-                                    <FormField label="User">
-                                          <Select name="user" defaultValue={newStore.user} onChange={(e) => handleInputChange('newStore', e) }>
-                                                <option value="">Select</option> 
-                                                {
-                                                      user.list.isLoaded ? user.list.data.data.result.map((item, i) => {
-                                                            return <option value={item.id}>{item.name}</option>
                                                       })
                                                       : null
                                                 }

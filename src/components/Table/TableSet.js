@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Table, TableHead, TableBody } from '../Table';
 import { PaginationSet } from '../Pagination';
+import { SearchBar } from '../SearchBar';
 
 class TableSet extends Component {
     
     constructor() {
         super();
         this.handlePageChange = this.handlePageChange.bind(this);
+        this.renderTableSearchBar = this.renderTableSearchBar.bind(this);
         this.state = {
             offset: 0,
             limit: 10,
@@ -30,6 +32,29 @@ class TableSet extends Component {
             activePage: page
         });
     }
+
+    renderTableSearchBar = () => {
+		const {
+			search,
+			searchBy,
+			searchText,
+			placeholder,
+			searchParams,
+			handleInputChange
+        } = this.props;
+        
+        return (
+			<SearchBar
+				value={searchText}
+				placeholder={placeholder}
+				onChange={(e) => handleInputChange(search, e)}
+				onSearchChange={(e) => handleInputChange(search, e)}
+				className="margin-bottom-2"
+				searchBy={searchBy}
+				searchParams={searchParams}
+			/>
+		)
+	}
     
     render() {
         const {
@@ -44,8 +69,11 @@ class TableSet extends Component {
             columns,
             rows,
             pagination,
+            hasSearchBar,
             ...attributes
         } = this.props;
+
+        console.log(attributes)
 
         let lowerBound = (activePage - 1) * limit;
         let upperBound = activePage * limit;
@@ -123,6 +151,7 @@ class TableSet extends Component {
         
         return (
             <div className="table-set">
+                { hasSearchBar ? this.renderTableSearchBar() : null}
                 <Table {...attributes}>
                     { renderTableHead() }
                     { renderTableBody() }

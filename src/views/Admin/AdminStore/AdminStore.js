@@ -224,7 +224,7 @@ class AdminStore extends Component {
                   title: 'Owner',
                   accessor: 'user'
             }, {
-                  title: 'Tipe Store',
+                  title: 'Kategori',
                   accessor: 'type',
                   align: 'center'
             }, {

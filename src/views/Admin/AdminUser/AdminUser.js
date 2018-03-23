@@ -24,10 +24,18 @@ class AdminUser extends Component {
         this.state = {
             user: {},
             userList: {},
+            search: {
+                searchText: '',
+                searchBy: 'name'
+            },
             table: {
                 columns: [],
                 rows: [],
-                limit: 10
+                limit: 10,
+                searchParams: [
+					{ accessor: 'name', name: 'Nama User' },
+					{ accessor: 'email', name: 'Alamat Email' },
+				]
             },
             isModalOpen: {
                 updateUser: false

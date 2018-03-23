@@ -18,7 +18,8 @@ const AdminUserView = props => {
         handleInputChange,
         updateUser,
         selectedUser,
-        access
+        access,
+        search
     } = props;
 
     const renderUserDetailModal = () => {
@@ -117,6 +118,12 @@ const AdminUserView = props => {
                             striped 
                             fullWidth
                             pagination
+                            placeholder="Cari user yang terdaftar"
+                            hasSearchBar
+                            searchParams={table.searchParams}
+                            searchBy={search.searchBy}
+                            handleInputChange={handleInputChange}
+                            {...this.props}
                         />
                     </div>
                 </PanelBody>

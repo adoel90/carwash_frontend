@@ -252,8 +252,11 @@ export const memberLogout = () => {
 	return async (dispatch) => {
 		return Promise.resolve(dispatch(handleLogout()))
 			.then(() => {
-				cookies.remove('accessToken');
-				cookies.remove('member');
+
+				localStorage.removeItem('accessToken');
+				localStorage.removeItem('userData');
+				// cookies.remove('accessToken');
+				// cookies.remove('member');
 			})
 			.then(() => {
 				window.location.reload();

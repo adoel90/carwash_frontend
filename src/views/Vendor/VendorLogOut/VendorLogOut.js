@@ -1,26 +1,14 @@
 import React, { Component } from 'react';
 import { VendorLogOutView } from '../VendorLogOut';
 
-
-
 class VendorLogOut extends Component{
-
     constructor(){
-
         super();
-
         this.onLogOutSubmit = this.onLogOutSubmit.bind(this);
-        
         this.state = {
-
-            credentials: {
-                
-            }
-
+            credentials: {}
         }
     }
-
-
     onLogOutSubmit = (e) => {
         
         e.preventDefault();
@@ -30,7 +18,6 @@ class VendorLogOut extends Component{
     render(){
 
         return(
-
             <VendorLogOutView 
                 {...this.props}
                 {...this.state}
@@ -38,7 +25,6 @@ class VendorLogOut extends Component{
             />
         )
     }
-
 }
 
 export default VendorLogOut;

@@ -117,3 +117,21 @@ nav {}
 	}
 }
 
+.layout-login {
+	@include flexbox;
+	@include flex-direction(column);
+	background-color: $primary-color-base ;
+	min-height: 100vh;
+	padding-top: 4em;
+
+	&.main--has-subheader {
+		padding-top: 8em;
+	}
+
+	&.landing-main {
+		@include relative;
+		height: 100vh;
+	
+	}
+}
+

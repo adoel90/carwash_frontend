@@ -4,7 +4,6 @@ import { bindActionCreators } from 'redux';
 import { VendorMenuView} from '../VendorMenu';
 import { getStoreList, updateMenuVendor, getMenuStoreList } from '../../../actions/vendor.action';
 
-
 function mapStateToProps(state) {
     return {
         vendorState : state.vendorState
@@ -91,16 +90,15 @@ class VendorMenu extends Component {
             });
         }
 
-        //Get menu store
+        //Get menu store based on id store
         if(prevProps.vendorState.store !== vendorState.store){
-
             if(vendorState.store.isLoaded){
-                
                 this.setState({
                     ...this.state,
                     storeActiveList: vendorState.store.data.data.result.store
                 }, () => {
                     getMenuStoreListDispatch(vendorState.store.data.data.result.store[storeActive]);
+                    // console.log(this.state);
                 });
             }
         }

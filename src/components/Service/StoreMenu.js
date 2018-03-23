@@ -9,6 +9,7 @@ import Currency from '../Currency';
 import { default as WalletIcon } from '../../assets/icons/Business/wallet-1.svg';
 
 class StoreMenu extends React.Component {
+	
 
 	render() {
 		const {

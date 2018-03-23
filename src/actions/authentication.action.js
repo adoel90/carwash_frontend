@@ -32,7 +32,6 @@ export const adminLogin = (data) => {
             })
             .then((response) => {
                 let result = response.data.result;
-                
                 localStorage.setItem('accessToken', result.accessToken);
                 localStorage.setItem('userData', JSON.stringify(result.data));
                 dispatch(loginSuccess(result));
@@ -58,17 +57,13 @@ export const vendorLogin = (data) => {
         dispatch(loginRequest());
 
         return axios
-            // .post(`${constant.API_PATH}vendor/authenticate`, {
             .post(`${constant.API_PATH}user/authenticate`, {
                 username: data.username,
                 password: data.password
             })
             .then((response) => {
                 let result = response.data.result;
-                // console.log(result); hasil-nya ada atribute 'employee'
-                
                 localStorage.setItem('accessToken', result.accessToken);
-                // localStorage.setItem('userData', JSON.stringify(result.employee.username));
                 localStorage.setItem('userData', JSON.stringify(result));
                
                 dispatch(loginSuccess(result));
@@ -90,25 +85,15 @@ export const vendorLogin = (data) => {
 */
 
 export const customerLogin = (data) => {   
-     
     return async dispatch => {
-        console.log(data);
-
         dispatch(loginRequest());
-
         return axios
             .post(`${constant.API_PATH}member/authenticate`, {
                 card: data.cardID
-                // password: data.password
             })
             .then((response) => {
-                let result = response.data.result;
-
-                console.log(result);
-                
-                
+                let result = response.data.result;            
                 localStorage.setItem('accessToken', result.accessToken);
-                // localStorage.setItem('userData', JSON.stringify(result.employee.username));
                 localStorage.setItem('userData', JSON.stringify(result));
                
                 dispatch(loginSuccess(result));

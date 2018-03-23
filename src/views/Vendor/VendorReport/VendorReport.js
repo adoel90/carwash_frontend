@@ -55,7 +55,8 @@ class VendorReport extends Component {
                 end_date: moment()
                 
             },
-            storeReportMonth: {}
+            storeReportMonth: {},
+            storeActive: 0
         }
     }
 
@@ -94,7 +95,7 @@ class VendorReport extends Component {
         
         if(prevProps.vendorReportState.summary !== vendorReportState.summary) {
 
-            console.log(this.state);
+            // console.log(this.state);
             
             this.setState({
                 ...this.state,
@@ -103,6 +104,8 @@ class VendorReport extends Component {
                 this.populateData();
             });
         }         
+
+
     }
 
     populateData = () => {
@@ -142,17 +145,29 @@ class VendorReport extends Component {
     //#
     handleShow = () => {
 
-        const {period,storeReportMonth} = this.state;
-        const { getStoreReportDispatch } = this.props;
+        const {period,storeReportMonth, storeActive} = this.state;
+        const { getStoreReportDispatch, vendorState } = this.props;
 
+        const dataStoresId = [];
+
+        vendorState.store.data.data.result.store.map((data)=>{
+            // console.log(data);
+            let dataStoreId = {
+                id: data.id
+            }
+
+            dataStoresId.push(dataStoreId);
+            
+        })
+        
         const requiredDataMonth = {
-
+    
             type: 'month',
-    		start_date: period.from.format('YYYY-MM-DD'),
-    		end_date: period.to.format('YYYY-MM-DD')
+            start_date: period.from.format('YYYY-MM-DD'),
+            end_date: period.to.format('YYYY-MM-DD'),
+            store: dataStoresId[storeActive].id
         }
 
-        console.log(requiredDataMonth);
         // FIRE dispatch in here !!!
         getStoreReportDispatch(requiredDataMonth).then(()=> {
             console.log("Hai hai ");
@@ -161,6 +176,7 @@ class VendorReport extends Component {
     }
 
     render() {
+        
         return <VendorReportView 
                     {...this.state} 
                     {...this.props} 

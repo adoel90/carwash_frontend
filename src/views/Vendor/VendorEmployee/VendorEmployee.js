@@ -5,14 +5,12 @@ import { getVendorEmployeeList, updateVendorEmployee } from '../../../actions/ve
 import { getStoreList } from '../../../actions/vendor.action';
 
 function mapStateToProps(state) {
-
     return {
         vendorState: state.vendorState
     };
 }
 
 function mapDispatchToProps(dispatch) {
-
     return {
         getVendorState: (data) => dispatch(getVendorEmployeeList(data)),
         updateVendorEmployeeState: (object) => dispatch(updateVendorEmployee(object)),
@@ -23,7 +21,6 @@ function mapDispatchToProps(dispatch) {
 class VendorEmployee extends Component {
 
     constructor() {
-
         super();
         this.getVendorEmployeeList = this.getVendorEmployeeList.bind(this);
         this.toggleModal = this.toggleModal.bind(this);
@@ -32,11 +29,9 @@ class VendorEmployee extends Component {
         this.handleUpdateSubmitVendorEmployee = this.handleUpdateSubmitVendorEmployee.bind(this);
         this.populateTableData = this.populateTableData.bind(this);
         this.handleCancelModal = this.handleCancelModal.bind(this);
-
         this.getStoreList = this.getStoreList.bind(this);
 
         this.state = {
-
             vendorEmployee: {},
             vendorEmployeeList: {},
             table: {
@@ -54,7 +49,6 @@ class VendorEmployee extends Component {
     }
 
     componentDidMount = () => {
-
         this.getVendorEmployeeList();
         this.getStoreList();
     }
@@ -74,7 +68,6 @@ class VendorEmployee extends Component {
 
         if(prevProps.vendorState.store !== vendorState.store){
             if(vendorState.store.isLoaded){
-
                 this.setState({
                     ...this.state,
                     storeList: vendorState.store.data.data.result.store
@@ -99,7 +92,6 @@ class VendorEmployee extends Component {
     populateTableData = () => {
 
         const { vendorEmployeeList } = this.state;
-
         const columns = [
             {
                 title: 'ID',
@@ -127,9 +119,7 @@ class VendorEmployee extends Component {
         ]
 
         const rows = [];
-
         if (vendorEmployeeList.isLoaded) {
-            
             vendorEmployeeList.data.data.result.staff.forEach((employee, i) => {
                 let row = {
                     id: employee.id,
@@ -158,7 +148,6 @@ class VendorEmployee extends Component {
     }
 
     handleInputChange = (object, e) => {
-
         const target = e.target;
         const name = target.name;
         const value = target.value;
@@ -174,8 +163,8 @@ class VendorEmployee extends Component {
 
 
     toggleModal = (name) => {
-        const { isModalOpen } = this.state;
 
+        const { isModalOpen } = this.state;
         this.setState({
             ...this.state,
             isModalOpen: {
@@ -185,7 +174,6 @@ class VendorEmployee extends Component {
     }
 
     openVendorEmployeeModal = (row) => {
-
         this.setState({
             ...this.state,
             // selectedVendorEmployee : row.data
@@ -197,7 +185,6 @@ class VendorEmployee extends Component {
     }
 
     handleUpdateSubmitVendorEmployee = (e) => {
-
         e.preventDefault();
         const { selectedVendorEmployee } = this.state;
         const { updateVendorEmployeeState } = this.props;
@@ -229,7 +216,6 @@ class VendorEmployee extends Component {
     }
 
     handleCancelModal = (e) => {
-
         e.preventDefault();
         const {isModalOpen} = this.state;
 

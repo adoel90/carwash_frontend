@@ -5,6 +5,7 @@ import StoreMenu from './StoreMenu';
 import StoreMenuList from './StoreMenuList';
 import ServicePaymentConfirmation from './ServicePaymentConfirmation';
 import ServicePaymentReceipt from './ServicePaymentReceipt'; 
+import StorePaymentDetail from './StorePaymentDetail'; 
 
 export {
     Service,
@@ -13,5 +14,6 @@ export {
     // ServiceItemList,
     StoreMenuList,
     ServicePaymentConfirmation,
-    ServicePaymentReceipt
+    ServicePaymentReceipt,
+    StorePaymentDetail
 }

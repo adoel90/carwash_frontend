@@ -3,26 +3,56 @@ import moment from 'moment';
 import { Printable } from '../Print';
 import { ListGroup, ListGroupItem } from '../List';
 import NumberFormat from 'react-number-format';
+import storeState from '../../reducers/store.reducer';
 
 class ServicePaymentReceipt extends Component {
+
+    constructor(){
+        super();
+        this.state = {
+
+        }
+    }
+
     render() {
+
         const {
             service,
-            printData
+            printData,
+            storeState,
+            storeActive
         } = this.props;
-        
+
+
+        // const dataObjectMember = storeState.store.isLoaded ? printData.result : null 
+
+        // const requireData= {
+
+        //     idTransaction: null,
+        //     dateTransaction: null,
+        //     memberName: dataObjectMember.member.name,
+        //     menuName: null,
+        //     totalHarga: null,
+        //     saldoAwal: null,
+        //     saldoAkhir: null,
+        // }
+
+        // console.log(requireData);
+            
         const renderItemList = () => {
             if(printData.service) {
+            // if(printData.result.menu[storeActive]) {
                 return (
                     <table style={{width: '100%'}} className="margin-bottom-1">
                         <tbody>
                             <tr>
-                                <td>{printData.service.name}</td>
+                                <td>{printData.result.menu[storeActive].name}</td>
                                 <td className="ta-right">
                                     <NumberFormat
                                         thousandSeparator={true}
 				                        displayType={'text'}
-                                        value={printData.service.price} 
+                                        // value={printData.service.price} 
+                                        value={printData.result.menu[storeActive].price} 
                                     />
                                 </td>
                             </tr>
@@ -33,7 +63,7 @@ class ServicePaymentReceipt extends Component {
         }
 
         const renderSummary = () => {
-            if(printData.service) {
+            if(printData.result.menu[storeActive]) {
                 return (
                     <table style={{width: '100%'}}>
                         <tbody>
@@ -43,7 +73,7 @@ class ServicePaymentReceipt extends Component {
                                     <NumberFormat
                                         thousandSeparator={true}
                                         displayType={'text'}
-                                        value={printData.service.price} 
+                                        value={printData.result.menu[storeActive].price} 
                                     />
                                 </td>
                             </tr>
@@ -53,7 +83,8 @@ class ServicePaymentReceipt extends Component {
                                     <NumberFormat
                                         thousandSeparator={true}
                                         displayType={'text'}
-                                        value={parseInt(printData.service.price) + parseInt(printData.member.balance)}
+                                        // value={parseInt(printData.service.price) + parseInt(printData.member.balance)}
+                                        value={parseInt(printData.result.menu[storeActive].price) + parseInt(printData.result.member.balance)}
                                     />
                                 </td>
                             </tr>
@@ -63,7 +94,7 @@ class ServicePaymentReceipt extends Component {
                                     <NumberFormat
                                         thousandSeparator={true}
                                         displayType={'text'}
-                                        value={printData.member.balance}
+                                        value={printData.result.member.balance}
                                     />
                                 </td>
                             </tr>
@@ -73,24 +104,30 @@ class ServicePaymentReceipt extends Component {
             }
         }
         
-        if(service.print.isPrinting) {
+        if(storeState.print.isPrinting) {
             return <p>Tunggu sebentar...</p>
         }
         
-        if(service.print.isPrinted) {
+        if(storeState.print.isPrinted) {
             return (
                 <Printable>
                     <div className="receipt">
                         <div className="receipt-header ta-center margin-bottom-3">
                             <div className="margin-bottom-3">
+                                {/* <h5 className="fw-bold">{printData.id}</h5> */}
                                 <h5 className="fw-bold">{printData.id}</h5>
                             </div>
                             <p className="fw-bold">805 Carwash</p>
                             <p>Jln. Raya Pegangsaan 2 no 23-B <br/> 0896-0457-8309 <br/> 021-957-362-77</p>
                         </div>
                         <div className="receipt-body margin-bottom-3" style={{padding: '15px'}}> 
+                            
+                            
                             {renderItemList()}
-                            {renderSummary()}
+{/*                             
+                            {renderSummary()} */}
+
+
                         </div>
                         <div className="receipt-footer ta-center">
                             <div className="margin-bottom-2">

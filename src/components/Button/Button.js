@@ -12,15 +12,22 @@ const Button = props => {
 		block,
 		children,
 		className,
+		buttonTheme,
+		buttonSize,
+		buttonFull,
+
 		...attributes
 	} = props;
 
 	attributes.className = classNames('button', theme ? `button--${theme}` : null,
 												size ? `button--${size}` : null,
-		rounded ? `button--rounded` : null,
-		block ? 'button--block' : null,
-		outlined ? 'button--outlined' : null,
-		className
+												rounded ? `button--rounded` : null,
+												block ? 'button--block' : null,
+												outlined ? 'button--outlined' : null,
+												buttonTheme ? `button--${buttonTheme}` : null,
+												buttonSize ? `button--${buttonSize}` : null,
+												buttonFull ? 'button--full' : null,
+												className
 	)
 
 	return <Tag {...attributes}>{children}</Tag>

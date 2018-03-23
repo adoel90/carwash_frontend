@@ -37,6 +37,7 @@ class Vendor extends Component {
                     userData: authentication.userData
                 }, () => {
                     this.handleRedirect();
+                    
                 });
             }
         }

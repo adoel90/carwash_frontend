@@ -4,11 +4,8 @@ import { Sidebar } from '../../../layouts/Layout';
 import { Menu, MenuList, MenuItem, MenuLink } from '../../../components/Menu';
 
 const VendorSidebar = props => {
-    const {
-        location,
-        menus
-    } = props;
 
+    const { location, menus } = props;
     const renderMenuItems = (items) => {
         return items.map((item, i) => {
             return (
@@ -38,8 +35,9 @@ const VendorSidebar = props => {
     )
 };
 
+/* Declare this only to verify our object is correct */
 VendorSidebar.propTypes = {
-    
+     /* Still empty */
 };
 
 export default VendorSidebar;

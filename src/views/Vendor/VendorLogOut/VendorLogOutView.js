@@ -6,20 +6,16 @@ import { ButtonDewek } from '../../../components/ButtonDewek';
 
 const VendorLogOutView = props => {
 
-
     const { onLogOutSubmit, credentials } = props;
 
-
     return(
-
 
         <div>
              <div className="admin-user">
                 <Panel>
                     <PanelHeader>
                         <h4 className="heading-title">Pengaturan</h4>
-                        <h6 className="heading-subtitle">Tempor nostrud cupidatat officia sit ullamco eu pariatur ullamco quis laborum nulla ipsum.</h6>
-                        
+                        {/* <h6 className="heading-subtitle">Tempor nostrud cupidatat officia sit ullamco eu pariatur ullamco quis laborum nulla ipsum.</h6> */}
                     </PanelHeader>
                     <PanelBody>
                         <div className="admin-user__content">

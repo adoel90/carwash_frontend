@@ -15,6 +15,12 @@ export const GET_MENU_LIST_STORE_REJECTED = 'GET_MENU_LIST_STORE_REJECTED';
 export const CREATE_MENU_TRANSACTION_FULFILLED = "CREATE_MENU_TRANSACTION_FULFILLED";
 export const CREATE_MENU_TRANSACTION_REJECTED = "CREATE_MENU_TRANSACTION_REJECTED";
 
+//GET PRINT STORE TRANSACTION
+export const GET_PRINT_STORE_TRANSACTION_REQUESTED = "GET_PRINT_STORE_TRANSACTION_REQUESTED";
+export const GET_PRINT_STORE_TRANSACTION_FULFILLED = "GET_PRINT_STORE_TRANSACTION_FULFILLED";
+export const GET_PRINT_STORE_TRANSACTION_REJECTED = "GET_PRINT_STORE_TRANSACTION_REJECTED";
+
+
 const accessToken = localStorage.getItem('accessToken') ? localStorage.getItem('accessToken') : null;
 
 
@@ -23,8 +29,6 @@ export const getStoreList = (data) => {
 	return async dispatch => {
 		dispatch(fetchRequest());
 		return axios
-            
-            // .get(`${constant.API_PATH}vendor/list?accessToken=${accessToken}`)
             .get(`${constant.API_PATH}store/list?accessToken=${accessToken}`)
 
 			.then((response) => {
@@ -60,29 +64,47 @@ export const getMenuListStore = (data) => {
 	function fetchRequest() { return { type: GET_MENU_LIST_STORE_REQUESTED } }
 	function fetchSuccess(data) { return { type: GET_MENU_LIST_STORE_FULFILLED, payload: data } }
 	function fetchError(data) { return { type: GET_MENU_LIST_STORE_REJECTED, payload: data } }
-	
-	
-	// return {
-	// 	type: null
-	// }
-	
 
 }
 
 //#CREATE MENU TRANSACTION
 export const createMenuTransaction = (data) => {
-
-	console.log(data);
-
-	/*
-
-		Create new store transaction
-
-		/store/transaction/create?accessToken={accessToken} 
 	
-	*/
-	
-	return {
-		type: null
+	return async dispatch => {
+		return axios
+			.post(`${constant.API_PATH}store/transaction/create?accessToken=${accessToken}`, {
+				menu: data.menu,
+				store: data.store.id
+			},{'Content-Type': 'application/json'})
+			.then((response) => {
+				dispatch(handleSuccess(response.data));
+			})
+			.catch((error) => {
+				dispatch(handleError(error))
+			})
 	}
+
+	function handleSuccess(data) { return { type: CREATE_MENU_TRANSACTION_FULFILLED, payload: data }}
+	function handleError(data) { return { type: CREATE_MENU_TRANSACTION_REJECTED, payload: data }}
+}
+
+//# GET PRINT STORE TRANSACTION
+export const getPrintStoreTransaction = (data) => {
+
+	return async dispatch => {
+		dispatch(handleRequest());
+		return axios
+			.get(`${constant.API_PATH}store/transaction/print?accessToken=${accessToken}&id=${data.id}`)
+			.then((response) => {
+				dispatch(handleSuccess(response.data))
+			})
+			.catch((error) => {
+				dispatch(handleError(error))
+			})
+	}
+
+	function handleRequest() { return { type: GET_PRINT_STORE_TRANSACTION_REQUESTED } }
+	function handleSuccess(data) { return { type: GET_PRINT_STORE_TRANSACTION_FULFILLED, payload: data } }
+	function handleError(data) { return { type: GET_PRINT_STORE_TRANSACTION_REJECTED, payload: data } }
+
 }

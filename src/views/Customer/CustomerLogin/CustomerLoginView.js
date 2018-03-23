@@ -16,7 +16,7 @@ const CustomerLoginView = props => {
     
     const fw_bold_new = { color: 'black'};
     const fw_semi_bold_new = { color: 'grey'};
-    const background = { 'background-color': '#268dbc'}
+    const background = { 'background-color': '#158DBC'}
 
     const {
         member,
@@ -28,30 +28,31 @@ const CustomerLoginView = props => {
     } = props;
 
     return (
-
-        <div><br/><br/><br/><br/>
-            <Form onSubmit={handleAuthentication}>
-                <main className="main landing" >
-                    <div className="landing__container">
-                        <img src={StoreIcon} style={{ width: '150px' }} />
-                        {/* <h3 className="fw-bold" >Selamat datang di Carwash 805</h3> */}
-                        <h3 style={fw_bold_new} >Selamat datang di Carwash 805</h3>
-                        <h5 style={fw_semi_bold_new}>Silahkan gesek kartu member Anda :</h5>
-                        {/* {renderAlert()} */}
-                        <FormGroup>
-                            <Input
-                                placeholder="Nomor ID Card"
-                                type="number"
-                                name="cardID"
-                                onChange={(e) => handleInputChange('authData', e)}
-                                autoFocus
-                                selectOnFocus
-                            />
-                        </FormGroup>
-                    </div>
-                </main>
-            </Form>
-        </div>
+            <div>
+                <div className="main-content">
+                    <Form onSubmit={handleAuthentication}>
+                        <main className="layout-login landing" >
+                            <div className="landing__container">
+                                <img src={StoreIcon} style={{ width: '150px' }} />
+                                {/* <h3 className="fw-bold" >Selamat datang di Carwash 805</h3> */}
+                                <h3 style={fw_bold_new} >Selamat datang di Carwash 805</h3>
+                                <h5 style={fw_semi_bold_new}>Silahkan gesek kartu member Anda :</h5>
+                                {/* {renderAlert()} */}
+                                <FormGroup>
+                                    <Input
+                                        placeholder="Nomor ID Card"
+                                        type="number"
+                                        name="cardID"
+                                        onChange={(e) => handleInputChange('authData', e)}
+                                        autoFocus
+                                        selectOnFocus
+                                    />
+                                </FormGroup>
+                            </div>
+                        </main>
+                    </Form>
+                </div>
+            </div>
     );
 };
 

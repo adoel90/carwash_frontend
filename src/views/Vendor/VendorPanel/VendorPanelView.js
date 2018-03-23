@@ -8,7 +8,6 @@ import { Layout } from '../../../layouts/Layout';
 
 const VendorPanelView = props => {
  
-
     return (
         <Layout>
             <VendorSidebar {...props} />

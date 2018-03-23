@@ -34,9 +34,6 @@ export const getAdminVendorList = (data) => {
 
 export const createNewAdminVendor = (data) => {
 
-
-	// console.log("Data From vendor.action.js : " + data);
-
 	return async dispatch => {
 		return axios
 	

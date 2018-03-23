@@ -13,7 +13,8 @@ import MainContent from '../../../components/MainContent';
 import ProfileContainer from '../CustomerMyProfile/ProfileContainer'
 import StoreContainer from '../CustomerOurService/StoreContainer'
 
-import { CustomerLoginView } from '../../Customer/CustomerLogin';
+import { CustomerLoginView,CustomerLogin } from '../../Customer/CustomerLogin';
+// import LandingContainer from '../../../containers/LandingContainer';
 
 
 
@@ -34,9 +35,11 @@ const CustomerPanelView = props => {
     //     return <p>You are not authorized to view this content.</p>
     // }
 
+    console.log(userData);
+    
+
     return (
         <div>
-            <br />
             <br />
             <br />
 
@@ -51,7 +54,7 @@ const CustomerPanelView = props => {
                         name="landing"
                         path={`${match.url}/landing`}
                         // component={LandingContainer}
-                        component={CustomerLoginView}
+                        component={CustomerLogin}
                         {...this.props}
                     />
 
@@ -72,10 +75,10 @@ const CustomerPanelView = props => {
                         isAuthenticated={isAuthenticated}
                         memberData={memberData}
                         accessToken={accessToken}
-                        redirectTo={`${match.url}/landing`}
+                        redirectTo={`${match.url}/store`}
                     />
 
-                    <Redirect from={`${match.url}`} to={`${match.url}/landing`} />
+                    <Redirect from={`${match.url}`} to={`${match.url}/store`} />
 
                     {handleRouteRedirect}
 

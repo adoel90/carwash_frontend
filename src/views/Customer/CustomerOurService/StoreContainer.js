@@ -91,8 +91,27 @@ class StoreContainer extends React.Component {
 			// storeDetail
 		} = this.props;
 
+
+		if(prevProps.member !== this.props.member) {
+			if(member.item.isAuthenticated) {
+				window.location.reload();
+			}
+
+			if(member.item.isError) {
+				this.setState({
+					...this.state,
+					error: {
+						data: member.item.error.response.data,
+						isError: true,
+					}
+				})
+			}
+		}
+
 		if (prevProps.storeState.store !== storeState.store) {
 			if (storeState.store.isLoaded) {
+
+				// window.location.reload();
 
 				let activeStoreList = [];
 
@@ -111,22 +130,7 @@ class StoreContainer extends React.Component {
 					}
 				}, () => {
 					// console.log(this.state.storeList)
-
 				});		
-				
-				//#Versi-02
-				// this.setState({
-	
-				// 	storeList : {
-				// 		all: storeState.store.data.data.result.store,
-				// 		active: activeStoreList
-				// 	}
-				// }, () => {
-
-					
-				// 	this.getMenuListStore(this.state.storeList);
-
-				// });	
 			}
 		}
 	}

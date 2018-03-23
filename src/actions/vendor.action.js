@@ -43,7 +43,6 @@ export const GET_MENU_STORE_LIST_REJECTED = "GET_MENU_STORE_LIST_REJECTED";
 const accessToken = localStorage.getItem('accessToken') ? localStorage.getItem('accessToken') : null;
 const userLoginNow = localStorage.getItem('userData') ? localStorage.getItem('userData') : null;
 const dataVendorLoginNow = JSON.parse(userLoginNow);
-// console.log(dataVendorLoginNow);
 
 
 //GET VENDOR USER LIST
@@ -107,8 +106,6 @@ export const createNewVendor = (data) => {
 //GET VENDOR DETAIL
 export const getVendorDetail = (data) => {
 
-	// console.log(data);
-	
 	return {
 		type: null
 	}
@@ -137,9 +134,6 @@ export const getStoreList = (data) => {
 
 		dispatch(fetchRequest());
 		return axios
-    
-			// .get(`${constant.API_PATH}vendor/menu?accessToken=${accessToken}&cafe=29`)
-			// .get(`${constant.API_PATH}vendor/menu?accessToken=${accessToken}&cafe=${dataVendorLoginNow.id}`)
 			.get(`${constant.API_PATH}store/list?accessToken=${accessToken}&id=${dataVendorLoginNow.data.id}`)
 			// .get(`${constant.API_PATH}store/list?accessToken=${accessToken}`)
 			.then((response) => {
@@ -157,8 +151,6 @@ export const getStoreList = (data) => {
 
 //UPDATE MENU VENDOR
 export const updateMenuVendor = (data) =>{
-
-	console.log(data);
 
 	return async dispatch => {
 

@@ -11,7 +11,7 @@ class MainView extends Component {
                 <Route name="service" path="/service" component={Service} />
                 <Route name="admin" path="/admin" component={Admin} />
                 {/* <Route name="cafe" path="/cafe" component={Cafe} /> */}
-                <Route name="vendor" path="/vendor" component={Vendor} />
+                <Route name="store" path="/store" component={Vendor} />
                 <Route name="customer" path="/customer" component={CustomerMain} />
             </Switch>
         );

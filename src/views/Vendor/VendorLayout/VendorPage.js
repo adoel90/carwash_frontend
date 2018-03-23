@@ -33,8 +33,9 @@ const VendorPage = props => {
     );
 };
 
+/* Declare this only to verify our object is correct */
 VendorPage.propTypes = {
-    
+    /* Still empty */
 };
 
 export default VendorPage;

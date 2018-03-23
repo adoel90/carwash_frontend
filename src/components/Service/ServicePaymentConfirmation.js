@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Modal } from 'reactstrap';
+// import { Modal } from 'reactstrap';
 // import { ModalHeader, ModalContent, ModalFooter } from '../Modal';
-import { ModalHeader, ModalContent, ModalFooter } from '../Modal';
+import { ModalHeader, ModalContent, ModalFooter, Modal } from '../Modal';
 import { Form, FormGroup } from '../Form';
 import { Input, InputGroup, InputAddon } from '../Input';
 import { Button } from '../Button';
@@ -58,7 +58,6 @@ class ServicePaymentConfirmation extends Component {
                     <ModalHeader align="center">
                         <h6 className="fw-semibold">Konfirmasi Layanan: <span className="fw-bold">{selectedMenu.name}</span></h6>
                     </ModalHeader>
-
 
                     {renderMemberContent()}
 

@@ -4,7 +4,7 @@ import { Section } from '../../../layouts/Section';
 import { Container, Row, Column } from '../../../layouts/Grid';
 import { Form, FormField } from '../../../layouts/Form';
 import { Panel, PanelHeader, PanelBody } from '../../../components/Panel';
-import { Input, InputGroup, InputAddon, Select } from '../../../components/Input';
+import { Input, InputGroup, InputAddon, Select, SwitchSquare } from '../../../components/Input';
 import { Button } from '../../../components/Button';
 
 const AdminCardCreateView = props => {
@@ -51,14 +51,7 @@ const AdminCardCreateView = props => {
                                                       </InputGroup>
                                                 </FormField>
                                                 <FormField label="Refund">
-                                                {/* <Select name="level" defaultValue={newCard.level} onChange={(e) => handleInputChange('newCard', e) }>
-                                                      {
-                                                            access.list.isLoaded ? access.list.data.result.map((item, i) => {
-                                                            return <option value={item.id}>{item.name}</option>
-                                                            })
-                                                            : null
-                                                      }
-                                                </Select> */}
+                                                      <SwitchSquare name="refund" value={Boolean(newCard.refund)} onChange={(e) => handleInputChange('newCard', e)} />
                                                 </FormField>
                                                 <Button type="submit">Simpan</Button>
                                           </Form>

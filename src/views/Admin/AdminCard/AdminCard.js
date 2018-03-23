@@ -110,8 +110,6 @@ class AdminCard extends Component {
                 dialog,
                 toggleDialog
             } = this.props;
-    
-            console.log(this.props)
             
             return (
                 <Dialog
@@ -217,7 +215,7 @@ class AdminCard extends Component {
             } = this.state;
       
             e.preventDefault();
-      
+
             action.updateCardType(selectedCard).then(() => {
                   const {
                         card
@@ -255,7 +253,7 @@ class AdminCard extends Component {
       handleInputChange = (object, e) => {
             const target = e.target;
             const name = target.name;
-            const value = target.value;
+            const value = target.type === 'checkbox' ? target.checked : target.value;
     
             this.setState({
                   ...this.state,

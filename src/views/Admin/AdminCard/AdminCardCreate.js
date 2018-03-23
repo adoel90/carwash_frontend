@@ -60,7 +60,7 @@ class AdminCardCreate extends Component {
       handleInputChange = (object, e) => {
             const target = e.target;
             const name = target.name;
-            const value = target.value;
+            const value = target.type === 'checkbox' ? target.checked : target.value;
 
             this.setState({
                   ...this.state,
@@ -85,9 +85,9 @@ class AdminCardCreate extends Component {
 
             const requiredData = {
                   name: newCard.name,
-                  minimum: newCard.minimum,
-                  bonus: newCard.bonus,
-                  refund: newCard.refund
+                  minimum: parseInt(newCard.minimum),
+                  bonus: parseInt(newCard.bonus),
+                  refund: Boolean(newCard.refund)
             }
 
             action.createNewCardType(requiredData).then(() => {

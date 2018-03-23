@@ -61,7 +61,7 @@ const AdminCardView = props => {
                                                       </InputGroup>
                                                 </FormField>
                                                 <FormField label="Refund">
-                                                      <SwitchSquare name="refund" value={selectedCard.refund} onChange={(e) => handleInputChange('selectedCard', e)} />
+                                                      <SwitchSquare name="refund" value={Boolean(selectedCard.refund)} onChange={(e) => handleInputChange('selectedCard', e)} />
                                                 </FormField>
                                           </Column>
                                     </Row>

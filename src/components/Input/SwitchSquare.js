@@ -27,7 +27,8 @@ const SwitchSquare = props => {
     
     return (
         <label className={classes.switch}>
-            <Input type="checkbox" className={classes.checkbox} {...attributes} />
+            {/* <input type="checkbox" className={classes.checkbox} {...attributes} checked={Boolean(attributes.value)} /> */}
+            <Input type="checkbox" className={classes.checkbox} {...attributes} checked={Boolean(attributes.value)} />
             <span className={classes.slider}></span>
         </label>
     );

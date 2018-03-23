@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getAccessList, updateAccess, changeStatusAccess } from '../../../actions/access.action';
+import { getAccessList, getAccessDetail, updateAccess, changeStatusAccess } from '../../../actions/access.action';
 import { getAllModule } from '../../../actions/module.action';
 import { Button } from '../../../components/Button';
 import { openDialog, closeDialog } from '../../../actions/dialog.action';
@@ -14,6 +14,8 @@ class AdminAccess extends Component {
             this.state = {
                   access: {},
                   accessList: {},
+                  module: {},
+                  moduleList: {},
                   table: {
                         columns: [],
                         rows: [],
@@ -28,6 +30,7 @@ class AdminAccess extends Component {
             this.getModuleList = this.getModuleList.bind(this);
             this.toggleModal = this.toggleModal.bind(this);
             this.handleInputChange = this.handleInputChange.bind(this);
+            this.handleInputChangeModule = this.handleInputChangeModule.bind(this);
             this.openAccessDetail = this.openAccessDetail.bind(this);
             this.changeStatusAccess = this.changeStatusAccess.bind(this);
             this.updateAccess = this.updateAccess.bind(this);
@@ -42,11 +45,13 @@ class AdminAccess extends Component {
 
       componentDidUpdate = (prevProps) => {
             const {
-                  access
+                  access,
+                  module
             } = this.props;
 
             const {
-                  accessList
+                  accessList,
+                  moduleList
             } = this.state;
 
             if(prevProps.access.list !== access.list) {
@@ -83,6 +88,15 @@ class AdminAccess extends Component {
                         })
                   }
             }
+
+            if(prevProps.module.list !== module.list) {
+                  this.setState({
+                        ...this.state,
+                        moduleList: module.list
+                  }, () => {
+                        this.forceUpdate();
+                  })
+            }
       }
 
       toggleModal = (name) => {
@@ -114,8 +128,6 @@ class AdminAccess extends Component {
                 dialog,
                 toggleDialog
             } = this.props;
-    
-            console.log(this.props)
             
             return (
                 <Dialog
@@ -178,11 +190,23 @@ class AdminAccess extends Component {
       }
 
       openAccessDetail = (row) => {
-            this.setState({
-                  ...this.state,
-                  selectedAccess: row.data
-            }, () => {
-                  this.toggleModal('updateAccess');
+            const {
+                  action
+            } = this.props;
+
+            action.getAccessDetail(row).then(() => {
+                  const {
+                        access
+                  } = this.props;
+
+                  if(access.detail.isLoaded) {
+                        this.setState({
+                              ...this.state,
+                              selectedAccess: access.detail.data.data.result
+                        }, () => {
+                              this.toggleModal('updateAccess');
+                        })
+                  }
             })
       }
 
@@ -208,39 +232,53 @@ class AdminAccess extends Component {
             } = this.state;
       
             e.preventDefault();
-      
-            // action.updateAccess(selectedAccess).then(() => {
-            //       const {
-            //             access
-            //       } = this.props;
 
-            //       if (access.item.isUpdated) {
-            //             let dialogData = {
-            //                 type: 'success',
-            //                 title: 'Berhasil',
-            //                 message: 'Access telah berhasil diubah. Klik tombol berikut untuk kembali.',
-            //                 onClose: () => window.location.reload(),
-            //                 closeText: 'Kembali'
-            //             }
-                
-            //             this.toggleDialog(dialogData);
-            //       }
+            let dataModule = [];
+
+            if(selectedAccess.module.length > 0) {
+                  for(let i=0; i<selectedAccess.module.length; i++) {
+                        dataModule.push(selectedAccess.module[i].id)
+                  }
+
+                  let requiredData = {
+                        id : selectedAccess.id,
+                        name : selectedAccess.name,
+                        module : dataModule
+                  }
       
-            //       if (access.item.isError) {
-            //             let dialogData = {
-            //                 type: 'danger',
-            //                 title: 'Gagal',
-            //                 message: 'Access gagal diubah. Klik tombol berikut untuk kembali.',
-            //                 onClose: () => this.toggleDialog(),
-            //                 closeText: 'Kembali'
-            //             }
-                
-            //             this.toggleDialog(dialogData);
-            //       }
-            //       // this.toggleModal('updateAccess');
-                  
-            //       // window.location.reload();
-            // })
+                  action.updateAccess(requiredData).then(() => {
+                        const {
+                              access
+                        } = this.props;
+      
+                        if (access.item.isUpdated) {
+                              let dialogData = {
+                                  type: 'success',
+                                  title: 'Berhasil',
+                                  message: 'Access telah berhasil diubah. Klik tombol berikut untuk kembali.',
+                                  onClose: () => window.location.reload(),
+                                  closeText: 'Kembali'
+                              }
+                      
+                              this.toggleDialog(dialogData);
+                        }
+            
+                        if (access.item.isError) {
+                              let dialogData = {
+                                  type: 'danger',
+                                  title: 'Gagal',
+                                  message: 'Access gagal diubah. Klik tombol berikut untuk kembali.',
+                                  onClose: () => this.toggleDialog(),
+                                  closeText: 'Kembali'
+                              }
+                      
+                              this.toggleDialog(dialogData);
+                        }
+                        // this.toggleModal('updateAccess');
+                        
+                        // window.location.reload();
+                  })
+            }
       }
 
       handleInputChange = (object, e) => {
@@ -255,6 +293,27 @@ class AdminAccess extends Component {
                         [name]: value
                   }
             });
+      }
+
+      handleInputChangeModule = (object, selectedItem, e) => {
+            let objectCopy = Object.assign({}, object);
+
+		let found = objectCopy.module.some((item, i) => {
+			return selectedItem.id === item.id
+		})
+
+		if(!found) {
+			objectCopy.module.push(selectedItem);
+			this.forceUpdate();
+		}
+		else {
+			objectCopy.module.some((item, i) => {
+				if(selectedItem.id === item.id) {
+					objectCopy.module.splice(i, 1);
+					this.forceUpdate();
+				}
+			})
+		}
       }
 
       getAccessList = () => {
@@ -285,6 +344,7 @@ class AdminAccess extends Component {
                               {...this.state}
                               {...this.props}
                               handleInputChange={this.handleInputChange}
+                              handleInputChangeModule={this.handleInputChangeModule}
                               updateAccess={this.updateAccess}
                               toggleModal={this.toggleModal}
                         />
@@ -306,7 +366,7 @@ const mapDispatchToProps = (dispatch) => {
       return {
           getAccessList: (data) => dispatch(getAccessList(data)),
           getAllModule: () => dispatch(getAllModule()),
-          action: bindActionCreators({ updateAccess, changeStatusAccess, openDialog, closeDialog }, dispatch)
+          action: bindActionCreators({ getAccessDetail, updateAccess, changeStatusAccess, openDialog, closeDialog }, dispatch)
       }
 }
 

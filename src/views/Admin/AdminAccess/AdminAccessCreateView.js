@@ -4,21 +4,50 @@ import { Section } from '../../../layouts/Section';
 import { Container, Row, Column } from '../../../layouts/Grid';
 import { Form, FormField } from '../../../layouts/Form';
 import { Panel, PanelHeader, PanelBody } from '../../../components/Panel';
-import { Input, InputGroup, InputAddon, Select } from '../../../components/Input';
+import { Input, InputGroup, InputAddon, Select, SwitchSquare } from '../../../components/Input';
 import { Button } from '../../../components/Button';
 
 const AdminAccessCreateView = props => {
       const {
             handleInputChange,
+            handleInputChangeModule,
             handleFormSubmit,
-            newAccess
+            newAccess,
+            module
       } = props;
+
+      const renderModuleList = () => {
+            const checkModule = (module) => {
+                  if(newAccess.module) {
+                      return newAccess.module.some((item) => {
+                          return module.id == item.id
+                      })
+  
+                  }
+            }
+            
+            if(module.list.isLoaded) {
+                  return (
+                        <div className="flex justify-content--space-around" style={{flexWrap: "wrap"}}>
+                              {
+                                    module.list.data.result.map((item, i) => (
+                                          <div key={item.id} style={{minWidth:"200px"}}>
+                                                <FormField label={item.name}>
+                                                      <SwitchSquare name="module" value={checkModule(item)} onChange={(e) => handleInputChangeModule(newAccess, item, e)} />
+                                                </FormField>
+                                          </div>
+                                    ))
+                              }
+                        </div>
+                  )
+            }
+      }
     
       return (
             <div className="admin-access-create">
                   <Section>
                         <Row>
-                              <Column md={7}>
+                              <Column md={12}>
                                     <Panel>
                                     <PanelHeader>
                                           <h4 className="heading-title">Buat Akses Baru</h4>
@@ -26,23 +55,16 @@ const AdminAccessCreateView = props => {
                                     </PanelHeader>
                                     <PanelBody>
                                           <Form onSubmit={handleFormSubmit}>
-                                                <FormField label="Nama Kartu">
+                                                <FormField label="Nama Akses Level">
                                                       <InputGroup>
                                                             <InputAddon>
                                                                   <i class="far fa-user"></i>
                                                             </InputAddon>
-                                                            <Input name="name" type="text" placeholder="Masukkan nama kartu" onChange={(e) => handleInputChange('newAccess', e) } />
+                                                            <Input name="name" type="text" placeholder="Masukkan nama akses level" onChange={(e) => handleInputChange('newAccess', e) } />
                                                       </InputGroup>
                                                 </FormField>
                                                 <FormField label="Pilih Modul">
-                                                {/* <Select name="level" defaultValue={newAccess.level} onChange={(e) => handleInputChange('newAccess', e) }>
-                                                      {
-                                                            access.list.isLoaded ? access.list.data.result.map((item, i) => {
-                                                            return <option value={item.id}>{item.name}</option>
-                                                            })
-                                                            : null
-                                                      }
-                                                </Select> */}
+                                                      { renderModuleList() }
                                                 </FormField>
                                                 <Button type="submit">Simpan</Button>
                                           </Form>

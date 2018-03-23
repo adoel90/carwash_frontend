@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 import { Form, FormField } from '../../../layouts/Form';
 import { Row, Column } from '../../../layouts/Grid';
-import { Input, InputGroup, InputAddon, Switch, Textarea } from '../../../components/Input';
+import { Input, InputGroup, InputAddon, Switch, SwitchSquare, Textarea } from '../../../components/Input';
 import { Panel, PanelHeader, PanelBody } from '../../../components/Panel';
 import { TableSet } from '../../../components/Table';
 import { Button } from '../../../components/Button';
@@ -18,9 +18,38 @@ const AdminAccessView = props => {
             accessList,
             toggleModal,
             handleInputChange,
+            handleInputChangeModule,
             updateAccess,
-            selectedAccess
+            selectedAccess,
+            module
       } = props;
+
+      const renderModuleList = () => {
+            const checkModule = (module) => {
+                  if(selectedAccess.module) {
+                      return selectedAccess.module.some((item) => {
+                          return module.id == item.id
+                      })
+  
+                  }
+            }
+            
+            if(module.list.isLoaded) {
+                  return (
+                        <div className="flex justify-content--space-around" style={{flexWrap: "wrap"}}>
+                              {
+                                    module.list.data.result.map((item, i) => (
+                                          <div key={item.id} style={{minWidth:"200px"}}>
+                                                <FormField label={item.name}>
+                                                      <SwitchSquare name="module" value={checkModule(item)} onChange={(e) => handleInputChangeModule(selectedAccess, item, e)} />
+                                                </FormField>
+                                          </div>
+                                    ))
+                              }
+                        </div>
+                  )
+            }
+      }
 
       const renderAccessDetailModal = () => {
             if(selectedAccess) {
@@ -45,7 +74,7 @@ const AdminAccessView = props => {
                                                       </InputGroup>
                                                 </FormField>
                                                 <FormField label="Pilih Modul">
-                                                      <Input type="text" name="email" placeholder={selectedAccess.email} defaultValue={selectedAccess.email} onChange={(e) => handleInputChange('selectedAccess', e)} />
+                                                      { renderModuleList() }
                                                 </FormField>
                                           </Column>
                                     </Row>

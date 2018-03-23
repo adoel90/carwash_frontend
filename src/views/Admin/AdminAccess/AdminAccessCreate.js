@@ -16,8 +16,10 @@ class AdminAccessCreate extends Component {
                         module: []
                   }
             }
+
             this.getModuleList = this.getModuleList.bind(this);
             this.handleInputChange = this.handleInputChange.bind(this);
+            this.handleInputChangeModule = this.handleInputChangeModule.bind(this);
             this.handleFormSubmit = this.handleFormSubmit.bind(this);
             this.renderDialog = this.renderDialog.bind(this);
       }
@@ -44,8 +46,6 @@ class AdminAccessCreate extends Component {
                 dialog,
                 toggleDialog
             } = this.props;
-    
-            console.log(this.props)
             
             return (
                 <Dialog
@@ -65,7 +65,7 @@ class AdminAccessCreate extends Component {
       handleInputChange = (object, e) => {
             const target = e.target;
             const name = target.name;
-            const value = target.value;
+            const value = target.type === 'checkbox' ? target.checked : target.value;
 
             this.setState({
                   ...this.state,
@@ -76,51 +76,90 @@ class AdminAccessCreate extends Component {
             });
       }
 
+      handleInputChangeModule = (object, selectedItem, e) => {
+            // const target = e.target;
+            // const name = target.name;
+            // const value = target.type === 'checkbox' ? target.checked : target.value;
+
+            // this.setState({
+            //       ...this.state,
+            //       [object]: {
+            //             ...this.state[object],
+            //             [name]: value
+            //       }
+            // });
+            let objectCopy = Object.assign({}, object);
+
+		let found = objectCopy.module.some((item, i) => {
+			return selectedItem.id === item.id
+		})
+
+		if(!found) {
+			objectCopy.module.push(selectedItem);
+			this.forceUpdate();
+		}
+		else {
+			objectCopy.module.some((item, i) => {
+				if(selectedItem.id === item.id) {
+					objectCopy.module.splice(i, 1);
+					this.forceUpdate();
+				}
+			})
+		}
+      }
+
       handleFormSubmit = (e) => {
             const {
                   newAccess
             } = this.state;
             
             const {
-                  createNewAccess
+                  action
             } = this.props;
             
             e.preventDefault();
-            const requiredData = {
-                  name: newAccess.name,
-                  minimum: newAccess.minimum,
-                  bonus: newAccess.bonus,
-                  refund: newAccess.refund
+            
+            if(newAccess.module.length > 0) {
+                  let dataModule = [];
+
+                  for(let i=0; i<newAccess.module.length; i++) {
+                        dataModule.push(newAccess.module[i].id);
+                  }
+
+                  const requiredData = {
+                        name: newAccess.name,
+                        module: dataModule
+                  }
+      
+                  action.createNewAccess(requiredData).then(() => {
+                        const {
+                              access
+                        } = this.props;
+                        
+                        if(access.new.isCreated) {
+                              let dialogData = {
+                                  type: 'success',
+                                  title: 'Berhasil',
+                                  message: 'Access telah berhasil ditambahkan. Klik tombol berikut untuk kembali.',
+                                  onClose: () => window.location.reload(),
+                                  closeText: 'Kembali'
+                              }
+                      
+                              this.toggleDialog(dialogData);
+                        } if (access.new.isError) {
+                              let dialogData = {
+                                  type: 'danger',
+                                  title: 'Gagal',
+                                  message: 'Access gagal ditambahkan. Klik tombol berikut untuk kembali.',
+                                  onClose: () => this.toggleDialog(),
+                                  closeText: 'Kembali'
+                              }
+                      
+                              this.toggleDialog(dialogData);
+                        }
+                  });
             }
 
-            // createNewAccess(requiredData).then(() => {
-            //       const {
-            //             access
-            //         } = this.props;
-                    
-            //         if(access.item.isCreated) {
-            //             let dialogData = {
-            //                 type: 'success',
-            //                 title: 'Berhasil',
-            //                 message: 'Access telah berhasil ditambahkan. Klik tombol berikut untuk kembali.',
-            //                 onClose: () => window.location.reload(),
-            //                 closeText: 'Kembali'
-            //             }
-                
-            //             this.toggleDialog(dialogData);
-            //         }
-            //         if (access.item.isError) {
-            //             let dialogData = {
-            //                 type: 'danger',
-            //                 title: 'Gagal',
-            //                 message: 'Access gagal ditambahkan. Klik tombol berikut untuk kembali.',
-            //                 onClose: () => this.toggleDialog(),
-            //                 closeText: 'Kembali'
-            //             }
-                
-            //             this.toggleDialog(dialogData);
-            //         }
-            // });
       }
       
       getModuleList = () => {
@@ -138,6 +177,7 @@ class AdminAccessCreate extends Component {
                               {...this.state} 
                               {...this.props} 
                               handleInputChange={this.handleInputChange}
+                              handleInputChangeModule={this.handleInputChangeModule}
                               handleFormSubmit={this.handleFormSubmit}
                         />
                         {this.renderDialog()}
@@ -148,6 +188,7 @@ class AdminAccessCreate extends Component {
 
 const mapStateToProps = (state) => {
       return {
+            access: state.access,
             module: state.module,
             dialog: state.dialog
       }

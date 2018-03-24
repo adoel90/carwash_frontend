@@ -123,7 +123,7 @@ const AdminUserView = props => {
                             searchParams={table.searchParams}
                             searchBy={search.searchBy}
                             handleInputChange={handleInputChange}
-                            {...this.props}
+                            {...props}
                         />
                     </div>
                 </PanelBody>

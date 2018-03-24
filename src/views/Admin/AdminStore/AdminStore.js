@@ -24,10 +24,18 @@ class AdminStore extends Component {
                   store: {},
                   storeList: {},
                   storeCategoryList: {},
+                  search: {
+                        searchText: '',
+                        searchBy: 'name'
+                  },
                   table: {
-                      columns: [],
-                      rows: [],
-                      limit: 10
+                        columns: [],
+                        rows: [],
+                        limit: 10,
+                        searchParams: [
+                              { accessor: 'name', name: 'Nama Store' },
+                              { accessor: 'user', name: 'Owner' },
+                        ]
                   },
                   isModalOpen: {
                       updateStore: false

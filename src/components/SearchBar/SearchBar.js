@@ -33,7 +33,7 @@ class SearchBar extends Component {
 						onChange={onSearchChange}>
 						<option disabled="true" selected="true">Cari berdasarkan...</option>
 						{searchParams.map((item) => {
-							return <option value={item.accessor} selected={item.accessor == searchBy}>{item.accessor}</option>
+							return <option value={item.accessor} selected={item.accessor == searchBy}>{item.name}</option>
 						})}
 					</Select>
 				)
@@ -48,7 +48,6 @@ class SearchBar extends Component {
                     </InputAddon>
                     <Input
                         name="searchText"
-                        type="text"
                         placeholder={placeholder} 
                         value={value} 
                         onChange={onChange} 

@@ -18,7 +18,8 @@ const AdminStoreView = props => {
         handleInputChange,
         updateStore,
         selectedStore,
-        store
+        store,
+        search
     } = props;
 
     const renderStoreDetailModal = () => {
@@ -82,6 +83,12 @@ const AdminStoreView = props => {
                             striped 
                             fullWidth
                             pagination
+                            placeholder="Cari store yang terdaftar"
+                            hasSearchBar
+                            searchParams={table.searchParams}
+                            searchBy={search.searchBy}
+                            handleInputChange={handleInputChange}
+                            {...props}
                         />
                     </div>
                 </PanelBody>

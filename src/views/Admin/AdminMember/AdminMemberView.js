@@ -20,7 +20,8 @@ const AdminMemberView = props => {
             handleInputChange,
             updateMember,
             selectedMember,
-            access
+            access,
+            search
       } = props;
 
       const renderMemberDetailModal = () => {
@@ -93,6 +94,12 @@ const AdminMemberView = props => {
                                           striped 
                                           fullWidth
                                           pagination
+                                          placeholder="Cari member yang terdaftar"
+                                          hasSearchBar
+                                          searchParams={table.searchParams}
+                                          searchBy={search.searchBy}
+                                          handleInputChange={handleInputChange}
+                                          {...props}
                                     />
                               </div>
                         </PanelBody>

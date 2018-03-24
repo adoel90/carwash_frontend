@@ -21,7 +21,8 @@ const AdminAccessView = props => {
             handleInputChangeModule,
             updateAccess,
             selectedAccess,
-            module
+            module,
+            search
       } = props;
 
       const renderModuleList = () => {
@@ -106,6 +107,12 @@ const AdminAccessView = props => {
                                           striped 
                                           fullWidth
                                           pagination
+                                          placeholder="Cari akses yang terdaftar"
+                                          hasSearchBar
+                                          searchParams={table.searchParams}
+                                          searchBy={search.searchBy}
+                                          handleInputChange={handleInputChange}
+                                          {...props}
                                     />
                               </div>
                         </PanelBody>

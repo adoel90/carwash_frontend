@@ -16,10 +16,17 @@ class AdminAccess extends Component {
                   accessList: {},
                   module: {},
                   moduleList: {},
+                  search: {
+                        searchText: '',
+                        searchBy: 'name'
+                  },
                   table: {
                         columns: [],
                         rows: [],
-                        limit: 10
+                        limit: 10,
+                        searchParams: [
+                              { accessor: 'name', name: 'Nama Akses' },
+                        ]
                   },
                   isModalOpen: {
                         updateAccess: false

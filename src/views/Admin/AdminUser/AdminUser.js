@@ -124,8 +124,6 @@ class AdminUser extends Component {
             dialog,
             toggleDialog
         } = this.props;
-
-        console.log(this.props)
         
         return (
             <Dialog

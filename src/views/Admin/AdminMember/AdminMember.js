@@ -13,10 +13,19 @@ class AdminMember extends Component {
             this.state = {
                   member: {},
                   memberList: {},
+                  search: {
+                        searchText: '',
+                        searchBy: 'name'
+                  },
                   table: {
                         columns: [],
                         rows: [],
-                        limit: 10
+                        limit: 10,
+                        searchParams: [
+                              { accessor: 'name', name: 'Nama Member' },
+                              { accessor: 'email', name: 'Email' },
+                              { accessor: 'cardType', name: 'Tipe Member' },
+                        ]
                   },
                   isModalOpen: {
                         updateMember: false

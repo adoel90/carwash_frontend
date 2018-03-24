@@ -13,10 +13,17 @@ class AdminCard extends Component {
             this.state = {
                   card: {},
                   cardList: {},
+                  search: {
+                        searchText: '',
+                        searchBy: 'name'
+                  },
                   table: {
                         columns: [],
                         rows: [],
-                        limit: 10
+                        limit: 10,
+                        searchParams: [
+                              { accessor: 'name', name: 'Nama Kartu' }
+                        ]
                   },
                   isModalOpen: {
                         updateCard: false

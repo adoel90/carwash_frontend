@@ -20,7 +20,8 @@ const AdminCardView = props => {
             handleInputChange,
             updateCard,
             selectedCard,
-            access
+            access,
+            search
       } = props;
 
       const renderCardDetailModal = () => {
@@ -93,6 +94,12 @@ const AdminCardView = props => {
                                           striped 
                                           fullWidth
                                           pagination
+                                          placeholder="Cari kartu yang terdaftar"
+                                          hasSearchBar
+                                          searchParams={table.searchParams}
+                                          searchBy={search.searchBy}
+                                          handleInputChange={handleInputChange}
+                                          {...props}
                                     />
                               </div>
                         </PanelBody>

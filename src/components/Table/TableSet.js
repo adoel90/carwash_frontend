@@ -42,14 +42,15 @@ class TableSet extends Component {
 			searchParams,
 			handleInputChange
         } = this.props;
-        
+
         return (
 			<SearchBar
-				value={searchText}
-				placeholder={placeholder}
-				onChange={(e) => handleInputChange(search, e)}
-				onSearchChange={(e) => handleInputChange(search, e)}
-				className="margin-bottom-2"
+				value={search.searchText}
+                placeholder={placeholder}
+                handleInputChange={handleInputChange}
+				onChange={(e) => handleInputChange('search', e)}
+				onSearchChange={(e) => handleInputChange('search', e)}
+				className="margin-bottom-large"
 				searchBy={searchBy}
 				searchParams={searchParams}
 			/>
@@ -70,10 +71,11 @@ class TableSet extends Component {
             rows,
             pagination,
             hasSearchBar,
+            searchParams,
+            searchBy,
+            search,
             ...attributes
         } = this.props;
-
-        console.log(attributes)
 
         let lowerBound = (activePage - 1) * limit;
         let upperBound = activePage * limit;
@@ -98,6 +100,14 @@ class TableSet extends Component {
             })
         }
 
+        const renderFilteredRow = (row, i) => {
+            const {
+                searchText
+            } = this.props;
+    
+            return row.name.toLowerCase().includes(searchText.toLowerCase());
+        }
+
         const renderTableBody = () => (
             <TableBody>
                 { renderTableRows() }
@@ -110,11 +120,34 @@ class TableSet extends Component {
             }
 
             if(loaded) {
-                return rows
-                    .slice(lowerBound, upperBound)
-                    .map((row, i) => {
-                    return <tr key={i}>{ renderTableCell(row) }</tr>
-                })
+                /** Checks if rows has array items */
+                if(rows.length) {
+                    if(hasSearchBar || searchParams || searchBy) {
+                        let filteredRow = rows.filter((row) => {
+                            if(row[searchBy]) {
+                                return row[searchBy].toString().toLowerCase().includes(search.searchText.toLowerCase())
+                            }
+                        })
+
+                        if(!filteredRow.length) {
+                            return <td colSpan={columns.length} style={{padding: '30px', textAlign: 'center'}}>Data tidak ditemukan</td>
+                        }
+
+                        return filteredRow
+                                .slice(lowerBound, upperBound)
+                                .map((row, i) => {
+                                    return <tr key={i}>{ renderTableCell(row) }</tr>
+                                })
+                    }
+
+                    return rows
+                        .slice(lowerBound, upperBound)
+                        .map((row, i) => {
+                        return <tr key={i}>{ renderTableCell(row) }</tr>
+                    })
+                } else {
+                    return <td colSpan={columns.length} style={{padding: '30px', textAlign: 'center'}}>Data tidak ditemukan</td>
+                }
             }
         }
 

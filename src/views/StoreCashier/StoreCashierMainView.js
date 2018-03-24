@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { PrivateRoute, PropsRoute } from '../../utilities/Route';
-import { VendorLogin, VendorPanel, CashierPanel, CashierLogin } from '../Vendor';
+import { StoreCashierLogin, StoreCashierPanel } from '../StoreCashier';
 
 
-// const VendorView = () => {
+// const StoreCashierMainView = () => {
 //     return (
 //         <div>
 //             <h1>Hai </h1>
@@ -13,7 +13,7 @@ import { VendorLogin, VendorPanel, CashierPanel, CashierLogin } from '../Vendor'
 //     );
 // };
 
-class VendorView extends Component {
+class StoreCashierMainView extends Component {
 
     render() {
         const {
@@ -29,14 +29,14 @@ class VendorView extends Component {
                 <PropsRoute
                     name="login"
                     path={`${match.url}/login`}
-                    component={VendorLogin}
+                    component={StoreCashierLogin}
                     handleRedirect={this.props.handleRedirect}
                 />
                 <PrivateRoute
                     name="panel"
                     path={`${match.url}`}
-                    component={VendorPanel}
-                    isAuthenticated={isAuthenticated && authenticatedAs == 'store'}
+                    component={StoreCashierPanel}
+                    isAuthenticated={isAuthenticated && authenticatedAs == 'kasir'}
                     redirectTo={`${match.url}/login`}
                 />
             </Switch>
@@ -44,4 +44,4 @@ class VendorView extends Component {
     }
 }
 
-export default VendorView;
+export default StoreCashierMainView;

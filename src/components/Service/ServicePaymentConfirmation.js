@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 // import { Modal } from 'reactstrap';
 // import { ModalHeader, ModalContent, ModalFooter } from '../Modal';
-import { ModalHeader, ModalContent, ModalFooter, Modal } from '../Modal';
+import { ModalHeader, ModalContent, ModalBody, ModalFooter, Modal } from '../Modal';
 import { Form, FormGroup } from '../Form';
 import { Input, InputGroup, InputAddon } from '../Input';
 import { Button } from '../Button';
@@ -27,24 +27,24 @@ class ServicePaymentConfirmation extends Component {
             if(member.item.data.result.balance > selectedMenu.price) {
         
                 return (
-                    <ModalContent className="flex flex-column justify-content--center align-items--center ta-center">
+                    <ModalBody>
                         <img style={{ width: '100px' }} src={CashierIcon} />
                         <h3 className="fw-bold clr-primary"><Currency value={selectedMenu.price} /></h3>
                         <Alert theme="secondary">
                             {/* <p>Saldo Anda sebesar <span className="fw-semibold"><Currency value={memberData.balance} /></span> mencukupi untuk pembayaran <span className="fw-semibold">{selectedService.name}</span>. <br /> Silahkan konfirmasi kembali pilihan Anda sebelum melanjutkan.</p> */}
                             <p>Saldo Anda sebesar <span className="fw-semibold"><Currency value={member.item.data.result.balance} /></span> mencukupi untuk pembayaran <span className="fw-semibold">{selectedMenu.name}</span>. <br /> Silahkan konfirmasi kembali pilihan Anda sebelum melanjutkan.</p>
                         </Alert>
-                    </ModalContent>
+                    </ModalBody>
                 )
             }
             else {
                 return (
-                    <ModalContent className="flex flex-column justify-content--center align-items--center ta-center">
+                    <ModalBody>
                         <img style={{ width: '100px' }} src={CashierIcon} />
                         <h3 className="fw-bold clr-danger"><Currency value={selectedMenu.price} /></h3>
                         <p>Maaf, saldo Anda sebesar <span className="fw-semibold"><Currency value={member.item.data.result.balance} /></span> tidak cukup untuk melakukan pembayaran <span className="fw-semibold">{selectedMenu.name}</span>. Silahkan ke counter kasir untuk mengisi saldo terlebih dahulu.</p>
                         
-                    </ModalContent>
+                    </ModalBody>
                 )
             } 
         }

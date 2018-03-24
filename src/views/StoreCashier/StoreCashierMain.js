@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { VendorView } from '../Vendor';
+import { StoreCashierMainView } from '../StoreCashier';
 
 function mapStateToProps(state) {
     
@@ -10,14 +10,14 @@ function mapStateToProps(state) {
     }
 }
 
-class Vendor extends Component {
+class StoreCashierMain extends Component {
         
     constructor(props) {
         super(props);
         this.handleRedirect = this.handleRedirect.bind(this);
         this.state = {
             isAuthenticated: localStorage.getItem('accessToken') ? true : false,
-            authenticatedAs: localStorage.getItem('accessToken') ? 'store' : null,
+            authenticatedAs: localStorage.getItem('accessToken') ? 'kasir' : null,
             userData: localStorage.getItem('userData') ? JSON.parse(localStorage.getItem('userData')) : {}
 
         }
@@ -33,11 +33,10 @@ class Vendor extends Component {
                 this.setState({
                     ...this.state,
                     isAuthenticated: true,
-                    authenticatedAs: 'store',
+                    authenticatedAs: 'kasir',
                     userData: authentication.userData
                 }, () => {
                     this.handleRedirect();
-                    
                 });
             }
         }
@@ -54,7 +53,7 @@ class Vendor extends Component {
             history
         } = this.props;
         
-        if(isAuthenticated && authenticatedAs == 'store') {
+        if(isAuthenticated && authenticatedAs == 'kasir') {
             return history.push(`${match.url}`);
         }
 
@@ -63,7 +62,7 @@ class Vendor extends Component {
     
     render() {
         return (
-            <VendorView
+            <StoreCashierMainView
                 {...this.state}
                 {...this.props}
                 handleRedirect={this.handleRedirect}
@@ -74,4 +73,4 @@ class Vendor extends Component {
 
 export default connect(
     mapStateToProps
-)(Vendor);
+)(StoreCashierMain);

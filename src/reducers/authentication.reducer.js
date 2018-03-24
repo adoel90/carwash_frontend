@@ -9,10 +9,17 @@ import {
 
     CUSTOMER_LOGIN_REQUESTED,//CUSTOMER LOGIN
     CUSTOMER_LOGIN_FULFILLED,
-    CUSTOMER_LOGIN_REJECTED
+    CUSTOMER_LOGIN_REJECTED,
+
+    KASIR_LOGIN_REQUESTED,//#KASIR LOGIN
+    KASIR_LOGIN_FULFILLED,
+    KASIR_LOGIN_REJECTED
+
+
 } from '../actions/authentication.action';
 
 const initialState = {
+
     userData: localStorage.getItem('userData') ? true : false,
     isAuthenticated: localStorage.getItem('accessToken') ? true : false,
     isAuthenticating: false,
@@ -116,6 +123,41 @@ const authentication = (state = initialState, action) => {
         }
 
         case CUSTOMER_LOGIN_REJECTED: {
+            return {
+                ...state,
+                isAuthenticating: false,
+                isAuthenticated: false,
+                userData: {},
+                isError: true,
+                error: action.payload
+            }
+        }
+
+
+         //#KASIR LOGIN
+         case KASIR_LOGIN_REQUESTED: {
+            return {
+                ...state,
+                isAuthenticating: true,
+                isAuthenticated: false,
+                userData: {},
+                isError: false,
+                error: {}
+            }
+        }
+
+        case KASIR_LOGIN_FULFILLED: {
+            return {
+                ...state,
+                isAuthenticating: false,
+                isAuthenticated: true,
+                userData: action.payload,
+                isError: false,
+                error: {}
+            }
+        }
+
+        case KASIR_LOGIN_REJECTED: {
             return {
                 ...state,
                 isAuthenticating: false,

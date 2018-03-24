@@ -71,8 +71,6 @@ const VendorMenuView = props => {
 
     return (
         <div>
-            <div className="vendor-menu">    
-            </div>
 
             <div className="admin-user">
                 <Panel>

@@ -19,14 +19,17 @@ class StoreMenuList extends React.Component {
 	constructor() {
 
 		super();
-		this.renderServiceItem = this.renderServiceItem.bind(this);
+		this.renderMenuItem = this.renderMenuItem.bind(this);
+		// this.renderServiceItem = this.renderServiceItem.bind(this);
 		// this.renderCheckoutTotalSelectedMenu = this.renderCheckoutTotalSelectedMenu.bind(this);
 
 	}
 
-	renderServiceItem = (menu, i) => {
+	renderMenuItem = (menu, i) => {
 
-		const { handleStoreMenuPayment, handleSelectMenu} = this.props;
+		const { handleStoreMenuPayment, handleSelectMenu, isToggleOn} = this.props;
+		// const text = this.props.liked ? 'Menu Sudah di Pilih' : 'Pilih';
+		const text = this.props.liked ? 'Menu Sudah di Pilih' : 'Pilih';
 		
 		//Feature Search
 		let dataStoreMenuArrayObject = this.props.storeState.storemenu.isLoaded ? this.props.storeState.storemenu.data.data.result.menu : null;
@@ -39,7 +42,7 @@ class StoreMenuList extends React.Component {
 		menu.totalPrice = menu.quantity * menu.price;
 
 		return (
-
+		
 			<Column key={i} md={6} sm={12}>
 				<Card>
 					<CardHeading align="center">
@@ -53,15 +56,18 @@ class StoreMenuList extends React.Component {
 						<p className="card__text">{menu.description}</p>
 					</CardBody>
 					<CardFooter>
+					
 						<Button
 							type="button"
-							buttonTheme={menu.selected ? 'secondary' : 'primary'}
+							// theme={menu.selected ? 'secondary' : 'primary'}
+							key={i}
 							buttonFull
 							onClick={() => handleSelectMenu(menu)}>
 								{/* <small className={`tt-uppercase fw-bold ls-base ${menu.selected ? 'clr-dark' : 'clr-light'}`}>{menu.selected ? 'Terpilih' : 'Pilih'}</small> */}
 								<small>{menu.selected ? 'Terpilih' : 'Pilih'}</small>
-						</Button>
+								{/* {this.props.isToggleOn[menu] ? 'ON' : 'OFF'} */}
 
+						</Button>
 					</CardFooter>
 				</Card>
 			{/* </div> */}
@@ -95,7 +101,8 @@ class StoreMenuList extends React.Component {
 						description:data.description,
 						price: data.price,
 						image: data.image,
-						status:data.status
+						status:data.status,
+						// selected: null
 					}
 				
 					dataMenuStores.push(dataMenuStore);
@@ -107,13 +114,10 @@ class StoreMenuList extends React.Component {
 			if(dataMenuStores.length){
 				return (
 					<CardList>
-						{ dataMenuStores.map(this.renderServiceItem) }
+						{ dataMenuStores.map(this.renderMenuItem) }
 						{/* {renderMenu()} */}
 						{renderCheckoutTotalSelectedMenu()}
 						<StorePaymentDetail {...this.props} />
-
-
-
 					</CardList>
 				)
 			} else {
@@ -124,13 +128,12 @@ class StoreMenuList extends React.Component {
 					</PageBlock>
 				)
 			}
-		
 		}
 
 		//#
 		const renderCheckoutTotalSelectedMenu = () => {
 
-			const {handlePaymentConfirmation } = this.props;
+			const {handlePaymentConfirmation, selectedMenuList} = this.props;
 
 			return (
 				<CardListFooter className="flex align-items--center justify-content--center">
@@ -146,9 +149,6 @@ class StoreMenuList extends React.Component {
 				</CardListFooter>
 			)
 		}
-		
-		
-		// console.log(dataMenuStores);
 		
 		return (
 			<div>

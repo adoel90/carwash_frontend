@@ -16,6 +16,12 @@ export const CUSTOMER_LOGIN_REQUESTED = 'CUSTOMER_LOGIN_REQUESTED';
 export const CUSTOMER_LOGIN_FULFILLED = 'CUSTOMER_LOGIN_FULFILLED';
 export const CUSTOMER_LOGIN_REJECTED = 'CUSTOMER_LOGIN_REJECTED';
 
+//#KASIR LOGIN
+export const KASIR_LOGIN_REQUESTED = 'KASIR_LOGIN_REQUESTED';
+export const KASIR_LOGIN_FULFILLED = 'KASIR_LOGIN_FULFILLED';
+export const KASIR_LOGIN_REJECTED = 'KASIR_LOGIN_REJECTED';
+
+
 /*
 //  ADMIN LOGIN
 //  Calls the API to get `accessToken` required to access the app.
@@ -106,4 +112,37 @@ export const customerLogin = (data) => {
     function loginRequest() { return { type: CUSTOMER_LOGIN_REQUESTED } }
     function loginSuccess(data) { return { type: CUSTOMER_LOGIN_FULFILLED, payload: data } }
     function loginError(data) { return { type: CUSTOMER_LOGIN_REJECTED, payload: data } }
+}
+
+
+/*
+//  KASIR LOGIN
+//  Calls the API to get `accessToken` required to access the app.
+*/
+export const kasirLogin = (data) => {   
+     
+    return async dispatch => { 
+
+        dispatch(loginRequest());
+        
+        return axios
+            .post(`${constant.API_PATH}user/authenticate`, {
+                username: data.username,
+                password: data.password
+            })
+            .then((response) => {
+                let result = response.data.result;
+                localStorage.setItem('accessToken', result.accessToken);
+                localStorage.setItem('userData', JSON.stringify(result));
+               
+                dispatch(loginSuccess(result));
+            })
+            .catch((error) => {
+                dispatch(loginError(error));
+            })
+    }
+
+    function loginRequest() { return { type: KASIR_LOGIN_REQUESTED } }
+    function loginSuccess(data) { return { type: KASIR_LOGIN_FULFILLED, payload: data } }
+    function loginError(data) { return { type: KASIR_LOGIN_REJECTED, payload: data } }
 }

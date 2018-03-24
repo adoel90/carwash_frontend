@@ -63,7 +63,8 @@ class StoreMenuContainer extends React.Component {
 			},
 			selectedMenuToPay:{},
 			storeActive: 0,
-			storeActiveList:{}
+			storeActiveList:{},
+			isToggleOn: [true,true,false,true,true]
 		}
 	}
 
@@ -209,6 +210,13 @@ class StoreMenuContainer extends React.Component {
 			}
 		}
 		toggleDialog(dialogData);
+
+		this.setState({
+			...this.state,
+			isModalOpen: {
+				paymentConfirmation: false
+			}
+		})
 	}
 
 
@@ -232,7 +240,9 @@ class StoreMenuContainer extends React.Component {
 	}
 
 	handleSelectMenu = (menu) => {
-		const { selectedMenuList } = this.state;
+
+		const { selectedMenuList} = this.state;
+
 		if(!menu.selected) {
 			menu.selected = true;
 			this.setState({
@@ -241,12 +251,13 @@ class StoreMenuContainer extends React.Component {
 			})
 		} else {
 			menu.selected = false;
-			// this.setState({
-			// 	...this.state,
-			// 	selectedMenuList: selectedMenuList.filter(item => item != menu)
-			// })
+			this.setState({
+				...this.state,
+				selectedMenuList: selectedMenuList.filter(item => item != menu)
+			})
 		}
 	}
+
 
 	handlePaymentConfirmation = () => {
 		this.calculateGrandTotalPrice();

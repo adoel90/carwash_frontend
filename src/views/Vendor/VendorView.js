@@ -15,8 +15,6 @@ import { VendorLogin, VendorPanel } from '../Vendor';
 
 class VendorView extends Component {
 
-
-
     render() {
         const {
             match,
@@ -26,6 +24,7 @@ class VendorView extends Component {
         } = this.props;
         
         return (
+            
             <Switch>
                 <PropsRoute
                     name="login"
@@ -38,7 +37,7 @@ class VendorView extends Component {
                     path={`${match.url}`}
                     component={VendorPanel}
                     isAuthenticated={isAuthenticated && authenticatedAs == 'vendor'}
-                    redirectTo={`${match.url}/login-vendor`}
+                    redirectTo={`${match.url}/login`}
                 />
             </Switch>
         );

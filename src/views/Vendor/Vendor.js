@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import { Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { VendorView } from '../Vendor';
 
 function mapStateToProps(state) {
@@ -18,6 +18,7 @@ class Vendor extends Component {
             isAuthenticated: localStorage.getItem('accessToken') ? true : false,
             authenticatedAs: localStorage.getItem('accessToken') ? 'vendor' : null,
             userData: localStorage.getItem('userData') ? JSON.parse(localStorage.getItem('userData')) : {}
+
         }
     }
 

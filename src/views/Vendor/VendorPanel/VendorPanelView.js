@@ -7,9 +7,7 @@ import { VendorSidebar, VendorPage } from '../VendorLayout';
 import { Layout } from '../../../layouts/Layout';
 
 const VendorPanelView = props => {
-    const {
-        routes,
-    } = props;
+ 
 
     return (
         <Layout>

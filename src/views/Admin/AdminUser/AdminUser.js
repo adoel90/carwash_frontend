@@ -1,38 +1,41 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { AdminUserView } from '../AdminUser';
-import { getUserList } from '../../../actions/user.action';
-
-function mapStateToProps(state) {
-    
-    return {
-        user: state.user
-    };
-}
-
-function mapDispatchToProps(dispatch) {
-    return {
-        getUserList: () => dispatch(getUserList())
-    }
-}
+import { getUserList, updateUser, changeStatusUser } from '../../../actions/user.action';
+import { getAccessList } from '../../../actions/access.action';
+import { openDialog, closeDialog } from '../../../actions/dialog.action';
+import { Dialog } from '../../../components/Dialog';
+import { Button } from '../../../components/Button';
 
 class AdminUser extends Component {
     
     constructor() {
         super();
         this.getUserList = this.getUserList.bind(this);
+        this.getAccessList = this.getAccessList.bind(this);
         this.toggleModal = this.toggleModal.bind(this);
+        this.renderDialog = this.renderDialog.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
         this.openUserDetail = this.openUserDetail.bind(this);
+        this.changeStatusUser = this.changeStatusUser.bind(this);
         this.updateUser = this.updateUser.bind(this);
         this.populateTableData = this.populateTableData.bind(this);
         this.state = {
             user: {},
             userList: {},
+            search: {
+                searchText: '',
+                searchBy: 'name'
+            },
             table: {
                 columns: [],
                 rows: [],
-                limit: 10
+                limit: 10,
+                searchParams: [
+					{ accessor: 'name', name: 'Nama User' },
+					{ accessor: 'email', name: 'Alamat Email' },
+				]
             },
             isModalOpen: {
                 updateUser: false
@@ -42,12 +45,17 @@ class AdminUser extends Component {
 
     componentDidMount = () => {
         this.getUserList();
+        this.getAccessList();
     }
 
     componentDidUpdate = (prevProps) => {
         const {
             user
         } = this.props;
+
+        const {
+            userList
+        } = this.state;
         
         if(prevProps.user.list !== user.list) {
             this.setState({
@@ -56,6 +64,34 @@ class AdminUser extends Component {
             }, () => {
                 this.populateTableData();
             });
+        }
+
+        if(prevProps.user.status !== user.status) {
+            if(user.status.isStatusChanging) {
+                userList.data.data.result.map((item) => {
+                    if(item.id === user.status.id) {
+                        item.statusChanging = true;
+                        this.forceUpdate();
+                    }
+                })
+            }
+
+            if(user.status.isStatusChanged) {
+                userList.data.data.result.forEach((item) => {
+                    if(item.id === user.status.id) {
+                        item.statusChanging = false;
+
+                        if(item.status) {
+                            item.status = false;
+                        }
+                        else {
+                            item.status = true;
+                        }
+
+                        this.forceUpdate();
+                    }
+                })
+            }
         }
     }
 
@@ -68,6 +104,40 @@ class AdminUser extends Component {
                 [name]: !isModalOpen[name]
             }
         })
+    }
+
+    toggleDialog = (data) => {
+        const {
+            dialog,
+            action
+        } = this.props;
+
+        if(!dialog.isOpened) {
+            action.openDialog(data);
+        } else {
+            action.closeDialog();
+        }
+    }
+
+    renderDialog = () => {
+        const {
+            dialog,
+            toggleDialog
+        } = this.props;
+        
+        return (
+            <Dialog
+                isOpen={dialog.isOpened}
+                toggle={toggleDialog}
+                type={dialog.data.type}
+                title={dialog.data.title}
+                message={dialog.data.message}
+                onConfirm={dialog.data.onConfirm}
+                confirmText={dialog.data.confirmText}
+                onClose={dialog.data.onClose}
+                closeText={dialog.data.closeText}
+            />
+        )
     }
 
     handleInputChange = (object, e) => {
@@ -93,17 +163,67 @@ class AdminUser extends Component {
         })
     }
 
-    updateUser = () => {
+    changeStatusUser = (row) => {
+        const {
+            action
+        } = this.props;
 
+        let requiredData = {
+            id: row.data.id
+        }
+
+        action.changeStatusUser(requiredData);
+    }
+
+    updateUser = (e) => {
+        const {
+            action
+        } = this.props;
+
+        let {
+            selectedUser
+        } = this.state;
+
+        e.preventDefault();
+
+        action.updateUser(selectedUser).then(() => {
+            const {
+                user
+            } = this.props;
+
+            if (user.updateUser.isUpdated) {
+                let dialogData = {
+                    type: 'success',
+                    title: 'Berhasil',
+                    message: 'User telah berhasil diubah. Klik tombol berikut untuk kembali.',
+                    onClose: () => window.location.reload(),
+                    closeText: 'Kembali'
+                }
+        
+                this.toggleDialog(dialogData);
+            }
+
+            if (user.updateUser.isError) {
+                let dialogData = {
+                    type: 'danger',
+                    title: 'Gagal',
+                    message: 'User gagal diubah. Klik tombol berikut untuk kembali.',
+                    onClose: () => this.toggleDialog(),
+                    closeText: 'Kembali'
+                }
+        
+                this.toggleDialog(dialogData);
+            }
+            // this.toggleModal('updateUser');
+            
+            // window.location.reload();
+        })
     }
 
     populateTableData = () => {
         const { userList } = this.state;
         
         const columns = [{
-            title: 'ID',
-            accessor: 'id'
-        }, {
             title: 'Nama User',
             accessor: 'name'
         }, {
@@ -111,13 +231,17 @@ class AdminUser extends Component {
             accessor: 'email'
         }, {
             title: 'Level Akses',
-            accessor: 'accessLevel'
+            accessor: 'accessLevel',
+            align: 'center'
         }, {
             title: 'Aksi',
             accessor: 'action',
+            width: '30%',
+            align: 'center',
             render: (row) => (
-                <td>
-                    <a href="#" onClick={() => this.openUserDetail(row)}>Ubah</a>
+                <td className="flex justify-content--center">
+                    <Button className="margin-right-small" type="button" onClick={() => this.openUserDetail(row)}>Ubah</Button>
+                    <Button type="button" theme={row.data.status ? "success" : "danger"} onClick={() => this.changeStatusUser(row)}>{ row.data.status ? 'Aktif' : 'Non Aktif' }</Button>
                 </td>
             )
         }]
@@ -153,18 +277,55 @@ class AdminUser extends Component {
             getUserList
         } = this.props;
 
-        getUserList();
+        let requiredData = {
+            access : null,
+            active : false
+      }
+
+        getUserList(requiredData);
+    }
+
+    getAccessList = () => {
+        const {
+            getAccessList
+        } = this.props;
+
+        let requiredData = {
+            active : true
+        }
+
+        getAccessList(requiredData);
     }
     
     render() {
         return (
-            <AdminUserView
-                {...this.state}
-                {...this.props}
-                handleInputChange={this.handleInputChange}
-                toggleModal={this.toggleModal}
-            />
+            <div>
+                <AdminUserView
+                    {...this.state}
+                    {...this.props}
+                    handleInputChange={this.handleInputChange}
+                    updateUser={this.updateUser}
+                    toggleModal={this.toggleModal}
+                />
+                {this.renderDialog()}
+            </div>
         )
+    }
+}
+
+function mapStateToProps(state) {
+    return {
+        user: state.user,
+        access: state.access,
+        dialog: state.dialog
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        getUserList: (requiredData) => dispatch(getUserList(requiredData)),
+        getAccessList: (data) => dispatch(getAccessList(data)),
+        action: bindActionCreators({ updateUser, changeStatusUser, openDialog, closeDialog }, dispatch)
     }
 }
 

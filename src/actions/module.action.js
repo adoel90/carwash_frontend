@@ -5,13 +5,15 @@ export const GET_ALL_MODULE_REQUESTED = 'GET_ALL_MODULE_REQUESTED';
 export const GET_ALL_MODULE_FULFILLED = 'GET_ALL_MODULE_FULFILLED';
 export const GET_ALL_MODULE_REJECTED = 'GET_ALL_MODULE_REJECTED';
 
-export const getAllModule = (accessToken) => {
+const accessToken = localStorage.getItem('accessToken') ? localStorage.getItem('accessToken') : null;
+
+export const getAllModule = () => {
     return async dispatch => {
         dispatch(handleRequest());
         return axios
             .get(`${constant.API_PATH}module?accessToken=${accessToken}`)
             .then((response) => {
-                dispatch(handleSuccess(response.data));      
+                dispatch(handleSuccess(response));      
             })
             .catch((error) => {
                 dispatch(handleError(error));

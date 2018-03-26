@@ -1,6 +1,6 @@
 import {
-	SHOW_DIALOG_FULFILLED,
-	HIDE_DIALOG_FULFILLED
+	OPEN_DIALOG_FULFILLED,
+	CLOSE_DIALOG_FULFILLED
 } from '../actions/dialog.action';
 
 const initialState = {
@@ -13,16 +13,16 @@ const initialState = {
 
 const dialog = (state = initialState, action) => {
 	switch(action.type) {
-		case 'SHOW_DIALOG_FULFILLED': {
+		case 'OPEN_DIALOG_FULFILLED': {
 			return {
 				...state,
 				isOpened: true,
 				isClosed: false,
-				data: action.payload
+				data: action.data
 			}
 		}
 
-		case 'HIDE_DIALOG_FULFILLED': {
+		case 'CLOSE_DIALOG_FULFILLED': {
 			return {
 				...state,
 				isOpened: false,

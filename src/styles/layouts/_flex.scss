@@ -10,7 +10,7 @@
 	@include flex-direction(row);
 }
 
-$flex-positions: flex-start center flex-end space-between;
+$flex-positions: flex-start center flex-end space-between space-around;
 @each $position in $flex-positions {
 	.justify-content--#{$position} {
 		@include justify-content($position);

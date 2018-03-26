@@ -1,26 +1,49 @@
 //VendorPanel.js
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
-import { VendorDashboard, VendorUser, VendorCreate   } from '../../Vendor';
+import { VendorDashboard, VendorMenu,VendorLogOut, VendorEmployee, VendorReport  } from '../../Vendor';
 import { VendorPanelView } from '../VendorPanel';
+import { getVendorDetail } from '../../../actions/vendor.action';
 
 
-class VendorPanel extends Component {    
+function mapStateToProps(state) {
+    
+    return {
+        vendorState : state.vendorState
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+
+    return {
+        getVendorState: () => dispatch(getVendorDetail())
+    }
+}
+
+class VendorPanel extends Component {   
+
     constructor(props) {
         super(props);
+
+        this.getVendorDetail = this.getVendorDetail.bind(this);        
+
         this.state = {
-            
+            vendor : {},
+            vendorList :{},
+
             routes: [
                 
                 { id: 1, name: 'dashboard', path: `${props.match.url}`, component: VendorDashboard },
-                { id: 2, name: 'list-vendor', path: `${props.match.url}/list-vendor`, component: VendorUser },
-                { id: 3, name: 'create-vendor', path: `${props.match.url}/vendor/create-vendor`, component: VendorCreate },
+                { id: 2, name: 'list-menu', path: `${props.match.url}/list-menu`, component: VendorMenu },
+                { id: 3, name: 'log-out', path: `${props.match.url}/vendor/log-out`, component: VendorLogOut },
+                { id: 4, name: 'employee-management', path: `${props.match.url}/vendor/employee`, component: VendorEmployee },
+                { id: 5, name: 'report', path: `${props.match.url}/vendor/report`, component: VendorReport }
 
             ],
             menus: [
                 { 
                     category: 'Vendor Name Selected',
+
                     items: [
                         { id: 1, name: 'Dasbor', path: `${props.match.url}` },
                     ]
@@ -28,15 +51,62 @@ class VendorPanel extends Component {
                 {
                     category: 'Manajemen Menu',
                     items: [
-                        { id: 1, name: 'Daftar Menu', path: `${props.match.url}/list-vendor` },
-                        { id: 2, name: 'Buat Vendor', path: `${props.match.url}/vendor/create-vendor` },
-
-                        
+                        { id: 1, name: 'Daftar Menu', path: `${props.match.url}/list-menu` },
+                        { id: 2, name: 'Akun Saya', path: `${props.match.url}/vendor/log-out` },
+                        { id: 3, name: 'Employee Management', path: `${props.match.url}/vendor/employee` },
+                        { id: 3, name: 'Report', path: `${props.match.url}/vendor/report` }
                     ]
                 }
             ]
         }
     }
+
+    componentDidMount = () => {
+
+        this.getVendorDetail();
+    }
+
+    getVendorDetail = () => {
+
+        // console.log(this.props);
+        const { getVendorState } = this.props;
+
+        getVendorState();
+    }
+
+
+    componentDidUpdate = (prevProps) => {
+        const { vendorState } = this.props;
+
+        if(prevProps.vendorState.list !== vendorState.list) {
+            // let menus = {
+            //     category: vendorState.list.isLoaded ? vendorState.list.data.data.result.name : null,
+            //     items: [
+            //         { id: 1, name: 'Dasbor', path: `${this.props.match.url}` },
+            //     ]
+
+            // }
+
+            // this.setState({
+            //     ...this.state,
+            //     vendorList: vendorState.list,
+            //     menus: [
+            //         menus,
+            //         ...this.state.menus
+            //     ]
+                
+            // });
+             this.setState({
+                ...this.state,
+                vendorList: vendorState.list
+                
+            });
+        }
+        // console.log(this.props.data.data.result.name);
+        // console.log(vendorState.list.data.data);
+        // console.log(this.state.menus[0]);
+    }
+
     render() {
         return (
             <VendorPanelView
@@ -47,4 +117,9 @@ class VendorPanel extends Component {
     }
 }
 
-export default VendorPanel;
+// export default VendorPanel;
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(VendorPanel);

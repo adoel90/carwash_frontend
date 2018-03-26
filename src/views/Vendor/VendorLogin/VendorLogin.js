@@ -20,9 +20,10 @@ class VendorLogin extends Component {
 
     constructor() {
         super();
-        // this.onLoginSubmit = this.onLoginSubmit.bind(this);
-        // this.handleInputChange = this.handleInputChange.bind(this);
-        // this.handleAuthentication = this.handleAuthentication.bind(this);
+        this.onLoginSubmit = this.onLoginSubmit.bind(this);
+        this.handleInputChange = this.handleInputChange.bind(this);
+        
+        this.handleAuthentication = this.handleAuthentication.bind(this);
         this.state = {
             credentials: {
                 username: '',
@@ -67,11 +68,14 @@ class VendorLogin extends Component {
             username: credentials.username,
             password: credentials.password
         }
+
+        // console.log(requiredData);
         
         vendorLogin(requiredData);
     }
     
     render() {
+        
         return (
             <VendorLoginView 
                 {...this.props} 
@@ -82,8 +86,6 @@ class VendorLogin extends Component {
         )
     }
 }
-
-//export default VendorLogin;
 
 export default connect(
     mapStateToProps,

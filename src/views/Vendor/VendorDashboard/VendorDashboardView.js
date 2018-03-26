@@ -4,6 +4,7 @@ import { Section } from '../../../layouts/Section';
 import { Panel } from '../../../components/Panel';
 
 const VendorDashboardView = props => {
+
     return (
         <div className="admin-dashboard">
             <Section>

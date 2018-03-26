@@ -13,9 +13,7 @@ const Table = props => {
     } = props;
 
     const classes = {
-        table: classNames(
-            `table`,
-            theme ? `table--${theme}` : null,
+        table: classNames(`table`, theme ? `table--${theme}` : null,
             size ? `table--${size}` : null,
             fullWidth ? `table--full-width` : null,
             striped ? `table--striped` : null,

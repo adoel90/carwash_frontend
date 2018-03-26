@@ -5,7 +5,7 @@
 @import url(https://fonts.googleapis.com/css?family=Hind+Siliguri:300,400,500,600,700);
 // @import url(https://fonts.googleapis.com/css?family=Assistant:300,400,600,700);
 @import url(https://fonts.googleapis.com/css?family=PT+Serif:400,700);
-@import url(https://use.fontawesome.com/releases/v5.0.6/css/all.css);
+@import url(https://use.fontawesome.com/releases/v5.0.8/css/all.css);
 // @import url(http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css);
 
 //--------------------------------------------------------------------------------------------------------
@@ -28,8 +28,12 @@ $font-family-code			: $font-family-monospace !default;
 
 $font-size-base		: 1rem;
 $font-sizes    		: (
+	extra-largest	: ceil(($font-size-base * 5.00)),
+	extra-xxx-large	: ceil(($font-size-base * 4.00)),
+	extra-xx-large	: ceil(($font-size-base * 3.00)),
+	extra-x-large	: ceil(($font-size-base * 2.00)),
 	extra-large		: ceil(($font-size-base * 1.75)),
-    large			: ceil(($font-size-base * 1.25)),
+    	large			: ceil(($font-size-base * 1.25)),
 	base			: $font-size-base,
 	small			: ceil(($font-size-base * 0.85)),
 	extra-small		: ceil(($font-size-base * 0.75))

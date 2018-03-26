@@ -109,22 +109,7 @@ export const getVendorDetail = (data) => {
 	return {
 		type: null
 	}
-	// return async dispatch => {
-	// 	dispatch(fetchRequest());
-	// 	return axios
-    //         // .get(`${constant.API_PATH}vendor/employee/detail?accessToken=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MywibmFtZSI6IkFuZHJlIFJpemtpYW5hIFdhbmRpcmEiLCJ1c2VybmFtZSI6ImFuZHJlcnciLCJlbWFpbCI6ImFuZHJlci5yaXpraWFuYS53QGdtYWlsLmNvbSIsInZlbmRvciI6MjksImFjY2VzcyI6eyJjb2RlIjowLCJuYW1lIjoiQWRtaW4ifSwic3RhdHVzIjp0cnVlfQ.9tgN_WWjZ-uUJOLvH-Enu5muz_kUDFgV58WhcRjUv58&id=3`)
-    //         .get(`${constant.API_PATH}vendor/employee/detail?accessToken=${accessToken}&id=${dataVendorLoginNow.id}`)
-	// 		.then((response) => {
-	// 			dispatch(fetchSuccess(response));			
-	// 		})
-	// 		.catch((error) => {
-	// 			dispatch(fetchError(error));
-	// 		})
-	// }
 
-	// function fetchRequest() { return { type: GET_VENDOR_DETAIL_REQUESTED } }
-	// function fetchSuccess(data) { return { type: GET_VENDOR_DETAIL_FULFILLED, payload: data } }
-	// function fetchError(data) { return { type: GET_VENDOR_DETAIL_REJECTED, payload: data } }
 }
 
 //GET LIST MENU VENDOR || GET STORE LIST

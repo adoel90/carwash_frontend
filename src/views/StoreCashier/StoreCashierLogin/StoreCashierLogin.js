@@ -26,7 +26,7 @@ class StoreCashierLogin extends Component {
         this.handleAuthentication = this.handleAuthentication.bind(this);
 
         this.state = {
-            
+
             credentials: {
                 username: '',
                 password: ''
@@ -59,7 +59,6 @@ class StoreCashierLogin extends Component {
 
     handleAuthentication = (e) => {
         const { credentials } = this.state;
-
         const { kasirLoginDispatch } = this.props;
         
         const requiredData = {

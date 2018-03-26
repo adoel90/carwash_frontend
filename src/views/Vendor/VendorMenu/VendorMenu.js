@@ -172,28 +172,6 @@ class VendorMenu extends Component {
             }
         ]
 
-        // const rows = []; 
-
-        // if(storeMenuList.isLoaded) {
-
-        //     storeMenuList.data.data.result.store.map((menu, i)=>{
-
-        //         let row = {
-        //             id:menu.id,
-        //             name: menu.name,
-        //             description: menu.description,
-        //             price: menu.price,
-        //             data: menu
-        //         }
-
-        //         rows.push(row);
-        //     })
-
-        //     console.log("Populate");
-        // };
-
-        // console.log(storeMenuList);
-
         const rows = [];
         storeMenuList.map((menu, i)=> {
             let row = {

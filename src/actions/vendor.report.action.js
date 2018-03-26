@@ -12,13 +12,12 @@ const dataVendorLoginNow = JSON.parse(userLoginNow);
 
 //Get List Report Vendor
 export const getStoreReportList = (data) => {
-
 	return async dispatch => {
 
 		dispatch(fetchRequest());
 		return axios
 		
-			.get(`${constant.API_PATH}store/report?accessToken=${accessToken}&type=${data.type}&start_date=${data.start_date}&end_date=${data.end_date}&store=`)
+			.get(`${constant.API_PATH}store/report?accessToken=${accessToken}&type=${data.type}&start_date=${data.start_date}&end_date=${data.end_date}&store=${data.storeid.id}`)
 			.then((response) => {
 				dispatch(fetchSuccess(response));
 				// console.log(response);

@@ -17,12 +17,14 @@ class AdminView extends Component {
         return (
 
             <Switch>
+                
                 <PropsRoute
                     name="login"
                     path={`${match.url}/login`}
                     component={AdminLogin}
                     handleRedirect={this.props.handleRedirect}
                 />
+
                 <PrivateRoute
                     name="panel"
                     path={`${match.url}`}

@@ -187,8 +187,14 @@ class AdminStore extends Component {
             } = this.state;
     
             e.preventDefault();
+
+            let requiredData = {
+                  id : selectedStore.id,
+                  name : selectedStore.name,
+                  category : selectedStore.type.id ? parseInt(selectedStore.type.id) : parseInt(selectedStore.type)
+            }
     
-            action.updateStore(selectedStore).then(() => {
+            action.updateStore(requiredData).then(() => {
                   const {
                         store
                   } = this.props;

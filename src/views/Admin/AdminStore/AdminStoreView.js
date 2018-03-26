@@ -44,7 +44,7 @@ const AdminStoreView = props => {
                                         </InputGroup>
                                     </FormField>
                                     <FormField label="Status">
-                                        <Select name="category" defaultValue={selectedStore.type.id} onChange={(e) => handleInputChange('selectedStore', e) }>
+                                        <Select name="type" defaultValue={selectedStore.type.id} onChange={(e) => handleInputChange('selectedStore', e) }>
                                             {
                                                 store.category.isLoaded ? store.category.data.data.result.map((item, i) => {
                                                     return <option value={item.id}>{item.name}</option>

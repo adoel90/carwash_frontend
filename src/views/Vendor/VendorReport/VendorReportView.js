@@ -4,12 +4,17 @@ import { Section } from '../../../layouts/Section';
 import { Panel, PanelHeader, PanelBody } from '../../../components/Panel';
 
 import {
-	Container, Row, Col,
-	Card, CardBody, CardTitle, CardText, CardSubtitle, CardDeck, CardFooter,
-	Form, FormGroup, Input, InputGroup, InputGroupAddon, Button,
-	Table
+	
+	Card, CardBody, CardTitle, CardText, CardSubtitle, CardDeck, 
+	
 } from 'reactstrap';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,LineChart, Line } from 'recharts';
+import { Column, Row} from '../../../layouts/Grid';
+import { Form, FormField, FormGroup } from '../../../layouts/Form';
+import { Button } from '../../../components/Button';
+import { ButtonDewek } from '../../../components/ButtonDewek';
+import { Input, InputGroup, InputAddon, Switch, Select } from '../../../components/Input';
+
 import NumberFormat from 'react-number-format';
 
 import DatePicker from 'react-datepicker';
@@ -41,38 +46,61 @@ const VendorDashboardView = props => {
 
                     <PanelBody>
                         <Form inline>
-                            <p className="font-weight-bold pr-4">Period Range</p>
-                            <FormGroup>
-                                <DatePicker
-                                    className="form-control"
-                                    dateFormat="DD MMM YYYY"
-                                    textPlaceholder="Start Date"
-                                    selected={period.from}
-                                    onChange={(date) => handlePeriodChange('from', date)}
-                                />
-                            </FormGroup>
-                            <p className="px-2">to</p>
-                            <FormGroup>
-                                <DatePicker
-                                    className="form-control"
-                                    dateFormat="DD MMM YYYY"
-                                    textPlaceholder="End Date"
-                                    minDate={period.from}
-                                    selected={period.to}
-                                    onChange={(date) => handlePeriodChange('to', date)}
-                                />
-                            </FormGroup>
-                            <FormGroup>
-                                <Button
-                                    className="btn-sky-blue btn-size ml-3"
-                                    color="info"
-                                    onClick={handleShow}
-                                >
-                                    Show
-                                </Button>
-                            </FormGroup>
 
+                            <Row>
+                                <Column md={4}>
+                                   
+                                    <FormField>
+                                        <InputGroup>
+                                            <InputAddon>
+                                                <h6 className="font-weight-bold pr-4"><i className="fas fa-calendar-alt"></i> Jangka periode dari</h6>
+                                            </InputAddon>
+                                        </InputGroup>
+                                        <DatePicker
+                                                className="form-control"
+                                                dateFormat="DD MMM YYYY"
+                                                textPlaceholder="Start Date"
+                                                selected={period.from}
+                                                onChange={(date) => handlePeriodChange('from', date)}
+                                            />
+                                    </FormField>
+                                </Column>
+
+                                <Column md={4}>
+                                   
+                                    <FormField>
+                                        <InputGroup>
+                                            <InputAddon>
+                                            <h6 className="px-2"><i className="fas fa-calendar-alt"></i> Sampai</h6>
+                                            </InputAddon>
+                                        </InputGroup>
+                                        <DatePicker
+                                                className="form-control"
+                                                dateFormat="DD MMM YYYY"
+                                                textPlaceholder="End Date"
+                                                minDate={period.from}
+                                                selected={period.to}
+                                                onChange={(date) => handlePeriodChange('to', date)}
+                                            />
+                                    </FormField>
+                                </Column>
+
+                                <Column md={2}> 
+                                    <FormField>
+                                        <ButtonDewek
+                                            variant="raised"
+                                            className="btn-sky-blue btn-size ml-3"
+                                            color="info"
+                                            onClick={handleShow}
+                                        >
+                                            Lihat
+                                        </ButtonDewek>
+                                    </FormField>
+                                </Column>
+                                <Column md={2}></Column>
+                            </Row>
                         </Form>
+                        <br />
 			
                         <CardDeck className="mt-4">
                             {/* { dashboard.summary.isLoaded ? this.renderSummaryCards() : null } */}

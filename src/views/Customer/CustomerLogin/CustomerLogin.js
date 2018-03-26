@@ -67,11 +67,11 @@ class CustomerLogin extends Component {
         return (
 
 			<CustomerLoginView 
-
+				{...this.state} 
+				{...this.props} 
 				handleInputChange = {this.handleInputChange}
 				handleAuthentication = {this.handleAuthentication}
-				{...this.state} 
-				{...this.props} />		
+				/>		
 		)
     }
 }

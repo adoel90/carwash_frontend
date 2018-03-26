@@ -99,31 +99,14 @@ class VendorReport extends Component {
                         storeid : storeState.store.data.data.result.store[storeActive]
                     }
                     getStoreReportDispatch(requiredDataMonth);
-                    // console.log(this.state);
-                    
-                })
-
-                
+                }) 
             }
-           
         }
     }
 
     //#
     getStoreReportList = () => {
-
-        // const { getStoreReportDispatch } = this.props;
-        // const {period, requiredData, storeList, storeActive} = this.state;
-
-    
-        // let requiredDataMonth = {
-        //     type: 'month',
-        //     start_date: period.from.format('YYYY-MM-DD'),
-        //     end_date: period.to.format('YYYY-MM-DD'),
-        //     // storeId : storeList.result.store[storeActive]
-        //  }
-
-        // getStoreReportDispatch(requiredDataMonth);
+        /* Only declare this function so that NOT ERROR */
     }
 
     //#Get Store List
@@ -170,26 +153,17 @@ class VendorReport extends Component {
     //#
     handleShow = () => {
 
-        const {period,storeReportMonth, storeActive} = this.state;
+        const {period,storeReportMonth, storeActive, storeList} = this.state;
         const { getStoreReportDispatch, vendorState } = this.props;
 
-        const dataStoresId = [];
-
-        vendorState.store.data.data.result.store.map((data)=>{
-
-            let dataStoreId = {
-                id: data.id
-            }
-
-            dataStoresId.push(dataStoreId);
-        })
-        
         const requiredDataMonth = {
             type: 'month',
             start_date: period.from.format('YYYY-MM-DD'),
-            end_date: period.to.format('YYYY-MM-DD')
+            end_date: period.to.format('YYYY-MM-DD'),
+            storeid: storeList.result.store[storeActive]
         }
 
+        
         // FIRE dispatch in here !!!
         getStoreReportDispatch(requiredDataMonth).then(()=> {
             console.log("Get report ");

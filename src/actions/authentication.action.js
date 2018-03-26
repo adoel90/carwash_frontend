@@ -22,6 +22,9 @@ export const KASIR_LOGIN_FULFILLED = 'KASIR_LOGIN_FULFILLED';
 export const KASIR_LOGIN_REJECTED = 'KASIR_LOGIN_REJECTED';
 
 
+
+
+
 /*
 //  ADMIN LOGIN
 //  Calls the API to get `accessToken` required to access the app.

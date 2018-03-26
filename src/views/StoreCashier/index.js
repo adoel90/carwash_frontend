@@ -4,3 +4,4 @@ export * from './StoreCashierDashboard';
 export * from './StoreCashierLogin';
 export * from './StoreCashierPanel';
 export * from './StoreCashierLayout';
+export * from './StoreCashierTopUp';

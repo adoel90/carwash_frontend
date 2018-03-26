@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { StoreCashierDashboard } from '../../StoreCashier';
+import { StoreCashierDashboard, StoreCashierTopUp } from '../../StoreCashier';
 
 import { StoreCashierPanelView } from '../StoreCashierPanel';
 
@@ -12,7 +12,8 @@ class StoreCashierPanel extends Component {
         super(props);     
         this.state = {
             routes: [
-                        { id: 1, name: 'dashboard', path: `${props.match.url}`, component: StoreCashierDashboard }
+                        { id: 1, name: 'dashboard', path: `${props.match.url}`, component: StoreCashierDashboard },
+                        { id : 2, name: 'topup', path: `${props.match.url}/topup-saldo`, component: StoreCashierTopUp }
                         
             ],
             menus: [
@@ -26,7 +27,8 @@ class StoreCashierPanel extends Component {
                     {
                         category: '',
                         items: [
-                            { id: 1, name: 'Laporan Keuangan', path: `${props.match.url}/laporan` }
+                            { id: 1, name: 'Isi Ulang Saldo', path: `${props.match.url}/topup-saldo` },
+                    
                         ]
                     }
             ]

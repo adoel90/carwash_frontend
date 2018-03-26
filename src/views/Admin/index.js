@@ -10,3 +10,4 @@ export * from './AdminMember';
 export * from './AdminCard';
 export * from './AdminAccess';
 export * from './AdminStore';
+export * from './AdminReport';

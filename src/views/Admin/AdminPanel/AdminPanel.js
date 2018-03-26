@@ -14,7 +14,8 @@ import {
     AdminAccess,
     AdminAccessCreate,
     AdminStore,
-    AdminStoreCreate
+    AdminStoreCreate,
+    AdminReport
 } from '../../Admin';
 
 import { AdminPanelView } from '../AdminPanel';
@@ -37,7 +38,8 @@ class AdminPanel extends Component {
                 { name: 'access', path: `${props.match.url}/access`, component: AdminAccess },
                 { name: 'create-new-access', path: `${props.match.url}/create-new-access`, component: AdminAccessCreate },
                 { name: 'store', path: `${props.match.url}/store`, component: AdminStore },
-                { name: 'create-new-store', path: `${props.match.url}/create-new-store`, component: AdminStoreCreate }
+                { name: 'create-new-store', path: `${props.match.url}/create-new-store`, component: AdminStoreCreate },
+                { name: 'report', path: `${props.match.url}/report`, component: AdminReport },
 
             ],
             menus: [
@@ -93,6 +95,12 @@ class AdminPanel extends Component {
 
                         { name: 'Daftar Akses', path: `${props.match.url}/access` },
                         { name: 'Buat Akses Baru', path: `${props.match.url}/create-new-access` }
+                    ]
+                },
+                {
+                    category: 'Report',
+                    items: [
+                        { name: 'Report', path: `${props.match.url}/report` }
                     ]
                 }
             ]

@@ -4,7 +4,8 @@ import {
     ADMIN_LOGIN_REJECTED,
     VENDOR_LOGIN_REQUESTED,
     VENDOR_LOGIN_FULFILLED,
-    VENDOR_LOGIN_REJECTED
+    VENDOR_LOGIN_REJECTED,
+    LOGOUT_FULFILLED
 } from '../actions/authentication.action';
 
 const initialState = {
@@ -81,6 +82,17 @@ const authentication = (state = initialState, action) => {
                 userData: {},
                 isError: true,
                 error: action.payload
+            }
+        }
+
+        case LOGOUT_FULFILLED: {
+            return {
+                ...state,
+                isAuthenticating: false,
+                isAuthenticated: false,
+                userData: {},
+                isError: false,
+                error: {}
             }
         }
 

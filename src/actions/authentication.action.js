@@ -9,6 +9,8 @@ export const VENDOR_LOGIN_REQUESTED = 'VENDOR_LOGIN_REQUESTED';
 export const VENDOR_LOGIN_FULFILLED = 'VENDOR_LOGIN_FULFILLED';
 export const VENDOR_LOGIN_REJECTED = 'VENDOR_LOGIN_REJECTED';
 
+export const LOGOUT_FULFILLED = 'LOGOUT_FULFILLED';
+
 /*
 //  ADMIN LOGIN
 //  Calls the API to get `accessToken` required to access the app.
@@ -29,6 +31,8 @@ export const adminLogin = (data) => {
                 localStorage.setItem('accessToken', result.accessToken);
                 localStorage.setItem('userData', JSON.stringify(result.data));
                 dispatch(loginSuccess(result));
+
+                window.location.reload();
             })
             .catch((error) => {
                 dispatch(loginError(error));
@@ -68,4 +72,21 @@ export const vendorLogin = (data) => {
     function loginRequest() { return { type: VENDOR_LOGIN_REQUESTED } }
     function loginSuccess(data) { return { type: VENDOR_LOGIN_FULFILLED, payload: data } }
     function loginError(data) { return { type: VENDOR_LOGIN_REJECTED, payload: data } }
+}
+
+export const logout = () => {
+	return async (dispatch) => {
+		return Promise.resolve(dispatch(handleLogout()))
+			.then(() => {
+				localStorage.removeItem('accessToken');
+				localStorage.removeItem('user');
+				localStorage.removeItem('member');
+			})
+	}
+
+	function handleLogout() {
+		return {
+			type: LOGOUT_FULFILLED
+		}
+	}
 }

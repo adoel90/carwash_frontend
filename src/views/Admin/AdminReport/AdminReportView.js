@@ -9,14 +9,17 @@ import { TableSet } from '../../../components/Table';
 import { Button } from '../../../components/Button';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from '../../../components/Modal';
 
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+
 const AdminReportView = props => {
     const {
-        isModalOpen,
         table,
+        report,
         reportList,
-        handleInputChange,
         showDate,
-        reportDate
+        period,
+        handlePeriodChange
     } = props;
 
     return (
@@ -36,7 +39,13 @@ const AdminReportView = props => {
                                             <InputAddon>
                                                 <i className="fas fa-calendar-alt"></i>
                                             </InputAddon>
-                                            <Input type="text" name="start_date" placeholder={reportDate.start_date} defaultValue={reportDate.start_date} onChange={(e) => handleInputChange('reportDate', e)} />
+                                            <DatePicker
+                                                className="input"
+                                                dateFormat="DD MMM YYYY"
+                                                textPlaceholder="Start Date"
+                                                selected={period.from}
+                                                onChange={(date) => handlePeriodChange('from', date)}
+                                            />
                                         </InputGroup>
                                     </FormField>
                                 </div>
@@ -46,15 +55,21 @@ const AdminReportView = props => {
                                             <InputAddon>
                                                 <i className="fas fa-calendar-alt"></i>
                                             </InputAddon>
-                                            <Input type="text" name="end_date" defaultValue={reportDate.end_date} placeholder={reportDate.end_date} onChange={(e) => handleInputChange('reportDate', e)} />
+                                            <DatePicker
+                                                className="input"
+                                                dateFormat="DD MMM YYYY"
+                                                textPlaceholder="End Date"
+                                                minDate={period.from}
+                                                selected={period.to}
+                                                onChange={(date) => handlePeriodChange('to', date)}
+                                            />
                                         </InputGroup>
                                     </FormField>
                                 </div>
                                 <div>
                                     <FormField>
                                         <Button type="submit" style={{height: '50px'}}>
-                                            <i className="fas fa-search"></i> 
-                                            <span> Cari</span>
+                                            Cari
                                         </Button>
                                     </FormField>
                                 </div>
@@ -64,8 +79,8 @@ const AdminReportView = props => {
 
                     <div className="admin-report__content">
                         <TableSet
-                            loading={reportList.isFetching}
-                            loaded={reportList.isLoaded}
+                            loading={report.member.isFetching}
+                            loaded={report.member.isLoaded}
                             columns={table.columns}
                             rows={table.rows}
                             striped 

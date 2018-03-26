@@ -186,38 +186,60 @@ class AdminUser extends Component {
 
         e.preventDefault();
 
-        action.updateUser(selectedUser).then(() => {
-            const {
-                user
-            } = this.props;
+        // console.log(selectedUser.level.id ? parseInt(selectedUser.level.id) : parseInt(selectedUser.level));
 
-            if (user.updateUser.isUpdated) {
-                let dialogData = {
-                    type: 'success',
-                    title: 'Berhasil',
-                    message: 'User telah berhasil diubah. Klik tombol berikut untuk kembali.',
-                    onClose: () => window.location.reload(),
-                    closeText: 'Kembali'
-                }
-        
-                this.toggleDialog(dialogData);
-            }
-
-            if (user.updateUser.isError) {
-                let dialogData = {
-                    type: 'danger',
-                    title: 'Gagal',
-                    message: 'User gagal diubah. Klik tombol berikut untuk kembali.',
-                    onClose: () => this.toggleDialog(),
-                    closeText: 'Kembali'
-                }
-        
-                this.toggleDialog(dialogData);
-            }
-            // this.toggleModal('updateUser');
+        if ((selectedUser.password === selectedUser.confirmPassword) || (selectedUser.password === null && selectedUser.confirmPassword === null)) {
             
-            // window.location.reload();
-        })
+            let requiredData = {
+                id : selectedUser.id,
+                name : selectedUser.name,
+                email : selectedUser.email,
+                username : selectedUser.username,
+                password : selectedUser.password,
+                level : selectedUser.level.id ? parseInt(selectedUser.level.id) : parseInt(selectedUser.level)
+            }
+    
+            action.updateUser(requiredData).then(() => {
+                const {
+                    user
+                } = this.props;
+
+                if (user.updateUser.isUpdated) {
+                    let dialogData = {
+                        type: 'success',
+                        title: 'Berhasil',
+                        message: 'User telah berhasil diubah. Klik tombol berikut untuk kembali.',
+                        onClose: () => window.location.reload(),
+                        closeText: 'Kembali'
+                    }
+            
+                    this.toggleDialog(dialogData);
+                }
+
+                if (user.updateUser.isError) {
+                    let dialogData = {
+                        type: 'danger',
+                        title: 'Gagal',
+                        message: 'User gagal diubah. Klik tombol berikut untuk kembali.',
+                        onClose: () => this.toggleDialog(),
+                        closeText: 'Kembali'
+                    }
+            
+                    this.toggleDialog(dialogData);
+                }
+            });
+
+        } else {
+            let dialogData = {
+                type: 'danger',
+                title: 'Gagal',
+                message: 'Kata sandi tidak cocok. Silahkan coba lagi.',
+                onClose: () => this.toggleDialog(),
+                closeText: 'Kembali'
+            }
+    
+            this.toggleDialog(dialogData);
+        }
     }
 
     populateTableData = () => {

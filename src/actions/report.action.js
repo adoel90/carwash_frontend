@@ -12,6 +12,10 @@ export const GET_REPORT_MEMBER_LIST_REQUESTED = 'GET_REPORT_MEMBER_LIST_REQUESTE
 export const GET_REPORT_MEMBER_LIST_FULFILLED = 'GET_REPORT_MEMBER_LIST_FULFILLED';
 export const GET_REPORT_MEMBER_LIST_REJECTED = 'GET_REPORT_MEMBER_LIST_REJECTED';
 
+export const GET_REPORT_MEMBER_GRAPH_REQUESTED = 'GET_REPORT_MEMBER_GRAPH_REQUESTED';
+export const GET_REPORT_MEMBER_GRAPH_FULFILLED = 'GET_REPORT_MEMBER_GRAPH_FULFILLED';
+export const GET_REPORT_MEMBER_GRAPH_REJECTED = 'GET_REPORT_MEMBER_GRAPH_REJECTED';
+
 const accessToken = localStorage.getItem('accessToken') ? localStorage.getItem('accessToken') : null;
 
 export const getSalesReport = (data, accessToken) => {
@@ -83,4 +87,22 @@ export const getReportMemberList = (data) => {
 	function fetchRequest() { return { type: GET_REPORT_MEMBER_LIST_REQUESTED } }
 	function fetchSuccess(data) { return { type: GET_REPORT_MEMBER_LIST_FULFILLED, payload: data } }
 	function fetchError(data) { return { type: GET_REPORT_MEMBER_LIST_REJECTED, payload: data } }
+}
+
+export const getReportMemberGraph = (data) => {
+	return async dispatch => {
+		dispatch(fetchRequest());
+		return axios
+			.get(`${constant.API_PATH}report/member/graph?accessToken=${accessToken}&type=${data.type}&start_date=${data.start_date}&end_date=${data.end_date}`)
+			.then((response) => {
+				dispatch(fetchSuccess(response.data));
+			})
+			.catch((error) => {
+				dispatch(fetchSuccess(error));
+			})
+	}
+
+	function fetchRequest() { return { type: GET_REPORT_MEMBER_GRAPH_REQUESTED } }
+	function fetchSuccess(data) { return { type: GET_REPORT_MEMBER_GRAPH_FULFILLED, payload: data } }
+	function fetchError(data) { return { type: GET_REPORT_MEMBER_GRAPH_REJECTED, payload: data } }
 }

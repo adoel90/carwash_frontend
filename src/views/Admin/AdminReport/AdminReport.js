@@ -5,13 +5,15 @@ import { getReportMemberList } from '../../../actions/report.action';
 import { Button } from '../../../components/Button';
 import { AdminReportView } from '../AdminReport';
 
+import moment from 'moment';
+
 class AdminReport extends Component {
     constructor() {
         super();
         this.getReportMemberList = this.getReportMemberList.bind(this);
-        this.handleInputChange = this.handleInputChange.bind(this);
         this.populateTableData = this.populateTableData.bind(this);
         this.showDate = this.showDate.bind(this);
+        this.handlePeriodChange = this.handlePeriodChange.bind(this);
         this.state = {
             report: {},
             reportList: {},
@@ -20,9 +22,9 @@ class AdminReport extends Component {
                 rows: [],
                 limit: 10
             },
-            reportDate: {
-                start_date : '2017-12-01',
-                end_date : '2018-04-01'
+            period: {
+                from: moment().add(-1, 'month'),
+        		to: moment()
             }
         }
     }
@@ -41,27 +43,17 @@ class AdminReport extends Component {
         } = this.state;
         
         if(prevProps.report.member !== report.member) {
-            this.setState({
-                ...this.state,
-                reportList: report.member
-            }, () => {
-                this.populateTableData();
-            });
+            this.populateTableData();
         }
     }
 
-    handleInputChange = (object, e) => {
-        const target = e.target;
-        const name = target.name;
-        const value = target.value;
+    handlePeriodChange = (type, date) => {
+    	const {
+    		period
+    	} = this.state;
 
-        this.setState({
-            ...this.state,
-            [object]: {
-                ...this.state[object],
-                [name]: value
-            }
-        });
+    	period[type] = date;
+    	this.forceUpdate();
     }
 
     showDate = (e) => {
@@ -70,16 +62,23 @@ class AdminReport extends Component {
         } = this.props;
 
         let {
-            selectedReport
+            period
         } = this.state;
 
         e.preventDefault();
 
-        console.log(selectedReport)
+        let requiredData = {
+            start_date : moment(period.from).format('YYYY-MM-DD'),
+            end_date : moment(period.to).format('YYYY-MM-DD')
+        }
+
+        action.getReportMemberList(requiredData);
     }
 
     populateTableData = () => {
-        const { reportList } = this.state;
+        const {
+            report
+        } = this.props;
         
         const columns = [{
             title: 'Nama Member',
@@ -95,8 +94,8 @@ class AdminReport extends Component {
 
         const rows = [] 
         
-        if(reportList.isLoaded) {
-            reportList.data.result.report.forEach((item, i) => {
+        if(report.member.isLoaded) {
+            report.member.data.result.report.forEach((item, i) => {
                 let row = {
                     id: item.id,
                     name: item.name,
@@ -121,22 +120,27 @@ class AdminReport extends Component {
 
     getReportMemberList = () => {
         const {
-            getReportMemberList
+            action
         } = this.props;
 
+        let {
+            period
+        } = this.state;
+
         let requiredData = {
-            start_date : '2017-12-01',
-            end_date : '2018-04-01'
+            start_date : moment(period.from).format('YYYY-MM-DD'),
+            end_date : moment(period.to).format('YYYY-MM-DD')
         }
 
-        getReportMemberList(requiredData);
+        action.getReportMemberList(requiredData);
     }
 
     render() {
         return <AdminReportView
                     {...this.state}
                     {...this.props}
-                    handleInputChange={this.handleInputChange}
+                    showDate={this.showDate}
+                    handlePeriodChange={this.handlePeriodChange}
                 />;
     }
 }
@@ -149,7 +153,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getReportMemberList: (data) => dispatch(getReportMemberList(data))
+        action: bindActionCreators({ getReportMemberList }, dispatch)
     }
 }
 

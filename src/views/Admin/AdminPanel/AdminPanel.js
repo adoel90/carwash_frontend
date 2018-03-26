@@ -48,7 +48,7 @@ class AdminPanel extends Component {
                 { 
                     category: <img src={require('../../../assets/images/805carwash_white.svg')} alt="805-Carwash" style={{width: "75%"}} />,
                     items: [
-                        { name: 'Dasbor', path: `${props.match.url}` },
+                        { name: 'Dashboard', path: `${props.match.url}` },
                     ]
                 },
                 {

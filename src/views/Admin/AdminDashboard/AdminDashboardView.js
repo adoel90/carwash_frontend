@@ -86,10 +86,10 @@ const AdminDashboardView = props => {
                         <YAxis
                             type="number"
                             tickFormatter={priceFormatter}
-                            allowDecimal={true}
+                            allowDecimals={false}
                             width={100}
                         />
-                        <CartesianGrid strokeDasharray="3 3"/>
+                        <CartesianGrid strokeDasharray="5 5"/>
                         <Tooltip 
                             formatter={priceFormatter}
                         />
@@ -106,7 +106,7 @@ const AdminDashboardView = props => {
             <Section>
                 <Panel>
                     <PanelHeader>
-                        <h4 className="heading-title">Dasbor</h4>
+                        <h4 className="heading-title">Dashboard</h4>
                         {/* <h6 className="heading-subtitle">Non veniam do cupidatat culpa dolor consectetur fugiat dolore qui id amet ad incididunt.</h6> */}
                     </PanelHeader>
                     <PanelBody>

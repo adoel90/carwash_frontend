@@ -6,13 +6,28 @@ import { Card } from '../../../components/Card';
 import { Input } from '../../../components/Input';
 import { Button } from '../../../components/Button';
 import { default as AdminPanelBanner } from '../../../assets/images/admin-panel-bg.jpg';
+import { Alert } from '../../../components/Alert';
 
 const AdminLoginView = props => {
     const {
         credentials,
         handleInputChange,
-        onLoginSubmit
+        onLoginSubmit, 
+        authentication
     } = props;
+
+    const renderAlert = () => {
+        if(authentication.isError) {
+            let msgError = authentication.error ? authentication.error : null;
+            let errorMessage = msgError.response !== undefined ? msgError.response.data.message : 'Maaf, anda tidak punya izin untuk akses halaman tersebut';
+            
+            return (
+                <Alert theme="warning" className="ta-center margin-bottom-2 clr-danger">
+                    <p>{errorMessage}</p>
+                </Alert>
+            )
+        }
+    }
     
     return (
         <main className="admin-login">
@@ -25,6 +40,7 @@ const AdminLoginView = props => {
                             <h6 className="heading-subtitle">Silahkan masukkan username dan password Anda untuk masuk.</h6>
                         </div>
                         <Form onSubmit={onLoginSubmit}>
+                            { renderAlert() }
                             <FormField>
                                 <FormLabel htmlFor="username">Username</FormLabel>
                                 <FormControl>

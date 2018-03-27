@@ -28,11 +28,15 @@ export const adminLogin = (data) => {
             .then((response) => {
                 let result = response.data.result;
                 
-                localStorage.setItem('accessToken', result.accessToken);
-                localStorage.setItem('userData', JSON.stringify(result.data));
-                dispatch(loginSuccess(result));
-
-                window.location.reload();
+                if(result.data.module[0].group === 'admin') {
+                    localStorage.setItem('accessToken', result.accessToken);
+                    localStorage.setItem('userData', JSON.stringify(result.data));
+                    dispatch(loginSuccess(result));
+    
+                    window.location.reload();
+                } else {
+                    dispatch(loginError(result));              
+                }
             })
             .catch((error) => {
                 dispatch(loginError(error));
@@ -79,7 +83,7 @@ export const logout = () => {
 		return Promise.resolve(dispatch(handleLogout()))
 			.then(() => {
 				localStorage.removeItem('accessToken');
-				localStorage.removeItem('user');
+				localStorage.removeItem('userData');
 				localStorage.removeItem('member');
 			})
 	}

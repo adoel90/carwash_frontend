@@ -35,11 +35,11 @@ class AdminPanel extends Component {
                 { name: 'create-new-vendor', path: `${props.match.url}/vendor/create-new-vendor`, component: AdminVendorCreate },
                 { name: 'member', path: `${props.match.url}/member`, component: AdminMember },
                 { name: 'card', path: `${props.match.url}/card`, component: AdminCard },
-                { name: 'create-new-card', path: `${props.match.url}/create-new-card`, component: AdminCardCreate },
+                { name: 'create-new-card', path: `${props.match.url}/card/create-new-card`, component: AdminCardCreate },
                 { name: 'access', path: `${props.match.url}/access`, component: AdminAccess },
-                { name: 'create-new-access', path: `${props.match.url}/create-new-access`, component: AdminAccessCreate },
+                { name: 'create-new-access', path: `${props.match.url}/access/create-new-access`, component: AdminAccessCreate },
                 { name: 'store', path: `${props.match.url}/store`, component: AdminStore },
-                { name: 'create-new-store', path: `${props.match.url}/create-new-store`, component: AdminStoreCreate },
+                { name: 'create-new-store', path: `${props.match.url}/store/create-new-store`, component: AdminStoreCreate },
                 { name: 'report', path: `${props.match.url}/report`, component: AdminReport },
                 { name: 'logout', path: `${props.match.url}/logout`, component: AdminLogout }
 
@@ -62,79 +62,51 @@ class AdminPanel extends Component {
         let menu = JSON.parse(localStorage.getItem('userData')).module;
 
         let newMenu = [];
-        let oldMenu = [
-            { 
-                category: '',
-                items: [
-                    { name: 'Dashboard', path: `${this.props.match.url}` },
-                ]
-            },
-            {
-                category: 'Manajemen Akses',
-                items: [
-                    { name: 'Daftar Akses', path: `${this.props.match.url}/access` },
-                    { name: 'Buat Akses Baru', path: `${this.props.match.url}/create-new-access` }
-                ]
-            },
-            {
-                category: 'Manajemen User',
-                items: [
-                    { name: 'Daftar User', path: `${this.props.match.url}/user` },
-                    { name: 'Buat User Baru', path: `${this.props.match.url}/user/create-new-user` }
-                ]
-            },
-            {
-                category: 'Manajemen Store',
-                items: [
-                    { name: 'Daftar Store', path: `${this.props.match.url}/store` },
-                    { name: 'Buat Store Baru', path: `${this.props.match.url}/create-new-store` }
-
-                ]
-            },
-            {
-                category: 'Manajemen Kartu',
-                items: [
-                    { name: 'Daftar Kartu', path: `${this.props.match.url}/card` },
-                    { name: 'Buat Kartu Baru', path: `${this.props.match.url}/create-new-card` }
-                ]
-            },
-            {
-                category: 'Manajemen Member',
-                items: [
-
-                    { name: 'Daftar Member', path: `${this.props.match.url}/member` }
-                ]
-            },
-            {
-                category: 'Report',
-                items: [
-                    { name: 'Report', path: `${this.props.match.url}/report` }
-                ]
-            }
-        ]
-
+        
         for (let i=0; i<menu.length; i++) {
-            let dataMenu = {
-                category : menu[i].name,
-                items: [
-                    { name: `Daftar ${menu[i].name}`, path: `${this.props.match.url}/${menu[i].name}` }
-                ]
+            let dataMenu = {};
+            let split = menu[i].name.split(" ");
+
+            if(split.length > 1) {
+                dataMenu = {
+                    category : menu[i].name,
+                    items: [
+                        { name: `Daftar ${split[1]}`, path: `${this.props.match.url}${menu[i].path ? '/' + menu[i].path : ''}` }
+                    ]
+                }
+
+                let itemSeperate = { 
+                    name: `Buat ${split[1]} Baru`, 
+                    path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}/create-new-` + menu[i].path : ''}` 
+                }
+
+                if (menu[i].group === "admin" && menu[i].path !== "member") {
+                    dataMenu.items.push(itemSeperate);
+                }
+            } else {
+                dataMenu = {
+                    category : menu[i].name,
+                    items: [
+                        { name: `${split[0]}`, path: `${this.props.match.url}${menu[i].path ? '/' + menu[i].path : ''}` }
+                    ]
+                }
             }
 
             newMenu.push(dataMenu);
         }
 
         this.setState({
-            menus: oldMenu
+            menus: newMenu
         })
     }
     
     render() {
+        const user = JSON.parse(localStorage.getItem('userData'));
         return (
             <AdminPanelView
                 {...this.state} 
                 {...this.props} 
-                user={JSON.parse(localStorage.getItem('userData'))}
+                user={user}
             />
         )
     }

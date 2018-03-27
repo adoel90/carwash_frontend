@@ -158,7 +158,7 @@ class AdminAccess extends Component {
                   title: 'Nama',
                   accessor: 'name'
             }, {
-                  title: 'Aksi',
+                  title: 'Status',
                   accessor: 'action',
                   width: '30%',
                   align: 'center',

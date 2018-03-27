@@ -152,7 +152,7 @@ class AdminMember extends Component {
                   accessor: 'cardType',
                   rowAlign: 'center'
             }, {
-                  title: 'Aksi',
+                  title: 'Status',
                   accessor: 'action',
                   width: '30%',
                   align: 'center',

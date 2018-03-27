@@ -242,7 +242,7 @@ class AdminStore extends Component {
                   accessor: 'type',
                   align: 'center'
             }, {
-                  title: 'Aksi',
+                  title: 'Store',
                   accessor: 'action',
                   width: '30%',
                   align: 'center',

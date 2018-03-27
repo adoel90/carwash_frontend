@@ -150,7 +150,7 @@ class AdminCard extends Component {
                   align: 'center',
                   rowAlign: 'right'
             }, {
-                  title: 'Aksi',
+                  title: 'Status',
                   accessor: 'action',
                   width: '30%',
                   align: 'center',

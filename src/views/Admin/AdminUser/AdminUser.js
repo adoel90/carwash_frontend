@@ -256,7 +256,7 @@ class AdminUser extends Component {
             accessor: 'accessLevel',
             align: 'center'
         }, {
-            title: 'Aksi',
+            title: 'Status',
             accessor: 'action',
             width: '30%',
             align: 'center',

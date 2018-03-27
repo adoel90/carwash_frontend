@@ -18,6 +18,27 @@
         position: fixed;
         overflow-x: auto;
         background-color: #0f1212;
+        
+        .sidebar--header {
+            position: fixed;
+            background-color: #0f1212;
+            top: 0;
+            left: 0;
+            width: 256px;
+            z-index: 1;
+            padding: 10px;
+        }
+
+        .sidebar--footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 256px;
+            background-color: #0f1212;
+            border-top: 2px solid #FAFAFA;
+            padding: spacing(small) spacing(base);
+            z-index: 1;
+        }
     }
 
     .page {

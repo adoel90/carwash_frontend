@@ -1,7 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Sidebar } from '../../../layouts/Layout';
+import { Row, Column } from '../../../layouts/Grid';
 import { Menu, MenuList, MenuItem, MenuLink } from '../../../components/Menu';
+import { Button } from '../../../components/Button';
+import { AdminSidebarHeader, AdminSidebarFooter } from '../AdminLayout';
 
 const AdminSidebar = props => {
     const {
@@ -31,9 +34,13 @@ const AdminSidebar = props => {
     
     return (
         <Sidebar>
+            <AdminSidebarHeader {...props} />
+
             <Menu theme="dark">
                 { renderMenuList() }
             </Menu>
+
+            <AdminSidebarFooter {...props} />
         </Sidebar>
     )
 };

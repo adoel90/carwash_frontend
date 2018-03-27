@@ -67,7 +67,6 @@ const VendorDashboardView = props => {
                                 </Column>
 
                                 <Column md={4}>
-                                   
                                     <FormField>
                                         <InputGroup>
                                             <InputAddon>
@@ -87,6 +86,7 @@ const VendorDashboardView = props => {
 
                                 <Column md={2}> 
                                     <FormField>
+                                        <br />
                                         <ButtonDewek
                                             variant="raised"
                                             className="btn-sky-blue btn-size ml-3"

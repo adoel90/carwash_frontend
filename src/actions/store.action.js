@@ -20,9 +20,13 @@ export const GET_PRINT_STORE_TRANSACTION_REQUESTED = "GET_PRINT_STORE_TRANSACTIO
 export const GET_PRINT_STORE_TRANSACTION_FULFILLED = "GET_PRINT_STORE_TRANSACTION_FULFILLED";
 export const GET_PRINT_STORE_TRANSACTION_REJECTED = "GET_PRINT_STORE_TRANSACTION_REJECTED";
 
+//#CUSTOMER TOP-UP LOGIN 
+export const CUSTOMER_TOPUP_LOGIN_REQUESTED = 'CUSTOMER_TOPUP_LOGIN_REQUESTED';
+export const CUSTOMER_TOPUP_LOGIN_FULFILLED = 'CUSTOMER_TOPUP_LOGIN_FULFILLED';
+export const CUSTOMER_TOPUP_LOGIN_REJECTED = 'CUSTOMER_TOPUP_LOGIN_REJECTED';
+
 
 const accessToken = localStorage.getItem('accessToken') ? localStorage.getItem('accessToken') : null;
-
 
 //GET STORE LIST
 export const getStoreList = (data) => {
@@ -107,4 +111,33 @@ export const getPrintStoreTransaction = (data) => {
 	function handleSuccess(data) { return { type: GET_PRINT_STORE_TRANSACTION_FULFILLED, payload: data } }
 	function handleError(data) { return { type: GET_PRINT_STORE_TRANSACTION_REJECTED, payload: data } }
 
+}
+
+/*
+//  CUSTOMER TOP-UP LOGIN 
+//  Calls the API to get `accessToken` required to access the app.
+*/
+export const kasirTopUpLogin = (data) => { 
+    return async dispatch => {
+        dispatch(loginRequest());
+
+        return axios
+            .post(`${constant.API_PATH}member/authenticate`, {
+                card: data.cardID
+            })
+            .then((response) => {
+                let result = response.data.result;            
+                localStorage.setItem('accessTokenTopUp', result.accessToken);
+                localStorage.setItem('userDataTopUp', JSON.stringify(result));
+                
+                dispatch(loginSuccess(result));
+            })
+            .catch((error) => {
+                dispatch(loginError(error));
+            })
+    }
+
+    function loginRequest() { return { type: CUSTOMER_TOPUP_LOGIN_REQUESTED } }
+    function loginSuccess(data) { return { type: CUSTOMER_TOPUP_LOGIN_FULFILLED, payload: data } }
+    function loginError(data) { return { type: CUSTOMER_TOPUP_LOGIN_REJECTED, payload: data } }
 }

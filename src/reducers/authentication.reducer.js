@@ -13,12 +13,21 @@ import {
 
     KASIR_LOGIN_REQUESTED,//#KASIR LOGIN
     KASIR_LOGIN_FULFILLED,
-    KASIR_LOGIN_REJECTED
+    KASIR_LOGIN_REJECTED,
+
+    // CUSTOMER_TOPUP_LOGIN_REQUESTED,//#CUSTOMER TOP-UP LOGIN 
+    // CUSTOMER_TOPUP_LOGIN_FULFILLED,
+    // CUSTOMER_TOPUP_LOGIN_REJECTED
+    
 
 
 } from '../actions/authentication.action';
 
 const initialState = {
+
+    //#
+    // userDataTopUp: localStorage.getItem('userDataTopUp') ? true : false,
+    // isAuthenticatedTopUp: localStorage.getItem('accessTokenTopUp') ? true : false,
 
     userData: localStorage.getItem('userData') ? true : false,
     isAuthenticated: localStorage.getItem('accessToken') ? true : false,
@@ -29,6 +38,7 @@ const initialState = {
 }
 
 const authentication = (state = initialState, action) => {
+
     switch(action.type) {
 
         //#ADMIN LOGIN
@@ -167,6 +177,47 @@ const authentication = (state = initialState, action) => {
                 error: action.payload
             }
         }
+
+
+        //#CUSTOMER TOP-UP LOGIN 
+        // case CUSTOMER_TOPUP_LOGIN_REQUESTED: {
+        //     return {
+        //         ...state,
+        //         isAuthenticating: true,
+        //         // isAuthenticatedTopUp: false,
+        //         isAuthenticated: false,
+        //         // userDataTopUp: {},
+        //         userData: {},
+        //         isError: false,
+        //         error: {}
+        //     }
+        // }
+
+        // case CUSTOMER_TOPUP_LOGIN_FULFILLED: {
+        //     return {
+        //         ...state,
+        //         isAuthenticating: false,
+        //         // isAuthenticatedTopUp: true,
+        //         isAuthenticated: true,
+        //         // userDataTopUp: action.payload,
+        //         userData: action.payload,
+        //         isError: false,
+        //         error: {}
+        //     }
+        // }
+
+        // case CUSTOMER_TOPUP_LOGIN_REJECTED: {
+        //     return {
+        //         ...state,
+        //         isAuthenticating: false,
+        //         // isAuthenticatedTopUp: false,
+        //         isAuthenticated: false,
+        //         // userDataTopUp: {},
+        //         userData: {},
+        //         isError: true,
+        //         error: action.payload
+        //     }
+        // }
 
         default:
             return state

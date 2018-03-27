@@ -12,7 +12,11 @@ import {
 
 	GET_PRINT_STORE_TRANSACTION_REQUESTED, //GET PRINT STORE TRANSACTION
 	GET_PRINT_STORE_TRANSACTION_FULFILLED,
-	GET_PRINT_STORE_TRANSACTION_REJECTED
+	GET_PRINT_STORE_TRANSACTION_REJECTED,
+
+	CUSTOMER_TOPUP_LOGIN_REQUESTED,//#CUSTOMER TOP-UP LOGIN 
+    CUSTOMER_TOPUP_LOGIN_FULFILLED,
+    CUSTOMER_TOPUP_LOGIN_REJECTED
 
 } from '../actions/store.action';
 
@@ -46,7 +50,14 @@ const initialState = {
 		isPrinted: false,
 		isError: false,
 		error: {}
-	}
+	},
+
+	userData: localStorage.getItem('userDataTopUp') ? true : false,
+    isAuthenticated: localStorage.getItem('accessTokenTopUp') ? true : false,
+    isAuthenticating: false,
+    authenticatedAs: null,
+    isError: false,
+    error: {}
 }
 
 const storeState = (state = initialState, action) => {
@@ -209,6 +220,40 @@ const storeState = (state = initialState, action) => {
 				}
 			}
 		}
+
+		 //#CUSTOMER TOP-UP LOGIN 
+         case CUSTOMER_TOPUP_LOGIN_REQUESTED: {
+            return {
+                ...state,
+                isAuthenticating: true,
+                isAuthenticated: false,
+                userData: {},
+                isError: false,
+                error: {}
+            }
+        }
+
+        case CUSTOMER_TOPUP_LOGIN_FULFILLED: {
+            return {
+                ...state,
+                isAuthenticating: false,
+                isAuthenticated: true,
+                userData: action.payload,
+                isError: false,
+                error: {}
+            }
+        }
+
+        case CUSTOMER_TOPUP_LOGIN_REJECTED: {
+            return {
+                ...state,
+                isAuthenticating: false,
+                isAuthenticated: false,
+                userData: {},
+                isError: true,
+                error: action.payload
+            }
+        }
 
         default: {
 			return state;

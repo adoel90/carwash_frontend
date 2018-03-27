@@ -52,9 +52,15 @@ class AdminPanel extends Component {
                     ]
                 },
                 {
+                    category: 'Manajemen Akses',
+                    items: [
+                        { name: 'Daftar Akses', path: `${props.match.url}/access` },
+                        { name: 'Buat Akses Baru', path: `${props.match.url}/create-new-access` }
+                    ]
+                },
+                {
                     category: 'Manajemen User',
                     items: [
-
                         { name: 'Daftar User', path: `${props.match.url}/user` },
                         { name: 'Buat User Baru', path: `${props.match.url}/user/create-new` }
                     ]
@@ -67,36 +73,18 @@ class AdminPanel extends Component {
 
                     ]
                 },
-                // {
-                //     category: 'Manajemen Vendor',
-                //     items: [
-                //         { name: 'Daftar Vendor', path: `${props.match.url}/vendor` },
-                //         { name: 'Buat Vendor Baru', path: `${props.match.url}/vendor/create-new-vendor` },
-                //         { name: 'Pengaturan Vendor', path: `${props.match.url}/vendor/settings`}
-
-                //     ]
-                // },
                 {
-                    category: 'Manajemen Member',
+                    category: 'Manajemen Kartu',
                     items: [
-
-                        { name: 'Daftar Member', path: `${props.match.url}/member` }
-                    ]
-                },
-                {
-                    category: 'Manajemen Card',
-                    items: [
-
                         { name: 'Daftar Kartu', path: `${props.match.url}/card` },
                         { name: 'Buat Kartu Baru', path: `${props.match.url}/create-new-card` }
                     ]
                 },
                 {
-                    category: 'Manajemen Akses',
+                    category: 'Manajemen Member',
                     items: [
 
-                        { name: 'Daftar Akses', path: `${props.match.url}/access` },
-                        { name: 'Buat Akses Baru', path: `${props.match.url}/create-new-access` }
+                        { name: 'Daftar Member', path: `${props.match.url}/member` }
                     ]
                 },
                 {

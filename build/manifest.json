@@ -3,7 +3,8 @@
   "name": "Create React App Sample",
   "icons": [
     {
-      "src": "favicon.ico",
+      // "src": "favicon.ico",
+      "src": "805carwash_blue.ico",
       "sizes": "192x192",
       "type": "image/png"
     }

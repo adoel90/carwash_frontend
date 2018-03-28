@@ -24,7 +24,7 @@ const AdminSettingView = props => {
                     <Column md={7}>
                         <Panel>
                             <PanelHeader>
-                                <h4 className="heading-title">Buat User Baru</h4>
+                                <h4 className="heading-title">Pengaturan Akun</h4>
                                 {/* <h6 className="heading-subtitle">Membuat user baru.</h6> */}
                             </PanelHeader>
                             <PanelBody>

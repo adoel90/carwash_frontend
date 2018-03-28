@@ -9,7 +9,7 @@ const AdminSidebarFooter = props => {
                 <p style={{color: '#FAFAFA', fontWeight: '900', overflow:'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis', paddingRight: '5px'}}>
                     { props.user.name }
                 </p>
-                <div>
+                <div className="flex">
                     <MenuLink to={`/admin/setting`}>
                         <Button theme="dark" rounded size="small">
                             <i className="fas fa-cog"></i>

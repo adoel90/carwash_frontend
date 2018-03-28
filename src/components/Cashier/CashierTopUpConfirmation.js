@@ -3,7 +3,7 @@ import { Column } from '../../layouts/Grid';
 import { ModalHeader, ModalContent, ModalFooter, Modal, ModalDialog} from '../../components/Modal';
 import { Form, FormGroup } from '../../components/Form';
 // import { Input, InputGroup, InputAddon, InputCurrency, Label } from '../Input';
-import { Input, InputGroup, InputAddon, InputCurrency, Label } from '../../components/Input';
+import { Input, InputGroup, InputAddon, InputCurrency, Label, InputCashier } from '../../components/Input';
 import { PageBlock } from '../../components/Page';
 import { Button } from '../../components/Button';
 import { Alert } from '../../components/Alert';
@@ -56,7 +56,7 @@ class CashierTopUpConfirmation extends Component {
 	
 		} = this.props;
 
-		console.log(this.props.paymentMethod);
+		// console.log(this.props.paymentMethod);
 
 		const renderMemberInformation = () => {
 			return (
@@ -129,7 +129,7 @@ class CashierTopUpConfirmation extends Component {
 						</FormGroup>
 						<FormGroup row>
 							<Label className="fw-semibold">Metode Pembayaran</Label>
-							{/* <Input
+							<InputCashier
 								name="payment"
 								type="select"
 								onChange={(e) => handleInputChange(topupData, e)}
@@ -141,11 +141,11 @@ class CashierTopUpConfirmation extends Component {
 											return <option value={method.id}>{method.name}</option>
 										})
 									}
-							</Input> */}
+							</InputCashier>
 
-							<InputGroup>
+							{/* <InputGroup>
 								<Input name="payment" type="text" onChange={(e) => handleInputChange(topupData, e)} value="Cash"></Input>
-							</InputGroup>
+							</InputGroup> */}
 						</FormGroup>
 					</ModalContent>
 

@@ -2,20 +2,26 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 // import { StoreCashierNewCardView } from '../StoreCashierNewCard';
 import  {CashierNewCard}  from '../../../components/Cashier';
+import { Dialog } from '../../../components/Dialog';
 import { createNewMember } from '../../../actions/member.action';
 import { getAllCardType } from '../../../actions/card.action';
+import { openDialog, closeDialog } from '../../../actions/dialog.action';
 
 function mapStateToProps(state) {
     return {
 		member: state.member,
-		card: state.card
+		card: state.card,
+		dialog: state.dialog
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
 		createNewMemberdDispatch : (data) => dispatch(createNewMember(data)),
-		getAllCardTypeDispatch: (accessToken) => dispatch(getAllCardType(accessToken))
+		getAllCardTypeDispatch: (accessToken) => dispatch(getAllCardType(accessToken)),
+		openDialogDispatch: (data) => dispatch(openDialog(data)),
+		closeDialogDispatch: (data) => dispatch(closeDialog(data))
+
     }
 }
 
@@ -29,6 +35,7 @@ class StoreCashierNewCard extends Component {
 		this.handleNewCardSubmit = this.handleNewCardSubmit.bind(this);
 		this.handleNewCardConfirmation = this.handleNewCardConfirmation.bind(this);
 		this.handleNewCardConfirmationSubmit = this.handleNewCardConfirmationSubmit.bind(this);
+		this.renderDialog = this.renderDialog.bind(this);
 
 		this.state = {
 
@@ -100,19 +107,16 @@ class StoreCashierNewCard extends Component {
 		const target = e.target;
 		const name = target.name;
 		const value = target.value;
-
 		// console.log(newCardData);
-		console.log(e);
+		// console.log(e);
 		// console.log(value);
-		
-		
+		// console.log(cardTypes);
 		
 		// let selectedId = e.membertarget.value;
 		// let selectedId = value;
 
 		// cardTypes.forEach((item) => {
 		// 	// console.log(item);
-
 		// 	if(item.id === parseInt(selectedId)) {
 		// 		this.setState({
 		// 			...this.state,
@@ -132,7 +136,6 @@ class StoreCashierNewCard extends Component {
 
 	toggleModal = (name) => {
 		const { isModalOpen } = this.state;
-
 		this.setState({
 			isModalOpen: {
 				...isModalOpen,
@@ -145,8 +148,6 @@ class StoreCashierNewCard extends Component {
 		const target = e.target;
 		const name = target.name;
 		const value = target.value;
-
-		console.log(value);
 		
 		if(object) {
 			object[name] = value;
@@ -164,11 +165,7 @@ class StoreCashierNewCard extends Component {
 
 	//#
 	handleNewCardSubmit = (e) => {
-		e.preventDefault();
-
-		console.log(e);
-		
-		
+		e.preventDefault();		
 		this.handleNewCardConfirmation();
 	}
 
@@ -192,35 +189,112 @@ class StoreCashierNewCard extends Component {
 		e.preventDefault();
 
 		let requiredData = {
-			card: newCardData.card,
+			card: newCardData.card.id,
 			payment: newCardData.payment,
 			name: newCardData.name,
 			phone: newCardData.phone,
 			email: newCardData.email,
 			address: newCardData.address
 		}
+		
+		createNewMemberdDispatch(requiredData).then(()=> {
+			const { member } = this.props;
+			
+			if(member.item.isCreated){
+				let dialogData = {
+					type: 'success',
+					title: 'Berhasil Membuat Kartu',
+					message: 'Kartu member telah berhasil di buat. Klik tombol berikut untuk kembali.',
+					onClose: () => window.location.reload(),
+					closeText: 'Kembali'
+				}
+				//#
+				this.toggleDialog(dialogData)
+			}
 
-		// dispatch(createNewMember(requiredData, accessToken));
-		// createNewMemberdDispatch(requiredData);
-
+			if (member.item.isError) {
+				let dialogData = {
+					type: 'danger',
+					title: 'Gagal',
+					message: 'Kartu gagal di buat. Klik tombol berikut untuk kembali.',
+					onClose: () => this.toggleDialog(),
+					closeText: 'Kembali'
+				}
+		
+				this.toggleDialog(dialogData);
+			}
+		
+		});
 		// this.toggleModal('newCardModal');
+		// this.toggleDialog(dialogData)
 	}
+
+	toggleDialog = (data) => {
+		const { dialog, action, openDialogDispatch, closeDialogDispatch } = this.props;
+		
+		console.log(dialog);
+		
+
+        if(!dialog.isOpened) {
+			// action.openDialog(data);
+			openDialogDispatch(data);
+			
+        } else {
+			// action.closeDialog();
+			closeDialogDispatch(data);
+        }
+    }
+
+	openDialog = () => {
+		/* Only Declare */
+	}
+
+	closeDialog = () => {
+		/* Only Declare */
+	}
+
+	renderDialog = () => {
+        const {
+            dialog,
+            toggleDialog
+        } = this.props;
+
+        // console.log(this.props)
+        
+        return (
+            <Dialog
+                isOpen={dialog.isOpened}
+                toggle={toggleDialog}
+                type={dialog.data.type}
+                title={dialog.data.title}
+                message={dialog.data.message}
+                onConfirm={dialog.data.onConfirm}
+                confirmText={dialog.data.confirmText}
+                onClose={dialog.data.onClose}
+                closeText={dialog.data.closeText}
+            />
+        )
+    }
+
 
     render() {
         
         //return <StoreCashierNewCardView {...this.state} {...this.props} />
 
         return (
-			<CashierNewCard
-				{...this.props}
-				{...this.state}
-				toggleModal={this.toggleModal}
-				handleInputChange={this.handleInputChange}
-				handleChangeCardType={this.handleChangeCardType}
-				handleNewCardSubmit={this.handleNewCardSubmit}
-				handleNewCardConfirmationSubmit={this.handleNewCardConfirmationSubmit}
+			<div>
+				<CashierNewCard
+					{...this.props}
+					{...this.state}
+					toggleModal={this.toggleModal}
+					handleInputChange={this.handleInputChange}
+					handleChangeCardType={this.handleChangeCardType}
+					handleNewCardSubmit={this.handleNewCardSubmit}
+					handleNewCardConfirmationSubmit={this.handleNewCardConfirmationSubmit}
 
-			/>
+				/>
+				{this.renderDialog()}
+			</div>
 		);
     }
 }

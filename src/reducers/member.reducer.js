@@ -58,6 +58,7 @@ const initialState = {
 		isError: false,
 		error: {}
 	},
+
 }
 
 const member = (state = initialState, action) => {

@@ -12,28 +12,32 @@ import { default as CardIcon } from '../../assets/icons/Business/credit-card-3.s
 import { default as CardIcon2 } from '../../assets/icons/Business/credit-card-4.svg';
 import Currency from '../Currency';
 import NumberFormat from 'react-number-format';
-import { CashierTopUpConfirmation } from '../Cashier';
-import CashierTopUpForm from './CashierTopUpForm';
+import { CashierRefundConfirmation } from '../Cashier';
+import CashierRefundForm from './CashierRefundForm';
 
 
-class CashierTopUp extends Component {
+class CashierRefundFirst extends Component {
 	
 	render() {
 		return (
 			<div className="inner-view">
+                <PageBlock extension>
+					<h5 className="fw-semibold">Refund Kartu</h5>
+					<p className="clr-passive">Harap gesek kartu atau masukkan ID kartu member yang ingin direfund pada kolom yang telah tersedia.</p>
+				</PageBlock>
 				<PageBlock className="margin-bottom-5 ta-center">
-					<img src={CardIcon} style={{width: '150px'}}/>
+					{/* <img src={CardIcon} style={{width: '150px'}}/>
 					<Row className="flex flex-column padding-bottom-3">
 						<h5 className="fw-semibold">Isi Ulang Saldo</h5>
 						<p className="clr-passive">Silahkan gesek kartu member untuk mengisi saldo customer pada kolom berikut.</p>
-					</Row>
-					
-					<CashierTopUpForm {...this.props} handleInputChange={this.props.handleInputChange} />
+					</Row> */}
+
+					<CashierRefundForm {...this.props} handleInputChange={this.props.handleInputChange} />
 				</PageBlock>
-				<CashierTopUpConfirmation {...this.props} />
+				<CashierRefundConfirmation {...this.props} />
 			</div>
 		);
 	}
 }
 
-export default CashierTopUp;
+export default CashierRefundFirst;

@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Currency from '../../../components/Currency';
-
+import { Dialog } from '../../../components/Dialog';
 import { kasirTopUpLogin } from '../../../actions/store.action';//Scenario-nya kasir meminta customer untuk GESEK KARTU MEMBER
 import { openDialog, closeDialog } from '../../../actions/dialog.action';
+import { memberTopup } from '../../../actions/member.action'
 // import { StoreCashierTopUpView } from '../StoreCashierTopUp';
 // import { CashierTopUp } from '../../../components/Cashier';
 import  {CashierTopUp}  from '../../../components/Cashier';
@@ -22,7 +23,8 @@ function mapDispatchToProps(dispatch) {
     return {
         kasirTopUpLogin: bindActionCreators(kasirTopUpLogin, dispatch),
         openDialogDispatch:(data) =>  dispatch(openDialog(data)),
-        closeDialogDispatch: () => dispatch(closeDialog())
+        closeDialogDispatch: (data) => dispatch(closeDialog(data)),
+        memberTopupDispatch: (data) => dispatch(memberTopup(data))
     }
 }
 
@@ -33,13 +35,11 @@ class StoreCashierTopUp extends Component {
         super();
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleAuthentication = this.handleAuthentication.bind(this);
-        // this.handleTopUp = this.handleTopUp.bind(this);
         this.toggleModal = this.toggleModal.bind(this);
         this.handleTopupSubmit = this.handleTopupSubmit.bind(this);
 
         this.toggleDialog = this.toggleDialog.bind(this);
-        this.openDialog = this.openDialog.bind(this);
-		this.closeDialog = this.closeDialog.bind(this);
+        this.renderDialog = this.renderDialog.bind(this);
 
         this.state = {
 
@@ -83,7 +83,6 @@ class StoreCashierTopUp extends Component {
 
         if(prevProps.storeState.userData !== storeState.userData){
             if(storeState.isAuthenticated){
-                // console.log(storeState);
                 this.setState({
                     ...this.state,
                     authenticatedMember: {
@@ -142,19 +141,18 @@ class StoreCashierTopUp extends Component {
     
     handleTopUp = () => {
         this.toggleModal('topup');
-        console.log(this.state);
         
     }
+
     toggleDialog = (data) => {
+
 		const { dialog, openDialogDispatch, closeDialogDispatch } = this.props;
 
 		if(!dialog.isOpened) {
-            // this.openDialog(data);
             openDialogDispatch(data)
 		}
 		else {
-            // this.closeDialog();
-            closeDialogDispatch();
+            closeDialogDispatch(data);
 		}
 	}
 
@@ -166,6 +164,9 @@ class StoreCashierTopUp extends Component {
         /*Only Declare */
     }
 
+    memberTopup = () => {
+        /*Only Declare */
+    }
     //#
     handleTopupSubmit = (e) => {
 		e.preventDefault();
@@ -181,75 +182,68 @@ class StoreCashierTopUp extends Component {
         // console.log(this.state);
         // console.log(this.props);
 
-		const { dispatch, accessToken } = this.props;        
+		const { dispatch, accessToken, memberTopupDispatch } = this.props;        
 
-		// let requiredData = {
-		// 	balance: parseInt(topupData.balance.replace(/,/g, '')),
-		// 	payment: topupData.payment
-		// }
-
-		// let paymentMethodName;
-
-		// paymentMethod.forEach((method) => {
-		// 	if(method.id == topupData.payment) {
-		// 		return paymentMethodName = method.name;
-		// 	}
-		// })
-
-		let dialogData = {
-			type: 'confirm',
-			title: 'Perhatian!',
-			message: (
-				<p>
-					Konfirmasi terlebih dahulu informasi berikut sebelum melanjutkan.<br/>
-					Jumlah saldo yang akan diisi adalah
-					{/* <span className="fw-semibold clr-primary">{' '}<Currency value={requiredData.balance} />{' '}</span>
-					dengan metode pembayaran <span className="fw-semibold">{paymentMethodName}</span>.<br/> */}
-					
-				</p>
-			),
-			onConfirm: () => {
-				// dispatch(memberTopup(requiredData, authenticatedMember.accessToken))
-			},
-			confirmText: 'Selesai',
-			onClose: () => closeDialog(),
-			closeText: 'Batal'
+		let requiredData = {
+			balance: parseInt(topupData.balance.replace(/,/g, '')),
+			payment: topupData.payment
 		}
 
-        this.toggleDialog(dialogData);
+        console.log(requiredData);
+        
+        memberTopupDispatch(requiredData).then(() => {
+            console.log("GET RESPONSE ");
+            
+        });
+
+        // this.toggleDialog(dialogData);
         // this.toggleModal('paymentConfirmation');
 
-        // this.setState({
-        //     ...this.state,
-        //     isModalOpen: {
-		// 		topup: false
-        //     }
         // })
-	}
+    }
+    
+    renderDialog = () => {
+        const {
+            dialog,
+            toggleDialog
+        } = this.props;
+
+        // console.log(this.props)
+        
+        return (
+            <Dialog
+                isOpen={dialog.isOpened}
+                toggle={toggleDialog}
+                type={dialog.data.type}
+                title={dialog.data.title}
+                message={dialog.data.message}
+                onConfirm={dialog.data.onConfirm}
+                confirmText={dialog.data.confirmText}
+                onClose={dialog.data.onClose}
+                closeText={dialog.data.closeText}
+            />
+        )
+    }
 
     render() {
         
         return ( 
-        
-            // <StoreCashierTopUpView {...this.state} {...this.props} 
-            //     handleInputChange = {this.handleInputChange}
-            //     handleAuthentication = { this.handleAuthentication}
-            //     toggleModal={this.toggleModal}
-            // />
-
             
-            <CashierTopUp
-                {...this.state}
-                {...this.props}
-                toggleModal={this.toggleModal}
-                handleInputChange={this.handleInputChange}
-                handleAuthentication = { this.handleAuthentication}
+            <div>
+                <CashierTopUp
+                    {...this.state}
+                    {...this.props}
+                    toggleModal={this.toggleModal}
+                    handleInputChange={this.handleInputChange}
+                    handleAuthentication = { this.handleAuthentication}
 
-                handleTopupSubmit={this.handleTopupSubmit}
-                toggleDialog={this.toggleDialog}
-				openDialog={this.openDialog}
-				closeDialog={this.closeDialog}
-            />
+                    handleTopupSubmit={this.handleTopupSubmit}
+                    toggleDialog={this.toggleDialog}
+                    openDialog={this.openDialog}
+                    closeDialog={this.closeDialog}
+                />
+                {this.renderDialog()}
+            </div>
         )
     }
 }

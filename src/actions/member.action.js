@@ -36,6 +36,8 @@ export const DELETE_MEMBER_FULFILLED = 'DELETE_MEMBER_FULFILLED';
 export const DELETE_MEMBER_REJECTED = 'DELETE_MEMBER_REJECTED';
 
 const accessToken = localStorage.getItem('accessToken') ? localStorage.getItem('accessToken') : null;
+// console.log(accessToken);
+
 
 export const authenticateMember = (data) => {
 	return async dispatch => {
@@ -59,7 +61,7 @@ export const authenticateMember = (data) => {
 	function handleError(data) { return { type: AUTHENTICATE_MEMBER_REJECTED, payload: data }}
 }
 
-export const memberTopup = (data, accessToken) => {
+export const memberTopup = (data) => {
 	return async dispatch => {
 		axios
 			.post(`${constant.API_PATH}member/topup?accessToken=${accessToken}`, {
@@ -67,7 +69,7 @@ export const memberTopup = (data, accessToken) => {
 				payment: data.payment
 			})
 			.then((response) => {
-				dispatch(handleSuccess(response.data));
+				dispatch(handleSuccess(response));
 			})
 			.catch((error) => {
 				dispatch(handleError(error));
@@ -78,7 +80,8 @@ export const memberTopup = (data, accessToken) => {
 	function handleError(data) { return { type: MEMBER_TOPUP_REJECTED, payload: data } }
 }
 
-export const memberRefund = (data, accessToken) => {
+// export const memberRefund = (data, accessToken) => {
+export const memberRefund = (data) => {
 	return async dispatch => {
 		// dispatch(handleRequest())
 		axios

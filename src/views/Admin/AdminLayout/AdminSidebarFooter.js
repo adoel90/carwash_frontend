@@ -9,11 +9,18 @@ const AdminSidebarFooter = props => {
                 <p style={{color: '#FAFAFA', fontWeight: '900', overflow:'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis', paddingRight: '5px'}}>
                     { props.user.name }
                 </p>
-                <MenuLink to={`/admin/logout`}>
-                    <Button theme="dark" rounded size="small">
-                        <i className="fas fa-power-off"></i>
-                    </Button>
-                </MenuLink>
+                <div>
+                    <MenuLink to={`/admin/setting`}>
+                        <Button theme="dark" rounded size="small">
+                            <i className="fas fa-cog"></i>
+                        </Button>
+                    </MenuLink>
+                    <MenuLink to={`/admin/logout`}>
+                        <Button theme="dark" rounded size="small">
+                            <i className="fas fa-power-off"></i>
+                        </Button>
+                    </MenuLink>
+                </div>
             </div>
         </div>
     )

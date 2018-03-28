@@ -12,3 +12,4 @@ export * from './AdminAccess';
 export * from './AdminStore';
 export * from './AdminReport';
 export * from './AdminLogout';
+export * from './AdminSetting';

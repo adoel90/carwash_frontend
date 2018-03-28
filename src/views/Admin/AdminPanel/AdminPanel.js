@@ -16,7 +16,8 @@ import {
     AdminStore,
     AdminStoreCreate,
     AdminReport,
-    AdminLogout
+    AdminLogout,
+    AdminSetting
 } from '../../Admin';
 
 import { AdminPanelView } from '../AdminPanel';
@@ -41,7 +42,8 @@ class AdminPanel extends Component {
                 { name: 'store', path: `${props.match.url}/store`, component: AdminStore },
                 { name: 'create-new-store', path: `${props.match.url}/store/create-new-store`, component: AdminStoreCreate },
                 { name: 'report', path: `${props.match.url}/report`, component: AdminReport },
-                { name: 'logout', path: `${props.match.url}/logout`, component: AdminLogout }
+                { name: 'logout', path: `${props.match.url}/logout`, component: AdminLogout },
+                { name: 'setting', path: `${props.match.url}/setting`, component: AdminSetting }
 
             ],
             menus: {}

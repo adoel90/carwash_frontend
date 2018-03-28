@@ -6,3 +6,4 @@ export { default as Switch} from './Switch';
 export { default as InputAddon} from './InputAddon';
 export { default as Label} from './Label';
 export { default as InputCurrency} from './InputCurrency';
+export { default as InputCashier} from './InputCashier';

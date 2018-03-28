@@ -1,15 +1,17 @@
 import React, { Component } from 'react'
-import { Modal } from 'reactstrap';
-import { ModalFooter, ModalContent, ModalHeader } from '../Modal';
+// import { Modal } from 'reactstrap';
+import { ModalFooter, ModalContent, ModalHeader, Modal } from '../Modal';
 import { Form, FormGroup } from '../Form';
 import { Input, InputGroup, InputAddon, Label } from '../Input';
 import { Alert } from '../Alert';
 import { Button } from '../Button';
-import { Row } from '../../layouts/Grid';
+import { Row, Column } from '../../layouts/Grid';
 
 class CashierNewCardConfirmation extends Component {
+
 	render () {
 		const{
+			card,
 			newCardData,
 			cardTypes,
 			paymentMethod,
@@ -21,10 +23,10 @@ class CashierNewCardConfirmation extends Component {
 
 		let selectedCardName;
 		let selectedPaymentMethod;
-		
-		if(cardTypes.length) {
-			cardTypes.forEach((type) => {
-				if(type.id == newCardData.card) {
+
+		if(card.types.isLoaded) {
+			card.types.data.result.forEach((type) => {
+				if(type.id == newCardData.card.id) {
 					return selectedCardName = type.name;
 				}
 			})
@@ -39,11 +41,10 @@ class CashierNewCardConfirmation extends Component {
 		}
 
 		const renderMemberInformation = () => {
-			console.log(selectedCardType);
-
 			if(!selectedCardType.refund) {
 				return (
-					<div className="column-6">
+					// <div className="column-6">
+					<Column md={6}>
 						<FormGroup>
 							<Label className="fw-semibold">Nama Lengkap</Label>
 							<InputGroup>
@@ -91,16 +92,18 @@ class CashierNewCardConfirmation extends Component {
 								readonly="true"
 							/>
 						</FormGroup>
-					</div>
+					{/* </div> */}
+					</Column>
 				)
 			}
 		}
 
 		const renderCardInformation = () => {
 			return (
-				<div className="column-6">
+				<Column md={6}>
+				{/*  <div className="column-6"> */}
 					<FormGroup>
-						<Label className="fw-semibold">Tipe Member</Label>
+						<Label className="fw-semibold">Tipe Member Card</Label>
 						<Input
 							type="text"
 							value={selectedCardName}
@@ -115,7 +118,8 @@ class CashierNewCardConfirmation extends Component {
 							readonly="true"
 						/>
 					</FormGroup>
-				</div>
+				{/* </div> */}
+				</Column>
 			)
 		}
 

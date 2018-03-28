@@ -17,7 +17,12 @@ export const CHANGE_CARD_TYPE_STATUS_REJECTED = 'CHANGE_CARD_TYPE_STATUS_REJECTE
 export const DELETE_CARD_TYPE_FULFILLED = 'DELETE_CARD_TYPE_FULFILLED';
 export const DELETE_CARD_TYPE_REJECTED = 'DELETE_CARD_TYPE_REJECTED';
 
+
+// console.log(accessToken);
+
+// export const getCardTypeList = (accessToken) => {
 export const getCardTypeList = (data, accessToken) => {
+
 	return async dispatch => {
 
 		dispatch(handleRequest());
@@ -37,12 +42,14 @@ export const getCardTypeList = (data, accessToken) => {
 	function handleError(data) { return { type: GET_ALL_CARD_TYPE_REJECTED, payload: data} }
 }
 
-export const getAllCardType = (data, accessToken) => {
+// export const getAllCardType = (data, accessToken) => {
+export const getAllCardType = (accessToken) => {
 	return async dispatch => {
 		return axios
 			.get(`${constant.API_PATH}card/type?accessToken=${accessToken}`)
 			.then((response) => {
-				dispatch(handleSuccess(response.data))
+				// dispatch(handleSuccess(response.data))
+				dispatch(handleSuccess(response))
 			})
 			.catch((error) => {
 				dispatch(handleError(error))

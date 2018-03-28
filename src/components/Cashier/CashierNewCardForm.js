@@ -3,12 +3,14 @@ import { connect } from 'react-redux';
 import { createNewMember } from '../../actions/member.action';
 
 import { Form, FormGroup } from '../Form';
-import { Input, InputGroup, InputAddon, InputCurrency, Label } from '../Input';
+// import { Input, InputGroup, InputAddon, InputCurrency, Label } from '../Input';
+import { InputCashier, InputGroup, InputAddon, InputCurrency, Label } from '../Input';
 import { Row } from '../../layouts/Grid';
 import { Modal } from 'reactstrap';
 import { ModalHeader, ModalContent, ModalFooter } from '../Modal';
 import { Button } from '../Button';
 import { default as CardIcon } from '../../assets/icons/Business/credit-card-3.svg';
+import { Column } from '../../layouts/Grid';
 
 
 class CashierNewCardForm extends Component {
@@ -38,7 +40,8 @@ class CashierNewCardForm extends Component {
 
 		return (
 			<Form onSubmit={handleNewCardSubmit}>
-				{/* <Row className="margin-bottom-3">
+				<Row className="margin-bottom-3">
+				<Column md={4}>
 					{ !selectedCardType.refund
 						? <div className="column-6">
 							<FormGroup>
@@ -49,7 +52,7 @@ class CashierNewCardForm extends Component {
 									<InputAddon>
 										<i className="ion-person"></i>
 									</InputAddon>
-									<Input
+									<InputCashier
 										name="name"
 										type="text"
 										placeholder="e.g: John Doe, Billy Simpson"
@@ -66,7 +69,7 @@ class CashierNewCardForm extends Component {
 									<InputAddon>
 										<i className="ion-email"></i>
 									</InputAddon>
-									<Input
+									<InputCashier
 										name="email"
 										type="email"
 										placeholder="e.g: john.doe@email.com"
@@ -82,7 +85,7 @@ class CashierNewCardForm extends Component {
 									<InputAddon>
 										<i className="ion-android-call"></i>
 									</InputAddon>
-									<Input
+									<InputCashier
 										name="phone"
 										type="text"
 										placeholder="+62"
@@ -96,7 +99,7 @@ class CashierNewCardForm extends Component {
 								<Label htmlFor="address">
 									<p className="fw-semibold">Alamat</p>
 								</Label>
-								<Input
+								<InputCashier
 									name="address"
 									type="textarea"
 									placeholder="Provinsi, Kecamatan, Jalan, Kode Pos"
@@ -107,20 +110,22 @@ class CashierNewCardForm extends Component {
 						</div>
 						: null
 					}
-					<div className="column-6">
+					</Column>
+					<Column md={8}>
+					{/* <div className="column-6"> */}
 						<FormGroup>
 							<Label htmlFor="card">
 								<p className="fw-semibold">Tipe Kartu</p>
 							</Label>
-							<Input
+							<InputCashier
 								name="card"
 								type="select"
 								defaultValue={newCardData.card}
 								// onChange={(e) => handleInputChange(newCardData, e)}>
 								onChange={(e) => handleChangeCardType(e)}>
-								{card.types.isLoaded ? cardTypes.map(this.renderCardTypeOptions) : null}
-							</Input>
-						</FormGroup>
+								{card.types.isLoaded ? card.types.data.result.map(this.renderCardTypeOptions) : null}
+							</InputCashier>
+						</FormGroup><br />
 						<FormGroup>
 							<Label htmlFor="starting">
 								<p className="fw-semibold">Saldo Awal</p>
@@ -137,10 +142,10 @@ class CashierNewCardForm extends Component {
 								/>
 							</InputGroup>
 							<small className="clr-passive">Merupakan minimal saldo yang harus diisi calon member untuk pembuatan kartu.</small>
-						</FormGroup>
+						</FormGroup><br />
 						<FormGroup>
 							<Label className="fw-semibold">Metode Pembayaran</Label>
-							<Input
+							<InputCashier
 								name="payment"
 								type="select"
 								onChange={(e) => handleInputChange(newCardData, e)}
@@ -150,11 +155,13 @@ class CashierNewCardForm extends Component {
 										return <option value={method.id}>{method.name}</option>
 									})
 								}
-							</Input>
+							</InputCashier>
 							<small className="clr-passive">Merupakan metode pembayaran yang dipilih calon member untuk pembuatan kartu.</small>
 						</FormGroup>
-					</div>
-				</Row> */}
+					{/* </div> */}
+					</Column>
+
+				</Row>
 				<div className="flex justify-content--flex-end">
 					<Button buttonTheme="primary" type="submit" className="clr-light">
 						<small className="fw-semibold tt-uppercase ls-base">Selanjutnya</small>
@@ -170,5 +177,4 @@ const mapStateToProps = (state) => {
 		member: state.member
 	}
 }
-
 export default connect(mapStateToProps)(CashierNewCardForm);

@@ -26,11 +26,11 @@ class CashierNewCard extends Component {
 						<p className="clr-passive">Masukkan data customer baru dengan benar dan lengkap. Seluruh kolom harus diisi.</p>
 					</PageBlock>
 					<PageBlock className="margin-bottom-5">
-						{/* <CashierNewCardForm {...this.props} /> */}
+						<CashierNewCardForm {...this.props} />
 					</PageBlock>
 				</PageBlockGroup>
-				{/* <CashierNewCardConfirmation {...this.props} />
-				<CashierNewCardInstruction {...this.props} /> */}
+				<CashierNewCardConfirmation {...this.props} />
+				{/* <CashierNewCardInstruction {...this.props} /> */}
 			</div>
 		);
 	}

@@ -114,7 +114,7 @@ export const getMemberList = (data, accessToken) => {
 				dispatch(handleError(error));
 			})
 	}
-
+	
 	function handleRequest() { return { type: GET_MEMBER_LIST_REQUESTED } }
 	function handleSuccess(data) { return { type: GET_MEMBER_LIST_FULFILLED, payload: data }}
 	function handleError(data) { return { type: GET_MEMBER_LIST_REJECTED, payload: data }}

@@ -45,9 +45,9 @@ class Service extends React.Component {
 		}
 
 		//Condition of "store"
-		let dataStoreArrayObject = this.props.storeState.store.isLoaded ? this.props.storeState.store.data.data.result.store : null;
+		let dataStoreArrayObject = this.props.storeState.list.isLoaded ? this.props.storeState.list.data.data.result.store : null;
 		const dataStores = [];
-		if(storeState.store.isLoaded ){ 
+		if(storeState.list.isLoaded ){ 
 				
 			dataStoreArrayObject.map((data, i) => {
 				
@@ -90,11 +90,11 @@ class Service extends React.Component {
 
 		
 		//How to get LONG JSON in React.
-		let dataStoreArrayObject = storeState.store.isLoaded || storeState.storemenu.isLoaded ? this.props.storeState.store.data.data.result.store : null;
+		let dataStoreArrayObject = storeState.list.isLoaded || storeState.storemenu.isLoaded ? this.props.storeState.list.data.data.result.store : null;
 		
 		const dataStores = []; 
 
-		if(storeState.store.isLoaded || storeState.storemenu.isLoaded) {
+		if(storeState.list.isLoaded || storeState.storemenu.isLoaded) {
 			
 			dataStoreArrayObject.map((data, i)=>{
 
@@ -107,7 +107,7 @@ class Service extends React.Component {
 			})
 		};
 
-		if(dataStores.length || storeState.store.isLoaded || storeState.storemenu.isLoaded ){
+		if(dataStores.length || storeState.list.isLoaded || storeState.storemenu.isLoaded ){
 			return <MainSidenav  items={dataStores} basePath={match.path} />
 		}
 	}

@@ -17,12 +17,9 @@ export const CHANGE_CARD_TYPE_STATUS_REJECTED = 'CHANGE_CARD_TYPE_STATUS_REJECTE
 export const DELETE_CARD_TYPE_FULFILLED = 'DELETE_CARD_TYPE_FULFILLED';
 export const DELETE_CARD_TYPE_REJECTED = 'DELETE_CARD_TYPE_REJECTED';
 
+const accessToken = localStorage.getItem('accessToken') ? localStorage.getItem('accessToken') : null;
 
-// console.log(accessToken);
-
-// export const getCardTypeList = (accessToken) => {
-export const getCardTypeList = (data, accessToken) => {
-
+export const getCardTypeList = (data) => {
 	return async dispatch => {
 
 		dispatch(handleRequest());
@@ -42,8 +39,7 @@ export const getCardTypeList = (data, accessToken) => {
 	function handleError(data) { return { type: GET_ALL_CARD_TYPE_REJECTED, payload: data} }
 }
 
-// export const getAllCardType = (data, accessToken) => {
-export const getAllCardType = (accessToken) => {
+export const getAllCardType = (data) => {
 	return async dispatch => {
 		return axios
 			.get(`${constant.API_PATH}card/type?accessToken=${accessToken}`)
@@ -61,7 +57,7 @@ export const getAllCardType = (accessToken) => {
 	function handleError(data) { return { type: GET_ALL_CARD_TYPE_REJECTED, payload: data} }
 }
 
-export const createNewCardType = (data, accessToken) => {
+export const createNewCardType = (data) => {
 	return async dispatch => {
 		return axios
 			.post(`${constant.API_PATH}card/type/create?accessToken=${accessToken}`, {
@@ -82,13 +78,13 @@ export const createNewCardType = (data, accessToken) => {
 	function handleError(data) { return { type: CREATE_CARD_TYPE_REJECTED, payload: data}}
 }
 
-export const updateCardType = (data, accessToken) => {
+export const updateCardType = (data) => {
 	return async dispatch => {
 		return axios
 			.put(`${constant.API_PATH}card/type/update?accessToken=${accessToken}`, {
 				id: data.id,
 				name: data.name,
-				minimum: data.minimum,
+				minimum: data.min,
 				bonus: data.bonus,
 				refund: data.refund
 			})
@@ -104,7 +100,7 @@ export const updateCardType = (data, accessToken) => {
 	function handleError(data) { return { type: UPDATE_CARD_TYPE_REJECTED, payload: data}}
 }
 
-export const changeCardTypeStatus = (data, accessToken) => {
+export const changeCardTypeStatus = (data) => {
 	return async dispatch => {
 		dispatch(handleRequest(data.id));
 
@@ -125,7 +121,7 @@ export const changeCardTypeStatus = (data, accessToken) => {
 	function handleError(data, id) { return { type: CHANGE_CARD_TYPE_STATUS_REJECTED, id: id, payload: data} }
 }
 
-export const deleteCardType = (data, accessToken) => {
+export const deleteCardType = (data) => {
 	return async dispatch => {
 		return axios
 			.put(`${constant.API_PATH}card/type/delete?accessToken=${accessToken}`, {

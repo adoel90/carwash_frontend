@@ -4,7 +4,13 @@ import {
 	GET_SALES_REPORT_REJECTED,
 	GET_TRANSACTION_REPORT_REQUESTED,
 	GET_TRANSACTION_REPORT_FULFILLED,
-	GET_TRANSACTION_REPORT_REJECTED
+	GET_TRANSACTION_REPORT_REJECTED,
+	GET_REPORT_MEMBER_LIST_REQUESTED,
+	GET_REPORT_MEMBER_LIST_FULFILLED,
+	GET_REPORT_MEMBER_LIST_REJECTED,
+	GET_REPORT_MEMBER_GRAPH_REQUESTED,
+	GET_REPORT_MEMBER_GRAPH_FULFILLED,
+	GET_REPORT_MEMBER_GRAPH_REJECTED
 } from '../actions/report.action';
 
 const initialState = {
@@ -20,6 +26,18 @@ const initialState = {
 		isFetching: false,
 		isLoaded: false,
 		isError: false,
+	},
+	member: {
+		data: {},
+		isFetching: false,
+		isLoaded: false,
+		isError: false
+	},
+	dashboard: {
+		data: {},
+		isFetching: false,
+		isLoaded: false,
+		isError: false
 	},
 	error: {}
 }
@@ -95,6 +113,84 @@ const report = (state = initialState, action) => {
 				...state,
 				transaction: {
 					...state.transaction,
+					data: {},
+					isFetching: false,
+					isLoaded: false,
+					isError: true,
+					error: action.payload
+				}
+			}
+		}
+
+		case GET_REPORT_MEMBER_LIST_REQUESTED: {
+			return {
+				...state,
+				member: {
+					...state.member,
+					isFetching: true,
+					isLoaded: false,
+					isError: false
+				}
+			}
+		}
+
+		case GET_REPORT_MEMBER_LIST_FULFILLED: {
+			return {
+				...state,
+				member: {
+					...state.member,
+					data: action.payload,
+					isFetching: false,
+					isLoaded: true,
+					isError: false
+				}
+			}
+		}
+
+		case GET_REPORT_MEMBER_LIST_REJECTED: {
+			return {
+				...state,
+				member: {
+					...state.member,
+					data: {},
+					isFetching: false,
+					isLoaded: false,
+					isError: true,
+					error: action.payload
+				}
+			}
+		}
+
+		case GET_REPORT_MEMBER_GRAPH_REQUESTED: {
+			return {
+				...state,
+				dashboard: {
+					...state.dashboard,
+					isFetching: true,
+					isLoaded: false,
+					isError: false
+				}
+			}
+		}
+
+		case GET_REPORT_MEMBER_GRAPH_FULFILLED: {
+			return {
+				...state,
+				dashboard: {
+					...state.dashboard,
+					data: action.payload,
+					isFetching: false,
+					isLoaded: true,
+					isError: false
+				}
+			}
+		}
+
+		case GET_REPORT_MEMBER_GRAPH_REJECTED: {
+			return {
+				...state,
+				dashboard: {
+					...state.dashboard,
 					data: {},
 					isFetching: false,
 					isLoaded: false,

@@ -15,7 +15,7 @@ class AdminView extends Component {
         } = this.props;
         
         return (
-
+            
             <Switch>
                 
                 <PropsRoute

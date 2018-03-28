@@ -123,7 +123,7 @@ const member = (state = initialState, action) => {
 				...state,
 				list: {
 					...state.list,
-					data: action.payload.data,
+					data: action.payload,
 					isFetching: false,
 					isLoaded: true
 				}

@@ -52,7 +52,7 @@ const card = (state = initialState, action) => {
 				...state,
 				types: {
 					...state.types,
-					data: action.payload.data,
+					data: action.payload,
 					isFetching: false,
 					isLoaded: true,
 					isError: false,

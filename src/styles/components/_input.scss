@@ -38,6 +38,7 @@
 .input-group {
     @include flexbox;
     @include flex-direction(row);
+    @include align-items(center);
 
     .input {
         border-radius: 0;
@@ -47,10 +48,20 @@
             z-index: 1;
         }
     }
-    
-    .input:first-of-type {
+
+    .input-addon {
+        background-color: #158DBC;
+        padding: 13px;
+        color: gray(100);
         border-top-left-radius: 4px;
         border-bottom-left-radius: 4px;
+    }
+    
+    .input:first-of-type {
+        border-top-left-radius: 0px;
+        border-bottom-left-radius: 0px;
+        // border-top-left-radius: 4px;
+        // border-bottom-left-radius: 4px;
     }
 
     .input:last-of-type {
@@ -101,6 +112,56 @@
             border-radius: border-radius(circled);
             height: 1.5rem;
             width: 1.5rem;
+            background-color: gray(0);
+        }
+    }
+}
+
+.switch-square {
+    position: relative;
+    display: block;
+    height: 3.5rem;
+    width: 6.5rem;
+
+    .switch-square__checkbox {
+        display: none;
+
+        &:checked {
+            + .switch-square__slider {
+                @include transition($transition-base);
+                background-color: primary-color(600);
+                
+                &:before {
+                    left: 65.5%;
+                    content: "Ya";
+                    font-weight: 600;
+                }
+            }
+        }
+    }
+
+    .switch-square__slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border-radius: border-radius(base);
+        background-color: gray(200);
+
+        &:before {
+            @include transition($transition-base);
+            position: absolute;
+            left: 7.5%;
+            top: 50%;
+            transform: translateY(-50%);
+            border-radius: border-radius(base);
+            content: "Tidak";
+            font-weight: 600;
+            // height: 1.5rem;
+            // width: 1.5rem;
+            padding: 5px;
             background-color: gray(0);
         }
     }

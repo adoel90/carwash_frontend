@@ -75,13 +75,13 @@ class StoreCashierNewCard extends Component {
 				this.setState({
 					newCardData: {
 						...this.state.newCardData,
-						card: card.types.data.result[2]
+						card: card.types.data.data.result[2]
 					},
 					cardTypes: card.types.data,
 					selectedCardType: {
-						id: card.types.data.result[2].id,
-						min: card.types.data.result[2].min,
-						refund: card.types.data.result[2].refund
+						id: card.types.data.data.result[2].id,
+						min: card.types.data.data.result[2].min,
+						refund: card.types.data.data.result[2].refund
 					}
 
 				}, ()=> {

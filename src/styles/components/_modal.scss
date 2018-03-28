@@ -35,7 +35,20 @@ $modal-content__padding                 : spacing(base);
         @include media(md) {
             width: 840px;
         }
+
     }
+    
+    .modal__body {
+        height: 100%;
+        overflow: auto;
+    }
+
+    .modal__body {
+		@include flex(1 1 auto);
+		min-height: 20em;
+		max-height: 25em;
+		overflow-y: auto;
+	}
 
     .modal__backdrop {
         position: absolute;
@@ -52,6 +65,7 @@ $modal-content__padding                 : spacing(base);
     .modal__body,
     .modal__footer {
         padding: $modal-content__padding;
+        overflow-y: auto;
 
         @each $theme, $color in $theme-colors {
             &.modal__header--#{$theme},

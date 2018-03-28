@@ -20,12 +20,12 @@ class StoreMenu extends React.Component {
 			member
 		} = this.props;
 
-		let dataStoreArrayObject = this.props.storeState.store.isLoaded ? this.props.storeState.store.data.data.result.store : null;
+		let dataStoreArrayObject = this.props.storeState.list.isLoaded ? this.props.storeState.list.data.data.result.store : null;
 	
 		const renderStoreMenuList = () => {	
 
 			// if(service.list.isFetching){
-			if(storeState.store.isFetching){
+			if(storeState.list.isFetching){
 				return (
 					<PageBlock className="ta-center margin-top-2">
 						<p>Sedang memuat daftar layanan, mohon tunggu sebentar...</p>
@@ -33,7 +33,7 @@ class StoreMenu extends React.Component {
 				)
 			}
 			
-			if(storeState.store.isLoaded) {
+			if(storeState.list.isLoaded) {
 				if(!dataStoreArrayObject.length) {
 					return (
 						<PageBlock className="flex flex-column ta-center justify-content--center align-items--center margin-top-2 margin-bottom-2">

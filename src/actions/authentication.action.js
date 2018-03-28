@@ -26,6 +26,8 @@ export const KASIR_LOGIN_REQUESTED = 'KASIR_LOGIN_REQUESTED';
 export const KASIR_LOGIN_FULFILLED = 'KASIR_LOGIN_FULFILLED';
 export const KASIR_LOGIN_REJECTED = 'KASIR_LOGIN_REJECTED';
 
+export const LOGOUT_FULFILLED = 'LOGOUT_FULFILLED';
+
 /*
 //  ADMIN LOGIN
 //  Calls the API to get `accessToken` required to access the app.
@@ -42,9 +44,16 @@ export const adminLogin = (data) => {
             })
             .then((response) => {
                 let result = response.data.result;
-                localStorage.setItem('accessToken', result.accessToken);
-                localStorage.setItem('userData', JSON.stringify(result.data));
-                dispatch(loginSuccess(result));
+                
+                if(result.data.module[0].group === 'admin') {
+                    localStorage.setItem('accessToken', result.accessToken);
+                    localStorage.setItem('userData', JSON.stringify(result.data));
+                    dispatch(loginSuccess(result));
+    
+                    window.location.reload();
+                } else {
+                    dispatch(loginError(result));              
+                }
             })
             .catch((error) => {
                 dispatch(loginError(error));
@@ -185,4 +194,21 @@ export const kasirLogin = (data) => {
     function loginRequest() { return { type: KASIR_LOGIN_REQUESTED } }
     function loginSuccess(data) { return { type: KASIR_LOGIN_FULFILLED, payload: data } }
     function loginError(data) { return { type: KASIR_LOGIN_REJECTED, payload: data } }
+}
+
+export const logout = () => {
+	return async (dispatch) => {
+		return Promise.resolve(dispatch(handleLogout()))
+			.then(() => {
+				localStorage.removeItem('accessToken');
+				localStorage.removeItem('userData');
+				localStorage.removeItem('member');
+			})
+	}
+
+	function handleLogout() {
+		return {
+			type: LOGOUT_FULFILLED
+		}
+	}
 }

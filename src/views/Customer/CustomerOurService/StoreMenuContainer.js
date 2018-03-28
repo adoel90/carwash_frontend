@@ -10,7 +10,7 @@ import { memberLogout } from '../../../actions/member.action';
 
 function mapStateToProps(state) {
     return {
-		storeState : state.storeState,
+		storeState : state.store,
     };
 }
 
@@ -94,12 +94,12 @@ class StoreMenuContainer extends React.Component {
 		/* Version-01 */
 
 		//#Get Store List 
-		if(prevProps.storeState.store !== storeState.store){
+		if(prevProps.storeState.list !== storeState.list){
             if(storeState.store.isLoaded){
 
                 this.setState({
                     ...this.state,
-                    storeActiveList: storeState.store.data.data.result.store
+                    storeActiveList: storeState.list.data.data.result.store
                 }, () => {
 					// getMenuStoreListDispatch(storeState.store.data.data.result.store[storeActive]);
 					console.log(this.state);
@@ -195,7 +195,7 @@ class StoreMenuContainer extends React.Component {
 
 		const requiredData = {
 			menu: selectedMenuToPay,
-			store: storeState.store.data.data.result.store[storeActive]
+			store: storeState.list.data.data.result.store[storeActive]
 		}
 
 		let dialogData = {

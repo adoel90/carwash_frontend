@@ -25,7 +25,7 @@ class CashierNewCardConfirmation extends Component {
 		let selectedPaymentMethod;
 
 		if(card.types.isLoaded) {
-			card.types.data.result.forEach((type) => {
+			card.types.data.data.result.forEach((type) => {
 				if(type.id == newCardData.card.id) {
 					return selectedCardName = type.name;
 				}

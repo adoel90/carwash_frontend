@@ -123,7 +123,7 @@ class CashierNewCardForm extends Component {
 								defaultValue={newCardData.card}
 								// onChange={(e) => handleInputChange(newCardData, e)}>
 								onChange={(e) => handleChangeCardType(e)}>
-								{card.types.isLoaded ? card.types.data.result.map(this.renderCardTypeOptions) : null}
+								{card.types.isLoaded ? card.types.data.data.result.map(this.renderCardTypeOptions) : null}
 							</InputCashier>
 						</FormGroup><br />
 						<FormGroup>

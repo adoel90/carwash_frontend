@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Service } from '../../../components/Service';
 import PropTypes from 'prop-types';
-import { showDialog, hideDialog } from '../../../actions/dialog.action';
+import { openDialog, closeDialog } from '../../../actions/dialog.action';
 import { getStoreList, getMenuListStore } from '../../../actions/store.action';
 
 /*
@@ -15,7 +15,7 @@ import { getStoreList, getMenuListStore } from '../../../actions/store.action';
 
 function mapStateToProps(state) {
 	return {
-		storeState: state.storeState,
+		storeState: state.store,
 		member: state.member,
 		dialog: state.dialog,
 		service: state.service
@@ -28,8 +28,8 @@ function mapDispatchToProps(dispatch) {
 
 		getStoreState: () => dispatch(getStoreList()),
 		getMenuListStoreState: (data) => dispatch(getMenuListStore(data)),
-		showDialogDispatch: (data) => dispatch(showDialog(data)),
-		hideDialogDispatch: ()=> dispatch(hideDialog())
+		openDialogDispatch: (data) => dispatch(openDialog(data)),
+		closeDialogDispatch: ()=> dispatch(closeDialog())
 
 	}
 }
@@ -39,8 +39,8 @@ class StoreContainer extends React.Component {
 	constructor() {
 		super();
 		this.toggleDialog = this.toggleDialog.bind(this);
-		this.showDialog = this.showDialog.bind(this);
-		this.hideDialog = this.hideDialog.bind(this);
+		this.openDialog = this.openDialog.bind(this);
+		this.closeDialog = this.closeDialog.bind(this);
 		this.addPathPropToTypes = this.addPathPropToTypes.bind(this);
 
 		this.getStoreList = this.getStoreList.bind(this);
@@ -150,24 +150,24 @@ class StoreContainer extends React.Component {
 		// console.log(data);
 
 		if (!dialog.isOpened) {
-			this.showDialog(data);
+			this.openDialog(data);
 		}
 		else {
-			this.hideDialog();
+			this.closeDialog();
 		}
 	}
 
-	showDialog = (data) => {
-		const {dialog, showDialogDispatch } = this.props;
-		// dispatch(showDialog(data));
-		showDialogDispatch(data);
+	openDialog = (data) => {
+		const {dialog, openDialogDispatch } = this.props;
+		// dispatch(openDialog(data));
+		openDialogDispatch(data);
 	}
 
-	hideDialog = () => {
-		const { dialog,hideDialogDispatch  } = this.props;
+	closeDialog = () => {
+		const { dialog,closeDialogDispatch  } = this.props;
 
-		// dispatch(hideDialog());
-		hideDialogDispatch();
+		// dispatch(closeDialog());
+		closeDialogDispatch();
 	}
 
 	addPathPropToTypes = () => {
@@ -195,8 +195,8 @@ class StoreContainer extends React.Component {
 				{...this.state}
 				{...this.props}
 				toggleDialog={this.toggleDialog}
-				showDialog={this.showDialog}
-				hideDialog={this.hideDialog}
+				openDialog={this.openDialog}
+				closeDialog={this.closeDialog}
 				populateData={this.populateData}
 			/>
 		)

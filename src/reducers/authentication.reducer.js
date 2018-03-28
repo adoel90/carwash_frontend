@@ -21,6 +21,7 @@ import {
     
 
 
+    LOGOUT_FULFILLED
 } from '../actions/authentication.action';
 
 const initialState = {
@@ -143,9 +144,8 @@ const authentication = (state = initialState, action) => {
             }
         }
 
-
-         //#KASIR LOGIN
-         case KASIR_LOGIN_REQUESTED: {
+        //#KASIR LOGIN
+        case KASIR_LOGIN_REQUESTED: {
             return {
                 ...state,
                 isAuthenticating: true,
@@ -218,6 +218,17 @@ const authentication = (state = initialState, action) => {
         //         error: action.payload
         //     }
         // }
+
+        case LOGOUT_FULFILLED: {
+            return {
+                ...state,
+                isAuthenticating: false,
+                isAuthenticated: false,
+                userData: {},
+                isError: true,
+                error: action.payload
+            }
+        }
 
         default:
             return state

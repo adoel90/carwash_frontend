@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import Currency from '../../../components/Currency';
 
 import { kasirTopUpLogin } from '../../../actions/store.action';//Scenario-nya kasir meminta customer untuk GESEK KARTU MEMBER
-import { showDialog, hideDialog } from '../../../actions/dialog.action';
+import { openDialog, closeDialog } from '../../../actions/dialog.action';
 // import { StoreCashierTopUpView } from '../StoreCashierTopUp';
 // import { CashierTopUp } from '../../../components/Cashier';
 import  {CashierTopUp}  from '../../../components/Cashier';
@@ -13,7 +13,7 @@ import  {CashierTopUp}  from '../../../components/Cashier';
 function mapStateToProps(state) {
     return {
         // authentication: state.authentication 
-        storeState: state.storeState,
+        storeState: state.store,
         dialog: state.dialog
     };
 }
@@ -21,8 +21,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         kasirTopUpLogin: bindActionCreators(kasirTopUpLogin, dispatch),
-        showDialogDispatch:(data) =>  dispatch(showDialog(data)),
-        hideDialogDispatch: () => dispatch(hideDialog())
+        openDialogDispatch:(data) =>  dispatch(openDialog(data)),
+        closeDialogDispatch: () => dispatch(closeDialog())
     }
 }
 
@@ -38,8 +38,8 @@ class StoreCashierTopUp extends Component {
         this.handleTopupSubmit = this.handleTopupSubmit.bind(this);
 
         this.toggleDialog = this.toggleDialog.bind(this);
-        this.showDialog = this.showDialog.bind(this);
-		this.hideDialog = this.hideDialog.bind(this);
+        this.openDialog = this.openDialog.bind(this);
+		this.closeDialog = this.closeDialog.bind(this);
 
         this.state = {
 
@@ -146,23 +146,23 @@ class StoreCashierTopUp extends Component {
         
     }
     toggleDialog = (data) => {
-		const { dialog, showDialogDispatch, hideDialogDispatch } = this.props;
+		const { dialog, openDialogDispatch, closeDialogDispatch } = this.props;
 
 		if(!dialog.isOpened) {
-            // this.showDialog(data);
-            showDialogDispatch(data)
+            // this.openDialog(data);
+            openDialogDispatch(data)
 		}
 		else {
-            // this.hideDialog();
-            hideDialogDispatch();
+            // this.closeDialog();
+            closeDialogDispatch();
 		}
 	}
 
-    showDialog = () => {
+    openDialog = () => {
         /*Only Declare */
     }
 
-    hideDialog = () => {
+    closeDialog = () => {
         /*Only Declare */
     }
 
@@ -175,7 +175,7 @@ class StoreCashierTopUp extends Component {
 			paymentMethod,
             authenticatedMember,
             toggleDialog,
-            hideDialog
+            closeDialog
         } = this.state;
         
         // console.log(this.state);
@@ -212,7 +212,7 @@ class StoreCashierTopUp extends Component {
 				// dispatch(memberTopup(requiredData, authenticatedMember.accessToken))
 			},
 			confirmText: 'Selesai',
-			onClose: () => hideDialog(),
+			onClose: () => closeDialog(),
 			closeText: 'Batal'
 		}
 
@@ -247,8 +247,8 @@ class StoreCashierTopUp extends Component {
 
                 handleTopupSubmit={this.handleTopupSubmit}
                 toggleDialog={this.toggleDialog}
-				showDialog={this.showDialog}
-				hideDialog={this.hideDialog}
+				openDialog={this.openDialog}
+				closeDialog={this.closeDialog}
             />
         )
     }

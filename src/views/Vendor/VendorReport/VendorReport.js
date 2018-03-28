@@ -9,7 +9,7 @@ import { getStoreReportList } from '../../../actions/vendor.report.action';
 function mapStateToProps(state) {
     return {
         vendorReportState : state.vendorReportState,
-        storeState : state.storeState
+        store : state.store
     };
 }
 
@@ -69,7 +69,7 @@ class VendorReport extends Component {
 
     //#
     componentDidUpdate = (prevProps) => {
-        const { vendorReportState, storeState, getStoreReportDispatch} = this.props;
+        const { vendorReportState, store, getStoreReportDispatch} = this.props;
         const {period,storeReportMonth, storeActive} = this.state;
         
         if(prevProps.vendorReportState.summary !== vendorReportState.summary) {
@@ -82,21 +82,21 @@ class VendorReport extends Component {
         }  
         
         //Get Store List
-        if(prevProps.storeState.store !== storeState.store) {
-            if (storeState.store.isLoaded) {
+        if(prevProps.store.list !== store.list) {
+            if (store.list.isLoaded) {
 
              
 
                 this.setState({
                     ...this.state,
-                    storeList: storeState.store.data.data
+                    storeList: store.list.data.data
                 }, () => {
 
                     let requiredDataMonth = {
                         type: 'month',
                         start_date: period.from.format('YYYY-MM-DD'),
                         end_date: period.to.format('YYYY-MM-DD'),
-                        storeid : storeState.store.data.data.result.store[storeActive]
+                        storeid : store.list.data.data.result.store[storeActive]
                     }
                     getStoreReportDispatch(requiredDataMonth);
                 }) 

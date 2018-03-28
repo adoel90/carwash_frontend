@@ -35,7 +35,6 @@ export const CHANGE_MEMBER_STATUS_REJECTED = 'CHANGE_MEMBER_STATUS_REJECTED';
 export const DELETE_MEMBER_FULFILLED = 'DELETE_MEMBER_FULFILLED';
 export const DELETE_MEMBER_REJECTED = 'DELETE_MEMBER_REJECTED';
 
-const cookies = new Cookies();
 const accessToken = localStorage.getItem('accessToken') ? localStorage.getItem('accessToken') : null;
 
 export const authenticateMember = (data) => {
@@ -47,8 +46,8 @@ export const authenticateMember = (data) => {
 			})
 			.then((response) => {
 				dispatch(handleSuccess(response.data.data));
-				cookies.set('accessToken', response.data.data.accessToken, { path: '/' });
-				cookies.set('member', response.data.data.member, { path: '/' });
+				localStorage.setItem("accessToken", response.data.data);
+				localStorage.setItem("member", response.data.data.member);
 			})
 			.catch((error) => {
 				dispatch(handleError(error))
@@ -99,7 +98,7 @@ export const memberRefund = (data, accessToken) => {
 	function handleError(data) { return { type: MEMBER_REFUND_REJECTED, payload: data } }
 }
 
-export const getMemberList = (data, accessToken) => {
+export const getMemberList = (data) => {
 	return async dispatch => {
 
 		dispatch(handleRequest());
@@ -120,7 +119,7 @@ export const getMemberList = (data, accessToken) => {
 	function handleError(data) { return { type: GET_MEMBER_LIST_REJECTED, payload: data }}
 }
 
-export const getAllMemberList = (accessToken) => {
+export const getAllMemberList = () => {
 	return async dispatch => {
 
 		dispatch(handleRequest());
@@ -140,8 +139,7 @@ export const getAllMemberList = (accessToken) => {
 	function handleError(data) { return { type: GET_MEMBER_LIST_REJECTED, payload: data }}
 }
 
-export const getMemberDetail = (data, accessToken) => {
-// export const getMemberDetail = (data) => {
+export const getMemberDetail = (data) => {
 	return async dispatch => {
 		dispatch(handleRequest())
 		
@@ -163,7 +161,7 @@ export const getMemberDetail = (data, accessToken) => {
 	function handleError(data) { return { type: GET_MEMBER_DETAIL_REJECTED, payload: data } }
 }
 
-export const createNewMember = (data, accessToken) => {
+export const createNewMember = (data) => {
 	return async dispatch => {
 		axios
 			.post(`${constant.API_PATH}member/create?accessToken=${accessToken}`, {
@@ -187,16 +185,10 @@ export const createNewMember = (data, accessToken) => {
 }
 
 
-export const updateMember = (data, accessToken) => {
+export const updateMember = (data) => {
 	return async dispatch => {
 		return axios
-			.put(`${constant.API_PATH}member/update?accessToken=${accessToken}`, {
-				id: data.id,
-				name: data.name,
-				phone: data.phone,
-				email: data.email,
-				address: data.address
-			})
+			.put(`${constant.API_PATH}member/update?accessToken=${accessToken}`, data)
 			.then((response) => {
 				dispatch(handleSuccess(response.data));
 			})
@@ -209,7 +201,7 @@ export const updateMember = (data, accessToken) => {
 	function handleError(data) { return { type: UPDATE_MEMBER_REJECTED, payload: data } }
 }
 
-export const changeMemberStatus = (data, accessToken) => {
+export const changeMemberStatus = (data) => {
 	return async dispatch => {
 		dispatch(handleRequest(data.id));
 
@@ -230,7 +222,7 @@ export const changeMemberStatus = (data, accessToken) => {
 	function handleError(data) { return { type: CHANGE_MEMBER_STATUS_REJECTED, payload: data } }
 }
 
-export const deleteMember = (data, accessToken) => {
+export const deleteMember = (data) => {
 	return async dispatch => {
 		axios
 			.put(`${constant.API_PATH}member/delete?accessToken=${accessToken}`, {

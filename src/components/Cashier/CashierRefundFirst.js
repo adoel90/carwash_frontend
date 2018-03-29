@@ -22,15 +22,10 @@ class CashierRefundFirst extends Component {
 		return (
 			<div className="inner-view">
                 <PageBlock extension>
-					<h5 className="fw-semibold">Refund Kartu</h5>
+					<h3 className="fw-semibold">Refund Kartu</h3>
 					<p className="clr-passive">Harap gesek kartu atau masukkan ID kartu member yang ingin direfund pada kolom yang telah tersedia.</p>
 				</PageBlock>
 				<PageBlock className="margin-bottom-5 ta-center">
-					{/* <img src={CardIcon} style={{width: '150px'}}/>
-					<Row className="flex flex-column padding-bottom-3">
-						<h5 className="fw-semibold">Isi Ulang Saldo</h5>
-						<p className="clr-passive">Silahkan gesek kartu member untuk mengisi saldo customer pada kolom berikut.</p>
-					</Row> */}
 
 					<CashierRefundForm {...this.props} handleInputChange={this.props.handleInputChange} />
 				</PageBlock>

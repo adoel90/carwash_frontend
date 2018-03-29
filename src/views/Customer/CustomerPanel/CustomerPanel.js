@@ -13,7 +13,6 @@ class CustomerPanel extends Component {
     constructor(props) {
 
         super(props);
-
         this.getMemberDetail = this.getMemberDetail.bind(this);
         this.handleRouteRedirect = this.handleRouteRedirect.bind(this);
 

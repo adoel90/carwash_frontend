@@ -2,26 +2,28 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
+import { Dialog } from '../../../components/Dialog';
 import { StoreCashierRefundView } from '../StoreCashierRefund';
 import { CashierRefund, CashierRefundFirst} from '../../../components/Cashier';
 import { kasirTopUpLogin } from '../../../actions/store.action';//Scenario-nya kasir meminta customer untuk GESEK KARTU MEMBER
 import { memberRefund } from '../../../actions/member.action';
+import { openDialog, closeDialog } from '../../../actions/dialog.action';
 
 function mapStateToProps(state) {
     return {
         // authentication: state.authentication 
-        storeState: state.store
-        // dialog: state.dialog
+        storeState: state.store,
+        dialog: state.dialog,
+        member: state.member
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
         kasirTopUpLoginDispatch: bindActionCreators(kasirTopUpLogin, dispatch),
-        memberRefundDispatch: (data) => dispatch(memberRefund(data))
-        // openDialogDispatch:(data) =>  dispatch(openDialog(data)),
-        // closeDialogDispatch: (data) => dispatch(closeDialog(data)),
-        // memberTopupDispatch: (data) => dispatch(memberTopup(data))
+        memberRefundDispatch: (data) => dispatch(memberRefund(data)),
+        openDialogDispatch:(data) =>  dispatch(openDialog(data)),
+        closeDialogDispatch: (data) => dispatch(closeDialog(data))
     }
 }
 
@@ -34,6 +36,8 @@ class StoreCashierRefund extends Component {
         this.toggleModal = this.toggleModal.bind(this);
         this.handleRefundSubmit = this.handleRefundSubmit.bind(this);
         // this.memberRefund = this.memberRefund.bind(this)
+        this.toggleDialog = this.toggleDialog.bind(this);
+        this.renderDialog = this.renderDialog.bind(this);
 
         this.state = {
             selectedMemberRefund:{},
@@ -49,7 +53,11 @@ class StoreCashierRefund extends Component {
             isModalOpen: {
                 refund: false,
                 // topupConfirm: false
-            }
+            },
+            error: {
+				data: {},
+				isError: false
+            },
         }
     }
 
@@ -62,12 +70,15 @@ class StoreCashierRefund extends Component {
         if(prevProps.storeState.userData !== storeState.userData){
             if(storeState.isAuthenticated){
 
-                this.state.selectedMemberRefund = storeState.userData.member;
+                // this.state.selectedMemberRefund = storeState.userData.member;
+                this.state.selectedMemberRefund = storeState.userData;
                 this.forceUpdate();
                 this.handleTopUp();    
         
             }   
         }
+
+ 
     }	
 
     handleAuthentication = (e) => {
@@ -103,8 +114,6 @@ class StoreCashierRefund extends Component {
     }
 
     toggleModal = (name) => {
-
-        console.log(name);
         const { isModalOpen } = this.state;
 
         this.setState({
@@ -124,38 +133,80 @@ class StoreCashierRefund extends Component {
     handleRefundSubmit = (e) => {
         e.preventDefault();
 
-        const { selectedMemberRefund } = this.state;
+        const { selectedMemberRefund, toggleDialog } = this.state;
         
         const { dispatch, accessToken, memberRefundDispatch } = this.props;
         
         let requiredData = {
-            card: selectedMemberRefund.card.id
+            card: selectedMemberRefund.member.card.id,
+            accessToken: selectedMemberRefund.accessToken
         }
 
-        // dispatch(memberRefund(requiredData, accessToken));
-        memberRefundDispatch(requiredData);
+        memberRefundDispatch(requiredData).then(() => {
+
+            const { member } = this.props;
+
+            // console.log(member);
+
+            if(member.item.isRefundeed){
+
+                let dialogData = {
+					type: 'success',
+					title: 'Berhasil melakukan Refunding',
+					message: 'Saldo telah berhasil di refund. Klik tombol berikut untuk kembali.',
+					onClose: () => window.location.reload(),
+					closeText: 'Kembali'
+				}
+                this.toggleDialog(dialogData)
+            }
+
+            if (member.item.isError) {
+				let dialogData = {
+					type: 'danger',
+					title: 'Gagal',
+					message: 'REFUNDING gagal di tambahkan. Silahkan panggil Administrator untuk maintenance.',
+					onClose: () => this.toggleDialog(),
+					closeText: 'Kembali'
+				}
+				this.toggleDialog(dialogData);
+			}
+        });
     }
 
-    //
+    toggleDialog = (data) => {
 
-    render() {
-        // return <StoreCashierRefundView {...this.state} {...this.props} />
+		const { dialog, openDialogDispatch, closeDialogDispatch } = this.props;
 
-        // return (
-        //     <div>
-        //         <CashierRefund 
-        //             {...this.state} 
-        //             {...this.props} 
-        //             handleInputChange={this.handleInputChange}
-        //             handleAuthentication= {this.handleAuthentication}
-        //             toggleModal = {this.toggleModal}
-                
+		if(!dialog.isOpened) {
+            openDialogDispatch(data)
+		}
+		else {
+            closeDialogDispatch(data);
+		}
+    }
+    
+    renderDialog = () => {
 
-        //         />
-
-        //     </div>
-        // )
+        const { dialog, toggleDialog } = this.props;
         
+        return (
+
+            <Dialog
+                isOpen={dialog.isOpened}
+                toggle={toggleDialog}
+                type={dialog.data.type}
+                title={dialog.data.title}
+                message={dialog.data.message}
+                onConfirm={dialog.data.onConfirm}
+                confirmText={dialog.data.confirmText}
+                onClose={dialog.data.onClose}
+                closeText={dialog.data.closeText}
+            />
+        )
+    }
+    
+    render() {
+ 
          return (
             <div>
                 <CashierRefundFirst 
@@ -164,7 +215,9 @@ class StoreCashierRefund extends Component {
                     handleInputChange={this.handleInputChange}
                     handleAuthentication= {this.handleAuthentication}
                     toggleModal = {this.toggleModal}
+                    handleRefundSubmit = {this.handleRefundSubmit}
                 />
+                {this.renderDialog()}
             </div>
         )
         

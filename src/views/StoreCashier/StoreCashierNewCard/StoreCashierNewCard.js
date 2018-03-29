@@ -62,6 +62,9 @@ class StoreCashierNewCard extends Component {
 				newCardConfirmation: false,
 				newCardInstruction: false
 			},
+			dataMember: {
+				isCreated:false
+			}
 		}
 	}
 
@@ -74,11 +77,10 @@ class StoreCashierNewCard extends Component {
 	componentDidUpdate(prevProps){
 
 		const { newCardData, newMember } = this.state;
-		const { card } = this.props;
+		const { card, member } = this.props;
 
 		if(prevProps.card.types !== card.types){
 			if(card.types.isLoaded){
-				// console.log(card.types.data.result[2])
 				this.setState({
 					newCardData: {
 						...this.state.newCardData,
@@ -96,6 +98,17 @@ class StoreCashierNewCard extends Component {
 					
 				})
 			}
+		}
+
+		if(prevProps.member !== member){
+			this.setState({
+				dataMember:{
+					...this.state.dataMember,
+					isCreated: member.memberCreated.isCreated
+				}
+			}, () => {
+				console.log(this.state);				
+			})
 		}
 	}
 
@@ -199,8 +212,9 @@ class StoreCashierNewCard extends Component {
 		
 		createNewMemberdDispatch(requiredData).then(()=> {
 			const { member } = this.props;
-			
-			if(member.item.isCreated){
+			const { dataMember } = this.state;
+			// if(member.memberCreated.isCreated){
+			if(dataMember.isCreated){
 				let dialogData = {
 					type: 'success',
 					title: 'Berhasil Membuat Kartu',
@@ -212,7 +226,8 @@ class StoreCashierNewCard extends Component {
 				this.toggleDialog(dialogData)
 			}
 
-			if (member.item.isError) {
+			if (member.memberCreated.isError) {
+				
 				let dialogData = {
 					type: 'danger',
 					title: 'Gagal',
@@ -225,14 +240,11 @@ class StoreCashierNewCard extends Component {
 			}
 		
 		});
-		// this.toggleModal('newCardModal');
-		// this.toggleDialog(dialogData)
 	}
 
 	toggleDialog = (data) => {
 		const { dialog, action, openDialogDispatch, closeDialogDispatch } = this.props;
 		
-		console.log(dialog);
 		
 
         if(!dialog.isOpened) {
@@ -254,12 +266,8 @@ class StoreCashierNewCard extends Component {
 	}
 
 	renderDialog = () => {
-        const {
-            dialog,
-            toggleDialog
-        } = this.props;
 
-        // console.log(this.props)
+        const { dialog, toggleDialog } = this.props;
         
         return (
             <Dialog
@@ -279,8 +287,6 @@ class StoreCashierNewCard extends Component {
 
     render() {
         
-        //return <StoreCashierNewCardView {...this.state} {...this.props} />
-
         return (
 			<div>
 				<CashierNewCard
@@ -291,7 +297,9 @@ class StoreCashierNewCard extends Component {
 					handleChangeCardType={this.handleChangeCardType}
 					handleNewCardSubmit={this.handleNewCardSubmit}
 					handleNewCardConfirmationSubmit={this.handleNewCardConfirmationSubmit}
-
+					toggleDialog={this.toggleDialog}
+					openDialog={this.openDialog}
+                    closeDialog={this.closeDialog}
 				/>
 				{this.renderDialog()}
 			</div>

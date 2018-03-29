@@ -5,6 +5,7 @@ import {
 
 	MEMBER_TOPUP_FULFILLED,
 	MEMBER_TOPUP_REJECTED,
+
 	MEMBER_REFUND_REQUESTED,
 	MEMBER_REFUND_FULFILLED,
 	MEMBER_REFUND_REJECTED,
@@ -49,7 +50,10 @@ const initialState = {
 		isCreating: false,
 		isCreated: false,
 		isError: false,
+		isRefunding: false,
+		isRefunded: false,
 		error: {}
+
 	},
 	list: {
 		data: [],
@@ -58,6 +62,12 @@ const initialState = {
 		isError: false,
 		error: {}
 	},
+	memberCreated: {
+		data: {},
+		isCreated: false,
+		isError: false,
+		error: {}
+	}
 
 }
 
@@ -190,8 +200,8 @@ const member = (state = initialState, action) => {
 		case CREATE_MEMBER_FULFILLED: {
 			return {
 				...state,
-				item: {
-					...state.item,
+				memberCreated: {
+					...state.memberCreated,
 					data: action.payload,
 					isCreated: true,
 					isError: false,
@@ -203,8 +213,8 @@ const member = (state = initialState, action) => {
 		case CREATE_MEMBER_REJECTED: {
 			return {
 				...state,
-				item: {
-					...state.item,
+				memberCreated: {
+					...state.memberCreated,
 					data: {},
 					isCreated: false,
 					isError: true,

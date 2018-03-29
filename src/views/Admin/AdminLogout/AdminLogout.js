@@ -10,7 +10,6 @@ class AdminLogout extends Component {
 			window.location.reload();
 		});
 	}
-
 	render() { return null; }
 }
 

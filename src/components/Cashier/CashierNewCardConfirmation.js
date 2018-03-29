@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 // import { Modal } from 'reactstrap';
-import { ModalFooter, ModalContent, ModalHeader, Modal } from '../Modal';
+import { ModalFooter, ModalContent, ModalHeader, Modal, ModalBody} from '../Modal';
 import { Form, FormGroup } from '../Form';
 import { Input, InputGroup, InputAddon, Label } from '../Input';
 import { Alert } from '../Alert';
 import { Button } from '../Button';
 import { Row, Column } from '../../layouts/Grid';
+import {FormField} from '../../layouts/Form';
 
 class CashierNewCardConfirmation extends Component {
 
@@ -43,39 +44,40 @@ class CashierNewCardConfirmation extends Component {
 		const renderMemberInformation = () => {
 			if(!selectedCardType.refund) {
 				return (
-					// <div className="column-6">
 					<Column md={6}>
-						<FormGroup>
-							<Label className="fw-semibold">Nama Lengkap</Label>
+					
+						<FormField label="Nama Lengkap">
 							<InputGroup>
 								<InputAddon>
-									<i className="ion-person"></i>
+									<i className="far fa-person"></i>
 								</InputAddon>
 								<Input
+									className="input"
 									type="text"
 									value={newCardData.name}
 									readonly="true"
 								/>
 							</InputGroup>
-						</FormGroup>
-						<FormGroup>
-							<Label className="fw-semibold">Alamat E-mail</Label>
+						</FormField>
+						
+						<FormField label="Alamat E-mail">
 							<InputGroup>	
 								<InputAddon>
-									<i className="ion-email"></i>
+									<i className="far fa-envelope"></i>
 								</InputAddon>
 								<Input
+									className="input"
 									type="text"
 									value={newCardData.email}
 									readonly="true"
 								/>
 							</InputGroup>
-						</FormGroup>
-						<FormGroup>
-							<Label className="fw-semibold">Nomor Telepon</Label>
+						</FormField>
+
+						<FormField label="Nomor Telepon">
 							<InputGroup>
 								<InputAddon>
-									<i className="ion-ios-telephone"></i>
+									<i className="far fa-telephone"></i>
 								</InputAddon>
 								<Input
 									type="text"
@@ -83,7 +85,8 @@ class CashierNewCardConfirmation extends Component {
 									readonly="true"
 								/>
 							</InputGroup>
-						</FormGroup>
+						</FormField>
+						
 						<FormGroup>
 							<Label className="fw-semibold">Alamat</Label>
 							<Input
@@ -92,7 +95,6 @@ class CashierNewCardConfirmation extends Component {
 								readonly="true"
 							/>
 						</FormGroup>
-					{/* </div> */}
 					</Column>
 				)
 			}
@@ -101,7 +103,6 @@ class CashierNewCardConfirmation extends Component {
 		const renderCardInformation = () => {
 			return (
 				<Column md={6}>
-				{/*  <div className="column-6"> */}
 					<FormGroup>
 						<Label className="fw-semibold">Tipe Member Card</Label>
 						<Input
@@ -118,7 +119,6 @@ class CashierNewCardConfirmation extends Component {
 							readonly="true"
 						/>
 					</FormGroup>
-				{/* </div> */}
 				</Column>
 			)
 		}
@@ -131,7 +131,7 @@ class CashierNewCardConfirmation extends Component {
 					<h6 className="fw-semibold">Konfirmasi Data Member</h6>
 				</ModalHeader>
 				<Form onSubmit={handleNewCardConfirmationSubmit}>
-					<ModalContent>
+					<ModalBody>
 						<Alert theme="secondary" className="margin-bottom-2">
 							<p>Periksa kembali informasi calon member berikut sebelum melanjutkan.</p>
 						</Alert>
@@ -139,7 +139,7 @@ class CashierNewCardConfirmation extends Component {
 							{ renderMemberInformation() }
 							{ renderCardInformation() }
 						</Row>
-					</ModalContent>
+					</ModalBody>
 					<ModalFooter className="flex justify-content--center">
 						<Button type="button" buttonTheme="danger" className="clr-light" onClick={() => toggleModal('newCardConfirmation')}>
 							<small className="fw-semibold tt-uppercase ls-base">Batal</small>

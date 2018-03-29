@@ -27,7 +27,10 @@ import {
 	GET_PRINT_STORE_TRANSACTION_REJECTED,
 	CUSTOMER_TOPUP_LOGIN_REQUESTED,//#CUSTOMER TOP-UP LOGIN 
     CUSTOMER_TOPUP_LOGIN_FULFILLED,
-    CUSTOMER_TOPUP_LOGIN_REJECTED
+	CUSTOMER_TOPUP_LOGIN_REJECTED,
+	
+	
+
 } from '../actions/store.action'
 
 const initialState = {
@@ -222,6 +225,20 @@ const store = (state = initialState, action) => {
 			}
 		}
 
+
+		case UPDATE_STORE_REQUESTED: {
+			return {
+				...state,
+				updateStore: {
+					...state.updateStore,
+					data: {},
+					isUpdated: false,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
 		case UPDATE_STORE_FULFILLED: {
 			return {
 				...state,
@@ -406,18 +423,7 @@ const store = (state = initialState, action) => {
 			}
 		}
 
-		case UPDATE_STORE_REQUESTED: {
-			return {
-				...state,
-				updateStore: {
-					...state.updateStore,
-					data: {},
-					isUpdated: false,
-					isError: false,
-					error: {}
-				}
-			}
-		}
+	
 
 		//GET PRINT STORE TRANSACTION
 		case GET_PRINT_STORE_TRANSACTION_REQUESTED: {

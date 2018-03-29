@@ -36,9 +36,6 @@ class CashierTopUpForm extends Component {
 		}
 
 		return (
-
-			// <Form onSubmit={handleMemberAuthenticateSubmit}>
- 			// <Form onClick={handleAuthentication}>
  			<Form onSubmit={handleAuthentication}>
 
 				{ renderAlert() }
@@ -46,7 +43,7 @@ class CashierTopUpForm extends Component {
 				<FormGroup>
 					<InputGroup>
 						<InputAddon>
-							<i className="ion-card" />
+							<i className="fas fa-id-card" />
 						</InputAddon>
 						<Input
 							name="cardID"

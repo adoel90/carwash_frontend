@@ -4,18 +4,18 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Currency from '../../../components/Currency';
 import { Dialog } from '../../../components/Dialog';
-import { kasirTopUpLogin } from '../../../actions/store.action';//Scenario-nya kasir meminta customer untuk GESEK KARTU MEMBER
-import { openDialog, closeDialog } from '../../../actions/dialog.action';
-import { memberTopup } from '../../../actions/member.action'
-// import { StoreCashierTopUpView } from '../StoreCashierTopUp';
-// import { CashierTopUp } from '../../../components/Cashier';
 import  {CashierTopUp}  from '../../../components/Cashier';
+import { kasirTopUpLogin } from '../../../actions/store.action';//Scenario-nya kasir meminta customer untuk GESEK KARTU MEMBER
+import { memberCustomerTopup } from '../../../actions/member.action'
+import { openDialog, closeDialog } from '../../../actions/dialog.action';
+
 
 function mapStateToProps(state) {
     return {
         // authentication: state.authentication 
         storeState: state.store,
-        dialog: state.dialog
+        dialog: state.dialog,
+        member: state.member
     };
 }
 
@@ -24,7 +24,7 @@ function mapDispatchToProps(dispatch) {
         kasirTopUpLogin: bindActionCreators(kasirTopUpLogin, dispatch),
         openDialogDispatch:(data) =>  dispatch(openDialog(data)),
         closeDialogDispatch: (data) => dispatch(closeDialog(data)),
-        memberTopupDispatch: (data) => dispatch(memberTopup(data))
+        memberTopupDispatch: (data) => dispatch(memberCustomerTopup(data))
     }
 }
 
@@ -51,6 +51,7 @@ class StoreCashierTopUp extends Component {
 				data: {},
 				isAuthenticated: false
             },
+            accessTokenMember:{},
             
             isModalOpen: {
                 topup: false,
@@ -73,6 +74,8 @@ class StoreCashierTopUp extends Component {
     }
 
 
+    //const accessToken = localStorage.getItem('accessToken') ? localStorage.getItem('accessToken') : null;
+
     //#Get data member yang sedang TOP UP
     componentDidUpdate(prevProps){
 
@@ -88,7 +91,9 @@ class StoreCashierTopUp extends Component {
                     authenticatedMember: {
                         data : storeState.userData.member,
                         isAuthenticated : storeState.userData.accessToken ? true : false
-                    }
+                    },
+                    accessTokenMember: storeState.userData
+
                 }, () => {
                     console.log(this.state);
                     this.forceUpdate();
@@ -144,6 +149,69 @@ class StoreCashierTopUp extends Component {
         
     }
 
+    openDialog = () => {
+        /*Only Declare */
+    }
+
+    closeDialog = () => {
+        /*Only Declare */
+    }
+
+    //#
+    handleTopupSubmit = (e) => {
+		e.preventDefault();
+
+		const {
+			topupData,
+			paymentMethod,
+            authenticatedMember,
+            toggleDialog,
+            closeDialog,
+            accessTokenMember
+        } = this.state;
+        
+        // console.log(this.state);
+        // console.log(this.props);
+
+		const { dispatch, accessToken, memberTopupDispatch, member } = this.props;        
+
+		let requiredData = {
+			balance: parseInt(topupData.balance.replace(/,/g, '')),
+            payment: topupData.payment,
+            dataAccessTokenMember: accessTokenMember.accessToken
+		}
+
+        // console.log(requiredData);
+        
+        memberTopupDispatch(requiredData).then(() => {
+
+            const{ member } = this.props;
+            // console.log("GET RESPONSE ");
+            
+            if(member.item.isBalanceChanged){
+                let dialogData = {
+					type: 'success',
+					title: 'Berhasil Menambahkan Saldo',
+					message: 'Saldo telah berhasil di tambahkan. Klik tombol berikut untuk kembali.',
+					onClose: () => window.location.reload(),
+					closeText: 'Kembali'
+				}
+                this.toggleDialog(dialogData)
+            }
+            
+			if (member.item.isError) {
+				let dialogData = {
+					type: 'danger',
+					title: 'Gagal',
+					message: 'Maaf, SALDO gagal di tambahkan. Silahkan panggil Administrator untuk memperbaiki.',
+					onClose: () => this.toggleDialog(),
+					closeText: 'Kembali'
+				}
+				this.toggleDialog(dialogData);
+			}
+        });
+    }
+
     toggleDialog = (data) => {
 
 		const { dialog, openDialogDispatch, closeDialogDispatch } = this.props;
@@ -155,62 +223,13 @@ class StoreCashierTopUp extends Component {
             closeDialogDispatch(data);
 		}
 	}
-
-    openDialog = () => {
-        /*Only Declare */
-    }
-
-    closeDialog = () => {
-        /*Only Declare */
-    }
-
-    memberTopup = () => {
-        /*Only Declare */
-    }
-    //#
-    handleTopupSubmit = (e) => {
-		e.preventDefault();
-
-		const {
-			topupData,
-			paymentMethod,
-            authenticatedMember,
-            toggleDialog,
-            closeDialog
-        } = this.state;
-        
-        // console.log(this.state);
-        // console.log(this.props);
-
-		const { dispatch, accessToken, memberTopupDispatch } = this.props;        
-
-		let requiredData = {
-			balance: parseInt(topupData.balance.replace(/,/g, '')),
-			payment: topupData.payment
-		}
-
-        console.log(requiredData);
-        
-        memberTopupDispatch(requiredData).then(() => {
-            console.log("GET RESPONSE ");
-            
-        });
-
-        // this.toggleDialog(dialogData);
-        // this.toggleModal('paymentConfirmation');
-
-        // })
-    }
     
     renderDialog = () => {
-        const {
-            dialog,
-            toggleDialog
-        } = this.props;
 
-        // console.log(this.props)
+        const { dialog, toggleDialog } = this.props;
         
         return (
+
             <Dialog
                 isOpen={dialog.isOpened}
                 toggle={toggleDialog}
@@ -236,7 +255,6 @@ class StoreCashierTopUp extends Component {
                     toggleModal={this.toggleModal}
                     handleInputChange={this.handleInputChange}
                     handleAuthentication = { this.handleAuthentication}
-
                     handleTopupSubmit={this.handleTopupSubmit}
                     toggleDialog={this.toggleDialog}
                     openDialog={this.openDialog}

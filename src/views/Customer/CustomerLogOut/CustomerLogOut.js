@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { Redirect } from 'react-router-dom';
-// import { userLogout } from '../actions/user.action';
-import { userLogout } from '../../../actions/user.action';
+import { logout } from '../../../actions/authentication.action';
 
 class CustomerLogOut extends Component  {
 
@@ -13,16 +13,10 @@ class CustomerLogOut extends Component  {
 
     }
 
-    componentWillMount = () => {
-		this.handleLogout();
-    }
-    
-    handleLogOut = (e) => {
-
-        e.preventDefault();
-
-        console.log(e);
-
+    componentDidMount () {
+        this.props.action.logout().then(() => {
+			window.location.reload();
+		});
     }
 
     render(){
@@ -31,4 +25,17 @@ class CustomerLogOut extends Component  {
     }
 }
 
-export default CustomerLogOut;
+const mapStateToProps = (state) => {
+    return {
+        authentication : state.authentication
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+	return {
+		action : bindActionCreators({ logout }, dispatch)
+	}
+}
+
+// export default CustomerLogOut;
+export default connect(mapStateToProps, mapDispatchToProps)(CustomerLogOut);

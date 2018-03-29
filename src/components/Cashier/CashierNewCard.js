@@ -22,7 +22,7 @@ class CashierNewCard extends Component {
 			<div className="inner-view">
 				<PageBlockGroup>
 					<PageBlock extension>
-						<h5 className="fw-semibold">Pendaftaran Kartu Baru</h5>
+						<h3 className="fw-semibold">Pendaftaran Kartu Baru</h3>
 						<p className="clr-passive">Masukkan data customer baru dengan benar dan lengkap. Seluruh kolom harus diisi.</p>
 					</PageBlock>
 					<PageBlock className="margin-bottom-5">

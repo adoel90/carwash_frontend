@@ -61,10 +61,10 @@ export const authenticateMember = (data) => {
 	function handleError(data) { return { type: AUTHENTICATE_MEMBER_REJECTED, payload: data }}
 }
 
-export const memberTopup = (data) => {
+export const memberCustomerTopup = (data) => {
 	return async dispatch => {
 		axios
-			.post(`${constant.API_PATH}member/topup?accessToken=${accessToken}`, {
+			.post(`${constant.API_PATH}member/topup?accessToken=${data.dataAccessTokenMember}`, {
 				balance: data.balance,
 				payment: data.payment
 			})
@@ -82,14 +82,21 @@ export const memberTopup = (data) => {
 
 // export const memberRefund = (data, accessToken) => {
 export const memberRefund = (data) => {
+
+	// console.log(data);
+
+	// return {
+	// 	type: null
+	// }
+	
 	return async dispatch => {
-		// dispatch(handleRequest())
+		
 		axios
-			.post(`${constant.API_PATH}member/refund?accessToken=${accessToken}`, {
+			.post(`${constant.API_PATH}member/refund?accessToken=${data.accessToken}`, {
 				card: data.card
 			})
 			.then((response) => {
-				dispatch(handleSuccess(response.data))
+				dispatch(handleSuccess(response))
 			})
 			.catch((error) => {
 				dispatch(handleError(error))
@@ -165,9 +172,12 @@ export const getMemberDetail = (data) => {
 }
 
 export const createNewMember = (data) => {
+
+	const accessTokenCreate = localStorage.getItem('accessToken') ? localStorage.getItem('accessToken') : null;
+
 	return async dispatch => {
 		axios
-			.post(`${constant.API_PATH}member/create?accessToken=${accessToken}`, {
+			.post(`${constant.API_PATH}member/create?accessToken=${accessTokenCreate}`, {
 				name: data.name,
 				phone: data.phone,
 				email: data.email,
@@ -176,7 +186,7 @@ export const createNewMember = (data) => {
 				payment: data.payment
 			})
 			.then((response) => {
-				dispatch(handleSuccess(response.data.data))
+				dispatch(handleSuccess(response))
 			})
 			.catch((error) => {
 				dispatch(handleError(error))

@@ -24,8 +24,8 @@ class CashierTopUp extends Component {
 				<PageBlock className="margin-bottom-5 ta-center">
 					<img src={CardIcon} style={{width: '150px'}}/>
 					<Row className="flex flex-column padding-bottom-3">
-						<h5 className="fw-semibold">Isi Ulang Saldo</h5>
-						<p className="clr-passive">Silahkan gesek kartu member untuk mengisi saldo customer pada kolom berikut.</p>
+						<h3 className="fw-semibold">Isi Ulang Saldo</h3>
+						<p className="clr-passive"><i>Silahkan gesek kartu member untuk mengisi saldo customer pada kolom berikut.</i></p><br />
 					</Row>
 					
 					<CashierTopUpForm {...this.props} handleInputChange={this.props.handleInputChange} />

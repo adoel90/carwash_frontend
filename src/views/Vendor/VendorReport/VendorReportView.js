@@ -34,10 +34,10 @@ const VendorDashboardView = props => {
 
     return (
         <div>
-            <div className="vendor-menu">    
+            {/* <div className="vendor-menu">    
             </div>
 
-            <div className="admin-user">
+            <div className="admin-user"> */}
                 <Panel>
                     <PanelHeader>
                         <h4 className="heading-title">Laporan Transaksi</h4>
@@ -48,56 +48,62 @@ const VendorDashboardView = props => {
                         <Form inline>
 
                             <Row>
-                                <Column md={4}>
-                                   
-                                    <FormField>
-                                        <InputGroup>
-                                            <InputAddon>
-                                                <h6 className="font-weight-bold pr-4"><i className="fas fa-calendar-alt"></i> Jangka periode dari</h6>
-                                            </InputAddon>
-                                        </InputGroup>
-                                        <DatePicker
-                                                className="form-control"
-                                                dateFormat="DD MMM YYYY"
-                                                textPlaceholder="Start Date"
-                                                selected={period.from}
-                                                onChange={(date) => handlePeriodChange('from', date)}
-                                            />
-                                    </FormField>
-                                </Column>
+                                <Column className="flex">
+                                    <div className="margin-right-small">
+                                        <FormField>
+                                            <InputGroup>
+                                                <InputAddon>
+                                                {/* <h6 className="font-weight-bold pr-4"><i className="fas fa-calendar-alt"></i> Jangka periode dari</h6> */}
+                                                    <i className="fas fa-calendar-alt"></i>
+                                                </InputAddon>
+                                                <DatePicker
+                                                    className="input"
+                                                    dateFormat="DD MMM YYYY"
+                                                    textPlaceholder="Start Date"
+                                                    selected={period.from}
+                                                    onChange={(date) => handlePeriodChange('from', date)}
+                                                />
+                                             </InputGroup>
+                                        </FormField>
+                                    </div>
+                                    <div className="margin-right-small">
+                                        <FormField>
+                                            <InputGroup>
+                                                <InputAddon>
+                                                {/* <h6 className="px-2"><i className="fas fa-calendar-alt"></i> Sampai</h6> */}
+                                                <i className="fas fa-calendar-alt"></i>
+                                                </InputAddon>
+                                                <DatePicker
+                                                    className="input"
+                                                    dateFormat="DD MMM YYYY"
+                                                    textPlaceholder="End Date"
+                                                    minDate={period.from}
+                                                    selected={period.to}
+                                                    onChange={(date) => handlePeriodChange('to', date)}
+                                                />
+                                            </InputGroup>
+                                        </FormField>
+                                    </div>
+                                    <div>
+                                        <FormField>
+                                      
+                                            {/* <ButtonDewek
+                                                variant="raised"
+                                                className="btn-sky-blue btn-size ml-3"
+                                                color="info"
+                                                onClick={handleShow}
+                                            >
+                                                Lihat
+                                            </ButtonDewek> */}
 
-                                <Column md={4}>
-                                    <FormField>
-                                        <InputGroup>
-                                            <InputAddon>
-                                            <h6 className="px-2"><i className="fas fa-calendar-alt"></i> Sampai</h6>
-                                            </InputAddon>
-                                        </InputGroup>
-                                        <DatePicker
-                                                className="form-control"
-                                                dateFormat="DD MMM YYYY"
-                                                textPlaceholder="End Date"
-                                                minDate={period.from}
-                                                selected={period.to}
-                                                onChange={(date) => handlePeriodChange('to', date)}
-                                            />
-                                    </FormField>
-                                </Column>
+                                            <Button onClick={handleShow} style={{height: '50px'}}>
+                                                Cari
+                                            </Button>
 
-                                <Column md={2}> 
-                                    <FormField>
-                                        <br />
-                                        <ButtonDewek
-                                            variant="raised"
-                                            className="btn-sky-blue btn-size ml-3"
-                                            color="info"
-                                            onClick={handleShow}
-                                        >
-                                            Lihat
-                                        </ButtonDewek>
-                                    </FormField>
+                                        </FormField>
+                                    </div>
                                 </Column>
-                                <Column md={2}></Column>
+                               
                             </Row>
                         </Form>
                         <br />
@@ -122,7 +128,7 @@ const VendorDashboardView = props => {
                                        
                     </PanelBody>
                 </Panel>
-            </div>
+            {/* </div> */}
         </div>
     )
 };

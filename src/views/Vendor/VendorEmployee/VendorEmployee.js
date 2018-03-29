@@ -87,6 +87,13 @@ class VendorEmployee extends Component {
                 });
             }           
         }
+
+        if(prevProps.vendorState.existing !== vendorState.existing ){
+            if(vendorState.existing.isUpdated){
+                console.log("UPDATED !!!");
+                
+            }
+        }
     }
 
     populateTableData = () => {

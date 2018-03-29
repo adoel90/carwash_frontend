@@ -3,6 +3,7 @@ import { CashierRefundConfirmation } from '../Cashier';
 
 import { PageBlock, PageBlockGroup } from '../Page';
 import { Form, FormGroup } from '../Form';
+import { FormField }  from '../../layouts/Form';
 import { Input, InputGroup, InputAddon, Label } from '../Input';
 import { Button } from '../Button';
 import { Alert } from '../Alert';
@@ -36,40 +37,32 @@ class CashierRefund extends Component {
 		return (
 			<div className="inner-view">
 				<PageBlockGroup>
-					{/* <PageBlock extension>
-						<h5 className="fw-semibold">Refund Kartu</h5>
-						<p className="clr-passive">Harap gesek kartu atau masukkan ID kartu member yang ingin direfund pada kolom yang telah tersedia.</p>
-					</PageBlock> */}
-					{/* <PageBlock> */}
+					<Form onSubmit={handleAuthentication}>
+						<FormField>
+							<InputGroup>
+								<InputAddon>
+									<i className="fas fa-id-card"></i>
+								</InputAddon>
+								<Input
+									className="input"
+									type="number"
+									name="cardID"
+									placeholder="16-digit nomor kartu member"
+									required="true"
+									autoFocus
+									selectOnFocus
+									// onChange={(e) => handleInputChange('refund', e)}
+									onChange={(e) => handleInputChange(authData, e)}
+								/>
+							</InputGroup>
+						</FormField>
 
-						{/* { renderAlert() } */}
-						
-						{/* <Form name="refund" onSubmit={handleAuthenticateMember}> */}
-						<Form onSubmit={handleAuthentication}>
-							<FormGroup>
-								<InputGroup>
-									<InputAddon>
-										<i className="ion-card"></i>
-									</InputAddon>
-									<Input
-										type="number"
-										name="cardID"
-										placeholder="16-digit nomor kartu member"
-										required="true"
-										autoFocus
-										selectOnFocus
-										// onChange={(e) => handleInputChange('refund', e)}
-										onChange={(e) => handleInputChange(authData, e)}
-									/>
-								</InputGroup>
-							</FormGroup>
-							<div className="flex justify-content--flex-end">
-								<Button buttonTheme="primary">
-									<small className="fw-semibold tt-uppercase ls-base clr-light">Cari</small>
-								</Button>
-							</div>
-						</Form>
-					{/* </PageBlock> */}
+						<div className="flex justify-content--flex-end">
+							<Button buttonTheme="primary">
+								<small className="fw-semibold tt-uppercase ls-base clr-light">Cari</small>
+							</Button>
+						</div>
+					</Form>
 				</PageBlockGroup>
 				
 				{/* <CashierRefundConfirmation {...this.props} /> */}

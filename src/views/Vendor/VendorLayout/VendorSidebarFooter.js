@@ -1,0 +1,23 @@
+import React from 'react';
+import { MenuLink } from '../../../components/Menu';
+import { Button } from '../../../components/Button';
+
+const VendorSidebarFooter = props => {
+    
+    return (
+        <div className="sidebar--footer">
+            <div className="flex justify-content--space-between align-items--center">
+                <p style={{color: '#FAFAFA', fontWeight: '900', overflow:'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis', paddingRight: '5px'}}>
+                    { props.user.name }
+                </p>
+                <MenuLink to={`/admin/logout`}>
+                    <Button theme="dark" rounded size="small">
+                        <i className="fas fa-power-off"></i>
+                    </Button>
+                </MenuLink>
+            </div>
+        </div>
+    )
+}
+
+export default VendorSidebarFooter;

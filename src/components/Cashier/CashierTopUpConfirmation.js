@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Column } from '../../layouts/Grid';
-import { ModalHeader, ModalContent, ModalFooter, Modal, ModalDialog} from '../../components/Modal';
-import { Form, FormGroup } from '../../components/Form';
+import { ModalHeader, ModalContent, ModalFooter, Modal, ModalDialog, ModalBody} from '../../components/Modal';
+import {FormGroup } from '../../components/Form';
+import { FormField, Form } from '../../layouts/Form';
 // import { Input, InputGroup, InputAddon, InputCurrency, Label } from '../Input';
 import { Input, InputGroup, InputAddon, InputCurrency, Label, InputCashier } from '../../components/Input';
 import { PageBlock } from '../../components/Page';
@@ -70,7 +71,7 @@ class CashierTopUpConfirmation extends Component {
 						/>
 					</h5>
 					<Badge theme="secondary" className="margin-top-1">
-						<small className="fw-semibold tt-uppercase ls-base">{authenticatedMember.data.card ? authenticatedMember.data.card.type.name : null}</small>
+						<small className="fw-semibold tt-uppercase ls-base">{authenticatedMember.data.card ? authenticatedMember.data.card.type.name : null}</small><br />
 					</Badge>
 				</div>
 			)
@@ -81,77 +82,84 @@ class CashierTopUpConfirmation extends Component {
 				isOpen={isModalOpen.topup}>
 				<Form onSubmit={handleTopupSubmit}>
 					<ModalHeader>
-						<h6 className="fw-semibold ta-center">Isi Ulang Saldo Customer</h6>
+						<h3 className="fw-semibold ta-center">Isi Ulang Saldo Customer</h3>
 					</ModalHeader>
-					<ModalContent>
+					<ModalBody>
 						<div className="ta-center">
 							{renderMemberInformation()}
-						</div>
+						</div><br />
 						<FormGroup row>
-							<Label className="fw-semibold">Saldo saat ini</Label>
-							<InputGroup>
-								<InputAddon>
-									<small className="tt-uppercase fw-semibold ls-base">Rp</small>
-								</InputAddon>
-								<InputCurrency
-									value={authenticatedMember.data.balance}
-									readOnly="true"
-								/>
-							</InputGroup>
+							<FormField label="Saldo Awal">
+								{/* <Label className="fw-semibold">Saldo saat ini</Label> */}
+								<InputGroup>
+									<InputAddon>
+										<small className="tt-uppercase fw-semibold ls-base">Rp</small>
+									</InputAddon>
+									<InputCurrency
+										className="input"
+										value={authenticatedMember.data.balance}
+										readOnly="true"
+									/>
+								</InputGroup>
+							</FormField>
 						</FormGroup>
 						<FormGroup row>
-							<Label className="fw-semibold">Minimum Saldo</Label>
-							<InputGroup>
-								<InputAddon>
-									<small className="tt-uppercase fw-semibold ls-base">Rp</small>
-								</InputAddon>
-								<InputCurrency
-									value={authenticatedMember.data.card ? authenticatedMember.data.card.type.min : null}
-									readOnly="true"
-								/>
-							</InputGroup>
+							<FormField label="Minimum Saldo">
+								<InputGroup>
+									<InputAddon>
+										<small className="tt-uppercase fw-semibold ls-base">Rp</small>
+									</InputAddon>
+									<InputCurrency
+										className="input"
+										value={authenticatedMember.data.card ? authenticatedMember.data.card.type.min : null}
+										readOnly="true"
+									/>
+								</InputGroup>
+							</FormField>
 						</FormGroup>
 						<FormGroup row>
-							<Label className="fw-semibold">Tambah Saldo</Label>
-							<InputGroup>
-								<InputAddon>
-									<small className="tt-uppercase fw-semibold ls-base">Rp</small>
-								</InputAddon>
-								<InputCurrency
-									name="balance"
-									type="text"
-									placeholder="Masukkan jumlah saldo yang diinginkan"
+							<FormField label="Tambah Saldo">
+								<InputGroup>
+									<InputAddon>
+										<small className="tt-uppercase fw-semibold ls-base">Rp</small>
+									</InputAddon>
+									<InputCurrency
+										className="input"
+										name="balance"
+										type="text"
+										placeholder="Masukkan jumlah saldo yang diinginkan"
+										onChange={(e) => handleInputChange(topupData, e)}
+										autoFocus="true"
+										required="required"
+									/>
+								</InputGroup>
+							</FormField>
+						</FormGroup>
+						<FormGroup row>
+							<FormField label="Metode Pembayaran">
+								<InputCashier
+									className="input"
+									name="payment"
+									type="select"
 									onChange={(e) => handleInputChange(topupData, e)}
-									autoFocus="true"
-									required="required"
-								/>
-							</InputGroup>
+									required="true"
+									value={topupData.payment}>
+										<option selected="true" disabled="true">Pilih metode pembayaran</option>
+										{ 
+											this.props.paymentMethod.map((method) => {
+												return <option value={method.id}>{method.name}</option>
+											})
+										}
+								</InputCashier>
+								{/* <InputGroup>
+									<Input name="payment" type="text" onChange={(e) => handleInputChange(topupData, e)} value="Cash"></Input>
+								</InputGroup> */}
+							</FormField>
 						</FormGroup>
-						<FormGroup row>
-							<Label className="fw-semibold">Metode Pembayaran</Label>
-							<InputCashier
-								name="payment"
-								type="select"
-								onChange={(e) => handleInputChange(topupData, e)}
-								required="true"
-								value={topupData.payment}>
-									<option selected="true" disabled="true">Pilih metode pembayaran</option>
-									{ 
-										this.props.paymentMethod.map((method) => {
-											return <option value={method.id}>{method.name}</option>
-										})
-									}
-							</InputCashier>
-
-							{/* <InputGroup>
-								<Input name="payment" type="text" onChange={(e) => handleInputChange(topupData, e)} value="Cash"></Input>
-							</InputGroup> */}
-						</FormGroup>
-					</ModalContent>
-
+					</ModalBody>
 
 					<ModalFooter className="flex justify-content--center">
-						<Button type="button" buttonTheme="danger" className="clr-light" onClick={() => toggleModal('topup')}>
+						<Button type="button" buttonTheme="danger" className="margin-right-small" onClick={() => toggleModal('topup')}>
 							<small className="tt-uppercase fw-semibold ls-base">Kembali</small>
 						</Button>
 						<Button type="submit" buttonTheme="primary" className="clr-light margin-left-2">

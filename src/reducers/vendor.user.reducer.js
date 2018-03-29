@@ -25,7 +25,11 @@ import {
 
 	GET_MENU_STORE_LIST_REQUESTED, //GET MENU STORE LIST
 	GET_MENU_STORE_LIST_FULFILLED,
-	GET_MENU_STORE_LIST_REJECTED
+	GET_MENU_STORE_LIST_REJECTED,
+
+	UPDATE_VENDOR_EMPLOYEE_REQUESTED, //UPDATE VENDOR EMPLOYEE
+	UPDATE_VENDOR_EMPLOYEE_FULFILLED,
+	UPDATE_VENDOR_EMPLOYEE_REJECTED
 
 
 } from '../actions/vendor.action'
@@ -67,17 +71,19 @@ const initialState = {
 		isLoaded:false,
 		isError:false,
 		error:{}
+	},
+	updateEmployee:{
+		data: {},
+		isUpdated: false,
+		isError: false,
+		error: {}
 	}
 
 }
 
 /*
-
 	#Reducer Formula
-	
 		type Reducer<S, A> = (state: S, action: A) => return S
-
-
 
 */
 const vendorState = (state = initialState, action) => {
@@ -362,6 +368,46 @@ const vendorState = (state = initialState, action) => {
 					data: {},
 					isLoaded: false,
 					isFetching: false,
+					isError: true,
+					error: action.payload
+				}
+			}
+		}
+
+		//UPDATE VENDOR EMPLOYEE
+		case UPDATE_VENDOR_EMPLOYEE_REQUESTED: {
+			return {
+				...state,
+				updateEmployee: {
+					...state.updateEmployee,
+					data: {},
+					isUpdated: false,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case UPDATE_VENDOR_EMPLOYEE_FULFILLED: {
+			return {
+				...state,
+				updateEmployee: {
+					...state.updateEmployee,
+					data: action.payload,
+					isUpdated: true,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case UPDATE_VENDOR_EMPLOYEE_REJECTED: {
+			return {
+				...state,
+				updateEmployee: {
+					...state.updateEmployee,
+					data: {},
+					isUpdated: false,
 					isError: true,
 					error: action.payload
 				}

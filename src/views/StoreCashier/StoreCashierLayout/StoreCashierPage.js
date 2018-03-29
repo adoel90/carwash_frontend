@@ -25,7 +25,6 @@ const StoreCashierPage = props => {
     
     return (
         <Page>
-            <Header block></Header>
             <Content>
                 { renderRoutes() }
             </Content>

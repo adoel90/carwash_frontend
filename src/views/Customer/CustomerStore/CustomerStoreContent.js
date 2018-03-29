@@ -28,7 +28,7 @@ class CustomerStoreContent extends React.Component {
 		this.handlePrintReceipt = this.handlePrintReceipt.bind(this);
 		this.calculateGrandTotalPrice = this.calculateGrandTotalPrice.bind(this);
 		this.state = {
-			storeList: [],
+			storeMenuList: [],
 			selectedMenuList: [],
 			printData: {},
 			searchMenu: {
@@ -55,7 +55,7 @@ class CustomerStoreContent extends React.Component {
 		const {
 			member,
 			store,
-			storeList,
+			storeMenuList,
 			toggleDialog
 		} = this.props;
 
@@ -72,11 +72,11 @@ class CustomerStoreContent extends React.Component {
 			}
 		}
 
-		if(prevProps.store.list !== store.list) {
-			if(store.list.isLoaded) {
+		if(prevProps.store.storemenu !== store.storemenu) {
+			if(store.storemenu.isLoaded) {
 				let activeList = []
 
-				store.list.data.map((item) => {
+				store.storemenu.data.data.result.menu.map((item) => {
 					if(item.status) {
 						item.selected = item.selected ? true : false;
 						activeList.push(item);
@@ -85,7 +85,7 @@ class CustomerStoreContent extends React.Component {
 
 				this.setState({
 					...this.state,
-					storeList: activeList
+					storeMenuList: activeList
 				})
 			}
 		}
@@ -157,11 +157,11 @@ class CustomerStoreContent extends React.Component {
             store,
             storeList,
 			dispatch,
-			accessToken
-        } = this.props;
+			type
+		} = this.props;
         
         let requiredData = {
-			store: storeList.id
+			id: type.id
 		}
 
 		dispatch(getMenuListStore(requiredData));

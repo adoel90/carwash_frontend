@@ -23,8 +23,8 @@ const CustomerPanelView = props => {
 
     return (
         <LayoutCustomer>
-            {/* <HeaderCustomer {...props} />
-            <MainSubheader {...props} /> */}
+            <HeaderCustomer {...props} />
+            {/* <MainSubheader {...props} /> */}
 
             <MainContent>
                 <PropsRoute

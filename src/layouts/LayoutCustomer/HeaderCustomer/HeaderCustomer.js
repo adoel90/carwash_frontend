@@ -20,15 +20,8 @@ const HeaderCustomer = props => {
     return( 
         
         <header className="app-bar promote-layer paper-toolbar paper-shadow">
-            <div className="app-bar-container paper-toolbar">
-                {/* <h1 className="logo">805 - Carwash </h1> */}
-                <img className="logo" src={CarwashLogo} style={{ 'width': '84px', 'height':'62px', 'margin-top': '1px' }} />
-                {/* <ButtonDewek className="button-log-out"> Keluar</ButtonDewek> */}
-            </div>
-
-            <div>
-                
-
+            <div className="app-bar-container paper-toolbar flex justify-content--center">
+                <img className="logo" src={CarwashLogo} style={{width: "150px"}} />
             </div>
         </header>
     )

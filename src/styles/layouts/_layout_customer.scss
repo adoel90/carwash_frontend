@@ -107,13 +107,18 @@ nav {}
 	padding-top: 4em;
 
 	&.main--has-subheader {
-		padding-top: 8em;
+		padding-top: 5em;
 	}
 
 	&.landing-main {
 		@include relative;
 		height: 100vh;
-	
+	}
+
+	.main--has-identity {
+		position: fixed;
+		margin-left: 15px;
+		z-index: 2;
 	}
 }
 

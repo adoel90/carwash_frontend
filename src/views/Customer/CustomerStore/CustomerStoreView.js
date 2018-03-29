@@ -1,9 +1,10 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
-import { Container, Row } from '../../../layouts/Grid';
+import { Container, Row, Column } from '../../../layouts/Grid';
+import { Layout } from '../../../layouts/Layout';
 import { PrivateRoute, PropsRoute } from '../../../utilities/Route';
 import { ModalDialog } from '../../../components/Modal';
-
+import { PageBlock } from '../../../components/Page';
 import { MainSidenav, CustomerStoreContent } from '../CustomerStore';
 
 class CustomerStoreView extends React.Component {
@@ -37,7 +38,7 @@ class CustomerStoreView extends React.Component {
 						name={item.name}
 						path={`${match.url}/${path}`}
 						component={CustomerStoreContent}
-                        item={item.name}
+                        type={item}
                         storeList={storeList}
                         member={member}
 						// {...this.props}
@@ -89,32 +90,37 @@ class CustomerStoreView extends React.Component {
         const {
             match,
             store,
-            storeList
+			storeList,
+			memberData
         } = this.props;
 
         let firstRoutePath;
 
         if(storeList.active.length) {
             firstRoutePath = storeList.active[0].name.replace(/\s+/g, '-').toLowerCase();
-        }
+		}
 
         return (
-            <main className="main main--has-subheader">
-				<Container className="padding-top-3 padding-bottom-3">
-					<Row>
-						<div className="column-2">
-							<aside className="sidebar">
-								{ this.handleSidenav() }
-							</aside>
-						</div>
-						<div className="column-10">
-							{ this.renderStoreContent() }
-							<Redirect from="/*" to={`${match.url}/${firstRoutePath}`} />
-						</div>
-					</Row>
-				</Container>
+            <Layout className="main main--has-subheader">
+				{/* <div className="main--has-identity">
+					<PageBlock className="flex align-center justify-content--center align-items--center">
+						<i className="fi flaticon-warning icon icon--gigant clr-danger"></i>
+						<p>Selamat datang, {memberData.name}.</p>
+						<p>Saldo saya : {memberData.balance}</p>
+					</PageBlock>
+				</div> */}
+				<aside className="sidebar sidebar--customer">
+					{ this.handleSidenav() }
+				</aside>
+				<Row className="padding-left-base padding-right-base" style={{marginLeft: '220px'}}>
+					<Column md={12}>
+						{ this.renderStoreContent() }
+						<Redirect from="/*" to={`${match.url}/${firstRoutePath}`} />
+					</Column>
+				</Row>
+				
 				{this.renderDialog()}
-			</main>
+			</Layout>
         );
     }
 }

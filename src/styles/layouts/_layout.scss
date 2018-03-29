@@ -13,12 +13,20 @@
     .sidebar {
         @include flex(0 0 256px);
         max-width: 256px;
-        min-width: 256px;
-        width: 256px;
         height: 100%;
         position: fixed;
         overflow-x: auto;
-        background-color: #0f1212;
+
+        &:not(.sidebar--customer) {
+            background-color: #0f1212;
+            min-width: 256px;
+            width: 256px;
+        }
+
+        &.sidebar--customer {
+            min-width: 200px;
+            width: 200px;
+        }
         
         .sidebar--header {
             position: fixed;
@@ -39,6 +47,11 @@
             border-top: 2px solid #FAFAFA;
             padding: spacing(small) spacing(base);
             z-index: 1;
+        }
+
+        &.sidebar--customer {
+            margin-left: spacing(base);
+            padding-bottom: 150px;
         }
     }
 

@@ -12,8 +12,6 @@ class MainSidenav extends React.Component {
 			basePath
 		} = this.props;
 
-		console.log(item)
-
 		const path = item.path 
 			? `${basePath}/${item.path}` 
 			: `${basePath}/${item.name.replace(/\s+/g, '-').toLowerCase()}`;

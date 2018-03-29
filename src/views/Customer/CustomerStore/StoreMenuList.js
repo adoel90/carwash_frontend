@@ -4,6 +4,7 @@ import {
 	CardHeading, CardImage,
 	CardBody, CardFooter
 } from '../../../components/Card';
+import { Container, Row, Column } from '../../../layouts/Grid';
 import { PageBlock } from '../../../components/Page';
 import SearchBar from '../../../components/SearchBar';
 import Currency from '../../../components/Currency';
@@ -15,6 +16,7 @@ class StoreMenuList extends Component {
 		const {
 			store,
 			storeList,
+			storeMenuList,
 			searchMenu,
 			selectedMenuList,
 			handleInputChange,
@@ -24,7 +26,7 @@ class StoreMenuList extends Component {
 		} = this.props;
 
 		const renderSearchBar = () => {
-			return storeList.length
+			return storeMenuList.length
 			? <SearchBar
 				name="searchText"
 					placeholder="Masukkan nama menu..."
@@ -34,17 +36,19 @@ class StoreMenuList extends Component {
 		}
 
 		const renderMenuList = () => {
-			if(storeList.length) {
+			if(storeMenuList.length) {
 				return (
 					<CardList>
-						{renderMenu()}
+						<Row style={{width: '100%', marginBottom: '80px'}}>
+							{renderMenu()}
+						</Row>
 						{renderCheckoutButton()}
 					</CardList>
 				)
 			}
 			else {
 				return (
-					<PageBlock className="flex flex-column ta-center justify-content--center align-items--center">
+					<PageBlock className="flex align-center justify-content--center align-items--center">
 						<i className="fi flaticon-warning icon icon--gigant clr-danger"></i>
 						<p>Tidak dapat menemukan data pada kategori ini.</p>
 					</PageBlock>
@@ -53,13 +57,13 @@ class StoreMenuList extends Component {
 		}
 
 		const renderMenu = () => {
-			let filteredMenu = storeList.filter((menu) => {
+			let filteredMenu = storeMenuList.filter((menu) => {
 				return menu.name.toLowerCase().includes(searchMenu.searchText.toLowerCase())
 			})
 
 			if(!filteredMenu.length) {
 				return (
-					<div className="ta-center" style={{width: '100%', padding: '30px 15px'}}>
+					<div className="align-center" style={{width: '100%', padding: '30px 15px'}}>
 						<p className="clr-passive">Tidak dapat menemukan hasil pencarian untuk <span className="fw-semibold">{searchMenu.searchText}</span>.</p>
 					</div>
 				)
@@ -72,10 +76,10 @@ class StoreMenuList extends Component {
 					menu.totalPrice = menu.quantity * menu.price;
 
 					return (
-						<div key={i} className="column-6 padding-top-2 padding-bottom-2">
+						<Column md={6} key={i} className="padding-top-base padding-bottom-base">
 							<Card>
 								<CardHeading>
-									<h6 className="fw-semibold">{menu.name}</h6>
+									<h5 className="fw-semibold">{menu.name}</h5>
 									<h4 className="fw-semibold clr-primary">
 										<Currency value={menu.price} />
 									</h4>
@@ -94,7 +98,7 @@ class StoreMenuList extends Component {
 									</Button>
 								</CardFooter>
 							</Card>
-						</div>
+						</Column>
 					)
 				})
 

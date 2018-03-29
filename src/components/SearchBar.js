@@ -43,21 +43,20 @@ class SearchBar extends React.Component {
 		}
 
 		return (
-			<Form onSubmit={onSubmit} className={classes}>
+			<Form onSubmit={onSubmit} className={classes} style={{marginLeft: '-15px', marginRight: '15px'}}>
 				<InputGroup>
-					{/* <InputAddon>
-						<i className="ion-search icon icon--base"></i>
-					</InputAddon> */}
-					<InputGroup>
-						<Input
-							name="searchText"
-							type="text"
-							placeholder={placeholder} 
-							value={value} 
-							onChange={onChange} 
-						/>
-						{ searchOptions() }
-					</InputGroup>
+					<InputAddon>
+						<i className="fas fa-search" style={{padding: '11px'}}></i>
+					</InputAddon>
+					<Input
+						name="searchText"
+						type="text"
+						placeholder={placeholder} 
+						value={value} 
+						onChange={onChange} 
+						style={{padding: '20px'}}
+					/>
+					{ searchOptions() }
 				</InputGroup>
 			</Form>
 		)

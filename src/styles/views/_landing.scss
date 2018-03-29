@@ -12,5 +12,13 @@
 		@include align-items(center);
 		@include justify-content(center);
 		color: gray(100);
+		
+		> * {
+			padding: spacing(small)
+		}
+
+		input {
+			padding: spacing(base);
+		}
 	}
 }

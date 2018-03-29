@@ -3,23 +3,12 @@ import PropTypes from 'prop-types';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { PrivateRoute, PropsRoute } from '../../utilities/Route';
 import { CustomerLogin, CustomerPanel } from '../Customer';
-// import { CustomerLogin, CustomerPanelNew } from '../Customer';
 
-
-// const CustomerMainView = () => {
-//     return (
-//         <div>
-//             <h1>Hai </h1>
-//         </div>
-//     );
-// };
-
-class CustomerMainView extends Component {
-
+class CustomerView extends Component {
     render() {
         const {
             match,
-            userData,
+            member,
             isAuthenticated,
             authenticatedAs
         } = this.props;
@@ -33,12 +22,12 @@ class CustomerMainView extends Component {
                     component={CustomerLogin}
                     handleRedirect={this.props.handleRedirect}
                 />
+
                 <PrivateRoute
                     name="panel"
                     path={`${match.url}`}
                     component={CustomerPanel}
-                    // component={CustomerPanelNew}
-                    isAuthenticated={isAuthenticated && authenticatedAs == 'customer'}
+                    isAuthenticated={isAuthenticated && authenticatedAs == 'member'}
                     redirectTo={`${match.url}/login`}
                 />
             </Switch>
@@ -46,4 +35,4 @@ class CustomerMainView extends Component {
     }
 }
 
-export default CustomerMainView;
+export default CustomerView;

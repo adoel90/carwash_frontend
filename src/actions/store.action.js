@@ -180,7 +180,7 @@ export const getMenuListStore = (data) => {
 }
 
 //#CREATE MENU TRANSACTION
-export const createMenuTransaction = (data) => {
+export const createStoreTransaction = (data) => {
 	
 	return async dispatch => {
 		return axios
@@ -201,7 +201,7 @@ export const createMenuTransaction = (data) => {
 }
 
 //# GET PRINT STORE TRANSACTION
-export const getPrintStoreTransaction = (data) => {
+export const printStoreTransaction = (data) => {
 
 	return async dispatch => {
 		dispatch(handleRequest());

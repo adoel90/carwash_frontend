@@ -1,25 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { CustomerMainView } from '../Customer';
+import { CustomerView } from '../Customer';
 
-function mapStateToProps(state) {
-    
-    return {
-        authentication: state.authentication
-    }
-}
-
-class CustomerMain extends Component {
+class Customer extends Component {
         
     constructor(props) {
         super(props);
         this.handleRedirect = this.handleRedirect.bind(this);
         this.state = {
             isAuthenticated: localStorage.getItem('accessToken') ? true : false,
-            authenticatedAs: localStorage.getItem('accessToken') ? 'customer' : null,
-            userData: localStorage.getItem('userData') ? JSON.parse(localStorage.getItem('userData')) : {}
-
+            authenticatedAs: localStorage.getItem('accessToken') ? 'member' : null,
+            member: localStorage.getItem('member') ? JSON.parse(localStorage.getItem('member')) : {}
         }
     }
 
@@ -33,8 +25,8 @@ class CustomerMain extends Component {
                 this.setState({
                     ...this.state,
                     isAuthenticated: true,
-                    authenticatedAs: 'customer',
-                    userData: authentication.userData
+                    authenticatedAs: 'member',
+                    member: authentication.member
                 }, () => {
                     this.handleRedirect();
                 });
@@ -53,7 +45,7 @@ class CustomerMain extends Component {
             history
         } = this.props;
         
-        if(isAuthenticated && authenticatedAs == 'customer') {
+        if(isAuthenticated && authenticatedAs == 'member') {
             return history.push(`${match.url}`);
         }
 
@@ -62,7 +54,7 @@ class CustomerMain extends Component {
     
     render() {
         return (
-            <CustomerMainView
+            <CustomerView
                 {...this.state}
                 {...this.props}
                 handleRedirect={this.handleRedirect}
@@ -71,6 +63,12 @@ class CustomerMain extends Component {
     }
 }
 
+const mapStateToProps = (state) => {
+    return {
+        authentication: state.authentication
+    }
+}
+
 export default connect(
     mapStateToProps
-)(CustomerMain);
+)(Customer);

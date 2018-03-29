@@ -42,7 +42,6 @@ class AdminPanel extends Component {
                 { name: 'create-new-store', path: `${props.match.url}/store/create-new-store`, component: AdminStoreCreate },
                 { name: 'report', path: `${props.match.url}/report`, component: AdminReport },
                 { name: 'logout', path: `${props.match.url}/logout`, component: AdminLogout }
-
             ],
             menus: {}
         }

@@ -14,6 +14,7 @@ class StorePaymentCheckout extends Component {
     render() {
         const {
             member,
+            memberData,
             memberInfo,
 			isModalOpen,
             toggleModal,
@@ -24,66 +25,66 @@ class StorePaymentCheckout extends Component {
         } = this.props;
         
         const renderPaymentAvailability = () => {
-            if(memberInfo.memberData.balance > grandTotal) {
+            if(memberData.balance > grandTotal) {
                 return (
-                    <Alert theme="success" className="flex align-items--center clr-light ta-center">
-                        <i className="ion-checkmark-circled icon icon--base margin-right-2"></i>
-                        <p>Saldo customer (<span className="fw-semibold"><Currency value={memberInfo.memberData.balance} /></span>) mencukupi untuk melakukan pembayaran sebesar <span className="fw-semibold"><Currency value={grandTotal} /></span>.</p>
+                    <Alert theme="success" className="flex align-items--center clr-light align-center padding-large">
+                        <i className="fas fa-check-circle icon icon--base margin-right-small"></i>
+                        <p>Saldo customer (<span className="fw-semibold"><Currency value={memberData.balance} /></span>) mencukupi untuk melakukan pembayaran sebesar <span className="fw-semibold"><Currency value={grandTotal} /></span>.</p>
                     </Alert>
                 )
             }
 
             return (
-                <Alert theme="secondary" className="flex align-items--center ta-center">
-                    <i className="ion-alert-circled icon icon--base margin-right-2"></i>
-                    <p>Saldo customer (<span className="fw-semibold"><Currency value={memberInfo.memberData.balance} /></span>) tidak mencukupi untuk melakukan pembayaran sebesar <span className="fw-semibold"><Currency value={grandTotal} /></span>.</p>
+                <Alert theme="secondary" className="flex align-items--center align-center">
+                    <i className="fas fa-check-circle icon icon--base margin-right-small"></i>
+                    <p>Saldo customer (<span className="fw-semibold"><Currency value={memberData.balance} /></span>) tidak mencukupi untuk melakukan pembayaran sebesar <span className="fw-semibold"><Currency value={grandTotal} /></span>.</p>
                 </Alert>
             )
         }
         
         const renderMemberInfo = () => {
-            if(member.item.isAuthenticated) {
+            // if(member.item.isAuthenticated) {
                 return (
                     <div className="flex flex-column align-items--center">
                         { renderPaymentAvailability() }
-                        <div className="margin-top-3 margin-bottom-1 ta-center">
-                            <h5 className="clr-primary">{memberInfo.memberData.name}</h5>
+                        <div className="margin-top-base margin-bottom-small align-center">
+                            <h5 className="clr-primary">{memberData.name}</h5>
                             <h6 className="fw-semibold">
                                 <NumberFormat
                                     format="#### #### #### ####"
                                     displayType={'text'}
-                                    value={memberInfo.memberData.card ? memberInfo.memberData.card.id : null}
+                                    value={memberData.card ? memberData.card.id : null}
                                    />
                             </h6>
-                            <Badge theme="secondary" className="clr-dark margin-top-1">
-                                <small className="tt-uppercase ls-base fw-semibold">{memberInfo.memberData.card ? memberInfo.memberData.card.type.name : null}</small>
+                            <Badge theme="secondary" className="clr-dark margin-top-small">
+                                <small className="tt-uppercase ls-base fw-semibold">{memberData.card ? memberData.card.type.name : null}</small>
                             </Badge>
                         </div>
                     </div>
                 )
-            }
+            // }
 
-            if(member.item.isAuthenticating) {
-                return (
-                    <div className="flex flex-column justify-content--center align-items--center">
-                        <p>Mengotentikasi customer...</p>
-                    </div>
-                )
-            }
+            // if(member.item.isAuthenticating) {
+            //     return (
+            //         <div className="flex flex-column justify-content--center align-items--center">
+            //             <p>Mengotentikasi customer...</p>
+            //         </div>
+            //     )
+            // }
 
-            if(member.item.isError) {
-                return (
-                    <div className="flex flex-column justify-content--center align-items--center">
-                        <p className="clr-danger">Kartu tidak terbaca atau customer tidak terdeteksi.</p>
-                    </div>
-                )
-            }
+            // if(member.item.isError) {
+            //     return (
+            //         <div className="flex flex-column justify-content--center align-items--center">
+            //             <p className="clr-danger">Kartu tidak terbaca atau customer tidak terdeteksi.</p>
+            //         </div>
+            //     )
+            // }
             
-            return (
-                <div className="flex flex-column justify-content--center align-items--center clr-passive">
-                    <p>Silahkan gesek kartu untuk mendapatkan informasi customer.</p>
-                </div>
-            )
+            // return (
+            //     <div className="flex flex-column justify-content--center align-items--center clr-passive">
+            //         <p>Silahkan gesek kartu untuk mendapatkan informasi customer.</p>
+            //     </div>
+            // )
         }
 
         return (
@@ -96,7 +97,7 @@ class StorePaymentCheckout extends Component {
                     </h6>
                 </ModalHeader>
                 <ModalBody>
-                    <Form onSubmit={handleMemberAuthentication}>
+                    {/* <Form onSubmit={handleMemberAuthentication}>
                         <FormGroup>
                             <InputGroup>
                                 <InputAddon>
@@ -112,16 +113,16 @@ class StorePaymentCheckout extends Component {
                                 />
                             </InputGroup>
                         </FormGroup>
-                        { renderMemberInfo() }
-                    </Form>
+                    </Form> */}
+                    { renderMemberInfo() }
                 </ModalBody>
                 <ModalFooter className="flex justify-content--center">
                     <Button type="button" buttonTheme="danger" className="clr-light" onClick={() => toggleModal('paymentCheckout')}>
                         <small className="fw-semibold tt-uppercase ls-base">Kembali</small>
                     </Button>
                     {
-                        memberInfo.memberData.balance > grandTotal
-                        ? <Button type="button" buttonTheme="primary" className="clr-light margin-left-2" onClick={handlePaymentCheckoutSubmit}>
+                        memberData.balance > grandTotal
+                        ? <Button type="button" buttonTheme="primary" className="clr-light margin-left-small" onClick={handlePaymentCheckoutSubmit}>
                             <small className="fw-semibold tt-uppercase ls-base">Bayar dan Cetak Struk</small>
                         </Button>
                         : null 

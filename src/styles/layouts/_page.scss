@@ -15,9 +15,10 @@
 .page-block {
 	// @include transition(all 250ms $transition-primary);
 	@include transition(all 250ms $transition-base);
-	@include border-radius(base);
+	// @include border-radius(base);
 	background-color: gray(100);
 	width: 100%;
+	border-radius: spacing(extra-small);
 	box-shadow: map-get($box-shadow, base);
 	// overflow: hidden;
 
@@ -43,7 +44,7 @@
 	}
 
 	&:last-child {
-		border-bottom: solid 5px secondary-color(base);
+		// border-bottom: solid 5px secondary-color(base);
 
 		&.page-block--extension {
 			border-top: solid 1px gray(300) !important;

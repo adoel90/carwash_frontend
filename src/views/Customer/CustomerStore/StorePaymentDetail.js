@@ -4,7 +4,7 @@ import { Modal, ModalHeader, ModalBody, ModalFooter } from '../../../components/
 import { Form, FormGroup } from '../../../components/Form';
 import { Input, Label, InputAddon, InputGroup } from '../../../components/Input'
 import { Container, Row, Column } from '../../../layouts/Grid';
-import { TableSet } from '../../../components/Table';
+import { TableSetOld } from '../../../components/Table';
 import { Alert } from '../../../components/Alert';
 import Currency from '../../../components/Currency';
 
@@ -48,24 +48,25 @@ class StorePaymentDetail extends Component {
 							<i className="ion-alert-circled icon icon--base margin-right-2"></i>
 							<p>Silahkan periksa terlebih dahulu pesanan customer sebelum checkout!</p>
 						</Alert>
-						<TableSet
+						<TableSetOld
 							columns={table.columns}
 							rows={selectedMenuList}
-							isStriped
-							isHoverable
+							striped
+							hoverable
+							fullWidth
 							{...this.props}
 						/>
-						<div className="flex flex-column align-items--flex-end padding-top-3">
+						<div className="flex flex-column align-items--flex-end padding-top-small">
 							<small className="tt-uppercase ls-base fw-bold">Total yang harus dibayar</small>
 							<h4 className="clr-primary"><Currency value={grandTotal} /></h4>
 						</div>
 					</div>
 					</ModalBody>
 					<ModalFooter className="flex justify-content--center">
-						<Button type="button" buttonTheme="danger" className="clr-light margin-right-2" onClick={() => toggleModal('paymentConfirmation')}>
+						<Button type="button" theme="danger" className="clr-light margin-right-small" onClick={() => toggleModal('paymentConfirmation')}>
 							<small className="fw-semibold tt-uppercase ls-base">Kembali</small>
 						</Button>
-						<Button type="submit" buttonTheme="primary" className="clr-light">
+						<Button type="submit" theme="primary" className="clr-light">
 							<small className="fw-semibold tt-uppercase ls-base">Selanjutnya</small>
 						</Button>
 					</ModalFooter>

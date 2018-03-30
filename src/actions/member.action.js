@@ -48,8 +48,8 @@ export const authenticateMember = (data) => {
 			})
 			.then((response) => {
 				dispatch(handleSuccess(response.data.data));
-				localStorage.setItem("accessToken", response.data.data);
-				localStorage.setItem("member", response.data.data.member);
+				// localStorage.setItem("accessToken", response.data.data);
+				// localStorage.setItem("member", response.data.data.member);
 			})
 			.catch((error) => {
 				dispatch(handleError(error))

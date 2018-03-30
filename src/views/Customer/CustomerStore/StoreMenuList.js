@@ -78,11 +78,11 @@ class StoreMenuList extends Component {
 					return (
 						<Column md={6} key={i} className="padding-top-base padding-bottom-base">
 							<Card>
-								<CardHeading>
+								<CardHeading className="align-center">
 									<h5 className="fw-semibold">{menu.name}</h5>
-									<h4 className="fw-semibold clr-primary">
+									<p className="currency currency-large fw-semibold clr-primary">
 										<Currency value={menu.price} />
-									</h4>
+									</p>
 								</CardHeading>
 								<CardImage src={menu.image ? menu.image : NoThumbnail } alt={menu.title} />
 								<CardBody>
@@ -92,7 +92,8 @@ class StoreMenuList extends Component {
 									<Button
 										type="button"
 										buttonTheme={menu.selected ? 'secondary' : 'primary'}
-										buttonFull
+										size="large"
+										block
 										onClick={() => handleSelectMenu(menu)}>
 										<small className={`tt-uppercase fw-bold ls-base ${menu.selected ? 'clr-dark' : 'clr-light'}`}>{menu.selected ? 'Terpilih' : 'Pilih'}</small>
 									</Button>

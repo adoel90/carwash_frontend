@@ -222,29 +222,32 @@ class CustomerStoreContent extends React.Component {
 
 		const {
 			dispatch,
-			accessToken
+			type
 		} = this.props;
 
 		const {
-			memberInfo,
 			selectedMenuList
 		} = this.state;
 
-		dispatch(createStoreTransaction(selectedMenuList, memberInfo.memberToken));
+		let requiredData = {
+			menu : selectedMenuList,
+			store : type
+		}
+
+		dispatch(createStoreTransaction(requiredData));
 	}
 
 	handlePrintReceipt = () => {
 		const {
 			store,
-			accessToken,
 			dispatch
 		} = this.props;
 
 		let requiredData = {
-			id: store.transaction.data.transaction
+			id: store.transaction.data.result.transaction
 		}
 
-		dispatch(printStoreTransaction(requiredData, accessToken));
+		dispatch(printStoreTransaction(requiredData));
 		
 		// window.print();
 	}
@@ -254,6 +257,8 @@ class CustomerStoreContent extends React.Component {
 
 		const { memberInfo } = this.state;
 		const { dispatch } = this.props;
+
+		console.log(memberInfo)
 		
 		let requiredData = {
 			card: memberInfo.memberID

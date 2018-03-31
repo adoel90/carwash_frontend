@@ -100,7 +100,7 @@ class AdminPanel extends Component {
     }
     
     render() {
-        const user = JSON.parse(localStorage.getItem('userData'));
+        const user = JSON.parse(localStorage.getItem('userDataAdmin'));
         return (
             <AdminPanelView
                 {...this.state} 

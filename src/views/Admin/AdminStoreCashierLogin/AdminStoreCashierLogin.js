@@ -1,29 +1,32 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { adminLogin } from '../../../actions/authentication.action';
-import { AdminLoginView } from '../AdminLogin';
+import { kasirLogin } from '../../../actions/authentication.action';
+import { AdminStoreCashierLoginView } from '../AdminStoreCashierLogin';
 
 function mapStateToProps(state) {
-    
     return {
         authentication: state.authentication 
     };
 }
 
 function mapDispatchToProps(dispatch) {
+
     return {
-        adminLogin: bindActionCreators(adminLogin, dispatch)
+        kasirLoginDispatch: bindActionCreators(kasirLogin, dispatch)
     }
 }
 
-class AdminLogin extends Component {    
+class AdminStoreCashierLogin extends Component {    
+
     constructor() {
         super();
         this.onLoginSubmit = this.onLoginSubmit.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleAuthentication = this.handleAuthentication.bind(this);
+
         this.state = {
+
             credentials: {
                 username: '',
                 password: ''
@@ -55,25 +58,22 @@ class AdminLogin extends Component {
     }
 
     handleAuthentication = (e) => {
-        const {
-            credentials
-        } = this.state;
-
-        const { adminLogin } = this.props;
+        const { credentials } = this.state;
+        const { kasirLoginDispatch } = this.props;
         
         const requiredData = {
             username: credentials.username,
             password: credentials.password
         }
-        
+
         // console.log(requiredData);
-        
-        adminLogin(requiredData);
+        kasirLoginDispatch(requiredData);
     }
     
     render() {
+        
         return (
-            <AdminLoginView 
+            <AdminStoreCashierLoginView 
                 {...this.props} 
                 {...this.state}
                 handleInputChange={this.handleInputChange}
@@ -86,4 +86,4 @@ class AdminLogin extends Component {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(AdminLogin);
+)(AdminStoreCashierLogin);

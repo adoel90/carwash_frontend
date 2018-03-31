@@ -28,11 +28,15 @@ export const KASIR_LOGIN_REJECTED = 'KASIR_LOGIN_REJECTED';
 
 export const LOGOUT_FULFILLED = 'LOGOUT_FULFILLED';
 
+
+
 /*
 //  ADMIN LOGIN
 //  Calls the API to get `accessToken` required to access the app.
 */
-export const adminLogin = (data) => {    
+export const adminLogin = (data) => {  
+    
+    
     return async dispatch => {
         
         dispatch(loginRequest());
@@ -44,16 +48,18 @@ export const adminLogin = (data) => {
             })
             .then((response) => {
                 let result = response.data.result;
-                
-                if(result.data.module[0].group === 'admin') {
+                console.log(response);
+                console.log(result);
+                // if(result.data.module[0].group === 'admin') {
+                // if(result.data.level.id === 1){
                     localStorage.setItem('accessToken', result.accessToken);
                     localStorage.setItem('userData', JSON.stringify(result.data));
                     dispatch(loginSuccess(result));
     
                     window.location.reload();
-                } else {
-                    dispatch(loginError(result));              
-                }
+                // } else {
+                //     dispatch(loginError(result));              
+                // }
             })
             .catch((error) => {
                 dispatch(loginError(error));
@@ -81,10 +87,17 @@ export const vendorLogin = (data) => {
             })
             .then((response) => {
                 let result = response.data.result;
+
+                console.log(response);
+                console.log(result);
+                
+                
+
                 localStorage.setItem('accessToken', result.accessToken);
                 localStorage.setItem('userData', JSON.stringify(result));
                
                 dispatch(loginSuccess(result));
+                // window.location.reload();
             })
             .catch((error) => {
                 dispatch(loginError(error));
@@ -125,43 +138,6 @@ export const customerLogin = (data) => {
     function loginError(data) { return { type: CUSTOMER_LOGIN_REJECTED, payload: data } }
 }
 
-/*
-//  CUSTOMER TOP-UP LOGIN 
-//  Calls the API to get `accessToken` required to access the app.
-*/
-export const kasirTopUpLogin = (data) => { 
-
-
-    return {
-        type: null
-    }
-    // return async dispatch => {
-
-    //     dispatch(loginRequest());
-
-    //     return axios
-    //         .post(`${constant.API_PATH}member/authenticate`, {
-    //             card: data.cardID
-    //         })
-    //         .then((response) => {
-    //             let result = response.data.result;            
-    //             localStorage.setItem('accessToken', result.accessToken);
-    //             localStorage.setItem('userData', JSON.stringify(result));
-    //             // localStorage.setItem('accessTokenTopUp', result.accessTokenTopUp);
-    //             // localStorage.setItem('userDataTopUp', JSON.stringify(result));
-                
-    //             dispatch(loginSuccess(result));
-    //         })
-    //         .catch((error) => {
-    //             dispatch(loginError(error));
-    //         })
-    // }
-
-    // function loginRequest() { return { type: CUSTOMER_TOPUP_LOGIN_REQUESTED } }
-    // function loginSuccess(data) { return { type: CUSTOMER_TOPUP_LOGIN_FULFILLED, payload: data } }
-    // function loginError(data) { return { type: CUSTOMER_TOPUP_LOGIN_REJECTED, payload: data } }
-}
-
 
 
 /*
@@ -181,10 +157,13 @@ export const kasirLogin = (data) => {
             })
             .then((response) => {
                 let result = response.data.result;
+                
                 localStorage.setItem('accessToken', result.accessToken);
-                localStorage.setItem('userData', JSON.stringify(result));
+                localStorage.setItem('userData', JSON.stringify(result.data));
                
                 dispatch(loginSuccess(result));
+
+                window.location.reload();
             })
             .catch((error) => {
                 dispatch(loginError(error));

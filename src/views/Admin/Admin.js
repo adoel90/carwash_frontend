@@ -16,26 +16,20 @@ class Admin extends Component {
         this.handleRedirect = this.handleRedirect.bind(this);
         this.state = {
             isAuthenticated: localStorage.getItem('accessToken') ? true : false,
-            authenticatedAs: localStorage.getItem('accessToken') ? 'admin' : null,
-            userData: localStorage.getItem('userData') ? JSON.parse(localStorage.getItem('userData')) : {}
+            authenticatedAs: localStorage.getItem('accessToken') ? JSON.parse(localStorage.getItem('userData')).module[0].group : null,
+            level: localStorage.getItem('accessToken')  ? JSON.parse(localStorage.getItem('userData')).level.id : null,
+            userData: localStorage.getItem('userData') ? JSON.parse(localStorage.getItem('userData')) : {},
         }
     }
 
+
+
     componentDidUpdate = (prevProps) => {
-        const {
-            authentication
-        } = this.props;
-        
+        const { authentication } = this.props;
+
         if(prevProps.authentication != authentication) {
             if(authentication.isAuthenticated) {
-                this.setState({
-                    ...this.state,
-                    isAuthenticated: true,
-                    authenticatedAs: 'admin',
-                    userData: authentication.userData
-                }, () => {
-                    this.handleRedirect();
-                });
+                this.handleRedirect();
             }
         }
     }
@@ -43,16 +37,29 @@ class Admin extends Component {
     handleRedirect = () => {
         const {
             isAuthenticated,
-            authenticatedAs
+            authenticatedAs,
+            userData,
+            level
         } = this.state;
         
         const {
             match,
-            history
+            history,
+            authentication
         } = this.props;
         
-        if(isAuthenticated && authenticatedAs == 'admin') {
-            return history.push(`${match.url}`);
+        
+        if(isAuthenticated && authenticatedAs === 'admin') {
+            if(level === 1){
+                return history.push(`${match.url}/landing`);    
+            }
+            
+
+        } else if(isAuthenticated && authenticatedAs === 'kasir') {
+            if(level === 3){
+                return history.push(`${match.url}/landingkasir`);
+            }
+            
         }
 
         return history.push(`${match.url}/login`);

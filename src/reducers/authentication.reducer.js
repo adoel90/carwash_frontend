@@ -32,6 +32,9 @@ const initialState = {
 
     userData: localStorage.getItem('userData') ? true : false,
     isAuthenticated: localStorage.getItem('accessToken') ? true : false,
+
+    // userData: null,
+    // isAuthenticated: null,
     isAuthenticating: false,
     authenticatedAs: null,
     isError: false,

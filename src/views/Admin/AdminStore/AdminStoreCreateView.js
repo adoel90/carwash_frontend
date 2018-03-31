@@ -16,6 +16,8 @@ const AdminStoreCreateView = props => {
         category,
         user
     } = props;
+
+
     
     return (
         <div className="admin-user-create">

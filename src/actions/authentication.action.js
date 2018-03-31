@@ -48,8 +48,6 @@ export const adminLogin = (data) => {
             })
             .then((response) => {
                 let result = response.data.result;
-                console.log(response);
-                console.log(result);
                 // if(result.data.module[0].group === 'admin') {
                 // if(result.data.level.id === 1){
                     localStorage.setItem('accessToken', result.accessToken);
@@ -88,16 +86,11 @@ export const vendorLogin = (data) => {
             .then((response) => {
                 let result = response.data.result;
 
-                console.log(response);
-                console.log(result);
-                
-                
-
                 localStorage.setItem('accessToken', result.accessToken);
-                localStorage.setItem('userData', JSON.stringify(result));
+                localStorage.setItem('userData', JSON.stringify(result.data));
                
                 dispatch(loginSuccess(result));
-                // window.location.reload();
+                window.location.reload();
             })
             .catch((error) => {
                 dispatch(loginError(error));

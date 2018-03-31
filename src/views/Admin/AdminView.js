@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { PrivateRoute, PropsRoute } from '../../utilities/Route';
-import { AdminLogin, AdminPanel, AdminStoreCashierPanel } from '../Admin';
+import { AdminLogin, AdminPanel, AdminStoreCashierPanel, AdminStoresPanel} from '../Admin';
 
 
 class AdminView extends Component {
@@ -11,7 +11,7 @@ class AdminView extends Component {
             match,
             userData,
             isAuthenticated,
-            authenticatedAs,
+            authenticatedAs
 
         } = this.props;
         
@@ -40,6 +40,16 @@ class AdminView extends Component {
                     path={`${match.url}/landingkasir`}
                     component={AdminStoreCashierPanel}
                     isAuthenticated={isAuthenticated && authenticatedAs == 'kasir'}
+                    redirectTo={`${match.url}/login`}
+                />
+
+
+                 <PrivateRoute
+                    name="panelstores"
+                    path={`${match.url}/landingstores`}
+                    component={AdminStoresPanel}
+                    isAuthenticated={isAuthenticated && authenticatedAs == authenticatedAs}
+                    // isAuthenticated={isAuthenticated}
                     redirectTo={`${match.url}/login`}
                 />
 

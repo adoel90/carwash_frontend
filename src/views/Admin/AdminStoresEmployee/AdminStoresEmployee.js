@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { VendorEmployeeView } from '../VendorEmployee';
+// import { VendorEmployeeView } from '../VendorEmployee';
+import { AdminStoresEmployeeView } from '../AdminStoresEmployee';
 import { getVendorEmployeeList, updateVendorEmployee } from '../../../actions/vendor.action';
 import { getStoreList } from '../../../actions/vendor.action';
 
@@ -18,7 +19,7 @@ function mapDispatchToProps(dispatch) {
     }
 }
 
-class VendorEmployee extends Component {
+class AdminStoresEmployee extends Component {
 
     constructor() {
         super();
@@ -236,7 +237,7 @@ class VendorEmployee extends Component {
 
     render() {
         return (
-            <VendorEmployeeView
+            <AdminStoresEmployeeView
                 {...this.state}
                 {...this.props}
                 toggleModal={this.toggleModal}
@@ -248,7 +249,4 @@ class VendorEmployee extends Component {
     }
 }
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(VendorEmployee);
+export default connect( mapStateToProps, mapDispatchToProps )(AdminStoresEmployee);

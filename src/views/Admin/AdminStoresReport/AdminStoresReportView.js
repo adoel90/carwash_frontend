@@ -3,11 +3,7 @@ import PropTypes from 'prop-types';
 import { Section } from '../../../layouts/Section';
 import { Panel, PanelHeader, PanelBody } from '../../../components/Panel';
 
-import {
-	
-	Card, CardBody, CardTitle, CardText, CardSubtitle, CardDeck, 
-	
-} from 'reactstrap';
+import { Card, CardBody, CardTitle, CardText, CardSubtitle, CardDeck } from 'reactstrap';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,LineChart, Line } from 'recharts';
 import { Column, Row} from '../../../layouts/Grid';
 import { Form, FormField, FormGroup } from '../../../layouts/Form';
@@ -21,7 +17,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
 
-const VendorDashboardView = props => {
+const AdminStoresReportView = props => {
 
     const {
         vendorReportList,
@@ -87,18 +83,18 @@ const VendorDashboardView = props => {
                                     <div>
                                         <FormField>
                                       
-                                            {/* <ButtonDewek
+                                            <ButtonDewek
                                                 variant="raised"
                                                 className="btn-sky-blue btn-size ml-3"
                                                 color="info"
                                                 onClick={handleShow}
                                             >
-                                                Lihat
-                                            </ButtonDewek> */}
+                                                Lihat Periode Laporan
+                                            </ButtonDewek>
 
-                                            <Button onClick={handleShow} style={{height: '50px'}}>
+                                            {/* <Button onClick={handleShow} style={{height: '50px'}}>
                                                 Cari
-                                            </Button>
+                                            </Button> */}
 
                                         </FormField>
                                     </div>
@@ -134,4 +130,4 @@ const VendorDashboardView = props => {
 };
 
 
-export default VendorDashboardView;
+export default AdminStoresReportView;

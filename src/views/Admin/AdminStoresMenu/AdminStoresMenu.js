@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { VendorMenuView} from '../VendorMenu';
+// import { VendorMenuView} from '../VendorMenu';
+import { AdminStoresMenuView} from '../AdminStoresMenu';
 import { getStoreList, updateMenuVendor, getMenuStoreList } from '../../../actions/vendor.action';
 
 function mapStateToProps(state) {
@@ -18,7 +19,7 @@ function mapDispatchToProps(dispatch) {
     }
 }
 
-class VendorMenu extends Component {
+class AdminStoresMenu extends Component {
 
     constructor(){
 
@@ -98,7 +99,6 @@ class VendorMenu extends Component {
                     storeActiveList: vendorState.store.data.data.result.store
                 }, () => {
                     getMenuStoreListDispatch(vendorState.store.data.data.result.store[storeActive]);
-                    // console.log(this.state);
                 });
             }
         }
@@ -163,7 +163,6 @@ class VendorMenu extends Component {
             {
                 title: 'Aksi',
                 accessor: 'action',
-                // render: (data) => (
                 render: (row) => (
                     <td>
                         <a href="#" onClick={() => this.openMenuVendorModal(row)}>Ubah</a>
@@ -208,10 +207,7 @@ class VendorMenu extends Component {
         })
     }
 
-    openMenuVendorModal = (row) => {
-
-        console.log(row);
-        
+    openMenuVendorModal = (row) => {        
         this.setState({
             ...this.state,
             // selectedMenuVendor : row.data
@@ -261,8 +257,6 @@ class VendorMenu extends Component {
             status:selectedMenuStore.status
         };
         
-        console.log(requireDataUpdate);
-        
         updateVendorMenuState(requireDataUpdate);
         
         rowsUpdate.push(requireDataUpdate);
@@ -295,7 +289,7 @@ class VendorMenu extends Component {
 
     render() {
         return (
-            <VendorMenuView
+            <AdminStoresMenuView
                 {...this.state}
                 {...this.props}
                 toggleModal= {this.toggleModal}
@@ -307,7 +301,4 @@ class VendorMenu extends Component {
     }
 }
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(VendorMenu);
+export default connect( mapStateToProps, mapDispatchToProps )(AdminStoresMenu);

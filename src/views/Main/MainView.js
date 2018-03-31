@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-// import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import { PropsRoute } from '../../utilities/Route';
-// import { Service, Vendor, Admin, AdminStoreCashierMain, CustomerMain, StoreCashierMain } from '../../views';
-import { Service, Vendor, Admin, CustomerMain, StoreCashierMain } from '../../views';
+// import { Service, Vendor, Admin, CustomerMain, StoreCashierMain } from '../../views';
+import { Admin, CustomerMain } from '../../views';
 
 class MainView extends Component {
     

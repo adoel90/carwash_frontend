@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { VendorReportView } from '../VendorReport';
 import NumberFormat from 'react-number-format';
 import moment from 'moment';
+
+import { AdminStoresReportView } from '../AdminStoresReport';
 import { getStoreList } from '../../../actions/vendor.action';
 import { getStoreReportList } from '../../../actions/vendor.report.action';
 
@@ -20,7 +21,7 @@ function mapDispatchToProps(dispatch) {
     }
 }
 
-class VendorReport extends Component {
+class AdminStoresReport extends Component {
 
     constructor(){
         
@@ -61,11 +62,8 @@ class VendorReport extends Component {
 
     componentDidMount = () => {
         const {requiredData } = this.state;
-        // this.getStoreReportList(requiredData);
         this.getStoreList();
     }
-
-
 
     //#
     componentDidUpdate = (prevProps) => {
@@ -173,7 +171,7 @@ class VendorReport extends Component {
 
     render() {
         
-        return <VendorReportView 
+        return <AdminStoresReportView 
                     {...this.state} 
                     {...this.props} 
                     handlePeriodChange={this.handlePeriodChange}
@@ -189,4 +187,4 @@ class VendorReport extends Component {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(VendorReport);
+)(AdminStoresReport);

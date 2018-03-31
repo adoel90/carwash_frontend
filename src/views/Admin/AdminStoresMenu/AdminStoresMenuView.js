@@ -6,11 +6,11 @@ import { TableSet } from '../../../components/Table';
 import { Form, FormField } from '../../../layouts/Form';
 import { Row, Column } from '../../../layouts/Grid';
 import { Input, InputGroup, Switch } from '../../../components/Input';
-// import { Button } from '../../../components/Button';
 import { ButtonDewek } from '../../../components/ButtonDewek';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from '../../../components/Modal';
+// import { Button } from '../../../components/Button';
 
-const VendorMenuView = props => {
+const AdminStoresMenuView = props => {
 
     const {
         isModalOpen, 
@@ -37,7 +37,6 @@ const VendorMenuView = props => {
                         <h5>Ubah Informasi Store</h5>
                     </ModalHeader>
                 
-                    {/* <Form onSubmit={updateMenuVendor}> */}
                     <Form onSubmit={handleUpdateSubmitVendorMenu}>
                         <ModalBody>
                             <Row>
@@ -100,8 +99,8 @@ const VendorMenuView = props => {
     )
 };
 
-VendorMenuView.propTypes = {
+AdminStoresMenuView.propTypes = {
     
 };
 
-export default VendorMenuView;
+export default AdminStoresMenuView;

@@ -37,7 +37,6 @@ class AdminStoresPanel extends Component {
             ],
             menus: [
                     { 
-                        // category: 'Store Name Selected',
                         category: <img src={require('../../../assets/images/805carwash_white.svg')} alt="805-Carwash" style={{width: "75%"}} />,
                         items: [
                             // { id: 1, name: 'Dashboard', path: `${props.match.url}` },
@@ -58,15 +57,11 @@ class AdminStoresPanel extends Component {
     }
 
     componentDidMount = () => {
-
         this.getVendorDetail();
     }
 
     getVendorDetail = () => {
-
-        // console.log(this.props);
         const { getVendorState } = this.props;
-
         getVendorState();
     }
 
@@ -80,7 +75,6 @@ class AdminStoresPanel extends Component {
              this.setState({
                 ...this.state,
                 vendorList: vendorState.list
-            
             });
         }
     }

@@ -10,9 +10,8 @@ import { Input, InputGroup, Switch, InputAddon } from '../../../components/Input
 import { ButtonDewek } from '../../../components/ButtonDewek';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from '../../../components/Modal';
 
-const VendorEmployeeView = props => {
-
-
+const AdminStoresEmployeeView = props => {
+    
     const {
         isModalOpen, 
         table, 
@@ -163,8 +162,8 @@ const VendorEmployeeView = props => {
     )
 };
 
-VendorEmployeeView.propTypes = {
+AdminStoresEmployeeView.propTypes = {
     
 };
 
-export default VendorEmployeeView;
+export default AdminStoresEmployeeView;

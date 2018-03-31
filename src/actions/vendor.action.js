@@ -119,7 +119,7 @@ export const getStoreList = (data) => {
 
 		dispatch(fetchRequest());
 		return axios
-			.get(`${constant.API_PATH}store/list?accessToken=${accessToken}&id=${dataVendorLoginNow.data.id}`)
+			.get(`${constant.API_PATH}store/list?accessToken=${accessToken}&id=${dataVendorLoginNow.id}`)
 			// .get(`${constant.API_PATH}store/list?accessToken=${accessToken}`)
 			.then((response) => {
 				dispatch(fetchSuccess(response));

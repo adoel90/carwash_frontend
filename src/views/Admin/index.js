@@ -30,3 +30,6 @@ export * from './AdminStoresDashboard';
 export * from './AdminStoresLogin';
 export * from './AdminStoresPanel';
 export * from './AdminStoresLayout';
+export * from './AdminStoresMenu';
+export * from './AdminStoresEmployee';
+export * from './AdminStoresReport';

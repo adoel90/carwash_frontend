@@ -48,6 +48,7 @@ class AdminStoreCashierNewCard extends Component {
 				phone: '',
 				email: '',
 				address: '',
+				tipecard: null
 			},
 			selectedCardType: {
 				id: '',
@@ -113,38 +114,38 @@ class AdminStoreCashierNewCard extends Component {
 	}
 
 	handleChangeCardType = (e) => {
-
+		e.preventDefault();
 		const { cardTypes, newCardData } = this.state;
 		this.handleInputChange(newCardData, e);
 
 		const target = e.target;
 		const name = target.name;
 		const value = target.value;
-		// console.log(newCardData);
-		// console.log(e);
+	
 		// console.log(value);
 		// console.log(cardTypes);
-		
-		// let selectedId = e.membertarget.value;
-		// let selectedId = value;
 
-		// cardTypes.forEach((item) => {
-		// 	// console.log(item);
-		// 	if(item.id === parseInt(selectedId)) {
-		// 		this.setState({
-		// 			...this.state,
-		// 			newCardData: {
-		// 				...this.state.newCardData,
-		// 				card: item.id
-		// 			},
-		// 			selectedCardType: {
-		// 				id: item.id,
-		// 				min: item.min,
-		// 				refund: item.refund
-		// 			}
-		// 		})
-		// 	}
-		// })
+		cardTypes.data.result.forEach((item) => {
+			// console.log(item);
+			if(item.id === parseInt(value)) {
+				this.setState({
+					...this.state,
+					newCardData: {
+						...this.state.newCardData,
+						card: item.id,
+						tipecard: item.name
+					},
+					selectedCardType: {
+						id: item.id,
+						min: item.min,
+						refund: item.refund
+					}
+				}, () => {
+					// console.log(this.state);
+					
+				})
+			}
+		})
 	}
 
 	toggleModal = (name) => {
@@ -198,21 +199,25 @@ class AdminStoreCashierNewCard extends Component {
 			accessToken,
 			createNewMemberdDispatch
 		} = this.props;
-
+		
 		e.preventDefault();
 
 		let requiredData = {
-			card: newCardData.card.id,
+			card: newCardData.card,
 			payment: newCardData.payment,
 			name: newCardData.name,
 			phone: newCardData.phone,
 			email: newCardData.email,
 			address: newCardData.address
 		}
+		console.log(newCardData);
+		console.log(requiredData);
 		
 		createNewMemberdDispatch(requiredData).then(()=> {
+			
 			const { member } = this.props;
 			const { dataMember } = this.state;
+
 			// if(member.memberCreated.isCreated){
 			if(dataMember.isCreated){
 				let dialogData = {
@@ -243,16 +248,12 @@ class AdminStoreCashierNewCard extends Component {
 	}
 
 	toggleDialog = (data) => {
+		
 		const { dialog, action, openDialogDispatch, closeDialogDispatch } = this.props;
 		
-		
-
-        if(!dialog.isOpened) {
-			// action.openDialog(data);
+		if(!dialog.isOpened) {
 			openDialogDispatch(data);
-			
         } else {
-			// action.closeDialog();
 			closeDialogDispatch(data);
         }
     }

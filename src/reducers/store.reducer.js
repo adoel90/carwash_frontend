@@ -20,15 +20,21 @@ import {
 	GET_MENU_LIST_STORE_REQUESTED, //GET MENU LIST STORE
 	GET_MENU_LIST_STORE_FULFILLED,
 	GET_MENU_LIST_STORE_REJECTED,
+
 	CREATE_MENU_TRANSACTION_FULFILLED, //CREATE MENU TRANSACTION
 	CREATE_MENU_TRANSACTION_REJECTED,
+
 	GET_PRINT_STORE_TRANSACTION_REQUESTED, //GET PRINT STORE TRANSACTION
 	GET_PRINT_STORE_TRANSACTION_FULFILLED,
 	GET_PRINT_STORE_TRANSACTION_REJECTED,
+
 	CUSTOMER_TOPUP_LOGIN_REQUESTED,//#CUSTOMER TOP-UP LOGIN 
     CUSTOMER_TOPUP_LOGIN_FULFILLED,
 	CUSTOMER_TOPUP_LOGIN_REJECTED,
-	
+
+	GET_BONUS_TAXI_ONLINE_REQUESTED,//GET BONUS TAXI ONLINE
+	GET_BONUS_TAXI_ONLINE_FULFILLED,
+	GET_BONUS_TAXI_ONLINE_REJECTED
 	
 
 } from '../actions/store.action'
@@ -98,6 +104,13 @@ const initialState = {
 		isError: false,
 		error: {}
 	},
+	bonus: {
+		data: {},
+		isFetching: false,
+		isLoaded: false,
+		isError: false,
+		error: {}
+	}
 }
 
 const store = (state = initialState, action) => {
@@ -500,6 +513,49 @@ const store = (state = initialState, action) => {
                 isError: true,
                 error: action.payload
             }
+		}
+
+		//#GET BONUS TAXI ONLINE
+		case GET_BONUS_TAXI_ONLINE_REQUESTED: {
+			return {
+				...state,
+				bonus: {
+					...state.bonus,
+					data: {},
+					isFetching: true,
+					isLoaded: false,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case GET_BONUS_TAXI_ONLINE_FULFILLED: {
+			return {
+				...state,
+				bonus: {
+					...state.bonus,
+					data: action.payload,
+					isLoaded: true,
+					isFetching: false,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case GET_BONUS_TAXI_ONLINE_REJECTED: {
+			return {
+				...state,
+				bonus: {
+					...state.bonus,
+					data: {},
+					isLoaded: false,
+					isFetching: false,
+					isError: true,
+					error: action.payload
+				}
+			}
 		}
 
 		default: {

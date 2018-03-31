@@ -173,6 +173,12 @@ export const getMemberDetail = (data) => {
 
 export const createNewMember = (data) => {
 
+	console.log(data);
+
+	// return {
+	// 	type:null
+	// }
+	
 	const accessTokenCreate = localStorage.getItem('accessToken') ? localStorage.getItem('accessToken') : null;
 
 	return async dispatch => {
@@ -182,7 +188,7 @@ export const createNewMember = (data) => {
 				phone: data.phone,
 				email: data.email,
 				address: data.address,
-				card: data.card,
+				card: data.card.id,
 				payment: data.payment
 			})
 			.then((response) => {

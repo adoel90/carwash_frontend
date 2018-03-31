@@ -46,6 +46,13 @@ export const CUSTOMER_TOPUP_LOGIN_REQUESTED = 'CUSTOMER_TOPUP_LOGIN_REQUESTED';
 export const CUSTOMER_TOPUP_LOGIN_FULFILLED = 'CUSTOMER_TOPUP_LOGIN_FULFILLED';
 export const CUSTOMER_TOPUP_LOGIN_REJECTED = 'CUSTOMER_TOPUP_LOGIN_REJECTED';
 
+//GET BONUS TAXI ONLINE
+export const GET_BONUS_TAXI_ONLINE_REQUESTED = 'GET_BONUS_TAXI_ONLINE_REQUESTED';
+export const GET_BONUS_TAXI_ONLINE_FULFILLED = 'GET_BONUS_TAXI_ONLINE_FULFILLED';
+export const GET_BONUS_TAXI_ONLINE_REJECTED = 'GET_BONUS_TAXI_ONLINE_REJECTED';
+
+
+
 const accessToken = localStorage.getItem('accessToken') ? localStorage.getItem('accessToken') : null;
 
 export const getStoreList = (data) => {
@@ -248,4 +255,30 @@ export const kasirTopUpLogin = (data) => {
     function loginRequest() { return { type: CUSTOMER_TOPUP_LOGIN_REQUESTED } }
     function loginSuccess(data) { return { type: CUSTOMER_TOPUP_LOGIN_FULFILLED, payload: data } }
     function loginError(data) { return { type: CUSTOMER_TOPUP_LOGIN_REJECTED, payload: data } }
+}
+
+//GET BONUS TAXI ONLINE
+export const getBonusTaxiOnline = () => {
+
+	// return {
+	// 	type:null
+	// }
+	return async dispatch => {
+
+		dispatch(getBonusRequest());
+
+		return axios
+		
+			.get(`${constant.API_PATH}tier/list?accessToken=${accessToken}`)
+			.then((response) => {
+				dispatch(getBonusSuccess(response.data));
+			})
+			.catch((err) => {
+				dispatch(getBonusError(err));
+			})
+	}
+
+	function getBonusRequest() { return { type: GET_BONUS_TAXI_ONLINE_REQUESTED } }
+	function getBonusSuccess(data) { return { type: GET_BONUS_TAXI_ONLINE_FULFILLED, payload: data } }
+	function getBonusError(data) { return { type: GET_BONUS_TAXI_ONLINE_REJECTED, payload: data } }
 }

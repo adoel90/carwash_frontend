@@ -107,7 +107,7 @@ class CashierNewCardConfirmation extends Component {
 						<Label className="fw-semibold">Tipe Member Card</Label>
 						<Input
 							type="text"
-							value={selectedCardName}
+							value={newCardData.tipecard}
 							readonly="true"
 						/>
 					</FormGroup>

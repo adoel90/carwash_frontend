@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import Currency from '../../../components/Currency';
 import { Dialog } from '../../../components/Dialog';
 import  {CashierTopUp}  from '../../../components/Cashier';
-import { kasirTopUpLogin } from '../../../actions/store.action';//Scenario-nya kasir meminta customer untuk GESEK KARTU MEMBER
+import { kasirTopUpLogin, getBonusTaxiOnline } from '../../../actions/store.action';//Scenario-nya kasir meminta customer untuk GESEK KARTU MEMBER
 import { memberCustomerTopup } from '../../../actions/member.action'
 import { openDialog, closeDialog } from '../../../actions/dialog.action';
 
@@ -23,7 +23,8 @@ function mapDispatchToProps(dispatch) {
         kasirTopUpLogin: bindActionCreators(kasirTopUpLogin, dispatch),
         openDialogDispatch:(data) =>  dispatch(openDialog(data)),
         closeDialogDispatch: (data) => dispatch(closeDialog(data)),
-        memberTopupDispatch: (data) => dispatch(memberCustomerTopup(data))
+        memberTopupDispatch: (data) => dispatch(memberCustomerTopup(data)),
+        getBonusTaxiOnlineDispatch: () => dispatch(getBonusTaxiOnline())
     }
 }
 
@@ -68,17 +69,21 @@ class AdminStoreCashierTopUp extends Component {
 				{ id: 1, name: 'Cash' },
 				{ id: 2, name: 'Debit' },
 				{ id: 3, name: 'Credit' }
-			],
+            ],
+            bonus: {}
 		}
     }
 
-
+    componentDidMount(){
+        const { getBonusTaxiOnlineDispatch } = this.props;
+        getBonusTaxiOnlineDispatch();
+    }
     //const accessToken = localStorage.getItem('accessToken') ? localStorage.getItem('accessToken') : null;
 
     //#Get data member yang sedang TOP UP
     componentDidUpdate(prevProps){
 
-        const { storeState } = this.props;
+        const { storeState,  } = this.props;
         const { isModalOpen } = this.state;
 
         if(prevProps.storeState.userData !== storeState.userData){
@@ -94,9 +99,27 @@ class AdminStoreCashierTopUp extends Component {
                 }, () => {
                     console.log(this.state);
                     this.forceUpdate();
-                    this.handleTopUp();            
-                })          
+                    this.handleTopUp(); 
+                    // getBonusTaxiOnlineDispatch();           
+                })         
             }   
+        }
+
+
+        if(prevProps.storeState.bonus !== storeState.bonus){
+            if(storeState.bonus.isLoaded){
+                // console.log(storeState.bonus);
+                this.setState({
+                    ...this.state,
+                    bonus: storeState.bonus.data.result.tier
+                },()=> {
+                    console.log(this.state);
+                    
+                })
+
+            }
+            
+            
         }
     }	
     

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Column } from '../../layouts/Grid';
 import { ModalHeader, ModalContent, ModalFooter, Modal, ModalDialog, ModalBody} from '../../components/Modal';
 import {FormGroup } from '../../components/Form';
@@ -16,8 +17,58 @@ import { default as CardIcon2 } from '../../assets/icons/Business/credit-card-4.
 import Currency from '../../components/Currency';
 import NumberFormat from 'react-number-format';
 
+
+
 class CashierTopUpConfirmation extends Component {
 
+	//#
+	renderTambahSaldoCommon = () => {
+		const { topupData,handleInputChange } = this.props;
+
+		return (
+				<InputGroup>
+					<InputAddon>
+						<small className="tt-uppercase fw-semibold ls-base">Rp</small>
+					</InputAddon>
+					<InputCurrency
+						className="input"
+						name="balance"
+						type="text"
+						placeholder="Masukkan jumlah saldo yang diinginkan"
+						onChange={(e) => handleInputChange(topupData, e)}
+						autoFocus="true"
+						required="required"
+					/>
+				</InputGroup>
+			)
+	}
+
+	//#
+	renderTambahSaldoForTaxiOnline = () => {
+
+		const { bonus, handleInputChange, topupData } = this.props;
+		// getBonusTaxiOnlineDispatch();
+
+		return (
+			<div>
+
+			<InputCashier
+				className="input"
+				name="payment"
+				type="select"
+				onChange={(e) => handleInputChange(topupData, e)}
+				required="true"
+				value="">
+					<option selected="true" disabled="true">Bonus Khusus untuk Taxi Online</option>
+					{ 
+						this.props.bonus.map((special) => {
+							return <option><b>Isi ulang Rp.{special.price} mendapat BONUS : Rp.{special.bonus}</b></option>
+						})
+					}
+			</InputCashier>
+			</div>
+		)
+	}
 
 	renderDialog = () => {
 		const {
@@ -57,7 +108,9 @@ class CashierTopUpConfirmation extends Component {
 	
 		} = this.props;
 
-		// console.log(this.props.paymentMethod);
+		const typeMember = authenticatedMember.isAuthenticated ? authenticatedMember.data.card.type.name : null;
+		console.log(typeMember);
+		
 
 		const renderMemberInformation = () => {
 			return (
@@ -117,9 +170,12 @@ class CashierTopUpConfirmation extends Component {
 								</InputGroup>
 							</FormField>
 						</FormGroup>
+
+						
 						<FormGroup row>
 							<FormField label="Tambah Saldo">
-								<InputGroup>
+							{ typeMember === "Taxi Online" ? this.renderTambahSaldoForTaxiOnline() : this.renderTambahSaldoCommon()}
+								{/* <InputGroup>
 									<InputAddon>
 										<small className="tt-uppercase fw-semibold ls-base">Rp</small>
 									</InputAddon>
@@ -132,9 +188,12 @@ class CashierTopUpConfirmation extends Component {
 										autoFocus="true"
 										required="required"
 									/>
-								</InputGroup>
+								</InputGroup> */}
 							</FormField>
 						</FormGroup>
+
+
+
 						<FormGroup row>
 							<FormField label="Metode Pembayaran">
 								<InputCashier
@@ -179,3 +238,4 @@ class CashierTopUpConfirmation extends Component {
 }
 
 export default CashierTopUpConfirmation;
+// export default connect( mapStateToProps, mapDispatchToProps )(CashierTopUpConfirmation);

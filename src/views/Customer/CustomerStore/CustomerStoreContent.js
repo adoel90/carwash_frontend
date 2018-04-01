@@ -75,16 +75,23 @@ class CustomerStoreContent extends React.Component {
 
 		if(prevProps.store.storemenu !== store.storemenu) {
 			if(store.storemenu.isLoaded) {
-				let activeList = []
+				let activeList = [];
 
 				store.storemenu.data.data.result.menu.map((item) => {
 					if(item.status) {
 						if(store.discount.isLoaded) {
+							/*** Charge for Online Member ***/
+							let memberCardID = member.item.isLoaded ? member.item.data.result.card.type.id : null;
+							let chargePercent = this.props.type.charge ? this.props.type.charge : 0;
+							let chargeMoney = memberCardID === 15 ? (parseInt(chargePercent)*item.price)/100 : 0;
+
+							/*** Discount calculate ***/
 							let discountLength = store.discount.data.data.result.promo.length;
 							let percent = discountLength > 0 ? store.discount.data.data.result.promo[0].price : 0;
 							let dataDiscount = (parseInt(percent)*item.price)/100;
-							let price = item.price-dataDiscount;
-							let totalPrice = item.totalPrice-dataDiscount;
+
+							let price = (item.price-dataDiscount)+chargeMoney;
+							let totalPrice = (item.totalPrice-dataDiscount)+chargeMoney;
 							
 							let paramItem = {
 								id: item.id,
@@ -189,7 +196,8 @@ class CustomerStoreContent extends React.Component {
 		let paramDiscount = {
 			id: type.id,
 			start_date: moment().format('YYYY-MM-DD'),
-			end_date: moment().add(+1, 'month').format('YYYY-MM-DD')
+			end_date: moment().add(+1, 'month').format('YYYY-MM-DD'),
+			active : true
 		}
 
 		dispatch(getDiscountListById(paramDiscount)).then(() => {
@@ -259,41 +267,6 @@ class CustomerStoreContent extends React.Component {
 		const {
 			selectedMenuList
 		} = this.state;
-
-		// /*
-		// ** Set Discount Item
-		// */
-		// if(store.discount.isLoaded) {
-		// 	let dataMenu = [];
-		
-		// 	for(let i=0; i<selectedMenuList.length; i++) {
-		// 		let discountLength = store.discount.data.data.result.promo.length;
-		// 		let percent = discountLength > 0 ? store.discount.data.data.result.promo[0].price : 0;
-		// 		let dataDiscount = (parseInt(percent)*selectedMenuList[0].price)/100;
-		// 		let price = selectedMenuList[0].price-dataDiscount;
-		// 		let totalPrice = selectedMenuList[0].totalPrice-dataDiscount;
-
-		// 		let paramItem = {
-		// 			id: selectedMenuList[0].id,
-		// 			image: selectedMenuList[0].image,
-		// 			name: selectedMenuList[0].name,
-		// 			price: price,
-		// 			quantity: selectedMenuList[0].quantity,
-		// 			selected: selectedMenuList[0].selected,
-		// 			status: selectedMenuList[0].status,
-		// 			totalPrice: totalPrice
-		// 		}
-
-		// 		dataMenu.push(paramItem);
-		// 	}
-
-		// 	let requiredData = {
-		// 		menu : dataMenu,
-		// 		store : type
-		// 	}
-
-		// 	dispatch(createStoreTransaction(requiredData));
-		// }
 
 		let requiredData = {
 			menu : selectedMenuList,

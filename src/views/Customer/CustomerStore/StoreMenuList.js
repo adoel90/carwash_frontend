@@ -48,7 +48,7 @@ class StoreMenuList extends Component {
 			}
 			else {
 				return (
-					<PageBlock className="flex align-center justify-content--center align-items--center">
+					<PageBlock className="flex align-center justify-content--center align-items--center" style={{marginLeft: '-15px', marginRight: '15px'}}>
 						<i className="fi flaticon-warning icon icon--gigant clr-danger"></i>
 						<p>Tidak dapat menemukan data pada kategori ini.</p>
 					</PageBlock>

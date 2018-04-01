@@ -30,8 +30,12 @@ class StorePaymentDetail extends Component {
 			toggleModal,
 			handlePaymentCheckout,
 			selectedMenuList,
-			grandTotal
+			grandTotal,
+			store
 		} = this.props;
+
+		let discountLenght = store.discount.isLoaded ? store.discount.data.data.result.promo.length : null;
+		let discount = discountLenght > 0 ? store.discount.data.data.result.promo[0].price : 0;
 
 		return (
 			<Modal
@@ -49,6 +53,7 @@ class StorePaymentDetail extends Component {
 							<p>Silahkan periksa terlebih dahulu pesanan customer sebelum checkout!</p>
 						</Alert>
 						<TableSetOld
+							className="margin-top-base"
 							columns={table.columns}
 							rows={selectedMenuList}
 							striped
@@ -56,7 +61,11 @@ class StorePaymentDetail extends Component {
 							fullWidth
 							{...this.props}
 						/>
-						<div className="flex flex-column align-items--flex-end padding-top-small">
+						<div className="flex justify-content--space-between padding-top-small">
+							<small className="tt-uppercase ls-base fw-bold">Diskon</small>
+							<p className="clr-pasive">{`${discount}%`}</p>
+						</div>
+						<div className="flex justify-content--space-between padding-top-small">
 							<small className="tt-uppercase ls-base fw-bold">Total yang harus dibayar</small>
 							<h4 className="clr-primary"><Currency value={grandTotal} /></h4>
 						</div>

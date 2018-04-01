@@ -11,8 +11,6 @@ class CustomerStore extends Component {
 		this.toggleDialog = this.toggleDialog.bind(this);
 		this.openDialog = this.openDialog.bind(this);
 		this.closeDialog = this.closeDialog.bind(this);
-        // this.addPathPropToTypes = this.addPathPropToTypes.bind(this);
-        
         this.handleInputChange = this.handleInputChange.bind(this);
 
 		this.state = {
@@ -97,97 +95,7 @@ class CustomerStore extends Component {
         }
     }
 
-    handleSearchFilter = (e) => {
-        const target = e.target;
-        const value = target.value;
-        const name = target.name;
-
-        this.setState({
-            ...this.state,
-            [name]: value
-        })
-    }
-
-    handleSearchFilterSubmit = () => {
-        const {
-            searchText
-        } = this.props;
-    }
-
-    handlePaymentDetailSubmit = (e) => {
-        e.preventDefault();
-
-        this.toggleModal('paymentDetail');
-    }
-
-    handlePaymentProcessSubmit = (e) => {
-        const {
-            dispatch,
-            member
-        } = this.props;
-
-        const {
-            selectedMenus
-        } = this.state;
-
-        e.preventDefault();
-
-        let dataArray = [];
-
-        selectedMenus.map((menu, i) => {
-            let requiredData = {
-                id: menu.id,
-                quantity: menu.quantity
-            }
-
-            dataArray.push(requiredData);
-        })
-
-        // dispatch(createStoreTransaction(dataArray));
-    }
-
-    handlePaymentMemberAuthentication = (e) => {
-        const {
-            paymentProcess
-        } = this.state;
-
-        const {
-            dispatch
-        } = this.props;
-
-        e.preventDefault();
-
-        let requiredData = {
-            card: paymentProcess.card
-        }
-
-        // dispatch(authenticateMember(requiredData));
-    }
-
-    handleSelectMenu = (menu) => {
-        const {
-            selectedMenus
-        } = this.state;
-
-        if(!menu.selected) {
-            menu.selected = true;
-            this.setState({
-                selectedMenus: selectedMenus.concat([menu])
-            })
-        }
-        else {
-            menu.selected = false;
-            let filteredMenu = selectedMenus.filter((item) => {
-                return item != menu
-            })
-
-            this.setState({
-                selectedMenus: filteredMenu
-            })
-        }
-    }
-    
-	getStoreList = () => {
+    getStoreList = () => {
         const { dispatch } = this.props;
         
 		dispatch(getStoreList());

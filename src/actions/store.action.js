@@ -27,6 +27,10 @@ export const GET_CATEGORY_LIST_REQUESTED = 'GET_CATEGORY_LIST_REQUESTED';
 export const GET_CATEGORY_LIST_FULFILLED = 'GET_CATEGORY_LIST_FULFILLED';
 export const GET_CATEGORY_LIST_REJECTED = 'GET_CATEGORY_LIST_REJECTED';
 
+export const GET_DISCOUNT_LIST_REQUESTED = 'GET_DISCOUNT_LIST_REQUESTED';
+export const GET_DISCOUNT_LIST_FULFILLED = 'GET_DISCOUNT_LIST_FULFILLED';
+export const GET_DISCOUNT_LIST_REJECTED = 'GET_DISCOUNT_LIST_REJECTED';
+
 //#GET MENU LIST STORE
 export const GET_MENU_LIST_STORE_REQUESTED = 'GET_MENU_LIST_STORE_REQUESTED';
 export const GET_MENU_LIST_STORE_FULFILLED = 'GET_MENU_LIST_STORE_FULFILLED';
@@ -248,4 +252,28 @@ export const kasirTopUpLogin = (data) => {
     function loginRequest() { return { type: CUSTOMER_TOPUP_LOGIN_REQUESTED } }
     function loginSuccess(data) { return { type: CUSTOMER_TOPUP_LOGIN_FULFILLED, payload: data } }
     function loginError(data) { return { type: CUSTOMER_TOPUP_LOGIN_REJECTED, payload: data } }
+}
+
+export const getDiscountListById = (data) => {
+	let date = {
+		start_date: data.start_date ? data.start_date : '',
+		end_date: data.end_date ? data.end_date : '',
+		active: data.active ? true : false
+	}
+
+	return async dispatch => {
+		dispatch(fetchRequest());
+		return axios
+			.get(`${constant.API_PATH}store/discount/list?accessToken=${accessToken}&id=${data.id}&start_date=${date.start_date}&end_date=${date.end_date}&active=${date.active}`)
+			.then((response) => {
+				dispatch(fetchSuccess(response));
+			})
+			.catch((error) => {
+				dispatch(fetchError(error));
+			})
+	}
+
+	function fetchRequest() { return { type: GET_DISCOUNT_LIST_REQUESTED } }
+	function fetchSuccess(data) { return { type: GET_DISCOUNT_LIST_FULFILLED, payload: data } }
+	function fetchError(data) { return { type: GET_DISCOUNT_LIST_REJECTED, payload: data } }
 }

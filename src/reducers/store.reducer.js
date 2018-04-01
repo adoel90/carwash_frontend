@@ -27,7 +27,10 @@ import {
 	GET_PRINT_STORE_TRANSACTION_REJECTED,
 	CUSTOMER_TOPUP_LOGIN_REQUESTED,//#CUSTOMER TOP-UP LOGIN 
     CUSTOMER_TOPUP_LOGIN_FULFILLED,
-    CUSTOMER_TOPUP_LOGIN_REJECTED
+	CUSTOMER_TOPUP_LOGIN_REJECTED,
+	GET_DISCOUNT_LIST_REQUESTED,
+	GET_DISCOUNT_LIST_FULFILLED,
+	GET_DISCOUNT_LIST_REJECTED
 } from '../actions/store.action'
 
 const initialState = {
@@ -95,6 +98,13 @@ const initialState = {
 		isError: false,
 		error: {}
 	},
+	discount: {
+		data: {},
+		isFetching: false,
+		isLoaded: false,
+		isError: false,
+		error: {}
+	}
 }
 
 const store = (state = initialState, action) => {
@@ -494,6 +504,48 @@ const store = (state = initialState, action) => {
                 isError: true,
                 error: action.payload
             }
+		}
+
+		case GET_DISCOUNT_LIST_REQUESTED: {
+			return {
+				...state,
+				discount: {
+					...state.discount,
+					data: {},
+					isFetching: true,
+					isLoaded: false,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case GET_DISCOUNT_LIST_FULFILLED: {
+			return {
+				...state,
+				discount: {
+					...state.discount,
+					data: action.payload,
+					isLoaded: true,
+					isFetching: false,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case GET_DISCOUNT_LIST_REJECTED: {
+			return {
+				...state,
+				discount: {
+					...state.discount,
+					data: {},
+					isLoaded: false,
+					isFetching: false,
+					isError: true,
+					error: action.payload
+				}
+			}
 		}
 
 		default: {

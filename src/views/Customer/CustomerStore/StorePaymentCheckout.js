@@ -45,17 +45,18 @@ class StorePaymentCheckout extends Component {
         const renderMemberInfo = () => {
             // if(member.item.isAuthenticated) {
                 return (
-                    <div className="flex flex-column align-items--center">
+                    <div className="flex flex-column align-items--center justify-content--center">
                         { renderPaymentAvailability() }
-                        <div className="margin-top-base margin-bottom-small align-center">
-                            <h5 className="clr-primary">{memberData.name}</h5>
-                            <h6 className="fw-semibold">
+                        <div className="margin-top-extra-large margin-bottom-small align-center">
+                            <h4 className="clr-primary">{memberData.name}</h4>
+                            <p className="fw-semibold">
                                 <NumberFormat
                                     format="#### #### #### ####"
                                     displayType={'text'}
                                     value={memberData.card ? memberData.card.id : null}
+                                    style={{fontSize: '20px'}}
                                    />
-                            </h6>
+                            </p>
                             <Badge theme="secondary" className="clr-dark margin-top-small">
                                 <small className="tt-uppercase ls-base fw-semibold">{memberData.card ? memberData.card.type.name : null}</small>
                             </Badge>

@@ -1,12 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
+import moment from 'moment';
 import { CustomerStoreContentView } from '../CustomerStore';
 
 import {
 	getMenuListStore,
 	createStoreTransaction,
-	printStoreTransaction
+	printStoreTransaction,
+	getDiscountListById
 } from '../../../actions/store.action';
 
 import {
@@ -78,8 +79,29 @@ class CustomerStoreContent extends React.Component {
 
 				store.storemenu.data.data.result.menu.map((item) => {
 					if(item.status) {
-						item.selected = item.selected ? true : false;
-						activeList.push(item);
+						if(store.discount.isLoaded) {
+							let discountLength = store.discount.data.data.result.promo.length;
+							let percent = discountLength > 0 ? store.discount.data.data.result.promo[0].price : 0;
+							let dataDiscount = (parseInt(percent)*item.price)/100;
+							let price = item.price-dataDiscount;
+							let totalPrice = item.totalPrice-dataDiscount;
+							
+							let paramItem = {
+								id: item.id,
+								image: item.image,
+								name: item.name,
+								price: price,
+								quantity: item.quantity,
+								selected: item.selected,
+								status: item.status,
+								totalPrice: totalPrice
+							}
+							paramItem.selected = paramItem.selected ? true : false;
+							activeList.push(paramItem);
+						}
+
+						// item.selected = item.selected ? true : false;
+						// activeList.push(item);
 					}
 				})
 
@@ -164,7 +186,15 @@ class CustomerStoreContent extends React.Component {
 			id: type.id
 		}
 
-		dispatch(getMenuListStore(requiredData));
+		let paramDiscount = {
+			id: type.id,
+			start_date: moment().format('YYYY-MM-DD'),
+			end_date: moment().add(+1, 'month').format('YYYY-MM-DD')
+		}
+
+		dispatch(getDiscountListById(paramDiscount)).then(() => {
+			dispatch(getMenuListStore(requiredData));
+		});
 	}
 
 	handleSelectMenu = (menu) => {
@@ -222,12 +252,48 @@ class CustomerStoreContent extends React.Component {
 
 		const {
 			dispatch,
-			type
+			type,
+			store
 		} = this.props;
 
 		const {
 			selectedMenuList
 		} = this.state;
+
+		// /*
+		// ** Set Discount Item
+		// */
+		// if(store.discount.isLoaded) {
+		// 	let dataMenu = [];
+		
+		// 	for(let i=0; i<selectedMenuList.length; i++) {
+		// 		let discountLength = store.discount.data.data.result.promo.length;
+		// 		let percent = discountLength > 0 ? store.discount.data.data.result.promo[0].price : 0;
+		// 		let dataDiscount = (parseInt(percent)*selectedMenuList[0].price)/100;
+		// 		let price = selectedMenuList[0].price-dataDiscount;
+		// 		let totalPrice = selectedMenuList[0].totalPrice-dataDiscount;
+
+		// 		let paramItem = {
+		// 			id: selectedMenuList[0].id,
+		// 			image: selectedMenuList[0].image,
+		// 			name: selectedMenuList[0].name,
+		// 			price: price,
+		// 			quantity: selectedMenuList[0].quantity,
+		// 			selected: selectedMenuList[0].selected,
+		// 			status: selectedMenuList[0].status,
+		// 			totalPrice: totalPrice
+		// 		}
+
+		// 		dataMenu.push(paramItem);
+		// 	}
+
+		// 	let requiredData = {
+		// 		menu : dataMenu,
+		// 		store : type
+		// 	}
+
+		// 	dispatch(createStoreTransaction(requiredData));
+		// }
 
 		let requiredData = {
 			menu : selectedMenuList,

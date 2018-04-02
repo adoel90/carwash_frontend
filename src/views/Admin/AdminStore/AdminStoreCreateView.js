@@ -28,7 +28,8 @@ const AdminStoreCreateView = props => {
                                 {/* <h6 className="heading-subtitle">Tempor nostrud cupidatat officia sit ullamco eu pariatur ullamco quis laborum nulla ipsum.</h6> */}
                             </PanelHeader>
                             <PanelBody>
-                                <FormField label="User">
+                                <Form onSubmit={handleFormSubmit}>
+                                    <FormField label="User">
                                         <Select name="user" defaultValue={newStore.user} onChange={(e) => handleInputChange('newStore', e) } required>
                                             <option value="">Select</option> 
                                             {
@@ -38,8 +39,7 @@ const AdminStoreCreateView = props => {
                                                     : null
                                             }
                                         </Select>
-                                </FormField>
-                                <Form onSubmit={handleFormSubmit}>
+                                    </FormField>
                                     <FormField label="Nama Store">
                                         <InputGroup>
                                             <InputAddon>

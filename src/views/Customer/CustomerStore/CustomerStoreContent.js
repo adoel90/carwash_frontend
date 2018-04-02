@@ -81,9 +81,9 @@ class CustomerStoreContent extends React.Component {
 					if(item.status) {
 						if(store.discount.isLoaded) {
 							/*** Charge for Online Member ***/
-							let memberCardID = member.item.isLoaded ? member.item.data.result.card.type.id : null;
+							let memberCardType = member.item.isLoaded ? member.item.data.result.card.type.charge : false;
 							let chargePercent = this.props.type.charge ? this.props.type.charge : 0;
-							let chargeMoney = memberCardID === 15 ? (parseInt(chargePercent)*item.price)/100 : 0;
+							let chargeMoney = memberCardType ? (parseInt(chargePercent)*item.price)/100 : 0;
 
 							/*** Discount calculate ***/
 							let discountLength = store.discount.data.data.result.promo.length;

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
-import { getMemberDetail } from '../../../actions/member.action';
+import { getMemberDetail, memberLogout } from '../../../actions/member.action';
 import { CustomerPanelView } from '../CustomerPanel';
 
 class CustomerPanel extends Component {   
@@ -25,10 +25,19 @@ class CustomerPanel extends Component {
 
         this.getMemberDetail = this.getMemberDetail.bind(this);
         this.handleRouteRedirect = this.handleRouteRedirect.bind(this);
+        this.logoutMember = this.logoutMember.bind(this);
     }
 
     componentDidMount = () => {
 		this.getMemberDetail();
+    }
+
+    logoutMember = () => {
+        const {
+            dispatch
+        } = this.props;
+
+        dispatch(memberLogout());
     }
 
     getMemberDetail = () => {
@@ -67,6 +76,7 @@ class CustomerPanel extends Component {
                 {...this.state} 
                 {...this.props} 
                 memberData={member}
+                logoutMember={this.logoutMember}
             />
         )
     }

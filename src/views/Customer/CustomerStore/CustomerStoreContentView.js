@@ -48,6 +48,9 @@ class CustomerStoreContentView extends Component {
 							<p className="currency currency-normal fw-bold clr-primary">
 								<Currency value={memberData.balance} />
 							</p>
+							<p className="clr-primary">
+								{memberData.card.type.name}
+							</p>
 						</Column>
 					</Row>
 				</PageBlock>

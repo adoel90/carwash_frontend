@@ -172,6 +172,7 @@ class AdminCard extends Component {
                               min: card.min,
                               bonus: card.bonus,
                               refund: card.refund,
+                              charge: card.charge,
                               data: card
                         }
     

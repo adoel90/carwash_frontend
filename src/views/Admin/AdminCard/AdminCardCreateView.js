@@ -52,6 +52,11 @@ const AdminCardCreateView = props => {
                                                 </FormField>
                                                 <FormField label="Refund">
                                                       <SwitchSquare name="refund" value={Boolean(newCard.refund)} onChange={(e) => handleInputChange('newCard', e)} />
+                                                      <small>Refund diperuntukan untuk non-member</small>
+                                                </FormField>
+                                                <FormField label="Charge">
+                                                      <SwitchSquare name="charge" value={Boolean(newCard.charge)} onChange={(e) => handleInputChange('newCard', e)} />
+                                                      <small>Charge diperuntukan untuk Taxi Online</small>
                                                 </FormField>
                                                 <Button type="submit">Simpan</Button>
                                           </Form>

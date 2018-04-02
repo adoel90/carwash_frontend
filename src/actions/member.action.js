@@ -243,7 +243,7 @@ export const memberLogout = () => {
 		return Promise.resolve(dispatch(handleLogout()))
 			.then(() => {
 				localStorage.removeItem('accessToken');
-				localStorage.removeItem('userData');
+				localStorage.removeItem('member');
 			})
 			.then(() => {
 				window.location.reload();

@@ -19,6 +19,7 @@ export const getStoreReportList = (data) => {
 		
 			.get(`${constant.API_PATH}store/report?accessToken=${accessToken}&type=${data.type}&start_date=${data.start_date}&end_date=${data.end_date}&store=${data.storeid.id}`)
 			.then((response) => {
+				
 				dispatch(fetchSuccess(response));
 				// console.log(response);
 			})

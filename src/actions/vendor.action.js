@@ -113,6 +113,7 @@ export const getVendorDetail = (data) => {
 }
 
 //GET LIST MENU VENDOR || GET STORE LIST
+// export const getStoreList = (data) => {
 export const getStoreList = (data) => {
 	
 	return async dispatch => {
@@ -151,7 +152,7 @@ export const updateMenuVendor = (data) =>{
 				image:data.image			
 			})
 			.then((response) => {
-				dispatch(fetchSuccess(response));
+				dispatch(fetchSuccess(response.data));
 			})
 			.catch((error) => {
 				dispatch(fetchError(error));

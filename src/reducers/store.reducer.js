@@ -34,8 +34,15 @@ import {
 
 	GET_BONUS_TAXI_ONLINE_REQUESTED,//GET BONUS TAXI ONLINE
 	GET_BONUS_TAXI_ONLINE_FULFILLED,
-	GET_BONUS_TAXI_ONLINE_REJECTED
+	GET_BONUS_TAXI_ONLINE_REJECTED,
+
+	GET_PROMO_DISCOUNT_REQUESTED, //#GET PROMO DISCOUNT
+	GET_PROMO_DISCOUNT_FULFILLED,
+	GET_PROMO_DISCOUNT_REJECTED,
 	
+	CREATE_MENU_PRODUCT_KASIR_STORE_FULFILLED, //#CREATE MENU PRODUCT KASIR STORE
+	CREATE_MENU_PRODUCT_KASIR_STORE_REJECTED
+
 
 } from '../actions/store.action'
 
@@ -108,6 +115,20 @@ const initialState = {
 		data: {},
 		isFetching: false,
 		isLoaded: false,
+		isError: false,
+		error: {}
+	},
+
+	promo: {
+		data: {},
+		isFetching: false,
+		isLoaded: false,
+		isError: false,
+		error: {}
+	},
+	menuproduk: {
+		data: {},
+		isCreated: false,
 		isError: false,
 		error: {}
 	}
@@ -554,6 +575,76 @@ const store = (state = initialState, action) => {
 					isFetching: false,
 					isError: true,
 					error: action.payload
+				}
+			}
+		}
+
+		//#GET PROMO DISCOUNT
+		case GET_PROMO_DISCOUNT_REQUESTED: {
+			return {
+				...state,
+				promo: {
+					...state.promo,
+					data: {},
+					isFetching: true,
+					isLoaded: false,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case GET_PROMO_DISCOUNT_FULFILLED: {
+			return {
+				...state,
+				promo: {
+					...state.promo,
+					data: action.payload,
+					isLoaded: true,
+					isFetching: false,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case GET_PROMO_DISCOUNT_REJECTED: {
+			return {
+				...state,
+				promo: {
+					...state.promo,
+					data: {},
+					isLoaded: false,
+					isFetching: false,
+					isError: true,
+					error: action.payload
+				}
+			}
+		}
+
+		//#CREATE MENU PRODUCT KASIR STORE
+		case CREATE_MENU_PRODUCT_KASIR_STORE_FULFILLED: {
+			return {
+				...state,
+				menuproduk: {
+					...state.menuproduk,
+					data: {},
+					isCreated: true,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case CREATE_MENU_PRODUCT_KASIR_STORE_REJECTED: {
+			return {
+				...state,
+				menuproduk: {
+					...state.menuproduk,
+					data: action.payload,
+					isCreated: false,
+					isError: false,
+					error: {}
 				}
 			}
 		}

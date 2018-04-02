@@ -115,6 +115,12 @@ class AdminStoresMenu extends Component {
                 })
             }
         }
+
+        //Update data after editing data
+        if(prevProps.vendorState.updateEmployee !== vendorState.updateEmployee){
+            console.log(vendorState);
+            
+        }
     }
 
     getListIdStoreFromUserLogin = () => {
@@ -138,7 +144,7 @@ class AdminStoresMenu extends Component {
             ...this.state,
             idStore: idObjects
         }, ()=> {
-            console.log(this.state);
+            // console.log(this.state);
             
         })
     }

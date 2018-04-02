@@ -51,7 +51,14 @@ export const GET_BONUS_TAXI_ONLINE_REQUESTED = 'GET_BONUS_TAXI_ONLINE_REQUESTED'
 export const GET_BONUS_TAXI_ONLINE_FULFILLED = 'GET_BONUS_TAXI_ONLINE_FULFILLED';
 export const GET_BONUS_TAXI_ONLINE_REJECTED = 'GET_BONUS_TAXI_ONLINE_REJECTED';
 
+//#GET PROMO DISCOUNT
+export const GET_PROMO_DISCOUNT_REQUESTED = 'GET_PROMO_DISCOUNT_REQUESTED';
+export const GET_PROMO_DISCOUNT_FULFILLED = 'GET_PROMO_DISCOUNT_FULFILLED';
+export const GET_PROMO_DISCOUNT_REJECTED = 'GET_PROMO_DISCOUNT_REJECTED';
 
+//#CREATE MENU PRODUCT KASIR STORE
+export const CREATE_MENU_PRODUCT_KASIR_STORE_FULFILLED = "CREATE_MENU_PRODUCT_KASIR_STORE_FULFILLED";
+export const CREATE_MENU_PRODUCT_KASIR_STORE_REJECTED = "CREATE_MENU_PRODUCT_KASIR_STORE_REJECTED";
 
 const accessToken = localStorage.getItem('accessToken') ? localStorage.getItem('accessToken') : null;
 
@@ -281,4 +288,64 @@ export const getBonusTaxiOnline = () => {
 	function getBonusRequest() { return { type: GET_BONUS_TAXI_ONLINE_REQUESTED } }
 	function getBonusSuccess(data) { return { type: GET_BONUS_TAXI_ONLINE_FULFILLED, payload: data } }
 	function getBonusError(data) { return { type: GET_BONUS_TAXI_ONLINE_REJECTED, payload: data } }
+}
+
+
+//#GET PROMO DISCOUNT
+export const getPromoDiscountList = (data) => {
+
+	console.log(data);
+
+	return async dispatch => {
+		
+		dispatch(fetchRequest());
+		
+		return axios
+		
+			// .get(`${constant.API_PATH}store/discount/list?accessToken=${accessToken}&type=${data.type}&start_date=${data.start_date}&end_date=${data.end_date}&id=${data.storeid.id}`)
+			.get(`${constant.API_PATH}store/discount/list?accessToken=${accessToken}&id=${data.storeid.id}&start_date=${data.start_date}&end_date=${data.end_date}`)			
+			.then((response) => {
+				dispatch(fetchSuccess(response));
+
+			})
+			.catch((error) => {
+				dispatch(fetchError(error));
+			})
+	}
+
+	function fetchRequest() { return { type: GET_PROMO_DISCOUNT_REQUESTED } }
+	function fetchSuccess(data) { return { type: GET_PROMO_DISCOUNT_FULFILLED, payload: data } }
+	function fetchError(data) { return { type: GET_PROMO_DISCOUNT_REJECTED, payload: data } }
+	
+}
+
+//#CREATE MENU PRODUCT KASIR STORE
+export const createMenuProduct = (data) => {
+
+	console.log(data);
+
+	// return {
+	// 	type: null
+	// }
+	
+	return async dispatch => {
+		return axios
+			.post(`${constant.API_PATH}store/menu/create?accessToken=${accessToken}`, {
+				store: data.store,
+				name: data.name,
+				deskripsi: data.deskripsi,
+				price: data.harga,
+				// image: newMenuProduct.image
+
+			},{'Content-Type': 'application/json'})
+			.then((response) => {
+				dispatch(handleSuccess(response.data));
+			})
+			.catch((error) => {
+				dispatch(handleError(error))
+			})
+	}
+
+	function handleSuccess(data) { return { type: CREATE_MENU_PRODUCT_KASIR_STORE_FULFILLED, payload: data }}
+	function handleError(data) { return { type: CREATE_MENU_PRODUCT_KASIR_STORE_REJECTED, payload: data }}
 }

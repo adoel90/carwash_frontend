@@ -83,8 +83,6 @@ class AdminStoresReport extends Component {
         if(prevProps.store.list !== store.list) {
             if (store.list.isLoaded) {
 
-             
-
                 this.setState({
                     ...this.state,
                     storeList: store.list.data.data

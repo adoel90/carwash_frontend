@@ -5,7 +5,7 @@ import { Panel, PanelHeader, PanelBody } from '../../../components/Panel';
 import { TableSet } from '../../../components/Table';
 import { Form, FormField } from '../../../layouts/Form';
 import { Row, Column } from '../../../layouts/Grid';
-import { Input, InputGroup, Switch } from '../../../components/Input';
+import { Input, InputGroup, Switch, InputAddon } from '../../../components/Input';
 import { ButtonDewek } from '../../../components/ButtonDewek';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from '../../../components/Modal';
 // import { Button } from '../../../components/Button';
@@ -42,17 +42,30 @@ const AdminStoresMenuView = props => {
                             <Row>
                                 <Column>
                                     <FormField label="Ubah Nama Produk">
-                                        <Input name="name" placeholder={selectedMenuStore.name} defaultValue={selectedMenuStore.name} onChange={(e) => handleInputChange('selectedMenuStore', e)} />
+                                        <InputGroup>
+                                            <InputAddon>
+                                                <i className="fas fa-clipboard-list"></i>
+                                            </InputAddon>
+                                            <Input  className="input" name="name" placeholder={selectedMenuStore.name} defaultValue={selectedMenuStore.name} onChange={(e) => handleInputChange('selectedMenuStore', e)} />
+                                        </InputGroup>
                                     </FormField>
-                                </Column>
-                                <Column>
+                                
                                     <FormField label="Ubah Produk Description">
-                                        <Input name="description" placeholder={selectedMenuStore.description} defaultValue={selectedMenuStore.description} onChange={(e) => handleInputChange('selectedMenuStore', e)} />
+                                        <InputGroup>
+                                            <InputAddon>
+                                                <i className="fas fa-clipboard-list"></i>
+                                            </InputAddon>
+                                            <Input name="description" placeholder={selectedMenuStore.description} defaultValue={selectedMenuStore.deskripsi} onChange={(e) => handleInputChange('selectedMenuStore', e)} />
+                                        </InputGroup>
                                     </FormField>
-                                </Column>
-                                <Column>
+                              
                                     <FormField label="Ubah Price">
-                                        <Input name="price" placeholder={selectedMenuStore.price} defaultValue={selectedMenuStore.price} onChange={(e) => handleInputChange('selectedMenuStore', e)} />
+                                        <InputGroup>
+                                            <InputAddon>
+                                                <i className="">Rp</i>
+                                            </InputAddon>
+                                            <Input name="price" placeholder={selectedMenuStore.price} defaultValue={selectedMenuStore.price} onChange={(e) => handleInputChange('selectedMenuStore', e)} />
+                                        </InputGroup>    
                                     </FormField>
                                 </Column>
                             </Row>

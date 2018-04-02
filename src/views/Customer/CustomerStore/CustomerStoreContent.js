@@ -101,7 +101,9 @@ class CustomerStoreContent extends React.Component {
 								quantity: item.quantity,
 								selected: item.selected,
 								status: item.status,
-								totalPrice: totalPrice
+								totalPrice: totalPrice,
+								trueDiscount: parseInt(percent),
+								truePrice: item.price
 							}
 							paramItem.selected = paramItem.selected ? true : false;
 							activeList.push(paramItem);

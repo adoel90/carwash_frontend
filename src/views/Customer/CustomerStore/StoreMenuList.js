@@ -75,14 +75,32 @@ class StoreMenuList extends Component {
 					menu.quantity = menu.quantity ? menu.quantity : 1;
 					menu.totalPrice = menu.quantity * menu.price;
 
+					const menuDiscountPercent = () => {
+						if(menu.trueDiscount > 0) {
+							return (<h5 className="clr-secondary fw-medium margin-left-small">({menu.trueDiscount}% Off)</h5>)
+						}
+					}
+
+					const menuTruePrice = () => {
+						if(menu.trueDiscount > 0) {
+							return (
+								<p className="currency currency-base flex align-items--center justify-content--center fw-semibold clr-gray" style={{textDecoration: 'line-through'}}>
+									<Currency value={menu.truePrice} />
+								</p>
+							)
+						}
+					}
+
 					return (
 						<Column md={6} key={i} className="padding-top-base padding-bottom-base">
 							<Card>
 								<CardHeading className="align-center">
 									<h5 className="fw-semibold">{menu.name}</h5>
-									<p className="currency currency-large fw-semibold clr-primary">
-										<Currency value={menu.price} />
-									</p>
+										<p className="currency currency-large flex align-items--center justify-content--center fw-semibold clr-primary">
+											<Currency value={menu.price} />
+											{ menuDiscountPercent() }
+										</p>
+										{ menuTruePrice() }
 								</CardHeading>
 								<CardImage src={menu.image ? menu.image : NoThumbnail } alt={menu.title} />
 								<CardBody>

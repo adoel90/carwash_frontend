@@ -12,8 +12,6 @@ class StorePaymentReceipt extends Component {
             selectedMenuList,
             grandTotal
         } = this.props;
-
-        console.log(this.props)
         
         const renderItem = (item, i) => {
             return (

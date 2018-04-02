@@ -118,9 +118,9 @@ class TableSet extends Component {
 							<td>
 								<Input
 									name={column.accessor}
-									type="text"
+									type="number"
 									value={row[key]}
-									className="ta-center"
+									className="mod ta-center"
 									onChange={(e) => handleIndexedInputChange(rows, i, e)}
 									selectOnFocus
 								/>

@@ -18,8 +18,8 @@ class StorePaymentReceipt extends Component {
         const renderItem = (item, i) => {
             return (
                 <tr>
-                    <td className="padding-right-1">{item.quantity}</td>
-                    <td>{item.name}</td>
+                    <td className="padding-right-small">{item.quantity}</td>
+                    <td className="padding-right-small">{item.name}</td>
                     <td className="ta-right">
                         <NumberFormat
                             thousandSeparator={true}

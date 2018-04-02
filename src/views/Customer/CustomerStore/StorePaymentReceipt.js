@@ -45,8 +45,8 @@ class StorePaymentReceipt extends Component {
             if(printData.status === 200) {
 
                 let discountLenght = store.discount.isLoaded ? store.discount.data.data.result.promo.length : null;
-
                 let discount = discountLenght > 0 ? store.discount.data.data.result.promo[0].price : 0;
+                let dataDiscount = selectedMenuList.length > 0 ? selectedMenuList[0].trueDiscount : null;
         
                 return (
                     <table style={{width: '100%'}}>
@@ -54,7 +54,7 @@ class StorePaymentReceipt extends Component {
                             <tr>
                                 <td>Diskon:</td>
                                 <td className="ta-right">
-                                    <p>{discount}%</p>
+                                    <p>{dataDiscount}%</p>
                                 </td>
                             </tr>
                             <tr>

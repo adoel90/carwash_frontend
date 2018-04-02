@@ -36,6 +36,7 @@ class StorePaymentDetail extends Component {
 
 		let discountLenght = store.discount.isLoaded ? store.discount.data.data.result.promo.length : null;
 		let discount = discountLenght > 0 ? store.discount.data.data.result.promo[0].price : 0;
+		let dataDiscount = selectedMenuList.length > 0 ? selectedMenuList[0].trueDiscount : null;
 
 		return (
 			<Modal
@@ -63,7 +64,7 @@ class StorePaymentDetail extends Component {
 						/>
 						<div className="flex justify-content--space-between padding-top-small">
 							<small className="tt-uppercase ls-base fw-bold">Diskon</small>
-							<p className="clr-pasive">{`${discount}%`}</p>
+							<p className="clr-pasive">{`${dataDiscount}%`}</p>
 						</div>
 						<div className="flex justify-content--space-between padding-top-small">
 							<small className="tt-uppercase ls-base fw-bold">Total yang harus dibayar</small>

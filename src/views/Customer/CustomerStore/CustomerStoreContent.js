@@ -92,7 +92,7 @@ class CustomerStoreContent extends React.Component {
 
 							let price = (item.price-dataDiscount)+chargeMoney;
 							let totalPrice = (item.totalPrice-dataDiscount)+chargeMoney;
-							
+
 							let paramItem = {
 								id: item.id,
 								image: item.image,
@@ -105,8 +105,26 @@ class CustomerStoreContent extends React.Component {
 								trueDiscount: parseInt(percent),
 								truePrice: item.price
 							}
-							paramItem.selected = paramItem.selected ? true : false;
-							activeList.push(paramItem);
+
+							if(this.props.type.type.id === 1 && this.props.memberData.card.type.charge) {
+								if(item.category) {
+									paramItem.price = item.price;
+									paramItem.trueDiscount = 0;
+									paramItem.selected = paramItem.selected ? true : false;
+									activeList.push(paramItem);
+								}
+							} else if(this.props.type.type.id === 1 && !this.props.memberData.card.type.charge) {
+								if(!item.category) {
+									paramItem.selected = paramItem.selected ? true : false;
+									activeList.push(paramItem);
+								}
+							} else if(this.props.type.type.id !== 1 && !this.props.memberData.card.type.charge) {
+								paramItem.selected = paramItem.selected ? true : false;
+								activeList.push(paramItem);
+							} else {
+								paramItem.selected = paramItem.selected ? true : false;
+								activeList.push(paramItem);
+							}
 						}
 
 						// item.selected = item.selected ? true : false;

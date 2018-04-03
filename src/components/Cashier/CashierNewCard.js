@@ -25,7 +25,7 @@ class CashierNewCard extends Component {
 						<h3 className="fw-semibold">Pendaftaran Kartu Baru</h3>
 						<p className="clr-passive">Masukkan data customer baru dengan benar dan lengkap. Seluruh kolom harus diisi.</p>
 					</PageBlock>
-					<PageBlock className="margin-bottom-5">
+					<PageBlock className="margin-bottom-base">
 						<CashierNewCardForm {...this.props} />
 					</PageBlock>
 				</PageBlockGroup>

@@ -21,11 +21,11 @@ class CashierTopUp extends Component {
 	render() {
 		return (
 			<div className="inner-view">
-				<PageBlock className="margin-bottom-5 ta-center">
+				<PageBlock className="margin-bottom-extra-large ta-center">
 					<img src={CardIcon} style={{width: '150px'}}/>
-					<Row className="flex flex-column padding-bottom-3">
+					<Row className="flex flex-column padding-bottom-small">
 						<h3 className="fw-semibold">Isi Ulang Saldo</h3>
-						<p className="clr-passive"><i>Silahkan gesek kartu member untuk mengisi saldo customer pada kolom berikut.</i></p><br />
+						<p className="clr-dark-light"><i>Silahkan gesek kartu member untuk mengisi saldo customer pada kolom berikut.</i></p><br />
 					</Row>
 					
 					<CashierTopUpForm {...this.props} handleInputChange={this.props.handleInputChange} />

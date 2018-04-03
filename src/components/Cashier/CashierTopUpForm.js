@@ -27,8 +27,8 @@ class CashierTopUpForm extends Component {
 		const renderAlert = () => {
 			if(error.isError) {
 				return (
-					<Alert theme="danger" className="flex justify-content--center clr-light margin-bottom-2">
-						<i className="ion-alert-circled margin-right-2"></i>
+					<Alert theme="danger" className="flex justify-content--center clr-light margin-bottom-small">
+						<i className="ion-alert-circled margin-right-small"></i>
 						<p>{error.data.message}</p>
 					</Alert>
 				)

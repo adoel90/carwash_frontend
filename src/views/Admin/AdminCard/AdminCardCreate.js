@@ -18,7 +18,8 @@ class AdminCardCreate extends Component {
                         name: '',
                         minimum: '',
                         bonus: '',
-                        refund: 0
+                        refund: 0,
+                        charge: 0
                   }
             }
       }
@@ -87,7 +88,8 @@ class AdminCardCreate extends Component {
                   name: newCard.name,
                   minimum: parseInt(newCard.minimum),
                   bonus: parseInt(newCard.bonus),
-                  refund: Boolean(newCard.refund)
+                  refund: Boolean(newCard.refund),
+                  charge: Boolean(newCard.charge)
             }
 
             action.createNewCardType(requiredData).then(() => {

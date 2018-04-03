@@ -27,6 +27,10 @@ export const GET_CATEGORY_LIST_REQUESTED = 'GET_CATEGORY_LIST_REQUESTED';
 export const GET_CATEGORY_LIST_FULFILLED = 'GET_CATEGORY_LIST_FULFILLED';
 export const GET_CATEGORY_LIST_REJECTED = 'GET_CATEGORY_LIST_REJECTED';
 
+export const GET_DISCOUNT_LIST_REQUESTED = 'GET_DISCOUNT_LIST_REQUESTED';
+export const GET_DISCOUNT_LIST_FULFILLED = 'GET_DISCOUNT_LIST_FULFILLED';
+export const GET_DISCOUNT_LIST_REJECTED = 'GET_DISCOUNT_LIST_REJECTED';
+
 //#GET MENU LIST STORE
 export const GET_MENU_LIST_STORE_REQUESTED = 'GET_MENU_LIST_STORE_REQUESTED';
 export const GET_MENU_LIST_STORE_FULFILLED = 'GET_MENU_LIST_STORE_FULFILLED';
@@ -200,7 +204,7 @@ export const getMenuListStore = (data) => {
 }
 
 //#CREATE MENU TRANSACTION
-export const createMenuTransaction = (data) => {
+export const createStoreTransaction = (data) => {
 	
 	return async dispatch => {
 		return axios
@@ -221,7 +225,7 @@ export const createMenuTransaction = (data) => {
 }
 
 //# GET PRINT STORE TRANSACTION
-export const getPrintStoreTransaction = (data) => {
+export const printStoreTransaction = (data) => {
 
 	return async dispatch => {
 		dispatch(handleRequest());
@@ -270,6 +274,31 @@ export const kasirTopUpLogin = (data) => {
     function loginError(data) { return { type: CUSTOMER_TOPUP_LOGIN_REJECTED, payload: data } }
 }
 
+export const getDiscountListById = (data) => {
+	let date = {
+		start_date: data.start_date ? data.start_date : '',
+		end_date: data.end_date ? data.end_date : '',
+		active: data.active ? true : false
+	}
+
+	return async dispatch => {
+		dispatch(fetchRequest());
+		return axios
+			.get(`${constant.API_PATH}store/discount/list?accessToken=${accessToken}&id=${data.id}&start_date=${date.start_date}&end_date=${date.end_date}&active=${date.active}`)
+			.then((response) => {
+				dispatch(fetchSuccess(response));
+			})
+			.catch((error) => {
+				dispatch(fetchError(error));
+			})
+	}
+
+	function fetchRequest() { return { type: GET_DISCOUNT_LIST_REQUESTED } }
+	function fetchSuccess(data) { return { type: GET_DISCOUNT_LIST_FULFILLED, payload: data } }
+	function fetchError(data) { return { type: GET_DISCOUNT_LIST_REJECTED, payload: data } }
+	
+}
+
 //GET BONUS TAXI ONLINE
 export const getBonusTaxiOnline = () => {
 
@@ -312,18 +341,17 @@ export const getPromoDiscountList = (data) => {
 			.get(`${constant.API_PATH}store/discount/list?accessToken=${accessToken}&id=${data.storeid.id}&start_date=${data.start_date}&end_date=${data.end_date}`)			
 			.then((response) => {
 				dispatch(fetchSuccess(response));
-
 			})
 			.catch((error) => {
 				dispatch(fetchError(error));
-			})
-	}
+			});
 
-	function fetchRequest() { return { type: GET_PROMO_DISCOUNT_REQUESTED } }
-	function fetchSuccess(data) { return { type: GET_PROMO_DISCOUNT_FULFILLED, payload: data } }
-	function fetchError(data) { return { type: GET_PROMO_DISCOUNT_REJECTED, payload: data } }
-	
+			function fetchRequest() { return { type: GET_PROMO_DISCOUNT_REQUESTED } }
+			function fetchSuccess(data) { return { type: GET_PROMO_DISCOUNT_FULFILLED, payload: data } }
+			function fetchError(data) { return { type: GET_PROMO_DISCOUNT_REJECTED, payload: data } }
+	}
 }
+
 
 //#CREATE MENU PRODUCT KASIR STORE
 export const createMenuProduct = (data) => {

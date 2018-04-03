@@ -7,12 +7,11 @@
 		.sidenav__item {
 			@include relative;
 			@include transition(all 500ms $transition-base);
-			margin-bottom: $spacing-base * .5;
+			margin-bottom: spacing(base);
 			padding-top: 100%;
 
 			> a {
 				@include transition(all 500ms $transition-base);
-				@include border-radius(base);
 				@include font-weight(semibold);
 				@include flexbox;
 				@include align-items(center);
@@ -21,16 +20,17 @@
 					top: 0;
 					left: 0;
 				}
+				border-radius: spacing(extra-small);
 				box-shadow: map-get($box-shadow, base);
 				text-align: center;
 				color: gray(600);
 				background-color: shade(gray(100), 4.5%);
-				padding: $spacing-base * .5;
+				padding: spacing(base);
 				width: 100%;
 				height: 100%;
 
 				&.is-active {
-					border-bottom: solid 5px secondary-color(base);
+					border-bottom: solid 5px #F8B004;
 					background-color: gray(100);
 					color: gray(1800);
 				}

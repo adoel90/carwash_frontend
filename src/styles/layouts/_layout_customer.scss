@@ -1,11 +1,4 @@
-
-
-
-
-
-//# Main Subheader
 header {}
-
 .header {
 	z-index: 500;
 
@@ -107,14 +100,22 @@ nav {}
 	padding-top: 4em;
 
 	&.main--has-subheader {
-		padding-top: 8em;
+		padding-top: 5em;
 	}
 
 	&.landing-main {
 		@include relative;
 		height: 100vh;
-	
 	}
+}
+
+.main-customer--header {
+	position: fixed;
+	margin-top: 80px;
+	margin-left: 220px;
+	padding: spacing(base);
+	width: 100%;
+	z-index: 2;
 }
 
 .layout-login {

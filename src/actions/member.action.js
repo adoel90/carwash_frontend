@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { constant } from '../config';
-import Cookies from 'universal-cookie';
 
 export const RESET_MEMBER_DATA = 'RESET_MEMBER_DATA';
 
@@ -26,12 +25,15 @@ export const GET_MEMBER_DETAIL_REJECTED = 'GET_MEMBER_DETAIL_REJECTED';
 export const CREATE_MEMBER_REQUESTED = 'CREATE_MEMBER_LIST_REQUESTED';
 export const CREATE_MEMBER_FULFILLED = 'CREATE_MEMBER_FULFILLED';
 export const CREATE_MEMBER_REJECTED = 'CREATE_MEMBER_REJECTED';
+
 export const UPDATE_MEMBER_REQUESTED = 'UPDATE_MEMBER_REQUESTED';
 export const UPDATE_MEMBER_FULFILLED = 'UPDATE_MEMBER_FULFILLED';
 export const UPDATE_MEMBER_REJECTED = 'UPDATE_MEMBER_REJECTED';
+
 export const CHANGE_MEMBER_STATUS_REQUESTED = 'CHANGE_MEMBER_STATUS_REQUESTED';
 export const CHANGE_MEMBER_STATUS_FULFILLED = 'CHANGE_MEMBER_STATUS_FULFILLED';
 export const CHANGE_MEMBER_STATUS_REJECTED = 'CHANGE_MEMBER_STATUS_REJECTED';
+
 export const DELETE_MEMBER_FULFILLED = 'DELETE_MEMBER_FULFILLED';
 export const DELETE_MEMBER_REJECTED = 'DELETE_MEMBER_REJECTED';
 
@@ -48,8 +50,8 @@ export const authenticateMember = (data) => {
 			})
 			.then((response) => {
 				dispatch(handleSuccess(response.data.data));
-				localStorage.setItem("accessToken", response.data.data);
-				localStorage.setItem("member", response.data.data.member);
+				// localStorage.setItem("accessToken", response.data.data);
+				// localStorage.setItem("member", response.data.data.member);
 			})
 			.catch((error) => {
 				dispatch(handleError(error))
@@ -114,7 +116,6 @@ export const getMemberList = (data) => {
 		dispatch(handleRequest());
 
 		axios
-			// .get(`${constant.API_PATH}member/list?accessToken=${accessToken}`)
 			.get(`${constant.API_PATH}member/list?accessToken=${accessToken}&limit=${data.limit}&offset=${data.offset}`)
 			.then((response) => {
 				dispatch(handleSuccess(response.data.data));
@@ -153,11 +154,8 @@ export const getMemberDetail = (data) => {
 	return async dispatch => {
 		dispatch(handleRequest())
 		
-		// console.log(data);
 		return axios
-			// .get(`${constant.API_PATH}member/detail?accessToken=${accessToken}&id=${data.id}&transaction=${data.transaction}`)
 			.get(`${constant.API_PATH}member/detail?accessToken=${accessToken}&id=${data.id}`)
-			// .get(`${constant.API_PATH}member/detail?accessToken=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6NiwiY2FyZCI6IjAwMTE1MDk2OTU3NDA3MzgiLCJ0eXBlIjoxLCJleHBpcmVkIjoiMjAxOC0wMy0wOVQxMjo1Nzo1OC44MzhaIn0.YgNrjFZqlRx2vhXKOcuPwlQrl-P3_Uemodrj_qi5384&id=6`)
 			.then((response) => {
 				dispatch(handleSuccess(response.data))
 			})
@@ -263,11 +261,8 @@ export const memberLogout = () => {
 	return async (dispatch) => {
 		return Promise.resolve(dispatch(handleLogout()))
 			.then(() => {
-
 				localStorage.removeItem('accessToken');
-				localStorage.removeItem('userData');
-				// cookies.remove('accessToken');
-				// cookies.remove('member');
+				localStorage.removeItem('member');
 			})
 			.then(() => {
 				window.location.reload();

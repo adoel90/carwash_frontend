@@ -45,9 +45,12 @@ import {
 
 	UPDATE_PROMO_REQUESTED, //#UPDATE PROMO
 	UPDATE_PROMO_FULFILLED,
-	UPDATE_PROMO_REJECTED
+	UPDATE_PROMO_REJECTED,
 
 
+	GET_DISCOUNT_LIST_REQUESTED,
+	GET_DISCOUNT_LIST_FULFILLED,
+	GET_DISCOUNT_LIST_REJECTED
 } from '../actions/store.action'
 
 const initialState = {
@@ -116,6 +119,13 @@ const initialState = {
 		error: {}
 	},
 	bonus: {
+		data: {},
+		isFetching: false,
+		isLoaded: false,
+		isError: false,
+		error: {}
+	},
+	discount: {
 		data: {},
 		isFetching: false,
 		isLoaded: false,
@@ -546,6 +556,48 @@ const store = (state = initialState, action) => {
                 isError: true,
                 error: action.payload
             }
+		}
+
+		case GET_DISCOUNT_LIST_REQUESTED: {
+			return {
+				...state,
+				discount: {
+					...state.discount,
+					data: {},
+					isFetching: true,
+					isLoaded: false,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case GET_DISCOUNT_LIST_FULFILLED: {
+			return {
+				...state,
+				discount: {
+					...state.discount,
+					data: action.payload,
+					isLoaded: true,
+					isFetching: false,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case GET_DISCOUNT_LIST_REJECTED: {
+			return {
+				...state,
+				discount: {
+					...state.discount,
+					data: {},
+					isLoaded: false,
+					isFetching: false,
+					isError: true,
+					error: action.payload
+				}
+			}
 		}
 
 		//#GET BONUS TAXI ONLINE

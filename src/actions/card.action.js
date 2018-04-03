@@ -86,7 +86,8 @@ export const updateCardType = (data) => {
 				name: data.name,
 				minimum: data.min,
 				bonus: data.bonus,
-				refund: data.refund
+				refund: data.refund,
+				charge: data.charge
 			})
 			.then((response) => {
 				return Promise.resolve(dispatch(handleSuccess(response.data)))

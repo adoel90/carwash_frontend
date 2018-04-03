@@ -5,30 +5,26 @@ import { ButtonDewek } from '../../../components/ButtonDewek';
 import { NavLink } from '../../../components/Nav';
 import { default as CarwashLogo } from '../../../assets/images/805carwash_white.svg';
 
-
-
-
 const HeaderCustomer = props => {
     const {
         children,
         className,
         handleLogOut,
         isAuthenticated,
-        member
-    } = props;  
+        member,
+        logoutMember
+    } = props;
     
     return( 
         
         <header className="app-bar promote-layer paper-toolbar paper-shadow">
-            <div className="app-bar-container paper-toolbar">
-                {/* <h1 className="logo">805 - Carwash </h1> */}
-                <img className="logo" src={CarwashLogo} style={{ 'width': '84px', 'height':'62px', 'margin-top': '1px' }} />
-                {/* <ButtonDewek className="button-log-out"> Keluar</ButtonDewek> */}
-            </div>
-
-            <div>
-                
-
+            <div className="flex justify-content--space-between align-items--center">
+                <div className="app-bar-container paper-toolbar flex justify-content--center">
+                    <img className="logo" src={CarwashLogo} style={{width: "150px"}} />
+                </div>
+                <div className="margin-right-large">
+                    <i className="fas fa-power-off" onClick={() => logoutMember()} style={{ fontSize: '24px', cursor: 'pointer' }}></i>
+                </div>
             </div>
         </header>
     )

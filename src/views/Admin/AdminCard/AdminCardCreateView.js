@@ -31,7 +31,7 @@ const AdminCardCreateView = props => {
                                                             <InputAddon>
                                                                   <i class="far fa-credit-card"></i>
                                                             </InputAddon>
-                                                            <Input name="name" type="text" placeholder="Masukkan nama kartu" onChange={(e) => handleInputChange('newCard', e) } />
+                                                            <Input name="name" type="text" placeholder="Masukkan nama kartu" onChange={(e) => handleInputChange('newCard', e) } required />
                                                       </InputGroup>
                                                 </FormField>
                                                 <FormField label="Minimum Saldo">
@@ -39,7 +39,7 @@ const AdminCardCreateView = props => {
                                                             <InputAddon>
                                                                   <small class="fw-semibold tt-uppercase ls-base">Rp</small>
                                                             </InputAddon>
-                                                            <Input name="minimum" type="text" placeholder="Masukkan minimum saldo" onChange={(e) => handleInputChange('newCard', e) } />
+                                                            <Input name="minimum" type="text" placeholder="Masukkan minimum saldo" onChange={(e) => handleInputChange('newCard', e) } required />
                                                       </InputGroup>
                                                 </FormField>
                                                 <FormField label="Bonus">
@@ -47,11 +47,16 @@ const AdminCardCreateView = props => {
                                                             <InputAddon>
                                                                   <small class="fw-semibold tt-uppercase ls-base">Rp</small>
                                                             </InputAddon>
-                                                            <Input name="bonus" type="text" placeholder="Masukkan nominal bonus" onChange={(e) => handleInputChange('newCard', e) } />
+                                                            <Input name="bonus" type="text" placeholder="Masukkan nominal bonus" onChange={(e) => handleInputChange('newCard', e) } required />
                                                       </InputGroup>
                                                 </FormField>
                                                 <FormField label="Refund">
                                                       <SwitchSquare name="refund" value={Boolean(newCard.refund)} onChange={(e) => handleInputChange('newCard', e)} />
+                                                      <small>Refund diperuntukan untuk non-member</small>
+                                                </FormField>
+                                                <FormField label="Charge">
+                                                      <SwitchSquare name="charge" value={Boolean(newCard.charge)} onChange={(e) => handleInputChange('newCard', e)} />
+                                                      <small>Charge diperuntukan untuk Taxi Online</small>
                                                 </FormField>
                                                 <Button type="submit">Simpan</Button>
                                           </Form>

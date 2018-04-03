@@ -32,7 +32,7 @@ const AdminUserCreateView = props => {
                                             <InputAddon>
                                                 <i className="far fa-user"></i>
                                             </InputAddon>
-                                            <Input name="name" type="text" placeholder="Masukkan nama lengkap user" onChange={(e) => handleInputChange('newUser', e) } />
+                                            <Input name="name" type="text" placeholder="Masukkan nama lengkap user" onChange={(e) => handleInputChange('newUser', e) } required />
                                         </InputGroup>
                                     </FormField>
                                     <FormField label="Alamat Email">
@@ -40,7 +40,7 @@ const AdminUserCreateView = props => {
                                             <InputAddon>
                                                 <i className="far fa-envelope"></i>
                                             </InputAddon>
-                                            <Input name="email" type="text" placeholder="Masukkan alamat email user (jika ada)" onChange={(e) => handleInputChange('newUser', e) } />
+                                            <Input name="email" type="text" placeholder="Masukkan alamat email user (jika ada)" onChange={(e) => handleInputChange('newUser', e) } required />
                                         </InputGroup>
                                     </FormField>
                                     <FormField label="Username">
@@ -48,7 +48,7 @@ const AdminUserCreateView = props => {
                                             <InputAddon>
                                                 <i className="far fa-user"></i>
                                             </InputAddon>
-                                            <Input name="username" type="text" placeholder="Masukkan username" onChange={(e) => handleInputChange('newUser', e) } />
+                                            <Input name="username" type="text" placeholder="Masukkan username" onChange={(e) => handleInputChange('newUser', e) } required />
                                         </InputGroup>
                                     </FormField>
                                     <FormField label="Password">
@@ -56,12 +56,12 @@ const AdminUserCreateView = props => {
                                             <InputAddon>
                                                 <i className="fas fa-lock"></i>
                                             </InputAddon>
-                                            <Input name="password" type="password" placeholder="Masukkan kata sandi" onChange={(e) => handleInputChange('newUser', e) } />
-                                            <Input name="confirmPassword" type="password" placeholder="Ulangi kata sandi" onChange={(e) => handleInputChange('newUser', e) } />
+                                            <Input name="password" type="password" placeholder="Masukkan kata sandi" onChange={(e) => handleInputChange('newUser', e) } required />
+                                            <Input name="confirmPassword" type="password" placeholder="Ulangi kata sandi" onChange={(e) => handleInputChange('newUser', e) } required />
                                         </InputGroup>
                                     </FormField>
                                     <FormField label="Level Akses">
-                                        <Select name="level" defaultValue={newUser.level} onChange={(e) => handleInputChange('newUser', e) }>
+                                        <Select name="level" defaultValue={newUser.level} onChange={(e) => handleInputChange('newUser', e) } required>
                                             <option value="">Select</option>
                                             {
                                                 access.list.isLoaded ? access.list.data.result.map((item, i) => {

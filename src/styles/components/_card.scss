@@ -1,12 +1,17 @@
 .card-list {
 
 	.card-list__footer {
-		position: sticky;
+		position: fixed;
 		bottom: 0;
-		padding: spacing(base);
+		// padding: spacing(base);
 		background-color: gray(200);
 		border-top: solid 1px gray(300);
 		width: 100%;
+		height: 80px;
+
+		button {
+			margin-left: -300px;
+		}
 	}
 }
 
@@ -14,15 +19,13 @@
 /**/
 .card {
 	position: relative;
-	@include border-radius(base);
+	border-radius: spacing(extra-small);
 	@include flexbox;
 	@include flex-direction(column);
 	background-color: gray(100);
 	box-shadow: map-get($box-shadow, base);
 	overflow: hidden;
 	min-height: auto;
-	border-bottom: solid 10px secondary-color(base);
-	padding: spacing(base);
 
 	@each $theme, $color in $theme-colors {
 		&.card--#{$theme} {

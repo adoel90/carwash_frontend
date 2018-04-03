@@ -28,9 +28,9 @@ class Service extends React.Component {
 
 		const {
 			// service,
-			// serviceTypes,
+			// storeList,
 			match,
-			storeState,
+			store,
 			dataStore,
 			storeList,
 			// storemenu,
@@ -39,15 +39,15 @@ class Service extends React.Component {
 		} = this.props;
 
 		//Condition of storemenu
-		if(storeState.storemenu.isLoaded){
+		if(store.storemenu.isLoaded){
 			// console.log("Hai Hai Hai Hai ");
 			
 		}
 
 		//Condition of "store"
-		let dataStoreArrayObject = this.props.storeState.list.isLoaded ? this.props.storeState.list.data.data.result.store : null;
+		let dataStoreArrayObject = this.props.store.list.isLoaded ? this.props.store.list.data.data.result.store : null;
 		const dataStores = [];
-		if(storeState.list.isLoaded ){ 
+		if(store.list.isLoaded ){ 
 				
 			dataStoreArrayObject.map((data, i) => {
 				
@@ -81,20 +81,20 @@ class Service extends React.Component {
 	renderSidenav = () => {
 
 		const {
-			// serviceTypes,
+			// storeList,
 			match,
-			storeState,
+			store,
 			storeList
 
 		} = this.props;
 
 		
 		//How to get LONG JSON in React.
-		let dataStoreArrayObject = storeState.list.isLoaded || storeState.storemenu.isLoaded ? this.props.storeState.list.data.data.result.store : null;
+		let dataStoreArrayObject = store.list.isLoaded || store.storemenu.isLoaded ? this.props.store.list.data.data.result.store : null;
 		
 		const dataStores = []; 
 
-		if(storeState.list.isLoaded || storeState.storemenu.isLoaded) {
+		if(store.list.isLoaded || store.storemenu.isLoaded) {
 			
 			dataStoreArrayObject.map((data, i)=>{
 
@@ -107,7 +107,7 @@ class Service extends React.Component {
 			})
 		};
 
-		if(dataStores.length || storeState.list.isLoaded || storeState.storemenu.isLoaded ){
+		if(dataStores.length || store.list.isLoaded || store.storemenu.isLoaded ){
 			return <MainSidenav  items={dataStores} basePath={match.path} />
 		}
 	}
@@ -141,16 +141,16 @@ class Service extends React.Component {
 			match,
 			memberDetail,
 			service,
-			serviceTypes,
-			storeState,
+			storeList,
+			store,
 			member
 
 		} = this.props;
 
 		let firstRoutePath;
 
-		if(serviceTypes.active.length) {
-			firstRoutePath = serviceTypes.active[0].name.replace(/\s+/g, '-').toLowerCase();
+		if(storeList.active.length) {
+			firstRoutePath = storeList.active[0].name.replace(/\s+/g, '-').toLowerCase();
 		}
 
 		return (

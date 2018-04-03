@@ -60,7 +60,7 @@ const AdminAccessCreateView = props => {
                                                             <InputAddon>
                                                                   <i class="far fa-user"></i>
                                                             </InputAddon>
-                                                            <Input name="name" type="text" placeholder="Masukkan nama akses level" onChange={(e) => handleInputChange('newAccess', e) } />
+                                                            <Input name="name" type="text" placeholder="Masukkan nama akses level" onChange={(e) => handleInputChange('newAccess', e) } required />
                                                       </InputGroup>
                                                 </FormField>
                                                 <FormField label="Pilih Modul">

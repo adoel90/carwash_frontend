@@ -1,9 +1,6 @@
-export { default as CustomerMain } from './CustomerMain';
-export { default as CustomerMainView } from './CustomerMainView';
+export { default as Customer } from './Customer';
+export { default as CustomerView } from './CustomerView';
 export * from './CustomerLogin';
 export * from './CustomerPanel';
-export * from './CustomerOurService';
-export * from './CustomerMyProfile';
+export * from './CustomerStore';
 export * from './CustomerLayout';
-export * from './CustomerLogOut';
-

@@ -117,7 +117,7 @@ export const customerLogin = (data) => {
             .then((response) => {
                 let result = response.data.result;            
                 localStorage.setItem('accessToken', result.accessToken);
-                localStorage.setItem('userData', JSON.stringify(result));
+                localStorage.setItem('member', JSON.stringify(result.member));
                
                 dispatch(loginSuccess(result));
             })

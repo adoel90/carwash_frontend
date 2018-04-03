@@ -64,6 +64,9 @@ const AdminCardView = props => {
                                                 <FormField label="Refund">
                                                       <SwitchSquare name="refund" value={Boolean(selectedCard.refund)} onChange={(e) => handleInputChange('selectedCard', e)} />
                                                 </FormField>
+                                                <FormField label="Charge">
+                                                      <SwitchSquare name="charge" value={Boolean(selectedCard.charge)} onChange={(e) => handleInputChange('selectedCard', e)} />
+                                                </FormField>
                                           </Column>
                                     </Row>
                               </ModalBody>

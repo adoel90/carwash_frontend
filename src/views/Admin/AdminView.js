@@ -4,7 +4,6 @@ import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { PrivateRoute, PropsRoute } from '../../utilities/Route';
 import { AdminLogin, AdminPanel, AdminStoreCashierPanel, AdminStoresPanel} from '../Admin';
 
-
 class AdminView extends Component {
     render() {
         const {
@@ -16,9 +15,7 @@ class AdminView extends Component {
         } = this.props;
         
         return (
-            
             <Switch>
-                
                 <PropsRoute
                     name="login"
                     path={`${match.url}/login`}

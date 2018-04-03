@@ -1,81 +1,54 @@
-//VendorPanel.js
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
-
-import { CustomerOurService, CustomerMyProfile  } from '../../Customer';
+import { getMemberDetail, memberLogout } from '../../../actions/member.action';
 import { CustomerPanelView } from '../CustomerPanel';
-import { getMemberDetail } from '../../../actions/member.action';
-
 
 class CustomerPanel extends Component {   
-
     constructor(props) {
-
         super(props);
-        this.getMemberDetail = this.getMemberDetail.bind(this);
-        this.handleRouteRedirect = this.handleRouteRedirect.bind(this);
 
         this.state = {
-
-            //#Ini Navigation "MainSubHeader"
             navigations: [
 				{ id: 1, name: 'Layanan Kami', path: "/customer/store" },
 				{ id: 2, name: 'Profil Anda', path: "/customer/profile" },
 			],
-
-            //#Ini Routing untuk COmponent
-            routes: [
-                // { id: 1, name: 'customerourservice', path: `${props.match.url}`, component: CustomerOurService },
-                // { id: 2, name: 'customermyprofile', path: `${props.match.url}/account`, component: CustomerMyProfile }
-                // { id: 2, name: 'customermyprofile', path: `${props.match.url}/account`, component: CustomerMyProfile }
-            ],
+            routes: [],
             menus: [
-                // { 
-                //     category: '',
-
-                //     items: [
-                //         { id: 1, name: 'Heading', path: `${props.match.url}/header`},
-                //     ]
-                // },
                 {
                     category: '',
-                    items: [
-                        // { id: 1, name: 'Layanan Kami', path: `${props.match.url}` },
-                        // { id: 2, name: 'Profil Anda', path: `${props.match.url}/account` },
-                        
-                        
-                    ]
+                    items: []
                 }
             ],
-
             isAuthenticated: false 
         }
+
+        this.getMemberDetail = this.getMemberDetail.bind(this);
+        this.handleRouteRedirect = this.handleRouteRedirect.bind(this);
+        this.logoutMember = this.logoutMember.bind(this);
     }
 
     componentDidMount = () => {
 		this.getMemberDetail();
     }
 
+    logoutMember = () => {
+        const {
+            dispatch
+        } = this.props;
+
+        dispatch(memberLogout());
+    }
+
     getMemberDetail = () => {
 		const {
-			member,
-            dispatch,
-            // accessToken,
+			dispatch,
             isAuthenticated
         } = this.props;
-        
 
-        const userLoginNow = localStorage.getItem('userData') ? localStorage.getItem('userData') : null;
-        const dataVendorLoginNow = JSON.parse(userLoginNow);
+        const dataMember = JSON.parse(localStorage.getItem('member'));
 
-		let requiredData = {
-			id: dataVendorLoginNow.member.id
-            // transaction: true
-        
-        }
-
-        dispatch(getMemberDetail(requiredData,dataVendorLoginNow.accessToken));
+        dispatch(getMemberDetail(dataMember));
         
         this.setState({
             ...this.state,
@@ -84,9 +57,7 @@ class CustomerPanel extends Component {
     }
     
     handleRouteRedirect = () => {
-
 		const {
-
 			isAuthenticated,
 			match
 		} = this.props;
@@ -99,25 +70,21 @@ class CustomerPanel extends Component {
 	}
 
     render() {
+        const member = JSON.parse(localStorage.getItem('member'));
         return (
             <CustomerPanelView
                 {...this.state} 
                 {...this.props} 
+                memberData={member}
+                logoutMember={this.logoutMember}
             />
-
-
-            
         )
     }
 }
 
-// export default CustomerPanel;
-
-
 const mapStateToProps = (state) => {
 	return {
-		member: state.member,
-		// dialog: state.dialog
+		member: state.member
 	}
 }
 

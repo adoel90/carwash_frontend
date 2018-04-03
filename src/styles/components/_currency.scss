@@ -1,0 +1,37 @@
+.currency {
+    &.currency-extra-large {
+        span {
+            font-size: spacing(extra-large);
+        }
+    }
+
+    &.currency-large {
+        span {
+            font-size: spacing(large);
+        }
+    }
+
+    &.currency-normal {
+        span {
+            font-size: 1.5rem;
+        }
+    }
+
+    &.currency-base {
+        span {
+            font-size: spacing(base);
+        }
+    }
+
+    &.currency-small {
+        span {
+            font-size: spacing(small);
+        }
+    }
+
+    &.currency-extra-small {
+        span {
+            font-size: spacing(extra-small);
+        }
+    }
+}

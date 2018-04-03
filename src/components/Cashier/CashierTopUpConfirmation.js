@@ -94,9 +94,7 @@ class CashierTopUpConfirmation extends Component {
 		)
 	}
 
-
 	render() {
-
 		const {
 			authenticatedMember,
 			paymentMethod,
@@ -105,16 +103,13 @@ class CashierTopUpConfirmation extends Component {
 			topupData,
 			handleTopupSubmit,
 			handleInputChange
-	
 		} = this.props;
 
 		const typeMember = authenticatedMember.isAuthenticated ? authenticatedMember.data.card.type.name : null;
-		console.log(typeMember);
-		
 
 		const renderMemberInformation = () => {
 			return (
-				<div className="padding-bottom-3">	
+				<div className="padding-bottom-small">	
 					<h4 className="fw-semibold clr-primary">{authenticatedMember.data.name}</h4>
 					<h5 className="fw-semibold">
 						<NumberFormat
@@ -123,7 +118,7 @@ class CashierTopUpConfirmation extends Component {
 							value={authenticatedMember.data.card ? authenticatedMember.data.card.id : null}
 						/>
 					</h5>
-					<Badge theme="secondary" className="margin-top-1">
+					<Badge theme="secondary" className="margin-top-small">
 						<small className="fw-semibold tt-uppercase ls-base">{authenticatedMember.data.card ? authenticatedMember.data.card.type.name : null}</small><br />
 					</Badge>
 				</div>
@@ -135,7 +130,7 @@ class CashierTopUpConfirmation extends Component {
 				isOpen={isModalOpen.topup}>
 				<Form onSubmit={handleTopupSubmit}>
 					<ModalHeader>
-						<h3 className="fw-semibold ta-center">Isi Ulang Saldo Customer</h3>
+						<h5 className="fw-bold ta-center">Isi Ulang Saldo Customer</h5>
 					</ModalHeader>
 					<ModalBody>
 						<div className="ta-center">

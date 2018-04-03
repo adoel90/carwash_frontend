@@ -20,11 +20,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        kasirTopUpLogin: bindActionCreators(kasirTopUpLogin, dispatch),
-        openDialogDispatch:(data) =>  dispatch(openDialog(data)),
-        closeDialogDispatch: (data) => dispatch(closeDialog(data)),
-        memberTopupDispatch: (data) => dispatch(memberCustomerTopup(data)),
-        getBonusTaxiOnlineDispatch: () => dispatch(getBonusTaxiOnline())
+        action: bindActionCreators({ kasirTopUpLogin, openDialog, closeDialog, memberCustomerTopup, getBonusTaxiOnline }, dispatch)
     }
 }
 
@@ -75,15 +71,12 @@ class AdminStoreCashierTopUp extends Component {
     }
 
     componentDidMount(){
-        const { getBonusTaxiOnlineDispatch } = this.props;
-        getBonusTaxiOnlineDispatch();
+        const { action } = this.props;
+        action.getBonusTaxiOnline();
     }
-    //const accessToken = localStorage.getItem('accessToken') ? localStorage.getItem('accessToken') : null;
-
-    //#Get data member yang sedang TOP UP
-    componentDidUpdate(prevProps){
-
-        const { storeState,  } = this.props;
+    
+    componentDidUpdate = (prevProps) => {
+        const { storeState } = this.props;
         const { isModalOpen } = this.state;
 
         if(prevProps.storeState.userData !== storeState.userData){
@@ -105,7 +98,6 @@ class AdminStoreCashierTopUp extends Component {
             }   
         }
 
-
         if(prevProps.storeState.bonus !== storeState.bonus){
             if(storeState.bonus.isLoaded){
                 // console.log(storeState.bonus);
@@ -113,13 +105,9 @@ class AdminStoreCashierTopUp extends Component {
                     ...this.state,
                     bonus: storeState.bonus.data.result.tier
                 },()=> {
-                    console.log(this.state);
-                    
+                    console.log(this.state);  
                 })
-
             }
-            
-            
         }
     }	
     
@@ -143,7 +131,7 @@ class AdminStoreCashierTopUp extends Component {
     
     handleAuthentication = (e) => {
         e.preventDefault();
-        const {kasirTopUpLogin } = this.props;
+        const { action } = this.props;
 		const {authData } = this.state;
         
         let requireData = {
@@ -151,7 +139,7 @@ class AdminStoreCashierTopUp extends Component {
         }
     
         // this.toggleModal("topup");
-        kasirTopUpLogin(requireData);
+        action.kasirTopUpLogin(requireData);
     }
     
 	toggleModal = (name) => {
@@ -166,7 +154,6 @@ class AdminStoreCashierTopUp extends Component {
     
     handleTopUp = () => {
         this.toggleModal('topup');
-        
     }
 
     openDialog = () => {
@@ -177,65 +164,15 @@ class AdminStoreCashierTopUp extends Component {
         /*Only Declare */
     }
 
-    //#
-    handleTopupSubmit = (e) => {
-		e.preventDefault();
-
-		const {
-			topupData,
-			paymentMethod,
-            authenticatedMember,
-            toggleDialog,
-            closeDialog,
-            accessTokenMember
-        } = this.state;
-
-		const { dispatch, accessToken, memberTopupDispatch, member } = this.props;        
-
-		let requiredData = {
-			balance: parseInt(topupData.balance.replace(/,/g, '')),
-            payment: topupData.payment,
-            dataAccessTokenMember: accessTokenMember.accessToken
-		}
-        
-        memberTopupDispatch(requiredData).then(() => {
-
-            const{ member } = this.props;
-            // console.log("GET RESPONSE ");
-            
-            if(member.item.isBalanceChanged){
-                let dialogData = {
-					type: 'success',
-					title: 'Berhasil Menambahkan Saldo',
-					message: 'Saldo telah berhasil di tambahkan. Klik tombol berikut untuk kembali.',
-					onClose: () => window.location.reload(),
-					closeText: 'Kembali'
-				}
-                this.toggleDialog(dialogData)
-            }
-            
-			if (member.item.isError) {
-				let dialogData = {
-					type: 'danger',
-					title: 'Gagal',
-					message: 'Maaf, SALDO gagal di tambahkan. Silahkan panggil Administrator untuk memperbaiki.',
-					onClose: () => this.toggleDialog(),
-					closeText: 'Kembali'
-				}
-				this.toggleDialog(dialogData);
-			}
-        });
-    }
-
     toggleDialog = (data) => {
 
-		const { dialog, openDialogDispatch, closeDialogDispatch } = this.props;
+		const { dialog, action } = this.props;
 
 		if(!dialog.isOpened) {
-            openDialogDispatch(data)
+            action.openDialog(data)
 		}
 		else {
-            closeDialogDispatch(data);
+            action.closeDialog(data);
 		}
 	}
     
@@ -259,10 +196,54 @@ class AdminStoreCashierTopUp extends Component {
         )
     }
 
-    render() {
+    handleTopupSubmit = (e) => {
+        const {
+			topupData,
+			paymentMethod,
+            authenticatedMember,
+            toggleDialog,
+            closeDialog,
+            accessTokenMember
+        } = this.state;
+
+        e.preventDefault();
+
+		const { action } = this.props;        
+
+		let requiredData = {
+			balance: parseInt(topupData.balance.replace(/,/g, '')),
+            payment: topupData.payment
+        }
         
+        action.memberCustomerTopup(requiredData, accessTokenMember.accessToken).then(() => {
+            setTimeout(function() {
+                if(this.props.member.item.isBalanceChanged){
+                    let dialogData = {
+                        type: 'success',
+                        title: 'Berhasil Menambahkan Saldo',
+                        message: 'Saldo telah berhasil di tambahkan. Klik tombol berikut untuk kembali.',
+                        onClose: () => window.location.reload(),
+                        closeText: 'Kembali'
+                    }
+                    this.toggleDialog(dialogData)
+                }
+                
+                if (this.props.member.item.isError) {
+                    let dialogData = {
+                        type: 'danger',
+                        title: 'Gagal',
+                        message: 'Maaf, SALDO gagal di tambahkan. Silahkan panggil Administrator untuk memperbaiki.',
+                        onClose: () => this.toggleDialog(),
+                        closeText: 'Kembali'
+                    }
+                    this.toggleDialog(dialogData);
+                }
+            }.bind(this), 1000);
+        });
+    }
+
+    render() {
         return ( 
-            
             <div>
                 <CashierTopUp
                     {...this.state}

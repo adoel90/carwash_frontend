@@ -41,8 +41,8 @@ class CashierNewCardForm extends Component {
 
 		return (
 			<Form onSubmit={handleNewCardSubmit}>
-				<Row className="margin-bottom-3">
-				<Column md={4}>
+				<Row className="margin-bottom-small">
+					<Column md={6}>
 					{ !selectedCardType.refund
 						? <div className="column-6">
 							<FormGroup>
@@ -82,7 +82,7 @@ class CashierNewCardForm extends Component {
 								<FormField label="Nomor Telepon">
 									<InputGroup>
 										<InputAddon>
-											<i className="far fa-phone-square"></i>
+											<i className="fas fa-phone"></i>
 										</InputAddon>
 										<InputCashier
 											className="input"
@@ -111,7 +111,7 @@ class CashierNewCardForm extends Component {
 						: null
 					}
 					</Column>
-					<Column md={8}>
+					<Column md={6}>
 						<FormGroup>
 							<FormField label="Tipe Kartu">
 								<InputCashier
@@ -140,7 +140,7 @@ class CashierNewCardForm extends Component {
 										})
 									}
 								</InputCashier>
-								<small className="clr-passive"><i>Merupakan metode pembayaran yang dipilih calon member untuk pembuatan kartu.</i></small>
+								<small className="clr-dark-light">Merupakan metode pembayaran yang dipilih calon member untuk pembuatan kartu.</small>
 							</FormField>
 						</FormGroup>
 
@@ -158,7 +158,7 @@ class CashierNewCardForm extends Component {
 										readOnly
 									/>
 								</InputGroup>
-								<small className="clr-passive"><i>Merupakan minimal saldo yang harus diisi calon member untuk pembuatan kartu.</i></small>
+								<small className="clr-dark-light">Merupakan minimal saldo yang harus diisi calon member untuk pembuatan kartu.</small>
 							</FormField>
 						</FormGroup>
 					</Column>

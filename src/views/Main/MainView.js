@@ -10,6 +10,7 @@ class MainView extends Component {
             <Switch>
                 <Route name="admin" path="/admin" component={Admin} />
                 <Route name="customer" path="/customer" component={Customer} />
+                <Redirect from="/" to="/customer" />
             </Switch>
         );
     }

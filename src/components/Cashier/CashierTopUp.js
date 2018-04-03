@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-// import { Modal } from 'reactstrap';
 import { ModalHeader, ModalContent, ModalFooter, Modal} from '../../components/Modal';
-// import { Container, Row } from '../Grid';
 import { Container, Row } from '../../layouts/Grid';
 import { Form, FormGroup } from '../../components/Form';
 import { Input, InputGroup, InputAddon, InputCurrency, Label } from '../../components/Input';
@@ -14,22 +12,24 @@ import Currency from '../Currency';
 import NumberFormat from 'react-number-format';
 import { CashierTopUpConfirmation } from '../Cashier';
 import CashierTopUpForm from './CashierTopUpForm';
-
+import { Panel, PanelHeader, PanelBody } from '../Panel';
 
 class CashierTopUp extends Component {
 	
 	render() {
 		return (
 			<div className="inner-view">
-				<PageBlock className="margin-bottom-extra-large ta-center">
-					<img src={CardIcon} style={{width: '150px'}}/>
-					<Row className="flex flex-column padding-bottom-small">
-						<h3 className="fw-semibold">Isi Ulang Saldo</h3>
-						<p className="clr-dark-light"><i>Silahkan gesek kartu member untuk mengisi saldo customer pada kolom berikut.</i></p><br />
-					</Row>
-					
-					<CashierTopUpForm {...this.props} handleInputChange={this.props.handleInputChange} />
-				</PageBlock>
+				<Panel className="ta-center">
+					<PanelBody>
+						<img src={CardIcon} style={{width: '150px'}}/>
+						<Row className="flex flex-column padding-bottom-small">
+							<h3 className="fw-semibold">Isi Ulang Saldo</h3>
+							<p className="clr-dark-light"><i>Silahkan gesek kartu member untuk mengisi saldo customer pada kolom berikut.</i></p><br />
+						</Row>
+						
+						<CashierTopUpForm {...this.props} handleInputChange={this.props.handleInputChange} />
+					</PanelBody>
+				</Panel>
 				<CashierTopUpConfirmation {...this.props} />
 			</div>
 		);

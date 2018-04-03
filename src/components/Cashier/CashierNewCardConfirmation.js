@@ -45,11 +45,10 @@ class CashierNewCardConfirmation extends Component {
 			if(!selectedCardType.refund) {
 				return (
 					<Column md={6}>
-					
 						<FormField label="Nama Lengkap">
 							<InputGroup>
 								<InputAddon>
-									<i className="far fa-person"></i>
+									<i className="fas fa-user"></i>
 								</InputAddon>
 								<Input
 									className="input"
@@ -77,7 +76,7 @@ class CashierNewCardConfirmation extends Component {
 						<FormField label="Nomor Telepon">
 							<InputGroup>
 								<InputAddon>
-									<i className="far fa-telephone"></i>
+									<i className="fas fa-phone"></i>
 								</InputAddon>
 								<Input
 									type="text"
@@ -103,22 +102,20 @@ class CashierNewCardConfirmation extends Component {
 		const renderCardInformation = () => {
 			return (
 				<Column md={6}>
-					<FormGroup>
-						<Label className="fw-semibold">Tipe Member Card</Label>
+					<FormField label="Tipe Member Card">
 						<Input
 							type="text"
 							value={newCardData.tipecard}
 							readonly="true"
 						/>
-					</FormGroup>
-					<FormGroup>
-						<Label className="fw-semibold">Metode Pembayaran</Label>
+					</FormField>
+					<FormField label="Tipe Member Card">
 						<Input
 							type="text"
 							value={selectedPaymentMethod}
 							readonly="true"
 						/>
-					</FormGroup>
+					</FormField>
 				</Column>
 			)
 		}
@@ -132,7 +129,7 @@ class CashierNewCardConfirmation extends Component {
 				</ModalHeader>
 				<Form onSubmit={handleNewCardConfirmationSubmit}>
 					<ModalBody>
-						<Alert theme="secondary" className="margin-bottom-2">
+						<Alert theme="secondary" className="margin-bottom-small">
 							<p>Periksa kembali informasi calon member berikut sebelum melanjutkan.</p>
 						</Alert>
 						<Row>
@@ -141,10 +138,10 @@ class CashierNewCardConfirmation extends Component {
 						</Row>
 					</ModalBody>
 					<ModalFooter className="flex justify-content--center">
-						<Button type="button" buttonTheme="danger" className="clr-light" onClick={() => toggleModal('newCardConfirmation')}>
+						<Button type="button" theme="danger" className="clr-light" onClick={() => toggleModal('newCardConfirmation')}>
 							<small className="fw-semibold tt-uppercase ls-base">Batal</small>
 						</Button>
-						<Button type="submit" buttonTheme="primary" className="clr-light margin-left-2">
+						<Button type="submit" theme="primary" className="clr-light margin-left-small">
 							<small className="fw-semibold tt-uppercase ls-base">Lanjutkan</small>
 						</Button>
 					</ModalFooter>

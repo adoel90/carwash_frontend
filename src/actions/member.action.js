@@ -63,13 +63,10 @@ export const authenticateMember = (data) => {
 	function handleError(data) { return { type: AUTHENTICATE_MEMBER_REJECTED, payload: data }}
 }
 
-export const memberCustomerTopup = (data) => {
+export const memberCustomerTopup = (data, accessToken) => {
 	return async dispatch => {
 		axios
-			.post(`${constant.API_PATH}member/topup?accessToken=${data.dataAccessTokenMember}`, {
-				balance: data.balance,
-				payment: data.payment
-			})
+			.post(`${constant.API_PATH}member/topup?accessToken=${accessToken}`, data)
 			.then((response) => {
 				dispatch(handleSuccess(response));
 			})

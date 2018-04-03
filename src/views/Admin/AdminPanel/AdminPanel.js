@@ -17,7 +17,14 @@ import {
     AdminStoreCreate,
     AdminReport,
     AdminLogout,
-    AdminSetting
+    AdminSetting,
+    AdminStoreCashierTopUp,
+    AdminStoreCashierNewCard,
+    AdminStoreCashierRefund,
+    AdminStoresMenu,
+    AdminStoresEmployee,
+    AdminStoresReport,
+    AdminStoresPromo
 } from '../../Admin';
 
 import { AdminPanelView } from '../AdminPanel';
@@ -43,7 +50,17 @@ class AdminPanel extends Component {
                 { name: 'create-new-store', path: `${props.match.url}/store/create-new-store`, component: AdminStoreCreate },
                 { name: 'report', path: `${props.match.url}/report`, component: AdminReport },
                 { name: 'logout', path: `${props.match.url}/logout`, component: AdminLogout },
-                { name: 'setting', path: `${props.match.url}/setting`, component: AdminSetting }
+                { name: 'setting', path: `${props.match.url}/setting`, component: AdminSetting },
+
+
+                { name: 'topup', path: `${props.match.url}/topup`, component: AdminStoreCashierTopUp },
+                { name: 'new-card', path: `${props.match.url}/new-card`, component: AdminStoreCashierNewCard },
+                { name: 'refund', path: `${props.match.url}/refund`, component: AdminStoreCashierRefund },
+
+                { name: 'product', path: `${props.match.url}/product`, component: AdminStoresMenu },
+                { name: 'staff', path: `${props.match.url}/staff`, component: AdminStoresEmployee },
+                { name: 'discount', path: `${props.match.url}/discount`, component: AdminStoresPromo },
+                // { name: 'report', path: `${props.match.url}/report`, component: AdminStoresPromo }
 
             ],
             menus: {}
@@ -103,7 +120,7 @@ class AdminPanel extends Component {
     }
     
     render() {
-        const user = JSON.parse(localStorage.getItem('userDataAdmin'));
+        const user = JSON.parse(localStorage.getItem('userData'));
         return (
             <AdminPanelView
                 {...this.state} 

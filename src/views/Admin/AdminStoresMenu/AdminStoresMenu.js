@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 // import { VendorMenuView} from '../VendorMenu';
 import { AdminStoresMenuView} from '../AdminStoresMenu';
 import { getStoreList, updateMenuVendor, getMenuStoreList } from '../../../actions/vendor.action';
+import { openDialog, closeDialog } from '../../../actions/dialog.action';
 
 function mapStateToProps(state) {
     return {
@@ -14,8 +15,9 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         getStoreListDispatch: () => dispatch(getStoreList()),
-        updateVendorMenuState: (object) => dispatch(updateMenuVendor(object)),
-        getMenuStoreListDispatch: (data) => { dispatch(getMenuStoreList(data))}
+        // updateVendorMenuState: (object) => dispatch(updateMenuVendor(object)),
+        getMenuStoreListDispatch: (data) => { dispatch(getMenuStoreList(data))},
+        action: bindActionCreators({ updateMenuVendor, openDialog, closeDialog }, dispatch)
     }
 }
 
@@ -34,6 +36,7 @@ class AdminStoresMenu extends Component {
         this.getStoreList = this.getStoreList.bind(this);
         this.getMenuStoreList = this.getMenuStoreList.bind(this);
         this.getListIdStoreFromUserLogin = this.getListIdStoreFromUserLogin.bind(this);
+
 
         this.state = {
 
@@ -116,10 +119,12 @@ class AdminStoresMenu extends Component {
             }
         }
 
-        //Update data after editing data
-        if(prevProps.vendorState.updateEmployee !== vendorState.updateEmployee){
-            console.log(vendorState);
-            
+        //Update data menu produk
+        if(prevProps.vendorState !== vendorState){
+            if(vendorState.existing){
+                console.log(vendorState);
+                
+            }
         }
     }
 
@@ -249,7 +254,7 @@ class AdminStoresMenu extends Component {
 
         //#
         const {selectedMenuStore,isModalOpen } = this.state;
-        const {updateVendorMenuState,vendorState} = this.props;
+        const {updateVendorMenuState,vendorState, action} = this.props;
 
         const rowsUpdate = [];
 
@@ -262,22 +267,51 @@ class AdminStoresMenu extends Component {
             image:selectedMenuStore.image,
             status:selectedMenuStore.status
         };
-        
-        updateVendorMenuState(requireDataUpdate);
-        
-        rowsUpdate.push(requireDataUpdate);
-     
-            this.setState({
-                ...this.state,
-                table:{
-                    ...this.state.table,
-                    rows:rowsUpdate
-                },
-                isModalOpen: {
 
-                    updateMenuVendor: false
-                 }
-            });  
+        // rowsUpdate.push(requireDataUpdate);
+     
+        // this.setState({
+        //     ...this.state,
+        //     table:{
+        //         ...this.state.table,
+        //         rows:rowsUpdate
+        //     },
+        //     isModalOpen: {
+
+        //         updateMenuVendor: false
+        //         }
+        // }); 
+        
+        //#
+        action.updateMenuVendor(requireDataUpdate).then(() => {
+            
+            const { vendorState } = this.props;
+
+            if(vendorState.existing.isUpdated){
+                let dialogData = {
+                    type: 'success',
+                    title: 'Berhasil',
+                    message: 'Produk telah berhasil diubah. Klik tombol berikut untuk kembali.',
+                    onClose: () => window.location.reload(),
+                    closeText: 'Kembali'
+                }
+      
+                this.toggleDialog(dialogData);
+            }
+
+            if (vendorState.existing.isUpdated) {
+                let dialogData = {
+                      type: 'danger',
+                      title: 'Gagal',
+                      message: 'Produk gagal diubah. Klik tombol berikut untuk kembali.',
+                      onClose: () => this.toggleDialog(),
+                      closeText: 'Kembali'
+                }
+        
+                this.toggleDialog(dialogData);
+          }
+        
+        });
     }
 
     handleCancelModal = (e) =>{

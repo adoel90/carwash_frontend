@@ -24,7 +24,7 @@ const AdminStoresMenuView = props => {
         handleUpdateSubmitVendorMenu,
         handleCancelModal } = props;
 
-    const renderMenuVendorModal = () => {
+    const renderMenuProductModal = () => {
 
         if(selectedMenuStore){
 
@@ -106,7 +106,7 @@ const AdminStoresMenuView = props => {
 
                     </PanelBody>
                 </Panel>
-            { renderMenuVendorModal() }
+                { renderMenuProductModal() }
             </div>
         </div>
     )

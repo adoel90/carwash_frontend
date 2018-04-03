@@ -41,7 +41,11 @@ import {
 	GET_PROMO_DISCOUNT_REJECTED,
 	
 	CREATE_MENU_PRODUCT_KASIR_STORE_FULFILLED, //#CREATE MENU PRODUCT KASIR STORE
-	CREATE_MENU_PRODUCT_KASIR_STORE_REJECTED
+	CREATE_MENU_PRODUCT_KASIR_STORE_REJECTED,
+
+	UPDATE_PROMO_REQUESTED, //#UPDATE PROMO
+	UPDATE_PROMO_FULFILLED,
+	UPDATE_PROMO_REJECTED
 
 
 } from '../actions/store.action'
@@ -126,6 +130,14 @@ const initialState = {
 		isError: false,
 		error: {}
 	},
+
+	promoUpdate: {
+		data: {},
+		isUpdated: false,
+		isError: false,
+		error: {}
+	},
+
 	menuproduk: {
 		data: {},
 		isCreated: false,
@@ -648,6 +660,49 @@ const store = (state = initialState, action) => {
 				}
 			}
 		}
+
+		//#UPDATE PROMO
+		case UPDATE_PROMO_REQUESTED: {
+			return {
+				...state,
+				promoUpdate: {
+					...state.promoUpdate,
+					data: {},
+					isUpdated: false,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case UPDATE_PROMO_FULFILLED: {
+			return {
+				...state,
+				promoUpdate: {
+					...state.promoUpdate,
+					data: action.payload,
+					isUpdated: true,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case UPDATE_PROMO_REJECTED: {
+			return {
+				...state,
+				promoUpdate: {
+					...state.promoUpdate,
+					data: {},
+					isUpdated: false,
+					isError: true,
+					error: action.payload
+				}
+			}
+		}
+
+
+
 
 		default: {
 			return state;

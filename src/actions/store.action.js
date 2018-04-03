@@ -60,6 +60,12 @@ export const GET_PROMO_DISCOUNT_REJECTED = 'GET_PROMO_DISCOUNT_REJECTED';
 export const CREATE_MENU_PRODUCT_KASIR_STORE_FULFILLED = "CREATE_MENU_PRODUCT_KASIR_STORE_FULFILLED";
 export const CREATE_MENU_PRODUCT_KASIR_STORE_REJECTED = "CREATE_MENU_PRODUCT_KASIR_STORE_REJECTED";
 
+//#UPDATE PROMO
+export const UPDATE_PROMO_REQUESTED = 'UPDATE_PROMO_REQUESTED';
+export const UPDATE_PROMO_FULFILLED = 'UPDATE_PROMO_FULFILLED';
+export const UPDATE_PROMO_REJECTED = 'UPDATE_PROMO_REJECTED';
+
+
 const accessToken = localStorage.getItem('accessToken') ? localStorage.getItem('accessToken') : null;
 
 export const getStoreList = (data) => {
@@ -348,4 +354,27 @@ export const createMenuProduct = (data) => {
 
 	function handleSuccess(data) { return { type: CREATE_MENU_PRODUCT_KASIR_STORE_FULFILLED, payload: data }}
 	function handleError(data) { return { type: CREATE_MENU_PRODUCT_KASIR_STORE_REJECTED, payload: data }}
+}
+
+//#UPDATE PROMO
+export const updatePromo = (data) => {
+
+	console.log(data);
+
+	return async dispatch => {
+		dispatch(updateRequest());
+
+		return axios
+			.put(`${constant.API_PATH}store/discount/update?accessToken=${accessToken}`, data)
+			.then((response) => {
+				dispatch(updateSuccess(response));
+			})
+			.catch((error) => {
+				dispatch(updateError(error))
+			})
+	}
+
+	function updateRequest() { return { type: UPDATE_PROMO_REQUESTED } }
+	function updateSuccess(data) { return { type: UPDATE_PROMO_FULFILLED, payload: data } }
+	function updateError(data) { return { type: UPDATE_PROMO_REJECTED, payload: data } }
 }

@@ -23,18 +23,24 @@ class AdminStoreCashierPanel extends Component {
                         // category: 'Store Name Selected',
                         category: <img src={require('../../../assets/images/805carwash_white.svg')} alt="805-Carwash" style={{width: "75%"}} />,
                         items: [
-                            // { id: 1, name: 'Dashboard', path: `${props.match.url}` }
+                            // { id: 1, name: 'Saldo', path: `${props.match.url}` }
                         ]
                     },
                     {
-                        category: '',
+                        category: 'Saldo',
                         items: [
                             { id: 1, name: 'Isi Ulang Saldo', path: `${props.match.url}/topup-saldo` },
+                          
+                        ]
+                    },
+                    {
+                        category: 'Kartu',
+                        items : [
                             { id: 2, name: 'Kartu Baru', path: `${props.match.url}/kartu-baru` },
                             { id: 3, name: 'Refund Kartu', path: `${props.match.url}/refund-kartu` },
-                    
                         ]
                     }
+
             ]
             // menus:{}
         }

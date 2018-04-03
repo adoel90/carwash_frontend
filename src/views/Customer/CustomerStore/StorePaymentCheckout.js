@@ -29,7 +29,7 @@ class StorePaymentCheckout extends Component {
                 return (
                     <Alert theme="success" className="flex align-items--center clr-light align-center padding-large">
                         <i className="fas fa-check-circle icon icon--base margin-right-small"></i>
-                        <p>Saldo customer (<span className="fw-semibold"><Currency value={memberData.balance} /></span>) mencukupi untuk melakukan pembayaran sebesar <span className="fw-semibold"><Currency value={grandTotal} /></span>.</p>
+                        <p>Saldo Anda (<span className="fw-semibold"><Currency value={memberData.balance} /></span>) mencukupi untuk melakukan pembayaran sebesar <span className="fw-semibold"><Currency value={grandTotal} /></span>.</p>
                     </Alert>
                 )
             }
@@ -37,7 +37,7 @@ class StorePaymentCheckout extends Component {
             return (
                 <Alert theme="secondary" className="flex align-items--center align-center">
                     <i className="fas fa-check-circle icon icon--base margin-right-small"></i>
-                    <p>Saldo customer (<span className="fw-semibold"><Currency value={memberData.balance} /></span>) tidak mencukupi untuk melakukan pembayaran sebesar <span className="fw-semibold"><Currency value={grandTotal} /></span>.</p>
+                    <p>Saldo Anda (<span className="fw-semibold"><Currency value={memberData.balance} /></span>) tidak mencukupi untuk melakukan pembayaran sebesar <span className="fw-semibold"><Currency value={grandTotal} /></span>.</p>
                 </Alert>
             )
         }
@@ -47,7 +47,7 @@ class StorePaymentCheckout extends Component {
                 return (
                     <div className="flex flex-column align-items--center justify-content--center">
                         { renderPaymentAvailability() }
-                        <div className="margin-top-extra-large margin-bottom-small align-center">
+                        <div className="margin-top-large margin-bottom-small align-center">
                             <h4 className="clr-primary">{memberData.name}</h4>
                             <p className="fw-semibold">
                                 <NumberFormat

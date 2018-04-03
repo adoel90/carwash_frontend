@@ -13,13 +13,15 @@ class NoMatch extends React.Component {
 
     handleRedirect = () => {
         const {
+            user,
             history,
+            path,
             routes
         } = this.props;
 
-        console.log(this.props)
-
-        return history.push(routes[0].path);
+        if(user.module[0].group !== 'admin' && path === undefined) {
+            return history.push(routes[0].path);
+        }
     }
     
     render() { return null }

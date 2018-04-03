@@ -106,6 +106,8 @@ class CustomerStoreContent extends React.Component {
 								truePrice: item.price
 							}
 
+							console.log(this.props)
+
 							if(this.props.type.type.id === 1 && this.props.memberData.card.type.charge) {
 								if(item.category) {
 									paramItem.price = item.price;
@@ -119,6 +121,9 @@ class CustomerStoreContent extends React.Component {
 									activeList.push(paramItem);
 								}
 							} else if(this.props.type.type.id !== 1 && !this.props.memberData.card.type.charge) {
+								paramItem.selected = paramItem.selected ? true : false;
+								activeList.push(paramItem);
+							} else if(this.props.type.type.id !== 1 && this.props.memberData.card.type.charge) {
 								paramItem.selected = paramItem.selected ? true : false;
 								activeList.push(paramItem);
 							} else {

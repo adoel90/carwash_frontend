@@ -138,19 +138,22 @@ export const getStoreList = (data) => {
 //UPDATE MENU VENDOR
 export const updateMenuVendor = (data) =>{
 
+	console.log(data);
+	
+
 	return async dispatch => {
 
 		dispatch(fetchRequest());
 
-		return axios
+		const formData = new FormData();
+		formData.append("id", data.id);
+		formData.append('name', data.name);
+		formData.append("description", data.description);
+		formData.append("price", data.price);
+		formData.append("image", data.image);
 
-			.put(`${constant.API_PATH}store/menu/update?accessToken=${accessToken}`, {
-				id: data.id,
-				name: data.name,
-				description: data.description,
-				price: data.price,
-				image:data.image			
-			})
+		return axios
+			.put(`${constant.API_PATH}store/menu/update?accessToken=${accessToken}`, formData)
 			.then((response) => {
 				dispatch(fetchSuccess(response.data));
 			})

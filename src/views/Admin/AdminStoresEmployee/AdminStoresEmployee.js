@@ -217,6 +217,7 @@ class AdminStoresEmployee extends Component {
                     updateMenuVendor:false
                 }
             })
+            
         } else {
             console.log("Password tidak sama");
             alert("Ulangi ketik Password! Password tidak sama");

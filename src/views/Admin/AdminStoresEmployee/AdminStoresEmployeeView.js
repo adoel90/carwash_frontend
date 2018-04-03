@@ -36,7 +36,7 @@ const AdminStoresEmployeeView = props => {
                     toggle={() => toggleModal('updateVendorEmployee')}>
 
                     <ModalHeader>
-                        <h5>Ubah Informasi Store</h5>
+                        <h5>Informasi Staff</h5>
                     </ModalHeader>
                 
                     <Form onSubmit={handleUpdateSubmitVendorEmployee}>
@@ -54,7 +54,7 @@ const AdminStoresEmployeeView = props => {
                                 </Column> */}
                              
                                 <Column>
-                                    <FormField label="Ubah Nama Karyawan">
+                                    <FormField label="Nama Karyawan">
                                         <InputGroup>
                                             <InputAddon>
                                                 <i className="fas fa-user"></i>
@@ -64,19 +64,20 @@ const AdminStoresEmployeeView = props => {
                                     </FormField>
                                 </Column>
                                 <Column>
-                                    <FormField label="Ubah Username Log-in">
+                                    <FormField label="Username Log-in">
                                         <InputGroup>
                                             <InputAddon>
                                                 <i className="fas fa-user-circle"></i>
                                             </InputAddon>
-                                            <Input name="username" placeholder={dataVendorLoginNow.username} defaultValue={dataVendorLoginNow.username} onChange={(e) => handleInputChange('selectedVendorEmployee', e)} />
+                                            {/* <Input name="username" placeholder={dataVendorLoginNow.username} defaultValue={dataVendorLoginNow.username} onChange={(e) => handleInputChange('selectedVendorEmployee', e)} /> */}
+                                            <Input name="username"  onChange={(e) => handleInputChange('selectedVendorEmployee', e)} />
                                         </InputGroup>
                                     </FormField>
                                 </Column>
                             </Row>
                             <Row>
                                 <Column>
-                                    <FormField label="Ubah Email Karyawan">
+                                    <FormField label="Email Karyawan">
                                         <InputGroup>
                                             <InputAddon>
                                                 <i className="fas fa-envelope"></i>
@@ -99,7 +100,7 @@ const AdminStoresEmployeeView = props => {
 
                             <Row>
                                 <Column>
-                                    <FormField label="Ubah Password">
+                                    <FormField label="Password">
                                         <InputGroup>
                                             <InputAddon>
                                                 <i className="fas fa-key"></i>

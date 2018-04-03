@@ -39,6 +39,8 @@ class AdminStoresMenu extends Component {
         this.getListIdStoreFromUserLogin = this.getListIdStoreFromUserLogin.bind(this);
         this.renderDialog = this.renderDialog.bind(this);
 
+        this.handleImageChange = this.handleImageChange.bind(this);
+
 
         this.state = {
 
@@ -271,6 +273,31 @@ class AdminStoresMenu extends Component {
         });
     }
 
+    handleImageChange = (object, e) => {
+		const target = e.target;
+		const files = target.files;
+		const name = target.name;
+
+		let reader = new FileReader();
+		let file = files[0];
+
+        console.log(reader);
+
+        // reader.readAsText(file);
+        
+		reader.onloadend = () => {
+
+			if(object) {
+				object['image'] = file;
+                object['imagePreview'] = reader.result
+
+				this.forceUpdate();
+			}
+		}
+
+		reader.readAsDataURL(file);
+	}
+
     handleUpdateSubmitVendorMenu = (e) =>{
 
         e.preventDefault();
@@ -290,24 +317,11 @@ class AdminStoresMenu extends Component {
             name: selectedMenuStore.name,
             description: selectedMenuStore.description,
             price: selectedMenuStore.price ,
-            // cafe: selectedMenuStore.vendor
             image:selectedMenuStore.image,
-            status:selectedMenuStore.status
+            // status:selectedMenuStore.status
         };
 
-        // rowsUpdate.push(requireDataUpdate);
-     
-        // this.setState({
-        //     ...this.state,
-        //     table:{
-        //         ...this.state.table,
-        //         rows:rowsUpdate
-        //     },
-        //     isModalOpen: {
-
-        //         updateMenuVendor: false
-        //         }
-        // }); 
+        console.log(requireDataUpdate);
         
         //#
         action.updateMenuVendor(requireDataUpdate).then(() => {
@@ -367,6 +381,7 @@ class AdminStoresMenu extends Component {
                     handleInputChange= {this.handleInputChange}
                     handleUpdateSubmitVendorMenu={this.handleUpdateSubmitVendorMenu}
                     handleCancelModal={this.handleCancelModal}
+                    handleImageChange = {this.handleImageChange}
                 />
                 {this.renderDialog()}
             </div>

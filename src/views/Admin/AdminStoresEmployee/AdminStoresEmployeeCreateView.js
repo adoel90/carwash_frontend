@@ -24,7 +24,8 @@ const AdminStoresEmployeeCreateView = props => {
                             </PanelHeader>
                             <PanelBody>
                                 <Form onSubmit={handleFormSubmit}>
-                                    <FormField label="Nama Staff Baru">
+                        
+                                    <FormField label="Nama Lengkap Staff Baru">
                                         <InputGroup>
                                             <InputAddon>
                                                 <i className="fas fa-user"></i>
@@ -32,8 +33,34 @@ const AdminStoresEmployeeCreateView = props => {
                                             <Input name="name" type="text" placeholder="Masukkan nama lengkap staff baru" onChange={(e) => handleInputChange('newStaff', e) } />
                                         </InputGroup>
                                     </FormField>
-
                                     
+                                    <FormField label="Username untuk Login">
+                                        <InputGroup>
+                                            <InputAddon>
+                                                <i className="fas fa-user"></i>
+                                            </InputAddon>
+                                            <Input name="username" type="text" placeholder="Masukkan nama username untuk login" onChange={(e) => handleInputChange('newStaff', e) } />
+                                        </InputGroup>
+                                    </FormField>
+
+                                    <FormField label="Password">
+                                        <InputGroup>
+                                            <InputAddon>
+                                                <i className="fas fa-lock"></i>
+                                            </InputAddon>
+                                            <Input name="password" type="text" placeholder="Masukkan password" onChange={(e) => handleInputChange('newStaff', e) } />
+                                        </InputGroup>
+                                    </FormField>
+
+                                    <FormField label="Email">
+                                        <InputGroup>
+                                            <InputAddon>
+                                                <i className="fas fa-envelope"></i>
+                                            </InputAddon>
+                                            <Input name="email" type="text" placeholder="Masukkan alamat Email" onChange={(e) => handleInputChange('newStaff', e) } />
+                                        </InputGroup>
+                                    </FormField>
+                    
                                     <Button type="submit">Simpan</Button>
                                 </Form>
                             </PanelBody>

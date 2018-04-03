@@ -69,6 +69,13 @@ export const UPDATE_PROMO_REQUESTED = 'UPDATE_PROMO_REQUESTED';
 export const UPDATE_PROMO_FULFILLED = 'UPDATE_PROMO_FULFILLED';
 export const UPDATE_PROMO_REJECTED = 'UPDATE_PROMO_REJECTED';
 
+//#CREATE STAFF STORE 
+export const CREATE_STAFF_STORE_FULFILLED = "CREATE_STAFF_STORE_FULFILLED";
+export const CREATE_STAFF_STORE_REJECTED = "CREATE_STAFF_STORE_REJECTED";
+
+//CREATE DISCOUNT PROMO STORE 
+export const CREATE_DISCOUNT_PROMO_STORE_FULFILLED = "CREATE_DISCOUNT_PROMO_STORE_FULFILLED";
+export const CREATE_DISCOUNT_PROMO_STORE_REJECTED = "CREATE_DISCOUNT_PROMO_STORE_REJECTED";
 
 const accessToken = localStorage.getItem('accessToken') ? localStorage.getItem('accessToken') : null;
 
@@ -394,4 +401,60 @@ export const updatePromo = (data) => {
 	function updateRequest() { return { type: UPDATE_PROMO_REQUESTED } }
 	function updateSuccess(data) { return { type: UPDATE_PROMO_FULFILLED, payload: data } }
 	function updateError(data) { return { type: UPDATE_PROMO_REJECTED, payload: data } }
+}
+
+//#CREATE STAFF STORE 
+export const createStaffStore = (data) => {
+	
+	return async dispatch => {
+
+		return axios
+			.post(`${constant.API_PATH}store/staff/create?accessToken=${accessToken}`, {
+				
+				store: data.store,
+				name: data.name,
+				username: data.username,
+				password: data.password,
+				email: data.email,
+				level: data.level
+
+			},{'Content-Type': 'application/json'})
+			.then((response) => {
+				dispatch(handleSuccess(response.data));
+			})
+			.catch((error) => {
+				dispatch(handleError(error))
+			})
+	}
+
+	function handleSuccess(data) { return { type: CREATE_STAFF_STORE_FULFILLED, payload: data }}
+	function handleError(data) { return { type: CREATE_STAFF_STORE_REJECTED, payload: data }}
+}
+
+//CREATE DISCOUNT PROMO STORE 
+export const createDiscountPromo = (data) => {
+
+	console.log(data);
+
+	return async dispatch => {
+
+		return axios
+			.post(`${constant.API_PATH}store/discount/create?accessToken=${accessToken}`, {
+				
+				store: data.store,
+				price: data.price,
+				date: data.date
+
+			},{'Content-Type': 'application/json'})
+			.then((response) => {
+				dispatch(handleSuccess(response.data));
+			})
+			.catch((error) => {
+				dispatch(handleError(error))
+			})
+	}
+
+	function handleSuccess(data) { return { type: CREATE_DISCOUNT_PROMO_STORE_FULFILLED, payload: data }}
+	function handleError(data) { return { type: CREATE_DISCOUNT_PROMO_STORE_REJECTED, payload: data }}
+
 }

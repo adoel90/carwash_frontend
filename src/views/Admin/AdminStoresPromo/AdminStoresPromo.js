@@ -127,14 +127,24 @@ class AdminStoresPromo extends Component {
                 accessor: 'date'
             },
             {
-                title: 'Aksi',
+                title: 'Edit',
                 accessor: 'action',
                 render: (row) => (
                     <td>
                         <a href="#" onClick={() => this.openStoresPromoModal(row)}>Ubah</a>
                     </td>
                 )
-            }
+            },
+            {
+                title: 'Delete',
+                accessor: 'action',
+                render: (row) => (
+                    <td>
+                        <a href="#" onClick={() => this.openDeleteStoresPromoModal(row)}>Delete</a>
+                    </td>
+                )
+            },
+
         ]
 
         //#
@@ -162,7 +172,6 @@ class AdminStoresPromo extends Component {
 
     //#
     openStoresPromoModal = (row) => {
-
 
         this.setState({
             ...this.state,

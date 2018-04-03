@@ -37,7 +37,7 @@ const AdminStoresPromoView = props => {
                     toggle={() => toggleModal('updatePromo')}>
 
                     <ModalHeader>
-                        <h5>Ubah Informasi Promo</h5>
+                        <h5>Informasi Promo</h5>
                     </ModalHeader>
                     
                     <Form onSubmit={handleFormSubmit}>
@@ -45,7 +45,7 @@ const AdminStoresPromoView = props => {
                         <ModalBody>
                             <Row>
                                 <Column>
-                                    <FormField label="Ubah Discount Promo (Angka otomatis berubah menjadi persen)">
+                                    <FormField label="Discount Promo (Angka otomatis berubah menjadi persen)">
                                         <InputGroup>
                                             <InputAddon>
                                                 <i className="fas fa-percent"></i>
@@ -55,7 +55,7 @@ const AdminStoresPromoView = props => {
                                     </FormField>
                                     
                                     
-                                    <FormField label="Ubah Tanggal berakhir-nya Discount">
+                                    <FormField label="Tanggal berakhir-nya Discount">
                                         <InputGroup>
                                             <InputAddon>
                                                 <i className="fas fa-calendar-alt"></i>

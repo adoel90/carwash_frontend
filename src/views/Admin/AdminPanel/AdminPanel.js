@@ -22,15 +22,20 @@ import {
     AdminStoreCashierNewCard,
     AdminStoreCashierRefund,
     AdminStoresMenu,
+    AdminStoresMenuCreate,
     AdminStoresEmployee,
+    AdminStoresEmployeeCreate,
     AdminStoresReport,
-    AdminStoresPromo
+    AdminStoresPromo,
+    AdminStoresPromoCreate
+    
 } from '../../Admin';
 
 import { AdminPanelView } from '../AdminPanel';
 
 class AdminPanel extends Component {    
     constructor(props) {
+
         super(props);
         this.state = {
             routes: [
@@ -58,8 +63,11 @@ class AdminPanel extends Component {
                 { name: 'refund', path: `${props.match.url}/refund`, component: AdminStoreCashierRefund },
 
                 { name: 'product', path: `${props.match.url}/product`, component: AdminStoresMenu },
+                { name: 'create-new-product', path: `${props.match.url}/product/create-new-product`, component: AdminStoresMenuCreate },
                 { name: 'staff', path: `${props.match.url}/staff`, component: AdminStoresEmployee },
+                { name: 'create-new-staff', path: `${props.match.url}/staff/create-new-staff`, component: AdminStoresEmployeeCreate },
                 { name: 'discount', path: `${props.match.url}/discount`, component: AdminStoresPromo },
+                { name: 'create-new-discount', path: `${props.match.url}/discount/create-new-discount`, component: AdminStoresPromoCreate }
                 // { name: 'report', path: `${props.match.url}/report`, component: AdminStoresPromo }
 
             ],
@@ -102,6 +110,11 @@ class AdminPanel extends Component {
                 if (menu[i].group === "admin" && menu[i].path !== "member") {
                     dataMenu.items.push(itemSeperate);
                 }
+
+                if (menu[i].group === "store" ){
+                    dataMenu.items.push(itemSeperate);
+                }
+
             } else {
                 dataMenu = {
                     category : menu[i].name,

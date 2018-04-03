@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-// import { VendorMenuView} from '../VendorMenu';
+import { Dialog } from '../../../components/Dialog';
 import { AdminStoresMenuView} from '../AdminStoresMenu';
 import { getStoreList, updateMenuVendor, getMenuStoreList } from '../../../actions/vendor.action';
 import { openDialog, closeDialog } from '../../../actions/dialog.action';
 
 function mapStateToProps(state) {
     return {
-        vendorState : state.vendorState
+        vendorState : state.vendorState,
+        dialog : state.dialog
     };
 }
 
@@ -36,6 +37,7 @@ class AdminStoresMenu extends Component {
         this.getStoreList = this.getStoreList.bind(this);
         this.getMenuStoreList = this.getMenuStoreList.bind(this);
         this.getListIdStoreFromUserLogin = this.getListIdStoreFromUserLogin.bind(this);
+        this.renderDialog = this.renderDialog.bind(this);
 
 
         this.state = {
@@ -119,13 +121,50 @@ class AdminStoresMenu extends Component {
             }
         }
 
-        //Update data menu produk
-        if(prevProps.vendorState !== vendorState){
-            if(vendorState.existing){
-                console.log(vendorState);
-                
+    }
+
+      //#
+
+    toggleModal = (name) => {
+
+        const { isModalOpen } = this.state;
+        this.setState({
+            ...this.state,
+            isModalOpen: {
+                [name]: !isModalOpen[name]
             }
+        })
+    }
+
+    toggleDialog = (data) => {
+        const {
+            dialog,
+            action
+        } = this.props;
+
+        if(!dialog.isOpened) {
+            action.openDialog(data);
+        } else {
+            action.closeDialog();
         }
+    }
+
+    renderDialog = () => {
+        const { dialog, toggleDialog } = this.props;
+        
+        return (
+              <Dialog
+                    isOpen={dialog.isOpened}
+                    toggle={toggleDialog}
+                    type={dialog.data.type}
+                    title={dialog.data.title}
+                    message={dialog.data.message}
+                    onConfirm={dialog.data.onConfirm}
+                    confirmText={dialog.data.confirmText}
+                    onClose={dialog.data.onClose}
+                    closeText={dialog.data.closeText}
+              />
+        )
     }
 
     getListIdStoreFromUserLogin = () => {
@@ -193,7 +232,6 @@ class AdminStoresMenu extends Component {
                 status: menu.status
 
             }
-
             rows.push(row);
         });
         
@@ -205,17 +243,6 @@ class AdminStoresMenu extends Component {
                 rows: rows
             }
         }) 
-    }
-
-    toggleModal = (name) => {
-
-        const { isModalOpen } = this.state;
-        this.setState({
-            ...this.state,
-            isModalOpen: {
-                [name]: !isModalOpen[name]
-            }
-        })
     }
 
     openMenuVendorModal = (row) => {        
@@ -244,7 +271,7 @@ class AdminStoresMenu extends Component {
         });
     }
 
-    handleUpdateSubmitVendorMenu = (e)=>{
+    handleUpdateSubmitVendorMenu = (e) =>{
 
         e.preventDefault();
 
@@ -287,7 +314,7 @@ class AdminStoresMenu extends Component {
             
             const { vendorState } = this.props;
 
-            if(vendorState.existing.isUpdated){
+            if(vendorState.menuUpdate.isUpdated){
                 let dialogData = {
                     type: 'success',
                     title: 'Berhasil',
@@ -299,7 +326,7 @@ class AdminStoresMenu extends Component {
                 this.toggleDialog(dialogData);
             }
 
-            if (vendorState.existing.isUpdated) {
+            if (vendorState.menuUpdate.isError) {
                 let dialogData = {
                       type: 'danger',
                       title: 'Gagal',
@@ -327,16 +354,23 @@ class AdminStoresMenu extends Component {
         });
     }
 
+  
+
+
     render() {
         return (
-            <AdminStoresMenuView
-                {...this.state}
-                {...this.props}
-                toggleModal= {this.toggleModal}
-                handleInputChange= {this.handleInputChange}
-                handleUpdateSubmitVendorMenu={this.handleUpdateSubmitVendorMenu}
-                handleCancelModal={this.handleCancelModal}
-            />
+            <div>
+                <AdminStoresMenuView
+                    {...this.state}
+                    {...this.props}
+                    toggleModal= {this.toggleModal}
+                    handleInputChange= {this.handleInputChange}
+                    handleUpdateSubmitVendorMenu={this.handleUpdateSubmitVendorMenu}
+                    handleCancelModal={this.handleCancelModal}
+                />
+                {this.renderDialog()}
+            </div>
+
         )
     }
 }

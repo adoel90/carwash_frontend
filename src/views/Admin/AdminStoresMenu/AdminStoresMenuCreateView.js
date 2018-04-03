@@ -9,7 +9,7 @@ import { Button } from '../../../components/Button';
 
 const AdminStoresMenuCreateView = props => {
 
-    const { handleFormSubmit, handleInputChange, newMenuProduct } = props;
+    const { handleFormSubmit, handleInputChange, newMenuProduct, handleImageChange } = props;
 
     return (
         <div className="admin-dashboard">
@@ -54,9 +54,7 @@ const AdminStoresMenuCreateView = props => {
                                             <InputAddon>
                                                 <i className="fas fa-images"></i>
                                             </InputAddon> 
-                                            <Input className="input" name="image" type="file"  placeholder="Upload Gambar Produk" onChange={(e) => handleInputChange('newMenuProduct', e) } />
-                                            {/* onChange={(e) => handleInputChange('newStore', e) }  */}
-                        
+                                            <Input className="input" name="image" type="file"  placeholder="Upload Gambar Produk" onChange={(e) => handleImageChange(newMenuProduct, e) } />
                                         </InputGroup>
                                     </FormField>
                                     <Button type="submit">Simpan</Button>

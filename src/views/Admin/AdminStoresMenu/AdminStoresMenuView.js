@@ -55,7 +55,7 @@ const AdminStoresMenuView = props => {
                                             <InputAddon>
                                                 <i className="fas fa-clipboard-list"></i>
                                             </InputAddon>
-                                            <Input name="description" placeholder={selectedMenuStore.description} defaultValue={selectedMenuStore.deskripsi} onChange={(e) => handleInputChange('selectedMenuStore', e)} />
+                                            <Input name="description" placeholder={selectedMenuStore.deskripsi} defaultValue={selectedMenuStore.deskripsi} onChange={(e) => handleInputChange('selectedMenuStore', e)} />
                                         </InputGroup>
                                     </FormField>
                               

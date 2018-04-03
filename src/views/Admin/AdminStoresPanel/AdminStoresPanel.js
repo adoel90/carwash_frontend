@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 // import { VendorDashboard, VendorMenu,VendorLogOut, VendorEmployee, VendorReport  } from '../../Vendor';
-import { AdminStoresDashboard, AdminStoresMenu,AdminStoresEmployee, AdminStoresReport, AdminStoresPromo, AdminStoresMenuCreate  } from '../../Admin';
+import { AdminStoresDashboard, AdminStoresMenu,AdminStoresEmployee, AdminStoresReport, AdminStoresPromo, AdminStoresMenuCreate, AdminStoresEmployeeCreate  } from '../../Admin';
 import { AdminStoresPanelView } from '../AdminStoresPanel';
 import { getVendorDetail } from '../../../actions/vendor.action';
 
@@ -34,6 +34,7 @@ class AdminStoresPanel extends Component {
                         { id: 3, name: 'employee', path: `${props.match.url}/employee`, component: AdminStoresEmployee },
                         { id: 4, name: 'report', path: `${props.match.url}/report`, component: AdminStoresReport },
                         { id: 5, name: 'menucreate', path: `${props.match.url}/menucreate`, component: AdminStoresMenuCreate },
+                        { id: 6, name: 'employeecreate', path: `${props.match.url}/employeecreate`, component: AdminStoresEmployeeCreate },
                         // { id: 6, name: 'promo', path: `${props.match.url}/promo`, component: VendorPromo }
             ],
             menus: [
@@ -53,7 +54,8 @@ class AdminStoresPanel extends Component {
                     {
                         category: 'Manajemen',
                         items: [
-                            { id: 3, name: 'Manajemen Karyawan', path: `${props.match.url}/employee` }
+                            { id: 3, name: 'Manajemen Staff', path: `${props.match.url}/employee` },
+                            { id: 6, name: 'Buat Staff Baru ', path: `${props.match.url}/employeecreate` }
                             
                         ]
                     },

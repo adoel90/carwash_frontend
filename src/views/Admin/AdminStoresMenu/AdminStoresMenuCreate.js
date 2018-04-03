@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
+import { Dialog } from '../../../components/Dialog';
 import { getStoreList } from '../../../actions/vendor.action';
 import { createMenuProduct } from '../../../actions/store.action';
 import { AdminStoresMenuCreateView } from '../AdminStoresMenu';
 
 import { openDialog, closeDialog } from '../../../actions/dialog.action';
-import { Dialog } from '../../../components/Dialog';
+
 
 function mapStateToProps(state) {
     return {
@@ -31,14 +31,15 @@ class AdminStoresMenuCreate extends Component {
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
         this.renderDialog = this.renderDialog.bind(this);
+        this.handleImageChange = this.handleImageChange.bind(this);
 
         this.state = {
 
             newMenuProduct: {
-                store: null,
-                name: null,
-                deskripsi: null,
-                harga: null,
+                store: '',
+                name: '',
+                deskripsi: '',
+                harga: '',
                 image: null
 
             },
@@ -71,7 +72,7 @@ class AdminStoresMenuCreate extends Component {
             toggleDialog
         } = this.props;
 
-        console.log(this.props)
+        // console.log(this.props)
         
         return (
               <Dialog
@@ -121,6 +122,31 @@ class AdminStoresMenuCreate extends Component {
         });
     }
 
+    handleImageChange = (object, e) => {
+		const target = e.target;
+		const files = target.files;
+		const name = target.name;
+
+		let reader = new FileReader();
+		let file = files[0];
+
+        console.log(reader);
+
+        // reader.readAsText(file);
+        
+		reader.onloadend = () => {
+
+			if(object) {
+				object['image'] = file;
+                object['imagePreview'] = reader.result
+
+				this.forceUpdate();
+			}
+		}
+
+		reader.readAsDataURL(file);
+	}
+
     handleFormSubmit = (e) => {
         e.preventDefault();
         const { newMenuProduct, storeList, storeActive } = this.state;
@@ -131,16 +157,15 @@ class AdminStoresMenuCreate extends Component {
             name: newMenuProduct.name,
             deskripsi: newMenuProduct.deskripsi,
             harga: newMenuProduct.harga,
-            // image: newMenuProduct.image
+            image: newMenuProduct.image
         }
 
         console.log(requiredData);
+
         // createMenuProductDispatch(requiredData).then(() => {
         action.createMenuProduct(requiredData).then(() => {
             const { store } = this.props;
 
-            console.log(store);
-            
             if(store.menuproduk.isCreated) {
                 let dialogData = {
                     type: 'success',
@@ -152,7 +177,7 @@ class AdminStoresMenuCreate extends Component {
         
                 this.toggleDialog(dialogData);
             }
-            if (store.menuproduk.isError) {
+            if (store.menuproduk.error) {
                     let dialogData = {
                         type: 'danger',
                         title: 'Gagal',
@@ -165,7 +190,6 @@ class AdminStoresMenuCreate extends Component {
             }
 
         });
-        
     }
 
     render() {
@@ -174,6 +198,7 @@ class AdminStoresMenuCreate extends Component {
                 <AdminStoresMenuCreateView 
                     handleInputChange = {this.handleInputChange}
                     handleFormSubmit = { this.handleFormSubmit }
+                    handleImageChange= {this.handleImageChange}
                     {...this.state} 
                     {...this.props} />
                     {this.renderDialog()}

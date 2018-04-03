@@ -302,9 +302,6 @@ export const getDiscountListById = (data) => {
 //GET BONUS TAXI ONLINE
 export const getBonusTaxiOnline = () => {
 
-	// return {
-	// 	type:null
-	// }
 	return async dispatch => {
 
 		dispatch(getBonusRequest());
@@ -336,8 +333,6 @@ export const getPromoDiscountList = (data) => {
 		dispatch(fetchRequest());
 		
 		return axios
-		
-			// .get(`${constant.API_PATH}store/discount/list?accessToken=${accessToken}&type=${data.type}&start_date=${data.start_date}&end_date=${data.end_date}&id=${data.storeid.id}`)
 			.get(`${constant.API_PATH}store/discount/list?accessToken=${accessToken}&id=${data.storeid.id}&start_date=${data.start_date}&end_date=${data.end_date}`)			
 			.then((response) => {
 				dispatch(fetchSuccess(response));
@@ -355,23 +350,19 @@ export const getPromoDiscountList = (data) => {
 
 //#CREATE MENU PRODUCT KASIR STORE
 export const createMenuProduct = (data) => {
-
+	
 	console.log(data);
 
-	// return {
-	// 	type: null
-	// }
-	
 	return async dispatch => {
-		return axios
-			.post(`${constant.API_PATH}store/menu/create?accessToken=${accessToken}`, {
-				store: data.store,
-				name: data.name,
-				deskripsi: data.deskripsi,
-				price: data.harga,
-				// image: newMenuProduct.image
+		const formData = new FormData();
+		formData.append("store", data.store);
+		formData.append('name', data.name);
+		formData.append('description', data.deskripsi);
+		formData.append('price', data.harga);
+		formData.append('image', data.image);
 
-			},{'Content-Type': 'application/json'})
+		return axios
+			.post(`${constant.API_PATH}store/menu/create?accessToken=${accessToken}`, formData)
 			.then((response) => {
 				dispatch(handleSuccess(response.data));
 			})
@@ -386,8 +377,6 @@ export const createMenuProduct = (data) => {
 
 //#UPDATE PROMO
 export const updatePromo = (data) => {
-
-	console.log(data);
 
 	return async dispatch => {
 		dispatch(updateRequest());

@@ -77,6 +77,13 @@ const initialState = {
 		isUpdated: false,
 		isError: false,
 		error: {}
+	},
+
+	menuUpdate: {
+		data: {},
+		isUpdated: false,
+		isError: false,
+		error: {}
 	}
 
 }
@@ -249,10 +256,9 @@ const vendorState = (state = initialState, action) => {
 		case UPDATE_MENU_VENDOR_REQUESTED: {
 			return {
 				...state,
-				existing: {
-					...state.exisitng,
+				menuUpdate: {
+					...state.menuUpdate,
 					data: {},
-					isUpdating: true,
 					isUpdated: false,
 					isError: false,
 					error: {}
@@ -263,10 +269,9 @@ const vendorState = (state = initialState, action) => {
 		case UPDATE_MENU_VENDOR_FULFILLED: {
 			return {
 				...state,
-				existing: {
-					...state.existing,
-					data: action.payload,
-					isUpdating: false,
+				menuUpdate: {
+					...state.menuUpdate,
+					data: {},
 					isUpdated: true,
 					isError: false,
 					error: {}
@@ -277,10 +282,9 @@ const vendorState = (state = initialState, action) => {
 		case UPDATE_MENU_VENDOR_REJECTED: {
 			return {
 				...state,
-				existing: {
-					...state.existing,
+				menuUpdate: {
+					...state.menuUpdate,
 					data: {},
-					isUpdating: false,
 					isUpdated: false,
 					isError: true,
 					error: action.payload

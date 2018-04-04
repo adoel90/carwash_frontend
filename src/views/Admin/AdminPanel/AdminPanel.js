@@ -110,7 +110,7 @@ class AdminPanel extends Component {
         for (let i=0; i<menu.length; i++) {
             let dataMenu = {};
             let split = menu[i].name.split(" ");
-            let nameCategory = menu[0].group !== 'kasir' ? `${menu[i].name}` : null;
+            let nameCategory = menu[0].group !== 'kasir' ? `${menu[i].name}` : `${menu[i].name}`;
             let nameRoute = menu[0].group === 'kasir' ? `${menu[i].name}` : `Daftar ${split[1]}`;
 
             if(split.length > 1) {

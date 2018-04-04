@@ -90,6 +90,10 @@ class AdminReport extends Component {
             title: 'Tipe Member',
             accessor: 'type',
             align: 'center'
+        }, {
+            title: 'Price',
+            accessor: 'price',
+            align: 'center'
         }]
 
         const rows = [] 
@@ -101,6 +105,7 @@ class AdminReport extends Component {
                     name: item.name,
                     email: item.email,
                     type: item.type,
+                    price: item.price,
                     data: item
                 }
 

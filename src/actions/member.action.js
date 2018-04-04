@@ -79,13 +79,6 @@ export const memberCustomerTopup = (data, accessToken) => {
 
 // export const memberRefund = (data, accessToken) => {
 export const memberRefund = (data) => {
-
-	// console.log(data);
-
-	// return {
-	// 	type: null
-	// }
-	
 	return async dispatch => {
 		
 		axios

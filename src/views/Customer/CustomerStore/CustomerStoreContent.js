@@ -11,7 +11,7 @@ import {
 } from '../../../actions/store.action';
 
 import {
-	authenticateMember
+	authenticateMember, memberLogout
 } from '../../../actions/member.action';
 
 class CustomerStoreContent extends React.Component {
@@ -106,8 +106,6 @@ class CustomerStoreContent extends React.Component {
 								truePrice: item.price
 							}
 
-							console.log(this.props)
-
 							if(this.props.type.type.id === 1 && this.props.memberData.card.type.charge) {
 								if(item.category) {
 									paramItem.price = item.price;
@@ -149,7 +147,7 @@ class CustomerStoreContent extends React.Component {
 					message: 'Pembayaran telah berhasil. Tunggu hingga struk transaksi dicetak sepenuhnya sebelum menutup jendela ini.',
 					onConfirm: () => this.handlePrintReceipt(),
 					confirmText: 'Print Ulang',
-					onClose: () => window.location.reload(),
+					onClose: () => this.props.dispatch(memberLogout()),
 					closeText: 'Tutup'
 				}
 

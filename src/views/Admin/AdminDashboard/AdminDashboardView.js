@@ -73,7 +73,7 @@ const AdminDashboardView = props => {
 
     const renderReportGraph = () => {
 		const priceFormatter = function (data) {
-            return `${data} Orang`;
+            return parseFloat(data).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
         };
 
         if(report.dashboard.isLoaded) {
@@ -86,7 +86,7 @@ const AdminDashboardView = props => {
                         <YAxis
                             type="number"
                             tickFormatter={priceFormatter}
-                            allowDecimals={false}
+                            allowDecimals={true}
                             width={100}
                         />
                         <CartesianGrid strokeDasharray="5 5"/>
@@ -94,7 +94,7 @@ const AdminDashboardView = props => {
                             formatter={priceFormatter}
                         />
                         <Legend />
-                        <Bar dataKey="member" fill="#52c467" />
+                        <Bar dataKey="saldo" fill="#52c467" />
                     </BarChart>
                 </ResponsiveContainer>
             )

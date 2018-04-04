@@ -16,8 +16,6 @@ class CashierNewCardInstruction extends Component {
             newMember,
             handleNewCardInstructionSubmit
         } = this.props;
-
-        console.log(newMember)
         
         if(newMember.isCreated) {
             return (
@@ -31,13 +29,13 @@ class CashierNewCardInstruction extends Component {
                             <FormGroup>
                                 <Input
                                     type="text"
-                                    className="form-control--large ta-center"
+                                    className="form-control--large ta-center fw-semibold"
                                     value={newMember.data.data.result.card.id}
                                     readOnly
                                     selectOnFocus
                                 />
                             </FormGroup>
-                            <h6 className="fw-semibold">Ikuti instruksi berikut untuk membuat kartu member baru.</h6>
+                            <h6 className="fw-semibold margin-top-large">Ikuti instruksi berikut untuk membuat kartu member baru.</h6>
                             <p>1. Salin (Copy) ID Member yang telah dihasilkan pada kolom diatas.</p>
                             <p>2. Buka software MSR605x yang telah diinstalasi.</p>
                             <p>3. Tempel (Paste) ID Member yang sudah tersalin pada kolom pertama yang tersedia.</p>

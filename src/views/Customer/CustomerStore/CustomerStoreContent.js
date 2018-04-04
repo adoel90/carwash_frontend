@@ -123,6 +123,9 @@ class CustomerStoreContent extends React.Component {
 							} else if(this.props.type.type.id !== 1 && !this.props.memberData.card.type.charge) {
 								paramItem.selected = paramItem.selected ? true : false;
 								activeList.push(paramItem);
+							} else {
+								paramItem.selected = paramItem.selected ? true : false;
+								activeList.push(paramItem);
 							}
 						}
 

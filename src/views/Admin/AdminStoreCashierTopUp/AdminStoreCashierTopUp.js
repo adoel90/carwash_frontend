@@ -104,8 +104,6 @@ class AdminStoreCashierTopUp extends Component {
                 this.setState({
                     ...this.state,
                     bonus: storeState.bonus.data.result.tier
-                },()=> {
-                    console.log(this.state);  
                 })
             }
         }

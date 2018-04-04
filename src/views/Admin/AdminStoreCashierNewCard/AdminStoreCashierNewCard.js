@@ -182,8 +182,6 @@ class AdminStoreCashierNewCard extends Component {
 
 		let selectedId = e.target.value;
 		cardTypes.forEach((item) => {
-			console.log(item);
-
 			if(item.id === parseInt(selectedId)) {
 				this.setState({
 					...this.state,

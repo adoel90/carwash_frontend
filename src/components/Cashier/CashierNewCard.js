@@ -30,7 +30,7 @@ class CashierNewCard extends Component {
 					</PanelBody>
 				</Panel>
 				<CashierNewCardConfirmation {...this.props} />
-				{/* <CashierNewCardInstruction {...this.props} /> */}
+				<CashierNewCardInstruction {...this.props} />
 			</div>
 		);
 	}

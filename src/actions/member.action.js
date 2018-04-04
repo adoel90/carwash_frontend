@@ -38,8 +38,6 @@ export const DELETE_MEMBER_FULFILLED = 'DELETE_MEMBER_FULFILLED';
 export const DELETE_MEMBER_REJECTED = 'DELETE_MEMBER_REJECTED';
 
 const accessToken = localStorage.getItem('accessToken') ? localStorage.getItem('accessToken') : null;
-// console.log(accessToken);
-
 
 export const authenticateMember = (data) => {
 	return async dispatch => {
@@ -167,23 +165,14 @@ export const getMemberDetail = (data) => {
 }
 
 export const createNewMember = (data) => {
-
-	console.log(data);
-
-	// return {
-	// 	type:null
-	// }
-	
-	const accessTokenCreate = localStorage.getItem('accessToken') ? localStorage.getItem('accessToken') : null;
-
 	return async dispatch => {
 		axios
-			.post(`${constant.API_PATH}member/create?accessToken=${accessTokenCreate}`, {
+			.post(`${constant.API_PATH}member/create?accessToken=${accessToken}`, {
 				name: data.name,
 				phone: data.phone,
 				email: data.email,
 				address: data.address,
-				card: data.card.id,
+				card: data.card,
 				payment: data.payment
 			})
 			.then((response) => {

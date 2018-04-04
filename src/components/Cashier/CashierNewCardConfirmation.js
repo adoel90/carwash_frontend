@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 // import { Modal } from 'reactstrap';
 import { ModalFooter, ModalContent, ModalHeader, Modal, ModalBody} from '../Modal';
 import { Form, FormGroup } from '../Form';
-import { Input, InputGroup, InputAddon, Label } from '../Input';
+import { Input, InputGroup, InputAddon, Label, Textarea } from '../Input';
 import { Alert } from '../Alert';
 import { Button } from '../Button';
 import { Row, Column } from '../../layouts/Grid';
@@ -12,7 +12,6 @@ class CashierNewCardConfirmation extends Component {
 
 	render () {
 		const{
-			card,
 			newCardData,
 			cardTypes,
 			paymentMethod,
@@ -25,9 +24,9 @@ class CashierNewCardConfirmation extends Component {
 		let selectedCardName;
 		let selectedPaymentMethod;
 
-		if(card.types.isLoaded) {
-			card.types.data.data.result.forEach((type) => {
-				if(type.id == newCardData.card.id) {
+		if(cardTypes.length) {
+			cardTypes.forEach((type) => {
+				if(type.id == newCardData.card) {
 					return selectedCardName = type.name;
 				}
 			})
@@ -45,54 +44,55 @@ class CashierNewCardConfirmation extends Component {
 			if(!selectedCardType.refund) {
 				return (
 					<Column md={6}>
-						<FormField label="Nama Lengkap">
-							<InputGroup>
-								<InputAddon>
-									<i className="fas fa-user"></i>
-								</InputAddon>
-								<Input
-									className="input"
-									type="text"
-									value={newCardData.name}
-									readonly="true"
-								/>
-							</InputGroup>
-						</FormField>
-						
-						<FormField label="Alamat E-mail">
-							<InputGroup>	
-								<InputAddon>
-									<i className="far fa-envelope"></i>
-								</InputAddon>
-								<Input
-									className="input"
-									type="text"
-									value={newCardData.email}
-									readonly="true"
-								/>
-							</InputGroup>
-						</FormField>
-
-						<FormField label="Nomor Telepon">
-							<InputGroup>
-								<InputAddon>
-									<i className="fas fa-phone"></i>
-								</InputAddon>
-								<Input
-									type="text"
-									value={newCardData.phone}
-									readonly="true"
-								/>
-							</InputGroup>
-						</FormField>
-						
 						<FormGroup>
-							<Label className="fw-semibold">Alamat</Label>
-							<Input
-								type="textarea"
-								value={newCardData.address}
-								readonly="true"
-							/>
+							<FormField label="Nama Lengkap">
+								<InputGroup>
+									<InputAddon>
+										<i className="fas fa-user"></i>
+									</InputAddon>
+									<Input
+										type="text"
+										value={newCardData.name}
+										readonly="true"
+									/>
+								</InputGroup>
+							</FormField>
+						</FormGroup>
+						<FormGroup>
+							<FormField label="Alamat E-mail">
+								<InputGroup>	
+									<InputAddon>
+										<i className="fas fa-envelope"></i>
+									</InputAddon>
+									<Input
+										type="text"
+										value={newCardData.email}
+										readonly="true"
+									/>
+								</InputGroup>
+							</FormField>
+						</FormGroup>
+						<FormGroup>
+							<FormField label="Nomor Telepon">
+								<InputGroup>
+									<InputAddon>
+										<i className="fas fa-phone"></i>
+									</InputAddon>
+									<Input
+										type="text"
+										value={newCardData.phone}
+										readonly="true"
+									/>
+								</InputGroup>
+							</FormField>
+						</FormGroup>
+						<FormGroup>
+							<FormField label="Alamat">
+								<Textarea
+									value={newCardData.address}
+									readonly="true"
+								/>
+							</FormField>
 						</FormGroup>
 					</Column>
 				)
@@ -102,20 +102,24 @@ class CashierNewCardConfirmation extends Component {
 		const renderCardInformation = () => {
 			return (
 				<Column md={6}>
-					<FormField label="Tipe Member Card">
-						<Input
-							type="text"
-							value={newCardData.tipecard}
-							readonly="true"
-						/>
-					</FormField>
-					<FormField label="Tipe Member Card">
-						<Input
-							type="text"
-							value={selectedPaymentMethod}
-							readonly="true"
-						/>
-					</FormField>
+					<FormGroup>
+						<FormField label="Tipe Member">
+							<Input
+								type="text"
+								value={selectedCardName}
+								readonly="true"
+							/>
+						</FormField>
+					</FormGroup>
+					<FormGroup>
+						<FormField label="Metode Pembayaran">
+							<Input
+								type="text"
+								value={selectedPaymentMethod}
+								readonly="true"
+							/>
+						</FormField>
+					</FormGroup>
 				</Column>
 			)
 		}

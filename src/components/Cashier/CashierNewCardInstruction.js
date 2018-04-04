@@ -2,8 +2,7 @@ import React, { Component } from 'react'
 import { PageBlock, PageBlockGroup } from '../Page';
 import { CashierNewCardForm } from '../Cashier';
 import { Button } from '../Button';
-import { Modal } from 'reactstrap';
-import { ModalHeader, ModalContent, ModalFooter } from '../Modal';
+import { Modal, ModalHeader, ModalBody, ModalFooter } from '../Modal';
 import { Form, FormGroup } from '../Form';
 import { Input, Label } from '../Input';
 import NumberFormat from 'react-number-format';
@@ -17,21 +16,23 @@ class CashierNewCardInstruction extends Component {
             newMember,
             handleNewCardInstructionSubmit
         } = this.props;
+
+        console.log(newMember)
         
         if(newMember.isCreated) {
             return (
                 <Modal
                     isOpen={isModalOpen.newCardInstruction}>
-                    <ModalHeader align="center">
+                    <ModalHeader className="align-center">
                         <h6 className="fw-semibold">Instruksi Pembuatan Kartu Baru</h6>
                     </ModalHeader>
                     <Form onSubmit={handleNewCardInstructionSubmit}>
-                        <ModalContent>
+                        <ModalBody>
                             <FormGroup>
                                 <Input
                                     type="text"
                                     className="form-control--large ta-center"
-                                    value={newMember.data.card.id}
+                                    value={newMember.data.data.result.card.id}
                                     readOnly
                                     selectOnFocus
                                 />
@@ -42,7 +43,7 @@ class CashierNewCardInstruction extends Component {
                             <p>3. Tempel (Paste) ID Member yang sudah tersalin pada kolom pertama yang tersedia.</p>
                             <p>4. Tekan tombol 'Write Card' hingga jendela kecil berwarna merah keluar.</p>
                             <p>5. Gesek kartu magnetic card kosong pada mesin card writer yang ada, tunggu hingga angka pada jendela kecil yang terbuka berubah menjadi angka 2, lalu tutup.</p>
-                        </ModalContent>
+                        </ModalBody>
                         <ModalFooter className="flex justify-content--flex-end">
                             <Button buttonTheme="secondary">
                                 <small className="fw-semibold tt-uppercase ls-base">Tutup</small>

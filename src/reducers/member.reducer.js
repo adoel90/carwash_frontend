@@ -200,8 +200,8 @@ const member = (state = initialState, action) => {
 		case CREATE_MEMBER_FULFILLED: {
 			return {
 				...state,
-				memberCreated: {
-					...state.memberCreated,
+				item: {
+					...state.item,
 					data: action.payload,
 					isCreated: true,
 					isError: false,
@@ -213,8 +213,8 @@ const member = (state = initialState, action) => {
 		case CREATE_MEMBER_REJECTED: {
 			return {
 				...state,
-				memberCreated: {
-					...state.memberCreated,
+				item: {
+					...state.item,
 					data: {},
 					isCreated: false,
 					isError: true,

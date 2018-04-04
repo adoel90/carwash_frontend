@@ -198,7 +198,7 @@ class AdminUser extends Component {
                 password : selectedUser.password,
                 level : selectedUser.level.id ? parseInt(selectedUser.level.id) : parseInt(selectedUser.level)
             }
-    
+
             action.updateUser(requiredData).then(() => {
                 const {
                     user

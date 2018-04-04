@@ -55,10 +55,10 @@ export const GET_BONUS_TAXI_ONLINE_REQUESTED = 'GET_BONUS_TAXI_ONLINE_REQUESTED'
 export const GET_BONUS_TAXI_ONLINE_FULFILLED = 'GET_BONUS_TAXI_ONLINE_FULFILLED';
 export const GET_BONUS_TAXI_ONLINE_REJECTED = 'GET_BONUS_TAXI_ONLINE_REJECTED';
 
-//#GET PROMO DISCOUNT
-export const GET_PROMO_DISCOUNT_REQUESTED = 'GET_PROMO_DISCOUNT_REQUESTED';
-export const GET_PROMO_DISCOUNT_FULFILLED = 'GET_PROMO_DISCOUNT_FULFILLED';
-export const GET_PROMO_DISCOUNT_REJECTED = 'GET_PROMO_DISCOUNT_REJECTED';
+//#GET PROMO DISCOUNT //#GET PROMO DISCOUNT ALL
+export const GET_PROMO_DISCOUNT_ALL_STORE_REQUESTED = 'GET_PROMO_DISCOUNT_ALL_STORE_REQUESTED';
+export const GET_PROMO_DISCOUNT_ALL_STORE_FULFILLED = 'GET_PROMO_DISCOUNT_ALL_STORE_FULFILLED';
+export const GET_PROMO_DISCOUNT_ALL_STORE_REJECTED = 'GET_PROMO_DISCOUNT_ALL_STORE_REJECTED';
 
 //#CREATE MENU PRODUCT KASIR STORE
 export const CREATE_MENU_PRODUCT_KASIR_STORE_FULFILLED = "CREATE_MENU_PRODUCT_KASIR_STORE_FULFILLED";
@@ -73,7 +73,7 @@ export const UPDATE_PROMO_REJECTED = 'UPDATE_PROMO_REJECTED';
 export const CREATE_STAFF_STORE_FULFILLED = "CREATE_STAFF_STORE_FULFILLED";
 export const CREATE_STAFF_STORE_REJECTED = "CREATE_STAFF_STORE_REJECTED";
 
-//CREATE DISCOUNT PROMO STORE 
+//CREATE DISCOUNT PROMO STORE  
 export const CREATE_DISCOUNT_PROMO_STORE_FULFILLED = "CREATE_DISCOUNT_PROMO_STORE_FULFILLED";
 export const CREATE_DISCOUNT_PROMO_STORE_REJECTED = "CREATE_DISCOUNT_PROMO_STORE_REJECTED";
 
@@ -330,8 +330,8 @@ export const getBonusTaxiOnline = () => {
 }
 
 
-//#GET PROMO DISCOUNT
-export const getPromoDiscountList = (data) => {
+//#GET PROMO DISCOUNT ALL
+export const getPromoDiscountListAllStore = (data) => {
 
 	console.log(data);
 
@@ -340,7 +340,8 @@ export const getPromoDiscountList = (data) => {
 		dispatch(fetchRequest());
 		
 		return axios
-			.get(`${constant.API_PATH}store/discount/list?accessToken=${accessToken}&id=${data.storeid.id}&start_date=${data.start_date}&end_date=${data.end_date}`)			
+			// .get(`${constant.API_PATH}store/discount/list?accessToken=${accessToken}&id=${data.storeid.id}&start_date=${data.start_date}&end_date=${data.end_date}`)			
+			.get(`${constant.API_PATH}store/discount?accessToken=${accessToken}&id=${data.storeid.id}&active=${data.active}`)			
 			.then((response) => {
 				dispatch(fetchSuccess(response));
 			})
@@ -348,9 +349,9 @@ export const getPromoDiscountList = (data) => {
 				dispatch(fetchError(error));
 			});
 
-			function fetchRequest() { return { type: GET_PROMO_DISCOUNT_REQUESTED } }
-			function fetchSuccess(data) { return { type: GET_PROMO_DISCOUNT_FULFILLED, payload: data } }
-			function fetchError(data) { return { type: GET_PROMO_DISCOUNT_REJECTED, payload: data } }
+			function fetchRequest() { return { type: GET_PROMO_DISCOUNT_ALL_STORE_REQUESTED } }
+			function fetchSuccess(data) { return { type: GET_PROMO_DISCOUNT_ALL_STORE_FULFILLED, payload: data } }
+			function fetchError(data) { return { type: GET_PROMO_DISCOUNT_ALL_STORE_REJECTED, payload: data } }
 	}
 }
 

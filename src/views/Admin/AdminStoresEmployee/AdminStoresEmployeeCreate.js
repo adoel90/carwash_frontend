@@ -2,24 +2,28 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import { Dialog } from '../../../components/Dialog';
 import { AdminStoresEmployeeCreateView } from '../AdminStoresEmployee';
-import { openDialog, closeDialog } from '../../../actions/dialog.action';
+
+
+
 import { getStoreList } from '../../../actions/vendor.action';
 import { createStaffStore } from '../../../actions/store.action';
-import { Dialog } from '../../../components/Dialog';
-
+import { getAccessList } from '../../../actions/access.action';
+import { openDialog, closeDialog } from '../../../actions/dialog.action';
 
 function mapStateToProps(state) {
     return {
         store : state.store,
-        dialog: state.dialog
+        dialog: state.dialog,
+        access: state.access
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
         getStoreListDispatch: () => dispatch(getStoreList()),
-        // createMenuProductDispatch : (data) => dispatch(createMenuProduct(data)),
+        getAccessListDispatch: (data) => dispatch(getAccessList(data)),
         action: bindActionCreators({createStaffStore, openDialog, closeDialog }, dispatch)
     }
 }
@@ -30,7 +34,8 @@ class AdminStoresEmployeeCreate extends Component {
         super()
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
-        this.renderDialog = this.renderDialog.bind(this);
+        // this.renderDialog = this.renderDialog.bind(this);
+        // this.getAccessList = this.getAccessList.bind(this);
 
         this.state = {
 
@@ -40,27 +45,43 @@ class AdminStoresEmployeeCreate extends Component {
                 password:'',
                 email: '',
                 level:null,
+                // level:[
+                //     { id : 4 , name : "Owner"},
+                //     { id : 5 , name : "Kasir Store"},
+                //     { id : 6 , name : "Staff Store"}
+                // ],
                 store: null
             },
 
+            accessLevel: {},
+
             storeList: {},
             storeActive: 0,
-            levelId: null
+            levelId: null,
+            // accessLevel : [
+			// 	{ id : 4 , name : Owner},
+			// 	{ id : 5 , name : Kasir Store},
+			// 	{ id : 6 , name : Staff Store}
+			// ]
         }
     }
 
     componentDidMount(){
-        const { getStoreListDispatch } = this.props;
+        const { getStoreListDispatch, getAccessListDispatch } = this.props;
         getStoreListDispatch();    
 
-        // const { levelId } = this.state;
-        this.state.levelId = JSON.parse(localStorage.getItem('userData')).level.id;
+        let requiredData = {
+            active : true
+        }
+        getAccessListDispatch(requiredData);
+
+        // this.state.levelId = JSON.parse(localStorage.getItem('userData')).level.id;
     
     }
 
     //#
     componentDidUpdate(prevProps){
-        const { store } = this.props;
+        const { store, access } = this.props;
         //Get Store List
         if(prevProps.store.list !== store.list) {
             if (store.list.isLoaded) {
@@ -69,6 +90,34 @@ class AdminStoresEmployeeCreate extends Component {
                     ...this.state,
                     storeList: store.list.data.data.result.store
 
+                }, () => {
+                    // console.log(this.state);
+                    
+                })
+            }
+        }
+
+        //#Get All Access List
+        if(prevProps.access.list !== access.list){
+            if(access.list.isLoaded){
+
+                // let levels = [];
+                // access.list.data.result.map((data) => {
+
+                //     if(data.level){
+
+                //     }
+                //     console.log(data);
+                    
+                //     levels.push(data.level);
+
+                // })
+
+                // console.log(levels);
+                
+                this.setState({
+                    ...this.state,
+                    accessLevel: access.list.data.result
                 }, () => {
                     console.log(this.state);
                     
@@ -91,12 +140,7 @@ class AdminStoresEmployeeCreate extends Component {
     }
 
     renderDialog = () => {
-        const {
-            dialog,
-            toggleDialog
-        } = this.props;
-
-        console.log(this.props)
+        const { dialog, toggleDialog } = this.props;
         
         return (
             <Dialog
@@ -115,8 +159,10 @@ class AdminStoresEmployeeCreate extends Component {
 
     handleFormSubmit = (e) => {
         e.preventDefault();
-        const { newStaff, storeList, storeActive, levelId } = this.state;
-        const { action, store } = this.props;
+        const { newStaff, storeList, storeActive, levelId , accessLevel} = this.state;
+        // const { action, store } = this.props;
+        const { action } = this.props;
+        
         
         const requiredData = {
             store: storeList[storeActive].id,
@@ -124,15 +170,18 @@ class AdminStoresEmployeeCreate extends Component {
             username: newStaff.username,
             password: newStaff.password,
             email: newStaff.email,
-            level: levelId
+            // level: levelId
+            level: newStaff.level ? parseInt(newStaff.level) : "Failed parse INTEGER!!!"
         }
-
-        console.log(action);
+        
+        console.log(requiredData);
 
         action.createStaffStore(requiredData).then(() => {
 
             if(this.props.store.staffemployee.isCreated){
 
+                console.log("Created!!!");
+                
                 let dialogData = {
                     type: 'success',
                     title: 'Berhasil',
@@ -146,6 +195,9 @@ class AdminStoresEmployeeCreate extends Component {
             }
             
             if(this.props.store.staffemployee.isError){
+
+                console.log("Errur!!!");
+                
                 let dialogData = {
                     type: 'danger',
                     title: 'Gagal',

@@ -116,6 +116,8 @@ export const getVendorDetail = (data) => {
 // export const getStoreList = (data) => {
 export const getStoreList = (data) => {
 	
+	console.log(data);
+	
 	return async dispatch => {
 
 		dispatch(fetchRequest());
@@ -193,6 +195,8 @@ export const getVendorEmployeeList = (data) => {
 
 //UPDATE VENDOR EMPLOYEE
 export const updateVendorEmployee = (data) => {
+
+	console.log(data);
 
 	return async dispatch => {
 		dispatch(fetchRequest());

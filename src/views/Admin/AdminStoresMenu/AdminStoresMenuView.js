@@ -8,6 +8,8 @@ import { Row, Column } from '../../../layouts/Grid';
 import { Input, InputGroup, Switch, InputAddon, Select } from '../../../components/Input';
 import { ButtonDewek } from '../../../components/ButtonDewek';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from '../../../components/Modal';
+import { PageBlock, PageBlockGroup, PageContent, PageHeading} from '../../../components/Page';
+import { Nav, NavItem, NavLink, NavTabLink} from '../../../components/Nav';
 // import { Button } from '../../../components/Button';
 
 const AdminStoresMenuView = props => {
@@ -18,13 +20,20 @@ const AdminStoresMenuView = props => {
         table, 
         menuVendorList, 
         storeMenuList,
+        storeActiveList,
         toggleModal, 
         handleInputChange, 
         handleImageChange,
         updateMenuVendor, 
         selectedMenuStore,
+        vendorState,
+
         handleUpdateSubmitVendorMenu,
-        handleCancelModal } = props;
+        handleCancelModal ,
+
+        storeList,
+        activeTab,
+        toggleTab } = props;
 
     const renderMenuProductModal = () => {
 
@@ -91,8 +100,6 @@ const AdminStoresMenuView = props => {
                                             <Input className="input" name="image" type="file"  placeholder="Upload Gambar Produk" onChange={(e) => handleImageChange(selectedMenuStore, e) } />
                                         </InputGroup>
                                     </FormField>
-
-
                                 </Column>
                             </Row>
                         </ModalBody>
@@ -107,6 +114,22 @@ const AdminStoresMenuView = props => {
         }
     }
 
+
+    //# RENDER STORE MENU
+    const renderStoreList = (store, i) => {
+
+		return (
+			<NavItem>
+				<NavTabLink
+					active={activeTab === i}
+					onClick={() => toggleTab(i)}>
+					{store.name}
+				</NavTabLink>
+			</NavItem>
+		)
+		
+    }
+
     return (
         <div>
 
@@ -118,6 +141,16 @@ const AdminStoresMenuView = props => {
                         
                     </PanelHeader>
                     <PanelBody>
+
+                        <Nav tabs className="flex justify-content--space-between">
+                            {storeList.isLoaded ? storeActiveList.map(this.renderStoreList) : null}
+                            Hai hai
+                        </Nav>
+
+
+
+
+                        {/* ******************FINISH****************** */}
                         <div className="admin-user__content">
                             <TableSet
                                 loading={storeMenuList.isFetching}

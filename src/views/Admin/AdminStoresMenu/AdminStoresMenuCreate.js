@@ -174,7 +174,7 @@ class AdminStoresMenuCreate extends Component {
         
                 this.toggleDialog(dialogData);
             }
-            if (this.props.store.menuproduk.is) {
+            if (this.props.store.menuproduk.isError) {
                     let dialogData = {
                         type: 'danger',
                         title: 'Gagal',

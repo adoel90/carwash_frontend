@@ -36,9 +36,9 @@ import {
 	GET_BONUS_TAXI_ONLINE_FULFILLED,
 	GET_BONUS_TAXI_ONLINE_REJECTED,
 
-	GET_PROMO_DISCOUNT_REQUESTED, //#GET PROMO DISCOUNT
-	GET_PROMO_DISCOUNT_FULFILLED,
-	GET_PROMO_DISCOUNT_REJECTED,
+	GET_PROMO_DISCOUNT_ALL_STORE_REQUESTED, //#GET PROMO DISCOUNT ALL
+	GET_PROMO_DISCOUNT_ALL_STORE_FULFILLED,
+	GET_PROMO_DISCOUNT_ALL_STORE_REJECTED,
 	
 	CREATE_MENU_PRODUCT_KASIR_STORE_FULFILLED, //#CREATE MENU PRODUCT KASIR STORE
 	CREATE_MENU_PRODUCT_KASIR_STORE_REJECTED,
@@ -663,9 +663,9 @@ const store = (state = initialState, action) => {
 				}
 			}
 		}
-
-		//#GET PROMO DISCOUNT
-		case GET_PROMO_DISCOUNT_REQUESTED: {
+	
+		//#GET PROMO DISCOUNT ALL
+		case GET_PROMO_DISCOUNT_ALL_STORE_REQUESTED: {
 			return {
 				...state,
 				promo: {
@@ -679,7 +679,7 @@ const store = (state = initialState, action) => {
 			}
 		}
 
-		case GET_PROMO_DISCOUNT_FULFILLED: {
+		case GET_PROMO_DISCOUNT_ALL_STORE_FULFILLED: {
 			return {
 				...state,
 				promo: {
@@ -693,7 +693,7 @@ const store = (state = initialState, action) => {
 			}
 		}
 
-		case GET_PROMO_DISCOUNT_REJECTED: {
+		case GET_PROMO_DISCOUNT_ALL_STORE_REJECTED: {
 			return {
 				...state,
 				promo: {

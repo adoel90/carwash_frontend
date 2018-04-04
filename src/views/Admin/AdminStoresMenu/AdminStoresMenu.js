@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+
+
 import { Dialog } from '../../../components/Dialog';
+import { Button } from '../../../components/Button';
 import { AdminStoresMenuView} from '../AdminStoresMenu';
 import { getStoreList, updateMenuVendor, getMenuStoreList } from '../../../actions/vendor.action';
 import { openDialog, closeDialog } from '../../../actions/dialog.action';
@@ -35,17 +38,14 @@ class AdminStoresMenu extends Component {
         this.handleCancelModal = this.handleCancelModal.bind(this);
 
         this.getStoreList = this.getStoreList.bind(this);
-        this.getMenuStoreList = this.getMenuStoreList.bind(this);
-        this.getListIdStoreFromUserLogin = this.getListIdStoreFromUserLogin.bind(this);
         this.renderDialog = this.renderDialog.bind(this);
-
         this.handleImageChange = this.handleImageChange.bind(this);
+
+        this.toggleTab = this.toggleTab.bind(this);
 
 
         this.state = {
 
-            // menuVendor: {},
-            // menuVendorList: {},
             table: {
                 columns: [],
                 rows: [],
@@ -54,14 +54,16 @@ class AdminStoresMenu extends Component {
             isModalOpen:{
                 updateMenuVendor: false
             },
-            // selectedMenuVendor:{},
             selectedMenuStore:{},
 
             storeList:{},
             storeActiveList:{},
             idStore:[],
             storeActive: 0,
-            storeMenuList:{}
+            storeMenuList:{},
+
+
+            activeTab: 0
         }
     }
 
@@ -76,48 +78,52 @@ class AdminStoresMenu extends Component {
     }
 
     //#
-    getMenuStoreList = () => {
-        /* Only declare this function so that NOT ERROR */
-    }
-
-    //#
     componentDidUpdate = (prevProps) => {
 
         const { vendorState, getMenuStoreListDispatch } = this.props;
         const { storeList, storeActive } = this.state;
 
-        //Get store
-        if(prevProps.vendorState.store !== vendorState.store) {   
-            this.setState({
-                ...this.state,
-                storeList: vendorState.store 
-
-            }, () => {
-                // this.populateTableData();
-                this.getListIdStoreFromUserLogin();
-            });
-        }
-
-        //Get menu store based on id store
+        //Get menu store based on ID STORE
         if(prevProps.vendorState.store !== vendorState.store){
             if(vendorState.store.isLoaded){
                 this.setState({
                     ...this.state,
                     storeActiveList: vendorState.store.data.data.result.store
                 }, () => {
+
+                    // vendorState.store.data.data.result.store.forEach((store) => {
+                    //     console.log(store);
+                    //     getMenuStoreListDispatch(store);
+                    // });
+
                     getMenuStoreListDispatch(vendorState.store.data.data.result.store[storeActive]);
                 });
             }
         }
         
-        //Populate Data based on id store 
+        //Populate Data
         if(prevProps.vendorState.storemenu !== vendorState.storemenu){
             
             if(vendorState.storemenu.isLoaded){
+
+                //#*****************VERSION-02 ******************8
+                // if(vendorState.storemenu.data.data.result.menu.length){
+                    
+                //     console.log(vendorState.storemenu.data.data.result.menu.length);
+
+                //     vendorState.storemenu.data.data.result.menu.forEach((value) => {
+                //         console.log(value);
+                        
+                //     });
+                // }
+
+                //#*****************VERSION-01 ******************8
+                
                 this.setState({
                     ...this.state,
                     storeMenuList: vendorState.storemenu.data.data.result.menu
                 },()=>{
+                    // console.log(this.state);
                     this.populateTableData();
                 })
             }
@@ -125,8 +131,14 @@ class AdminStoresMenu extends Component {
 
     }
 
-      //#
+    //#
+	toggleTab = (tabIndex) => {
+		this.setState({
+			activeTab: tabIndex
+		})
+	}
 
+    //#
     toggleModal = (name) => {
 
         const { isModalOpen } = this.state;
@@ -169,32 +181,6 @@ class AdminStoresMenu extends Component {
         )
     }
 
-    getListIdStoreFromUserLogin = () => {
-
-        const { getStoreListDispatch } = this.props;
-        const { storeList, dispatch } = this.state;
-
-        const idObjects = [];
-        if (storeList.isLoaded){
-            storeList.data.data.result.store.map((data, i)=>{
-
-                let idObject = {
-                    id:data.id
-                }
-
-                idObjects.push(idObject)
-            })
-        }
-        
-        this.setState({
-            ...this.state,
-            idStore: idObjects
-        }, ()=> {
-            // console.log(this.state);
-            
-        })
-    }
-
     populateTableData = () => {
 
         const { storeMenuList, storeList  } = this.state;  
@@ -217,7 +203,8 @@ class AdminStoresMenu extends Component {
                 accessor: 'action',
                 render: (row) => (
                     <td>
-                        <a href="#" onClick={() => this.openMenuVendorModal(row)}>Ubah</a>
+                        {/* <a href="#" onClick={() => this.openMenuVendorModal(row)}>Ubah</a> */}
+                        <Button className="margin-right-small" type="button" onClick={() => this.openMenuVendorModal(row)}>Ubah</Button>
                     </td>
                 )
             }
@@ -382,6 +369,8 @@ class AdminStoresMenu extends Component {
                     handleUpdateSubmitVendorMenu={this.handleUpdateSubmitVendorMenu}
                     handleCancelModal={this.handleCancelModal}
                     handleImageChange = {this.handleImageChange}
+
+                    toggleTab={this.toggleTab}
                 />
                 {this.renderDialog()}
             </div>

@@ -6,10 +6,12 @@ import { Form, FormField } from '../../../layouts/Form';
 import { Panel, PanelHeader, PanelBody } from '../../../components/Panel';
 import { Input, InputGroup, InputAddon, Select, InputCashier} from '../../../components/Input';
 import { Button } from '../../../components/Button';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 const AdminStoresPromoCreateView = props => {
 
-    const { handleFormSubmit, handleInputChange, newPromoDiscount, store, storeList,  } = props;
+    const { handleFormSubmit, handleInputChange, newPromoDiscount, store, storeList, period, handlePeriodChange} = props;
 
     return (
         <div className="admin-dashboard">
@@ -24,7 +26,8 @@ const AdminStoresPromoCreateView = props => {
                                 <Form onSubmit={handleFormSubmit}>
 
                                     <FormField label="Pilih Store yang hendak di berikan discount khusus">
-                                         <Select name="store" defaultValue={newPromoDiscount.id} onChange={(e) => handleInputChange('newPromoDiscount', e) }>
+                                         <Select name="store" defaultValue={newPromoDiscount.store} onChange={(e) => handleInputChange('newPromoDiscount', e) }>
+                                            <option value="">Pilih Store</option>
                                             {
                                                 store.list.isLoaded   ? store.list.data.data.result.store.map((item, i) => {
                                                     return <option value={item.id}>{item.name}</option>
@@ -48,7 +51,16 @@ const AdminStoresPromoCreateView = props => {
                                             <InputAddon>
                                                 <i className="fas fa-calendar"></i>
                                             </InputAddon>
-                                            <Input name="date" type="date" placeholder="Masukkan tanggl berakhir-nya periode discount" onChange={(e) => handleInputChange('newPromoDiscount', e) } />
+                                            {/* <Input name="date" type="date" placeholder="Masukkan tanggl berakhir-nya periode discount" onChange={(e) => handleInputChange('newPromoDiscount', e) } /> */}
+                                            <DatePicker
+                                                    className="input"
+                                                    dateFormat="DD MMM YYYY"
+                                                    textPlaceholder="End Date"
+                                                    minDate={period.from}
+                                                    selected={period.to}
+                                                    onChange={(date) => handlePeriodChange('to', date)}
+                                                />
+
                                         </InputGroup>
                                     </FormField>
                                     <Button type="submit">Simpan</Button>

@@ -33,7 +33,7 @@ class AdminStoreCashierTopUp extends Component {
         this.handleAuthentication = this.handleAuthentication.bind(this);
         this.toggleModal = this.toggleModal.bind(this);
         this.handleTopupSubmit = this.handleTopupSubmit.bind(this);
-
+        this.handleTierTopup = this.handleTierTopup.bind(this);
         this.toggleDialog = this.toggleDialog.bind(this);
         this.renderDialog = this.renderDialog.bind(this);
 
@@ -107,12 +107,57 @@ class AdminStoreCashierTopUp extends Component {
                 })
             }
         }
-    }	
-    
-    
+    }
+
+    handleTierTopup = (value, e) => {
+        const {
+            topupData,
+            paymentMethod,
+            authenticatedMember,
+            toggleDialog,
+            closeDialog,
+            accessTokenMember
+        } = this.state;
+
+        e.preventDefault();
+
+        const { action } = this.props;
+
+        let balance = parseFloat(value.price)+parseFloat(value.bonus);
+
+        let requiredData = {
+            balance: balance,
+            payment: topupData.payment
+        }
+
+        action.memberCustomerTopup(requiredData, accessTokenMember.accessToken).then(() => {
+            setTimeout(function() {
+                if(this.props.member.item.isBalanceChanged){
+                    let dialogData = {
+                        type: 'success',
+                        title: 'Berhasil Menambahkan Saldo',
+                        message: 'Saldo telah berhasil di tambahkan. Klik tombol berikut untuk kembali.',
+                        onClose: () => window.location.reload(),
+                        closeText: 'Kembali'
+                    }
+                    this.toggleDialog(dialogData)
+                }
+                
+                if (this.props.member.item.isError) {
+                    let dialogData = {
+                        type: 'danger',
+                        title: 'Gagal',
+                        message: 'Maaf, SALDO gagal di tambahkan. Silahkan panggil Administrator untuk memperbaiki.',
+                        onClose: () => this.toggleDialog(),
+                        closeText: 'Kembali'
+                    }
+                    this.toggleDialog(dialogData);
+                }
+            }.bind(this), 1000);
+        });
+    }
    
     handleInputChange = (object, e) => {
-
 		const target = e.target;
 		const value = target.value;
         const name = target.name;
@@ -253,6 +298,7 @@ class AdminStoreCashierTopUp extends Component {
                     toggleDialog={this.toggleDialog}
                     openDialog={this.openDialog}
                     closeDialog={this.closeDialog}
+                    handleTierTopup={this.handleTierTopup}
                 />
                 {this.renderDialog()}
             </div>

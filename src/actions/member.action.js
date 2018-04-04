@@ -47,7 +47,7 @@ export const authenticateMember = (data) => {
 				card: data.card
 			})
 			.then((response) => {
-				dispatch(handleSuccess(response.data.data));
+				dispatch(handleSuccess(response.data.result));
 				// localStorage.setItem("accessToken", response.data.data);
 				// localStorage.setItem("member", response.data.data.member);
 			})

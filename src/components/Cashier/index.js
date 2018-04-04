@@ -11,6 +11,7 @@ import CashierNewCardInstruction from './CashierNewCardInstruction';
 import CashierRefundForm from './CashierRefundForm';
 import CashierRefundConfirmation from './CashierRefundConfirmation';
 import CashierRefundFirst from './CashierRefundFirst';
+import CashierRefund from './CashierRefund';
 
 export {
 	// Cashier,
@@ -25,5 +26,6 @@ export {
 	// CashierChangeCardForm,
 	CashierRefundForm,
 	CashierRefundConfirmation,
-	CashierRefundFirst
+	CashierRefundFirst,
+	CashierRefund
 }

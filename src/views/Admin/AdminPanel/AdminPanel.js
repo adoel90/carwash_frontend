@@ -84,6 +84,7 @@ class AdminPanel extends Component {
                 { name: 'new-card', path: `${this.props.match.url}/new-card`, component: AdminStoreCashierNewCard },
                 { name: 'refund', path: `${this.props.match.url}/refund`, component: AdminStoreCashierRefund },
                 { name: 'logout', path: `${this.props.match.url}/logout`, component: AdminLogout },
+                { name: 'setting', path: `${this.props.match.url}/setting`, component: AdminSetting },
                 { component: NoMatch }
             ];
 
@@ -94,6 +95,7 @@ class AdminPanel extends Component {
                 { name: 'product', path: `${this.props.match.url}/product`, component: AdminStoresMenu },
                 { name: 'discount', path: `${this.props.match.url}/discount`, component: AdminStoresPromo },
                 { name: 'logout', path: `${this.props.match.url}/logout`, component: AdminLogout },
+                { name: 'setting', path: `${this.props.match.url}/setting`, component: AdminSetting },
                 { component: NoMatch }
             ];
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ModalHeader, ModalContent, ModalFooter, Modal, ModalBody } from '../../components/Modal';
+import { Modal, ModalHeader, ModalBody, ModalFooter } from '../Modal';
 import { Button } from '../Button';
 import { Form } from '../Form';
 import { Alert } from '../Alert/index';
@@ -14,41 +14,38 @@ class CashierRefundConfirmation extends Component {
 			member,
 			isModalOpen,
 			toggleModal,
-			selectedMemberRefund,
+			selectedMember,
 			handleRefundSubmit
 		} = this.props;
 		
 		return (
 			<Modal
-				isOpen={isModalOpen.refund}>
+				isOpen={isModalOpen.refundConfirmation}>
 				<ModalHeader align="center">
-					<h4 className="fw-semibold">Konfirmasi Refund</h4>
+					<h6 className="fw-semibold">Konfirmasi Refund</h6>
 				</ModalHeader>
 				<Form onSubmit={(e) => handleRefundSubmit(e)}>
-					{/* <ModalContent className="flex flex-column justify-content--center"> */}
-					<ModalBody>
+					<ModalBody className="flex flex-column justify-content--center">
 						<Alert theme="secondary" className="flex align-items--center margin-bottom-small">
 							<i className="ion-alert-circled icon icon--base margin-right-small"></i>
 							<p>Harap periksa kembali informasi berikut sebelum melanjutkan untuk menghindari hal yang tidak diinginkan. Setelah proses refund berhasil, jangan lupa untuk mengambil kartu member.</p>
 						</Alert>
 						<div className="flex flex-column align-items--center justify-content--center ta-center">
 							<img src={CardIcon} style={{ width: '100px' }} />
-							<h6 className="fw-semibold">
-									{selectedMemberRefund.card ? selectedMemberRefund.card.id : null}
-							</h6>
 							<div className="flex-column margin-bottom-small">
-								<h4 className="clr-primary">{selectedMemberRefund.name}</h4>
-								
-								<h3><b>SISA SALDO : <Currency value={selectedMemberRefund.balance}/></b></h3><br />
+								<h4 className="clr-primary">{selectedMember.name}</h4>
+								<h5 className="fw-semibold">
+									{selectedMember.card ? selectedMember.card.id : null}
+								</h5>
+								<p>Sisa saldo: <Currency value={selectedMember.balance}/></p>
 								<Badge theme="secondary">
-									<small className="fw-semibold tt-uppercase ls-base">{selectedMemberRefund.card ? selectedMemberRefund.card.type.name: null}</small>
+									<small className="fw-semibold tt-uppercase ls-base">{selectedMember.card ? selectedMember.card.type.name: null}</small>
 								</Badge>
 							</div>
 						</div>
-					{/* </ModalContent> */}
 					</ModalBody>
 					<ModalFooter className="flex justify-content--center">
-						<Button type="button" buttonTheme="danger" className="margin-right-small" onClick={() => toggleModal('refund')}>
+						<Button type="button" buttonTheme="danger" className="clr-light" onClick={() => toggleModal('refundConfirmation')}>
 							<small className="fw-semibold tt-uppercase ls-base">Kembali</small>
 						</Button>
 						<Button type="submit" buttonTheme="primary" className="margin-left-small clr-light">

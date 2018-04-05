@@ -79,6 +79,7 @@ class CustomerStoreContent extends React.Component {
 
 				store.storemenu.data.data.result.menu.map((item) => {
 					if(item.status) {
+						console.log(item)
 						if(store.discount.isLoaded) {
 							/*** Charge for Online Member ***/
 							let memberCardType = member.item.isLoaded ? member.item.data.result.card.type.charge : false;
@@ -95,6 +96,7 @@ class CustomerStoreContent extends React.Component {
 
 							let paramItem = {
 								id: item.id,
+								description: item.description,
 								image: item.image,
 								name: item.name,
 								price: price,

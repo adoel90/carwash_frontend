@@ -1,18 +1,26 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { PropsRoute } from '../../../components/Route';
 
-
+import { TabContent } from '../../../components/Tab';
 import { Dialog } from '../../../components/Dialog';
 import { Button } from '../../../components/Button';
+import { PageBlock, PageBlockGroup, PageContent, PageHeading} from '../../../components/Page';
+import { Nav, NavItem, NavLink, NavTabLink} from '../../../components/Nav';
+
+
 import { AdminStoresMenuView} from '../AdminStoresMenu';
+import AdminStoresTypeContainer  from './AdminStoresTypeContainer';
+
 import { getStoreList, updateMenuVendor, getMenuStoreList } from '../../../actions/vendor.action';
 import { openDialog, closeDialog } from '../../../actions/dialog.action';
 
 function mapStateToProps(state) {
     return {
         vendorState : state.vendorState,
-        dialog : state.dialog
+        dialog : state.dialog,
+        store: state.store
     };
 }
 
@@ -43,7 +51,6 @@ class AdminStoresMenu extends Component {
 
         this.toggleTab = this.toggleTab.bind(this);
 
-
         this.state = {
 
             table: {
@@ -61,7 +68,6 @@ class AdminStoresMenu extends Component {
             idStore:[],
             storeActive: 0,
             storeMenuList:{},
-
 
             activeTab: 0
         }
@@ -91,6 +97,8 @@ class AdminStoresMenu extends Component {
                     storeActiveList: vendorState.store.data.data.result.store
                 }, () => {
 
+                    // console.log(this.state);
+                    
                     // vendorState.store.data.data.result.store.forEach((store) => {
                     //     console.log(store);
                     //     getMenuStoreListDispatch(store);
@@ -133,6 +141,9 @@ class AdminStoresMenu extends Component {
 
     //#
 	toggleTab = (tabIndex) => {
+
+        // console.log(tabIndex);
+        
 		this.setState({
 			activeTab: tabIndex
 		})
@@ -211,6 +222,7 @@ class AdminStoresMenu extends Component {
         ]
 
         const rows = [];
+        
         storeMenuList.map((menu, i)=> {
             let row = {
                 id: menu.id,
@@ -345,8 +357,8 @@ class AdminStoresMenu extends Component {
     handleCancelModal = (e) =>{
 
         e.preventDefault();
-
         const {isModalOpen} = this.state;
+
         this.setState({
             ...this.state,
             isModalOpen:{
@@ -356,12 +368,58 @@ class AdminStoresMenu extends Component {
     }
 
   
-
+    
 
     render() {
+
+        const { vendorState } = this.props;
+        const { activeTab, toggleTab, storeActiveList} = this.state;
+
+        //#
+        const renderTabContent = () => {
+
+            if(vendorState.store.isLoaded){
+                if(storeActiveList.length){
+                    return storeActiveList.map((type, i) => {
+                        return (
+                            <TabContent activeTab={activeTab} tabIndex={i}>
+
+                                {console.log(activeTab)}
+                
+                                <PropsRoute
+                                    component={AdminStoresMenuView}
+                                    type={type}
+                                    {...this.props}
+                                />
+                            </TabContent>
+                        )
+                    })
+                }
+            }
+        }
+
+
         return (
             <div>
-                <AdminStoresMenuView
+                <h3>Tab</h3>
+           
+                <Nav tabs className="flex justify-content--space-between">
+                    { vendorState.store.isLoaded ? vendorState.store.data.data.result.store.map((store, i) => (
+                        <NavItem>
+                            <NavTabLink
+                                active={activeTab === i}
+                                onClick={() => this.toggleTab(i)}>
+                                    {store.name}
+                            
+                            </NavTabLink>
+                        </NavItem>
+                    )) : null }
+                </Nav>
+
+                {/* RENDER CONTENT BASED ON ID STORE */}
+                {renderTabContent()}
+
+                {/* <AdminStoresMenuView
                     {...this.state}
                     {...this.props}
                     toggleModal= {this.toggleModal}
@@ -371,7 +429,7 @@ class AdminStoresMenu extends Component {
                     handleImageChange = {this.handleImageChange}
 
                     toggleTab={this.toggleTab}
-                />
+                /> */}
                 {this.renderDialog()}
             </div>
 

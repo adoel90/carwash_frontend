@@ -133,7 +133,7 @@ class AdminStoresEmployee extends Component {
                     ...this.state,
                     accessLevel: access.list.data.result
                 }, () => {
-                    console.log(this.state);
+                    // console.log(this.state);
                     
                 })
                 
@@ -144,7 +144,7 @@ class AdminStoresEmployee extends Component {
         if(prevProps.vendorState.employee !== vendorState.employee){
             if(vendorState.employee.isLoaded){
 
-                console.log(vendorState);
+                // console.log(vendorState);
                 
             }
         }

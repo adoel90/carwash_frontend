@@ -84,8 +84,16 @@ const initialState = {
 		isUpdated: false,
 		isError: false,
 		error: {}
-	}
+	},
 
+	store : {
+
+		data:{},
+		isFetching:false,
+		isLoaded:false,
+		isError:false,
+		error:{}
+	}
 }
 
 /*

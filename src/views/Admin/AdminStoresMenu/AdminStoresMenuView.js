@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { PropsRoute } from '../../../components/Route';
+
 import { Section } from '../../../layouts/Section';
 import { Panel, PanelHeader, PanelBody } from '../../../components/Panel';
 import { TableSet } from '../../../components/Table';
@@ -10,13 +12,15 @@ import { ButtonDewek } from '../../../components/ButtonDewek';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from '../../../components/Modal';
 import { PageBlock, PageBlockGroup, PageContent, PageHeading} from '../../../components/Page';
 import { Nav, NavItem, NavLink, NavTabLink} from '../../../components/Nav';
+import { TabContent } from '../../../components/Tab';
 // import { Button } from '../../../components/Button';
+// import AdminStoresTypeContainer  from './AdminStoresTypeContainer';
+import AdminStoresTypeContainer  from './AdminStoresTypeContainer';
 
 const AdminStoresMenuView = props => {
 
     const {
         isModalOpen, 
-        store,
         table, 
         menuVendorList, 
         storeMenuList,
@@ -26,11 +30,12 @@ const AdminStoresMenuView = props => {
         handleImageChange,
         updateMenuVendor, 
         selectedMenuStore,
-        vendorState,
-
+        
         handleUpdateSubmitVendorMenu,
-        handleCancelModal ,
+        handleCancelModal,
 
+        store,    
+        vendorState,
         storeList,
         activeTab,
         toggleTab } = props;
@@ -45,7 +50,7 @@ const AdminStoresMenuView = props => {
                     toggle={() => toggleModal('updateMenuVendor')}>
 
                     <ModalHeader>
-                        <h5>Ubah Informasi Produk</h5>
+                        <h5>Informasi Produk</h5>
                     </ModalHeader>
                 
                     <Form onSubmit={handleUpdateSubmitVendorMenu}>
@@ -115,24 +120,12 @@ const AdminStoresMenuView = props => {
     }
 
 
-    //# RENDER STORE MENU
-    const renderStoreList = (store, i) => {
 
-		return (
-			<NavItem>
-				<NavTabLink
-					active={activeTab === i}
-					onClick={() => toggleTab(i)}>
-					{store.name}
-				</NavTabLink>
-			</NavItem>
-		)
-		
-    }
+
+    // let dataStore = vendorState.store.isLoaded ? vendorState.store.data.data.result.store : null;
 
     return (
         <div>
-
             <div className="admin-user">
                 <Panel>
                     <PanelHeader>
@@ -142,17 +135,9 @@ const AdminStoresMenuView = props => {
                     </PanelHeader>
                     <PanelBody>
 
-                        <Nav tabs className="flex justify-content--space-between">
-                            {storeList.isLoaded ? storeActiveList.map(this.renderStoreList) : null}
-                            {/* Hai hai */}
-                        </Nav>
-
-
-
-
                         {/* ******************FINISH****************** */}
                         <div className="admin-user__content">
-                            <TableSet
+                            {/* <TableSet
                                 loading={storeMenuList.isFetching}
                                 loaded={storeMenuList}
                                 columns={table.columns}
@@ -160,8 +145,11 @@ const AdminStoresMenuView = props => {
                                 striped 
                                 fullWidth
                                 pagination
-                            />
+                            /> */}
                         </div>
+
+                        {/* ************VERSION-02 ******************* */}
+                        {/* { this.renderStoreMenuList() } */}
 
                     </PanelBody>
                 </Panel>

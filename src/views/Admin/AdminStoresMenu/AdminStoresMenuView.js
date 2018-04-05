@@ -144,7 +144,7 @@ const AdminStoresMenuView = props => {
 
                         <Nav tabs className="flex justify-content--space-between">
                             {storeList.isLoaded ? storeActiveList.map(this.renderStoreList) : null}
-                            Hai hai
+                            {/* Hai hai */}
                         </Nav>
 
 

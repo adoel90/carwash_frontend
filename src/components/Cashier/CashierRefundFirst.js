@@ -14,21 +14,22 @@ import Currency from '../Currency';
 import NumberFormat from 'react-number-format';
 import { CashierRefundConfirmation } from '../Cashier';
 import CashierRefundForm from './CashierRefundForm';
-
+import { Panel, PanelBody, PanelHeader } from '../Panel';
 
 class CashierRefundFirst extends Component {
 	
 	render() {
 		return (
 			<div className="inner-view">
-                <PageBlock extension>
-					<h3 className="fw-semibold">Refund Kartu</h3>
-					<p className="clr-passive">Harap gesek kartu atau masukkan ID kartu member yang ingin direfund pada kolom yang telah tersedia.</p>
-				</PageBlock>
-				<PageBlock className="margin-bottom-5 ta-center">
-
-					<CashierRefundForm {...this.props} handleInputChange={this.props.handleInputChange} />
-				</PageBlock>
+				<Panel>
+					<PanelHeader>
+						<h4 className="fw-bold">Refund Kartu</h4>
+						<p className="clr-passive">Harap gesek kartu atau masukkan ID kartu member yang ingin direfund pada kolom yang telah tersedia.</p>
+					</PanelHeader>
+					<PanelBody>
+						<CashierRefundForm {...this.props} handleInputChange={this.props.handleInputChange} />
+					</PanelBody>
+				</Panel>
 				<CashierRefundConfirmation {...this.props} />
 			</div>
 		);

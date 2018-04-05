@@ -38,8 +38,6 @@ export const DELETE_MEMBER_FULFILLED = 'DELETE_MEMBER_FULFILLED';
 export const DELETE_MEMBER_REJECTED = 'DELETE_MEMBER_REJECTED';
 
 const accessToken = localStorage.getItem('accessToken') ? localStorage.getItem('accessToken') : null;
-// console.log(accessToken);
-
 
 export const authenticateMember = (data) => {
 	return async dispatch => {
@@ -49,7 +47,7 @@ export const authenticateMember = (data) => {
 				card: data.card
 			})
 			.then((response) => {
-				dispatch(handleSuccess(response.data.data));
+				dispatch(handleSuccess(response.data.result));
 				// localStorage.setItem("accessToken", response.data.data);
 				// localStorage.setItem("member", response.data.data.member);
 			})
@@ -63,13 +61,10 @@ export const authenticateMember = (data) => {
 	function handleError(data) { return { type: AUTHENTICATE_MEMBER_REJECTED, payload: data }}
 }
 
-export const memberCustomerTopup = (data) => {
+export const memberCustomerTopup = (data, accessToken) => {
 	return async dispatch => {
 		axios
-			.post(`${constant.API_PATH}member/topup?accessToken=${data.dataAccessTokenMember}`, {
-				balance: data.balance,
-				payment: data.payment
-			})
+			.post(`${constant.API_PATH}member/topup?accessToken=${accessToken}`, data)
 			.then((response) => {
 				dispatch(handleSuccess(response));
 			})
@@ -84,13 +79,6 @@ export const memberCustomerTopup = (data) => {
 
 // export const memberRefund = (data, accessToken) => {
 export const memberRefund = (data) => {
-
-	// console.log(data);
-
-	// return {
-	// 	type: null
-	// }
-	
 	return async dispatch => {
 		
 		axios
@@ -170,23 +158,14 @@ export const getMemberDetail = (data) => {
 }
 
 export const createNewMember = (data) => {
-
-	console.log(data);
-
-	// return {
-	// 	type:null
-	// }
-	
-	const accessTokenCreate = localStorage.getItem('accessToken') ? localStorage.getItem('accessToken') : null;
-
 	return async dispatch => {
 		axios
-			.post(`${constant.API_PATH}member/create?accessToken=${accessTokenCreate}`, {
+			.post(`${constant.API_PATH}member/create?accessToken=${accessToken}`, {
 				name: data.name,
 				phone: data.phone,
 				email: data.email,
 				address: data.address,
-				card: data.card.id,
+				card: data.card,
 				payment: data.payment
 			})
 			.then((response) => {

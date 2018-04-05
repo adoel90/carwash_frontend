@@ -9,7 +9,7 @@ class InputCurrency extends Component {
 
 		return (
 			<NumberFormat
-				className="form-control"
+				className={rest.className}
 				displayType={'input'}
 				thousandSeparator={true}
 				{...rest}

@@ -36,10 +36,9 @@ class CustomerStore extends Component {
         if (prevProps.store.list !== store.list) {
 			if (store.list.isLoaded) {
                 let activeStore = [];
-                
-                
+				
 				store.list.data.data.result.store.forEach((item) => {
-                    if(item.status && (member.id == item.id || !member.id)) {
+                    if(item.status && (member.id == item.id || !member.id) && item.owner) {
 						activeStore.push(item);
 					}
 				});

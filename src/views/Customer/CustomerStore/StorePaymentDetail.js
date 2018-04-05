@@ -51,7 +51,7 @@ class StorePaymentDetail extends Component {
 						<div className="payment-detail">
 						<Alert theme="secondary" className="flex align-items--center justify-content--center margin-bottom-2">
 							<i className="ion-alert-circled icon icon--base margin-right-2"></i>
-							<p>Silahkan periksa terlebih dahulu pesanan customer sebelum checkout!</p>
+							<p>Silahkan periksa terlebih dahulu pesanan Anda sebelum checkout!</p>
 						</Alert>
 						<TableSetOld
 							className="margin-top-base"

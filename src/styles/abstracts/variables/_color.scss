@@ -166,8 +166,9 @@ $theme-colors: (
     secondary   : $secondary-color-base,
     success     : $success-color-base,
     warning     : $warning-color-base,
-    danger      : $danger-color-base,
-    light       : gray(100),
+	danger      : $danger-color-base,
+	light       : gray(100),
+	dark-light	: gray(500),
     dark        : gray(1800)
 ) !default;
 

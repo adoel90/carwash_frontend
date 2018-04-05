@@ -7,40 +7,32 @@ import { createNewMember } from '../../../actions/member.action';
 import { getAllCardType } from '../../../actions/card.action';
 import { openDialog, closeDialog } from '../../../actions/dialog.action';
 
-function mapStateToProps(state) {
-    return {
-		member: state.member,
-		card: state.card,
-		dialog: state.dialog
-    };
-}
-
-function mapDispatchToProps(dispatch) {
-    return {
-		createNewMemberdDispatch : (data) => dispatch(createNewMember(data)),
-		getAllCardTypeDispatch: (accessToken) => dispatch(getAllCardType(accessToken)),
-		openDialogDispatch: (data) => dispatch(openDialog(data)),
-		closeDialogDispatch: (data) => dispatch(closeDialog(data))
-
-    }
-}
-
 class AdminStoreCashierNewCard extends Component {
-
-	constructor(){
+	constructor() {
 		super();
 		this.toggleModal = this.toggleModal.bind(this);
+		this.handleInputChange = this.handleInputChange.bind(this);
 		this.handleChangeCardType = this.handleChangeCardType.bind(this);
-		this.getAllCardType = this.getAllCardType.bind(this);
 		this.handleNewCardSubmit = this.handleNewCardSubmit.bind(this);
 		this.handleNewCardConfirmation = this.handleNewCardConfirmation.bind(this);
-		this.handleNewCardConfirmationSubmit = this.handleNewCardConfirmationSubmit.bind(this);
-		this.renderDialog = this.renderDialog.bind(this);
+		this.handleNewCardInstruction = this.handleNewCardInstruction.bind(this);
+		this.handleNewCardInstructionSubmit = this.handleNewCardInstructionSubmit.bind(this);
+		this.getCardTypes = this.getCardTypes.bind(this);
 
 		this.state = {
-
 			cardTypes: [],
-
+			isModalOpen: {
+				newCardConfirmation: false,
+				newCardInstruction: false
+			},
+			selectedCardType: {
+				id: '',
+				min: ''
+			},
+			newMember: {
+				data: {},
+				isCreated: false
+			},
 			newCardData: {
 				card: 1,
 				payment: 1,
@@ -48,108 +40,115 @@ class AdminStoreCashierNewCard extends Component {
 				phone: '',
 				email: '',
 				address: '',
-				tipecard: null
-			},
-			selectedCardType: {
-				id: '',
-				min: ''
 			},
 			paymentMethod: [
 				{ id: 1, name: 'Cash' },
 				{ id: 2, name: 'Debit' },
 				{ id: 3, name: 'Credit' },
-			],
-			isModalOpen: {
-				newCardConfirmation: false,
-				newCardInstruction: false
-			},
-			dataMember: {
-				isCreated:false
-			}
+			]
 		}
 	}
 
 	componentDidMount(){
-		const { getAllCardTypeDispatch } = this.props;
-		const accessToken = localStorage.getItem('accessToken') ? localStorage.getItem('accessToken') : null;
-		getAllCardTypeDispatch(accessToken);
+		this.getCardTypes();
 	}
 
 	componentDidUpdate(prevProps){
+		const { 
+			newCardData,
+			newMember
+		} = this.state;
 
-		const { newCardData, newMember } = this.state;
-		const { card, member } = this.props;
+		const {
+			card,
+			member
+		} = this.props;
 
-		if(prevProps.card.types !== card.types){
-			if(card.types.isLoaded){
+		if(prevProps.card.types !== card.types) {
+			if(card.types.isLoaded) {
 				this.setState({
 					newCardData: {
 						...this.state.newCardData,
-						card: card.types.data.data.result[2]
+						card: card.types.data.data.result[0].id
 					},
-					cardTypes: card.types.data,
+					cardTypes: card.types.data.data.result,
 					selectedCardType: {
-						id: card.types.data.data.result[2].id,
-						min: card.types.data.data.result[2].min,
-						refund: card.types.data.data.result[2].refund
+						id: card.types.data.data.result[0].id,
+						min: card.types.data.data.result[0].min,
+						refund: card.types.data.data.result[0].refund
 					}
-
-				}, ()=> {
-					console.log(this.state);
-					
 				})
 			}
 		}
 
-		if(prevProps.member !== member){
-			this.setState({
-				dataMember:{
-					...this.state.dataMember,
-					isCreated: member.memberCreated.isCreated
-				}
-			}, () => {
-				console.log(this.state);				
-			})
+		if(prevProps.member.item !== member.item) {
+			if(member.item.isCreated) {
+				this.setState({
+					newMember: member.item
+				}, () => {
+					this.forceUpdate();
+					this.handleNewCardInstruction();
+				})
+			}
 		}
 	}
 
-	handleChangeCardType = (e) => {
+	getCardTypes = () => {
+		const {
+			dispatch,
+			accessToken
+		} = this.props;
+
+		dispatch(getAllCardType());
+	}
+
+	handleNewCardSubmit = (e) => {
 		e.preventDefault();
-		const { cardTypes, newCardData } = this.state;
-		this.handleInputChange(newCardData, e);
+		
+		this.handleNewCardConfirmation();
+	}
 
-		const target = e.target;
-		const name = target.name;
-		const value = target.value;
-	
-		// console.log(value);
-		// console.log(cardTypes);
+	handleNewCardConfirmation = () => {
+		this.toggleModal('newCardConfirmation')
+	}
 
-		cardTypes.data.result.forEach((item) => {
-			// console.log(item);
-			if(item.id === parseInt(value)) {
-				this.setState({
-					...this.state,
-					newCardData: {
-						...this.state.newCardData,
-						card: item.id,
-						tipecard: item.name
-					},
-					selectedCardType: {
-						id: item.id,
-						min: item.min,
-						refund: item.refund
-					}
-				}, () => {
-					// console.log(this.state);
-					
-				})
-			}
-		})
+	handleNewCardConfirmationSubmit = (e) => {
+		const {
+			newCardData,
+			selectedCardType
+		} = this.state;
+
+		const {
+			dispatch,
+			accessToken
+		} = this.props;
+
+		e.preventDefault();
+
+		let requiredData = {
+			card: newCardData.card,
+			payment: newCardData.payment,
+			name: newCardData.name,
+			phone: newCardData.phone,
+			email: newCardData.email,
+			address: newCardData.address
+		}
+
+		dispatch(createNewMember(requiredData));
+		this.toggleModal('newCardModal');
+	}
+
+	handleNewCardInstruction = () => {
+		this.toggleModal('newCardInstruction')
+	}
+
+	handleNewCardInstructionSubmit = () => {
+		window.location.reload();
 	}
 
 	toggleModal = (name) => {
 		const { isModalOpen } = this.state;
+
 		this.setState({
 			isModalOpen: {
 				...isModalOpen,
@@ -162,7 +161,7 @@ class AdminStoreCashierNewCard extends Component {
 		const target = e.target;
 		const name = target.name;
 		const value = target.value;
-		
+
 		if(object) {
 			object[name] = value;
 			this.forceUpdate();
@@ -173,118 +172,32 @@ class AdminStoreCashierNewCard extends Component {
 		}
 	}
 
-	getAllCardType = () => {
-		/*Only declare */
-	}
-
-	//#
-	handleNewCardSubmit = (e) => {
-		e.preventDefault();		
-		this.handleNewCardConfirmation();
-	}
-
-	handleNewCardConfirmation = () => {
-		this.toggleModal('newCardConfirmation')
-	}
-
-	//#
-	handleNewCardConfirmationSubmit = (e) => {
+	handleChangeCardType = (e) => {
 		const {
-			newCardData,
-			selectedCardType
+			cardTypes,
+			newCardData
 		} = this.state;
-
-		const {
-			dispatch,
-			accessToken,
-			createNewMemberdDispatch
-		} = this.props;
 		
-		e.preventDefault();
+		this.handleInputChange(newCardData, e);
 
-		let requiredData = {
-			card: newCardData.card,
-			payment: newCardData.payment,
-			name: newCardData.name,
-			phone: newCardData.phone,
-			email: newCardData.email,
-			address: newCardData.address
-		}
-		console.log(newCardData);
-		console.log(requiredData);
-		
-		createNewMemberdDispatch(requiredData).then(()=> {
-			
-			const { member } = this.props;
-			const { dataMember } = this.state;
-
-			// if(member.memberCreated.isCreated){
-			if(dataMember.isCreated){
-				let dialogData = {
-					type: 'success',
-					title: 'Berhasil Membuat Kartu',
-					message: 'Kartu member telah berhasil di buat. Klik tombol berikut untuk kembali.',
-					onClose: () => window.location.reload(),
-					closeText: 'Kembali'
-				}
-				//#
-				this.toggleDialog(dialogData)
+		let selectedId = e.target.value;
+		cardTypes.forEach((item) => {
+			if(item.id === parseInt(selectedId)) {
+				this.setState({
+					...this.state,
+					newCardData: {
+						...this.state.newCardData,
+						card: item.id
+					},
+					selectedCardType: {
+						id: item.id,
+						min: item.min,
+						refund: item.refund
+					}
+				})
 			}
-
-			if (member.memberCreated.isError) {
-				
-				let dialogData = {
-					type: 'danger',
-					title: 'Gagal',
-					message: 'Kartu gagal di buat. Klik tombol berikut untuk kembali.',
-					onClose: () => this.toggleDialog(),
-					closeText: 'Kembali'
-				}
-		
-				this.toggleDialog(dialogData);
-			}
-		
-		});
+		})
 	}
-
-	toggleDialog = (data) => {
-		
-		const { dialog, action, openDialogDispatch, closeDialogDispatch } = this.props;
-		
-		if(!dialog.isOpened) {
-			openDialogDispatch(data);
-        } else {
-			closeDialogDispatch(data);
-        }
-    }
-
-	openDialog = () => {
-		/* Only Declare */
-	}
-
-	closeDialog = () => {
-		/* Only Declare */
-	}
-
-	renderDialog = () => {
-
-        const { dialog, toggleDialog } = this.props;
-        
-        return (
-            <Dialog
-                isOpen={dialog.isOpened}
-                toggle={toggleDialog}
-                type={dialog.data.type}
-                title={dialog.data.title}
-                message={dialog.data.message}
-                onConfirm={dialog.data.onConfirm}
-                confirmText={dialog.data.confirmText}
-                onClose={dialog.data.onClose}
-                closeText={dialog.data.closeText}
-            />
-        )
-    }
-
 
     render() {
         
@@ -298,15 +211,19 @@ class AdminStoreCashierNewCard extends Component {
 					handleChangeCardType={this.handleChangeCardType}
 					handleNewCardSubmit={this.handleNewCardSubmit}
 					handleNewCardConfirmationSubmit={this.handleNewCardConfirmationSubmit}
-					toggleDialog={this.toggleDialog}
-					openDialog={this.openDialog}
-                    closeDialog={this.closeDialog}
+					handleNewCardInstructionSubmit={this.handleNewCardInstructionSubmit}
 				/>
-				{this.renderDialog()}
 			</div>
 		);
     }
 }
 
-// export default StoreCashierNewCard;
-export default connect( mapStateToProps, mapDispatchToProps )(AdminStoreCashierNewCard);
+const mapStateToProps = (state) => {
+	return {
+		dialog: state.dialog,
+		member: state.member,
+		card: state.card
+	}
+}
+
+export default connect(mapStateToProps)(AdminStoreCashierNewCard);

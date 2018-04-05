@@ -145,8 +145,8 @@ class AdminMember extends Component {
                   title: 'Nama Member',
                   accessor: 'name'
             }, {
-                  title: 'Email',
-                  accessor: 'email'
+                  title: 'Nomor kartu',
+                  accessor: 'cardNumber'
             }, {
                   title: 'Tipe Member',
                   accessor: 'cardType',
@@ -174,6 +174,7 @@ class AdminMember extends Component {
                               email: member.email,
                               cardType: member.card.type.name,
                               phone: member.phone,
+                              cardNumber: member.card.id,
                               data: member
                         }
     

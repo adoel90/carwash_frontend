@@ -1,27 +1,36 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import { VendorEmployeeView } from '../VendorEmployee';
+import { bindActionCreators } from 'redux';
+import { Button } from '../../../components/Button';
+import { Dialog } from '../../../components/Dialog';
 import { AdminStoresEmployeeView } from '../AdminStoresEmployee';
+
 import { getVendorEmployeeList, updateVendorEmployee } from '../../../actions/vendor.action';
 import { getStoreList } from '../../../actions/vendor.action';
+import { getAccessList } from '../../../actions/access.action';
+import { openDialog, closeDialog } from '../../../actions/dialog.action';
 
 function mapStateToProps(state) {
     return {
-        vendorState: state.vendorState
+        vendorState: state.vendorState,
+        access: state.access,
+        dialog: state.dialog
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        getVendorState: (data) => dispatch(getVendorEmployeeList(data)),
-        updateVendorEmployeeState: (object) => dispatch(updateVendorEmployee(object)),
-        getStoreListDispatch: () => dispatch(getStoreList())
+        getVendorEmployeeListDispatch: (data) => dispatch(getVendorEmployeeList(data)),
+        getStoreListDispatch: () => dispatch(getStoreList()),
+        getAccessList: (data) => dispatch(getAccessList(data)),
+        action: bindActionCreators({ updateVendorEmployee, openDialog, closeDialog }, dispatch)
     }
 }
 
 class AdminStoresEmployee extends Component {
 
     constructor() {
+
         super();
         this.getVendorEmployeeList = this.getVendorEmployeeList.bind(this);
         this.toggleModal = this.toggleModal.bind(this);
@@ -31,6 +40,8 @@ class AdminStoresEmployee extends Component {
         this.populateTableData = this.populateTableData.bind(this);
         this.handleCancelModal = this.handleCancelModal.bind(this);
         this.getStoreList = this.getStoreList.bind(this);
+        this.getAccessList = this.getAccessList.bind(this);
+        this.renderDialog = this.renderDialog.bind(this);
 
         this.state = {
             vendorEmployee: {},
@@ -40,6 +51,15 @@ class AdminStoresEmployee extends Component {
                 rows: [],
                 limit: 10
             },
+            // accessLevel : [
+			// 	{ id : 4 , name : "Owner", status: true},
+			// 	{ id : 5 , name : "Kasir Store", status: true},
+			// 	{ id : 6 , name : "Staff Store", status: true}
+            // ],
+            
+            accessLevel: {},
+            accessLevelDetail: {},
+
             isModalOpen: {
                 updateVendorEmployee: false
             },
@@ -52,6 +72,7 @@ class AdminStoresEmployee extends Component {
     componentDidMount = () => {
         this.getVendorEmployeeList();
         this.getStoreList();
+        this.getAccessList();
     }
 
     getVendorEmployeeList = () => {
@@ -63,8 +84,18 @@ class AdminStoresEmployee extends Component {
         getStoreListDispatch();
     }
 
+    getAccessList = () => {
+        const { getAccessList } = this.props;
+
+        let requiredData = {
+            active : true
+        }
+
+        getAccessList(requiredData);
+    }
+
     componentDidUpdate = (prevProps) => {
-        const { vendorState, storeMenuList, getVendorState } = this.props;
+        const { vendorState, storeMenuList, getVendorEmployeeListDispatch, access } = this.props;
         const { storeActive } = this.state;
 
         if(prevProps.vendorState.store !== vendorState.store){
@@ -73,7 +104,12 @@ class AdminStoresEmployee extends Component {
                     ...this.state,
                     storeList: vendorState.store.data.data.result.store
                 }, ()=> {
-                    getVendorState(vendorState.store.data.data.result.store[storeActive]);
+                    
+                    vendorState.store.data.data.result.store.forEach((store) => {
+                        console.log(store);
+                        getVendorEmployeeListDispatch(store);
+                    });
+                    // getVendorEmployeeListDispatch(vendorState.store.data.data.result.store[storeActive]);
                 })  
             }
         } 
@@ -89,9 +125,26 @@ class AdminStoresEmployee extends Component {
             }           
         }
 
-        if(prevProps.vendorState.existing !== vendorState.existing ){
-            if(vendorState.existing.isUpdated){
-                console.log("UPDATED !!!");
+        //#Get All Access List
+        if(prevProps.access.list !== access.list){
+            if(access.list.isLoaded){
+
+                this.setState({
+                    ...this.state,
+                    accessLevel: access.list.data.result
+                }, () => {
+                    console.log(this.state);
+                    
+                })
+                
+            }
+        }
+
+        //#Get accessLevelDetail
+        if(prevProps.vendorState.employee !== vendorState.employee){
+            if(vendorState.employee.isLoaded){
+
+                console.log(vendorState);
                 
             }
         }
@@ -106,7 +159,7 @@ class AdminStoresEmployee extends Component {
                 accessor: 'id'
             },
             {
-                title: 'Nama Karyawan',
+                title: 'Nama Staff',
                 accessor: 'name'
             },
             {
@@ -119,7 +172,7 @@ class AdminStoresEmployee extends Component {
                 // render: (data) => (
                 render: (row) => (
                     <td>
-                        <a href="#" onClick={() => this.openVendorEmployeeModal(row)}>Ubah</a>
+                        <Button className="margin-right-small" type="button" onClick={() => this.openVendorEmployeeModal(row)}>Ubah</Button>
 
                     </td>
                 )
@@ -127,6 +180,7 @@ class AdminStoresEmployee extends Component {
         ]
 
         const rows = [];
+
         if (vendorEmployeeList.isLoaded) {
             vendorEmployeeList.data.data.result.staff.forEach((employee, i) => {
                 let row = {
@@ -134,11 +188,9 @@ class AdminStoresEmployee extends Component {
                     name: employee.name,
                     username: employee.username,
                     email: employee.email,
-                    level: employee.level,
+                    level: employee.level.id,
                     status: employee.status,
                     password: employee.password
-                    // price: employee.price,
-                    // data: menu
                 }
 
                 rows.push(row);
@@ -181,6 +233,34 @@ class AdminStoresEmployee extends Component {
         })
     }
 
+    toggleDialog = (data) => {
+        const { dialog, action } = this.props;
+
+        if(!dialog.isOpened) {
+            action.openDialog(data);
+        } else {
+            action.closeDialog();
+        }
+    }
+
+    renderDialog = () => {
+        const { dialog, toggleDialog } = this.props;
+        
+        return (
+            <Dialog
+                isOpen={dialog.isOpened}
+                toggle={toggleDialog}
+                type={dialog.data.type}
+                title={dialog.data.title}
+                message={dialog.data.message}
+                onConfirm={dialog.data.onConfirm}
+                confirmText={dialog.data.confirmText}
+                onClose={dialog.data.onClose}
+                closeText={dialog.data.closeText}
+            />
+        )
+    }
+
     openVendorEmployeeModal = (row) => {
         this.setState({
             ...this.state,
@@ -194,8 +274,8 @@ class AdminStoresEmployee extends Component {
 
     handleUpdateSubmitVendorEmployee = (e) => {
         e.preventDefault();
-        const { selectedVendorEmployee } = this.state;
-        const { updateVendorEmployeeState } = this.props;
+        const { selectedVendorEmployee} = this.state;
+        const { updateVendorEmployeeState, vendorState, updateVendorEmployee, action} = this.props;
 
         if(selectedVendorEmployee.password === selectedVendorEmployee.passwordConfirm){
 
@@ -204,19 +284,39 @@ class AdminStoresEmployee extends Component {
                 name: selectedVendorEmployee.name,
                 username: selectedVendorEmployee.username,
                 email: selectedVendorEmployee.email,
-                level: selectedVendorEmployee.level.id,
-                status: selectedVendorEmployee.status,
+                level: selectedVendorEmployee.level,
                 password: selectedVendorEmployee.password
             };
 
-            updateVendorEmployeeState(requireDataUpdate);
+            action.updateVendorEmployee(requireDataUpdate).then(() => {
 
-            this.setState({
-                ...this.state,
-                isModalOpen: {
-                    updateMenuVendor:false
+                if(this.props.vendorState.updateEmployee.isUpdated){
+            
+                    let dialogData = {
+                        type: 'success',
+                        title: 'Berhasil',
+                        message: 'Update staff telah berhasil diubah. Klik tombol berikut untuk kembali.',
+                        onClose: () => window.location.reload(),
+                        closeText: 'Kembali'
+                    }
+                    this.toggleDialog(dialogData);
+                    
+                }
+
+                if(this.props.vendorState.updateEmployee.isError){
+                    
+                    let dialogData = {
+                        type: 'danger',
+                        title: 'Gagal',
+                        message: 'Staff gagal diubah. Klik tombol berikut untuk kembali.',
+                        onClose: () => this.toggleDialog(),
+                        closeText: 'Kembali'
+                    }
+            
+                    this.toggleDialog(dialogData);  
                 }
             })
+
         } else {
             console.log("Password tidak sama");
             alert("Ulangi ketik Password! Password tidak sama");
@@ -236,15 +336,19 @@ class AdminStoresEmployee extends Component {
     }
 
     render() {
+
         return (
-            <AdminStoresEmployeeView
-                {...this.state}
-                {...this.props}
-                toggleModal={this.toggleModal}
-                handleInputChange={this.handleInputChange}
-                handleUpdateSubmitVendorEmployee={this.handleUpdateSubmitVendorEmployee}
-                handleCancelModal= {this.handleCancelModal}
-            />
+            <div>
+                <AdminStoresEmployeeView
+                    {...this.state}
+                    {...this.props}
+                    toggleModal={this.toggleModal}
+                    handleInputChange={this.handleInputChange}
+                    handleUpdateSubmitVendorEmployee={this.handleUpdateSubmitVendorEmployee}
+                    handleCancelModal= {this.handleCancelModal}
+                />
+                {this.renderDialog()}
+            </div>
         )
     }
 }

@@ -36,9 +36,9 @@ import {
 	GET_BONUS_TAXI_ONLINE_FULFILLED,
 	GET_BONUS_TAXI_ONLINE_REJECTED,
 
-	GET_PROMO_DISCOUNT_REQUESTED, //#GET PROMO DISCOUNT
-	GET_PROMO_DISCOUNT_FULFILLED,
-	GET_PROMO_DISCOUNT_REJECTED,
+	GET_PROMO_DISCOUNT_ALL_STORE_REQUESTED, //#GET PROMO DISCOUNT ALL
+	GET_PROMO_DISCOUNT_ALL_STORE_FULFILLED,
+	GET_PROMO_DISCOUNT_ALL_STORE_REJECTED,
 	
 	CREATE_MENU_PRODUCT_KASIR_STORE_FULFILLED, //#CREATE MENU PRODUCT KASIR STORE
 	CREATE_MENU_PRODUCT_KASIR_STORE_REJECTED,
@@ -47,13 +47,20 @@ import {
 	UPDATE_PROMO_FULFILLED,
 	UPDATE_PROMO_REJECTED,
 
-
 	GET_DISCOUNT_LIST_REQUESTED,
 	GET_DISCOUNT_LIST_FULFILLED,
-	GET_DISCOUNT_LIST_REJECTED
+	GET_DISCOUNT_LIST_REJECTED,
+
+	CREATE_STAFF_STORE_FULFILLED, //#CREATE STAFF STORE 
+	CREATE_STAFF_STORE_REJECTED,
+
+	CREATE_DISCOUNT_PROMO_STORE_FULFILLED, //CREATE DISCOUNT PROMO STORE 
+	CREATE_DISCOUNT_PROMO_STORE_REJECTED
+
 } from '../actions/store.action'
 
 const initialState = {
+
 	list: {
 		data: {},
 		isFetching: false,
@@ -149,6 +156,20 @@ const initialState = {
 	},
 
 	menuproduk: {
+		data: {},
+		isCreated: false,
+		isError: false,
+		error: {}
+	},
+
+	staffemployee: {
+		data: {},
+		isCreated: false,
+		isError: false,
+		error: {}
+	},
+
+	promodiscount: {
 		data: {},
 		isCreated: false,
 		isError: false,
@@ -642,9 +663,9 @@ const store = (state = initialState, action) => {
 				}
 			}
 		}
-
-		//#GET PROMO DISCOUNT
-		case GET_PROMO_DISCOUNT_REQUESTED: {
+	
+		//#GET PROMO DISCOUNT ALL
+		case GET_PROMO_DISCOUNT_ALL_STORE_REQUESTED: {
 			return {
 				...state,
 				promo: {
@@ -658,7 +679,7 @@ const store = (state = initialState, action) => {
 			}
 		}
 
-		case GET_PROMO_DISCOUNT_FULFILLED: {
+		case GET_PROMO_DISCOUNT_ALL_STORE_FULFILLED: {
 			return {
 				...state,
 				promo: {
@@ -672,7 +693,7 @@ const store = (state = initialState, action) => {
 			}
 		}
 
-		case GET_PROMO_DISCOUNT_REJECTED: {
+		case GET_PROMO_DISCOUNT_ALL_STORE_REJECTED: {
 			return {
 				...state,
 				promo: {
@@ -753,7 +774,61 @@ const store = (state = initialState, action) => {
 			}
 		}
 
+		//#CREATE STAFF STORE 
+		case CREATE_STAFF_STORE_FULFILLED: {
+			return {
+				...state,
+				staffemployee: {
+					...state.staffemployee,
+					// data: {},
+					data: action.payload,
+					isCreated: true,
+					isError: false,
+					error: {}
+				}
+			}
+		}
 
+		case CREATE_STAFF_STORE_REJECTED: {
+			return {
+				...state,
+				staffemployee: {
+					...state.staffemployee,
+					data: action.payload,
+					isCreated: false,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+	//#CREATE DISCOUNT PROMO STORE
+	case CREATE_DISCOUNT_PROMO_STORE_FULFILLED: {
+		return {
+			...state,
+			promodiscount: {
+				...state.promodiscount,
+				// data: {},
+				data: action.payload,
+				isCreated: true,
+				isError: false,
+				error: {}
+			}
+		}
+	}
+
+	case CREATE_DISCOUNT_PROMO_STORE_REJECTED: {
+		return {
+			...state,
+			promodiscount: {
+				...state.promodiscount,
+				data: action.payload,
+				isCreated: false,
+				isError: false,
+				error: {}
+			}
+		}
+	}
 
 
 		default: {

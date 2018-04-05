@@ -22,9 +22,13 @@ import {
     AdminStoreCashierNewCard,
     AdminStoreCashierRefund,
     AdminStoresMenu,
+    AdminStoresMenuCreate,
     AdminStoresEmployee,
+    AdminStoresEmployeeCreate,
     AdminStoresReport,
-    AdminStoresPromo
+    AdminStoresPromo,
+    AdminStoresPromoCreate
+    
 } from '../../Admin';
 
 import NoMatch from '../NoMatch';
@@ -33,6 +37,7 @@ import { AdminPanelView } from '../AdminPanel';
 
 class AdminPanel extends Component {    
     constructor(props) {
+
         super(props);
         this.state = {
             routes: {},
@@ -92,10 +97,13 @@ class AdminPanel extends Component {
         } else if (menu[0].group === 'store') {
             let routePage = [
                 { name: 'staff', path: `${this.props.match.url}/staff`, component: AdminStoresEmployee },
+                { name: 'create-new-staff', path: `${this.props.match.url}/staff/create-new-staff`, component: AdminStoresEmployeeCreate },
                 { name: 'product', path: `${this.props.match.url}/product`, component: AdminStoresMenu },
+                { name: 'create-new-product', path: `${this.props.match.url}/product/create-new-product`, component: AdminStoresMenuCreate },
                 { name: 'discount', path: `${this.props.match.url}/discount`, component: AdminStoresPromo },
-                { name: 'logout', path: `${this.props.match.url}/logout`, component: AdminLogout },
+                { name: 'create-new-discount', path: `${this.props.match.url}/discount/create-new-discount`, component: AdminStoresPromoCreate },
                 { name: 'setting', path: `${this.props.match.url}/setting`, component: AdminSetting },
+                { name: 'logout', path: `${this.props.match.url}/logout`, component: AdminLogout },
                 { component: NoMatch }
             ];
 

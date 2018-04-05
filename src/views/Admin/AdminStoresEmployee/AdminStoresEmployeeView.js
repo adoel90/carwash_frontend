@@ -5,7 +5,7 @@ import { Panel, PanelHeader, PanelBody } from '../../../components/Panel';
 import { TableSet } from '../../../components/Table';
 import { Form, FormField } from '../../../layouts/Form';
 import { Row, Column } from '../../../layouts/Grid';
-import { Input, InputGroup, Switch, InputAddon } from '../../../components/Input';
+import { Input, InputGroup, Switch, InputAddon, Select } from '../../../components/Input';
 // import { Button } from '../../../components/Button';
 import { ButtonDewek } from '../../../components/ButtonDewek';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from '../../../components/Modal';
@@ -15,6 +15,8 @@ const AdminStoresEmployeeView = props => {
     const {
         isModalOpen, 
         table, 
+        accessLevel,
+        access,
         vendorEmployeeList, 
         toggleModal, 
         handleInputChange, 
@@ -36,25 +38,14 @@ const AdminStoresEmployeeView = props => {
                     toggle={() => toggleModal('updateVendorEmployee')}>
 
                     <ModalHeader>
-                        <h5>Ubah Informasi Store</h5>
+                        <h5>Informasi Staff</h5>
                     </ModalHeader>
                 
                     <Form onSubmit={handleUpdateSubmitVendorEmployee}>
                         <ModalBody>
-                            <Row>
-                                {/* <Column>
-                                    <FormField label="Id Karyawan ">
-                                        <InputGroup>
-                                            <InputAddon>
-                                                <i className="fas fa-shopping-cart"></i>
-                                            </InputAddon>
-                                            <Input name="id" placeholder={selectedVendorEmployee.id} defaultValue={selectedVendorEmployee.id} onChange={(e) => handleInputChange('selectedVendorEmployee', e)} />
-                                        </InputGroup>
-                                    </FormField>
-                                </Column> */}
-                             
+                            <Row>     
                                 <Column>
-                                    <FormField label="Ubah Nama Karyawan">
+                                    <FormField label="Nama Staff">
                                         <InputGroup>
                                             <InputAddon>
                                                 <i className="fas fa-user"></i>
@@ -64,19 +55,20 @@ const AdminStoresEmployeeView = props => {
                                     </FormField>
                                 </Column>
                                 <Column>
-                                    <FormField label="Ubah Username Log-in">
+                                    <FormField label="Username Log-in">
                                         <InputGroup>
                                             <InputAddon>
                                                 <i className="fas fa-user-circle"></i>
                                             </InputAddon>
-                                            <Input name="username" placeholder={dataVendorLoginNow.username} defaultValue={dataVendorLoginNow.username} onChange={(e) => handleInputChange('selectedVendorEmployee', e)} />
+                                            {/* <Input name="username" placeholder={dataVendorLoginNow.username} defaultValue={dataVendorLoginNow.username} onChange={(e) => handleInputChange('selectedVendorEmployee', e)} /> */}
+                                            <Input name="username"  onChange={(e) => handleInputChange('selectedVendorEmployee', e)} />
                                         </InputGroup>
                                     </FormField>
                                 </Column>
                             </Row>
                             <Row>
                                 <Column>
-                                    <FormField label="Ubah Email Karyawan">
+                                    <FormField label="Email Staff">
                                         <InputGroup>
                                             <InputAddon>
                                                 <i className="fas fa-envelope"></i>
@@ -86,20 +78,31 @@ const AdminStoresEmployeeView = props => {
                                     </FormField>
                                 </Column>
                                 <Column>
-                                    <FormField label="Akses Level Karyawan">
-                                        <InputGroup>
-                                            <InputAddon>
-                                                <i className="fas fa-shopping-cart"></i>
-                                            </InputAddon>
-                                            <Input type='number' name="access" placeholder="Only Number" defaultValue={selectedVendorEmployee.level} onChange={(e) => handleInputChange('selectedVendorEmployee', e)} />
-                                        </InputGroup>
+                                    <FormField label="Akses Level Staff">
+                                        {/* <Select name="level" defaultValue={selectedVendorEmployee.level} onChange={(e) => handleInputChange(selectedVendorEmployee, e) }>
+                                            <option value="">Pilih Level</option>
+                                            {
+                                                accessLevel.map((item, i) => {
+                                                    return <option value={item.id}>{item.name}</option>
+                                                })
+                                            }
+                                        </Select> */}
+
+                                        <Select name="level" defaultValue={selectedVendorEmployee.level} onChange={(e) => handleInputChange('selectedVendorEmployee', e) }>
+                                            <option value="">Pilih Level</option>
+                                            {
+                                               access.list.isLoaded ? access.list.data.result.map((item, i) => {
+                                                    return <option value={item.id}>{item.name}</option>
+                                                }) : null
+                                            }
+                                        </Select>
                                     </FormField>
                                 </Column>
                             </Row>
 
                             <Row>
                                 <Column>
-                                    <FormField label="Ubah Password">
+                                    <FormField label="Password">
                                         <InputGroup>
                                             <InputAddon>
                                                 <i className="fas fa-key"></i>
@@ -136,7 +139,7 @@ const AdminStoresEmployeeView = props => {
             <div className="admin-user">
                 <Panel>
                     <PanelHeader>
-                        <h4 className="heading-title">Manajemen Karyawan</h4>
+                        <h4 className="heading-title">Manajemen Staff</h4>
                         {/* <h6 className="heading-subtitle">Tempor nostrud cupidatat officia sit ullamco eu pariatur ullamco quis laborum nulla ipsum.</h6> */}
                         
                     </PanelHeader>

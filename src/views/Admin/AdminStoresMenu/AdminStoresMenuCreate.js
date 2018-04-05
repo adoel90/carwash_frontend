@@ -5,7 +5,6 @@ import { Dialog } from '../../../components/Dialog';
 import { getStoreList } from '../../../actions/vendor.action';
 import { createMenuProduct } from '../../../actions/store.action';
 import { AdminStoresMenuCreateView } from '../AdminStoresMenu';
-
 import { openDialog, closeDialog } from '../../../actions/dialog.action';
 
 
@@ -54,6 +53,24 @@ class AdminStoresMenuCreate extends Component {
         getStoreListDispatch();    
     }
 
+    //#
+    componentDidUpdate(prevProps){
+        const { store } = this.props;
+        //Get Store List
+        if(prevProps.store.list !== store.list) {
+            if (store.list.isLoaded) {
+            
+                this.setState({
+                    ...this.state,
+                    storeList: store.list.data.data.result.store
+
+                }, () => {
+                    console.log(this.state);
+                    
+                })
+            }
+        }
+    }
 
     toggleDialog = (data) => {
         const { dialog, action } = this.props;
@@ -89,24 +106,7 @@ class AdminStoresMenuCreate extends Component {
         )
     }
 
-    //#
-    componentDidUpdate(prevProps){
-        const { store } = this.props;
-        //Get Store List
-        if(prevProps.store.list !== store.list) {
-            if (store.list.isLoaded) {
-            
-                this.setState({
-                    ...this.state,
-                    storeList: store.list.data.data.result.store
 
-                }, () => {
-                    console.log(this.state);
-                    
-                })
-            }
-        }
-    }
 
     handleInputChange = (object, e) => {
         const target = e.target;
@@ -131,8 +131,6 @@ class AdminStoresMenuCreate extends Component {
 		let file = files[0];
 
         console.log(reader);
-
-        // reader.readAsText(file);
         
 		reader.onloadend = () => {
 
@@ -150,10 +148,10 @@ class AdminStoresMenuCreate extends Component {
     handleFormSubmit = (e) => {
         e.preventDefault();
         const { newMenuProduct, storeList, storeActive } = this.state;
-        const { createMenuProductDispatch, action} = this.props;
+        const { action} = this.props;
         
         const requiredData = {
-            store: storeList[storeActive].id,
+            store: newMenuProduct.store,
             name: newMenuProduct.name,
             deskripsi: newMenuProduct.deskripsi,
             harga: newMenuProduct.harga,
@@ -162,11 +160,10 @@ class AdminStoresMenuCreate extends Component {
 
         console.log(requiredData);
 
-        // createMenuProductDispatch(requiredData).then(() => {
         action.createMenuProduct(requiredData).then(() => {
-            const { store } = this.props;
+            // const { store } = this.props;
 
-            if(store.menuproduk.isCreated) {
+            if(this.props.store.menuproduk.isCreated) {
                 let dialogData = {
                     type: 'success',
                     title: 'Berhasil',
@@ -177,7 +174,7 @@ class AdminStoresMenuCreate extends Component {
         
                 this.toggleDialog(dialogData);
             }
-            if (store.menuproduk.error) {
+            if (this.props.store.menuproduk.isError) {
                     let dialogData = {
                         type: 'danger',
                         title: 'Gagal',
@@ -196,12 +193,13 @@ class AdminStoresMenuCreate extends Component {
         return (
             <div>
                 <AdminStoresMenuCreateView 
+                    {...this.state} 
+                    {...this.props} 
                     handleInputChange = {this.handleInputChange}
                     handleFormSubmit = { this.handleFormSubmit }
                     handleImageChange= {this.handleImageChange}
-                    {...this.state} 
-                    {...this.props} />
-                    {this.renderDialog()}
+                />
+                {this.renderDialog()}
             </div>
         )   
     }

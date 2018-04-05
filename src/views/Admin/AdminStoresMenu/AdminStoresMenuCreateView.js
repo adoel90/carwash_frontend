@@ -9,7 +9,7 @@ import { Button } from '../../../components/Button';
 
 const AdminStoresMenuCreateView = props => {
 
-    const { handleFormSubmit, handleInputChange, newMenuProduct, handleImageChange } = props;
+    const { handleFormSubmit, handleInputChange, newMenuProduct, handleImageChange, store } = props;
 
     return (
         <div className="admin-dashboard">
@@ -22,6 +22,18 @@ const AdminStoresMenuCreateView = props => {
                             </PanelHeader>
                             <PanelBody>
                                 <Form onSubmit={handleFormSubmit}>
+
+                                    <FormField label="Pilih Store sebelum menambahkan produk">
+                                         <Select name="store" defaultValue={newMenuProduct.id} onChange={(e) => handleInputChange('newMenuProduct', e) }>
+                                            {
+                                                store.list.isLoaded   ? store.list.data.data.result.store.map((item, i) => {
+                                                    return <option value={item.id}>{item.name}</option>
+                                                })
+                                                : null
+                                            }
+                                        </Select>
+                                    </FormField>
+
                                     <FormField label="Nama Produk">
                                         <InputGroup>
                                             <InputAddon>

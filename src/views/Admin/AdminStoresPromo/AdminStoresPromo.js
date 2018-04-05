@@ -4,10 +4,11 @@ import { bindActionCreators } from 'redux';
 import NumberFormat from 'react-number-format';
 import moment from 'moment';
 import { getStoreList } from '../../../actions/vendor.action';
-import { getPromoDiscountList, updatePromo } from '../../../actions/store.action';
+import { getPromoDiscountListAllStore, updatePromo } from '../../../actions/store.action';
 import { openDialog, closeDialog } from '../../../actions/dialog.action';
 import { AdminStoresPromoView } from '../AdminStoresPromo';
 import { Dialog } from '../../../components/Dialog';
+import { Button } from '../../../components/Button';
 
 function mapStateToProps(state) {
     return {
@@ -19,7 +20,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         getStoreListDispatch: () => dispatch(getStoreList()),
-        getPromoDiscountListDispatch: (data) => dispatch(getPromoDiscountList(data)),
+        getPromoDiscountListAllStoreDispatch: (data) => dispatch(getPromoDiscountListAllStore(data)),
         action: bindActionCreators({ updatePromo, openDialog, closeDialog }, dispatch)
     }
 }
@@ -69,7 +70,7 @@ class AdminStoresPromo extends Component {
 
     componentDidUpdate(prevProps){
 
-        const { getPromoDiscountListDispatch, store } = this.props;
+        const { getPromoDiscountListAllStoreDispatch, store } = this.props;
         const { period, storeActive } = this.state;
         
         //Get Store List
@@ -83,12 +84,11 @@ class AdminStoresPromo extends Component {
                 }, () => {
 
                     let requiredDataPromo = {
-                        start_date: period.from.format('YYYY-MM-DD'),
-                        end_date: period.to.format('YYYY-MM-DD'),
-                        storeid : store.list.data.data.result.store[storeActive]
+                        storeid : store.list.data.data.result.store[storeActive],
+                        active: true
                     }
 
-                    getPromoDiscountListDispatch(requiredDataPromo);
+                    getPromoDiscountListAllStoreDispatch(requiredDataPromo);
                 })
             }
         }
@@ -127,14 +127,24 @@ class AdminStoresPromo extends Component {
                 accessor: 'date'
             },
             {
-                title: 'Aksi',
+                title: 'Edit',
                 accessor: 'action',
                 render: (row) => (
                     <td>
-                        <a href="#" onClick={() => this.openStoresPromoModal(row)}>Ubah</a>
+                        <Button className="margin-right-small" type="button" onClick={() => this.openStoresPromoModal(row)}>Ubah</Button>
                     </td>
                 )
-            }
+            },
+            {
+                title: 'Delete',
+                accessor: 'action',
+                render: (row) => (
+                    <td>
+                        <a href="#" onClick={() => this.openDeleteStoresPromoModal(row)}>Delete</a>
+                    </td>
+                )
+            },
+
         ]
 
         //#
@@ -162,7 +172,6 @@ class AdminStoresPromo extends Component {
 
     //#
     openStoresPromoModal = (row) => {
-
 
         this.setState({
             ...this.state,

@@ -5,24 +5,35 @@ import { Panel, PanelHeader, PanelBody } from '../../../components/Panel';
 import { TableSet } from '../../../components/Table';
 import { Form, FormField } from '../../../layouts/Form';
 import { Row, Column } from '../../../layouts/Grid';
-import { Input, InputGroup, Switch, InputAddon } from '../../../components/Input';
+import { Input, InputGroup, Switch, InputAddon, Select } from '../../../components/Input';
 import { ButtonDewek } from '../../../components/ButtonDewek';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from '../../../components/Modal';
+import { PageBlock, PageBlockGroup, PageContent, PageHeading} from '../../../components/Page';
+import { Nav, NavItem, NavLink, NavTabLink} from '../../../components/Nav';
 // import { Button } from '../../../components/Button';
 
 const AdminStoresMenuView = props => {
 
     const {
         isModalOpen, 
+        store,
         table, 
         menuVendorList, 
         storeMenuList,
+        storeActiveList,
         toggleModal, 
         handleInputChange, 
+        handleImageChange,
         updateMenuVendor, 
         selectedMenuStore,
+        vendorState,
+
         handleUpdateSubmitVendorMenu,
-        handleCancelModal } = props;
+        handleCancelModal ,
+
+        storeList,
+        activeTab,
+        toggleTab } = props;
 
     const renderMenuProductModal = () => {
 
@@ -34,14 +45,27 @@ const AdminStoresMenuView = props => {
                     toggle={() => toggleModal('updateMenuVendor')}>
 
                     <ModalHeader>
-                        <h5>Ubah Informasi Store</h5>
+                        <h5>Ubah Informasi Produk</h5>
                     </ModalHeader>
                 
                     <Form onSubmit={handleUpdateSubmitVendorMenu}>
                         <ModalBody>
                             <Row>
                                 <Column>
-                                    <FormField label="Ubah Nama Produk">
+
+                                    {/* ********* Dropdownlist untuk pilih Store mana yang mau di update ***************************88
+                                        <FormField label="Pilih Store sebelum menambahkan produk">
+                                         <Select name="store" defaultValue={selectedMenuStore.id} onChange={(e) => handleInputChange('selectedMenuStore', e) }>
+                                            {
+                                                this.props.store.list.isLoaded   ? this.props.store.list.data.data.result.store.map((item, i) => {
+                                                    return <option value={item.id}>{item.name}</option>
+                                                })
+                                                : null
+                                            }
+                                        </Select>
+                                    </FormField> */}
+
+                                    <FormField label="Nama Produk">
                                         <InputGroup>
                                             <InputAddon>
                                                 <i className="fas fa-clipboard-list"></i>
@@ -50,7 +74,7 @@ const AdminStoresMenuView = props => {
                                         </InputGroup>
                                     </FormField>
                                 
-                                    <FormField label="Ubah Produk Description">
+                                    <FormField label="Deskripsi Produk">
                                         <InputGroup>
                                             <InputAddon>
                                                 <i className="fas fa-clipboard-list"></i>
@@ -59,13 +83,22 @@ const AdminStoresMenuView = props => {
                                         </InputGroup>
                                     </FormField>
                               
-                                    <FormField label="Ubah Price">
+                                    <FormField label="Harga Produk">
                                         <InputGroup>
                                             <InputAddon>
                                                 <i className="">Rp</i>
                                             </InputAddon>
                                             <Input name="price" placeholder={selectedMenuStore.price} defaultValue={selectedMenuStore.price} onChange={(e) => handleInputChange('selectedMenuStore', e)} />
                                         </InputGroup>    
+                                    </FormField>
+
+                                    <FormField label= "Upload Gambar Produk Lagi" >
+                                        <InputGroup>
+                                            <InputAddon>
+                                                <i className="fas fa-images"></i>
+                                            </InputAddon> 
+                                            <Input className="input" name="image" type="file"  placeholder="Upload Gambar Produk" onChange={(e) => handleImageChange(selectedMenuStore, e) } />
+                                        </InputGroup>
                                     </FormField>
                                 </Column>
                             </Row>
@@ -81,6 +114,22 @@ const AdminStoresMenuView = props => {
         }
     }
 
+
+    //# RENDER STORE MENU
+    const renderStoreList = (store, i) => {
+
+		return (
+			<NavItem>
+				<NavTabLink
+					active={activeTab === i}
+					onClick={() => toggleTab(i)}>
+					{store.name}
+				</NavTabLink>
+			</NavItem>
+		)
+		
+    }
+
     return (
         <div>
 
@@ -92,6 +141,16 @@ const AdminStoresMenuView = props => {
                         
                     </PanelHeader>
                     <PanelBody>
+
+                        <Nav tabs className="flex justify-content--space-between">
+                            {storeList.isLoaded ? storeActiveList.map(this.renderStoreList) : null}
+                            {/* Hai hai */}
+                        </Nav>
+
+
+
+
+                        {/* ******************FINISH****************** */}
                         <div className="admin-user__content">
                             <TableSet
                                 loading={storeMenuList.isFetching}

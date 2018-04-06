@@ -107,10 +107,21 @@ class CustomerStoreContent extends React.Component {
 								truePrice: item.price
 							}
 
-							paramItem.price = item.price;
-							paramItem.trueDiscount = 0;
-							paramItem.selected = paramItem.selected ? true : false;
-							activeList.push(paramItem);
+							
+							if(this.props.memberData.card.type.charge) {
+								paramItem.price = item.price;
+								paramItem.trueDiscount = 0;
+								paramItem.selected = paramItem.selected ? true : false;
+								activeList.push(paramItem);
+							} 
+							else {
+								if(!item.category) {
+									paramItem.price = item.price;
+									paramItem.trueDiscount = 0;
+									paramItem.selected = paramItem.selected ? true : false;
+									activeList.push(paramItem);
+								}
+							}
 						}
 					}
 				})

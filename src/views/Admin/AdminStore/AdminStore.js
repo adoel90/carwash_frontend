@@ -258,15 +258,17 @@ class AdminStore extends Component {
             
             if(storeList.isLoaded) {
                   storeList.data.data.result.store.forEach((store, i) => {
-                        let row = {
-                              id: store.id,
-                              name: store.name,
-                              user: store.user.name,
-                              type: store.type.name,
-                              data: store
+                        if(store.owner) {
+                              let row = {
+                                    id: store.id,
+                                    name: store.name,
+                                    user: store.user.name,
+                                    type: store.type.name,
+                                    data: store
+                              }
+            
+                              rows.push(row);
                         }
-      
-                        rows.push(row);
                   })
             }
     

@@ -9,10 +9,6 @@ export const GET_VENDOR_USER_LIST_REJECTED = 'GET_VENDOR_USER_LIST_REJECTED';
 export const CREATE_NEW_VENDOR_FULFILLED = 'CREATE_NEW_VENDOR_FULFILLED';
 export const CREATE_NEW_VENDOR_REJECTED = 'CREATE_NEW_VENDOR_REJECTED';
 
-//GET VENDOR DETAIL
-export const GET_VENDOR_DETAIL_REQUESTED = 'GET_VENDOR_DETAIL_REQUESTED';
-export const GET_VENDOR_DETAIL_FULFILLED = 'GET_VENDOR_DETAIL_FULFILLED';
-export const GET_VENDOR_DETAIL_REJECTED = 'GET_VENDOR_DETAIL_REJECTED';
 
 //#GET LIST MENU VENDOR || GET STORE LIST
 export const GET_STORE_LIST_REQUESTED = 'GET_STORE_LIST_REQUESTED';
@@ -103,17 +99,7 @@ export const createNewVendor = (data) => {
 	}
 }
 
-//GET VENDOR DETAIL
-export const getVendorDetail = (data) => {
-
-	return {
-		type: null
-	}
-
-}
-
 //GET LIST MENU VENDOR || GET STORE LIST
-// export const getStoreList = (data) => {
 export const getStoreList = (data) => {
 	
 	console.log(data);

@@ -1,4 +1,4 @@
-sdimport axios from 'axios';
+import axios from 'axios';
 import { constant } from '../config';
 
 //GET STORE LIST

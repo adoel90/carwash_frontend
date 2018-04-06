@@ -26,8 +26,8 @@ import {
     AdminStoresEmployee,
     AdminStoresEmployeeCreate,
     AdminStoresReport,
-    AdminStoresPromo,
-    AdminStoresPromoCreate
+    // AdminStoresPromo,
+    // AdminStoresPromoCreate
     
 } from '../../Admin';
 
@@ -100,8 +100,8 @@ class AdminPanel extends Component {
                 { name: 'create-new-staff', path: `${this.props.match.url}/staff/create-new-staff`, component: AdminStoresEmployeeCreate },
                 { name: 'product', path: `${this.props.match.url}/product`, component: AdminStoresMenu },
                 { name: 'create-new-product', path: `${this.props.match.url}/product/create-new-product`, component: AdminStoresMenuCreate },
-                { name: 'discount', path: `${this.props.match.url}/discount`, component: AdminStoresPromo },
-                { name: 'create-new-discount', path: `${this.props.match.url}/discount/create-new-discount`, component: AdminStoresPromoCreate },
+                // { name: 'discount', path: `${this.props.match.url}/discount`, component: AdminStoresPromo },
+                // { name: 'create-new-discount', path: `${this.props.match.url}/discount/create-new-discount`, component: AdminStoresPromoCreate },
                 { name: 'setting', path: `${this.props.match.url}/setting`, component: AdminSetting },
                 { name: 'logout', path: `${this.props.match.url}/logout`, component: AdminLogout },
                 { component: NoMatch }

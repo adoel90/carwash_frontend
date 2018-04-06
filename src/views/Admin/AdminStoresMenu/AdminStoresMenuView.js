@@ -13,10 +13,7 @@ import { Modal, ModalHeader, ModalBody, ModalFooter } from '../../../components/
 import { PageBlock, PageBlockGroup, PageContent, PageHeading} from '../../../components/Page';
 import { Nav, NavItem, NavLink, NavTabLink} from '../../../components/Nav';
 import { TabContent } from '../../../components/Tab';
-// import { Button } from '../../../components/Button';
-// import AdminStoresTypeContainer  from './AdminStoresTypeContainer';
-import AdminStoresTypeContainer  from './AdminStoresTypeContainer';
-import  AdminStoresMenuViewSecond  from './AdminStoresMenuViewSecond';
+import { Button } from '../../../components/Button';
 
 const AdminStoresMenuView = props => {
 
@@ -35,45 +32,10 @@ const AdminStoresMenuView = props => {
         handleUpdateSubmitVendorMenu,
         handleCancelModal,
 
-        store,    
         vendorState,
         storeList,
         activeTab,
         toggleTab } = props;
-
-    const renderStoreMenuList = () => {
-    
-        const { store, storeActiveList, getMenuStoreListDispatch} = props;
-        
-        console.log(props.type.name);
-        console.log(props.type.id);
-
-        // getMenuStoreListDispatch(props.type.id);
-
-        if(store.list.fetching){
-            return <p>Sedang memuat daftar store. Mohon tungggu sebentar...</p>
-        }
-        
-        if(store.list.isLoaded){
-            if(store.list.data.data.result.store.length){
-                return (
-                    <div>
-                        <b>Hoi hoi</b>
-                        <AdminStoresMenuViewSecond {...this.props} />
-                    </div>
-                    
-                )
-
-            } else {
-                return (
-                    <div className="flex justify-content--center flex-column ta-center">
-                        <i className="fi flaticon-warning icon icon--gigant clr-danger"></i>
-                        <p>Maaf, sistem tidak dapat menemukan daftar produk. <br /> Hubungi Administrator untuk memperbaiki.</p>
-                    </div>
-                )
-            }
-        } 
-    }
 
     const renderMenuProductModal = () => {
 
@@ -144,9 +106,8 @@ const AdminStoresMenuView = props => {
                             </Row>
                         </ModalBody>
                         <ModalFooter className="flex justify-content--flex-end">
-                            <ButtonDewek onClick={(e) => handleCancelModal(e)} >Cancel</ButtonDewek>
-                            {/* <ButtonDewek onClick={handleCancelModal} variant="raised" type="submit">Simpan</ButtonDewek> */}
-                            <ButtonDewek variant="raised" type="submit">Simpan</ButtonDewek>
+                            <Button className="margin-right-small" theme="danger" onClick={(e) => handleCancelModal(e)}> Cancel </Button>
+                            <Button type="Submit">Simpan</Button>
                         </ModalFooter>
                     </Form>
                 </Modal>
@@ -154,38 +115,28 @@ const AdminStoresMenuView = props => {
         }
     }
 
-    
-
-
-    // let dataStore = vendorState.store.isLoaded ? vendorState.store.data.data.result.store : null;
-
     return (
         <div>
             <div className="admin-user">
                 <Panel>
                     <PanelHeader>
                         <h4 className="heading-title">Daftar Produk</h4>
-                        {/* <h6 className="heading-subtitle">Lorem Ipsum.</h6> */}
                         
                     </PanelHeader>
                     <PanelBody>
 
                         {/* ******************FINISH****************** */}
                         <div className="admin-user__content">
-                            {/* <TableSet
+                            <TableSet
                                 loading={storeMenuList.isFetching}
-                                loaded={storeMenuList}
+                                loaded={storeMenuList.isLoaded}
                                 columns={table.columns}
                                 rows={table.rows}
                                 striped 
                                 fullWidth
                                 pagination
-                            /> */}
+                            />
                         </div>
-
-                        {/* ************VERSION-02 ******************* */}
-                        { renderStoreMenuList() }
-
                     </PanelBody>
                 </Panel>
                 { renderMenuProductModal() }

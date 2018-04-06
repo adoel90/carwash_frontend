@@ -13,7 +13,10 @@ const PropsRoute = (props) => {
 		component,
 		...rest
 	} = props;
+
+	console.log(props.type.name);
 	
+
 	return (
 		<Route {...rest} render={routeProps => {
 			return renderMergedProps(component, routeProps, rest)

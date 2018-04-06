@@ -9,6 +9,7 @@ import { Input, InputGroup, Switch, InputAddon, Select } from '../../../componen
 // import { Button } from '../../../components/Button';
 import { ButtonDewek } from '../../../components/ButtonDewek';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from '../../../components/Modal';
+import {Button} from '../../../components/Button';
 
 const AdminStoresEmployeeView = props => {
     
@@ -124,8 +125,12 @@ const AdminStoresEmployeeView = props => {
                             </Row>
                         </ModalBody>
                         <ModalFooter className="flex justify-content--flex-end">
-                            <ButtonDewek onClick={(e) => handleCancelModal(e)}>Cancel</ButtonDewek>
-                            <ButtonDewek variant="raised" type="submit">Simpan</ButtonDewek>
+
+                            <Button className="margin-right-small" theme="danger" onClick={(e) => handleCancelModal(e)}>Cancel</Button>
+                            <Button type="submit">Simpan</Button>
+
+                            {/* <ButtonDewek onClick={(e) => handleCancelModal(e)}>Cancel</ButtonDewek>
+                            <ButtonDewek variant="raised" type="submit">Simpan</ButtonDewek> */}
                         </ModalFooter>
                     </Form>
                 </Modal>

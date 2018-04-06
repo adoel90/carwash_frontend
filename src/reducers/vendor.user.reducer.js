@@ -7,9 +7,6 @@ import {
 	CREATE_NEW_VENDOR_FULFILLED,
 	CREATE_NEW_VENDOR_REJECTED,
 
-	GET_VENDOR_DETAIL_REQUESTED,// Get Vendor Detail
-	GET_VENDOR_DETAIL_FULFILLED,
-	GET_VENDOR_DETAIL_REJECTED,
 
 	GET_STORE_LIST_REQUESTED,//Get Menu Vendor List || GET STORE LIST
 	GET_STORE_LIST_FULFILLED,
@@ -168,49 +165,6 @@ const vendorState = (state = initialState, action) => {
 					...state.item,
 					data: {},
 					isCreated: false,
-					isError: true,
-					error: action.payload
-				}
-			}
-		}
-
-		//Get Vendor Detail
-		case GET_VENDOR_DETAIL_REQUESTED: {
-			return {
-				...state,
-				list: {
-					...state.list,
-					data: {},
-					isFetching: true,
-					isLoaded: false,
-					isError: false,
-					error: {}
-				}
-			}
-		}
-
-		case GET_VENDOR_DETAIL_FULFILLED: {
-			return {
-				...state,
-				list: {
-					...state.list,
-					data: action.payload,
-					isLoaded: true,
-					isFetching: false,
-					isError: false,
-					error: {}
-				}
-			}
-		}
-
-		case GET_VENDOR_DETAIL_REJECTED: {
-			return {
-				...state,
-				list: {
-					...state.list,
-					data: {},
-					isLoaded: false,
-					isFetching: false,
 					isError: true,
 					error: action.payload
 				}

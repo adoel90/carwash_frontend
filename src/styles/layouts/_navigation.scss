@@ -1,0 +1,94 @@
+nav {}
+
+.main-navigation {
+	@include relative;
+	background-color: gray(1500);
+
+	.navigation__list {
+		@include flexbox;
+		@include flex-direction(row);
+		@include justify-content(center);
+	}
+
+	.navigation__item {
+
+		> .navigation__link {
+			@include flexbox;
+			@include justify-content(center);
+			@include align-items(center);
+			height: 4em;
+			padding: 0 ($spacing-base * .75);
+			color: secondary-color(500);
+
+			&.is-active {
+				@include relative;
+				@include font-weight(medium);
+				color: secondary-color(300);
+
+				&:before {
+					content: "";
+					@include absolute {
+						bottom: 20%;
+						left: 50%;
+					}
+					@include border-radius(map-get($border-radius, round));
+					height: 5px;
+					width: 5px;
+					background-color: secondary-color(300);
+				}
+			}
+
+			&:hover {
+				color: secondary-color(300);
+			}
+		}
+	}
+}
+
+.tab-navigation {
+	@include relative;
+	@include flexbox;
+
+	.navigation__list {
+		@include flexbox;
+		@include flex-direction(row);
+	}
+
+	.navigation__item {
+		@include flexbox;
+		margin-bottom: -1px;
+
+		.navigation__link {
+			// @include transition(all 250ms $transition-primary);
+			@include transition(all 250ms $transition-base);
+			padding: ($spacing-base * .5) ($spacing-base);
+			overflow: hidden;
+			border-bottom: none;
+			color: gray(700);
+
+			&:hover {
+				background-color: gray(300);
+			}
+
+			&.is-active {
+				@include font-weight(semibold);
+				// border-top: solid 3px secondary-color(base);
+				// border-top: solid 3px $danger-color-base;
+				border-bottom: solid 7px $danger-color-base;
+				background-color: gray(100);
+				color: gray(1700);
+				margin-top: -3px;
+
+				&:first-of-type {
+					border-top-left-radius: border-radius(base);
+				}
+
+				&:last-of-type {
+					border-top-right-radius: border-radius(base);
+				}
+
+			}
+		}
+
+	}
+}

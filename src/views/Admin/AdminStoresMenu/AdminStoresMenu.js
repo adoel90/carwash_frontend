@@ -4,13 +4,11 @@ import { bindActionCreators } from 'redux';
 import { PropsRoute } from '../../../components/Route';
 
 import { TabContent } from '../../../components/Tab';
+import { AdminStoresMenuView} from '../AdminStoresMenu';
 import { Dialog } from '../../../components/Dialog';
 import { Button } from '../../../components/Button';
 import { PageBlock, PageBlockGroup, PageContent, PageHeading} from '../../../components/Page';
 import { Nav, NavItem, NavLink, NavTabLink} from '../../../components/Nav';
-
-import { AdminStoresMenuView, AdminStoresMenuViewSecond} from '../AdminStoresMenu';
-import AdminStoresTypeContainer  from './AdminStoresTypeContainer';
 
 import { getStoreList, updateMenuVendor, getMenuStoreList } from '../../../actions/vendor.action';
 import { openDialog, closeDialog } from '../../../actions/dialog.action';
@@ -26,9 +24,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         getStoreListDispatch: () => dispatch(getStoreList()),
-        // updateVendorMenuState: (object) => dispatch(updateMenuVendor(object)),
         getMenuStoreListDispatch: (data) => { dispatch(getMenuStoreList(data))},
-        action: bindActionCreators({ updateMenuVendor, openDialog, closeDialog }, dispatch)
+        action: bindActionCreators({ updateMenuVendor, openDialog, closeDialog, getMenuStoreList }, dispatch)
     }
 }
 
@@ -68,7 +65,8 @@ class AdminStoresMenu extends Component {
             storeActive: 0,
             storeMenuList:{},
 
-            activeTab: 0
+            activeTab: 0,
+            storeIdTab: {}
         }
     }
 
@@ -96,56 +94,40 @@ class AdminStoresMenu extends Component {
                     storeActiveList: vendorState.store.data.data.result.store
                 }, () => {
 
-                    // console.log(this.state);
-                    
-                    // vendorState.store.data.data.result.store.forEach((store) => {
-                    //     console.log(store);
-                    //     getMenuStoreListDispatch(store);
-                    // });
-
                     getMenuStoreListDispatch(vendorState.store.data.data.result.store[storeActive]);
                 });
             }
         }
         
-        //Populate Data
+        //#Populate Data
         if(prevProps.vendorState.storemenu !== vendorState.storemenu){
-            
             if(vendorState.storemenu.isLoaded){
-
-                //#*****************VERSION-02 ******************8
-                // if(vendorState.storemenu.data.data.result.menu.length){
-                    
-                //     console.log(vendorState.storemenu.data.data.result.menu.length);
-
-                //     vendorState.storemenu.data.data.result.menu.forEach((value) => {
-                //         console.log(value);
-                        
-                //     });
-                // }
-
-                //#*****************VERSION-01 ******************8
                 
                 this.setState({
                     ...this.state,
-                    storeMenuList: vendorState.storemenu.data.data.result.menu
+                    storeMenuList: vendorState.storemenu
                 },()=>{
                     // console.log(this.state);
-                    this.populateTableData();
+                    // this.populateTableData();
                 })
             }
         }
-
     }
 
     //#
-	toggleTab = (tabIndex) => {
+	toggleTab = (tabIndex, type) => {
 
-        // console.log(tabIndex);
-        
-		this.setState({
-			activeTab: tabIndex
-		})
+        const { getMenuStoreListDispatch, action } = this.props;
+        let data = { id : type.id }
+
+        action.getMenuStoreList(data);
+
+        this.setState({
+            activeTab: tabIndex,
+            storeIdTab: type
+		}, () => {                       
+            this.populateTableData();
+        })
 	}
 
     //#
@@ -213,7 +195,6 @@ class AdminStoresMenu extends Component {
                 accessor: 'action',
                 render: (row) => (
                     <td>
-                        {/* <a href="#" onClick={() => this.openMenuVendorModal(row)}>Ubah</a> */}
                         <Button className="margin-right-small" type="button" onClick={() => this.openMenuVendorModal(row)}>Ubah</Button>
                     </td>
                 )
@@ -221,19 +202,22 @@ class AdminStoresMenu extends Component {
         ]
 
         const rows = [];
-        
-        storeMenuList.map((menu, i)=> {
-            let row = {
-                id: menu.id,
-                description:menu.description,
-                name: menu.name,
-                price: menu.price,
-                image: menu.image,
-                status: menu.status
 
-            }
-            rows.push(row);
-        });
+        if(storeMenuList.isLoaded){
+            storeMenuList.data.data.result.menu.map((menu, i)=> {
+                let row = {
+                    id: menu.id,
+                    description:menu.description,
+                    name: menu.name,
+                    price: menu.price,
+                    image: menu.image,
+                    status: menu.status
+
+                }
+                rows.push(row);
+            });
+        }
+      
         
         this.setState({
             ...this.state,
@@ -242,13 +226,14 @@ class AdminStoresMenu extends Component {
                 columns: columns,
                 rows: rows
             }
+        }, ()=> {
+            // console.log(this.state);
         }) 
     }
 
     openMenuVendorModal = (row) => {        
         this.setState({
             ...this.state,
-            // selectedMenuVendor : row.data
             selectedMenuStore : row
 
         }, () => {
@@ -275,16 +260,10 @@ class AdminStoresMenu extends Component {
 		const target = e.target;
 		const files = target.files;
 		const name = target.name;
-
 		let reader = new FileReader();
 		let file = files[0];
-
-        console.log(reader);
-
-        // reader.readAsText(file);
         
 		reader.onloadend = () => {
-
 			if(object) {
 				object['image'] = file;
                 object['imagePreview'] = reader.result
@@ -292,7 +271,6 @@ class AdminStoresMenu extends Component {
 				this.forceUpdate();
 			}
 		}
-
 		reader.readAsDataURL(file);
 	}
 
@@ -315,8 +293,7 @@ class AdminStoresMenu extends Component {
             name: selectedMenuStore.name,
             description: selectedMenuStore.description,
             price: selectedMenuStore.price ,
-            image:selectedMenuStore.image,
-            // status:selectedMenuStore.status
+            image:selectedMenuStore.image
         };
 
         console.log(requireDataUpdate);
@@ -366,10 +343,9 @@ class AdminStoresMenu extends Component {
         });
     }
 
-
     render() {
 
-        const { vendorState } = this.props;
+        const { vendorState, getMenuStoreListDispatch} = this.props;
         const { activeTab, toggleTab, storeActiveList} = this.state;
 
         //#
@@ -377,19 +353,22 @@ class AdminStoresMenu extends Component {
 
             if(vendorState.store.isLoaded){
                 if(storeActiveList.length){
-                    return storeActiveList.map((type, i) => {
-                        return (
-                            <TabContent activeTab={activeTab} tabIndex={i}>
 
-                                {/* {console.log(activeTab)}
-                                {console.log(this.props)} */}
-                                
-                
+                    return storeActiveList.map((type, i) => {
+
+                        return (
+                            <TabContent activeTab={activeTab} tabIndex={i}>            
                                 <PropsRoute
-                                    // component={AdminStoresMenuView}
-                                    component={AdminStoresMenuViewSecond}
+                                    component={AdminStoresMenuView}
                                     type={type}
                                     {...this.props}
+                                    {...this.state}
+                                    toggleModal= {this.toggleModal}
+                                    handleInputChange= {this.handleInputChange}
+                                    handleUpdateSubmitVendorMenu={this.handleUpdateSubmitVendorMenu}
+                                    handleCancelModal={this.handleCancelModal}
+                                    handleImageChange = {this.handleImageChange}
+                                    toggleTab={this.toggleTab}
                                 />
                             </TabContent>
                         )
@@ -400,16 +379,12 @@ class AdminStoresMenu extends Component {
 
 
         return (
-            <div>
-                <h3>Tab</h3>
-           
+            <div>           
                 <Nav tabs className="flex justify-content--space-between">
                     { vendorState.store.isLoaded ? vendorState.store.data.data.result.store.map((store, i) => (
                         <NavItem>
-                            <NavTabLink
-                                active={activeTab === i}
-                                onClick={() => this.toggleTab(i)}>
-                                    {store.name}
+                            <NavTabLink active={activeTab === i} onClick={() => this.toggleTab(i, store)}>
+                                <h2>{store.name}</h2>
                             
                             </NavTabLink>
                         </NavItem>
@@ -419,16 +394,7 @@ class AdminStoresMenu extends Component {
                 {/* RENDER CONTENT BASED ON ID STORE */}
                 {renderTabContent()}
 
-                {/* <AdminStoresMenuView
-                    {...this.state}
-                    {...this.props}
-                    toggleModal= {this.toggleModal}
-                    handleInputChange= {this.handleInputChange}
-                    handleUpdateSubmitVendorMenu={this.handleUpdateSubmitVendorMenu}
-                    handleCancelModal={this.handleCancelModal}
-                    handleImageChange = {this.handleImageChange}
-                    toggleTab={this.toggleTab}
-                /> */}
+                {/*  RENDER DIALOG BERHASIL OR NOT */}
                 {this.renderDialog()}
             </div>
 

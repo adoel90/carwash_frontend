@@ -3,6 +3,12 @@ import classNames from 'classnames';
 
 class TabContent extends Component {
 
+	
+	renderTab = (data) => {
+		const { activeTab, type } = this.props;
+		
+	}
+
 	render() {
 		const {
 			activeTab,
@@ -11,12 +17,13 @@ class TabContent extends Component {
 			className
 		} = this.props;
 
+
 		const classes = classNames(
 			className
 		)
 
 		return activeTab === tabIndex
-		? <div className={classes}>{children}</div>
+		? <div className={classes} onCLick={this.renderTab(activeTab)}>{children}</div>
 		: null
 	}
 

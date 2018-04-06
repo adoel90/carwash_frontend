@@ -15,20 +15,13 @@ export * from './AdminLogout';
 export * from './AdminSetting';
 
 //Admin Store Cashier 
-// export * from './AdminStoreCashierDashboard';
-// export * from './AdminStoreCashierLogin';
-// export * from './AdminStoreCashierPanel';
-// export * from './AdminStoreCashierLayout';
 export * from './AdminStoreCashierTopUp';
 export * from './AdminStoreCashierNewCard';
 export * from './AdminStoreCashierRefund';
 
 //Admin Stores === Vendor
-// export * from './AdminStoresDashboard';
-// export * from './AdminStoresLogin';
-// export * from './AdminStoresPanel';
-// export * from './AdminStoresLayout';
 export * from './AdminStoresMenu';
 export * from './AdminStoresEmployee';
 export * from './AdminStoresReport';
 export * from './AdminStoresPromo';
+// export * from './AdminTransaction'

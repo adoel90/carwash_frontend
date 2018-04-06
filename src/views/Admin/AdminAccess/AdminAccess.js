@@ -5,7 +5,7 @@ import { getAccessList, getAccessDetail, updateAccess, changeStatusAccess } from
 import { getAllModule } from '../../../actions/module.action';
 import { Button } from '../../../components/Button';
 import { openDialog, closeDialog } from '../../../actions/dialog.action';
-import { Dialog } from '../../../components/Dialog';
+import { ModalDialog } from '../../../components/Modal';
 import AdminAccessView from './AdminAccessView';
 
 class AdminAccess extends Component {
@@ -137,7 +137,7 @@ class AdminAccess extends Component {
             } = this.props;
             
             return (
-                <Dialog
+                <ModalDialog
                     isOpen={dialog.isOpened}
                     toggle={toggleDialog}
                     type={dialog.data.type}

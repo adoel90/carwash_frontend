@@ -42,7 +42,7 @@ class StoreMenuList extends Component {
 						<Row style={{width: '100%', marginBottom: '80px'}}>
 							{renderMenu()}
 						</Row>
-						{renderCheckoutButton()}
+						{/* {renderCheckoutButton()} */}
 					</CardList>
 				)
 			}
@@ -92,7 +92,7 @@ class StoreMenuList extends Component {
 					}
 
 					return (
-						<Column md={6} key={i} className="padding-top-base padding-bottom-base">
+						<Column md={4} key={i} className="padding-top-base padding-bottom-base">
 							<Card>
 								<CardHeading className="align-center">
 									<h5 className="fw-semibold">{menu.name}</h5>
@@ -109,12 +109,22 @@ class StoreMenuList extends Component {
 								<CardFooter>
 									<Button
 										type="button"
-										buttonTheme={menu.selected ? 'secondary' : 'primary'}
+										theme={menu.selected ? 'secondary' : 'primary'}
+										size="large"
+										block
+										onClick={() => handleSelectMenu(menu)}>
+										<small className="tt-uppercase fw-bold ls-base clr-light">
+											Pilih
+										</small>
+									</Button>
+									{/* <Button
+										type="button"
+										theme={menu.selected ? 'secondary' : 'primary'}
 										size="large"
 										block
 										onClick={() => handleSelectMenu(menu)}>
 										<small className={`tt-uppercase fw-bold ls-base ${menu.selected ? 'clr-dark' : 'clr-light'}`}>{menu.selected ? 'Terpilih' : 'Pilih'}</small>
-									</Button>
+									</Button> */}
 								</CardFooter>
 							</Card>
 						</Column>

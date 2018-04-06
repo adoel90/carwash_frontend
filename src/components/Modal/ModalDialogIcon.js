@@ -14,12 +14,17 @@ class ModalDialogIcon extends Component {
 
 		switch(type) {
 			case "confirm": {
-				return 'flaticon-warning clr-danger'
+				return 'fa-exclamation-circle fa-7x clr-danger'
 				break;
 			}
 
 			case "success": {
-				return 'flaticon-success clr-success'
+				return 'fa-check-circle fa-7x clr-success'
+				break;
+			}
+
+			case "danger": {
+				return 'fa-exclamation-circle fa-7x clr-danger'
 				break;
 			}
 		}
@@ -31,8 +36,7 @@ class ModalDialogIcon extends Component {
 		} = this.props;
 
 		const classes = classNames(
-			'icon icon--gigant',
-			'fi',
+			'fas',
 			this.handleIcon()
 		)
 

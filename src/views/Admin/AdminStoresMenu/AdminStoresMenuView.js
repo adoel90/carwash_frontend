@@ -16,6 +16,7 @@ import { TabContent } from '../../../components/Tab';
 // import { Button } from '../../../components/Button';
 // import AdminStoresTypeContainer  from './AdminStoresTypeContainer';
 import AdminStoresTypeContainer  from './AdminStoresTypeContainer';
+import  AdminStoresMenuViewSecond  from './AdminStoresMenuViewSecond';
 
 const AdminStoresMenuView = props => {
 
@@ -39,6 +40,40 @@ const AdminStoresMenuView = props => {
         storeList,
         activeTab,
         toggleTab } = props;
+
+    const renderStoreMenuList = () => {
+    
+        const { store, storeActiveList, getMenuStoreListDispatch} = props;
+        
+        console.log(props.type.name);
+        console.log(props.type.id);
+
+        // getMenuStoreListDispatch(props.type.id);
+
+        if(store.list.fetching){
+            return <p>Sedang memuat daftar store. Mohon tungggu sebentar...</p>
+        }
+        
+        if(store.list.isLoaded){
+            if(store.list.data.data.result.store.length){
+                return (
+                    <div>
+                        <b>Hoi hoi</b>
+                        <AdminStoresMenuViewSecond {...this.props} />
+                    </div>
+                    
+                )
+
+            } else {
+                return (
+                    <div className="flex justify-content--center flex-column ta-center">
+                        <i className="fi flaticon-warning icon icon--gigant clr-danger"></i>
+                        <p>Maaf, sistem tidak dapat menemukan daftar produk. <br /> Hubungi Administrator untuk memperbaiki.</p>
+                    </div>
+                )
+            }
+        } 
+    }
 
     const renderMenuProductModal = () => {
 
@@ -119,7 +154,7 @@ const AdminStoresMenuView = props => {
         }
     }
 
-
+    
 
 
     // let dataStore = vendorState.store.isLoaded ? vendorState.store.data.data.result.store : null;
@@ -149,7 +184,7 @@ const AdminStoresMenuView = props => {
                         </div>
 
                         {/* ************VERSION-02 ******************* */}
-                        {/* { this.renderStoreMenuList() } */}
+                        { renderStoreMenuList() }
 
                     </PanelBody>
                 </Panel>

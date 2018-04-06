@@ -9,8 +9,7 @@ import { Button } from '../../../components/Button';
 import { PageBlock, PageBlockGroup, PageContent, PageHeading} from '../../../components/Page';
 import { Nav, NavItem, NavLink, NavTabLink} from '../../../components/Nav';
 
-
-import { AdminStoresMenuView} from '../AdminStoresMenu';
+import { AdminStoresMenuView, AdminStoresMenuViewSecond} from '../AdminStoresMenu';
 import AdminStoresTypeContainer  from './AdminStoresTypeContainer';
 
 import { getStoreList, updateMenuVendor, getMenuStoreList } from '../../../actions/vendor.action';
@@ -367,8 +366,6 @@ class AdminStoresMenu extends Component {
         });
     }
 
-  
-    
 
     render() {
 
@@ -384,10 +381,13 @@ class AdminStoresMenu extends Component {
                         return (
                             <TabContent activeTab={activeTab} tabIndex={i}>
 
-                                {console.log(activeTab)}
+                                {/* {console.log(activeTab)}
+                                {console.log(this.props)} */}
+                                
                 
                                 <PropsRoute
-                                    component={AdminStoresMenuView}
+                                    // component={AdminStoresMenuView}
+                                    component={AdminStoresMenuViewSecond}
                                     type={type}
                                     {...this.props}
                                 />
@@ -427,7 +427,6 @@ class AdminStoresMenu extends Component {
                     handleUpdateSubmitVendorMenu={this.handleUpdateSubmitVendorMenu}
                     handleCancelModal={this.handleCancelModal}
                     handleImageChange = {this.handleImageChange}
-
                     toggleTab={this.toggleTab}
                 /> */}
                 {this.renderDialog()}

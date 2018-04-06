@@ -49,8 +49,6 @@ class AdminStoresTypeContainer extends Component {
 					</div>
                 )
             }
-
-         
         } 
     }
 

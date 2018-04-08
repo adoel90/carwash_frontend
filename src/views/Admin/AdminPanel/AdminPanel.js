@@ -26,6 +26,7 @@ import {
     AdminStoresEmployee,
     AdminStoresEmployeeCreate,
     AdminStoresReport,
+    AdminTransaction
     // AdminStoresPromo,
     // AdminStoresPromoCreate
     
@@ -104,6 +105,7 @@ class AdminPanel extends Component {
                 // { name: 'create-new-discount', path: `${this.props.match.url}/discount/create-new-discount`, component: AdminStoresPromoCreate },
                 { name: 'setting', path: `${this.props.match.url}/setting`, component: AdminSetting },
                 { name: 'logout', path: `${this.props.match.url}/logout`, component: AdminLogout },
+                { name: 'transaction', path: `${this.props.match.url}/transaction`, component: AdminTransaction },
                 { component: NoMatch }
             ];
 

@@ -55,7 +55,11 @@ import {
 	CREATE_STAFF_STORE_REJECTED,
 
 	CREATE_DISCOUNT_PROMO_STORE_FULFILLED, //CREATE DISCOUNT PROMO STORE 
-	CREATE_DISCOUNT_PROMO_STORE_REJECTED
+	CREATE_DISCOUNT_PROMO_STORE_REJECTED,
+
+	GET_STORE_LIST_WITH_ID_REQUESTED, //#GET STORE LIST WITH ID USER LOGIN
+	GET_STORE_LIST_WITH_ID_FULFILLED,
+	GET_STORE_LIST_WITH_ID_REJECTED
 
 } from '../actions/store.action'
 
@@ -174,11 +178,19 @@ const initialState = {
 		isCreated: false,
 		isError: false,
 		error: {}
+	},
+	storelistspecial: {
+		data: {},
+		isFetching: false,
+		isLoaded: false,
+		isError: false,
+		error: {}
 	}
 }
 
 const store = (state = initialState, action) => {
 	switch(action.type) {
+		
 		case GET_STORE_LIST_REQUESTED: {
 			return {
 				...state,
@@ -829,6 +841,50 @@ const store = (state = initialState, action) => {
 			}
 		}
 	}
+	
+	//#GET STORE LIST WITH ID USER LOGIN
+	case GET_STORE_LIST_WITH_ID_REQUESTED: {
+		return {
+			...state,
+			storelistspecial: {
+				...state.storelistspecial,
+				data: {},
+				isFetching: true,
+				isLoaded: false,
+				isError: false,
+				error: {}
+			}
+		}
+	}
+
+	case GET_STORE_LIST_WITH_ID_FULFILLED: {
+		return {
+			...state,
+			storelistspecial: {
+				...state.storelistspecial,
+				data: action.payload,
+				isLoaded: true,
+				isFetching: false,
+				isError: false,
+				error: {}
+			}
+		}
+	}
+
+	case GET_STORE_LIST_WITH_ID_REJECTED: {
+		return {
+			...state,
+			storelistspecial: {
+				...state.storelistspecial,
+				data: {},
+				isLoaded: false,
+				isFetching: false,
+				isError: true,
+				error: action.payload
+			}
+		}
+	}
+
 
 
 		default: {

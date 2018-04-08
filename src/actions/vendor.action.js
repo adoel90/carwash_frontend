@@ -10,7 +10,7 @@ export const CREATE_NEW_VENDOR_FULFILLED = 'CREATE_NEW_VENDOR_FULFILLED';
 export const CREATE_NEW_VENDOR_REJECTED = 'CREATE_NEW_VENDOR_REJECTED';
 
 
-//#GET LIST MENU VENDOR || GET STORE LIST
+//#GET STORE LIST
 export const GET_STORE_LIST_REQUESTED = 'GET_STORE_LIST_REQUESTED';
 export const GET_STORE_LIST_FULFILLED = 'GET_STORE_LIST_FULFILLED';
 export const GET_STORE_LIST_REJECTED = 'GET_STORE_LIST_REJECTED';
@@ -102,7 +102,7 @@ export const createNewVendor = (data) => {
 //GET LIST MENU VENDOR || GET STORE LIST
 export const getStoreList = (data) => {
 	
-	console.log(data);
+	// console.log(data);
 	
 	return async dispatch => {
 

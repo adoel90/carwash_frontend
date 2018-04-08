@@ -267,7 +267,6 @@ class AdminStoresMenu extends Component {
 			if(object) {
 				object['image'] = file;
                 object['imagePreview'] = reader.result
-
 				this.forceUpdate();
 			}
 		}

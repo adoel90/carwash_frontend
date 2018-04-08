@@ -6,6 +6,7 @@ import { AdminTransactionView } from '../AdminTransaction';
 import { Nav, NavItem, NavLink, NavTabLink} from '../../../components/Nav';
 import { TabContent } from '../../../components/Tab';
 import { Button } from '../../../components/Button';
+import { Checkbox } from '../../../components/Checkbox'; 
 
 import { getStoreListWithIdUser, getMenuListStore } from '../../../actions/store.action';
 
@@ -33,6 +34,9 @@ class AdminTransaction extends Component{
         this.toggleTab = this.toggleTab.bind(this);
         this.populateTableData= this.populateTableData.bind(this);
         this.fireCheckbox = this.fireCheckbox.bind(this);
+        // this.createCheckbox =this.createCheckbox.bind(this);
+        this.createCheckboxesMap = this.createCheckboxesMap.bind(this);
+        this.handleFormSubmitCheckbox = this.handleFormSubmitCheckbox.bind(this);
 
         this.state = {
             storeList: {},
@@ -44,8 +48,14 @@ class AdminTransaction extends Component{
                 rows: [],
                 limit: 10
             },
+            selectedMenu: {},
+            labelState: {}
         }
     }
+
+    componentWillMount = () => {
+        this.selectedCheckboxes = new Set();
+      }
 
     componentDidMount(){
         const { getStoreListWithIdUserDispatch } = this.props;
@@ -67,7 +77,6 @@ class AdminTransaction extends Component{
                 })
             }
         }
-
         //Get Menu List
         if(prevprops.store.storemenu !== store.storemenu){
             if(store.storemenu.isLoaded){
@@ -75,11 +84,12 @@ class AdminTransaction extends Component{
                     ...this.state,
                     listMenuStore: store.storemenu
                 }, () => {
-                    console.log(this.state);
+                    // console.log(this.state);
                 })
             }
         }
     }
+
 
     //#
 	toggleTab = (tabIndex, type) => {
@@ -99,8 +109,67 @@ class AdminTransaction extends Component{
     
     //#
     fireCheckbox = (row) => {
-        console.log(row);
+        // console.log(row);
+
+        let data = {
+            id : row.id,
+            name: row.name,
+            description: row.description,
+            price: row.price,
+            image: row.image,
+            status: row.status           
+        }
+
+        let dataAllSelected = [];
+        dataAllSelected.push(data);
+
+        console.log(dataAllSelected);
+        // this.setState({
+        //     ...this.state,
+        //     selectedMenu: dataAllSelected
+        // }, () => {
+        //     console.log(this.state);
+        // });
     }
+
+    //#
+    createCheckboxesMap = () => {
+        // this.state.table.rows.map((value) => {
+        //     console.log(value);
+        // })
+        this.state.table.rows.map(this.createCheckbox);
+    }
+
+    //#
+    // createCheckbox = (label) => {
+    createCheckbox = (label) => {
+        const { labelState } = this.state;
+        // console.log(label.name);
+        <Checkbox
+                label={label.name}
+                handleCheckboxChange={this.toggleCheckbox}
+                key={label}
+            />
+    }
+
+    //#
+    toggleCheckbox = label => {
+        if (this.selectedCheckboxes.has(label)) {
+          this.selectedCheckboxes.delete(label);
+        } else {
+          this.selectedCheckboxes.add(label);
+        }
+      }
+
+    handleFormSubmitCheckbox = (e) => {
+        e.preventDefault();
+        console.log(e);
+
+        for (const checkbox of this.selectedCheckboxes) {
+            console.log(checkbox, 'is selected.');
+          }
+    }
+
     //#
     populateTableData = () => {
 
@@ -125,7 +194,11 @@ class AdminTransaction extends Component{
                 render: (row) => (
                     <td>
                         {/* <Button className="margin-right-small" type="button" onClick={() => this.openMenuVendorModal(row)}>Ubah</Button> */}
-                        <input className="margin-right-small" type="checkbox" onClick={() => this.fireCheckbox(row)} />
+                        <input className="margin-right-small" type="checkbox" onClick={() => this.createCheckboxesMap(row)} />
+                        {/* <form onSubmit={this.handleFormSubmit}> */}
+                            {/* {this.createCheckboxesMap()} */}
+                            {/* <button className="btn btn-default" type="submit">Save</button> */}
+                        {/* </form> */}
                     </td>
                 )
             }
@@ -184,6 +257,7 @@ class AdminTransaction extends Component{
                                     // handleCancelModal={this.handleCancelModal}
                                     // handleImageChange = {this.handleImageChange}
                                     toggleTab={this.toggleTab}
+                                    handleFormSubmitCheckbox= {this.handleFormSubmitCheckbox}
                                 />
                             </TabContent>
                         )

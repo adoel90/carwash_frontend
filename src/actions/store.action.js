@@ -1,12 +1,13 @@
 import axios from 'axios';
 import { constant } from '../config';
+import { log } from 'util';
 
 //GET STORE LIST
 export const GET_STORE_LIST_REQUESTED = 'GET_STORE_LIST_REQUESTED';
 export const GET_STORE_LIST_FULFILLED = 'GET_STORE_LIST_FULFILLED';
 export const GET_STORE_LIST_REJECTED = 'GET_STORE_LIST_REJECTED';
 
-//GET STORE LIST
+//GET STORE LIST DETAIL
 export const GET_STORE_DETAIL_REQUESTED = 'GET_STORE_DETAIL_REQUESTED';
 export const GET_STORE_DETAIL_FULFILLED = 'GET_STORE_DETAIL_FULFILLED';
 export const GET_STORE_DETAIL_REJECTED = 'GET_STORE_DETAIL_REJECTED';
@@ -76,13 +77,23 @@ export const CREATE_STAFF_STORE_REJECTED = "CREATE_STAFF_STORE_REJECTED";
 //CREATE DISCOUNT PROMO STORE  
 export const CREATE_DISCOUNT_PROMO_STORE_FULFILLED = "CREATE_DISCOUNT_PROMO_STORE_FULFILLED";
 export const CREATE_DISCOUNT_PROMO_STORE_REJECTED = "CREATE_DISCOUNT_PROMO_STORE_REJECTED";
+ 
+//#GET STORE LIST WITH ID USER LOGIN
+export const GET_STORE_LIST_WITH_ID_REQUESTED = 'GET_STORE_LIST_WITH_ID_REQUESTED';
+export const GET_STORE_LIST_WITH_ID_FULFILLED = 'GET_STORE_LIST_WITH_ID_FULFILLED';
+export const GET_STORE_LIST_WITH_ID_REJECTED = 'GET_STORE_LIST_WITH_ID_REJECTED';
 
 const accessToken = localStorage.getItem('accessToken') ? localStorage.getItem('accessToken') : null;
+const userLogin = localStorage.getItem('userData') ? localStorage.getItem('userData') : null;
+const userId = JSON.parse(userLogin).id;
 
-//#Calling ALL STORE IN CAR-WASH
+
 export const getStoreList = (data) => {
+
 	return async dispatch => {
+
 		dispatch(fetchRequest());
+		
 		return axios
 			.get(`${constant.API_PATH}store/list?accessToken=${accessToken}`)
 			.then((response) => {
@@ -459,4 +470,28 @@ export const createDiscountPromo = (data) => {
 	function handleSuccess(data) { return { type: CREATE_DISCOUNT_PROMO_STORE_FULFILLED, payload: data }}
 	function handleError(data) { return { type: CREATE_DISCOUNT_PROMO_STORE_REJECTED, payload: data }}
 
+}
+
+//#GET STORE LIST WITH ID USER LOGIN
+export const getStoreListWithIdUser = (data) => {
+	
+	// console.log(data);//store.storelistspecial
+	
+	return async dispatch => {
+
+		dispatch(fetchRequest());
+		return axios
+			.get(`${constant.API_PATH}store/list?accessToken=${accessToken}&id=${userId}`)
+			// .get(`${constant.API_PATH}store/list?accessToken=${accessToken}`)
+			.then((response) => {
+				dispatch(fetchSuccess(response));
+			})
+			.catch((error) => {
+				dispatch(fetchError(error));
+			})
+	}
+
+	function fetchRequest() { return { type: GET_STORE_LIST_WITH_ID_REQUESTED } }
+	function fetchSuccess(data) { return { type: GET_STORE_LIST_WITH_ID_FULFILLED, payload: data } }
+	function fetchError(data) { return { type: GET_STORE_LIST_WITH_ID_REJECTED, payload: data } }
 }

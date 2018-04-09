@@ -79,6 +79,7 @@ export const CREATE_DISCOUNT_PROMO_STORE_REJECTED = "CREATE_DISCOUNT_PROMO_STORE
 
 const accessToken = localStorage.getItem('accessToken') ? localStorage.getItem('accessToken') : null;
 
+//#Calling ALL STORE IN CAR-WASH
 export const getStoreList = (data) => {
 	return async dispatch => {
 		dispatch(fetchRequest());

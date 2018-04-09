@@ -24,4 +24,4 @@ export * from './AdminStoresMenu';
 export * from './AdminStoresEmployee';
 export * from './AdminStoresReport';
 export * from './AdminStoresPromo';
-// export * from './AdminTransaction'
+export * from './AdminTransaction'

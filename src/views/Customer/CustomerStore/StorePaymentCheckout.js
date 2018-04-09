@@ -43,79 +43,35 @@ class StorePaymentCheckout extends Component {
         }
         
         const renderMemberInfo = () => {
-            // if(member.item.isAuthenticated) {
-                return (
-                    <div className="flex flex-column align-items--center justify-content--center">
-                        { renderPaymentAvailability() }
-                        <div className="margin-top-large margin-bottom-small align-center">
-                            <h4 className="clr-primary">{memberData.name}</h4>
-                            <p className="fw-semibold">
-                                <NumberFormat
-                                    format="#### #### #### ####"
-                                    displayType={'text'}
-                                    value={memberData.card ? memberData.card.id : null}
-                                    style={{fontSize: '20px'}}
-                                   />
-                            </p>
-                            <Badge theme="secondary" className="clr-dark margin-top-small">
-                                <small className="tt-uppercase ls-base fw-semibold">{memberData.card ? memberData.card.type.name : null}</small>
-                            </Badge>
-                        </div>
+            return (
+                <div className="flex flex-column align-items--center justify-content--center">
+                    { renderPaymentAvailability() }
+                    <div className="margin-top-large margin-bottom-small align-center">
+                        <h4 className="clr-primary">{memberData.name}</h4>
+                        <p className="fw-semibold">
+                            <NumberFormat
+                                format="#### #### #### ####"
+                                displayType={'text'}
+                                value={memberData.card ? memberData.card.id : null}
+                                style={{fontSize: '20px'}}
+                                />
+                        </p>
+                        <Badge theme="secondary" className="clr-dark margin-top-small">
+                            <small className="tt-uppercase ls-base fw-semibold">{memberData.card ? memberData.card.type.name : null}</small>
+                        </Badge>
                     </div>
-                )
-            // }
-
-            // if(member.item.isAuthenticating) {
-            //     return (
-            //         <div className="flex flex-column justify-content--center align-items--center">
-            //             <p>Mengotentikasi customer...</p>
-            //         </div>
-            //     )
-            // }
-
-            // if(member.item.isError) {
-            //     return (
-            //         <div className="flex flex-column justify-content--center align-items--center">
-            //             <p className="clr-danger">Kartu tidak terbaca atau customer tidak terdeteksi.</p>
-            //         </div>
-            //     )
-            // }
-            
-            // return (
-            //     <div className="flex flex-column justify-content--center align-items--center clr-passive">
-            //         <p>Silahkan gesek kartu untuk mendapatkan informasi customer.</p>
-            //     </div>
-            // )
+                </div>
+            )
         }
-
+        
         return (
             <Modal
                 isOpen={isModalOpen.paymentCheckout}
                 toggle={() => toggleModal('paymentCheckout')}>
-                <ModalHeader align="center">
-                    <h6 className="fw-semibold">
-                        Proses Pembayaran
-                    </h6>
-                </ModalHeader>
-                <ModalBody>
-                    {/* <Form onSubmit={handleMemberAuthentication}>
-                        <FormGroup>
-                            <InputGroup>
-                                <InputAddon>
-                                    <i className="ion-card"></i>
-                                </InputAddon>
-                                <Input
-                                    name="memberID"
-                                    type="number"
-                                    onChange={(e) => handleInputChange(memberInfo, e)}
-                                    placeholder="Gesek kartu..."
-                                    autoFocus="true"
-                                    selectOnFocus
-                                />
-                            </InputGroup>
-                        </FormGroup>
-                    </Form> */}
-                    { renderMemberInfo() }
+                <ModalBody className="flex justify-content--center align-item--center flex-column align-center">
+                    <i className="fas fa-exclamation-circle fa-7x clr-danger"></i>
+                    <h4 className="margin-top-large">Konfirmasi Ulang</h4>
+                    <p>Apakah Anda yakin atas pilihan Anda? (Pembayaran tidak dapat dibatalkan atau diuangkan kembali)</p>
                 </ModalBody>
                 <ModalFooter className="flex justify-content--center">
                     <Button type="button" buttonTheme="danger" className="clr-light" onClick={() => toggleModal('paymentCheckout')}>
@@ -124,7 +80,7 @@ class StorePaymentCheckout extends Component {
                     {
                         memberData.balance > grandTotal
                         ? <Button type="button" buttonTheme="primary" className="clr-light margin-left-small" onClick={handlePaymentCheckoutSubmit}>
-                            <small className="fw-semibold tt-uppercase ls-base">Bayar dan Cetak Struk</small>
+                            <small className="fw-semibold tt-uppercase ls-base">Ya, lanjutkan</small>
                         </Button>
                         : null 
                     }

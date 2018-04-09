@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { getStoreList, getCategoryList, updateStore, changeStatusStore } from '../../../actions/store.action.js';
 import { Button } from '../../../components/Button';
 import { openDialog, closeDialog } from '../../../actions/dialog.action';
-import { Dialog } from '../../../components/Dialog';
+import { ModalDialog } from '../../../components/Modal';
 import { AdminStoreView } from '../AdminStore';
 
 class AdminStore extends Component {
@@ -128,7 +128,7 @@ class AdminStore extends Component {
             console.log(this.props)
             
             return (
-                  <Dialog
+                  <ModalDialog
                         isOpen={dialog.isOpened}
                         toggle={toggleDialog}
                         type={dialog.data.type}
@@ -258,15 +258,17 @@ class AdminStore extends Component {
             
             if(storeList.isLoaded) {
                   storeList.data.data.result.store.forEach((store, i) => {
-                        let row = {
-                              id: store.id,
-                              name: store.name,
-                              user: store.user.name,
-                              type: store.type.name,
-                              data: store
+                        if(store.owner) {
+                              let row = {
+                                    id: store.id,
+                                    name: store.name,
+                                    user: store.user.name,
+                                    type: store.type.name,
+                                    data: store
+                              }
+            
+                              rows.push(row);
                         }
-      
-                        rows.push(row);
                   })
             }
     
@@ -297,7 +299,6 @@ class AdminStore extends Component {
       }
       
       render() {
-            console.log(this.props)
             return (
                   <div>
                         <AdminStoreView

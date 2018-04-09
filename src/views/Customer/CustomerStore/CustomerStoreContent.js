@@ -95,6 +95,7 @@ class CustomerStoreContent extends React.Component {
 
 							let paramItem = {
 								id: item.id,
+								description: item.description,
 								image: item.image,
 								name: item.name,
 								price: price,
@@ -106,29 +107,22 @@ class CustomerStoreContent extends React.Component {
 								truePrice: item.price
 							}
 
-							if(this.props.type.type.id === 1 && this.props.memberData.card.type.charge) {
-								if(item.category) {
+							
+							if(this.props.memberData.card.type.charge) {
+								paramItem.price = item.price;
+								paramItem.trueDiscount = 0;
+								paramItem.selected = paramItem.selected ? true : false;
+								activeList.push(paramItem);
+							} 
+							else {
+								if(!item.category) {
 									paramItem.price = item.price;
 									paramItem.trueDiscount = 0;
 									paramItem.selected = paramItem.selected ? true : false;
 									activeList.push(paramItem);
 								}
-							} else if(this.props.type.type.id === 1 && !this.props.memberData.card.type.charge) {
-								if(!item.category) {
-									paramItem.selected = paramItem.selected ? true : false;
-									activeList.push(paramItem);
-								}
-							} else if(this.props.type.type.id !== 1 && !this.props.memberData.card.type.charge) {
-								paramItem.selected = paramItem.selected ? true : false;
-								activeList.push(paramItem);
-							} else {
-								paramItem.selected = paramItem.selected ? true : false;
-								activeList.push(paramItem);
 							}
 						}
-
-						// item.selected = item.selected ? true : false;
-						// activeList.push(item);
 					}
 				})
 
@@ -229,14 +223,17 @@ class CustomerStoreContent extends React.Component {
 		const { selectedMenuList } = this.state;
 
 		if(!menu.selected) {
-			menu.selected = true;
+			// menu.selected = true;
 			this.setState({
 				...this.state,
-				selectedMenuList: selectedMenuList.concat([menu])
+				selectedMenuList: [menu]
+				// selectedMenuList: selectedMenuList.concat([menu])
+			}, () => {
+				this.handlePaymentConfirmation();
 			})
 		}
 		else {
-			menu.selected = false;
+			// menu.selected = false;
 			this.setState({
 				...this.state,
 				selectedMenuList: selectedMenuList.filter(item => item != menu)

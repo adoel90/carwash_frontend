@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { getAllMemberList, updateMember, changeMemberStatus } from '../../../actions/member.action';
 import { Button } from '../../../components/Button';
 import { openDialog, closeDialog } from '../../../actions/dialog.action';
-import { Dialog } from '../../../components/Dialog';
+import { ModalDialog } from '../../../components/Modal';
 import AdminMemberView from './AdminMemberView';
 
 class AdminMember extends Component {
@@ -120,11 +120,9 @@ class AdminMember extends Component {
                 dialog,
                 toggleDialog
             } = this.props;
-    
-            console.log(this.props)
             
             return (
-                <Dialog
+                <ModalDialog
                     isOpen={dialog.isOpened}
                     toggle={toggleDialog}
                     type={dialog.data.type}
@@ -145,8 +143,8 @@ class AdminMember extends Component {
                   title: 'Nama Member',
                   accessor: 'name'
             }, {
-                  title: 'Email',
-                  accessor: 'email'
+                  title: 'Nomor kartu',
+                  accessor: 'cardNumber'
             }, {
                   title: 'Tipe Member',
                   accessor: 'cardType',
@@ -174,6 +172,7 @@ class AdminMember extends Component {
                               email: member.email,
                               cardType: member.card.type.name,
                               phone: member.phone,
+                              cardNumber: member.card.id,
                               data: member
                         }
     

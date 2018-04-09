@@ -5,7 +5,7 @@ import { AdminUserView } from '../AdminUser';
 import { getUserList, updateUser, changeStatusUser } from '../../../actions/user.action';
 import { getAccessList } from '../../../actions/access.action';
 import { openDialog, closeDialog } from '../../../actions/dialog.action';
-import { Dialog } from '../../../components/Dialog';
+import { ModalDialog } from '../../../components/Modal';
 import { Button } from '../../../components/Button';
 
 class AdminUser extends Component {
@@ -126,7 +126,7 @@ class AdminUser extends Component {
         } = this.props;
         
         return (
-            <Dialog
+            <ModalDialog
                 isOpen={dialog.isOpened}
                 toggle={toggleDialog}
                 type={dialog.data.type}

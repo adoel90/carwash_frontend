@@ -5,7 +5,7 @@ import { getAllCardType, updateCardType, changeCardTypeStatus } from '../../../a
 import { Button } from '../../../components/Button';
 import AdminCardView from './AdminCardView';
 import { openDialog, closeDialog } from '../../../actions/dialog.action';
-import { Dialog } from '../../../components/Dialog';
+import { ModalDialog } from '../../../components/Modal';
 
 class AdminCard extends Component {
       constructor() {
@@ -119,7 +119,7 @@ class AdminCard extends Component {
             } = this.props;
             
             return (
-                <Dialog
+                <ModalDialog
                     isOpen={dialog.isOpened}
                     toggle={toggleDialog}
                     type={dialog.data.type}

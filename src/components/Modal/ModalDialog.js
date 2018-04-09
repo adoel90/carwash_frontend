@@ -64,10 +64,10 @@ class ModalDialog extends Component {
                   >
                         <ModalBody className="flex flex-column align-items--center justify-content--center ta-center">
                               <ModalDialogIcon type={type} />
-					<h4 className="fw-semibold">{title}</h4>
+					<h4 className="margin-top-large">{title}</h4>
 					<p>{message}</p>
                         </ModalBody>
-                        <ModalFooter className="flex justify-content--flex-end">
+                        <ModalFooter className="flex justify-content--center">
                               { this.renderDialogButtons() }
                         </ModalFooter>
                   </Modal>

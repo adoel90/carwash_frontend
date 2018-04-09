@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { getCategoryList, createStore } from '../../../actions/store.action';
 import { getUserList } from '../../../actions/user.action';
 import { openDialog, closeDialog } from '../../../actions/dialog.action';
-import { Dialog } from '../../../components/Dialog';
+import { ModalDialog } from '../../../components/Modal';
 import AdminStoreCreateView from './AdminStoreCreateView';
 
 class AdminStoreCreate extends Component {
@@ -47,11 +47,9 @@ class AdminStoreCreate extends Component {
                 dialog,
                 toggleDialog
             } = this.props;
-    
-            console.log(this.props)
             
             return (
-                  <Dialog
+                  <ModalDialog
                         isOpen={dialog.isOpened}
                         toggle={toggleDialog}
                         type={dialog.data.type}
@@ -92,8 +90,8 @@ class AdminStoreCreate extends Component {
 
             const requiredData = {
                   name: newStore.name,
-                  category: newStore.category,
-                  user: newStore.user
+                  category: parseInt(newStore.category),
+                  user: parseInt(newStore.user)
             }
 
             action.createStore(requiredData).then(() => {

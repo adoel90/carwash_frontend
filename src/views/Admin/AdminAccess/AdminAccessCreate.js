@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { getAllModule } from '../../../actions/module.action';
 import { createNewAccess } from '../../../actions/access.action';
 import { openDialog, closeDialog } from '../../../actions/dialog.action';
-import { Dialog } from '../../../components/Dialog';
+import { ModalDialog } from '../../../components/Modal';
 import AdminAccessCreateView from './AdminAccessCreateView';
 
 class AdminAccessCreate extends Component {
@@ -48,7 +48,7 @@ class AdminAccessCreate extends Component {
             } = this.props;
             
             return (
-                <Dialog
+                <ModalDialog
                     isOpen={dialog.isOpened}
                     toggle={toggleDialog}
                     type={dialog.data.type}

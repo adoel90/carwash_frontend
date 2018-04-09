@@ -151,7 +151,7 @@ class AdminStoresMenuCreate extends Component {
         const { action} = this.props;
         
         const requiredData = {
-            store: newMenuProduct.store,
+            store: newMenuProduct.store ? parseInt(newMenuProduct.store) : "Failed parse INTEGER!!!",
             name: newMenuProduct.name,
             deskripsi: newMenuProduct.deskripsi,
             harga: newMenuProduct.harga,

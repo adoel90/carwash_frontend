@@ -25,6 +25,7 @@ const AdminStoresMenuCreateView = props => {
 
                                     <FormField label="Pilih Store sebelum menambahkan produk">
                                          <Select name="store" defaultValue={newMenuProduct.id} onChange={(e) => handleInputChange('newMenuProduct', e) }>
+                                            <option>Pilih Store</option>
                                             {
                                                 store.list.isLoaded   ? store.list.data.data.result.store.map((item, i) => {
                                                     return <option value={item.id}>{item.name}</option>

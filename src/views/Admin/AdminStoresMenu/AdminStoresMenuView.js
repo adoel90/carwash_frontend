@@ -121,7 +121,6 @@ const AdminStoresMenuView = props => {
                 <Panel>
                     <PanelHeader>
                         <h4 className="heading-title">Daftar Produk</h4>
-                        
                     </PanelHeader>
                     <PanelBody>
 

@@ -168,6 +168,7 @@ export const getVendorEmployeeList = (data) => {
 			.get(`${constant.API_PATH}store/staff/list?accessToken=${accessToken}&id=${data.id}`)
 			.then((response) => {
 				dispatch(fetchSuccess(response));
+
 			})
 			.catch((error) => {
 				dispatch(fetchError(error));

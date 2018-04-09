@@ -85,7 +85,7 @@ export const GET_STORE_LIST_WITH_ID_REJECTED = 'GET_STORE_LIST_WITH_ID_REJECTED'
 
 const accessToken = localStorage.getItem('accessToken') ? localStorage.getItem('accessToken') : null;
 const userLogin = localStorage.getItem('userData') ? localStorage.getItem('userData') : null;
-const userId = JSON.parse(userLogin).id;
+const userId =  localStorage.getItem('userData') ? JSON.parse(userLogin).id : null;
 
 
 export const getStoreList = (data) => {
@@ -418,7 +418,9 @@ export const updatePromo = (data) => {
 
 //#CREATE STAFF STORE 
 export const createStaffStore = (data) => {
-	
+
+	console.log(data);
+
 	return async dispatch => {
 
 		return axios
@@ -433,7 +435,7 @@ export const createStaffStore = (data) => {
 
 			},{'Content-Type': 'application/json'})
 			.then((response) => {
-				dispatch(handleSuccess(response.data));
+				dispatch(handleSuccess(response));
 			})
 			.catch((error) => {
 				dispatch(handleError(error))

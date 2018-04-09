@@ -12,7 +12,7 @@ import { ButtonDewek } from '../../../components/ButtonDewek';
 const AdminStoresEmployeeCreateView = props => {
 
 
-    const { handleFormSubmit, handleInputChange, newStaff, store, access } = props;
+    const { handleFormSubmit, handleInputChange, newStaff, store, vendorState, access } = props;
 
     return (
         <div className="admin-dashboard">
@@ -25,7 +25,21 @@ const AdminStoresEmployeeCreateView = props => {
                             </PanelHeader>
                             <PanelBody>
                                 <Form onSubmit={handleFormSubmit}>
-                        
+
+                                    {/* PILIH STORE */}
+                                    <FormField label="Pilih Store sebelum menambahkan Staff Baru">
+                                         <Select name="store" defaultValue={newStaff.id} onChange={(e) => handleInputChange('newStaff', e) }>
+                                            <option value="">Pilih Store</option>
+                                            {
+                                                store.list.isLoaded   ? store.list.data.data.result.store.map((item, i) => {
+                                                    return <option value={item.id}>{item.name}</option>
+                                                })
+                                                : null
+                                            }
+                                        </Select>
+                                    </FormField>
+
+
                                     <FormField label="Nama Lengkap Staff Baru">
                                         <InputGroup>
                                             <InputAddon>

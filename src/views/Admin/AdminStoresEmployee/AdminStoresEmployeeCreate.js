@@ -45,11 +45,6 @@ class AdminStoresEmployeeCreate extends Component {
                 password:'',
                 email: '',
                 level:null,
-                // level:[
-                //     { id : 4 , name : "Owner"},
-                //     { id : 5 , name : "Kasir Store"},
-                //     { id : 6 , name : "Staff Store"}
-                // ],
                 store: null
             },
 
@@ -84,43 +79,25 @@ class AdminStoresEmployeeCreate extends Component {
         const { store, access } = this.props;
         //Get Store List
         if(prevProps.store.list !== store.list) {
-            if (store.list.isLoaded) {
-            
+            if (store.list.isLoaded) { 
                 this.setState({
                     ...this.state,
                     storeList: store.list.data.data.result.store
 
                 }, () => {
                     // console.log(this.state);
-                    
                 })
             }
         }
 
         //#Get All Access List
         if(prevProps.access.list !== access.list){
-            if(access.list.isLoaded){
-
-                // let levels = [];
-                // access.list.data.result.map((data) => {
-
-                //     if(data.level){
-
-                //     }
-                //     console.log(data);
-                    
-                //     levels.push(data.level);
-
-                // })
-
-                // console.log(levels);
-                
+            if(access.list.isLoaded){ 
                 this.setState({
                     ...this.state,
                     accessLevel: access.list.data.result
                 }, () => {
                     console.log(this.state);
-                    
                 })
             }
         }
@@ -160,24 +137,21 @@ class AdminStoresEmployeeCreate extends Component {
     handleFormSubmit = (e) => {
         e.preventDefault();
         const { newStaff, storeList, storeActive, levelId , accessLevel} = this.state;
-        // const { action, store } = this.props;
         const { action } = this.props;
         
         
         const requiredData = {
-            store: storeList[storeActive].id,
+            store: newStaff.store ? parseInt( newStaff.store) : "Failed parse INTEGER!!!",
             name: newStaff.name,
             username: newStaff.username,
             password: newStaff.password,
             email: newStaff.email,
-            // level: levelId
             level: newStaff.level ? parseInt(newStaff.level) : "Failed parse INTEGER!!!"
         }
         
         console.log(requiredData);
 
         action.createStaffStore(requiredData).then(() => {
-
             if(this.props.store.staffemployee.isCreated){
 
                 console.log("Created!!!");

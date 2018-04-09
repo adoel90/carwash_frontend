@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+
+import { PropsRoute } from '../../../components/Route';
+import { TabContent } from '../../../components/Tab';
+import { AdminStoresEmployeeView } from '../AdminStoresEmployee';
 import { Button } from '../../../components/Button';
 import { Dialog } from '../../../components/Dialog';
-import { AdminStoresEmployeeView } from '../AdminStoresEmployee';
+import { Nav, NavItem, NavLink, NavTabLink} from '../../../components/Nav';
+
 
 import { getVendorEmployeeList, updateVendorEmployee } from '../../../actions/vendor.action';
 import { getStoreList } from '../../../actions/vendor.action';
@@ -23,7 +28,7 @@ function mapDispatchToProps(dispatch) {
         getVendorEmployeeListDispatch: (data) => dispatch(getVendorEmployeeList(data)),
         getStoreListDispatch: () => dispatch(getStoreList()),
         getAccessList: (data) => dispatch(getAccessList(data)),
-        action: bindActionCreators({ updateVendorEmployee, openDialog, closeDialog }, dispatch)
+        action: bindActionCreators({ updateVendorEmployee, openDialog, closeDialog, getVendorEmployeeList }, dispatch)
     }
 }
 
@@ -32,7 +37,6 @@ class AdminStoresEmployee extends Component {
     constructor() {
 
         super();
-        this.getVendorEmployeeList = this.getVendorEmployeeList.bind(this);
         this.toggleModal = this.toggleModal.bind(this);
         this.openVendorEmployeeModal = this.openVendorEmployeeModal.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -42,21 +46,15 @@ class AdminStoresEmployee extends Component {
         this.getStoreList = this.getStoreList.bind(this);
         this.getAccessList = this.getAccessList.bind(this);
         this.renderDialog = this.renderDialog.bind(this);
+        this.toggleTab = this.toggleTab.bind(this);
 
         this.state = {
             vendorEmployee: {},
-            vendorEmployeeList: {},
             table: {
                 columns: [],
                 rows: [],
                 limit: 10
-            },
-            // accessLevel : [
-			// 	{ id : 4 , name : "Owner", status: true},
-			// 	{ id : 5 , name : "Kasir Store", status: true},
-			// 	{ id : 6 , name : "Staff Store", status: true}
-            // ],
-            
+            },            
             accessLevel: {},
             accessLevelDetail: {},
 
@@ -64,19 +62,63 @@ class AdminStoresEmployee extends Component {
                 updateVendorEmployee: false
             },
             selectedVendorEmployee: {},
+            vendorEmployeeList: {},
             storeList:{},
-            storeActive: 0
+            storeActiveList:{},
+            storeActive: 0,
+            activeTab: 0
         }
     }
 
     componentDidMount = () => {
-        this.getVendorEmployeeList();
+        // this.getVendorEmployeeList();
         this.getStoreList();
         this.getAccessList();
     }
 
-    getVendorEmployeeList = () => {
-        /* Only declare this function so that NOT ERROR */
+
+    componentDidUpdate = (prevProps) => {
+        const { vendorState, storeMenuList, getVendorEmployeeListDispatch, access } = this.props;
+        const { storeActive } = this.state;
+        
+         //#Get list Staf Store based on ID STORE
+         if(prevProps.vendorState.store !== vendorState.store){
+            if(vendorState.store.isLoaded){
+                this.setState({
+                    ...this.state,
+                    // storeActiveList: vendorState.store.data.data.result.store
+                    storeActiveList: vendorState.store
+                }, () => {
+                    getVendorEmployeeListDispatch(vendorState.store.data.data.result.store[storeActive]);
+                });
+            }
+        }
+
+        //#Get All list employee
+        if (prevProps.vendorState.employee !== vendorState.employee) {
+            if(vendorState.employee.isLoaded){
+                this.setState({
+                    ...this.state,
+                    vendorEmployeeList: vendorState.employee
+                }, () => {
+                    // this.populateTableData();
+                });
+            }           
+        }
+
+        //#Get All Access List
+        if(prevProps.access.list !== access.list){
+            if(access.list.isLoaded){
+
+                this.setState({
+                    ...this.state,
+                    accessLevel: access.list.data.result
+                }, () => {
+                    // console.log(this.state);
+                })
+                
+            }
+        }
     }
 
     getStoreList = () => {
@@ -94,60 +136,22 @@ class AdminStoresEmployee extends Component {
         getAccessList(requiredData);
     }
 
-    componentDidUpdate = (prevProps) => {
-        const { vendorState, storeMenuList, getVendorEmployeeListDispatch, access } = this.props;
-        const { storeActive } = this.state;
+  
+  //#
+  toggleTab = (tabIndex, type) => {
 
-        if(prevProps.vendorState.store !== vendorState.store){
-            if(vendorState.store.isLoaded){
-                this.setState({
-                    ...this.state,
-                    storeList: vendorState.store.data.data.result.store
-                }, ()=> {
-                    
-                    vendorState.store.data.data.result.store.forEach((store) => {
-                        console.log(store);
-                        getVendorEmployeeListDispatch(store);
-                    });
-                    // getVendorEmployeeListDispatch(vendorState.store.data.data.result.store[storeActive]);
-                })  
-            }
-        } 
+        const { getVendorEmployeeList, action } = this.props;
+        let data = { id : type.id }
 
-        if (prevProps.vendorState.employee !== vendorState.employee) {
-            if(vendorState.employee.isLoaded){
-                this.setState({
-                    ...this.state,
-                    vendorEmployeeList: vendorState.employee
-                }, () => {
-                    this.populateTableData();
-                });
-            }           
-        }
+        action.getVendorEmployeeList(data);
 
-        //#Get All Access List
-        if(prevProps.access.list !== access.list){
-            if(access.list.isLoaded){
-
-                this.setState({
-                    ...this.state,
-                    accessLevel: access.list.data.result
-                }, () => {
-                    // console.log(this.state);
-                    
-                })
-                
-            }
-        }
-
-        //#Get accessLevelDetail
-        if(prevProps.vendorState.employee !== vendorState.employee){
-            if(vendorState.employee.isLoaded){
-
-                // console.log(vendorState);
-                
-            }
-        }
+        this.setState({
+            activeTab: tabIndex,
+            storeIdTab: type
+        }, () => {                       
+            this.populateTableData();
+            console.log(this.state.storeIdTab);
+        })
     }
 
     populateTableData = () => {
@@ -335,18 +339,64 @@ class AdminStoresEmployee extends Component {
         });
     }
 
+
+
     render() {
+        const { storeActiveList, activeTab } = this.state;
+        const { vendorState } = this.props;
+
+         //#
+         const renderTabContent = () => {
+             
+            if(vendorState.store.isLoaded){
+                if(vendorState.store.data.data.result.store.length){
+                    return vendorState.store.data.data.result.store.map((type, i) => {
+                        return (
+                            <TabContent activeTab={activeTab} tabIndex={i}>            
+                                <PropsRoute
+                                    component={AdminStoresEmployeeView}
+                                    type={type}
+                                    {...this.props}
+                                    {...this.state}
+                                    toggleModal={this.toggleModal}
+                                    handleInputChange={this.handleInputChange}
+                                    handleUpdateSubmitVendorEmployee={this.handleUpdateSubmitVendorEmployee}
+                                    handleCancelModal= {this.handleCancelModal}
+                                    toggleTab={this.toggleTab}
+                                />
+                            </TabContent>
+                        )
+                    })
+                }
+            }
+        }
 
         return (
             <div>
-                <AdminStoresEmployeeView
+                {/* <AdminStoresEmployeeView
                     {...this.state}
                     {...this.props}
                     toggleModal={this.toggleModal}
                     handleInputChange={this.handleInputChange}
                     handleUpdateSubmitVendorEmployee={this.handleUpdateSubmitVendorEmployee}
                     handleCancelModal= {this.handleCancelModal}
-                />
+                /> */}
+
+                <Nav tabs className="flex justify-content--space-between">
+                { vendorState.store.isLoaded ? vendorState.store.data.data.result.store.map((store, i) => (
+                    <NavItem>
+                        <NavTabLink active={activeTab === i} onClick={() => this.toggleTab(i, store)}>
+                            <h2>{store.name}</h2>
+                        
+                        </NavTabLink>
+                    </NavItem>
+                )) : null }
+                </Nav>
+
+                {/* RENDER CONTENT BASED ON ID STORE */}
+                {renderTabContent()}
+
+
                 {this.renderDialog()}
             </div>
         )

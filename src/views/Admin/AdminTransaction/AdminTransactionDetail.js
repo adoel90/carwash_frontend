@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Button } from '../../../components/Button';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from '../../../components/Modal';
 import { Form, FormGroup } from '../../../components/Form';
-import { Input, Label, InputAddon, InputGroup } from '../../../components/Input'
+import { Input, Label, InputAddon, InputGroup, SwitchSquare } from '../../../components/Input'
 import { Container, Row, Column } from '../../../layouts/Grid';
 import { TableSetOld } from '../../../components/Table';
 import { Alert } from '../../../components/Alert';
@@ -31,6 +31,8 @@ class AdminTransactionDetail extends Component {
 			handlePaymentCheckout,
 			selectedMenuItem,
 			grandTotal,
+			handleInputChange,
+			dataTransaction,
 			store
 		} = this.props;
 
@@ -58,10 +60,30 @@ class AdminTransactionDetail extends Component {
 							fullWidth
 							{...this.props}
 						/>
-						<div className="flex justify-content--space-between padding-top-small">
-							<small className="tt-uppercase ls-base fw-bold">Total yang harus dibayar</small>
-							<h4 className="clr-primary"><Currency value={grandTotal} /></h4>
-						</div>
+						<Row className="flex justify-content--space-between padding-top-small">
+							<Column md={10}>
+								<small className="tt-uppercase ls-base fw-bold">Diskon %</small>
+							</Column>
+							<Column md={2}>
+								<Input name="discount" type="number" onChange={(e) => handleInputChange(dataTransaction, e)} placeholder="%" />
+							</Column>
+						</Row>
+						<Row className="flex justify-content--space-between padding-top-small">
+							<Column md={10}>
+								<small className="tt-uppercase ls-base fw-bold">Mark Up</small>
+							</Column>
+							<Column md={2}>
+								<SwitchSquare name="increase" value={Boolean(dataTransaction.increase)} onChange={(e) => handleInputChange(dataTransaction, e)} />
+							</Column>
+						</Row>
+						<Row className="flex justify-content--space-between padding-top-small">
+							<Column md={10}>
+								<small className="tt-uppercase ls-base fw-bold">Total yang harus dibayar</small>
+							</Column>
+							<Column md={2}>
+								<h4 className="clr-primary align-right"><Currency value={grandTotal} /></h4>
+							</Column>
+						</Row>
 					</div>
 					</ModalBody>
 					<ModalFooter className="flex justify-content--center">

@@ -71,6 +71,10 @@ class AdminTransaction extends Component{
 				paymentCheckout: false
             },
             grandTotal: 0,
+            dataTransaction: {
+                discount: 0,
+                increase: false
+            },
             isChecked: false
         }
     }
@@ -160,8 +164,6 @@ class AdminTransaction extends Component{
 			dispatch
 		} = this.props;
 
-		console.log(data);
-
 		if(!dialog.isOpened) {
 			this.openDialog(data);
 		}
@@ -240,7 +242,7 @@ class AdminTransaction extends Component{
     }
 
     handlePaymentCheckout = (e) => {
-		e.preventDefault();
+        e.preventDefault();
 		
 		this.toggleModal('paymentCheckout');
     }
@@ -298,7 +300,8 @@ class AdminTransaction extends Component{
     
     calculateGrandTotalPrice = () => {
 		const {
-			selectedMenuItem
+            selectedMenuItem,
+            dataTransaction
 		} = this.state;
 
 		let totalPriceArray = [];
@@ -308,11 +311,21 @@ class AdminTransaction extends Component{
 			totalPriceArray.push(item.totalPrice);
 		})
 
-		updatedGrandTotal = totalPriceArray.reduce((a, b) => a + b, 0);
+        updatedGrandTotal = totalPriceArray.reduce((a, b) => a + b, 0);
+        
+        let total;
+
+        if(!dataTransaction.increase && dataTransaction.discount > 0) {
+            total = updatedGrandTotal-(updatedGrandTotal*dataTransaction.discount/100);
+        } else if(dataTransaction.increase && dataTransaction.discount > 0) {
+            total = updatedGrandTotal+(updatedGrandTotal*dataTransaction.discount/100);
+        } else {
+            total = updatedGrandTotal;
+        }
 
 		this.setState({
 			...this.state,
-			grandTotal: updatedGrandTotal
+			grandTotal: total
 		})
     }
     
@@ -346,11 +359,12 @@ class AdminTransaction extends Component{
 
     handleInputChange = (object, e) => {
 		const target = e.target;
-		const value = target.value;
 		const name = target.name;
+		const value = target.type === 'checkbox' ? target.checked : target.value;
 
 		object[name] = value;
-		this.forceUpdate();
+        this.forceUpdate();
+        this.calculateGrandTotalPrice();
 	}
 
     render(){
@@ -372,8 +386,6 @@ class AdminTransaction extends Component{
 
                     return storeList.data.data.result.store.map((type, i) => {
                         let path = type.name.replace(/\s+/g, '-').toLowerCase();
-
-                        console.log(`${match.url}/transaction/${path}`)
 
                         return (
                             <TabContent activeTab={activeTab} tabIndex={i}>            

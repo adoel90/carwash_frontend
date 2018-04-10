@@ -35,7 +35,9 @@ const AdminStoresMenuView = props => {
         vendorState,
         storeList,
         activeTab,
-        toggleTab } = props;
+        toggleTab,
+        search
+    } = props;
 
     const renderMenuProductModal = () => {
 
@@ -134,6 +136,12 @@ const AdminStoresMenuView = props => {
                                 striped 
                                 fullWidth
                                 pagination
+                                placeholder="Cari user yang terdaftar"
+                                hasSearchBar
+                                searchParams={table.searchParams}
+                                searchBy={search.searchBy}
+                                handleInputChange={handleInputChange}
+                                {...props}
                             />
                         </div>
                     </PanelBody>

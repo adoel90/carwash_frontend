@@ -48,11 +48,17 @@ class AdminStoresMenu extends Component {
         this.toggleTab = this.toggleTab.bind(this);
 
         this.state = {
-
+            search: {
+                searchText: '',
+                searchBy: 'name'
+            },
             table: {
                 columns: [],
                 rows: [],
-                limit: 10
+                limit: 10,
+                searchParams: [
+					{ accessor: 'name', name: 'Nama Produk' }
+				]
             },
             isModalOpen:{
                 updateMenuVendor: false

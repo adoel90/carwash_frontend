@@ -50,10 +50,17 @@ class AdminStoresEmployee extends Component {
 
         this.state = {
             vendorEmployee: {},
+            search: {
+                searchText: '',
+                searchBy: 'name'
+            },
             table: {
                 columns: [],
                 rows: [],
-                limit: 10
+                limit: 10,
+                searchParams: [
+					{ accessor: 'name', name: 'Nama Staff' }
+				]
             },            
             accessLevel: {},
             accessLevelDetail: {},
@@ -158,10 +165,10 @@ class AdminStoresEmployee extends Component {
 
         const { vendorEmployeeList } = this.state;
         const columns = [
-            {
-                title: 'ID',
-                accessor: 'id'
-            },
+            // {
+            //     title: 'ID',
+            //     accessor: 'id'
+            // },
             {
                 title: 'Nama Staff',
                 accessor: 'name'

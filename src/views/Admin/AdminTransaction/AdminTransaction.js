@@ -113,7 +113,8 @@ class AdminTransaction extends Component{
                     ...this.state,
                     storeList: store.storelistspecial
                 }, () => {
-                    // console.log(this.state);
+                    // console.log(store.storelistspecial.data.data.result.store);
+                    this.props.action.getMenuListStore(store.storelistspecial.data.data.result.store[0]);
                 })
             }
         }
@@ -124,7 +125,7 @@ class AdminTransaction extends Component{
                     ...this.state,
                     listMenuStore: store.storemenu
                 }, () => {
-                    console.log(this.state);
+                    // console.log(this.state);
                 })
             }
         }
@@ -392,12 +393,10 @@ class AdminTransaction extends Component{
                             <TabContent activeTab={activeTab} tabIndex={i}>            
                                 <PropsRoute
                                     key={i}
-                                    name={type.name}
-                                    path={`${match.url}/transaction/${path}`}
+                                    // name={type.name}
+                                    // path={`${match.url}/transaction/${path}`}
                                     component={AdminTransactionView}
                                     type={type}
-                                    {...this.props}
-                                    {...this.state}
                                     toggleModal= {this.toggleModal}
                                     handleInputChange = {this.handleInputChange}
                                     handleIndexedInputChange = {this.handleIndexedInputChange}
@@ -408,6 +407,8 @@ class AdminTransaction extends Component{
                                     handleMemberAuthentication={this.handleMemberAuthentication}
                                     calculateGrandTotalPrice = {this.calculateGrandTotalPrice}
                                     toggleTab={this.toggleTab}
+                                    {...this.props}
+                                    {...this.state}
                                 />
                             </TabContent>
                         )

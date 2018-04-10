@@ -24,7 +24,9 @@ const AdminStoresEmployeeView = props => {
         updateVendorEmployee, 
         selectedVendorEmployee,
         handleUpdateSubmitVendorEmployee,
-        handleCancelModal } = props;
+        handleCancelModal,
+        search
+    } = props;
 
     const renderVendorEmployeeModal = () => {
 
@@ -158,6 +160,12 @@ const AdminStoresEmployeeView = props => {
                                 striped 
                                 fullWidth
                                 pagination
+                                placeholder="Cari user yang terdaftar"
+                                hasSearchBar
+                                searchParams={table.searchParams}
+                                searchBy={search.searchBy}
+                                handleInputChange={handleInputChange}
+                                {...props}
                             />
                         </div>
 

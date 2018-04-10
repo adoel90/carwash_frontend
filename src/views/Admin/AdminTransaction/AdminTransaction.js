@@ -1,28 +1,29 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
+import { Redirect } from 'react-router-dom';
 import { PropsRoute } from '../../../components/Route';
 import { AdminTransactionView } from '../AdminTransaction';
 import { Nav, NavItem, NavLink, NavTabLink} from '../../../components/Nav';
 import { TabContent } from '../../../components/Tab';
 import { Button } from '../../../components/Button';
-// import { Checkbox } from '../../../components/Checkbox'; 
-
-import { getStoreListWithIdUser, getMenuListStore } from '../../../actions/store.action';
+import { ModalDialog } from '../../../components/Modal';
+import { openDialog, closeDialog } from '../../../actions/dialog.action';
+import { getStoreListWithIdUser, getMenuListStore, createStoreTransaction, printStoreTransaction, getDiscountListById } from '../../../actions/store.action';
+import { authenticateMember } from '../../../actions/member.action';
 
 function mapStateToProps(state) {
     return {
-        store: state.store
+        store: state.store,
+        member: state.member,
+        dialog: state.dialog
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
         getStoreListWithIdUserDispatch: () => dispatch(getStoreListWithIdUser()),
-        // getMenuStoreListDispatch: (data) => { dispatch(getMenuStoreList(data))},
-        // action: bindActionCreators({ updateMenuVendor, openDialog, closeDialog, getMenuStoreList }, dispatch)
-        action: bindActionCreators({ getMenuListStore }, dispatch)
+        action: bindActionCreators({ getMenuListStore, authenticateMember, createStoreTransaction, openDialog, closeDialog, printStoreTransaction }, dispatch)
     }
 }
 
@@ -31,8 +32,20 @@ class AdminTransaction extends Component{
     constructor(){
         super();
         this.toggleTab = this.toggleTab.bind(this);
-        this.populateTableData= this.populateTableData.bind(this);
-        this.fireCheckbox = this.fireCheckbox.bind(this);
+        this.toggleDialog = this.toggleDialog.bind(this);
+		this.openDialog = this.openDialog.bind(this);
+        this.closeDialog = this.closeDialog.bind(this);
+        this.renderDialog = this.renderDialog.bind(this);
+        this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleIndexedInputChange = this.handleIndexedInputChange.bind(this);
+        this.toggleModal = this.toggleModal.bind(this);
+        this.handleSelectMenu = this.handleSelectMenu.bind(this);
+        this.handleFormSubmit = this.handleFormSubmit.bind(this);
+        this.handlePaymentCheckout = this.handlePaymentCheckout.bind(this);
+        this.handlePaymentCheckoutSubmit = this.handlePaymentCheckoutSubmit.bind(this);
+		this.handleMemberAuthentication = this.handleMemberAuthentication.bind(this);
+		this.handlePrintReceipt = this.handlePrintReceipt.bind(this);
+        this.calculateGrandTotalPrice = this.calculateGrandTotalPrice.bind(this);
         // this.createCheckbox =this.createCheckbox.bind(this);
         // this.createCheckboxesMap = this.createCheckboxesMap.bind(this);
 
@@ -41,13 +54,23 @@ class AdminTransaction extends Component{
             listMenuStore: {},
             storeIdTab: {},
             activeTab: 0,
-            table: {
-                columns: [],
-                rows: [],
-                limit: 10
-            },
             selectedMenu: {},
+            printData: {},
+			searchMenu: {
+				searchText: ''
+			},
+            memberInfo: {
+				memberID: '',
+				memberData: {},
+				memberToken: {}
+			},
+            selectedMenuItem: [],
             labelState: {},
+            isModalOpen: {
+				paymentConfirmation: false,
+				paymentCheckout: false
+            },
+            grandTotal: 0,
             isChecked: false
         }
     }
@@ -61,11 +84,24 @@ class AdminTransaction extends Component{
         getStoreListWithIdUserDispatch();
     }
 
-    componentDidUpdate(prevprops){
-        const { store } = this.props;
+    componentDidUpdate(prevProps){
+        const { member, store, dialog } = this.props;
+
+        if(prevProps.member.item !== member.item) {
+			if(member.item.isAuthenticated) {
+				this.setState({
+					...this.state,
+					memberInfo: {
+						...this.state.memberInfo,
+						memberData: member.item.data,
+						memberToken: member.item.accessToken
+					}
+				})
+			}
+		}
 
         //#Get list store id 
-        if(prevprops.store.storelistspecial !== store.storelistspecial){
+        if(prevProps.store.storelistspecial !== store.storelistspecial){
             if(store.storelistspecial.isLoaded){
 
                 this.setState({
@@ -77,7 +113,7 @@ class AdminTransaction extends Component{
             }
         }
         //Get Menu List
-        if(prevprops.store.storemenu !== store.storemenu){
+        if(prevProps.store.storemenu !== store.storemenu){
             if(store.storemenu.isLoaded){
                 this.setState({
                     ...this.state,
@@ -87,7 +123,210 @@ class AdminTransaction extends Component{
                 })
             }
         }
+
+        if(prevProps.store.transaction !== store.transaction) {
+			if(store.transaction.isPaid) {
+				let dialogData = {
+					type: 'success',
+					title: 'Berhasil',
+					message: 'Pembayaran telah berhasil. Tunggu hingga struk transaksi dicetak sepenuhnya sebelum menutup jendela ini.',
+					onConfirm: () => this.handlePrintReceipt(),
+					confirmText: 'Print Ulang',
+					onClose: () => window.location.reload(),
+					closeText: 'Tutup'
+				}
+
+				this.toggleDialog(dialogData);
+				this.handlePrintReceipt();
+			}
+		}
+
+		if(prevProps.store.print !== store.print) {
+			if(store.print.isPrinted) {
+				this.setState({
+					...this.state,
+					printData: store.print.data
+				}, () => {
+					window.print();
+				})
+			}
+			
+		}
     }
+
+    toggleDialog = (data) => {
+		const {
+			dialog,
+			dispatch
+		} = this.props;
+
+		console.log(data);
+
+		if(!dialog.isOpened) {
+			this.openDialog(data);
+		}
+		else {
+			this.closeDialog();
+		}
+	}
+
+	openDialog = (data) => {
+		const { dialog, action } = this.props;
+
+		action.openDialog(data);
+	}
+
+	closeDialog = () => {
+		const { dialog, action } = this.props;
+
+		action.closeDialog();
+    }
+    
+    renderDialog = () => {
+		const {
+			dialog,
+			toggleDialog,
+			isDialogOpen
+		} = this.props;
+
+		return (
+			<ModalDialog
+				isOpen={dialog.isOpened}
+				toggle={toggleDialog}
+				type={dialog.data.type}
+				title={dialog.data.title}
+				message={dialog.data.message}
+				onConfirm={dialog.data.onConfirm}
+				onClose={dialog.data.onClose}
+				confirmText={dialog.data.confirmText}
+				closeText={dialog.data.closeText}
+			/>
+		)
+	}
+
+    toggleModal = (name) => {
+		const { isModalOpen } = this.state;
+
+		this.setState({
+			isModalOpen: {
+				...isModalOpen,
+				[name]: !isModalOpen[name]
+			}
+		})
+	}
+
+    handleSelectMenu = (menu) => {
+        const { selectedMenuItem } = this.state;
+
+		if(!menu.selected) {
+			menu.selected = true;
+			this.setState({
+				...this.state,
+				selectedMenuItem: selectedMenuItem.concat([menu])
+			})
+		}
+		else {
+			menu.selected = false;
+			this.setState({
+				...this.state,
+				selectedMenuItem: selectedMenuItem.filter(item => item != menu)
+			})
+		}
+    }
+    
+    handleFormSubmit = () => {
+		this.calculateGrandTotalPrice();
+		this.toggleModal('paymentConfirmation');
+    }
+
+    handlePaymentCheckout = (e) => {
+		e.preventDefault();
+		
+		this.toggleModal('paymentCheckout');
+    }
+    
+    handlePaymentCheckoutSubmit = (e) => {
+		e.preventDefault();
+
+		const {
+			dispatch,
+            accessToken,
+            action
+		} = this.props;
+
+		const {
+			memberInfo,
+            selectedMenuItem,
+            storeIdTab
+        } = this.state;
+
+        let requiredData = {
+            menu : selectedMenuItem,
+            store : storeIdTab,
+            token : memberInfo.memberToken
+        }
+
+        action.createStoreTransaction(requiredData);
+    }
+    
+    handleMemberAuthentication = (e) => {
+		e.preventDefault();
+
+		const { memberInfo } = this.state;
+		const { action } = this.props;
+		
+		let requiredData = {
+			card: memberInfo.memberID
+		}
+		
+		action.authenticateMember(requiredData);
+    }
+    
+    handlePrintReceipt = () => {
+		const {
+			store,
+			accessToken,
+			action
+		} = this.props;
+
+		let requiredData = {
+			id: store.transaction.data.result.transaction
+		}
+
+        action.printStoreTransaction(requiredData, accessToken);
+	}
+    
+    calculateGrandTotalPrice = () => {
+		const {
+			selectedMenuItem
+		} = this.state;
+
+		let totalPriceArray = [];
+		let updatedGrandTotal;
+
+		selectedMenuItem.map((item) => {
+			totalPriceArray.push(item.totalPrice);
+		})
+
+		updatedGrandTotal = totalPriceArray.reduce((a, b) => a + b, 0);
+
+		this.setState({
+			...this.state,
+			grandTotal: updatedGrandTotal
+		})
+    }
+    
+    handleIndexedInputChange = (object, index, e) => {
+		const target = e.target;
+		const value = target.value;
+		const name = target.name;
+
+		let newObject = Object.assign({}, object);
+		newObject[index][name] = parseInt(value);
+		this.setState({newObject}, () => {
+			this.calculateGrandTotalPrice();
+		})
+	}
 
     //#
 	toggleTab = (tabIndex, type) => {
@@ -101,109 +340,29 @@ class AdminTransaction extends Component{
             activeTab: tabIndex,
             storeIdTab: type
 		}, () => {                       
-            this.populateTableData();
+            // #
         })
     }
-    
-    //#
-    fireCheckbox = (row) => {
-        let data = {
-            id : row.id,
-            name: row.name,
-            description: row.description,
-            price: row.price,
-            image: row.image,
-            status: row.status           
-        }
 
-        let dataAllSelected = [];
-        dataAllSelected.push(data);
+    handleInputChange = (object, e) => {
+		const target = e.target;
+		const value = target.value;
+		const name = target.name;
 
-        console.log(dataAllSelected);
-        // this.setState({
-        //     ...this.state,
-        //     selectedMenu: dataAllSelected
-        // }, () => {
-        //     console.log(this.state);
-        // });
-
-    }
-
-
-
-    //#
-    populateTableData = () => {
-
-        const { listMenuStore, storeList  } = this.state;  
-    
-        const columns = [
-            {
-                title: 'Nama Produk',
-                accessor: 'name'
-            },
-            {
-                title: 'Deskripsi Produk',
-                accessor: 'description'
-            },
-            {
-                title: 'Harga',
-                accessor: 'price'
-            },    
-            {
-                title: 'Aksi',
-                accessor: 'action',
-                render: (row) => (
-                    <td>
-                        <input className="margin-right-small" type="checkbox" onChange={() => this.fireCheckbox(row)} />
-                        {/* <Field
-                            // name={`${row}.check`}
-                            name="activated"
-                            component="input"
-                            label=""Activate?
-                        />
-                        <Form.Field>
-                            <Checkbox
-                                label={label}
-                                checked={input.value ? true : false}
-                                onChange={(e, { checked }) => input.onChange(checked)}
-                            />
-                        </Form.Field> */}
-                    </td>
-                )
-            }
-        ]
-
-        const rows = [];
-
-        if(listMenuStore.isLoaded){
-            listMenuStore.data.data.result.menu.map((menu, i)=> {
-                let row = {
-                    id: menu.id,
-                    description:menu.description,
-                    name: menu.name,
-                    price: menu.price,
-                    image: menu.image,
-                    status: menu.status
-
-                }
-                rows.push(row);
-            });
-        }
-      
-        this.setState({
-            ...this.state,
-            table: {
-                ...this.state.table,
-                columns: columns,
-                rows: rows
-            }
-        }, ()=> {
-            // console.log(this.state);
-        }) 
-    }
+		object[name] = value;
+		this.forceUpdate();
+	}
 
     render(){
         const { storeList, activeTab } = this.state;
+
+        const { store, match } = this.props;
+
+        let firstRoutePath;
+
+        if(storeList.isLoaded) {
+            firstRoutePath = storeList.data.data.result.store[0].name.replace(/\s+/g, '-').toLowerCase();
+        }
 
          //#
          const renderTabContent = () => {
@@ -212,19 +371,29 @@ class AdminTransaction extends Component{
                 if(storeList.data.data.result.store.length){
 
                     return storeList.data.data.result.store.map((type, i) => {
+                        let path = type.name.replace(/\s+/g, '-').toLowerCase();
+
+                        console.log(`${match.url}/transaction/${path}`)
 
                         return (
                             <TabContent activeTab={activeTab} tabIndex={i}>            
                                 <PropsRoute
+                                    key={i}
+                                    name={type.name}
+                                    path={`${match.url}/transaction/${path}`}
                                     component={AdminTransactionView}
                                     type={type}
                                     {...this.props}
                                     {...this.state}
-                                    // toggleModal= {this.toggleModal}
-                                    // handleInputChange= {this.handleInputChange}
-                                    // handleUpdateSubmitVendorMenu={this.handleUpdateSubmitVendorMenu}
-                                    // handleCancelModal={this.handleCancelModal}
-                                    // handleImageChange = {this.handleImageChange}
+                                    toggleModal= {this.toggleModal}
+                                    handleInputChange = {this.handleInputChange}
+                                    handleIndexedInputChange = {this.handleIndexedInputChange}
+                                    handleSelectMenu = {this.handleSelectMenu}
+                                    handleFormSubmit = {this.handleFormSubmit}
+                                    handlePaymentCheckout = {this.handlePaymentCheckout}
+                                    handlePaymentCheckoutSubmit={this.handlePaymentCheckoutSubmit}
+                                    handleMemberAuthentication={this.handleMemberAuthentication}
+                                    calculateGrandTotalPrice = {this.calculateGrandTotalPrice}
                                     toggleTab={this.toggleTab}
                                 />
                             </TabContent>
@@ -240,8 +409,7 @@ class AdminTransaction extends Component{
                     { storeList.isLoaded ? storeList.data.data.result.store.map((store, i) => (
                         <NavItem>
                             <NavTabLink active={activeTab === i} onClick={() => this.toggleTab(i, store)}>
-                                <h2>{store.name}</h2>
-                            
+                                <h4>{store.name}</h4>
                             </NavTabLink>
                         </NavItem>
                     )) : null }
@@ -249,13 +417,14 @@ class AdminTransaction extends Component{
 
                 {/* RENDER CONTENT BASED ON ID STORE */}
                 {renderTabContent()}
+                {/* <Redirect from="/*" to={`${match.url}/transaction/${firstRoutePath}`} /> */}
 
                 {/*  RENDER DIALOG BERHASIL OR NOT */}
-                {/* {this.renderDialog()} */}
+                {this.renderDialog()}
             </div>
 
         )
     }
 }
 
-export default connect( mapStateToProps, mapDispatchToProps )(AdminTransaction);
+export default connect(mapStateToProps, mapDispatchToProps)(AdminTransaction);

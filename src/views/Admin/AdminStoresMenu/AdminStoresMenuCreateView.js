@@ -23,7 +23,7 @@ const AdminStoresMenuCreateView = props => {
                             <PanelBody>
                                 <Form onSubmit={handleFormSubmit}>
 
-                                    <FormField label="Pilih Store sebelum menambahkan produk">
+                                    <FormField label="Pilih Store">
                                          <Select name="store" defaultValue={newMenuProduct.id} onChange={(e) => handleInputChange('newMenuProduct', e) }>
                                             <option>Pilih Store</option>
                                             {
@@ -40,7 +40,7 @@ const AdminStoresMenuCreateView = props => {
                                             <InputAddon>
                                                 <i className="fas fa-clipboard-list"></i>
                                             </InputAddon>
-                                            <Input name="name" type="text" placeholder="Masukkan nama lengkap produk" onChange={(e) => handleInputChange('newMenuProduct', e) } />
+                                            <Input name="name" type="text" placeholder="Masukkan nama produk" onChange={(e) => handleInputChange('newMenuProduct', e) } />
                                         </InputGroup>
                                     </FormField>
 
@@ -49,7 +49,7 @@ const AdminStoresMenuCreateView = props => {
                                             <InputAddon>
                                                 <i className="fas fa-clipboard-list"></i>
                                             </InputAddon>
-                                            <Input name="deskripsi" type="text" placeholder="Deskripsikan dengan jelas produk yang hendak di tampilkan" onChange={(e) => handleInputChange('newMenuProduct', e) } />
+                                            <Input name="deskripsi" type="text" placeholder="Masukkan deskripsi produk" onChange={(e) => handleInputChange('newMenuProduct', e) } />
                                         </InputGroup>
                                     </FormField>
 
@@ -58,16 +58,15 @@ const AdminStoresMenuCreateView = props => {
                                             <InputAddon>
                                                 <i className="">Rp</i>
                                             </InputAddon>
-                                            <Input name="harga" type="text" placeholder="Masukan Harga Produk" onChange={(e) => handleInputChange('newMenuProduct', e) } />
+                                            <Input name="harga" type="number" placeholder="Masukan Harga Produk" onChange={(e) => handleInputChange('newMenuProduct', e) } />
                                         </InputGroup>
                                     </FormField>
-
-                                    <FormField label= "Upload Gambar Produk" >
+                                    <FormField label= "Gambar Produk" >
                                         <InputGroup>
                                             <InputAddon>
                                                 <i className="fas fa-images"></i>
                                             </InputAddon> 
-                                            <Input className="input" name="image" type="file"  placeholder="Upload Gambar Produk" onChange={(e) => handleImageChange(newMenuProduct, e) } />
+                                            <Input className="input" name="image" type="file"  placeholder="Gambar Produk" onChange={(e) => handleImageChange(newMenuProduct, e) } />
                                         </InputGroup>
                                     </FormField>
                                     <Button type="submit">Simpan</Button>

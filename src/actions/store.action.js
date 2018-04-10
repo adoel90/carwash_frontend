@@ -224,12 +224,17 @@ export const getMenuListStore = (data) => {
 
 //#CREATE MENU TRANSACTION
 export const createStoreTransaction = (data) => {
+	let requiredData = {
+		menu : data.menu,
+		store : data.store.id,
+		token : data.token ? data.token : null
+	}
 	
 	return async dispatch => {
 		return axios
-			.post(`${constant.API_PATH}store/transaction/create?accessToken=${accessToken}`, {
-				menu: data.menu,
-				store: data.store.id
+			.post(`${constant.API_PATH}store/transaction/create?accessToken=${requiredData.token ? requiredData.token : accessToken}`, {
+				menu: requiredData.menu,
+				store: requiredData.store
 			},{'Content-Type': 'application/json'})
 			.then((response) => {
 				dispatch(handleSuccess(response.data));

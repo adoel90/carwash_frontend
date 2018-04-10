@@ -90,16 +90,16 @@ const AdminStoresMenuView = props => {
                                             <InputAddon>
                                                 <i className="">Rp</i>
                                             </InputAddon>
-                                            <Input name="price" placeholder={selectedMenuStore.price} defaultValue={selectedMenuStore.price} onChange={(e) => handleInputChange('selectedMenuStore', e)} />
+                                            <Input name="price" type="number" placeholder={selectedMenuStore.price} defaultValue={selectedMenuStore.price} onChange={(e) => handleInputChange('selectedMenuStore', e)} />
                                         </InputGroup>    
                                     </FormField>
 
-                                    <FormField label= "Upload Gambar Produk Lagi" >
+                                    <FormField label= "Gambar Produk">
                                         <InputGroup>
                                             <InputAddon>
                                                 <i className="fas fa-images"></i>
                                             </InputAddon> 
-                                            <Input className="input" name="image" type="file"  placeholder="Upload Gambar Produk" onChange={(e) => handleImageChange(selectedMenuStore, e) } />
+                                            <Input className="input" name="image" type="file"  placeholder="Gambar Produk" onChange={(e) => handleImageChange(selectedMenuStore, e) } />
                                         </InputGroup>
                                     </FormField>
                                 </Column>

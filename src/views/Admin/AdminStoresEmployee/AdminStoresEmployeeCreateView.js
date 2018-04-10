@@ -78,7 +78,9 @@ const AdminStoresEmployeeCreateView = props => {
                                             <option value="">Pilih Level</option>
                                             {
                                                access.list.isLoaded ? access.list.data.result.map((item, i) => {
-                                                    return <option value={item.id}>{item.name}</option>
+                                                    if(item.id >= 5) {
+                                                        return <option value={item.id}>{item.name}</option>
+                                                    }
                                                 }) : null
                                             }
                                         </Select>

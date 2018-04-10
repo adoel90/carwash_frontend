@@ -19,7 +19,8 @@ function mapStateToProps(state) {
     return {
         vendorState: state.vendorState,
         access: state.access,
-        dialog: state.dialog
+        dialog: state.dialog,
+        store:state.store
     };
 }
 
@@ -33,9 +34,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 class AdminStoresEmployee extends Component {
-
     constructor() {
-
         super();
         this.toggleModal = this.toggleModal.bind(this);
         this.openVendorEmployeeModal = this.openVendorEmployeeModal.bind(this);

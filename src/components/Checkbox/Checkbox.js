@@ -30,10 +30,7 @@ class Checkbox extends Component {
   render() {
     const { label } = this.props;
     const { isChecked, } = this.state;
-
-    console.log(label);
     
-
     return (
       <div className="checkbox">
         <label>

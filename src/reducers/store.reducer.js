@@ -59,7 +59,11 @@ import {
 
 	GET_STORE_LIST_WITH_ID_REQUESTED, //#GET STORE LIST WITH ID USER LOGIN
 	GET_STORE_LIST_WITH_ID_FULFILLED,
-	GET_STORE_LIST_WITH_ID_REJECTED
+	GET_STORE_LIST_WITH_ID_REJECTED,
+
+	CHANGE_STATUS_STORE_STAFF_REQUESTED, //#CHANGE STATUS STORE STAFF
+	CHANGE_STATUS_STORE_STAFF_FULFILLED,
+	CHANGE_STATUS_STORE_STAFF_REJECTED
 
 } from '../actions/store.action'
 
@@ -185,7 +189,16 @@ const initialState = {
 		isLoaded: false,
 		isError: false,
 		error: {}
-	}
+	},
+	statusEmployee: {
+		data: {},
+		isUpdated: false,
+		isUpdating: false,
+		isStatusChanging: false,
+		isStatusChanged: false,
+		isError: false,
+		error: {}
+	},
 }
 
 const store = (state = initialState, action) => {
@@ -885,8 +898,51 @@ const store = (state = initialState, action) => {
 		}
 	}
 
+	//#CHANGE STATUS STORE STAFF
+	case CHANGE_STATUS_STORE_STAFF_REQUESTED: {
+		return {
+			...state,
+			statusEmployee: {
+				...state.statusEmployee,
+				data: {},
+				id: action.id,
+				isStatusChanging: true,
+				isStatusChanged: false,
+				isError: false,
+				error: {}
+			}
+		}
+	}
 
+	case CHANGE_STATUS_STORE_STAFF_FULFILLED: {
+		return {
+			...state,
+			statusEmployee: {
+				...state.statusEmployee,
+				data: action.payload,
+				id: action.id,
+				isStatusChanging: false,
+				isStatusChanged: true,
+				isError: false,
+				error: {}
+			}
+		}
+	}
 
+	case CHANGE_STATUS_STORE_STAFF_REJECTED: {
+		return {
+			...state,
+			statusEmployee: {
+				...state.statusEmployee,
+				data: {},
+				id: action.id,
+				isStatusChanging: false,
+				isStatusChanged: false,
+				isError: true,
+				error: action.payload
+			}
+		}
+	}
 		default: {
 			return state;
 		}

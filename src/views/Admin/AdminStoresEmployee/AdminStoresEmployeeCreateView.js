@@ -38,9 +38,7 @@ const AdminStoresEmployeeCreateView = props => {
                                             }
                                         </Select>
                                     </FormField>
-
-
-                                    <FormField label="Nama Lengkap Staff Baru">
+                                    <FormField label="Nama Lengkap">
                                         <InputGroup>
                                             <InputAddon>
                                                 <i className="fas fa-user"></i>
@@ -49,7 +47,7 @@ const AdminStoresEmployeeCreateView = props => {
                                         </InputGroup>
                                     </FormField>
                                     
-                                    <FormField label="Username untuk Login">
+                                    <FormField label="Username">
                                         <InputGroup>
                                             <InputAddon>
                                                 <i className="fas fa-user"></i>
@@ -63,11 +61,13 @@ const AdminStoresEmployeeCreateView = props => {
                                             <InputAddon>
                                                 <i className="fas fa-lock"></i>
                                             </InputAddon>
-                                            <Input name="password" type="text" placeholder="Masukkan password" onChange={(e) => handleInputChange('newStaff', e) } />
+                                            <Input name="password" type="password" placeholder="Masukkan password" onChange={(e) => handleInputChange('newStaff', e) } />
+                                            <Input name="confirmPassword" type="password" placeholder="Ulangi kata sandi" onChange={(e) => handleInputChange('newStaff', e) } required />
+                                        
                                         </InputGroup>
                                     </FormField>
 
-                                    <FormField label="Berikan Access Level untuk Staff Baru">
+                                    <FormField label="Level Akses">
                                         {/* <Select name="level" defaultValue={newStaff.level.id} onChange={(e) => handleInputChange('newStaff', e) }>
                                             {
                                                store.list.isLoaded ? newStaff.level.map((item, i) => {
@@ -85,11 +85,6 @@ const AdminStoresEmployeeCreateView = props => {
                                             }
                                         </Select>
                                     </FormField>
-
-
-
-
-
 
                                     <FormField label="Email">
                                         <InputGroup>

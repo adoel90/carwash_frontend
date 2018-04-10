@@ -61,8 +61,7 @@ const AdminStoresEmployeeView = props => {
                                             <InputAddon>
                                                 <i className="fas fa-user-circle"></i>
                                             </InputAddon>
-                                            {/* <Input name="username" placeholder={dataVendorLoginNow.username} defaultValue={dataVendorLoginNow.username} onChange={(e) => handleInputChange('selectedVendorEmployee', e)} /> */}
-                                            <Input name="username"  onChange={(e) => handleInputChange('selectedVendorEmployee', e)} />
+                                            <Input name="username" placeholder={selectedVendorEmployee.username} onChange={(e) => handleInputChange('selectedVendorEmployee', e)} />
                                         </InputGroup>
                                     </FormField>
                                 </Column>
@@ -128,9 +127,6 @@ const AdminStoresEmployeeView = props => {
 
                             <Button className="margin-right-small" theme="danger" onClick={(e) => handleCancelModal(e)}>Cancel</Button>
                             <Button type="submit">Simpan</Button>
-
-                            {/* <ButtonDewek onClick={(e) => handleCancelModal(e)}>Cancel</ButtonDewek>
-                            <ButtonDewek variant="raised" type="submit">Simpan</ButtonDewek> */}
                         </ModalFooter>
                     </Form>
                 </Modal>

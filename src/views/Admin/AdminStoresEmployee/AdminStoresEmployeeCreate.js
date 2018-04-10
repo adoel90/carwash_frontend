@@ -43,21 +43,16 @@ class AdminStoresEmployeeCreate extends Component {
                 name: '',
                 username:'',
                 password:'',
+                confirmPassword: '',
                 email: '',
                 level:null,
                 store: null
             },
 
             accessLevel: {},
-
             storeList: {},
             storeActive: 0,
             levelId: null,
-            // accessLevel : [
-			// 	{ id : 4 , name : Owner},
-			// 	{ id : 5 , name : Kasir Store},
-			// 	{ id : 6 , name : Staff Store}
-			// ]
         }
     }
 
@@ -138,52 +133,68 @@ class AdminStoresEmployeeCreate extends Component {
         e.preventDefault();
         const { newStaff, storeList, storeActive, levelId , accessLevel} = this.state;
         const { action } = this.props;
-        
-        
-        const requiredData = {
-            store: newStaff.store ? parseInt( newStaff.store) : "Failed parse INTEGER!!!",
-            name: newStaff.name,
-            username: newStaff.username,
-            password: newStaff.password,
-            email: newStaff.email,
-            level: newStaff.level ? parseInt(newStaff.level) : "Failed parse INTEGER!!!"
-        }
-        
-        console.log(requiredData);
 
-        action.createStaffStore(requiredData).then(() => {
-            if(this.props.store.staffemployee.isCreated){
+        console.log(newStaff);
 
-                console.log("Created!!!");
-                
-                let dialogData = {
-                    type: 'success',
-                    title: 'Berhasil',
-                    message: 'Staff baru berhasil ditambahkan. Klik tombol berikut untuk kembali.',
-                    onClose: () => window.location.reload(),
-                    closeText: 'Kembali'
-                }
-        
-                this.toggleDialog(dialogData);
+        if(newStaff.password === newStaff.confirmPassword){
 
+            const requiredData = {
+                store: newStaff.store ? parseInt( newStaff.store) : "Failed parse INTEGER!!!",
+                name: newStaff.name,
+                username: newStaff.username,
+                password: newStaff.password,
+                email: newStaff.email,
+                level: newStaff.level ? parseInt(newStaff.level) : "Failed parse INTEGER!!!"
             }
             
-            if(this.props.store.staffemployee.isError){
-
-                console.log("Errur!!!");
-                
-                let dialogData = {
-                    type: 'danger',
-                    title: 'Gagal',
-                    message: 'Gagal menambahkan Staff baru. Klik tombol berikut untuk kembali.',
-                    onClose: () => this.toggleDialog(),
-                    closeText: 'Kembali'
+            console.log(requiredData);
+    
+            action.createStaffStore(requiredData).then(() => {
+                if(this.props.store.staffemployee.isCreated){
+    
+                    console.log("Created!!!");
+                    
+                    let dialogData = {
+                        type: 'success',
+                        title: 'Berhasil',
+                        message: 'Staff baru berhasil ditambahkan. Klik tombol berikut untuk kembali.',
+                        onClose: () => window.location.reload(),
+                        closeText: 'Kembali'
+                    }
+            
+                    this.toggleDialog(dialogData);
+    
                 }
-        
-                this.toggleDialog(dialogData);
                 
+                if(this.props.store.staffemployee.isError){
+    
+                    console.log("Errur!!!");
+                    
+                    let dialogData = {
+                        type: 'danger',
+                        title: 'Gagal',
+                        message: 'Gagal menambahkan Staff baru. Klik tombol berikut untuk kembali.',
+                        onClose: () => this.toggleDialog(),
+                        closeText: 'Kembali'
+                    }
+            
+                    this.toggleDialog(dialogData);
+                    
+                }
+            });
+        } else {
+            let dialogData = {
+                type: 'danger',
+                title: 'Gagal',
+                message: 'Kata sandi tidak cocok. Silahkan coba lagi.',
+                onClose: () => this.toggleDialog(),
+                closeText: 'Kembali'
             }
-        });
+    
+            this.toggleDialog(dialogData);
+        }
+        
+        
 
     }
 

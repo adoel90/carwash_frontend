@@ -83,6 +83,12 @@ export const GET_STORE_LIST_WITH_ID_REQUESTED = 'GET_STORE_LIST_WITH_ID_REQUESTE
 export const GET_STORE_LIST_WITH_ID_FULFILLED = 'GET_STORE_LIST_WITH_ID_FULFILLED';
 export const GET_STORE_LIST_WITH_ID_REJECTED = 'GET_STORE_LIST_WITH_ID_REJECTED';
 
+//#CHANGE STATUS STORE STAFF
+export const CHANGE_STATUS_STORE_STAFF_REQUESTED = 'CHANGE_STATUS_STORE_STAFF_REQUESTED';
+export const CHANGE_STATUS_STORE_STAFF_FULFILLED = 'CHANGE_STATUS_STORE_STAFF_FULFILLED';
+export const CHANGE_STATUS_STORE_STAFF_REJECTED = 'CHANGE_STATUS_STORE_STAFF_REJECTED'
+
+
 const accessToken = localStorage.getItem('accessToken') ? localStorage.getItem('accessToken') : null;
 const userLogin = localStorage.getItem('userData') ? localStorage.getItem('userData') : null;
 const userId =  localStorage.getItem('userData') ? JSON.parse(userLogin).id : null;
@@ -496,4 +502,25 @@ export const getStoreListWithIdUser = (data) => {
 	function fetchRequest() { return { type: GET_STORE_LIST_WITH_ID_REQUESTED } }
 	function fetchSuccess(data) { return { type: GET_STORE_LIST_WITH_ID_FULFILLED, payload: data } }
 	function fetchError(data) { return { type: GET_STORE_LIST_WITH_ID_REJECTED, payload: data } }
+}
+
+//#CHANGE STATUS STORE STAFF
+export const changeStatusStaff = (data) => {
+	console.log(data);
+	return async dispatch => {
+		dispatch(statusRequest());
+		return axios
+			.put(`${constant.API_PATH}store/staff/status?accessToken=${accessToken}`, data)
+			.then((response) => {
+
+				dispatch(statusSuccess(response, data.id));
+			})
+			.catch((error) => {
+				dispatch(statusError(error, data.id));
+			})
+	}
+
+	function statusRequest(id) { return { type: CHANGE_STATUS_STORE_STAFF_REQUESTED, id: id } }
+	function statusSuccess(data, id) { return { type: CHANGE_STATUS_STORE_STAFF_FULFILLED, payload: data, id: id } }
+	function statusError(data, id) { return { type: CHANGE_STATUS_STORE_STAFF_REJECTED, payload: data, id: id } }
 }

@@ -9,8 +9,8 @@ import { Button } from '../../../components/Button';
 import { Dialog } from '../../../components/Dialog';
 import { Nav, NavItem, NavLink, NavTabLink} from '../../../components/Nav';
 
-
-import { getVendorEmployeeList, updateVendorEmployee } from '../../../actions/vendor.action';
+// import { changeStatusStaff } from '../../../actions/store.action';
+import { getVendorEmployeeList, updateVendorEmployee, changeStatusStaff } from '../../../actions/vendor.action';
 import { getStoreList } from '../../../actions/vendor.action';
 import { getAccessList } from '../../../actions/access.action';
 import { openDialog, closeDialog } from '../../../actions/dialog.action';
@@ -18,6 +18,7 @@ import { openDialog, closeDialog } from '../../../actions/dialog.action';
 function mapStateToProps(state) {
     return {
         vendorState: state.vendorState,
+        // store: state.store,
         access: state.access,
         dialog: state.dialog
     };
@@ -28,14 +29,13 @@ function mapDispatchToProps(dispatch) {
         getVendorEmployeeListDispatch: (data) => dispatch(getVendorEmployeeList(data)),
         getStoreListDispatch: () => dispatch(getStoreList()),
         getAccessList: (data) => dispatch(getAccessList(data)),
-        action: bindActionCreators({ updateVendorEmployee, openDialog, closeDialog, getVendorEmployeeList }, dispatch)
+        action: bindActionCreators({ updateVendorEmployee, openDialog, closeDialog, getVendorEmployeeList, changeStatusStaff }, dispatch)
     }
 }
 
 class AdminStoresEmployee extends Component {
 
     constructor() {
-
         super();
         this.toggleModal = this.toggleModal.bind(this);
         this.openVendorEmployeeModal = this.openVendorEmployeeModal.bind(this);
@@ -47,6 +47,8 @@ class AdminStoresEmployee extends Component {
         this.getAccessList = this.getAccessList.bind(this);
         this.renderDialog = this.renderDialog.bind(this);
         this.toggleTab = this.toggleTab.bind(this);
+
+        this.changeStatusStaffBind = this.changeStatusStaffBind.bind(this);
 
         this.state = {
             vendorEmployee: {},
@@ -66,22 +68,22 @@ class AdminStoresEmployee extends Component {
             storeList:{},
             storeActiveList:{},
             storeActive: 0,
-            activeTab: 0
+            activeTab: null
+            // activeTab: 0
         }
     }
 
     componentDidMount = () => {
-        // this.getVendorEmployeeList();
         this.getStoreList();
         this.getAccessList();
     }
 
 
     componentDidUpdate = (prevProps) => {
-        const { vendorState, storeMenuList, getVendorEmployeeListDispatch, access } = this.props;
-        const { storeActive } = this.state;
+        const { vendorState, storeMenuList, getVendorEmployeeListDispatch, access, store } = this.props;
+        const { storeActive, vendorEmployeeList, storeActiveList } = this.state;
         
-         //#Get list Staf Store based on ID STORE
+         //#Get list Staf Store based on ID STORE || not prime
          if(prevProps.vendorState.store !== vendorState.store){
             if(vendorState.store.isLoaded){
                 this.setState({
@@ -89,22 +91,88 @@ class AdminStoresEmployee extends Component {
                     // storeActiveList: vendorState.store.data.data.result.store
                     storeActiveList: vendorState.store
                 }, () => {
-                    getVendorEmployeeListDispatch(vendorState.store.data.data.result.store[storeActive]);
+                    console.log(this.state);
                 });
             }
         }
 
-        //#Get All list employee
+        //#Get All list employee after click TAB
         if (prevProps.vendorState.employee !== vendorState.employee) {
             if(vendorState.employee.isLoaded){
                 this.setState({
                     ...this.state,
                     vendorEmployeeList: vendorState.employee
                 }, () => {
-                    // this.populateTableData();
+                    this.populateTableData();
+                    // console.log(vendorEmployeeList);
                 });
             }           
         }
+
+         //#Get status Store Staff
+        //  if(prevProps.store.statusEmployee !== store.statusEmployee){
+
+        //     if(store.statusEmployee.isStatusChanging){
+        //         vendorEmployeeList.data.data.result.staff.forEach((value) => {
+        //             if(value.id === store.statusEmployee.id){
+        //                 console.log(value.id);
+        //                 console.log("Got it");
+        //                 value.statusChanging = true;
+        //                 this.forceUpdate();
+        //             }
+        //         });
+        //     }
+
+        //     if(store.statusEmployee.isStatusChanged) {
+        //         vendorEmployeeList.data.data.result.staff.forEach((value) => {
+        //             if(value.id === store.statusEmployee.id) {
+        //                 value.statusChanging = false;
+        //                 if(value.status) {
+        //                     value.status = false;
+        //                 }
+        //                 else {
+        //                     value.status = true;
+        //                 }
+        //                 this.forceUpdate();
+        //             }
+        //         })
+        //     }   
+        // }
+
+         if(prevProps.vendorState.statusEmployee !== vendorState.statusEmployee){
+             
+            if(vendorState.statusEmployee.isStatusChanging){
+                vendorEmployeeList.data.data.result.staff.forEach((value) => {
+
+                    vendorState.statusEmployee.isStatusChanged ? vendorState.statusEmployee.id : null     
+                    console.log(vendorState.statusEmployee.id);
+                    if(value.id === vendorState.statusEmployee.id){
+                        value.statusChanging = true;
+                        console.log(value);
+                        console.log(vendorState.statusEmployee);
+                        this.forceUpdate();
+                    }
+                });
+            }
+
+            if(vendorState.statusEmployee.isStatusChanged) {
+                vendorEmployeeList.data.data.result.staff.forEach((value) => {
+                    if(value.id === vendorState.statusEmployee.id) {
+                        value.statusChanging = false;
+                        if(value.status) {
+                            value.status = false;
+                        }
+                        else {
+                            value.status = true;
+                        }
+                        console.log(value);
+                        console.log(vendorState.statusEmployee.id);
+                        this.forceUpdate();
+                    }
+                })
+            }   
+        }
+
 
         //#Get All Access List
         if(prevProps.access.list !== access.list){
@@ -115,8 +183,7 @@ class AdminStoresEmployee extends Component {
                     accessLevel: access.list.data.result
                 }, () => {
                     // console.log(this.state);
-                })
-                
+                })       
             }
         }
     }
@@ -128,7 +195,6 @@ class AdminStoresEmployee extends Component {
 
     getAccessList = () => {
         const { getAccessList } = this.props;
-
         let requiredData = {
             active : true
         }
@@ -136,22 +202,28 @@ class AdminStoresEmployee extends Component {
         getAccessList(requiredData);
     }
 
-  
   //#
-  toggleTab = (tabIndex, type) => {
+  toggleTab = (tabIndex, store) => {
 
         const { getVendorEmployeeList, action } = this.props;
-        let data = { id : type.id }
-
-        action.getVendorEmployeeList(data);
+        let data = { id : store.id }
 
         this.setState({
             activeTab: tabIndex,
-            storeIdTab: type
-        }, () => {                       
-            this.populateTableData();
-            console.log(this.state.storeIdTab);
+            storeIdTab: store
+        }, () => {               
+            action.getVendorEmployeeList(data);  
+            // console.log(this.state.storeIdTab);      
+            // this.populateTableData();
         })
+    }
+
+    //#Change Status User Active or non-aktif
+    changeStatusStaffBind = (row) => {
+
+        const { action } = this.props;
+        let requiredData = { id: row.id }
+        action.changeStatusStaff(requiredData);
     }
 
     populateTableData = () => {
@@ -173,11 +245,12 @@ class AdminStoresEmployee extends Component {
             {
                 title: 'Aksi',
                 accessor: 'action',
-                // render: (data) => (
+                width: '30%',
+                align: 'center',
                 render: (row) => (
-                    <td>
+                    <td  className="flex justify-content--center">
                         <Button className="margin-right-small" type="button" onClick={() => this.openVendorEmployeeModal(row)}>Ubah</Button>
-
+                        <Button type="button" theme={row.statusEmployee ? "success" : "danger"} onClick={() => this.changeStatusStaffBind(row)}>{ row.statusEmployee ? 'Aktif' : 'Non Aktif' }</Button>
                     </td>
                 )
             }
@@ -266,6 +339,8 @@ class AdminStoresEmployee extends Component {
     }
 
     openVendorEmployeeModal = (row) => {
+        console.log(row);
+
         this.setState({
             ...this.state,
             // selectedVendorEmployee : row.data
@@ -303,8 +378,7 @@ class AdminStoresEmployee extends Component {
                         onClose: () => window.location.reload(),
                         closeText: 'Kembali'
                     }
-                    this.toggleDialog(dialogData);
-                    
+                    this.toggleDialog(dialogData); 
                 }
 
                 if(this.props.vendorState.updateEmployee.isError){
@@ -322,8 +396,8 @@ class AdminStoresEmployee extends Component {
             })
 
         } else {
-            console.log("Password tidak sama");
-            alert("Ulangi ketik Password! Password tidak sama");
+            console.log("Password tidak cocok");
+            alert("Ulangi ketik Password! Password tidak cocok");
         }
     }
 

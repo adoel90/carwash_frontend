@@ -164,6 +164,8 @@ class AdminUser extends Component {
     }
 
     changeStatusUser = (row) => {
+
+        console.log(row);
         const {
             action
         } = this.props;

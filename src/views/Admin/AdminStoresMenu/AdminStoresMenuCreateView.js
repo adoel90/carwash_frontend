@@ -23,7 +23,7 @@ const AdminStoresMenuCreateView = props => {
                             <PanelBody>
                                 <Form onSubmit={handleFormSubmit}>
 
-                                    <FormField label="Pilih Store sebelum menambahkan produk">
+                                    <FormField label="Pilih Store">
                                          <Select name="store" defaultValue={newMenuProduct.id} onChange={(e) => handleInputChange('newMenuProduct', e) }>
                                             <option>Pilih Store</option>
                                             {

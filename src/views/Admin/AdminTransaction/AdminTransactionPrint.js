@@ -9,9 +9,12 @@ class AdminTransactionPrint extends Component {
         const {
             store,
             printData,
-            selectedMenuList,
+            selectedMenuItem,
+            dataTransaction,
             grandTotal
         } = this.props;
+
+        console.log(this.props)
         
         const renderItem = (item, i) => {
             return (
@@ -30,11 +33,11 @@ class AdminTransactionPrint extends Component {
         }
         
         const renderItemList = () => {
-            if(printData.menu) {
+            if(printData.result.menu) {
                 return (
                     <table className="margin-bottom-2" style={{width: '100%'}}>
                         <tbody>
-                            {selectedMenuList.map(renderItem)}
+                            {selectedMenuItem.map(renderItem)}
                         </tbody>
                     </table>
                 )
@@ -43,10 +46,16 @@ class AdminTransactionPrint extends Component {
 
 
         const renderSummary = () => {
-            if(printData.member) {
+            if(printData.result.member) {
                 return (
                     <table style={{width: '100%'}}>
                         <tbody>
+                            <tr>
+                                <td>Diskon:</td>
+                                <td className="ta-right">
+                                    {dataTransaction.discount}%
+                                </td>
+                            </tr>
                             <tr>
                                 <td>Total Harga:</td>
                                 <td className="ta-right">
@@ -63,7 +72,7 @@ class AdminTransactionPrint extends Component {
                                     <NumberFormat
                                         thousandSeparator={true}
                                         displayType={'text'}
-                                        value={parseInt(grandTotal) + parseInt(printData.member.balance)}
+                                        value={parseInt(grandTotal) + parseInt(printData.result.member.balance)}
                                     />
                                 </td>
                             </tr>
@@ -73,7 +82,7 @@ class AdminTransactionPrint extends Component {
                                     <NumberFormat
                                         thousandSeparator={true}
                                         displayType={'text'}
-                                        value={printData.member.balance}
+                                        value={printData.result.member.balance}
                                     />
                                 </td>
                             </tr>
@@ -85,30 +94,32 @@ class AdminTransactionPrint extends Component {
         }
         
         if(store.print.isPrinted) {
-            return (
-                <Printable>
-                    <div className="receipt">
-                        <div className="receipt-header ta-center margin-bottom-3">
-                            <div className="margin-bottom-3">
-                                <h5 className="fw-bold">{printData.queue}</h5>
+            if(printData.status === 200) {
+                return (
+                    <Printable>
+                        <div className="receipt">
+                            <div className="receipt-header ta-center margin-bottom-3">
+                                <div className="margin-bottom-3">
+                                    <h5 className="fw-bold">{printData.result.queue}</h5>
+                                </div>
+                                <p className="fw-bold">805 Carwash</p>
+                                <p>Jln. Raya Pegangsaan 2 no 23-B <br/> 0896-0457-8309 <br/> 021-957-362-77</p>
                             </div>
-                            <p className="fw-bold">805 Carwash</p>
-                            <p>Jln. Raya Pegangsaan 2 no 23-B <br/> 0896-0457-8309 <br/> 021-957-362-77</p>
-                        </div>
-                        <div className="receipt-body margin-bottom-3">
-                            {renderItemList()}
-                            {renderSummary()}
-                        </div>
-                        <div className="receipt-footer ta-center">
-                            <div className="margin-bottom-2">
-                                <p className="fw-semibold">For Customer <br/>{printData.member ? printData.member.name : null}</p>
+                            <div className="receipt-body margin-bottom-3">
+                                {renderItemList()}
+                                {renderSummary()}
                             </div>
-                            <p className="fw-semibold">{moment(printData.date).format('LLL')}</p>
-                            <p>Thank you and please come again soon.</p>
+                            <div className="receipt-footer ta-center">
+                                <div className="margin-bottom-2">
+                                    <p className="fw-semibold">For Customer <br/>{printData.result.member ? printData.result.member.name : null}</p>
+                                </div>
+                                <p className="fw-semibold">{moment(printData.result.date).format('LLL')}</p>
+                                <p>Thank you and please come again soon.</p>
+                            </div>
                         </div>
-                    </div>
-                </Printable>
-            );
+                    </Printable>
+                );
+            }
         }
 
         return null;

@@ -26,13 +26,25 @@ import {
 
 	UPDATE_VENDOR_EMPLOYEE_REQUESTED, //UPDATE VENDOR EMPLOYEE
 	UPDATE_VENDOR_EMPLOYEE_FULFILLED,
-	UPDATE_VENDOR_EMPLOYEE_REJECTED
+	UPDATE_VENDOR_EMPLOYEE_REJECTED,
 
+	CHANGE_STATUS_STORE_STAFF_REQUESTED, //#CHANGE STATUS STORE STAFF
+	CHANGE_STATUS_STORE_STAFF_FULFILLED,
+	CHANGE_STATUS_STORE_STAFF_REJECTED
 
 } from '../actions/vendor.action'
 
 const initialState = {
 
+	statusEmployee: {
+		data: {},
+		isUpdated: false,
+		isUpdating: false,
+		isStatusChanging: false,
+		isStatusChanged: false,
+		isError: false,
+		error: {}
+	},
 	item: {
 		data: {},
 		isCreated: false,
@@ -90,7 +102,9 @@ const initialState = {
 		isLoaded:false,
 		isError:false,
 		error:{}
-	}
+	},
+
+
 }
 
 /*
@@ -374,6 +388,52 @@ const vendorState = (state = initialState, action) => {
 					...state.updateEmployee,
 					data: {},
 					isUpdated: false,
+					isError: true,
+					error: action.payload
+				}
+			}
+		}
+
+		//#CHANGE STATUS STORE STAFF
+		case CHANGE_STATUS_STORE_STAFF_REQUESTED: {
+			return {
+				...state,
+				statusEmployee: {
+					...state.statusEmployee,
+					data: {},
+					id: action.id,
+					isStatusChanging: true,
+					isStatusChanged: false,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case CHANGE_STATUS_STORE_STAFF_FULFILLED: {
+			return {
+				...state,
+				statusEmployee: {
+					...state.statusEmployee,
+					data: action.payload,
+					id: action.id,
+					isStatusChanging: false,
+					isStatusChanged: true,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case CHANGE_STATUS_STORE_STAFF_REJECTED: {
+			return {
+				...state,
+				statusEmployee: {
+					...state.statusEmployee,
+					data: {},
+					id: action.id,
+					isStatusChanging: false,
+					isStatusChanged: false,
 					isError: true,
 					error: action.payload
 				}

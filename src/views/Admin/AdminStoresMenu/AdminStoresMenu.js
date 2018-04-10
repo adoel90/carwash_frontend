@@ -65,7 +65,8 @@ class AdminStoresMenu extends Component {
             storeActive: 0,
             storeMenuList:{},
 
-            activeTab: 0,
+            // activeTab: 0,
+            activeTab: null,
             storeIdTab: {}
         }
     }
@@ -94,7 +95,7 @@ class AdminStoresMenu extends Component {
                     storeActiveList: vendorState.store.data.data.result.store
                 }, () => {
 
-                    getMenuStoreListDispatch(vendorState.store.data.data.result.store[storeActive]);
+                    // getMenuStoreListDispatch(vendorState.store.data.data.result.store[storeActive]);
                 });
             }
         }
@@ -106,9 +107,9 @@ class AdminStoresMenu extends Component {
                 this.setState({
                     ...this.state,
                     storeMenuList: vendorState.storemenu
-                },()=>{
+                },() =>{
                     // console.log(this.state);
-                    // this.populateTableData();
+                    this.populateTableData();
                 })
             }
         }
@@ -120,13 +121,16 @@ class AdminStoresMenu extends Component {
         const { getMenuStoreListDispatch, action } = this.props;
         let data = { id : type.id }
 
-        action.getMenuStoreList(data);
+        console.log(tabIndex);
+
+        // action.getMenuStoreList(data);
 
         this.setState({
             activeTab: tabIndex,
             storeIdTab: type
 		}, () => {                       
-            this.populateTableData();
+            // this.populateTableData();
+            action.getMenuStoreList(data);
         })
 	}
 
@@ -359,15 +363,16 @@ class AdminStoresMenu extends Component {
                             <TabContent activeTab={activeTab} tabIndex={i}>            
                                 <PropsRoute
                                     component={AdminStoresMenuView}
-                                    type={type}
+                                    // type={type}
                                     {...this.props}
                                     {...this.state}
+                                    toggleTab={this.toggleTab}
                                     toggleModal= {this.toggleModal}
                                     handleInputChange= {this.handleInputChange}
                                     handleUpdateSubmitVendorMenu={this.handleUpdateSubmitVendorMenu}
                                     handleCancelModal={this.handleCancelModal}
                                     handleImageChange = {this.handleImageChange}
-                                    toggleTab={this.toggleTab}
+                                    
                                 />
                             </TabContent>
                         )
@@ -375,7 +380,6 @@ class AdminStoresMenu extends Component {
                 }
             }
         }
-
 
         return (
             <div>           

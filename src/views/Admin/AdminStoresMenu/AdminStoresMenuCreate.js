@@ -66,7 +66,6 @@ class AdminStoresMenuCreate extends Component {
 
                 }, () => {
                     console.log(this.state);
-                    
                 })
             }
         }

@@ -73,7 +73,8 @@ class AdminTransaction extends Component{
             grandTotal: 0,
             dataTransaction: {
                 discount: 0,
-                increase: false
+                increase: false,
+                markup: 0
             },
             isChecked: false
         }

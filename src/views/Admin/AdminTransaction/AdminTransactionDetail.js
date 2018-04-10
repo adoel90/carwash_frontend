@@ -70,10 +70,10 @@ class AdminTransactionDetail extends Component {
 						</Row>
 						<Row className="flex justify-content--space-between padding-top-small">
 							<Column md={10}>
-								<small className="tt-uppercase ls-base fw-bold">Mark Up</small>
+								<small className="tt-uppercase ls-base fw-bold">Mark Up %</small>
 							</Column>
 							<Column md={2}>
-								<SwitchSquare name="increase" value={Boolean(dataTransaction.increase)} onChange={(e) => handleInputChange(dataTransaction, e)} />
+								<Input name="markup" type="number" onChange={(e) => handleInputChange(dataTransaction, e)} placeholder="%" />
 							</Column>
 						</Row>
 						<Row className="flex justify-content--space-between padding-top-small">

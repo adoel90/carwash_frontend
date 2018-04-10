@@ -83,7 +83,7 @@ const AdminStoresEmployeeView = props => {
                                             <InputAddon>
                                                 <i className="fas fa-key"></i>
                                             </InputAddon>
-                                            <Input name="password" placeholder="Password" defaultValue={selectedVendorEmployee.password} onChange={(e) => handleInputChange('selectedVendorEmployee', e)} />
+                                            <Input name="password" type="password" placeholder="Password" defaultValue={selectedVendorEmployee.password} onChange={(e) => handleInputChange('selectedVendorEmployee', e)} />
                                         </InputGroup>
                                     </FormField>
                                 </Column>
@@ -116,7 +116,7 @@ const AdminStoresEmployeeView = props => {
                                             <InputAddon>
                                                 <i className="fas fa-key"></i>
                                             </InputAddon>
-                                            <Input name="passwordConfirm" placeholder="Konfirmasi Password" defaultValue={selectedVendorEmployee.passwordConfirm} onChange={(e) => handleInputChange('selectedVendorEmployee', e)} />
+                                            <Input name="passwordConfirm" type="password" placeholder="Konfirmasi Password" defaultValue={selectedVendorEmployee.passwordConfirm} onChange={(e) => handleInputChange('selectedVendorEmployee', e)} />
                                         </InputGroup>
                                     </FormField>
                                 </Column>

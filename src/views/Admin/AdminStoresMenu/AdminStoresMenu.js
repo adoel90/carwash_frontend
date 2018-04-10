@@ -107,8 +107,7 @@ class AdminStoresMenu extends Component {
                     ...this.state,
                     storeMenuList: vendorState.storemenu
                 },()=>{
-                    // console.log(this.state);
-                    // this.populateTableData();
+                    this.populateTableData();
                 })
             }
         }
@@ -383,8 +382,7 @@ class AdminStoresMenu extends Component {
                     { vendorState.store.isLoaded ? vendorState.store.data.data.result.store.map((store, i) => (
                         <NavItem>
                             <NavTabLink active={activeTab === i} onClick={() => this.toggleTab(i, store)}>
-                                <h2>{store.name}</h2>
-                            
+                                <h4>{store.name}</h4>
                             </NavTabLink>
                         </NavItem>
                     )) : null }

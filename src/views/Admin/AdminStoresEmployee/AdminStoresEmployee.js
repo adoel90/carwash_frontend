@@ -101,7 +101,7 @@ class AdminStoresEmployee extends Component {
                     ...this.state,
                     vendorEmployeeList: vendorState.employee
                 }, () => {
-                    // this.populateTableData();
+                    this.populateTableData();
                 });
             }           
         }
@@ -386,8 +386,7 @@ class AdminStoresEmployee extends Component {
                 { vendorState.store.isLoaded ? vendorState.store.data.data.result.store.map((store, i) => (
                     <NavItem>
                         <NavTabLink active={activeTab === i} onClick={() => this.toggleTab(i, store)}>
-                            <h2>{store.name}</h2>
-                        
+                            <h4>{store.name}</h4>
                         </NavTabLink>
                     </NavItem>
                 )) : null }

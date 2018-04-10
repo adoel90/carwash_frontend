@@ -124,7 +124,7 @@ class AdminTransaction extends Component{
                     ...this.state,
                     listMenuStore: store.storemenu
                 }, () => {
-                    // console.log(this.state);
+                    console.log(this.state);
                 })
             }
         }

@@ -59,7 +59,7 @@ const AdminAccessView = props => {
                         isOpen={isModalOpen.updateAccess}
                         toggle={() => toggleModal('updateAccess')}>
                         <ModalHeader>
-                            <h5>Ubah Informasi Access</h5>
+                            <h5>Ubah Akses</h5>
                         </ModalHeader>
                         <Form onSubmit={updateAccess}>
                               <ModalBody>

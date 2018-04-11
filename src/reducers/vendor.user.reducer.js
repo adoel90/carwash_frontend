@@ -26,7 +26,15 @@ import {
 
 	UPDATE_VENDOR_EMPLOYEE_REQUESTED, //UPDATE VENDOR EMPLOYEE
 	UPDATE_VENDOR_EMPLOYEE_FULFILLED,
-	UPDATE_VENDOR_EMPLOYEE_REJECTED
+	UPDATE_VENDOR_EMPLOYEE_REJECTED,
+
+	CHANGE_MENU_STATUS_REQUESTED,
+	CHANGE_MENU_STATUS_FULFILLED,
+	CHANGE_MENU_STATUS_REJECTED,
+
+	CHANGE_EMPLOYEE_STATUS_REQUESTED,
+	CHANGE_EMPLOYEE_STATUS_FULFILLED,
+	CHANGE_EMPLOYEE_STATUS_REJECTED
 
 
 } from '../actions/vendor.action'
@@ -90,6 +98,24 @@ const initialState = {
 		isLoaded:false,
 		isError:false,
 		error:{}
+	},
+
+	status : {
+		id: null,
+		data: {},
+		isStatusChanging: true,
+		isStatusChanged: false,
+		isError: false,
+		error: {}
+	},
+
+	statusEmployee : {
+		id: null,
+		data: {},
+		isStatusChanging: true,
+		isStatusChanged: false,
+		isError: false,
+		error: {}
 	}
 }
 
@@ -374,6 +400,94 @@ const vendorState = (state = initialState, action) => {
 					...state.updateEmployee,
 					data: {},
 					isUpdated: false,
+					isError: true,
+					error: action.payload
+				}
+			}
+		}
+
+		case CHANGE_MENU_STATUS_REQUESTED: {
+			return {
+				...state,
+				status: {
+					...state.status,
+					id: action.id,
+					data: {},
+					isStatusChanging: true,
+					isStatusChanged: false,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case CHANGE_MENU_STATUS_FULFILLED: {
+			return {
+				...state,
+				status: {
+					...state.status,
+					id: action.id,
+					data: action.payload,
+					isStatusChanging: false,
+					isStatusChanged: true,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case CHANGE_MENU_STATUS_REJECTED: {
+			return {
+				...state,
+				status: {
+					...state.status,
+					data: {},
+					isStatusChanging: false,
+					isStatusChanged: false,
+					isError: true,
+					error: action.payload
+				}
+			}
+		}
+
+		case CHANGE_EMPLOYEE_STATUS_REQUESTED: {
+			return {
+				...state,
+				statusEmployee: {
+					...state.statusEmployee,
+					id: action.id,
+					data: {},
+					isStatusChanging: true,
+					isStatusChanged: false,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case CHANGE_EMPLOYEE_STATUS_FULFILLED: {
+			return {
+				...state,
+				statusEmployee: {
+					...state.statusEmployee,
+					id: action.id,
+					data: action.payload,
+					isStatusChanging: false,
+					isStatusChanged: true,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case CHANGE_EMPLOYEE_STATUS_REJECTED: {
+			return {
+				...state,
+				statusEmployee: {
+					...state.statusEmployee,
+					data: {},
+					isStatusChanging: false,
+					isStatusChanged: false,
 					isError: true,
 					error: action.payload
 				}

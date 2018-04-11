@@ -10,7 +10,7 @@ import { Button } from '../../../components/Button';
 import { PageBlock, PageBlockGroup, PageContent, PageHeading} from '../../../components/Page';
 import { Nav, NavItem, NavLink, NavTabLink} from '../../../components/Nav';
 
-import { getStoreList, updateMenuVendor, getMenuStoreList } from '../../../actions/vendor.action';
+import { getStoreList, updateMenuVendor, getMenuStoreList, changeMenuStatus } from '../../../actions/vendor.action';
 import { openDialog, closeDialog } from '../../../actions/dialog.action';
 
 function mapStateToProps(state) {
@@ -25,7 +25,7 @@ function mapDispatchToProps(dispatch) {
     return {
         getStoreListDispatch: () => dispatch(getStoreList()),
         getMenuStoreListDispatch: (data) => { dispatch(getMenuStoreList(data))},
-        action: bindActionCreators({ updateMenuVendor, openDialog, closeDialog, getMenuStoreList }, dispatch)
+        action: bindActionCreators({ updateMenuVendor, openDialog, closeDialog, getMenuStoreList, changeMenuStatus }, dispatch)
     }
 }
 
@@ -40,7 +40,7 @@ class AdminStoresMenu extends Component {
         this.handleUpdateSubmitVendorMenu = this.handleUpdateSubmitVendorMenu.bind(this);
         this.populateTableData= this.populateTableData.bind(this);
         this.handleCancelModal = this.handleCancelModal.bind(this);
-
+        this.changeMenuStatus = this.changeMenuStatus.bind(this);
         this.getStoreList = this.getStoreList.bind(this);
         this.renderDialog = this.renderDialog.bind(this);
         this.handleImageChange = this.handleImageChange.bind(this);
@@ -90,7 +90,7 @@ class AdminStoresMenu extends Component {
     componentDidUpdate = (prevProps) => {
 
         const { vendorState, getMenuStoreListDispatch } = this.props;
-        const { storeList, storeActive } = this.state;
+        const { storeList, storeActive, storeMenuList } = this.state;
 
         //Get menu store based on ID STORE
         if(prevProps.vendorState.store !== vendorState.store){
@@ -114,6 +114,32 @@ class AdminStoresMenu extends Component {
                     storeMenuList: vendorState.storemenu
                 },()=>{
                     this.populateTableData();
+                })
+            }
+        }
+
+        if(prevProps.vendorState.status !== vendorState.status) {
+            if(vendorState.status.isStatusChanging) {
+                storeMenuList.data.data.result.menu.map((item) => {
+                    item.statusChanging = true;
+                    this.forceUpdate();
+                })
+            }
+
+            if(vendorState.status.isStatusChanged) {
+                storeMenuList.data.data.result.menu.map((item) => {
+                    if (item.id === vendorState.status.id) {
+                            item.statusChanging = false;
+
+                            if(item.status) {
+                            item.status = false;
+                            } 
+                            else {
+                            item.status = true;
+                            }
+
+                            this.forceUpdate();
+                    }
                 })
             }
         }
@@ -201,6 +227,7 @@ class AdminStoresMenu extends Component {
                 render: (row) => (
                     <td>
                         <Button className="margin-right-small" type="button" onClick={() => this.openMenuVendorModal(row)}>Ubah</Button>
+                        <Button type="button" theme={row.data.status ? "success" : "danger"} onClick={() => this.changeMenuStatus(row)}>{ row.data.status ? 'Aktif' : 'Non Aktif' }</Button>
                     </td>
                 )
             }
@@ -216,7 +243,8 @@ class AdminStoresMenu extends Component {
                     name: menu.name,
                     price: menu.price,
                     image: menu.image,
-                    status: menu.status
+                    status: menu.status,
+                    data: menu
 
                 }
                 rows.push(row);
@@ -345,6 +373,18 @@ class AdminStoresMenu extends Component {
                 updateMenuVendor:false
             }
         });
+    }
+
+    changeMenuStatus = (row) => {
+        const {
+              action
+        } = this.props;
+
+        let requiredData = {
+              id: row.data.id
+        }
+
+        action.changeMenuStatus(requiredData);
     }
 
     render() {

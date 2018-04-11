@@ -10,7 +10,7 @@ import { Dialog } from '../../../components/Dialog';
 import { Nav, NavItem, NavLink, NavTabLink} from '../../../components/Nav';
 
 
-import { getVendorEmployeeList, updateVendorEmployee } from '../../../actions/vendor.action';
+import { getVendorEmployeeList, updateVendorEmployee, changeEmployeeStatus } from '../../../actions/vendor.action';
 import { getStoreList } from '../../../actions/vendor.action';
 import { getAccessList } from '../../../actions/access.action';
 import { openDialog, closeDialog } from '../../../actions/dialog.action';
@@ -28,7 +28,7 @@ function mapDispatchToProps(dispatch) {
         getVendorEmployeeListDispatch: (data) => dispatch(getVendorEmployeeList(data)),
         getStoreListDispatch: () => dispatch(getStoreList()),
         getAccessList: (data) => dispatch(getAccessList(data)),
-        action: bindActionCreators({ updateVendorEmployee, openDialog, closeDialog, getVendorEmployeeList }, dispatch)
+        action: bindActionCreators({ updateVendorEmployee, openDialog, closeDialog, getVendorEmployeeList, changeEmployeeStatus }, dispatch)
     }
 }
 
@@ -47,6 +47,7 @@ class AdminStoresEmployee extends Component {
         this.getAccessList = this.getAccessList.bind(this);
         this.renderDialog = this.renderDialog.bind(this);
         this.toggleTab = this.toggleTab.bind(this);
+        this.changeEmployeeStatus = this.changeEmployeeStatus.bind(this);
 
         this.state = {
             vendorEmployee: {},
@@ -86,7 +87,7 @@ class AdminStoresEmployee extends Component {
 
     componentDidUpdate = (prevProps) => {
         const { vendorState, storeMenuList, getVendorEmployeeListDispatch, access } = this.props;
-        const { storeActive } = this.state;
+        const { storeActive, vendorEmployeeList } = this.state;
         
          //#Get list Staf Store based on ID STORE
          if(prevProps.vendorState.store !== vendorState.store){
@@ -111,6 +112,32 @@ class AdminStoresEmployee extends Component {
                     this.populateTableData();
                 });
             }           
+        }
+
+        if(prevProps.vendorState.statusEmployee !== vendorState.statusEmployee) {
+            if(vendorState.statusEmployee.isStatusChanging) {
+                vendorEmployeeList.data.data.result.staff.map((item) => {
+                    item.statusChanging = true;
+                    this.forceUpdate();
+                })
+            }
+
+            if(vendorState.statusEmployee.isStatusChanged) {
+                vendorEmployeeList.data.data.result.staff.map((item) => {
+                    if (item.id === vendorState.statusEmployee.id) {
+                            item.statusChanging = false;
+
+                            if(item.status) {
+                                item.status = false;
+                            } 
+                            else {
+                                item.status = true;
+                            }
+
+                            this.forceUpdate();
+                    }
+                })
+            }
         }
 
         //#Get All Access List
@@ -184,7 +211,7 @@ class AdminStoresEmployee extends Component {
                 render: (row) => (
                     <td>
                         <Button className="margin-right-small" type="button" onClick={() => this.openVendorEmployeeModal(row)}>Ubah</Button>
-
+                        <Button type="button" theme={row.data.status ? "success" : "danger"} onClick={() => this.changeEmployeeStatus(row)}>{ row.data.status ? 'Aktif' : 'Non Aktif' }</Button>
                     </td>
                 )
             }
@@ -201,7 +228,8 @@ class AdminStoresEmployee extends Component {
                     email: employee.email,
                     level: employee.level.id,
                     status: employee.status,
-                    password: employee.password
+                    password: employee.password,
+                    data: employee
                 }
 
                 rows.push(row);
@@ -346,7 +374,17 @@ class AdminStoresEmployee extends Component {
         });
     }
 
+    changeEmployeeStatus = (row) => {
+        const {
+              action
+        } = this.props;
 
+        let requiredData = {
+              id: row.data.id
+        }
+
+        action.changeEmployeeStatus(requiredData);
+    }
 
     render() {
         const { storeActiveList, activeTab } = this.state;

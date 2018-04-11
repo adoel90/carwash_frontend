@@ -36,6 +36,14 @@ export const GET_MENU_STORE_LIST_REQUESTED = "GET_MENU_STORE_LIST_REQUESTED";
 export const GET_MENU_STORE_LIST_FULFILLED = "GET_MENU_STORE_LIST_FULFILLED";
 export const GET_MENU_STORE_LIST_REJECTED = "GET_MENU_STORE_LIST_REJECTED";
 
+export const CHANGE_MENU_STATUS_REQUESTED = 'CHANGE_MENU_STATUS_REQUESTED';
+export const CHANGE_MENU_STATUS_FULFILLED = 'CHANGE_MENU_STATUS_FULFILLED';
+export const CHANGE_MENU_STATUS_REJECTED = 'CHANGE_MENU_STATUS_REJECTED';
+
+export const CHANGE_EMPLOYEE_STATUS_REQUESTED = 'CHANGE_EMPLOYEE_STATUS_REQUESTED';
+export const CHANGE_EMPLOYEE_STATUS_FULFILLED = 'CHANGE_EMPLOYEE_STATUS_FULFILLED';
+export const CHANGE_EMPLOYEE_STATUS_REJECTED = 'CHANGE_EMPLOYEE_STATUS_REJECTED';
+
 const accessToken = localStorage.getItem('accessToken') ? localStorage.getItem('accessToken') : null;
 const userLoginNow = localStorage.getItem('userData') ? localStorage.getItem('userData') : null;
 const dataVendorLoginNow = JSON.parse(userLoginNow);
@@ -236,4 +244,44 @@ export const getMenuStoreList = (data) => {
 	
 }
 
+export const changeMenuStatus = (data) => {
+	return async dispatch => {
+		dispatch(handleRequest(data.id));
 
+		axios
+			.put(`${constant.API_PATH}store/menu/status?accessToken=${accessToken}`, {
+				id: data.id
+			})
+			.then((response) => {
+				dispatch(handleSuccess(response.data, data.id))
+			})
+			.catch((error) => {
+				dispatch(handleError(error))
+			})
+	}
+
+	function handleRequest(id) { return { type: CHANGE_MENU_STATUS_REQUESTED, id: id}}
+	function handleSuccess(data, id) { return { type: CHANGE_MENU_STATUS_FULFILLED, payload: data, id: id } }
+	function handleError(data) { return { type: CHANGE_MENU_STATUS_REJECTED, payload: data } }
+}
+
+export const changeEmployeeStatus = (data) => {
+	return async dispatch => {
+		dispatch(handleRequest(data.id));
+
+		axios
+			.put(`${constant.API_PATH}store/staff/status?accessToken=${accessToken}`, {
+				id: data.id
+			})
+			.then((response) => {
+				dispatch(handleSuccess(response.data, data.id))
+			})
+			.catch((error) => {
+				dispatch(handleError(error))
+			})
+	}
+
+	function handleRequest(id) { return { type: CHANGE_EMPLOYEE_STATUS_REQUESTED, id: id}}
+	function handleSuccess(data, id) { return { type: CHANGE_EMPLOYEE_STATUS_FULFILLED, payload: data, id: id } }
+	function handleError(data) { return { type: CHANGE_EMPLOYEE_STATUS_REJECTED, payload: data } }
+}

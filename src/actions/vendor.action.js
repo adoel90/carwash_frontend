@@ -36,15 +36,13 @@ export const GET_MENU_STORE_LIST_REQUESTED = "GET_MENU_STORE_LIST_REQUESTED";
 export const GET_MENU_STORE_LIST_FULFILLED = "GET_MENU_STORE_LIST_FULFILLED";
 export const GET_MENU_STORE_LIST_REJECTED = "GET_MENU_STORE_LIST_REJECTED";
 
-//#CHANGE STATUS STORE STAFF
-export const CHANGE_STATUS_STORE_STAFF_REQUESTED = 'CHANGE_STATUS_STORE_STAFF_REQUESTED';
-export const CHANGE_STATUS_STORE_STAFF_FULFILLED = 'CHANGE_STATUS_STORE_STAFF_FULFILLED';
-export const CHANGE_STATUS_STORE_STAFF_REJECTED = 'CHANGE_STATUS_STORE_STAFF_REJECTED'
+export const CHANGE_MENU_STATUS_REQUESTED = 'CHANGE_MENU_STATUS_REQUESTED';
+export const CHANGE_MENU_STATUS_FULFILLED = 'CHANGE_MENU_STATUS_FULFILLED';
+export const CHANGE_MENU_STATUS_REJECTED = 'CHANGE_MENU_STATUS_REJECTED';
 
-//#CHANGE STATUS STORE MENU
-export const CHANGE_STATUS_STORE_MENU_REQUESTED = 'CHANGE_STATUS_STORE_MENU_REQUESTED';
-export const CHANGE_STATUS_STORE_MENU_FULFILLED = 'CHANGE_STATUS_STORE_MENU_FULFILLED';
-export const CHANGE_STATUS_STORE_MENU_REJECTED = 'CHANGE_STATUS_STORE_MENU_REJECTED';
+export const CHANGE_EMPLOYEE_STATUS_REQUESTED = 'CHANGE_EMPLOYEE_STATUS_REQUESTED';
+export const CHANGE_EMPLOYEE_STATUS_FULFILLED = 'CHANGE_EMPLOYEE_STATUS_FULFILLED';
+export const CHANGE_EMPLOYEE_STATUS_REJECTED = 'CHANGE_EMPLOYEE_STATUS_REJECTED';
 
 const accessToken = localStorage.getItem('accessToken') ? localStorage.getItem('accessToken') : null;
 const userLoginNow = localStorage.getItem('userData') ? localStorage.getItem('userData') : null;
@@ -225,9 +223,12 @@ export const updateVendorEmployee = (data) => {
 
 //#GET MENU STORE LIST
 export const getMenuStoreList = (data) => {
+
 	return async dispatch => {
+
 		dispatch(fetchRequest());
 		return axios
+		
 			.get(`${constant.API_PATH}store/menu/list?accessToken=${accessToken}&store=${data.id}`)
 			.then((response) => {
 				dispatch(fetchSuccess(response));
@@ -236,53 +237,51 @@ export const getMenuStoreList = (data) => {
 				dispatch(fetchError(error));
 			})
 	}
+
 	function fetchRequest() { return { type: GET_MENU_STORE_LIST_REQUESTED } }
 	function fetchSuccess(data) { return { type: GET_MENU_STORE_LIST_FULFILLED, payload: data } }
 	function fetchError(data) { return { type: GET_MENU_STORE_LIST_REJECTED, payload: data } }
+	
 }
 
-
-//#CHANGE STATUS STORE STAFF
-export const changeStatusStaff = (data) => {
-	console.log(data);
+export const changeMenuStatus = (data) => {
 	return async dispatch => {
-		dispatch(statusRequest());
-		return axios
-			.put(`${constant.API_PATH}store/staff/status?accessToken=${accessToken}`, data)
-			.then((response) => {
+		dispatch(handleRequest(data.id));
 
-				dispatch(statusSuccess(response, data.id));
+		axios
+			.put(`${constant.API_PATH}store/menu/status?accessToken=${accessToken}`, {
+				id: data.id
+			})
+			.then((response) => {
+				dispatch(handleSuccess(response.data, data.id))
 			})
 			.catch((error) => {
-				dispatch(statusError(error, data.id));
+				dispatch(handleError(error))
 			})
 	}
 
-	function statusRequest(id) { return { type: CHANGE_STATUS_STORE_STAFF_REQUESTED, id: id } }
-	function statusSuccess(data, id) { return { type: CHANGE_STATUS_STORE_STAFF_FULFILLED, payload: data, id: id } }
-	function statusError(data, id) { return { type: CHANGE_STATUS_STORE_STAFF_REJECTED, payload: data, id: id } }
+	function handleRequest(id) { return { type: CHANGE_MENU_STATUS_REQUESTED, id: id}}
+	function handleSuccess(data, id) { return { type: CHANGE_MENU_STATUS_FULFILLED, payload: data, id: id } }
+	function handleError(data) { return { type: CHANGE_MENU_STATUS_REJECTED, payload: data } }
 }
 
-//#CHANGE STATUS STORE MENU
-export const changeStatusMenu = (data) => {
-	console.log(data);
+export const changeEmployeeStatus = (data) => {
 	return async dispatch => {
-		dispatch(statusRequest());
-		return axios
-			.put(`${constant.API_PATH}store/menu/status?accessToken=${accessToken}`, data)
-			.then((response) => {
+		dispatch(handleRequest(data.id));
 
-				dispatch(statusSuccess(response, data.id));
+		axios
+			.put(`${constant.API_PATH}store/staff/status?accessToken=${accessToken}`, {
+				id: data.id
+			})
+			.then((response) => {
+				dispatch(handleSuccess(response.data, data.id))
 			})
 			.catch((error) => {
-				dispatch(statusError(error, data.id));
+				dispatch(handleError(error))
 			})
 	}
 
-	function statusRequest(id) { return { type: CHANGE_STATUS_STORE_MENU_REQUESTED, id: id } }
-	function statusSuccess(data, id) { return { type: CHANGE_STATUS_STORE_MENU_FULFILLED, payload: data, id: id } }
-	function statusError(data, id) { return { type: CHANGE_STATUS_STORE_MENU_REJECTED, payload: data, id: id } }
+	function handleRequest(id) { return { type: CHANGE_EMPLOYEE_STATUS_REQUESTED, id: id}}
+	function handleSuccess(data, id) { return { type: CHANGE_EMPLOYEE_STATUS_FULFILLED, payload: data, id: id } }
+	function handleError(data) { return { type: CHANGE_EMPLOYEE_STATUS_REJECTED, payload: data } }
 }
-
-
-

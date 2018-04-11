@@ -7,6 +7,7 @@ import {
 	CREATE_NEW_VENDOR_FULFILLED,
 	CREATE_NEW_VENDOR_REJECTED,
 
+
 	GET_STORE_LIST_REQUESTED,//Get Menu Vendor List || GET STORE LIST
 	GET_STORE_LIST_FULFILLED,
 	GET_STORE_LIST_REJECTED,
@@ -27,36 +28,19 @@ import {
 	UPDATE_VENDOR_EMPLOYEE_FULFILLED,
 	UPDATE_VENDOR_EMPLOYEE_REJECTED,
 
-	CHANGE_STATUS_STORE_STAFF_REQUESTED, //#CHANGE STATUS STORE STAFF
-	CHANGE_STATUS_STORE_STAFF_FULFILLED,
-	CHANGE_STATUS_STORE_STAFF_REJECTED,
+	CHANGE_MENU_STATUS_REQUESTED,
+	CHANGE_MENU_STATUS_FULFILLED,
+	CHANGE_MENU_STATUS_REJECTED,
 
-	CHANGE_STATUS_STORE_MENU_REQUESTED,//#CHANGE STATUS STORE MENU
-	CHANGE_STATUS_STORE_MENU_FULFILLED,
-	CHANGE_STATUS_STORE_MENU_REJECTED
+	CHANGE_EMPLOYEE_STATUS_REQUESTED,
+	CHANGE_EMPLOYEE_STATUS_FULFILLED,
+	CHANGE_EMPLOYEE_STATUS_REJECTED
+
 
 } from '../actions/vendor.action'
 
 const initialState = {
 
-	statusEmployee: {
-		data: {},
-		isUpdated: false,
-		isUpdating: false,
-		isStatusChanging: false,
-		isStatusChanged: false,
-		isError: false,
-		error: {}
-	},
-	statusMenu: {
-		data: {},
-		isUpdated: false,
-		isUpdating: false,
-		isStatusChanging: false,
-		isStatusChanged: false,
-		isError: false,
-		error: {}
-	},
 	item: {
 		data: {},
 		isCreated: false,
@@ -116,7 +100,23 @@ const initialState = {
 		error:{}
 	},
 
+	status : {
+		id: null,
+		data: {},
+		isStatusChanging: true,
+		isStatusChanged: false,
+		isError: false,
+		error: {}
+	},
 
+	statusEmployee : {
+		id: null,
+		data: {},
+		isStatusChanging: true,
+		isStatusChanged: false,
+		isError: false,
+		error: {}
+	}
 }
 
 /*
@@ -406,14 +406,13 @@ const vendorState = (state = initialState, action) => {
 			}
 		}
 
-		//#CHANGE STATUS STORE STAFF
-		case CHANGE_STATUS_STORE_STAFF_REQUESTED: {
+		case CHANGE_MENU_STATUS_REQUESTED: {
 			return {
 				...state,
-				statusEmployee: {
-					...state.statusEmployee,
-					data: {},
+				status: {
+					...state.status,
 					id: action.id,
+					data: {},
 					isStatusChanging: true,
 					isStatusChanged: false,
 					isError: false,
@@ -422,13 +421,13 @@ const vendorState = (state = initialState, action) => {
 			}
 		}
 
-		case CHANGE_STATUS_STORE_STAFF_FULFILLED: {
+		case CHANGE_MENU_STATUS_FULFILLED: {
 			return {
 				...state,
-				statusEmployee: {
-					...state.statusEmployee,
-					data: action.payload,
+				status: {
+					...state.status,
 					id: action.id,
+					data: action.payload,
 					isStatusChanging: false,
 					isStatusChanged: true,
 					isError: false,
@@ -437,13 +436,12 @@ const vendorState = (state = initialState, action) => {
 			}
 		}
 
-		case CHANGE_STATUS_STORE_STAFF_REJECTED: {
+		case CHANGE_MENU_STATUS_REJECTED: {
 			return {
 				...state,
-				statusEmployee: {
-					...state.statusEmployee,
+				status: {
+					...state.status,
 					data: {},
-					id: action.id,
 					isStatusChanging: false,
 					isStatusChanged: false,
 					isError: true,
@@ -452,14 +450,13 @@ const vendorState = (state = initialState, action) => {
 			}
 		}
 
-		//#CHANGE STATUS STORE MENU
-		case CHANGE_STATUS_STORE_MENU_REQUESTED: {
+		case CHANGE_EMPLOYEE_STATUS_REQUESTED: {
 			return {
 				...state,
-				statusMenu: {
-					...state.statusMenu,
-					data: {},
+				statusEmployee: {
+					...state.statusEmployee,
 					id: action.id,
+					data: {},
 					isStatusChanging: true,
 					isStatusChanged: false,
 					isError: false,
@@ -468,13 +465,13 @@ const vendorState = (state = initialState, action) => {
 			}
 		}
 
-		case CHANGE_STATUS_STORE_MENU_FULFILLED: {
+		case CHANGE_EMPLOYEE_STATUS_FULFILLED: {
 			return {
 				...state,
-				statusMenu: {
-					...state.statusMenu,
-					data: action.payload,
+				statusEmployee: {
+					...state.statusEmployee,
 					id: action.id,
+					data: action.payload,
 					isStatusChanging: false,
 					isStatusChanged: true,
 					isError: false,
@@ -483,13 +480,12 @@ const vendorState = (state = initialState, action) => {
 			}
 		}
 
-		case CHANGE_STATUS_STORE_MENU_REJECTED: {
+		case CHANGE_EMPLOYEE_STATUS_REJECTED: {
 			return {
 				...state,
-				statusMenu: {
-					...state.statusMenu,
+				statusEmployee: {
+					...state.statusEmployee,
 					data: {},
-					id: action.id,
 					isStatusChanging: false,
 					isStatusChanged: false,
 					isError: true,

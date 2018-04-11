@@ -9,8 +9,8 @@ import { Button } from '../../../components/Button';
 import { Dialog } from '../../../components/Dialog';
 import { Nav, NavItem, NavLink, NavTabLink} from '../../../components/Nav';
 
-// import { changeStatusStaff } from '../../../actions/store.action';
-import { getVendorEmployeeList, updateVendorEmployee, changeStatusStaff } from '../../../actions/vendor.action';
+
+import { getVendorEmployeeList, updateVendorEmployee, changeEmployeeStatus } from '../../../actions/vendor.action';
 import { getStoreList } from '../../../actions/vendor.action';
 import { getAccessList } from '../../../actions/access.action';
 import { openDialog, closeDialog } from '../../../actions/dialog.action';
@@ -18,10 +18,8 @@ import { openDialog, closeDialog } from '../../../actions/dialog.action';
 function mapStateToProps(state) {
     return {
         vendorState: state.vendorState,
-        // store: state.store,
         access: state.access,
-        dialog: state.dialog,
-        store:state.store
+        dialog: state.dialog
     };
 }
 
@@ -30,12 +28,14 @@ function mapDispatchToProps(dispatch) {
         getVendorEmployeeListDispatch: (data) => dispatch(getVendorEmployeeList(data)),
         getStoreListDispatch: () => dispatch(getStoreList()),
         getAccessList: (data) => dispatch(getAccessList(data)),
-        action: bindActionCreators({ updateVendorEmployee, openDialog, closeDialog, getVendorEmployeeList, changeStatusStaff }, dispatch)
+        action: bindActionCreators({ updateVendorEmployee, openDialog, closeDialog, getVendorEmployeeList, changeEmployeeStatus }, dispatch)
     }
 }
 
 class AdminStoresEmployee extends Component {
+
     constructor() {
+
         super();
         this.toggleModal = this.toggleModal.bind(this);
         this.openVendorEmployeeModal = this.openVendorEmployeeModal.bind(this);
@@ -47,15 +47,21 @@ class AdminStoresEmployee extends Component {
         this.getAccessList = this.getAccessList.bind(this);
         this.renderDialog = this.renderDialog.bind(this);
         this.toggleTab = this.toggleTab.bind(this);
-
-        this.changeStatusStaffBind = this.changeStatusStaffBind.bind(this);
+        this.changeEmployeeStatus = this.changeEmployeeStatus.bind(this);
 
         this.state = {
             vendorEmployee: {},
+            search: {
+                searchText: '',
+                searchBy: 'name'
+            },
             table: {
                 columns: [],
                 rows: [],
-                limit: 10
+                limit: 10,
+                searchParams: [
+					{ accessor: 'name', name: 'Nama Staff' }
+				]
             },            
             accessLevel: {},
             accessLevelDetail: {},
@@ -68,60 +74,70 @@ class AdminStoresEmployee extends Component {
             storeList:{},
             storeActiveList:{},
             storeActive: 0,
-            activeTab: null
-            // activeTab: 0
+            activeTab: 0
         }
     }
 
     componentDidMount = () => {
+        // this.getVendorEmployeeList();
         this.getStoreList();
         this.getAccessList();
     }
 
 
     componentDidUpdate = (prevProps) => {
-        const { vendorState, storeMenuList, getVendorEmployeeListDispatch, access, store } = this.props;
-        const { storeActive, vendorEmployeeList, storeActiveList } = this.state;
+        const { vendorState, storeMenuList, getVendorEmployeeListDispatch, access } = this.props;
+        const { storeActive, vendorEmployeeList } = this.state;
         
-        //#Get All list employee after click TAB
+         //#Get list Staf Store based on ID STORE
+         if(prevProps.vendorState.store !== vendorState.store){
+            if(vendorState.store.isLoaded){
+                this.setState({
+                    ...this.state,
+                    // storeActiveList: vendorState.store.data.data.result.store
+                    storeActiveList: vendorState.store
+                }, () => {
+                    getVendorEmployeeListDispatch(vendorState.store.data.data.result.store[storeActive]);
+                });
+            }
+        }
+
+        //#Get All list employee
         if (prevProps.vendorState.employee !== vendorState.employee) {
+            if(vendorState.employee.isLoaded){
                 this.setState({
                     ...this.state,
                     vendorEmployeeList: vendorState.employee
                 }, () => {
                     this.populateTableData();
-                    this.forceUpdate();
                 });
+            }           
         }
 
-         //#Get status Store Staff
-         if(prevProps.vendorState.statusEmployee !== vendorState.statusEmployee){
-            // if(vendorState.statusEmployee.isStatusChanging){
-            //     vendorEmployeeList.data.data.result.staff.forEach((value) => {
-            //         if(value.id === vendorState.statusEmployee.id){
-            //             value.statusChanging = true;
-            //             this.forceUpdate();
-            //         }
-            //     });
-            // }
+        if(prevProps.vendorState.statusEmployee !== vendorState.statusEmployee) {
+            if(vendorState.statusEmployee.isStatusChanging) {
+                vendorEmployeeList.data.data.result.staff.map((item) => {
+                    item.statusChanging = true;
+                    this.forceUpdate();
+                })
+            }
 
             if(vendorState.statusEmployee.isStatusChanged) {
-                vendorEmployeeList.data.data.result.staff.forEach((value) => {
-                    if(value.id === vendorState.statusEmployee.id) {
-                        value.statusChanging = false;
-                        if(value.status) {
-                            value.status = false;
-                        }
-                        else {
-                            value.status = true;
-                        }
-                        console.log(value);
-                        console.log(vendorState.statusEmployee.id);
-                        this.populateTableData();
-                        this.forceUpdate();
+                vendorEmployeeList.data.data.result.staff.map((item) => {
+                    if (item.id === vendorState.statusEmployee.id) {
+                            item.statusChanging = false;
+
+                            if(item.status) {
+                                item.status = false;
+                            } 
+                            else {
+                                item.status = true;
+                            }
+
+                            this.forceUpdate();
                     }
                 })
-            }   
+            }
         }
 
         //#Get All Access List
@@ -133,19 +149,8 @@ class AdminStoresEmployee extends Component {
                     accessLevel: access.list.data.result
                 }, () => {
                     // console.log(this.state);
-                })       
-            }
-        }
-
-        //#Get list Staf Store based on ID STORE || not prime
-        if(prevProps.vendorState.store !== vendorState.store){
-            if(vendorState.store.isLoaded){
-                this.setState({
-                    ...this.state,
-                    storeActiveList: vendorState.store
-                }, () => {
-                    console.log(this.state);
-                });
+                })
+                
             }
         }
     }
@@ -157,39 +162,40 @@ class AdminStoresEmployee extends Component {
 
     getAccessList = () => {
         const { getAccessList } = this.props;
+
         let requiredData = {
             active : true
         }
+
         getAccessList(requiredData);
     }
 
+  
   //#
-  toggleTab = (tabIndex, store) => {
+  toggleTab = (tabIndex, type) => {
+
         const { getVendorEmployeeList, action } = this.props;
-        let data = { id : store.id }
+        let data = { id : type.id }
+
+        action.getVendorEmployeeList(data);
 
         this.setState({
             activeTab: tabIndex,
-            storeIdTab: store
-        }, () => {               
-            action.getVendorEmployeeList(data);  
+            storeIdTab: type
+        }, () => {                       
+            this.populateTableData();
+            console.log(this.state.storeIdTab);
         })
     }
 
-    //#Change Status User Active or non-aktif
-    changeStatusStaffBind = (row) => {
-        const { action } = this.props;
-        let requiredData = { id: row.id }
-        action.changeStatusStaff(requiredData);
-    }
-
     populateTableData = () => {
+
         const { vendorEmployeeList } = this.state;
         const columns = [
-            {
-                title: 'ID',
-                accessor: 'id'
-            },
+            // {
+            //     title: 'ID',
+            //     accessor: 'id'
+            // },
             {
                 title: 'Nama Staff',
                 accessor: 'name'
@@ -201,18 +207,18 @@ class AdminStoresEmployee extends Component {
             {
                 title: 'Aksi',
                 accessor: 'action',
-                width: '30%',
-                align: 'center',
+                // render: (data) => (
                 render: (row) => (
-                    <td  className="flex justify-content--center">
+                    <td>
                         <Button className="margin-right-small" type="button" onClick={() => this.openVendorEmployeeModal(row)}>Ubah</Button>
-                        <Button type="button" theme={row.status ? "success" : "danger"} onClick={() => this.changeStatusStaffBind(row)}>{ row.status ? 'Aktif' : 'Non Aktif' }</Button>
+                        <Button type="button" theme={row.data.status ? "success" : "danger"} onClick={() => this.changeEmployeeStatus(row)}>{ row.data.status ? 'Aktif' : 'Non Aktif' }</Button>
                     </td>
                 )
             }
         ]
 
         const rows = [];
+
         if (vendorEmployeeList.isLoaded) {
             vendorEmployeeList.data.data.result.staff.forEach((employee, i) => {
                 let row = {
@@ -222,8 +228,10 @@ class AdminStoresEmployee extends Component {
                     email: employee.email,
                     level: employee.level.id,
                     status: employee.status,
-                    password: employee.password
+                    password: employee.password,
+                    data: employee
                 }
+
                 rows.push(row);
             })
         } 
@@ -252,7 +260,9 @@ class AdminStoresEmployee extends Component {
         });
     }
 
+
     toggleModal = (name) => {
+
         const { isModalOpen } = this.state;
         this.setState({
             ...this.state,
@@ -293,6 +303,7 @@ class AdminStoresEmployee extends Component {
     openVendorEmployeeModal = (row) => {
         this.setState({
             ...this.state,
+            // selectedVendorEmployee : row.data
             selectedVendorEmployee: row
 
         }, () => {
@@ -327,7 +338,8 @@ class AdminStoresEmployee extends Component {
                         onClose: () => window.location.reload(),
                         closeText: 'Kembali'
                     }
-                    this.toggleDialog(dialogData); 
+                    this.toggleDialog(dialogData);
+                    
                 }
 
                 if(this.props.vendorState.updateEmployee.isError){
@@ -345,8 +357,8 @@ class AdminStoresEmployee extends Component {
             })
 
         } else {
-            console.log("Password tidak cocok");
-            alert("Ulangi ketik Password! Password tidak cocok");
+            console.log("Password tidak sama");
+            alert("Ulangi ketik Password! Password tidak sama");
         }
     }
 
@@ -362,7 +374,17 @@ class AdminStoresEmployee extends Component {
         });
     }
 
+    changeEmployeeStatus = (row) => {
+        const {
+              action
+        } = this.props;
 
+        let requiredData = {
+              id: row.data.id
+        }
+
+        action.changeEmployeeStatus(requiredData);
+    }
 
     render() {
         const { storeActiveList, activeTab } = this.state;
@@ -409,8 +431,7 @@ class AdminStoresEmployee extends Component {
                 { vendorState.store.isLoaded ? vendorState.store.data.data.result.store.map((store, i) => (
                     <NavItem>
                         <NavTabLink active={activeTab === i} onClick={() => this.toggleTab(i, store)}>
-                            <h2>{store.name}</h2>
-                        
+                            <h4>{store.name}</h4>
                         </NavTabLink>
                     </NavItem>
                 )) : null }

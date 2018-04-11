@@ -93,7 +93,7 @@ class AdminReport extends Component {
             accessor: 'type',
             align: 'center'
         }, {
-            title: 'Price',
+            title: 'Harga',
             accessor: 'price',
             align: 'center',
             isCurrency: true

@@ -82,15 +82,21 @@ const AdminStoresReportView = props => {
                                     </div>
                                     <div>
                                         <FormField>
-                                      
-                                            <ButtonDewek
+                                            <Button
+                                                className="margin-left-small"
+                                                theme="primary"
+                                                onClick={handleShow}
+                                            >
+                                                Cari
+                                            </Button>
+                                            {/* <ButtonDewek
                                                 variant="raised"
                                                 className="btn-sky-blue btn-size ml-3"
                                                 color="info"
                                                 onClick={handleShow}
                                             >
                                                 Lihat Periode Laporan
-                                            </ButtonDewek>
+                                            </ButtonDewek> */}
 
                                             {/* <Button onClick={handleShow} style={{height: '50px'}}>
                                                 Cari
@@ -114,7 +120,7 @@ const AdminStoresReportView = props => {
                         </CardDeck>
 		
                         
-                        <LineChart width={900} height={300} data={table.vendorReportListResults} margin={{ top: 5, right: 20, bottom: 5, left: 0}}>
+                        <LineChart width={1000} height={400} data={table.vendorReportListResults}>
                             <Line type="monotone" dataKey="transaction" stroke="#8884d8" />
                             <CartesianGrid stroke="#ccc" strokeDasharray="5 5"/>
                             <XAxis dataKey="name" />

@@ -282,7 +282,9 @@ class AdminUser extends Component {
                     data: user
                 }
 
-                rows.push(row);
+                if(user.level.id < 5) {
+                    rows.push(row);
+                }
             })
         }
 

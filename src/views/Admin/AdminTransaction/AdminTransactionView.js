@@ -1,41 +1,57 @@
 import React from 'react';
-
+import { Table } from '../../../components/Table';
 import { Button } from '../../../components/Button';
-import { TableSet } from '../../../components/Table';
+import { Input, InputCurrency } from '../../../components/Input';
 import { Panel, PanelHeader, PanelBody } from '../../../components/Panel';
+import { AdminTransactionDetail, AdminTransactionCheckout, AdminTransactionPrint } from '../AdminTransaction';
 
 const AdminTransactionView = props => {
 
-    const { listMenuStore, table, handleFormSubmitCheckbox} = props;
-
-
+    const { listMenuStore, table, handleFormSubmit, handleInputChange, selectedMenuItem, handleSelectMenu } = props;
+    
     return(
         <div>
             <div className="admin-user">
                 <Panel>
                     <PanelHeader>
                         <h4 className="heading-title">Transakasi Pemesanan</h4>
-                        
                     </PanelHeader>
                     <PanelBody>
-                        <form onSubmit={handleFormSubmitCheckbox}>
-                            
+                        {/* <form onSubmit={handleFormSubmit}> */}
                             <div className="admin-user__content">
-                                <TableSet
-                                    loading={listMenuStore.isFetching}
-                                    loaded={listMenuStore.isLoaded}
-                                    columns={table.columns}
-                                    rows={table.rows}
-                                    striped 
-                                    fullWidth
-                                    pagination
-                                />
+                                <Table fullWidth>
+                                    <thead className="table__head">
+                                        <tr>
+                                            <th>Nama Produk</th>
+                                            <th>Deskripsi Produk</th>
+                                            <th>Harga</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody className="table__body">
+                                        { listMenuStore.isLoaded ? listMenuStore.data.data.result.menu.map((item, i) => {
+                                            item.selected = item.selected ? true : false;
+                                            item.quantity = item.quantity ? item.quantity : 1;
+                                            item.totalPrice = item.quantity * item.price;
+
+                                            return (
+                                                <tr className={item.selected ? 'bg-secondary' : 'bg-white'} onClick={() => handleSelectMenu(item)} key={item.id}>
+                                                    <td>{item.name}</td>
+                                                    <td>{item.description}</td>
+                                                    <td>{item.price}</td>
+                                                </tr>
+                                            )
+                                        }) : null }
+                                    </tbody>
+                                </Table>
                             </div>
-                            <Button type="submit">Buat Transaksi</Button>
-                        </form>
+                            <Button type="submit" className="margin-top-base" disabled={!selectedMenuItem.length} onClick={handleFormSubmit} size="large" block>Konfirmasi Pembayaran {selectedMenuItem.length ? `( ${selectedMenuItem.length} Terpilih )` : null}</Button>
+                        {/* </form> */}
                     </PanelBody>
                 </Panel>
                 {/* { renderMenuProductModal() } */}
+                <AdminTransactionDetail {...props} />
+                <AdminTransactionCheckout {...props} />
+                <AdminTransactionPrint {...props} />
             </div>
         </div>
     )

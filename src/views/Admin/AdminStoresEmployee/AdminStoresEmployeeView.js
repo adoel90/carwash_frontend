@@ -24,7 +24,9 @@ const AdminStoresEmployeeView = props => {
         updateVendorEmployee, 
         selectedVendorEmployee,
         handleUpdateSubmitVendorEmployee,
-        handleCancelModal } = props;
+        handleCancelModal,
+        search
+    } = props;
 
     const renderVendorEmployeeModal = () => {
 
@@ -56,12 +58,12 @@ const AdminStoresEmployeeView = props => {
                                     </FormField>
                                 </Column>
                                 <Column>
-                                    <FormField label="Username Log-in">
+                                    <FormField label="Username">
                                         <InputGroup>
                                             <InputAddon>
                                                 <i className="fas fa-user-circle"></i>
                                             </InputAddon>
-                                            <Input name="username" placeholder={selectedVendorEmployee.username} onChange={(e) => handleInputChange('selectedVendorEmployee', e)} />
+                                            <Input name="username" placeholder={selectedVendorEmployee.username} defaultValue={selectedVendorEmployee.username} onChange={(e) => handleInputChange('selectedVendorEmployee', e)} />
                                         </InputGroup>
                                     </FormField>
                                 </Column>
@@ -78,7 +80,19 @@ const AdminStoresEmployeeView = props => {
                                     </FormField>
                                 </Column>
                                 <Column>
-                                    <FormField label="Akses Level Staff">
+                                    <FormField label="Password">
+                                        <InputGroup>
+                                            <InputAddon>
+                                                <i className="fas fa-key"></i>
+                                            </InputAddon>
+                                            <Input name="password" type="password" placeholder="Password" defaultValue={selectedVendorEmployee.password} onChange={(e) => handleInputChange('selectedVendorEmployee', e)} />
+                                        </InputGroup>
+                                    </FormField>
+                                </Column>
+                            </Row>
+                            <Row>
+                                <Column>
+                                <FormField label="Akses Level Staff">
                                         {/* <Select name="level" defaultValue={selectedVendorEmployee.level} onChange={(e) => handleInputChange(selectedVendorEmployee, e) }>
                                             <option value="">Pilih Level</option>
                                             {
@@ -92,23 +106,12 @@ const AdminStoresEmployeeView = props => {
                                             <option value="">Pilih Level</option>
                                             {
                                                access.list.isLoaded ? access.list.data.result.map((item, i) => {
-                                                    return <option value={item.id}>{item.name}</option>
+                                                    if(item.id >= 5) {
+                                                        return <option value={item.id}>{item.name}</option>
+                                                    }
                                                 }) : null
                                             }
                                         </Select>
-                                    </FormField>
-                                </Column>
-                            </Row>
-
-                            <Row>
-                                <Column>
-                                    <FormField label="Password">
-                                        <InputGroup>
-                                            <InputAddon>
-                                                <i className="fas fa-key"></i>
-                                            </InputAddon>
-                                            <Input name="password" placeholder="Ketik Password" defaultValue={selectedVendorEmployee.password} onChange={(e) => handleInputChange('selectedVendorEmployee', e)} />
-                                        </InputGroup>
                                     </FormField>
                                 </Column>
                                 <Column>
@@ -117,7 +120,7 @@ const AdminStoresEmployeeView = props => {
                                             <InputAddon>
                                                 <i className="fas fa-key"></i>
                                             </InputAddon>
-                                            <Input name="passwordConfirm" placeholder="Ketik Ulang Password" defaultValue={selectedVendorEmployee.passwordConfirm} onChange={(e) => handleInputChange('selectedVendorEmployee', e)} />
+                                            <Input name="passwordConfirm" type="password" placeholder="Konfirmasi Password" defaultValue={selectedVendorEmployee.passwordConfirm} onChange={(e) => handleInputChange('selectedVendorEmployee', e)} />
                                         </InputGroup>
                                     </FormField>
                                 </Column>
@@ -154,6 +157,12 @@ const AdminStoresEmployeeView = props => {
                                 striped 
                                 fullWidth
                                 pagination
+                                placeholder="Cari user yang terdaftar"
+                                hasSearchBar
+                                searchParams={table.searchParams}
+                                searchBy={search.searchBy}
+                                handleInputChange={handleInputChange}
+                                {...props}
                             />
                         </div>
 

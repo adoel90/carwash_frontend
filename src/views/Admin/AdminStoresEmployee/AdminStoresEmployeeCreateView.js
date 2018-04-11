@@ -27,7 +27,7 @@ const AdminStoresEmployeeCreateView = props => {
                                 <Form onSubmit={handleFormSubmit}>
 
                                     {/* PILIH STORE */}
-                                    <FormField label="Pilih Store sebelum menambahkan Staff Baru">
+                                    <FormField label="Store">
                                          <Select name="store" defaultValue={newStaff.id} onChange={(e) => handleInputChange('newStaff', e) }>
                                             <option value="">Pilih Store</option>
                                             {
@@ -43,7 +43,7 @@ const AdminStoresEmployeeCreateView = props => {
                                             <InputAddon>
                                                 <i className="fas fa-user"></i>
                                             </InputAddon>
-                                            <Input name="name" type="text" placeholder="Masukkan nama lengkap staff baru" onChange={(e) => handleInputChange('newStaff', e) } />
+                                            <Input name="name" type="text" placeholder="Masukkan nama lengkap" onChange={(e) => handleInputChange('newStaff', e) } />
                                         </InputGroup>
                                     </FormField>
                                     
@@ -52,7 +52,7 @@ const AdminStoresEmployeeCreateView = props => {
                                             <InputAddon>
                                                 <i className="fas fa-user"></i>
                                             </InputAddon>
-                                            <Input name="username" type="text" placeholder="Masukkan nama username untuk login" onChange={(e) => handleInputChange('newStaff', e) } />
+                                            <Input name="username" type="text" placeholder="Masukkan Username" onChange={(e) => handleInputChange('newStaff', e) } />
                                         </InputGroup>
                                     </FormField>
 
@@ -80,12 +80,13 @@ const AdminStoresEmployeeCreateView = props => {
                                             <option value="">Pilih Level</option>
                                             {
                                                access.list.isLoaded ? access.list.data.result.map((item, i) => {
-                                                    return <option value={item.id}>{item.name}</option>
+                                                    if(item.id >= 5) {
+                                                        return <option value={item.id}>{item.name}</option>
+                                                    }
                                                 }) : null
                                             }
                                         </Select>
                                     </FormField>
-
                                     <FormField label="Email">
                                         <InputGroup>
                                             <InputAddon>
@@ -94,7 +95,6 @@ const AdminStoresEmployeeCreateView = props => {
                                             <Input name="email" type="text" placeholder="Masukkan alamat Email" onChange={(e) => handleInputChange('newStaff', e) } />
                                         </InputGroup>
                                     </FormField>
-                    
                                     <Button type="submit">Simpan</Button>
                                 </Form>
                             </PanelBody>

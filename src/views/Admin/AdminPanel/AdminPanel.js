@@ -97,15 +97,16 @@ class AdminPanel extends Component {
             mainRoute = routePage;
         } else if (menu[0].group === 'store') {
             let routePage = [
-                { name: 'staff', path: `${this.props.match.url}/staff`, component: AdminStoresEmployee },
-                { name: 'create-new-staff', path: `${this.props.match.url}/staff/create-new-staff`, component: AdminStoresEmployeeCreate },
                 { name: 'product', path: `${this.props.match.url}/product`, component: AdminStoresMenu },
                 { name: 'create-new-product', path: `${this.props.match.url}/product/create-new-product`, component: AdminStoresMenuCreate },
+                { name: 'staff', path: `${this.props.match.url}/staff`, component: AdminStoresEmployee },
+                { name: 'create-new-staff', path: `${this.props.match.url}/staff/create-new-staff`, component: AdminStoresEmployeeCreate },
                 // { name: 'discount', path: `${this.props.match.url}/discount`, component: AdminStoresPromo },
                 // { name: 'create-new-discount', path: `${this.props.match.url}/discount/create-new-discount`, component: AdminStoresPromoCreate },
                 { name: 'setting', path: `${this.props.match.url}/setting`, component: AdminSetting },
                 { name: 'logout', path: `${this.props.match.url}/logout`, component: AdminLogout },
                 { name: 'transaction', path: `${this.props.match.url}/transaction`, component: AdminTransaction },
+                { name: 'report', path: `${this.props.match.url}/report`, component: AdminStoresReport },
                 { component: NoMatch }
             ];
 

@@ -245,6 +245,7 @@ class AdminStoresMenu extends Component {
                     price: menu.price,
                     image: menu.image,
                     status: menu.status,
+                    category: menu.category,
                     data: menu
 
                 }
@@ -279,7 +280,7 @@ class AdminStoresMenu extends Component {
 
         const target = e.target;
         const name = target.name;
-        const value = target.value;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
 
         this.setState({
             ...this.state,
@@ -326,7 +327,8 @@ class AdminStoresMenu extends Component {
             name: selectedMenuStore.name,
             description: selectedMenuStore.description,
             price: parseInt(selectedMenuStore.price.replace(/,/g, '')),
-            image:selectedMenuStore.image
+            image: selectedMenuStore.image,
+            category: selectedMenuStore.category
         };
         
         //#

@@ -133,12 +133,7 @@ export const getStoreList = (data) => {
 
 //UPDATE MENU VENDOR
 export const updateMenuVendor = (data) =>{
-
-	console.log(data);
-	
-
 	return async dispatch => {
-
 		dispatch(fetchRequest());
 
 		const formData = new FormData();
@@ -147,6 +142,7 @@ export const updateMenuVendor = (data) =>{
 		formData.append("description", data.description);
 		formData.append("price", data.price);
 		formData.append("image", data.image);
+		formData.append("category", data.category);
 
 		return axios
 			.put(`${constant.API_PATH}store/menu/update?accessToken=${accessToken}`, formData)

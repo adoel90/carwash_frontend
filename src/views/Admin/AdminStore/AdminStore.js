@@ -69,7 +69,10 @@ class AdminStore extends Component {
             if(prevProps.store.status !== store.status) {
                   if(store.status.isStatusChanging) {
                         storeList.data.data.result.store.map((item) => {
+                             
                               if(item.id === store.status.id) {
+                                    console.log(store)
+                                    console.log(item.id);
                                     item.statusChanging = true;
                                     this.forceUpdate();
                               }
@@ -166,6 +169,8 @@ class AdminStore extends Component {
       }
 
       changeStatusStore = (row) => {
+
+            console.log(row);
             const {
                   action
             } = this.props;

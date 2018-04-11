@@ -170,6 +170,7 @@ export const updateStore = (data) => {
 }
 
 export const changeStatusStore = (data) => {
+	console.log(data);
 	return async dispatch => {
 		dispatch(statusRequest());
 		return axios

@@ -4,7 +4,7 @@ import { Section } from '../../../layouts/Section';
 import { Panel, PanelHeader, PanelBody } from '../../../components/Panel';
 
 import { Card, CardBody, CardTitle, CardText, CardSubtitle, CardDeck } from 'reactstrap';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,LineChart, Line } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { Column, Row} from '../../../layouts/Grid';
 import { Form, FormField, FormGroup } from '../../../layouts/Form';
 import { Button } from '../../../components/Button';
@@ -27,6 +27,10 @@ const AdminStoresReportView = props => {
         handleShow,
         period
     } = props;
+
+    const priceFormatter = function (data) {
+        return "Rp. " + parseFloat(data).toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 2});
+    };
 
     return (
         <div>
@@ -120,13 +124,25 @@ const AdminStoresReportView = props => {
                         </CardDeck>
 		
                         
-                        <LineChart width={1000} height={400} data={table.vendorReportListResults}>
-                            <Line type="monotone" dataKey="transaction" stroke="#8884d8" />
-                            <CartesianGrid stroke="#ccc" strokeDasharray="5 5"/>
-                            <XAxis dataKey="name" />
-                            <YAxis dataKey='transaction'/>
-                            <Tooltip />
-                        </LineChart>
+                        <ResponsiveContainer width='100%' aspect={7.0/3.0}>
+                            <BarChart
+                                data={table.vendorReportListResults}
+                            >
+                                <XAxis dataKey="name"/>
+                                <YAxis
+                                    type="number"
+                                    tickFormatter={priceFormatter}
+                                    allowDecimals={true}
+                                    width={100}
+                                />
+                                <CartesianGrid strokeDasharray="5 5"/>
+                                <Tooltip 
+                                    formatter={priceFormatter}
+                                />
+                                <Legend />
+                                <Bar dataKey="transaction" fill="#52c467" />
+                            </BarChart>
+                        </ResponsiveContainer>
                                        
                     </PanelBody>
                 </Panel>

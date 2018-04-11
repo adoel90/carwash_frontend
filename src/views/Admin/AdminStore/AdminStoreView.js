@@ -43,7 +43,7 @@ const AdminStoreView = props => {
                                             <Input name="name" placeholder={selectedStore.name} defaultValue={selectedStore.name} onChange={(e) => handleInputChange('selectedStore', e)} />
                                         </InputGroup>
                                     </FormField>
-                                    <FormField label="Status">
+                                    <FormField label="Kategori">
                                         <Select name="type" defaultValue={selectedStore.type.id} onChange={(e) => handleInputChange('selectedStore', e) }>
                                             {
                                                 store.category.isLoaded ? store.category.data.data.result.map((item, i) => {

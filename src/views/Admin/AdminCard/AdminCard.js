@@ -143,12 +143,14 @@ class AdminCard extends Component {
                   title: 'Minimum',
                   accessor: 'min',
                   align: 'center',
-                  rowAlign: 'right'
+                  rowAlign: 'right',
+                  isCurrency: true
             }, {
                   title: 'Bonus',
                   accessor: 'bonus',
                   align: 'center',
-                  rowAlign: 'right'
+                  rowAlign: 'right',
+                  isCurrency: true
             }, {
                   title: 'Status',
                   accessor: 'action',
@@ -224,7 +226,16 @@ class AdminCard extends Component {
       
             e.preventDefault();
 
-            action.updateCardType(selectedCard).then(() => {
+            let param = {
+                  id: selectedCard.id,
+                  name: selectedCard.name,
+                  min: parseInt(selectedCard.min.replace(/,/g, '')),
+                  bonus: parseInt(selectedCard.bonus.replace(/,/g, '')),
+                  refund: selectedCard.refund,
+                  charge: selectedCard.charge
+            }
+
+            action.updateCardType(param).then(() => {
                   const {
                         card
                   } = this.props;

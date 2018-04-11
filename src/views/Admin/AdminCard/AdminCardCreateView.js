@@ -4,7 +4,7 @@ import { Section } from '../../../layouts/Section';
 import { Container, Row, Column } from '../../../layouts/Grid';
 import { Form, FormField } from '../../../layouts/Form';
 import { Panel, PanelHeader, PanelBody } from '../../../components/Panel';
-import { Input, InputGroup, InputAddon, Select, SwitchSquare } from '../../../components/Input';
+import { Input, InputGroup, InputAddon, Select, SwitchSquare, InputCurrency } from '../../../components/Input';
 import { Button } from '../../../components/Button';
 
 const AdminCardCreateView = props => {
@@ -39,7 +39,14 @@ const AdminCardCreateView = props => {
                                                             <InputAddon>
                                                                   <small class="fw-semibold tt-uppercase ls-base">Rp</small>
                                                             </InputAddon>
-                                                            <Input name="minimum" type="text" placeholder="Masukkan minimum saldo" onChange={(e) => handleInputChange('newCard', e) } required />
+                                                            <InputCurrency 
+                                                                  className="input"
+                                                                  name="minimum" 
+                                                                  type="text" 
+                                                                  placeholder="Masukkan minimum saldo" 
+                                                                  onChange={(e) => handleInputChange('newCard', e) } 
+                                                                  required 
+                                                            />
                                                       </InputGroup>
                                                 </FormField>
                                                 <FormField label="Bonus">
@@ -47,7 +54,14 @@ const AdminCardCreateView = props => {
                                                             <InputAddon>
                                                                   <small class="fw-semibold tt-uppercase ls-base">Rp</small>
                                                             </InputAddon>
-                                                            <Input name="bonus" type="text" placeholder="Masukkan nominal bonus" onChange={(e) => handleInputChange('newCard', e) } required />
+                                                            <InputCurrency 
+                                                                  className="input"
+                                                                  name="bonus" 
+                                                                  type="text" 
+                                                                  placeholder="Masukkan nominal bonus" 
+                                                                  onChange={(e) => handleInputChange('newCard', e) } 
+                                                                  required 
+                                                            />
                                                       </InputGroup>
                                                 </FormField>
                                                 <FormField label="Refund">

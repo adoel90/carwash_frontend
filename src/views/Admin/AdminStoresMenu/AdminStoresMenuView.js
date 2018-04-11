@@ -7,7 +7,7 @@ import { Panel, PanelHeader, PanelBody } from '../../../components/Panel';
 import { TableSet } from '../../../components/Table';
 import { Form, FormField } from '../../../layouts/Form';
 import { Row, Column } from '../../../layouts/Grid';
-import { Input, InputGroup, Switch, InputAddon, Select } from '../../../components/Input';
+import { Input, InputGroup, Switch, InputAddon, Select, InputCurrency } from '../../../components/Input';
 import { ButtonDewek } from '../../../components/ButtonDewek';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from '../../../components/Modal';
 import { PageBlock, PageBlockGroup, PageContent, PageHeading} from '../../../components/Page';
@@ -83,16 +83,24 @@ const AdminStoresMenuView = props => {
                                             <InputAddon>
                                                 <i className="fas fa-clipboard-list"></i>
                                             </InputAddon>
-                                            <Input name="description" placeholder={selectedMenuStore.deskripsi} defaultValue={selectedMenuStore.deskripsi} onChange={(e) => handleInputChange('selectedMenuStore', e)} />
+                                            <Input name="description" placeholder={selectedMenuStore.description} defaultValue={selectedMenuStore.description} onChange={(e) => handleInputChange('selectedMenuStore', e)} />
                                         </InputGroup>
                                     </FormField>
                               
-                                    <FormField label="Harga Produk">
+                                    <FormField label="Harga">
                                         <InputGroup>
                                             <InputAddon>
-                                                <i className="">Rp</i>
+                                                <small className="fw-semibold tt-upercase ls-base">Rp</small>
                                             </InputAddon>
-                                            <Input name="price" type="number" placeholder={selectedMenuStore.price} defaultValue={selectedMenuStore.price} onChange={(e) => handleInputChange('selectedMenuStore', e)} />
+                                            <InputCurrency 
+                                                className="input"
+                                                name="price" 
+                                                type="text" 
+                                                placeholder={selectedMenuStore.price} 
+                                                defaultValue={selectedMenuStore.price} 
+                                                value={selectedMenuStore.price} 
+                                                onChange={(e) => handleInputChange('selectedMenuStore', e)} 
+                                            />
                                         </InputGroup>    
                                     </FormField>
 

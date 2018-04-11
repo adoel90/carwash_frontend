@@ -4,6 +4,7 @@ import { Button } from '../../../components/Button';
 import { Input, InputCurrency } from '../../../components/Input';
 import { Panel, PanelHeader, PanelBody } from '../../../components/Panel';
 import { AdminTransactionDetail, AdminTransactionCheckout, AdminTransactionPrint } from '../AdminTransaction';
+import Currency from '../../../components/Currency';
 
 const AdminTransactionView = props => {
 
@@ -37,7 +38,11 @@ const AdminTransactionView = props => {
                                                 <tr className={item.selected ? 'bg-secondary' : 'bg-white'} onClick={() => handleSelectMenu(item)} key={item.id}>
                                                     <td>{item.name}</td>
                                                     <td>{item.description}</td>
-                                                    <td>{item.price}</td>
+                                                    <td>
+                                                        <Currency
+                                                            value={item.price}
+                                                        />
+                                                    </td>
                                                 </tr>
                                             )
                                         }) : null }

@@ -219,8 +219,9 @@ class AdminStoresMenu extends Component {
             },
             {
                 title: 'Harga',
-                accessor: 'price'
-            },    
+                accessor: 'price',
+                isCurrency: true
+            },
             {
                 title: 'Aksi',
                 accessor: 'action',
@@ -324,11 +325,9 @@ class AdminStoresMenu extends Component {
             id : selectedMenuStore.id,
             name: selectedMenuStore.name,
             description: selectedMenuStore.description,
-            price: selectedMenuStore.price ,
+            price: parseInt(selectedMenuStore.price.replace(/,/g, '')),
             image:selectedMenuStore.image
         };
-
-        console.log(requireDataUpdate);
         
         //#
         action.updateMenuVendor(requireDataUpdate).then(() => {

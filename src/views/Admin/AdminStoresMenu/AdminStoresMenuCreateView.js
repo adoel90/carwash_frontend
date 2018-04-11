@@ -4,7 +4,7 @@ import { Section } from '../../../layouts/Section';
 import { Container, Row, Column } from '../../../layouts/Grid';
 import { Form, FormField } from '../../../layouts/Form';
 import { Panel, PanelHeader, PanelBody } from '../../../components/Panel';
-import { Input, InputGroup, InputAddon, Select } from '../../../components/Input';
+import { Input, InputGroup, InputAddon, Select, InputCurrency } from '../../../components/Input';
 import { Button } from '../../../components/Button';
 
 const AdminStoresMenuCreateView = props => {
@@ -56,9 +56,15 @@ const AdminStoresMenuCreateView = props => {
                                     <FormField label="Harga">
                                         <InputGroup>
                                             <InputAddon>
-                                                <i className="">Rp</i>
+                                                <small class="fw-semibold tt-uppercase ls-base">Rp</small>
                                             </InputAddon>
-                                            <Input name="harga" type="number" placeholder="Masukan Harga Produk" onChange={(e) => handleInputChange('newMenuProduct', e) } />
+                                            <InputCurrency 
+                                                className="input"
+                                                name="harga" 
+                                                type="text" 
+                                                placeholder="Masukan Harga Produk" 
+                                                onChange={(e) => handleInputChange('newMenuProduct', e) } 
+                                            />
                                         </InputGroup>
                                     </FormField>
                                     <FormField label= "Gambar Produk" >

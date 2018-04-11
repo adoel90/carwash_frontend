@@ -86,8 +86,8 @@ class AdminCardCreate extends Component {
 
             const requiredData = {
                   name: newCard.name,
-                  minimum: parseInt(newCard.minimum),
-                  bonus: parseInt(newCard.bonus),
+                  minimum: parseInt(newCard.minimum.replace(/,/g, '')),
+                  bonus: parseInt(newCard.bonus.replace(/,/g, '')),
                   refund: Boolean(newCard.refund),
                   charge: Boolean(newCard.charge)
             }

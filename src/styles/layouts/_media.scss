@@ -10,10 +10,11 @@
 
     body {
         font-size: 12pt;
-        font-family: 'Source Sans Pro', sans-serif !important;
+        font-family: 'Roboto', sans-serif !important;
         visibility: hidden;
         width: 220px !important;
         max-height: 100%;
+        padding: 150px;
     }
 
     .printable {
@@ -22,5 +23,6 @@
         position: absolute;
         top: 0;
         left: 0;
+        margin-right: 30px;
     }
 }

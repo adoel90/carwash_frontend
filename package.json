@@ -78,7 +78,7 @@
   "devDependencies": {
     "axios": "^0.16.2",
     "classnames": "^2.2.5",
-    "node-sass": "^4.5.3",
+    "node-sass": "^4.8.3",
     "react-cookie": "^2.1.1",
     "react-cookies": "^0.1.0",
     "react-intl": "^2.4.0",

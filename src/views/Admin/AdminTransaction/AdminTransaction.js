@@ -111,7 +111,8 @@ class AdminTransaction extends Component{
 
                 this.setState({
                     ...this.state,
-                    storeList: store.storelistspecial
+                    storeList: store.storelistspecial,
+                    storeIdTab: store.storelistspecial.data.data.result.store[0]
                 }, () => {
                     // console.log(store.storelistspecial.data.data.result.store);
                     this.props.action.getMenuListStore(store.storelistspecial.data.data.result.store[0]);
@@ -261,7 +262,8 @@ class AdminTransaction extends Component{
 		const {
 			memberInfo,
             selectedMenuItem,
-            storeIdTab
+            storeIdTab,
+            storeList
         } = this.state;
 
         let requiredData = {

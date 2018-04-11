@@ -7,7 +7,6 @@ import {
 	CREATE_NEW_VENDOR_FULFILLED,
 	CREATE_NEW_VENDOR_REJECTED,
 
-
 	GET_STORE_LIST_REQUESTED,//Get Menu Vendor List || GET STORE LIST
 	GET_STORE_LIST_FULFILLED,
 	GET_STORE_LIST_REJECTED,
@@ -30,13 +29,26 @@ import {
 
 	CHANGE_STATUS_STORE_STAFF_REQUESTED, //#CHANGE STATUS STORE STAFF
 	CHANGE_STATUS_STORE_STAFF_FULFILLED,
-	CHANGE_STATUS_STORE_STAFF_REJECTED
+	CHANGE_STATUS_STORE_STAFF_REJECTED,
+
+	CHANGE_STATUS_STORE_MENU_REQUESTED,//#CHANGE STATUS STORE MENU
+	CHANGE_STATUS_STORE_MENU_FULFILLED,
+	CHANGE_STATUS_STORE_MENU_REJECTED
 
 } from '../actions/vendor.action'
 
 const initialState = {
 
 	statusEmployee: {
+		data: {},
+		isUpdated: false,
+		isUpdating: false,
+		isStatusChanging: false,
+		isStatusChanged: false,
+		isError: false,
+		error: {}
+	},
+	statusMenu: {
 		data: {},
 		isUpdated: false,
 		isUpdating: false,
@@ -430,6 +442,52 @@ const vendorState = (state = initialState, action) => {
 				...state,
 				statusEmployee: {
 					...state.statusEmployee,
+					data: {},
+					id: action.id,
+					isStatusChanging: false,
+					isStatusChanged: false,
+					isError: true,
+					error: action.payload
+				}
+			}
+		}
+
+		//#CHANGE STATUS STORE MENU
+		case CHANGE_STATUS_STORE_MENU_REQUESTED: {
+			return {
+				...state,
+				statusMenu: {
+					...state.statusMenu,
+					data: {},
+					id: action.id,
+					isStatusChanging: true,
+					isStatusChanged: false,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case CHANGE_STATUS_STORE_MENU_FULFILLED: {
+			return {
+				...state,
+				statusMenu: {
+					...state.statusMenu,
+					data: action.payload,
+					id: action.id,
+					isStatusChanging: false,
+					isStatusChanged: true,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case CHANGE_STATUS_STORE_MENU_REJECTED: {
+			return {
+				...state,
+				statusMenu: {
+					...state.statusMenu,
 					data: {},
 					id: action.id,
 					isStatusChanging: false,

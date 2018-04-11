@@ -9,8 +9,7 @@ import { Dialog } from '../../../components/Dialog';
 import { Button } from '../../../components/Button';
 import { PageBlock, PageBlockGroup, PageContent, PageHeading} from '../../../components/Page';
 import { Nav, NavItem, NavLink, NavTabLink} from '../../../components/Nav';
-
-import { getStoreList, updateMenuVendor, getMenuStoreList } from '../../../actions/vendor.action';
+import { getStoreList, updateMenuVendor, getMenuStoreList, changeStatusMenu } from '../../../actions/vendor.action';
 import { openDialog, closeDialog } from '../../../actions/dialog.action';
 
 function mapStateToProps(state) {
@@ -25,7 +24,7 @@ function mapDispatchToProps(dispatch) {
     return {
         getStoreListDispatch: () => dispatch(getStoreList()),
         getMenuStoreListDispatch: (data) => { dispatch(getMenuStoreList(data))},
-        action: bindActionCreators({ updateMenuVendor, openDialog, closeDialog, getMenuStoreList }, dispatch)
+        action: bindActionCreators({ updateMenuVendor, openDialog, closeDialog, getMenuStoreList, changeStatusMenu}, dispatch)
     }
 }
 
@@ -46,6 +45,7 @@ class AdminStoresMenu extends Component {
         this.handleImageChange = this.handleImageChange.bind(this);
 
         this.toggleTab = this.toggleTab.bind(this);
+        this.changeStatusMenuBind = this.changeStatusMenuBind.bind(this);
 
         this.state = {
 
@@ -85,7 +85,7 @@ class AdminStoresMenu extends Component {
     componentDidUpdate = (prevProps) => {
 
         const { vendorState, getMenuStoreListDispatch } = this.props;
-        const { storeList, storeActive } = this.state;
+        const { storeList, storeActive, storeMenuList } = this.state;
 
         //Get menu store based on ID STORE
         if(prevProps.vendorState.store !== vendorState.store){
@@ -94,7 +94,6 @@ class AdminStoresMenu extends Component {
                     ...this.state,
                     storeActiveList: vendorState.store.data.data.result.store
                 }, () => {
-
                     // getMenuStoreListDispatch(vendorState.store.data.data.result.store[storeActive]);
                 });
             }
@@ -112,6 +111,28 @@ class AdminStoresMenu extends Component {
                     this.populateTableData();
                 })
             }
+        }
+
+        //#Get status Store Menu
+        if(prevProps.vendorState.statusMenu !== vendorState.statusMenu){
+
+            if(vendorState.statusMenu.isStatusChanged) {
+                storeMenuList.data.data.result.menu.map((value)=> {
+                    if(value.id === vendorState.statusMenu.id){
+                        value.statusChanging = false;
+                        if(value.status){
+                            value.status = false;
+                        } else {
+                            value.status = true;
+                        }
+                        console.log(value);
+                        console.log(vendorState.statusMenu.id);
+                        this.populateTableData();
+                        this.forceUpdate();
+                        
+                    }
+                })
+            }   
         }
     }
 
@@ -177,6 +198,14 @@ class AdminStoresMenu extends Component {
         )
     }
 
+    //#Change Status User Active or non-aktif
+    changeStatusMenuBind = (row) => {
+        console.log(row);
+        const { action } = this.props;
+        let requiredData = { id: row.id }
+        action.changeStatusMenu(requiredData);
+    }
+
     populateTableData = () => {
 
         const { storeMenuList, storeList  } = this.state;  
@@ -200,6 +229,7 @@ class AdminStoresMenu extends Component {
                 render: (row) => (
                     <td>
                         <Button className="margin-right-small" type="button" onClick={() => this.openMenuVendorModal(row)}>Ubah</Button>
+                        <Button type="button" theme={row.status ? "success" : "danger"} onClick={() => this.changeStatusMenuBind(row)}>{ row.status ? 'Aktif' : 'Non Aktif' }</Button>
                     </td>
                 )
             }

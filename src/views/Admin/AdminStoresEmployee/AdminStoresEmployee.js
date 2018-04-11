@@ -96,14 +96,14 @@ class AdminStoresEmployee extends Component {
 
          //#Get status Store Staff
          if(prevProps.vendorState.statusEmployee !== vendorState.statusEmployee){
-            if(vendorState.statusEmployee.isStatusChanging){
-                vendorEmployeeList.data.data.result.staff.forEach((value) => {
-                    if(value.id === vendorState.statusEmployee.id){
-                        value.statusChanging = true;
-                        this.forceUpdate();
-                    }
-                });
-            }
+            // if(vendorState.statusEmployee.isStatusChanging){
+            //     vendorEmployeeList.data.data.result.staff.forEach((value) => {
+            //         if(value.id === vendorState.statusEmployee.id){
+            //             value.statusChanging = true;
+            //             this.forceUpdate();
+            //         }
+            //     });
+            // }
 
             if(vendorState.statusEmployee.isStatusChanged) {
                 vendorEmployeeList.data.data.result.staff.forEach((value) => {

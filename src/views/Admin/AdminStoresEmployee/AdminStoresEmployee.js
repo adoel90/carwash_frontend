@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
 import { PropsRoute } from '../../../components/Route';
 import { TabContent } from '../../../components/Tab';
 import { AdminStoresEmployeeView } from '../AdminStoresEmployee';

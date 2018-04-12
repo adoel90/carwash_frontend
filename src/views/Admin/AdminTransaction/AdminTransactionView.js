@@ -32,7 +32,6 @@ const AdminTransactionView = props => {
                                             item.selected = item.selected ? true : false;
                                             item.quantity = item.quantity ? item.quantity : 1;
                                             item.totalPrice = item.quantity * item.price;
-
                                             return (
                                                 <tr className={item.selected ? 'bg-secondary' : 'bg-white'} onClick={() => handleSelectMenu(item)} key={item.id}>
                                                     <td>{item.name}</td>

@@ -11,7 +11,6 @@ import { ButtonDewek } from '../../../components/ButtonDewek';
 
 const AdminStoresEmployeeCreateView = props => {
 
-
     const { handleFormSubmit, handleInputChange, newStaff, store, vendorState, access } = props;
 
     return (

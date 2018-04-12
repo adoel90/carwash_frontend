@@ -6,24 +6,21 @@ import CashierNewCard from './CashierNewCard';
 import CashierNewCardForm from './CashierNewCardForm';
 import CashierNewCardConfirmation from './CashierNewCardConfirmation';
 import CashierNewCardInstruction from './CashierNewCardInstruction';
-// import CashierChangeCard from './CashierChangeCard';
-// import CashierChangeCardForm from './CashierChangeCardForm';
 import CashierRefundForm from './CashierRefundForm';
 import CashierRefundConfirmation from './CashierRefundConfirmation';
 import CashierRefundFirst from './CashierRefundFirst';
 import CashierRefund from './CashierRefund';
+import CashierTopUpPaymentCheckout from './CashierTopUpPaymentCheckout';
 
 export {
-	// Cashier,
 	CashierTopUp,
 	CashierTopUpForm,
 	CashierTopUpConfirmation,
+	CashierTopUpPaymentCheckout,
 	CashierNewCard,
 	CashierNewCardForm,
 	CashierNewCardConfirmation,
 	CashierNewCardInstruction,
-	// CashierChangeCard,
-	// CashierChangeCardForm,
 	CashierRefundForm,
 	CashierRefundConfirmation,
 	CashierRefundFirst,

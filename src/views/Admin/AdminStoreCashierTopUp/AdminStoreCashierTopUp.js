@@ -37,6 +37,8 @@ class AdminStoreCashierTopUp extends Component {
         this.toggleDialog = this.toggleDialog.bind(this);
         this.renderDialog = this.renderDialog.bind(this);
 
+        this.handleTopUpPaymentCheckout = this.handleTopUpPaymentCheckout.bind(this);
+
         this.state = {
 
 			authData: {
@@ -51,7 +53,8 @@ class AdminStoreCashierTopUp extends Component {
             
             isModalOpen: {
                 topup: false,
-                topupConfirm: false
+                topupConfirm: false,
+                topUpPaymentCheckout: false
             },
             error: {
 				data: {},
@@ -285,6 +288,13 @@ class AdminStoreCashierTopUp extends Component {
         });
     }
 
+    //#
+    handleTopUpPaymentCheckout = (e) => {
+        e.preventDefault();
+
+        this.toggleModal('topUpPaymentCheckout');
+    }
+
     render() {
         return ( 
             <div>
@@ -299,6 +309,7 @@ class AdminStoreCashierTopUp extends Component {
                     openDialog={this.openDialog}
                     closeDialog={this.closeDialog}
                     handleTierTopup={this.handleTierTopup}
+                    handleTopUpPaymentCheckout = {this.handleTopUpPaymentCheckout}
                 />
                 {this.renderDialog()}
             </div>

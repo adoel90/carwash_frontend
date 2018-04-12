@@ -61,20 +61,6 @@ class CashierTopUpConfirmation extends Component {
 						})
 					}
 				</div>
-				{/* <InputCashier
-					className="input"
-					name="payment"
-					type="select"
-					onChange={(e) => handleInputChange(topupData, e)}
-					required="true"
-					value="">
-						<option selected="true" disabled="true">Bonus Khusus untuk Taxi Online</option>
-						{ 
-							this.props.bonus.map((special) => {
-								return <option><b>Isi ulang Rp.{special.price} mendapat BONUS : Rp.{special.bonus}</b></option>
-							})
-						}
-				</InputCashier> */}
 			</div>
 		)
 	}
@@ -111,7 +97,8 @@ class CashierTopUpConfirmation extends Component {
 			toggleModal,
 			topupData,
 			handleTopupSubmit,
-			handleInputChange
+			handleInputChange,
+			handleTopUpPaymentCheckout
 		} = this.props;
 
 		const typeMember = authenticatedMember.isAuthenticated ? authenticatedMember.data.card.type.name : null;
@@ -137,7 +124,8 @@ class CashierTopUpConfirmation extends Component {
 		return (
 			<Modal
 				isOpen={isModalOpen.topup}>
-				<Form onSubmit={handleTopupSubmit}>
+				{/* <Form onSubmit={handleTopupSubmit}> */}
+				<Form onSubmit={handleTopUpPaymentCheckout}>
 					<ModalHeader>
 						<h5 className="fw-bold ta-center">Isi Ulang Saldo Customer</h5>
 					</ModalHeader>
@@ -205,13 +193,23 @@ class CashierTopUpConfirmation extends Component {
 						<Button type="button" theme="danger" className="margin-right-small" onClick={() => toggleModal('topup')}>
 							<small className="tt-uppercase fw-semibold ls-base">Kembali</small>
 						</Button>
-						{
+						{/* {
 							typeMember !== "Taxi Online" ?
 								<Button type="submit" theme="primary" className="clr-light margin-left-small">
 									<small className="tt-uppercase fw-semibold ls-base">Isi Saldo</small>
 								</Button>
 							: null
+						} */}
+
+						{
+							typeMember !== "Taxi Online" ?
+								<Button theme="primary" className="clr-light margin-left-small">
+									<small className="tt-uppercase fw-semibold ls-base">Isi Saldo</small>
+								</Button>
+							: null
 						}
+
+
 					</ModalFooter>
 				</Form>
 				

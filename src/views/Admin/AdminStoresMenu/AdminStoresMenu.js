@@ -219,8 +219,9 @@ class AdminStoresMenu extends Component {
             },
             {
                 title: 'Harga',
-                accessor: 'price'
-            },    
+                accessor: 'price',
+                isCurrency: true
+            },
             {
                 title: 'Aksi',
                 accessor: 'action',
@@ -244,6 +245,7 @@ class AdminStoresMenu extends Component {
                     price: menu.price,
                     image: menu.image,
                     status: menu.status,
+                    category: menu.category,
                     data: menu
 
                 }
@@ -278,7 +280,7 @@ class AdminStoresMenu extends Component {
 
         const target = e.target;
         const name = target.name;
-        const value = target.value;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
 
         this.setState({
             ...this.state,
@@ -324,11 +326,10 @@ class AdminStoresMenu extends Component {
             id : selectedMenuStore.id,
             name: selectedMenuStore.name,
             description: selectedMenuStore.description,
-            price: selectedMenuStore.price ,
-            image:selectedMenuStore.image
+            price: parseInt(selectedMenuStore.price.replace(/,/g, '')),
+            image: selectedMenuStore.image,
+            category: selectedMenuStore.category
         };
-
-        console.log(requireDataUpdate);
         
         //#
         action.updateMenuVendor(requireDataUpdate).then(() => {

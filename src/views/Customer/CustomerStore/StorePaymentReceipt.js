@@ -51,13 +51,13 @@ class StorePaymentReceipt extends Component {
                 return (
                     <table style={{width: '100%'}}>
                         <tbody>
-                            <tr>
+                            <tr className="padding-bottom-small">
                                 <td>Diskon:</td>
                                 <td className="ta-right">
                                     <p>{dataDiscount}%</p>
                                 </td>
                             </tr>
-                            <tr>
+                            <tr className="padding-bottom-small">
                                 <td>Total Harga:</td>
                                 <td className="ta-right">
                                     <NumberFormat
@@ -67,7 +67,7 @@ class StorePaymentReceipt extends Component {
                                     />
                                 </td>
                             </tr>
-                            <tr>
+                            <tr className="padding-bottom-small">
                                 <td>Saldo Awal:</td>
                                 <td className="ta-right">
                                     <NumberFormat
@@ -98,6 +98,7 @@ class StorePaymentReceipt extends Component {
             let queue = printData.status === 200 ? printData.result.queue : null;
             let date = printData.status === 200 ? printData.result.date : null;
             
+            console.log(this.props)
             return (
                 <Printable>
                     <div className="receipt">
@@ -108,6 +109,9 @@ class StorePaymentReceipt extends Component {
                             <p className="fw-bold">805 Carwash</p>
                             <p>Jln. Raya Pegangsaan 2 no 23-B <br/> 0896-0457-8309 <br/> 021-957-362-77</p>
                         </div>
+                        <div className="align-center margin-top-base margin-bottom-base">
+                            <p className="fw-bold">{this.props.type.name}</p>
+                        </div>
                         <div className="receipt-body margin-bottom-small">
                             {renderItemList()}
                             {renderSummary()}
@@ -116,8 +120,10 @@ class StorePaymentReceipt extends Component {
                             <div className="margin-bottom-small">
                                 <p className="fw-semibold">For Customer <br/>{printData.status === 200 ? printData.result.member.name : null}</p>
                             </div>
-                            <p className="fw-semibold">{moment(date).format('LLL')}</p>
-                            <p>Thank you and please come again soon.</p>
+                            <p className="fw-semibold">{moment(new Date).format('LLL')}</p>
+                            <p>
+                                Thank you and please come again soon.
+                            </p>
                         </div>
                     </div>
                 </Printable>

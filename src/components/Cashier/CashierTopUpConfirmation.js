@@ -208,7 +208,7 @@ class CashierTopUpConfirmation extends Component {
 						{
 							typeMember !== "Taxi Online" ?
 								<Button type="submit" theme="primary" className="clr-light margin-left-small">
-									<small className="tt-uppercase fw-semibold ls-base">Selesai & Print Struk</small>
+									<small className="tt-uppercase fw-semibold ls-base">Isi Saldo</small>
 								</Button>
 							: null
 						}

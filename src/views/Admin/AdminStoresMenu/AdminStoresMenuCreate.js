@@ -153,15 +153,11 @@ class AdminStoresMenuCreate extends Component {
             store: newMenuProduct.store ? parseInt(newMenuProduct.store) : "Failed parse INTEGER!!!",
             name: newMenuProduct.name,
             deskripsi: newMenuProduct.deskripsi,
-            harga: newMenuProduct.harga,
+            harga: parseInt(newMenuProduct.harga.replace(/,/g, '')),
             image: newMenuProduct.image
         }
 
-        console.log(requiredData);
-
         action.createMenuProduct(requiredData).then(() => {
-            // const { store } = this.props;
-
             if(this.props.store.menuproduk.isCreated) {
                 let dialogData = {
                     type: 'success',

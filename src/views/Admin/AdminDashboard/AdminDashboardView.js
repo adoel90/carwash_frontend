@@ -73,7 +73,7 @@ const AdminDashboardView = props => {
 
     const renderReportGraph = () => {
 		const priceFormatter = function (data) {
-            return parseFloat(data).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+            return "Rp. " + parseFloat(data).toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 2});
         };
 
         if(report.dashboard.isLoaded) {

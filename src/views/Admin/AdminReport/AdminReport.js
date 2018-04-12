@@ -82,18 +82,21 @@ class AdminReport extends Component {
         
         const columns = [{
             title: 'Nama Member',
-            accessor: 'name'
+            accessor: 'name',
+            align: 'center'
         }, {
             title: 'Alamat Email',
-            accessor: 'email'
+            accessor: 'email',
+            align: 'center'
         }, {
             title: 'Tipe Member',
             accessor: 'type',
             align: 'center'
         }, {
-            title: 'Price',
+            title: 'Harga',
             accessor: 'price',
-            align: 'center'
+            align: 'center',
+            isCurrency: true
         }]
 
         const rows = [] 
@@ -102,14 +105,16 @@ class AdminReport extends Component {
             report.member.data.result.report.forEach((item, i) => {
                 let row = {
                     id: item.id,
-                    name: item.name,
-                    email: item.email,
-                    type: item.type,
-                    price: item.price,
+                    name: item.name ? item.name : '-',
+                    email: item.email ? item.email : '-',
+                    type: item.type ? item.type : '-',
+                    price: item.price ? item.price : '-',
                     data: item
                 }
 
-                rows.push(row);
+                if(item.price > 0) {
+                    rows.push(row);
+                }
             })
         }
 

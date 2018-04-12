@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Table, TableHead, TableBody } from '../Table';
 import { PaginationSet } from '../Pagination';
 import { SearchBar } from '../Search';
+import Currency from '../Currency';
 
 class TableSet extends Component {
     
@@ -159,6 +160,19 @@ class TableSet extends Component {
                 
                 for(var key in row) {
                     if(column.accessor == key) {
+                        if(column.isCurrency) {
+                            return (
+                                <td key={i}>
+                                    <p className={`text-align-${column.rowAlign}`}>
+                                        <Currency
+                                            name={column.accessor}
+                                            value={row[key]}
+                                        />
+                                    </p>
+                                </td>
+                            )
+                        }
+
                         return (
                             <td key={i}>
                                 <p className={`text-align-${column.rowAlign}`}>

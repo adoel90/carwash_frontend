@@ -1,7 +1,6 @@
 import React, {Component } from 'react';
-
-import { Modal, ModalHeader, ModalBody, ModalFooter } from '../Modal';
-import { Button } from '../Button';
+import { Modal, ModalHeader, ModalBody, ModalFooter } from '../../../components/Modal';
+import { Button } from '../../../components/Button';
 
 class CashierTopUpPaymentCheckout extends Component{
 

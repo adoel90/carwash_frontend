@@ -88,6 +88,11 @@ export const CHANGE_STATUS_STORE_STAFF_REQUESTED = 'CHANGE_STATUS_STORE_STAFF_RE
 export const CHANGE_STATUS_STORE_STAFF_FULFILLED = 'CHANGE_STATUS_STORE_STAFF_FULFILLED';
 export const CHANGE_STATUS_STORE_STAFF_REJECTED = 'CHANGE_STATUS_STORE_STAFF_REJECTED'
 
+//#GET PRINT MEMBER TRANSACTION
+export const GET_PRINT_MEMBER_TRANSACTION_REQUESTED = 'GET_PRINT_MEMBER_TRANSACTION_REQUESTED';
+export const GET_PRINT_MEMBER_TRANSACTION_FULFILLED = 'GET_PRINT_MEMBER_TRANSACTION_FULFILLED';
+export const GET_PRINT_MEMBER_TRANSACTION_REJECTED = 'GET_PRINT_MEMBER_TRANSACTION_REJECTED';
+
 
 const accessToken = localStorage.getItem('accessToken') ? localStorage.getItem('accessToken') : null;
 const userLogin = localStorage.getItem('userData') ? localStorage.getItem('userData') : null;
@@ -529,4 +534,28 @@ export const changeStatusStaff = (data) => {
 	function statusRequest(id) { return { type: CHANGE_STATUS_STORE_STAFF_REQUESTED, id: id } }
 	function statusSuccess(data, id) { return { type: CHANGE_STATUS_STORE_STAFF_FULFILLED, payload: data, id: id } }
 	function statusError(data, id) { return { type: CHANGE_STATUS_STORE_STAFF_REJECTED, payload: data, id: id } }
+}
+
+
+//#GET PRINT MEMBER TRANSACTION
+export const printMemberTransaction = (data) => {
+	console.log(data);
+
+	return async dispatch => {
+
+		dispatch(handleRequest());
+		return axios
+			.get(`${constant.API_PATH}member/topup/print?accessToken=${accessToken}&id=${data.id}`)
+			.then((response) => {
+				dispatch(handleSuccess(response.data))
+			})
+			.catch((error) => {
+				dispatch(handleError(error))
+			})
+	}
+
+	function handleRequest() { return { type: GET_PRINT_MEMBER_TRANSACTION_REQUESTED } }
+	function handleSuccess(data) { return { type: GET_PRINT_MEMBER_TRANSACTION_FULFILLED, payload: data } }
+	function handleError(data) { return { type: GET_PRINT_MEMBER_TRANSACTION_REJECTED, payload: data } }
+
 }

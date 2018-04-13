@@ -116,6 +116,8 @@ class StorePaymentReceipt extends Component {
                             {renderItemList()}
                             {renderSummary()}
                         </div>
+
+                        
                         <div className="receipt-footer ta-center">
                             <div className="margin-bottom-small">
                                 <p className="fw-semibold">For Customer <br/>{printData.status === 200 ? printData.result.member.name : null}</p>

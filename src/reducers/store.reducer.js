@@ -1,4 +1,5 @@
 import {
+
 	GET_STORE_LIST_REQUESTED,
 	GET_STORE_LIST_FULFILLED,
 	GET_STORE_LIST_REJECTED,
@@ -63,8 +64,12 @@ import {
 
 	CHANGE_STATUS_STORE_STAFF_REQUESTED, //#CHANGE STATUS STORE STAFF
 	CHANGE_STATUS_STORE_STAFF_FULFILLED,
-	CHANGE_STATUS_STORE_STAFF_REJECTED
+	CHANGE_STATUS_STORE_STAFF_REJECTED,
 
+	GET_PRINT_MEMBER_TRANSACTION_REQUESTED,//#GET PRINT MEMBER TRANSACTION
+	GET_PRINT_MEMBER_TRANSACTION_FULFILLED,
+	GET_PRINT_MEMBER_TRANSACTION_REJECTED
+	
 } from '../actions/store.action'
 
 const initialState = {
@@ -196,6 +201,13 @@ const initialState = {
 		isUpdating: false,
 		isStatusChanging: false,
 		isStatusChanged: false,
+		isError: false,
+		error: {}
+	},
+	printMember: {
+		data: {},
+		isPrinting: false,
+		isPrinted: false,
 		isError: false,
 		error: {}
 	},
@@ -827,122 +839,166 @@ const store = (state = initialState, action) => {
 			}
 		}
 
-	//#CREATE DISCOUNT PROMO STORE
-	case CREATE_DISCOUNT_PROMO_STORE_FULFILLED: {
-		return {
-			...state,
-			promodiscount: {
-				...state.promodiscount,
-				// data: {},
-				data: action.payload,
-				isCreated: true,
-				isError: false,
-				error: {}
+		//#CREATE DISCOUNT PROMO STORE
+		case CREATE_DISCOUNT_PROMO_STORE_FULFILLED: {
+			return {
+				...state,
+				promodiscount: {
+					...state.promodiscount,
+					// data: {},
+					data: action.payload,
+					isCreated: true,
+					isError: false,
+					error: {}
+				}
 			}
 		}
-	}
 
-	case CREATE_DISCOUNT_PROMO_STORE_REJECTED: {
-		return {
-			...state,
-			promodiscount: {
-				...state.promodiscount,
-				data: action.payload,
-				isCreated: false,
-				isError: false,
-				error: {}
+		case CREATE_DISCOUNT_PROMO_STORE_REJECTED: {
+			return {
+				...state,
+				promodiscount: {
+					...state.promodiscount,
+					data: action.payload,
+					isCreated: false,
+					isError: false,
+					error: {}
+				}
 			}
 		}
-	}
-	
-	//#GET STORE LIST WITH ID USER LOGIN
-	case GET_STORE_LIST_WITH_ID_REQUESTED: {
-		return {
-			...state,
-			storelistspecial: {
-				...state.storelistspecial,
-				data: {},
-				isFetching: true,
-				isLoaded: false,
-				isError: false,
-				error: {}
+		
+		//#GET STORE LIST WITH ID USER LOGIN
+		case GET_STORE_LIST_WITH_ID_REQUESTED: {
+			return {
+				...state,
+				storelistspecial: {
+					...state.storelistspecial,
+					data: {},
+					isFetching: true,
+					isLoaded: false,
+					isError: false,
+					error: {}
+				}
 			}
 		}
-	}
 
-	case GET_STORE_LIST_WITH_ID_FULFILLED: {
-		return {
-			...state,
-			storelistspecial: {
-				...state.storelistspecial,
-				data: action.payload,
-				isLoaded: true,
-				isFetching: false,
-				isError: false,
-				error: {}
+		case GET_STORE_LIST_WITH_ID_FULFILLED: {
+			return {
+				...state,
+				storelistspecial: {
+					...state.storelistspecial,
+					data: action.payload,
+					isLoaded: true,
+					isFetching: false,
+					isError: false,
+					error: {}
+				}
 			}
 		}
-	}
 
-	case GET_STORE_LIST_WITH_ID_REJECTED: {
-		return {
-			...state,
-			storelistspecial: {
-				...state.storelistspecial,
-				data: {},
-				isLoaded: false,
-				isFetching: false,
-				isError: true,
-				error: action.payload
+		case GET_STORE_LIST_WITH_ID_REJECTED: {
+			return {
+				...state,
+				storelistspecial: {
+					...state.storelistspecial,
+					data: {},
+					isLoaded: false,
+					isFetching: false,
+					isError: true,
+					error: action.payload
+				}
 			}
 		}
-	}
 
-	//#CHANGE STATUS STORE STAFF
-	case CHANGE_STATUS_STORE_STAFF_REQUESTED: {
-		return {
-			...state,
-			statusEmployee: {
-				...state.statusEmployee,
-				data: {},
-				id: action.id,
-				isStatusChanging: true,
-				isStatusChanged: false,
-				isError: false,
-				error: {}
+		//#CHANGE STATUS STORE STAFF
+		case CHANGE_STATUS_STORE_STAFF_REQUESTED: {
+			return {
+				...state,
+				statusEmployee: {
+					...state.statusEmployee,
+					data: {},
+					id: action.id,
+					isStatusChanging: true,
+					isStatusChanged: false,
+					isError: false,
+					error: {}
+				}
 			}
 		}
-	}
 
-	case CHANGE_STATUS_STORE_STAFF_FULFILLED: {
-		return {
-			...state,
-			statusEmployee: {
-				...state.statusEmployee,
-				data: action.payload,
-				id: action.id,
-				isStatusChanging: false,
-				isStatusChanged: true,
-				isError: false,
-				error: {}
+		case CHANGE_STATUS_STORE_STAFF_FULFILLED: {
+			return {
+				...state,
+				statusEmployee: {
+					...state.statusEmployee,
+					data: action.payload,
+					id: action.id,
+					isStatusChanging: false,
+					isStatusChanged: true,
+					isError: false,
+					error: {}
+				}
 			}
 		}
-	}
 
-	case CHANGE_STATUS_STORE_STAFF_REJECTED: {
-		return {
-			...state,
-			statusEmployee: {
-				...state.statusEmployee,
-				data: {},
-				id: action.id,
-				isStatusChanging: false,
-				isStatusChanged: false,
-				isError: true,
-				error: action.payload
+		case CHANGE_STATUS_STORE_STAFF_REJECTED: {
+			return {
+				...state,
+				statusEmployee: {
+					...state.statusEmployee,
+					data: {},
+					id: action.id,
+					isStatusChanging: false,
+					isStatusChanged: false,
+					isError: true,
+					error: action.payload
+				}
 			}
 		}
-	}
+
+		//#GET PRINT MEMBER TRANSACTION
+		case GET_PRINT_MEMBER_TRANSACTION_REQUESTED: {
+			return {
+				...state,
+				printMember: {
+					...state.printMember,
+					data: {},
+					isPrinting: true,
+					isPrinted: false,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case GET_PRINT_MEMBER_TRANSACTION_FULFILLED: {
+			return {
+				...state,
+				printMember: {
+					...state.printMember,
+					data: action.payload,
+					isPrinting: false,
+					isPrinted: true,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case GET_PRINT_MEMBER_TRANSACTION_REJECTED: {
+			return {
+				...state,
+				printMember: {
+					...state.printMember,
+					data: {},
+					isPrinting: false,
+					isPrinted: false,
+					isError: true,
+					error: action.payload
+				}
+			}
+		}
+
 		default: {
 			return state;
 		}

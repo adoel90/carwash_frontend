@@ -10,13 +10,14 @@ import { default as CardIcon } from '../../assets/icons/Business/credit-card-3.s
 import { default as CardIcon2 } from '../../assets/icons/Business/credit-card-4.svg';
 import Currency from '../Currency';
 import NumberFormat from 'react-number-format';
-import { CashierTopUpConfirmation } from '../Cashier';
+import {CashierTopUpPaymentReceipt, CashierTopUpConfirmation, CashierTopUpPaymentCheckout } from '../Cashier';
 import CashierTopUpForm from './CashierTopUpForm';
 import { Panel, PanelHeader, PanelBody } from '../Panel';
 
 class CashierTopUp extends Component {
-	
+
 	render() {
+
 		return (
 			<div className="inner-view">
 				<Panel className="ta-center">
@@ -31,6 +32,8 @@ class CashierTopUp extends Component {
 					</PanelBody>
 				</Panel>
 				<CashierTopUpConfirmation {...this.props} />
+				<CashierTopUpPaymentCheckout { ...this.props} />
+				<CashierTopUpPaymentReceipt {...this.props} />
 			</div>
 		);
 	}

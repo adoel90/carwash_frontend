@@ -86,7 +86,7 @@ class CashierNewCardForm extends Component {
 													type="text"
 													placeholder="+62"
 													onChange={(e) => handleInputChange(newCardData, e)}
-													required="true"
+													// required="false"
 												/>
 											</InputGroup>
 										</FormField>
@@ -98,7 +98,7 @@ class CashierNewCardForm extends Component {
 												type="textarea"
 												placeholder="Provinsi, Kecamatan, Jalan, Kode Pos"
 												onChange={(e) => handleInputChange(newCardData, e)}
-												required="true"
+												// required="false"
 											/>
 										</FormField>
 									</FormGroup>

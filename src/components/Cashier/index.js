@@ -10,12 +10,15 @@ import CashierRefundForm from './CashierRefundForm';
 import CashierRefundConfirmation from './CashierRefundConfirmation';
 import CashierRefundFirst from './CashierRefundFirst';
 import CashierRefund from './CashierRefund';
+import CashierTopUpPaymentCheckout from './CashierTopUpPaymentCheckout';
+import CashierTopUpPaymentReceipt from './CashierTopUpPaymentReceipt';
 
 export {
 	CashierTopUp,
 	CashierTopUpForm,
 	CashierTopUpConfirmation,
-	// CashierTopUpPaymentCheckout,
+	CashierTopUpPaymentCheckout,
+	CashierTopUpPaymentReceipt,
 	CashierNewCard,
 	CashierNewCardForm,
 	CashierNewCardConfirmation,

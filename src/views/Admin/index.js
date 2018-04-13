@@ -18,6 +18,7 @@ export * from './AdminSetting';
 export * from './AdminStoreCashierTopUp';
 export * from './AdminStoreCashierNewCard';
 export * from './AdminStoreCashierRefund';
+export * from './AdminStoreCashierReport';
 
 //Admin Stores === Vendor
 export * from './AdminStoresMenu';

@@ -21,14 +21,14 @@ import {
     AdminStoreCashierTopUp,
     AdminStoreCashierNewCard,
     AdminStoreCashierRefund,
+    AdminStoreCashierReport,
     AdminStoresMenu,
     AdminStoresMenuCreate,
     AdminStoresEmployee,
     AdminStoresEmployeeCreate,
     AdminStoresReport,
     AdminTransaction
-    // AdminStoresPromo,
-    // AdminStoresPromoCreate
+   
     
 } from '../../Admin';
 
@@ -91,6 +91,7 @@ class AdminPanel extends Component {
                 { name: 'refund', path: `${this.props.match.url}/refund`, component: AdminStoreCashierRefund },
                 { name: 'logout', path: `${this.props.match.url}/logout`, component: AdminLogout },
                 { name: 'setting', path: `${this.props.match.url}/setting`, component: AdminSetting },
+                { name: 'report', path: `${this.props.match.url}/report`, component: AdminStoreCashierReport },
                 { component: NoMatch }
             ];
 

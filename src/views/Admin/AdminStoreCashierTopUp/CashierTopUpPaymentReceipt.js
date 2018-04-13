@@ -79,7 +79,6 @@ class CashierTopUpPaymentReceipt extends Component{
                             <p className="fw-bold">{nameCustomer}</p>
                         </div>
                         <div className="receipt-body margin-bottom-small">
-                            {/* {renderItemList()} */}
                             {renderSummary()}
                         </div>
 

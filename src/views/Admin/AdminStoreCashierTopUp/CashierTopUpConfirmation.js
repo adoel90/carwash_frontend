@@ -88,6 +88,7 @@ class CashierTopUpConfirmation extends Component {
 	}
 
 	render() {
+		
 		const {
 			authenticatedMember,
 			paymentMethod,

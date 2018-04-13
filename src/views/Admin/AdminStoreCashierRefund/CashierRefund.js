@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { CashierRefundConfirmation } from '../Cashier';
-import { Panel, PanelBody, PanelHeader } from '../Panel';
-import { PageBlock, PageBlockGroup } from '../Page';
-import { Form, FormGroup } from '../Form';
-import { Input, InputGroup, InputAddon, Label } from '../Input';
-import { Button } from '../Button';
-import { Alert } from '../Alert';
+import { Panel, PanelBody, PanelHeader } from '../../../components/Panel';
+import { PageBlock, PageBlockGroup } from '../../../components/Page';
+import { Form, FormGroup } from '../../../components/Form';
+import { Input, InputGroup, InputAddon, Label } from '../../../components/Input';
+import { Button } from '../../../components/Button';
+import { Alert } from '../../../components/Alert';
+import { CashierRefundConfirmation } from '../AdminStoreCashierRefund';
 
 class CashierRefund extends Component {
 

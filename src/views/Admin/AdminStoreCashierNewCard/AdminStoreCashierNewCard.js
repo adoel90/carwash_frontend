@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import { StoreCashierNewCardView } from '../StoreCashierNewCard';
-import  {CashierNewCard}  from '../../../components/Cashier';
+// import  {CashierNewCard}  from '../../../components/Cashier';
+import  {CashierNewCard, CashierNewCardPaymentReceipt}  from '../AdminStoreCashierNewCard';
 import { Dialog } from '../../../components/Dialog';
 import { createNewMember } from '../../../actions/member.action';
 import { getAllCardType } from '../../../actions/card.action';
@@ -18,6 +18,9 @@ class AdminStoreCashierNewCard extends Component {
 		this.handleNewCardInstruction = this.handleNewCardInstruction.bind(this);
 		this.handleNewCardInstructionSubmit = this.handleNewCardInstructionSubmit.bind(this);
 		this.getCardTypes = this.getCardTypes.bind(this);
+		
+		this.handleNewCardPrintSubmit = this.handleNewCardPrintSubmit.bind(this);
+
 
 		this.state = {
 			cardTypes: [],
@@ -45,7 +48,10 @@ class AdminStoreCashierNewCard extends Component {
 				{ id: 1, name: 'Cash' },
 				{ id: 2, name: 'Debit' },
 				{ id: 3, name: 'Credit' },
-			]
+			],
+
+			statusPrintData: null,
+			printData: {}
 		}
 	}
 
@@ -59,10 +65,7 @@ class AdminStoreCashierNewCard extends Component {
 			newMember
 		} = this.state;
 
-		const {
-			card,
-			member
-		} = this.props;
+		const { card, member } = this.props;
 
 		if(prevProps.card.types !== card.types) {
 			if(card.types.isLoaded) {
@@ -199,6 +202,21 @@ class AdminStoreCashierNewCard extends Component {
 		})
 	}
 
+	handleNewCardPrintSubmit = (e) => {
+		e.preventDefault();
+		const { newMember } = this.state;
+		console.log(newMember);
+
+		this.setState({
+			...this.state,
+			statusPrintData: 200,
+			printData: newMember
+		}, () => {
+			window.print();
+		})
+		
+	}	
+
     render() {
         
         return (
@@ -212,7 +230,9 @@ class AdminStoreCashierNewCard extends Component {
 					handleNewCardSubmit={this.handleNewCardSubmit}
 					handleNewCardConfirmationSubmit={this.handleNewCardConfirmationSubmit}
 					handleNewCardInstructionSubmit={this.handleNewCardInstructionSubmit}
+					handleNewCardPrintSubmit = {this.handleNewCardPrintSubmit}
 				/>
+				<CashierNewCardPaymentReceipt {...this.props} {...this.state} /> 
 			</div>
 		);
     }

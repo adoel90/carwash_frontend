@@ -15,6 +15,7 @@ class AdminStoreCashierReport extends Component {
             tabReport : [
                 {id : 1, tabName: "Top-Up Daily" },
                 {id : 2, tabName: "Kartu-Baru Daily"},
+                {id : 3, tabName: "Refund-Kartu Daily"}
                 
             ],
 

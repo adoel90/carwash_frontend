@@ -7,7 +7,8 @@ import {
 } from '../../../actions/dialog.action';
 import { Dialog } from '../../../components/Dialog';
 import { ModalDialog } from '../../../components/Modal';
-import { CashierRefund } from '../../../components/Cashier';
+// import { CashierRefund } from '../../../components/Cashier';
+import { CashierRefund } from '../AdminStoreCashierRefund';
 
 class AdminStoreCashierRefund extends Component {
 

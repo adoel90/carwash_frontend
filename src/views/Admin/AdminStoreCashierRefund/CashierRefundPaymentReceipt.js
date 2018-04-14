@@ -7,18 +7,16 @@ import { ListGroup, ListGroupItem } from '../../../components/List';
 
 class CashierRefundPaymentReceipt extends Component {
 
-    
-
     render() {
 
-        const { printData, statusPrintData } = this.props;
+        const { printData, statusPrintData, member } = this.props;
         
-        let customerName = printData.item.data.card.name;
-        let cardType = printData.card.type.name;
-        let saldoUangInCard = printData.data.balance;
+        let customerName = statusPrintData === 200 ? printData.item.data.name : null;
+        let cardType = statusPrintData === 200 ? printData.item.data.card.type.name : null;
+        let saldoUangInCard = statusPrintData === 200 ? printData.item.data.balance : null;
 
         if(statusPrintData === 200 ){
-
+        
             return (
                 <Printable>
                     <div className="receipt">
@@ -36,7 +34,7 @@ class CashierRefundPaymentReceipt extends Component {
                             <table style={{width: '100%'}}>
                                 <tbody>
                                     <tr className="padding-bottom-small">
-                                        <td>Saldo Kartu : </td>
+                                        <td>Tipe Kartu : </td>
                                         <td className="ta-right">
                                             <p>{cardType}</p>
                                         </td>

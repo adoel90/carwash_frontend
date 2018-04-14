@@ -4,7 +4,6 @@ import { authenticateMember, memberRefund } from '../../../actions/member.action
 import {openDialog, closeDialog } from '../../../actions/dialog.action';
 import { Dialog } from '../../../components/Dialog';
 import { ModalDialog } from '../../../components/Modal';
-// import { CashierRefund } from '../../../components/Cashier';
 import { CashierRefund, CashierRefundPaymentReceipt } from '../AdminStoreCashierRefund';
 
 class AdminStoreCashierRefund extends Component {
@@ -141,9 +140,7 @@ class AdminStoreCashierRefund extends Component {
     handleAuthenticateMember = (e) => {
         e.preventDefault();
         
-        const {
-            refund
-        } = this.state;
+        const { refund } = this.state;
 
         const {
             dispatch,
@@ -151,9 +148,7 @@ class AdminStoreCashierRefund extends Component {
             member
         } = this.props;
 
-        let requiredData = {
-            card: refund.cardID
-        }
+        let requiredData = { card: refund.cardID }
         
         dispatch(authenticateMember(requiredData, accessToken));
     }
@@ -165,23 +160,14 @@ class AdminStoreCashierRefund extends Component {
     handleRefundSubmit = (e) => {
         e.preventDefault();
 
-        const {
-            selectedMember
-        } = this.state;
+        const { selectedMember } = this.state;
         
-        const {
-            dispatch,
-            member,
-            accessToken
-        } = this.props;
+        const { dispatch,member, accessToken } = this.props;
         
         let requiredData = {
             card: selectedMember.card.id,
             accessToken: member.item.accessToken
         }
-
-        // console.log(this.props);
-        // console.log(member);
 
         //Code in here will bi move on componentDidUpdate()
         this.setState({
@@ -189,7 +175,6 @@ class AdminStoreCashierRefund extends Component {
             printData: member,
             statusPrintData: 200
         }, () => {
-            // console.log(this.state);
             window.print();
         })
 

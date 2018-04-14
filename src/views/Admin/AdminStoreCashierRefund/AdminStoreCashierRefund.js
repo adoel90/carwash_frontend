@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { authenticateMember, memberRefund } from '../../../actions/member.action';
-import {
-	openDialog,
-	closeDialog
-} from '../../../actions/dialog.action';
+import {openDialog, closeDialog } from '../../../actions/dialog.action';
 import { Dialog } from '../../../components/Dialog';
 import { ModalDialog } from '../../../components/Modal';
 // import { CashierRefund } from '../../../components/Cashier';
-import { CashierRefund } from '../AdminStoreCashierRefund';
+import { CashierRefund, CashierRefundPaymentReceipt } from '../AdminStoreCashierRefund';
 
 class AdminStoreCashierRefund extends Component {
 
@@ -31,7 +28,9 @@ class AdminStoreCashierRefund extends Component {
             },
             isModalOpen: {
                 refundConfirmation: false
-            }
+            },
+            statusPrintData: null,
+            printData: {}
         }
     }
 
@@ -50,6 +49,7 @@ class AdminStoreCashierRefund extends Component {
             }
 
             if(member.item.isRefunded) {
+                //CODE PRINT SHOULD BE IN HERE
             	let dialogData = {
             		type: 'success',
             		title: 'Berhasil!',
@@ -180,7 +180,20 @@ class AdminStoreCashierRefund extends Component {
             accessToken: member.item.accessToken
         }
 
-        dispatch(memberRefund(requiredData));
+        // console.log(this.props);
+        // console.log(member);
+
+        //Code in here will bi move on componentDidUpdate()
+        this.setState({
+            ...this.state,
+            printData: member,
+            statusPrintData: 200
+        }, () => {
+            // console.log(this.state);
+            window.print();
+        })
+
+        // dispatch(memberRefund(requiredData));
     }
     
     render() {
@@ -194,7 +207,10 @@ class AdminStoreCashierRefund extends Component {
                     handleAuthenticateMember={this.handleAuthenticateMember}
                     handleRefundSubmit={this.handleRefundSubmit}
                 />
+                <CashierRefundPaymentReceipt {...this.props} {...this.state}/>
+                
                 {this.renderDialog()}
+                
             </div>
         )
     }

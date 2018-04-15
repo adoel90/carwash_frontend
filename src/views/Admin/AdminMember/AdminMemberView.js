@@ -20,11 +20,51 @@ const AdminMemberView = props => {
             handleInputChange,
             updateMember,
             selectedMember,
+            selectedMemberDetail,
             access,
-            search
+            search,
+            detailMember,
+            listMemberTransactionHistoris,
+            member
       } = props;
 
+
+
+      //Modal detail
       const renderMemberDetailModal = () => {
+            
+            const { member, listMemberTransactionHistoris } = props;
+
+            let customerName = selectedMemberDetail.name;
+            let transactionHistory = member.memberHistoris.isLoaded ? listMemberTransactionHistoris.transaction : null;
+            
+            if(selectedMemberDetail){
+                  if(member.memberHistoris.isLoaded){
+                        return (
+                              <Modal isOpen={isModalOpen.detailMember} toggle={ () => toggleModal('detailMember')}>
+                                    <ModalHeader>
+                                          <h5>Detail Histori Customer : { customerName }</h5>
+                                    </ModalHeader>
+                                    <ModalBody> 
+                                          <Row>
+                                                <Column>
+                                                      <h4>{selectedMemberDetail.name}</h4>
+                                                      <h6>Tipe Kartu : {selectedMemberDetail.cardType}</h6>
+                                                      <h6>Saldo saat ini : {listMemberTransactionHistoris.balance} </h6>
+                                                      {member.memberHistoris.isLoaded ?  props.member.memberHistoris.data.data.result.transaction.map((value) => {
+                                                            console.log(value);
+                                                      }) : null }
+                                                </Column>
+                                          </Row>
+                                    </ModalBody>
+                              </Modal>
+                        )
+                  }
+            }
+      }
+
+      //Modal Update
+      const renderMemberUpdateModal = () => {
             if(selectedMember) {
                   return (
                         <Modal
@@ -82,7 +122,6 @@ const AdminMemberView = props => {
                   <Panel>
                         <PanelHeader>
                               <h4 className="heading-title">Daftar Member</h4>
-                              {/* <h6 className="heading-subtitle">Tempor nostrud cupidatat officia sit ullamco eu pariatur ullamco quis laborum nulla ipsum.</h6> */}
                         </PanelHeader>
                         <PanelBody>
                               <div className="admin-Member__content">
@@ -104,8 +143,8 @@ const AdminMemberView = props => {
                               </div>
                         </PanelBody>
                   </Panel>
-
                   { renderMemberDetailModal() }
+                  { renderMemberUpdateModal() }
             </div>
       );
 }

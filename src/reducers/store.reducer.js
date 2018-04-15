@@ -18,6 +18,7 @@ import {
 	GET_CATEGORY_LIST_REQUESTED,
 	GET_CATEGORY_LIST_FULFILLED,
 	GET_CATEGORY_LIST_REJECTED,
+	
 	GET_MENU_LIST_STORE_REQUESTED, //GET MENU LIST STORE
 	GET_MENU_LIST_STORE_FULFILLED,
 	GET_MENU_LIST_STORE_REJECTED,
@@ -210,7 +211,7 @@ const initialState = {
 		isPrinted: false,
 		isError: false,
 		error: {}
-	},
+	}
 }
 
 const store = (state = initialState, action) => {

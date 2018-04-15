@@ -37,6 +37,11 @@ export const CHANGE_MEMBER_STATUS_REJECTED = 'CHANGE_MEMBER_STATUS_REJECTED';
 export const DELETE_MEMBER_FULFILLED = 'DELETE_MEMBER_FULFILLED';
 export const DELETE_MEMBER_REJECTED = 'DELETE_MEMBER_REJECTED';
 
+//GET MEMBER DETAIL HISTORIS
+export const GET_MEMBER_DETAIL_HISTORIS_REQUESTED = 'GET_MEMBER_DETAIL_HISTORIS_REQUESTED';
+export const GET_MEMBER_DETAIL_HISTORIS_FULFILLED = 'GET_MEMBER_DETAIL_HISTORIS_FULFILLED';
+export const GET_MEMBER_DETAIL_HISTORIS_REJECTED = 'GET_MEMBER_DETAIL_HISTORIS_REJECTED';
+
 const accessToken = localStorage.getItem('accessToken') ? localStorage.getItem('accessToken') : null;
 
 export const authenticateMember = (data) => {
@@ -254,3 +259,24 @@ export const memberLogout = () => {
 		}
 	}
 }
+
+//GET MEMBER DETAIL HISTORIS
+export const getMemberDetailHistoris = (data) => {
+	console.log(data);
+	
+	return async dispatch => {
+		dispatch(fetchRequest());
+		return axios
+			.get(`${constant.API_PATH}member/detail?accessToken=${accessToken}&id=${data.id}&transaction=${data.transaction}`)
+			.then((response) => {
+				dispatch(fetchSuccess(response));
+			})
+			.catch((error) => {
+				dispatch(fetchError(error));
+			})
+	}
+
+	function fetchRequest() { return { type: GET_MEMBER_DETAIL_HISTORIS_REQUESTED } }
+	function fetchSuccess(data) { return { type: GET_MEMBER_DETAIL_HISTORIS_FULFILLED, payload: data } }
+	function fetchError(data) { return { type: GET_MEMBER_DETAIL_HISTORIS_REJECTED, payload: data } }
+}		

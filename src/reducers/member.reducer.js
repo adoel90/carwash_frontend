@@ -29,7 +29,13 @@ import {
 	CHANGE_MEMBER_STATUS_REJECTED,
 
 	LOGOUT_MEMBER_FULFILLED,
-	LOGOUT_MEMBER_REJECTED
+	LOGOUT_MEMBER_REJECTED,
+
+	//GET MEMBER DETAIL HISTORIS
+	GET_MEMBER_DETAIL_HISTORIS_REQUESTED,
+	GET_MEMBER_DETAIL_HISTORIS_FULFILLED,
+	GET_MEMBER_DETAIL_HISTORIS_REJECTED
+
 } from '../actions/member.action'
 
 const initialState = {
@@ -67,7 +73,14 @@ const initialState = {
 		isCreated: false,
 		isError: false,
 		error: {}
-	}
+	},
+	memberHistoris: {
+		data: {},
+		isFetching: false,
+		isLoaded: false,
+		isError: false,
+		error: {}
+	},
 
 }
 
@@ -355,6 +368,49 @@ const member = (state = initialState, action) => {
 					data: {},
 					isStatusChanging: false,
 					isStatusChanged: false,
+					isError: true,
+					error: action.payload
+				}
+			}
+		}
+
+		//GET MEMBER DETAIL HISTORIS
+		case GET_MEMBER_DETAIL_HISTORIS_REQUESTED: {
+			return {
+				...state,
+				memberHistoris: {
+					...state.memberHistoris,
+					data: {},
+					isFetching: true,
+					isLoaded: false,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case GET_MEMBER_DETAIL_HISTORIS_FULFILLED: {
+			return {
+				...state,
+				memberHistoris: {
+					...state.memberHistoris,
+					data: action.payload,
+					isLoaded: true,
+					isFetching: false,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case GET_MEMBER_DETAIL_HISTORIS_REJECTED: {
+			return {
+				...state,
+				memberHistoris: {
+					...state.memberHistoris,
+					data: {},
+					isLoaded: false,
+					isFetching: false,
 					isError: true,
 					error: action.payload
 				}

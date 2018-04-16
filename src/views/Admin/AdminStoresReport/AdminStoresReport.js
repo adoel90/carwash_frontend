@@ -3,9 +3,14 @@ import { connect } from 'react-redux';
 import NumberFormat from 'react-number-format';
 import moment from 'moment';
 
+import { TabContent } from '../../../components/Tab';
+import { PropsRoute } from '../../../components/Route';
+import { Nav, NavItem, NavLink, NavTabLink} from '../../../components/Nav';
 import { AdminStoresReportView } from '../AdminStoresReport';
 import { getStoreList } from '../../../actions/vendor.action';
 import { getStoreReportList } from '../../../actions/vendor.report.action';
+
+
 
 function mapStateToProps(state) {
     return {
@@ -22,18 +27,15 @@ function mapDispatchToProps(dispatch) {
 }
 
 class AdminStoresReport extends Component {
-
     constructor(){
-        
         super();
-        this.getStoreReportList = this.getStoreReportList.bind(this);
-        // this.getGraphStatisticsMonth = this.getGraphStatisticsMonth.bind(this);
+        // this.getStoreReportList = this.getStoreReportList.bind(this);
         this.handlePeriodChange = this.handlePeriodChange.bind(this);
-        // this.handleClick = this.handleClick.bind(this);
-        // this.renderSummaryCards = this.renderSummaryCards.bind(this);
         this.populateData = this.populateData.bind(this);
         this.handleShow = this.handleShow.bind(this);
         this.getStoreList = this.getStoreList.bind(this);
+
+        this.toggleTab = this.toggleTab.bind(this);
 
         this.state = {
 
@@ -56,7 +58,10 @@ class AdminStoresReport extends Component {
             },
             storeReportMonth: {},
             storeActive: 0,
-            storeList: {}
+            storeList: {},
+
+            activeTab: 0,
+            storeIdTab: {}
         }
     }
 
@@ -101,9 +106,9 @@ class AdminStoresReport extends Component {
     }
 
     //#
-    getStoreReportList = () => {
-        /* Only declare this function so that NOT ERROR */
-    }
+    // getStoreReportList = () => {
+    //     /* Only declare this function so that NOT ERROR */
+    // }
 
     //#Get Store List
     getStoreList = ()=> {
@@ -111,8 +116,24 @@ class AdminStoresReport extends Component {
         getStoreListDispatch();
     }
     
-    populateData = () => {
+    //#
+	toggleTab = (tabIndex, store) => {
 
+        // console.log(store);
+        // const { getMenuStoreListDispatch, action } = this.props;
+        // let data = { id : type.id }
+
+        // action.getMenuStoreList(data);
+        this.setState({
+            activeTab: tabIndex,
+            storeIdTab: store
+		}, () => {   
+            console.log(this.state);
+            // this.populateTableData();
+        })
+	}
+    
+    populateData = () => {
         const { storeReportMonth } = this.state;
         const vendorReportListResults = []; 
 
@@ -167,18 +188,57 @@ class AdminStoresReport extends Component {
         });
     }
 
+
+    
     render() {
-        
-        return <AdminStoresReportView 
-                    {...this.state} 
-                    {...this.props} 
-                    handlePeriodChange={this.handlePeriodChange}
-                    // handleClick={this.handleClick}
-                    // renderSummaryCards={this.renderSummaryCards}
-                    populateData={this.populateData}
-                    handleShow = {this.handleShow}
-                
-                />
+        const { activeTab, storeList} = this.state;
+        const { store } = this.props;
+
+        const renderTabContent = () => {
+
+            if(store.list.isLoaded){
+                // if(store.list.data.data.result.store.length){
+                    return store.list.data.data.result.store.map((type, i) => {
+                    // return storeList.map((type, i) => {
+                        // console.log(type);
+                        return (
+                            <TabContent activeTab={activeTab} tabIndex={i}>            
+                                <PropsRoute
+                                    component={AdminStoresReportView}
+                                    type={type}
+                                    {...this.props}
+                                    {...this.state}
+                                    // toggleModal={this.toggleModal}
+                                    // handleInputChange={this.handleInputChange}
+                                    // handleUpdateSubmitVendorEmployee={this.handleUpdateSubmitVendorEmployee}
+                                    // handleCancelModal= {this.handleCancelModal}
+                                    toggleTab={this.toggleTab}
+                                />
+                            </TabContent>
+                        )
+                    })
+                // }
+            }
+        }
+
+        return (
+                <div>
+                    <Nav tabs className="flex justify-content--space-between">
+                        { store.list.isLoaded ? store.list.data.data.result.store.map((store, i) => {                           
+                            <NavItem>
+                                <NavTabLink active= {activeTab === i} onClick={() => this.toggleTab(i, store)}>
+                                    <h4>{store.name}</h4>
+                                </NavTabLink>
+                            </NavItem>
+                        }) : null}
+
+                        <h1>Hai</h1>
+                    </Nav>
+
+                    {/* RENDER CONTENT BASED ON ID STORE */}
+                    {renderTabContent()}
+                </div>
+        )
     }
 }
 

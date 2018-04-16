@@ -51,8 +51,12 @@ const AdminMemberView = props => {
                                                       <h4>{selectedMemberDetail.name}</h4>
                                                       <h6>Tipe Kartu : {selectedMemberDetail.cardType}</h6>
                                                       <h6>Saldo saat ini : {listMemberTransactionHistoris.balance} </h6>
+                                                      <p>Transaksi apa aja yang mau di tampil-keun ?</p>
                                                       {member.memberHistoris.isLoaded ?  props.member.memberHistoris.data.data.result.transaction.map((value) => {
                                                             console.log(value);
+                                                           
+                                                            <h2>Transaksi apa aja yang mau di tampil-keun ?</h2>
+                                                            
                                                       }) : null }
                                                 </Column>
                                           </Row>

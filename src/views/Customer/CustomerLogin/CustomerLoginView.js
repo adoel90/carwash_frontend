@@ -19,6 +19,9 @@ const CustomerLoginView = props => {
         renderAlert
     } = props;
 
+    const transparent = {
+        'opacity': '0.9'
+    }
     return (
             <div>
                 <div className="main-content">
@@ -32,8 +35,8 @@ const CustomerLoginView = props => {
                                 { renderAlert() }
                                 
                                 <FormGroup className="margin-top-small">
-                                    <Input
-                                        type="number"
+                                    <Input  
+                                        type="password"
                                         name="cardID"
                                         onChange={(e) => handleInputChange('authData', e)}
                                         autoFocus

@@ -191,7 +191,7 @@ class AdminMember extends Component {
                   render: (row) => (
                         <td className="flex justify-content--center">
                               <Button className="margin-right-small" type="button" onClick={() => this.openMemberDetail(row)}>Ubah</Button>
-                              <Button className="margin-right-small" type="button" onClick={() => this.openMemberModalDetailNew(row)}>Detail</Button>                              
+                              <Button className="margin-right-small" theme="danger" type="button" onClick={() => this.openMemberModalDetailNew(row)}>Detail</Button>                              
                               <Button type="button" theme={row.data.status ? "success" : "danger"} onClick={() => this.changdeMemberStatus(row)}>{ row.data.status ? 'Aktif' : 'Non Aktif' }</Button>
                         </td>
                   )

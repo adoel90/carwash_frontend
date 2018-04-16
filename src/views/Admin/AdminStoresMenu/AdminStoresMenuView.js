@@ -57,18 +57,6 @@ const AdminStoresMenuView = props => {
                             <Row>
                                 <Column>
 
-                                    {/* ********* Dropdownlist untuk pilih Store mana yang mau di update ***************************88
-                                        <FormField label="Pilih Store sebelum menambahkan produk">
-                                         <Select name="store" defaultValue={selectedMenuStore.id} onChange={(e) => handleInputChange('selectedMenuStore', e) }>
-                                            {
-                                                this.props.store.list.isLoaded   ? this.props.store.list.data.data.result.store.map((item, i) => {
-                                                    return <option value={item.id}>{item.name}</option>
-                                                })
-                                                : null
-                                            }
-                                        </Select>
-                                    </FormField> */}
-
                                     <FormField label="Nama Produk">
                                         <InputGroup>
                                             <InputAddon>

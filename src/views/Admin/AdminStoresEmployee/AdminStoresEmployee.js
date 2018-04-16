@@ -34,7 +34,6 @@ function mapDispatchToProps(dispatch) {
 class AdminStoresEmployee extends Component {
 
     constructor() {
-
         super();
         this.toggleModal = this.toggleModal.bind(this);
         this.openVendorEmployeeModal = this.openVendorEmployeeModal.bind(this);
@@ -73,7 +72,8 @@ class AdminStoresEmployee extends Component {
             storeList:{},
             storeActiveList:{},
             storeActive: 0,
-            activeTab: 0
+            activeTab: 0,
+            storeIdTab: {}
         }
     }
 
@@ -374,9 +374,7 @@ class AdminStoresEmployee extends Component {
     }
 
     changeEmployeeStatus = (row) => {
-        const {
-              action
-        } = this.props;
+        const { action } = this.props;
 
         let requiredData = {
               id: row.data.id
@@ -417,19 +415,11 @@ class AdminStoresEmployee extends Component {
 
         return (
             <div>
-                {/* <AdminStoresEmployeeView
-                    {...this.state}
-                    {...this.props}
-                    toggleModal={this.toggleModal}
-                    handleInputChange={this.handleInputChange}
-                    handleUpdateSubmitVendorEmployee={this.handleUpdateSubmitVendorEmployee}
-                    handleCancelModal= {this.handleCancelModal}
-                /> */}
-
                 <Nav tabs className="flex justify-content--space-between">
                 { vendorState.store.isLoaded ? vendorState.store.data.data.result.store.map((store, i) => (
                     <NavItem>
                         <NavTabLink active={activeTab === i} onClick={() => this.toggleTab(i, store)}>
+                            {console.log(store.name)}
                             <h4>{store.name}</h4>
                         </NavTabLink>
                     </NavItem>
@@ -438,8 +428,6 @@ class AdminStoresEmployee extends Component {
 
                 {/* RENDER CONTENT BASED ON ID STORE */}
                 {renderTabContent()}
-
-
                 {this.renderDialog()}
             </div>
         )

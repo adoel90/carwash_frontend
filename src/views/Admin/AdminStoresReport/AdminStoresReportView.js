@@ -34,119 +34,84 @@ const AdminStoresReportView = props => {
 
     return (
         <div>
-            {/* <div className="vendor-menu">    
-            </div>
+            <Panel>
+                <PanelHeader>
+                    <h4 className="heading-title">Laporan Transaksi Hai</h4>
+                </PanelHeader>
 
-            <div className="admin-user"> */}
-                <Panel>
-                    <PanelHeader>
-                        <h4 className="heading-title">Laporan Transaksi</h4>
-                        {/* <h6 className="heading-subtitle">Tempor nostrud cupidatat officia sit ullamco eu pariatur ullamco quis laborum nulla ipsum.</h6>                         */}
-                    </PanelHeader>
+                <PanelBody>
+                    <Form inline>
 
-                    <PanelBody>
-                        <Form inline>
-
-                            <Row>
-                                <Column className="flex">
-                                    <div className="margin-right-small">
-                                        <FormField>
-                                            <InputGroup>
-                                                <InputAddon>
-                                                {/* <h6 className="font-weight-bold pr-4"><i className="fas fa-calendar-alt"></i> Jangka periode dari</h6> */}
-                                                    <i className="fas fa-calendar-alt"></i>
-                                                </InputAddon>
-                                                <DatePicker
-                                                    className="input"
-                                                    dateFormat="DD MMM YYYY"
-                                                    textPlaceholder="Start Date"
-                                                    selected={period.from}
-                                                    onChange={(date) => handlePeriodChange('from', date)}
-                                                />
-                                             </InputGroup>
-                                        </FormField>
-                                    </div>
-                                    <div className="margin-right-small">
-                                        <FormField>
-                                            <InputGroup>
-                                                <InputAddon>
-                                                {/* <h6 className="px-2"><i className="fas fa-calendar-alt"></i> Sampai</h6> */}
+                        <Row>
+                            <Column className="flex">
+                                <div className="margin-right-small">
+                                    <FormField>
+                                        <InputGroup>
+                                            <InputAddon>
                                                 <i className="fas fa-calendar-alt"></i>
-                                                </InputAddon>
-                                                <DatePicker
-                                                    className="input"
-                                                    dateFormat="DD MMM YYYY"
-                                                    textPlaceholder="End Date"
-                                                    minDate={period.from}
-                                                    selected={period.to}
-                                                    onChange={(date) => handlePeriodChange('to', date)}
-                                                />
+                                            </InputAddon>
+                                            <DatePicker
+                                                className="input"
+                                                dateFormat="DD MMM YYYY"
+                                                textPlaceholder="Start Date"
+                                                selected={period.from}
+                                                onChange={(date) => handlePeriodChange('from', date)}
+                                            />
                                             </InputGroup>
-                                        </FormField>
-                                    </div>
-                                    <div>
-                                        <FormField>
-                                            <Button
-                                                className="margin-left-small"
-                                                theme="primary"
-                                                onClick={handleShow}
-                                            >
-                                                Cari
-                                            </Button>
-                                            {/* <ButtonDewek
-                                                variant="raised"
-                                                className="btn-sky-blue btn-size ml-3"
-                                                color="info"
-                                                onClick={handleShow}
-                                            >
-                                                Lihat Periode Laporan
-                                            </ButtonDewek> */}
-
-                                            {/* <Button onClick={handleShow} style={{height: '50px'}}>
-                                                Cari
-                                            </Button> */}
-
-                                        </FormField>
-                                    </div>
-                                </Column>
-                               
-                            </Row>
-                        </Form>
-                        <br />
-			
-                        <CardDeck className="mt-4">
-                            {/* { dashboard.summary.isLoaded ? this.renderSummaryCards() : null } */}
-                            {/* { vendorReportState.summary.isLoaded ? this.renderSummaryCards() : null } */}
-                        </CardDeck>
-
-                        <CardDeck>
-                            {/* { this.renderGraphCards() } */}
-                        </CardDeck>
-		
-                        
-                        <ResponsiveContainer width='100%' aspect={7.0/3.0}>
-                            <BarChart
-                                data={table.vendorReportListResults}
-                            >
-                                <XAxis dataKey="name"/>
-                                <YAxis
-                                    type="number"
-                                    tickFormatter={priceFormatter}
-                                    allowDecimals={true}
-                                    width={100}
-                                />
-                                <CartesianGrid strokeDasharray="5 5"/>
-                                <Tooltip 
-                                    formatter={priceFormatter}
-                                />
-                                <Legend />
-                                <Bar dataKey="transaction" fill="#52c467" />
-                            </BarChart>
-                        </ResponsiveContainer>
-                                       
-                    </PanelBody>
-                </Panel>
-            {/* </div> */}
+                                    </FormField>
+                                </div>
+                                <div className="margin-right-small">
+                                    <FormField>
+                                        <InputGroup>
+                                            <InputAddon>
+                                            <i className="fas fa-calendar-alt"></i>
+                                            </InputAddon>
+                                            <DatePicker
+                                                className="input"
+                                                dateFormat="DD MMM YYYY"
+                                                textPlaceholder="End Date"
+                                                minDate={period.from}
+                                                selected={period.to}
+                                                onChange={(date) => handlePeriodChange('to', date)}
+                                            />
+                                        </InputGroup>
+                                    </FormField>
+                                </div>
+                                <div>
+                                    <FormField>
+                                        <Button className="margin-left-small" theme="primary" onClick={handleShow} >
+                                            Cari
+                                        </Button>
+                                    </FormField>
+                                </div>
+                            </Column>
+                            
+                        </Row>
+                    </Form>
+                    <br />
+                    
+                    <ResponsiveContainer width='100%' aspect={7.0/3.0}>
+                        <BarChart
+                            data={table.vendorReportListResults}
+                        >
+                            <XAxis dataKey="name"/>
+                            <YAxis
+                                type="number"
+                                tickFormatter={priceFormatter}
+                                allowDecimals={true}
+                                width={100}
+                            />
+                            <CartesianGrid strokeDasharray="5 5"/>
+                            <Tooltip 
+                                formatter={priceFormatter}
+                            />
+                            <Legend />
+                            <Bar dataKey="transaction" fill="#52c467" />
+                        </BarChart>
+                    </ResponsiveContainer>
+                                    
+                </PanelBody>
+            </Panel>
         </div>
     )
 };

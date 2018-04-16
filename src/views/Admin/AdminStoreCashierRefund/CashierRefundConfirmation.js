@@ -36,7 +36,7 @@ class CashierRefundConfirmation extends Component {
 							<div className="flex-column margin-bottom-small">
 								<h4 className="clr-primary">{selectedMember.name}</h4>
 								<h5 className="fw-semibold">
-									{selectedMember.card ? selectedMember.card.id : null}
+									{/* {selectedMember.card ? selectedMember.card.id : null} */}
 								</h5>
 								<p>Sisa saldo: <Currency value={selectedMember.balance}/></p>
 								<Badge theme="secondary">

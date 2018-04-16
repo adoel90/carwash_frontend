@@ -34,8 +34,11 @@ import {
 
 	CHANGE_EMPLOYEE_STATUS_REQUESTED,
 	CHANGE_EMPLOYEE_STATUS_FULFILLED,
-	CHANGE_EMPLOYEE_STATUS_REJECTED
+	CHANGE_EMPLOYEE_STATUS_REJECTED,
 
+	GET_REPORT_STORE_STAFF_REQUESTED, //#GET REPORT STORE STAFF
+	GET_REPORT_STORE_STAFF_FULFILLED,
+	GET_REPORT_STORE_STAFF_REJECTED
 
 } from '../actions/vendor.action'
 
@@ -116,7 +119,14 @@ const initialState = {
 		isStatusChanged: false,
 		isError: false,
 		error: {}
-	}
+	},
+	reportStaff: {
+        data: {},
+        isFetching: false,
+        isLoaded: false,
+        isError: false,
+        error: {}
+    }
 }
 
 /*
@@ -488,6 +498,49 @@ const vendorState = (state = initialState, action) => {
 					data: {},
 					isStatusChanging: false,
 					isStatusChanged: false,
+					isError: true,
+					error: action.payload
+				}
+			}
+		}
+
+		//#GET REPORT STORE STAFF
+		case GET_REPORT_STORE_STAFF_REQUESTED: {
+			return {
+				...state,
+                reportStaff: {
+                    ...state.reportStaff,
+					data: {},
+					isFetching: true,
+					isLoaded: false,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case GET_REPORT_STORE_STAFF_FULFILLED: {
+			return {
+				...state,
+				reportStaff: {
+					...state.reportStaff,
+					data: action.payload,
+					isLoaded: true,
+					isFetching: false,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case GET_REPORT_STORE_STAFF_REJECTED: {
+			return {
+				...state,
+				reportStaff: {
+					...state.reportStaff,
+					data: {},
+					isLoaded: false,
+					isFetching: false,
 					isError: true,
 					error: action.payload
 				}

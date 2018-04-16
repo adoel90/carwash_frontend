@@ -36,7 +36,7 @@ const AdminStoresReportView = props => {
         <div>
             <Panel>
                 <PanelHeader>
-                    <h4 className="heading-title">Laporan Transaksi Hai</h4>
+                    <h4 className="heading-title">Laporan Transaksi</h4>
                 </PanelHeader>
 
                 <PanelBody>

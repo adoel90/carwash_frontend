@@ -8,20 +8,6 @@ import {
 } from '../actions/vendor.report.action'
 
 const initialState = {
-
-	// item: {
-	// 	data: {},
-	// 	isCreated: false,
-	// 	isError: false,
-	// 	error: {}
-	// },
-	// list: {
-	// 	data: {},
-	// 	isFetching: false,
-	// 	isLoaded: false,
-	// 	isError: false,
-	// 	error: {}
-    // }
     
     graph: {
         data: {},

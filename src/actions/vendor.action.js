@@ -44,9 +44,14 @@ export const CHANGE_EMPLOYEE_STATUS_REQUESTED = 'CHANGE_EMPLOYEE_STATUS_REQUESTE
 export const CHANGE_EMPLOYEE_STATUS_FULFILLED = 'CHANGE_EMPLOYEE_STATUS_FULFILLED';
 export const CHANGE_EMPLOYEE_STATUS_REJECTED = 'CHANGE_EMPLOYEE_STATUS_REJECTED';
 
+//#GET REPORT STORE STAFF
+export const GET_REPORT_STORE_STAFF_REQUESTED = "GET_REPORT_STORE_STAFF_REQUESTED";
+export const GET_REPORT_STORE_STAFF_FULFILLED = "GET_REPORT_STORE_STAFF_FULFILLED";
+export const GET_REPORT_STORE_STAFF_REJECTED = "GET_REPORT_STORE_STAFF_REJECTED";
+
 const accessToken = localStorage.getItem('accessToken') ? localStorage.getItem('accessToken') : null;
 const userLoginNow = localStorage.getItem('userData') ? localStorage.getItem('userData') : null;
-const dataVendorLoginNow = JSON.parse(userLoginNow);
+const whoIsLoginNow = JSON.parse(userLoginNow);
 
 
 //GET VENDOR USER LIST
@@ -109,14 +114,11 @@ export const createNewVendor = (data) => {
 
 //GET LIST MENU VENDOR || GET STORE LIST
 export const getStoreList = (data) => {
-	
-	// console.log(data);
-	
-	return async dispatch => {
 
+	return async dispatch => {
 		dispatch(fetchRequest());
 		return axios
-			.get(`${constant.API_PATH}store/list?accessToken=${accessToken}&id=${dataVendorLoginNow.id}`)
+			.get(`${constant.API_PATH}store/list?accessToken=${accessToken}&id=${whoIsLoginNow.id}`)
 			// .get(`${constant.API_PATH}store/list?accessToken=${accessToken}`)
 			.then((response) => {
 				dispatch(fetchSuccess(response));
@@ -280,4 +282,33 @@ export const changeEmployeeStatus = (data) => {
 	function handleRequest(id) { return { type: CHANGE_EMPLOYEE_STATUS_REQUESTED, id: id}}
 	function handleSuccess(data, id) { return { type: CHANGE_EMPLOYEE_STATUS_FULFILLED, payload: data, id: id } }
 	function handleError(data) { return { type: CHANGE_EMPLOYEE_STATUS_REJECTED, payload: data } }
+}
+
+//#GET REPORT STORE STAFF
+
+// ***staff (integer)
+// ***store (integer)
+// ***start_date (string)
+// ***end_date (string)
+// ***print (string)
+
+export const getReportStoreStaff = (data) => {
+	console.log(data);
+	
+	return async dispatch => {
+		dispatch(fetchRequest());
+		return axios
+			// .get(`${constant.API_PATH}report/owner?accessToken=${accessToken}&type=${data.type}&start_date=${data.start_date}&end_date=${data.end_date}&store=${data.storeid.id}`)
+			.get(`${constant.API_PATH}report/owner?accessToken=${accessToken}&staff=${whoIsLoginNow.id}&store=${data.store}&start_date=${data.start_date}&end_date=${data.end_date}&print=${data.print}`)
+			.then((response) => {
+				dispatch(fetchSuccess(response));
+			})
+			.catch((error) => {
+				dispatch(fetchError(error));
+			})
+	}
+
+	function fetchRequest() { return { type: GET_REPORT_STORE_STAFF_REQUESTED } }
+	function fetchSuccess(data) { return { type: GET_REPORT_STORE_STAFF_FULFILLED, payload: data } }
+	function fetchError(data) { return { type: GET_REPORT_STORE_STAFF_REJECTED, payload: data } }
 }

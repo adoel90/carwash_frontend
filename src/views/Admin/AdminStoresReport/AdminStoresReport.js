@@ -7,10 +7,8 @@ import { TabContent } from '../../../components/Tab';
 import { PropsRoute } from '../../../components/Route';
 import { Nav, NavItem, NavLink, NavTabLink} from '../../../components/Nav';
 import { AdminStoresReportView } from '../AdminStoresReport';
-import { getStoreList } from '../../../actions/vendor.action';
+import { getStoreList, getReportStoreStaff } from '../../../actions/vendor.action';
 import { getStoreReportList } from '../../../actions/vendor.report.action';
-
-
 
 function mapStateToProps(state) {
     return {
@@ -22,14 +20,14 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         getStoreReportDispatch: (data) => dispatch(getStoreReportList(data)),
-        getStoreListDispatch: () => dispatch(getStoreList())
+        getStoreListDispatch: () => dispatch(getStoreList()),
+        getReportStoreStaffDispatch: () => dispatch(getReportStoreStaff())
     }
 }
 
 class AdminStoresReport extends Component {
     constructor(){
         super();
-        // this.getStoreReportList = this.getStoreReportList.bind(this);
         this.handlePeriodChange = this.handlePeriodChange.bind(this);
         this.populateData = this.populateData.bind(this);
         this.handleShow = this.handleShow.bind(this);
@@ -105,11 +103,6 @@ class AdminStoresReport extends Component {
         }
     }
 
-    //#
-    // getStoreReportList = () => {
-    //     /* Only declare this function so that NOT ERROR */
-    // }
-
     //#Get Store List
     getStoreList = ()=> {
         const { getStoreListDispatch } = this.props;
@@ -126,7 +119,7 @@ class AdminStoresReport extends Component {
         // action.getMenuStoreList(data);
         this.setState({
             activeTab: tabIndex,
-            storeIdTab: store
+            // storeIdTab: store
 		}, () => {   
             console.log(this.state);
             // this.populateTableData();
@@ -180,7 +173,6 @@ class AdminStoresReport extends Component {
             storeid: storeList.result.store[storeActive]
         }
 
-        
         // FIRE dispatch in here !!!
         getStoreReportDispatch(requiredDataMonth).then(()=> {
             console.log("Get report ");
@@ -188,8 +180,6 @@ class AdminStoresReport extends Component {
         });
     }
 
-
-    
     render() {
         const { activeTab, storeList} = this.state;
         const { store } = this.props;
@@ -197,43 +187,38 @@ class AdminStoresReport extends Component {
         const renderTabContent = () => {
 
             if(store.list.isLoaded){
-                // if(store.list.data.data.result.store.length){
-                    return store.list.data.data.result.store.map((type, i) => {
-                    // return storeList.map((type, i) => {
-                        // console.log(type);
+                if(store.list.data.data.result.store.length){
+                    return store.list.data.data.result.store.map((store, i) => {
                         return (
                             <TabContent activeTab={activeTab} tabIndex={i}>            
                                 <PropsRoute
                                     component={AdminStoresReportView}
-                                    type={type}
+                                    toggleTab={this.toggleTab}
                                     {...this.props}
                                     {...this.state}
-                                    // toggleModal={this.toggleModal}
-                                    // handleInputChange={this.handleInputChange}
-                                    // handleUpdateSubmitVendorEmployee={this.handleUpdateSubmitVendorEmployee}
-                                    // handleCancelModal= {this.handleCancelModal}
-                                    toggleTab={this.toggleTab}
                                 />
                             </TabContent>
                         )
                     })
-                // }
+                }
             }
         }
 
         return (
                 <div>
                     <Nav tabs className="flex justify-content--space-between">
-                        { store.list.isLoaded ? store.list.data.data.result.store.map((store, i) => {                           
-                            <NavItem>
-                                <NavTabLink active= {activeTab === i} onClick={() => this.toggleTab(i, store)}>
-                                    <h4>{store.name}</h4>
-                                </NavTabLink>
-                            </NavItem>
+                        { store.list.isLoaded ? store.list.data.data.result.store.map((store, i) => {   
+                            return (
+                                <NavItem>
+                                    <NavTabLink active= {activeTab === i} onClick={() => this.toggleTab(i, store)}>
+                                        <h4>{store.name}</h4>
+                                    </NavTabLink>
+                                </NavItem>
+                            )                        
                         }) : null}
-
-                        <h1>Hai</h1>
                     </Nav>
+
+                    {/* IN HERE code of : Get report owner list || /report/owner?accessToken={accessToken} */}
 
                     {/* RENDER CONTENT BASED ON ID STORE */}
                     {renderTabContent()}

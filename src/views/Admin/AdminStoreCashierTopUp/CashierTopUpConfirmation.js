@@ -107,11 +107,11 @@ class CashierTopUpConfirmation extends Component {
 				<div className="padding-bottom-small">	
 					<h4 className="fw-semibold clr-primary">{authenticatedMember.data.name}</h4>
 					<h5 className="fw-semibold">
-						<NumberFormat
+						{/* <NumberFormat
 							displayType={'text'}
 							format="#### #### #### ####"
 							value={authenticatedMember.data.card ? authenticatedMember.data.card.id : null}
-						/>
+						/> */}
 					</h5>
 					<Badge theme="secondary" className="margin-top-small">
 						<small className="fw-semibold tt-uppercase ls-base">{authenticatedMember.data.card ? authenticatedMember.data.card.type.name : null}</small><br />

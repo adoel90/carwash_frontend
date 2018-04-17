@@ -49,6 +49,12 @@ export const GET_REPORT_STORE_STAFF_REQUESTED = "GET_REPORT_STORE_STAFF_REQUESTE
 export const GET_REPORT_STORE_STAFF_FULFILLED = "GET_REPORT_STORE_STAFF_FULFILLED";
 export const GET_REPORT_STORE_STAFF_REJECTED = "GET_REPORT_STORE_STAFF_REJECTED";
 
+//#GET REPORT STORE STAFF WITH PRINT
+export const GET_REPORT_STORE_STAFF_PRINT_REQUESTED = "GET_REPORT_STORE_STAFF_PRINT_REQUESTED";
+export const GET_REPORT_STORE_STAFF_PRINT_FULFILLED = "GET_REPORT_STORE_STAFF_PRINT_FULFILLED";
+export const GET_REPORT_STORE_STAFF_PRINT_REJECTED = "GET_REPORT_STORE_STAFF_PRINT_REJECTED";
+
+
 const accessToken = localStorage.getItem('accessToken') ? localStorage.getItem('accessToken') : null;
 const userLoginNow = localStorage.getItem('userData') ? localStorage.getItem('userData') : null;
 const whoIsLoginNow = JSON.parse(userLoginNow);
@@ -305,3 +311,32 @@ export const getStoreStaffReport = (data) => {
 	function fetchSuccess(data) { return { type: GET_REPORT_STORE_STAFF_FULFILLED, payload: data } }
 	function fetchError(data) { return { type: GET_REPORT_STORE_STAFF_REJECTED, payload: data } }
 }
+
+//#GET REPORT STORE STAFF WITH PRINT
+export const getStoreStaffReportWithPrint = (data) => {
+	console.log(data);
+
+	// return {
+	// 	type: null
+	// }
+
+	return async dispatch => {
+		dispatch(fetchRequest());
+		return axios
+			.get(`${constant.API_PATH}store/staff/report?accessToken=${accessToken}&staff=${data.staff}&store=${data.store}&start_date=${data.start_date}&end_date=${data.end_date}&print=${data.print}`)
+			// .get(`${constant.API_PATH}store/staff/report?accessToken=${accessToken}&staff=${data.staff}&store=${data.store}&start_date=${data.start_date}&end_date=${data.end_date}`)
+			.then((response) => {
+				// dispatch(fetchSuccess(response));
+				window.open(`${constant.API_PATH}store/staff/report?accessToken=${accessToken}&staff=${data.staff}&store=${data.store}&start_date=${data.start_date}&end_date=${data.end_date}&print=${data.print}`, '_blank');
+
+			})
+			.catch((error) => {
+				dispatch(fetchError(error));
+			})
+	}
+
+	function fetchRequest() { return { type: GET_REPORT_STORE_STAFF_PRINT_REQUESTED } }
+	function fetchSuccess(data) { return { type: GET_REPORT_STORE_STAFF_PRINT_FULFILLED, payload: data } }
+	function fetchError(data) { return { type: GET_REPORT_STORE_STAFF_PRINT_REJECTED, payload: data } }
+}
+

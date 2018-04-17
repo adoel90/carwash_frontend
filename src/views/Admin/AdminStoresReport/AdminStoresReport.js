@@ -7,7 +7,7 @@ import { TabContent } from '../../../components/Tab';
 import { PropsRoute } from '../../../components/Route';
 import { Nav, NavItem, NavLink, NavTabLink} from '../../../components/Nav';
 import { AdminStoresReportView } from '../AdminStoresReport';
-import { getStoreList, getStoreStaffReport } from '../../../actions/vendor.action';
+import { getStoreList, getStoreStaffReport,  getStoreStaffReportWithPrint} from '../../../actions/vendor.action';
 // import { getStoreReportList } from '../../../actions/vendor.report.action';
 
 function mapStateToProps(state) {
@@ -21,7 +21,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         getStoreListDispatch: () => dispatch(getStoreList()),
-        getStoreStaffReportDispatch: (data) => dispatch(getStoreStaffReport(data))
+        getStoreStaffReportDispatch: (data) => dispatch(getStoreStaffReport(data)),
+        getStoreStaffReportWithPrintDispatch: (data) => dispatch(getStoreStaffReportWithPrint(data))
     }
 }
 
@@ -35,6 +36,7 @@ class AdminStoresReport extends Component {
 
         this.toggleTab = this.toggleTab.bind(this);
         this.populateTableData = this.populateTableData.bind(this);
+        this.handlePrint = this.handlePrint.bind(this);
 
         this.state = {
 
@@ -74,8 +76,8 @@ class AdminStoresReport extends Component {
         const {period, storeActive} = this.state;
         const { vendorState, store, getStoreStaffReportDispatch, user} = this.props;
         this.getStoreList();
-        // this.handleShow();
 
+        //#GET REPORT STORE STAFF
         const requiredDataStoreStaff = {
             store: store.list.isLoaded ? store.list.data.data.result.store[storeActive].id : null,
             start_date: period.from.format('YYYY-MM-DD'),
@@ -108,15 +110,6 @@ class AdminStoresReport extends Component {
                     ...this.state,
                     storeList: store.list.data.data,
                     idStore: store.list.data.data.result.store[storeActive]
-                }, () => {
-
-                    // let requiredDataMonth = {
-                    //     type: 'month',
-                    //     start_date: period.from.format('YYYY-MM-DD'),
-                    //     end_date: period.to.format('YYYY-MM-DD'),
-                    //     storeid : store.list.data.data.result.store[storeActive]
-                    // }
-                    // getStoreReportDispatch(requiredDataMonth);
                 }) 
             }
         }
@@ -249,6 +242,28 @@ class AdminStoresReport extends Component {
         })
     }
 
+    // handlePrint(period){
+    handlePrint(e, period){
+
+        e.preventDefault();
+        const { getStoreStaffReportWithPrintDispatch, user, store } = this.props;
+        const { storeActive } = this.state;
+
+        let requiredData = {
+            store: store.list.isLoaded ? store.list.data.data.result.store[storeActive].id : null,
+            start_date: period.from.format('YYYY-MM-DD'),
+            end_date: period.to.format('YYYY-MM-DD'),
+            staff: user.id,
+            print: true
+        }
+
+        console.log(period);
+        console.log(requiredData);
+        getStoreStaffReportWithPrintDispatch(requiredData);
+
+        
+    }
+
 
     render() {
         const { activeTab, storeList} = this.state;
@@ -262,12 +277,13 @@ class AdminStoresReport extends Component {
                         return (
                             <TabContent activeTab={activeTab} tabIndex={i}>            
                                 <PropsRoute
-                                    component={AdminStoresReportView}
                                     {...this.props}
                                     {...this.state}
+                                    component={AdminStoresReportView}
                                     handlePeriodChange= {this.handlePeriodChange}
                                     toggleTab={this.toggleTab}
                                     handleShow={this.handleShow}
+                                    handlePrint= {this.handlePrint}
                                     />
                             </TabContent>
                         )
@@ -289,7 +305,6 @@ class AdminStoresReport extends Component {
                             )                        
                         }) : null}
                     </Nav>
-
                     {/* IN HERE code of : Get report owner list & Get report store staff */}
 
 
@@ -301,7 +316,4 @@ class AdminStoresReport extends Component {
     }
 }
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(AdminStoresReport);
+export default connect( mapStateToProps, mapDispatchToProps)(AdminStoresReport);

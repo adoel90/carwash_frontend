@@ -38,7 +38,11 @@ import {
 
 	GET_REPORT_STORE_STAFF_REQUESTED, //#GET REPORT STORE STAFF
 	GET_REPORT_STORE_STAFF_FULFILLED,
-	GET_REPORT_STORE_STAFF_REJECTED
+	GET_REPORT_STORE_STAFF_REJECTED,
+
+	GET_REPORT_STORE_STAFF_PRINT_REQUESTED,//#GET REPORT STORE STAFF WITH PRINT
+	GET_REPORT_STORE_STAFF_PRINT_FULFILLED,
+	GET_REPORT_STORE_STAFF_PRINT_REJECTED
 
 } from '../actions/vendor.action'
 
@@ -121,6 +125,13 @@ const initialState = {
 		error: {}
 	},
 	reportStaff: {
+        data: {},
+        isFetching: false,
+        isLoaded: false,
+        isError: false,
+        error: {}
+	},
+	reportPrintStaff: {
         data: {},
         isFetching: false,
         isLoaded: false,
@@ -546,6 +557,51 @@ const vendorState = (state = initialState, action) => {
 				}
 			}
 		}
+
+		//#GET REPORT STORE STAFF WITH PRINT
+		case GET_REPORT_STORE_STAFF_PRINT_REQUESTED: {
+			return {
+				...state,
+                reportPrintStaff: {
+                    ...state.reportPrintStaff,
+					data: {},
+					isFetching: true,
+					isLoaded: false,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case GET_REPORT_STORE_STAFF_PRINT_FULFILLED: {
+			return {
+				...state,
+				reportPrintStaff: {
+					...state.reportPrintStaff,
+					data: action.payload,
+					isLoaded: true,
+					isFetching: false,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case GET_REPORT_STORE_STAFF_PRINT_REJECTED: {
+			return {
+				...state,
+				reportPrintStaff: {
+					...state.reportPrintStaff,
+					data: {},
+					isLoaded: false,
+					isFetching: false,
+					isError: true,
+					error: action.payload
+				}
+			}
+		}
+
+
 
 		default: {
 			return state;

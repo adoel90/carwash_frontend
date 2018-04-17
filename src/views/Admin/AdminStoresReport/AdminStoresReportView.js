@@ -27,7 +27,8 @@ const AdminStoresReportView = props => {
         handleShow,
         period,
         vendorState,
-        dailyOrdered
+        dailyOrdered,
+        handlePrint
     } = props;
 
     const priceFormatter = function (data) {
@@ -85,6 +86,13 @@ const AdminStoresReportView = props => {
                                             Cari
                                         </Button>
                                     </FormField>
+                                </div>
+                                <div>
+                                    {/* <FormField> */}
+                                        <Button onClick={(e) => handlePrint(e, period)} theme="danger" className="margin-right-small" type="submit" style={{height: '50px', 'margin-left': '3px'}}>
+                                            Print
+                                        </Button>
+                                    {/* </FormField> */}
                                 </div>
                             </Column>
                             

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import moment from 'moment';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 
@@ -48,16 +49,34 @@ const AdminMemberView = props => {
                                     <ModalBody> 
                                           <Row>
                                                 <Column>
-                                                      <h4>{selectedMemberDetail.name}</h4>
+                                                      <h4>{selectedMemberDetail.name}</h4><br/>
+                                                      <h6>Id Kartu : {selectedMemberDetail.cardNumber}</h6>
                                                       <h6>Tipe Kartu : {selectedMemberDetail.cardType}</h6>
-                                                      <h6>Saldo saat ini : {listMemberTransactionHistoris.balance} </h6>
-                                                      <p>Transaksi apa aja yang mau di tampil-keun ?</p>
-                                                      {member.memberHistoris.isLoaded ?  props.member.memberHistoris.data.data.result.transaction.map((value) => {
-                                                            console.log(value);
-                                                           
-                                                            <h2>Transaksi apa aja yang mau di tampil-keun ?</h2>
+                                                      <h6>Saldo saat ini : {listMemberTransactionHistoris.balance} </h6><br />
+                                                      
+                                                            <Column>Tanggal Transaksi</Column>
+                                                            <Column>Total Pembayaran</Column>
+                                                            <Column>Belanja di : </Column><br />
+                                                                 
+                                                                  {member.memberHistoris.isLoaded ?  props.member.memberHistoris.data.data.result.transaction.map((value) => {
+                                                                        
+                                                                        return (
+                                                                              <Row>
+                                                                                    <Column>
+                                                                                          {moment(value.date).format('DD-MM-YYYY')}
+                                                                                    </Column>
+                                                                                    <Column>
+                                                                                          {value.total}
+                                                                                    </Column>
+                                                                                    <Column>
+                                                                                          {value.type}
+                                                                                    </Column>
+                                                                              </Row>
+                                                                              
+                                                                        )
+                                                                  }) : null }
                                                             
-                                                      }) : null }
+                                                     
                                                 </Column>
                                           </Row>
                                     </ModalBody>

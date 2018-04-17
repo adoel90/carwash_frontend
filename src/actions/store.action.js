@@ -93,6 +93,15 @@ export const GET_PRINT_MEMBER_TRANSACTION_REQUESTED = 'GET_PRINT_MEMBER_TRANSACT
 export const GET_PRINT_MEMBER_TRANSACTION_FULFILLED = 'GET_PRINT_MEMBER_TRANSACTION_FULFILLED';
 export const GET_PRINT_MEMBER_TRANSACTION_REJECTED = 'GET_PRINT_MEMBER_TRANSACTION_REJECTED';
 
+//#GET REPORT STORE CASHIER MEMBER
+export const GET_REPORT_STORE_CASHIER_MEMBER_REQUESTED = 'GET_REPORT_STORE_CASHIER_MEMBER_REQUESTED';
+export const GET_REPORT_STORE_CASHIER_MEMBER_FULFILLED = 'GET_REPORT_STORE_CASHIER_MEMBER_FULFILLED';
+export const GET_REPORT_STORE_CASHIER_MEMBER_REJECTED = 'GET_REPORT_STORE_CASHIER_MEMBER_REJECTED';
+
+//GET REPORT STORE CASHIER MEMBER WITH PRINT
+export const GET_REPORT_STORE_CASHIER_MEMBER_PRINT_REQUESTED = 'GET_REPORT_STORE_CASHIER_MEMBER_PRINT_REQUESTED';
+export const GET_REPORT_STORE_CASHIER_MEMBER_PRINT_FULFILLED = 'GET_REPORT_STORE_CASHIER_MEMBER_PRINT_FULFILLED';
+export const GET_REPORT_STORE_CASHIER_MEMBER_PRINT_REJECTED = 'GET_REPORT_STORE_CASHIER_MEMBER_PRINT_REJECTED';
 
 const accessToken = localStorage.getItem('accessToken') ? localStorage.getItem('accessToken') : null;
 const userLogin = localStorage.getItem('userData') ? localStorage.getItem('userData') : null;
@@ -239,14 +248,16 @@ export const createStoreTransaction = (data) => {
 	let requiredData = {
 		menu : data.menu,
 		store : data.store.id,
-		token : data.token ? data.token : null
+		token : data.token ? data.token : null,
+		staff: data.staff 
 	}
 	
 	return async dispatch => {
 		return axios
 			.post(`${constant.API_PATH}store/transaction/create?accessToken=${requiredData.token ? requiredData.token : accessToken}`, {
 				menu: requiredData.menu,
-				store: requiredData.store
+				store: requiredData.store,
+				staff: requiredData.staff
 			},{'Content-Type': 'application/json'})
 			.then((response) => {
 				dispatch(handleSuccess(response.data));
@@ -557,5 +568,58 @@ export const printMemberTransaction = (data) => {
 	function handleRequest() { return { type: GET_PRINT_MEMBER_TRANSACTION_REQUESTED } }
 	function handleSuccess(data) { return { type: GET_PRINT_MEMBER_TRANSACTION_FULFILLED, payload: data } }
 	function handleError(data) { return { type: GET_PRINT_MEMBER_TRANSACTION_REJECTED, payload: data } }
-
 }
+
+
+//#GET REPORT STORE CASHIER MEMBER
+export const getReportStoreCashierMember = (data) => {
+	console.log(data);
+
+	return async dispatch => {
+		dispatch(fetchRequest());
+		return axios
+			// .get(`${constant.API_PATH}report/user?accessToken=${accessToken}&start_date=${data.start_date}&end_date=${data.end_date}&user=${userId}&print=${data.print}`)
+			.get(`${constant.API_PATH}report/user?accessToken=${accessToken}&start_date=${data.start_date}&end_date=${data.end_date}&user=${data.user}`)
+			.then((response) => {
+				dispatch(fetchSuccess(response.data));
+			})
+			.catch((error) => {
+				dispatch(fetchSuccess(error));
+			})
+	}
+
+	function fetchRequest() { return { type: GET_REPORT_STORE_CASHIER_MEMBER_REQUESTED } }
+	function fetchSuccess(data) { return { type: GET_REPORT_STORE_CASHIER_MEMBER_FULFILLED, payload: data } }
+	function fetchError(data) { return { type: GET_REPORT_STORE_CASHIER_MEMBER_REJECTED, payload: data } }
+}
+
+
+//GET REPORT STORE CASHIER MEMBER WITH PRINT
+export const getReportStoreCashierMemberPrint = (data) => {
+	console.log(data);
+
+	// return {
+	// 	type: null
+	// }
+	return async dispatch => {
+		dispatch(fetchRequest());
+		return axios
+			.get(`${constant.API_PATH}report/user?accessToken=${accessToken}&start_date=${data.start_date}&end_date=${data.end_date}&user=${userId}&print=${data.print}`)
+			.then((response) => {
+				window.open(`${constant.API_PATH}report/user?accessToken=${accessToken}&start_date=${data.start_date}&end_date=${data.end_date}&user=${userId}&print=${data.print}`, '_blank');
+				// dispatch(fetchSuccess(response.data));
+				// window.print()
+			})
+			.catch((error) => {
+				dispatch(fetchSuccess(error));
+			})
+	}
+
+	function fetchRequest() { return { type: GET_REPORT_STORE_CASHIER_MEMBER_PRINT_REQUESTED } }
+	function fetchSuccess(data) { return { type: GET_REPORT_STORE_CASHIER_MEMBER_PRINT_FULFILLED, payload: data } }
+	function fetchError(data) { return { type: GET_REPORT_STORE_CASHIER_MEMBER_PRINT_REJECTED, payload: data } }
+}
+
+
+
+

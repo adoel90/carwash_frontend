@@ -69,8 +69,16 @@ import {
 
 	GET_PRINT_MEMBER_TRANSACTION_REQUESTED,//#GET PRINT MEMBER TRANSACTION
 	GET_PRINT_MEMBER_TRANSACTION_FULFILLED,
-	GET_PRINT_MEMBER_TRANSACTION_REJECTED
-	
+	GET_PRINT_MEMBER_TRANSACTION_REJECTED,
+
+	GET_REPORT_STORE_CASHIER_MEMBER_REQUESTED, //#GET REPORT STORE CASHIER MEMBER
+	GET_REPORT_STORE_CASHIER_MEMBER_FULFILLED,
+	GET_REPORT_STORE_CASHIER_MEMBER_REJECTED,
+
+	GET_REPORT_STORE_CASHIER_MEMBER_PRINT_REQUESTED, //GET REPORT STORE CASHIER MEMBER WITH PRINT
+	GET_REPORT_STORE_CASHIER_MEMBER_PRINT_FULFILLED,
+	GET_REPORT_STORE_CASHIER_MEMBER_PRINT_REJECTED
+
 } from '../actions/store.action'
 
 const initialState = {
@@ -211,6 +219,18 @@ const initialState = {
 		isPrinted: false,
 		isError: false,
 		error: {}
+	},
+	reportCashierMember :{
+		data: {},
+		isFetching: false,
+		isLoaded: false,
+		isError: false
+	},
+	reportPrintCashierMember :{
+		data: {},
+		isFetching: false,
+		isLoaded: false,
+		isError: false
 	}
 }
 
@@ -1000,6 +1020,86 @@ const store = (state = initialState, action) => {
 			}
 		}
 
+		//#GET REPORT STORE CASHIER MEMBER
+		case GET_REPORT_STORE_CASHIER_MEMBER_REQUESTED: {
+			return {
+				...state,
+				reportCashierMember: {
+					...state.reportCashierMember,
+					isFetching: true,
+					isLoaded: false,
+					isError: false
+				}
+			}
+		}
+
+		case GET_REPORT_STORE_CASHIER_MEMBER_FULFILLED: {
+			return {
+				...state,
+				reportCashierMember: {
+					...state.reportCashierMember,
+					data: action.payload,
+					isFetching: false,
+					isLoaded: true,
+					isError: false
+				}
+			}
+		}
+
+		case GET_REPORT_STORE_CASHIER_MEMBER_REJECTED: {
+			return {
+				...state,
+				reportCashierMember: {
+					...state.reportCashierMember,
+					data: {},
+					isFetching: false,
+					isLoaded: false,
+					isError: true,
+					error: action.payload
+				}
+			}
+		}
+
+		//GET REPORT STORE CASHIER MEMBER WITH PRINT
+		case GET_REPORT_STORE_CASHIER_MEMBER_PRINT_REQUESTED: {
+			return {
+				...state,
+				reportPrintCashierMember: {
+					...state.reportPrintCashierMember,
+					isFetching: true,
+					isLoaded: false,
+					isError: false
+				}
+			}
+		}
+
+		case GET_REPORT_STORE_CASHIER_MEMBER_PRINT_FULFILLED: {
+			return {
+				...state,
+				reportPrintCashierMember: {
+					...state.reportPrintCashierMember,
+					data: action.payload,
+					isFetching: false,
+					isLoaded: true,
+					isError: false
+				}
+			}
+		}
+
+		case GET_REPORT_STORE_CASHIER_MEMBER_PRINT_REJECTED: {
+			return {
+				...state,
+				reportPrintCashierMember: {
+					...state.reportPrintCashierMember,
+					data: {},
+					isFetching: false,
+					isLoaded: false,
+					isError: true,
+					error: action.payload
+				}
+			}
+		}
+	
 		default: {
 			return state;
 		}

@@ -142,18 +142,6 @@ class AdminStoreCashierTopUp extends Component {
                 }
             }.bind(this), 1000);
         }
-
-        //#Print this file
-        if(prevProps.storeState.printMember !== storeState.printMember){
-            if(storeState.printMember.isPrinted){
-                this.setState({
-                    ...this.state,
-                    printData: storeState.printMember.data
-                }, () => {
-                    window.print();
-                })
-            }
-        }
     }
    
     handleInputChange = (object, e) => {
@@ -248,16 +236,12 @@ class AdminStoreCashierTopUp extends Component {
 			balance: parseInt(topupData.balance.replace(/,/g, '')),
             payment: topupData.payment
         }
-
         action.memberCustomerTopup(requiredData, accessTokenMember.accessToken);
-        
-        
     }
 
     //#
     handleTopUpPaymentCheckout = (e) => {
         e.preventDefault();
-
         this.toggleModal('topUpPaymentCheckout');
     }
 

@@ -27,7 +27,6 @@ const AdminReportView = props => {
             <Panel>
                 <PanelHeader>
                     <h4 className="heading-title">Daftar Report</h4>
-                    {/* <h6 className="heading-subtitle">Menampilkan semua daftar report</h6> */}
                 </PanelHeader>
                 <PanelBody>
                     <Form onSubmit={showDate}>

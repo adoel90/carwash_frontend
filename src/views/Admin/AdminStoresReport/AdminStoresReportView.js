@@ -10,7 +10,7 @@ import { Form, FormField, FormGroup } from '../../../layouts/Form';
 import { Button } from '../../../components/Button';
 import { ButtonDewek } from '../../../components/ButtonDewek';
 import { Input, InputGroup, InputAddon, Switch, Select } from '../../../components/Input';
-
+import { TableSet } from '../../../components/Table';
 import NumberFormat from 'react-number-format';
 
 import DatePicker from 'react-datepicker';
@@ -25,7 +25,9 @@ const AdminStoresReportView = props => {
         handleInputChange, 
         handlePeriodChange,
         handleShow,
-        period
+        period,
+        vendorState,
+        dailyOrdered
     } = props;
 
     const priceFormatter = function (data) {
@@ -89,27 +91,19 @@ const AdminStoresReportView = props => {
                         </Row>
                     </Form>
                     <br />
-                    
-                    <ResponsiveContainer width='100%' aspect={7.0/3.0}>
-                        <BarChart
-                            data={table.vendorReportListResults}
-                        >
-                            <XAxis dataKey="name"/>
-                            <YAxis
-                                type="number"
-                                tickFormatter={priceFormatter}
-                                allowDecimals={true}
-                                width={100}
-                            />
-                            <CartesianGrid strokeDasharray="5 5"/>
-                            <Tooltip 
-                                formatter={priceFormatter}
-                            />
-                            <Legend />
-                            <Bar dataKey="transaction" fill="#52c467" />
-                        </BarChart>
-                    </ResponsiveContainer>
-                                    
+                
+                    <div className="admin-report__content">
+                        <TableSet
+                            loading={vendorState.reportStaff.isFetching}
+                            loaded={vendorState.reportStaff.isLoaded}
+                            columns={table.columns}
+                            columns={table.columns}
+                            rows={table.rows}
+                            striped 
+                            fullWidth
+                            pagination
+                        />
+                    </div>     
                 </PanelBody>
             </Panel>
         </div>

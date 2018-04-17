@@ -7,21 +7,21 @@ import { TabContent } from '../../../components/Tab';
 import { PropsRoute } from '../../../components/Route';
 import { Nav, NavItem, NavLink, NavTabLink} from '../../../components/Nav';
 import { AdminStoresReportView } from '../AdminStoresReport';
-import { getStoreList, getReportStoreStaff } from '../../../actions/vendor.action';
-import { getStoreReportList } from '../../../actions/vendor.report.action';
+import { getStoreList, getStoreStaffReport } from '../../../actions/vendor.action';
+// import { getStoreReportList } from '../../../actions/vendor.report.action';
 
 function mapStateToProps(state) {
     return {
         vendorReportState : state.vendorReportState,
-        store : state.store
+        store : state.store,
+        vendorState: state.vendorState
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        getStoreReportDispatch: (data) => dispatch(getStoreReportList(data)),
         getStoreListDispatch: () => dispatch(getStoreList()),
-        getReportStoreStaffDispatch: () => dispatch(getReportStoreStaff())
+        getStoreStaffReportDispatch: (data) => dispatch(getStoreStaffReport(data))
     }
 }
 
@@ -34,6 +34,7 @@ class AdminStoresReport extends Component {
         this.getStoreList = this.getStoreList.bind(this);
 
         this.toggleTab = this.toggleTab.bind(this);
+        this.populateTableData = this.populateTableData.bind(this);
 
         this.state = {
 
@@ -41,6 +42,9 @@ class AdminStoresReport extends Component {
             vendorReportList : {},
             table: {
                 vendorReportListResults: [],
+                columns: [],
+                rows: [],
+                limit: 10
             },
 
         	period: {
@@ -59,18 +63,32 @@ class AdminStoresReport extends Component {
             storeList: {},
 
             activeTab: 0,
-            storeIdTab: {}
+            storeIdTab: {},
+            idStore: {},
+            dailyOrdered: {}
         }
     }
 
     componentDidMount = () => {
-        const {requiredData } = this.state;
+        // const {requiredData, period } = this.state;
+        const {period, storeActive} = this.state;
+        const { vendorState, store, getStoreStaffReportDispatch, user} = this.props;
         this.getStoreList();
+        // this.handleShow();
+
+        const requiredDataStoreStaff = {
+            store: store.list.isLoaded ? store.list.data.data.result.store[storeActive].id : null,
+            start_date: period.from.format('YYYY-MM-DD'),
+            end_date: period.to.format('YYYY-MM-DD'),
+            staff: user.id,
+            print: false
+        }
+        getStoreStaffReportDispatch(requiredDataStoreStaff);
     }
 
     //#
     componentDidUpdate = (prevProps) => {
-        const { vendorReportState, store, getStoreReportDispatch} = this.props;
+        const { vendorReportState, store, getStoreReportDispatch, vendorState} = this.props;
         const {period,storeReportMonth, storeActive} = this.state;
         
         if(prevProps.vendorReportState.summary !== vendorReportState.summary) {
@@ -88,17 +106,31 @@ class AdminStoresReport extends Component {
 
                 this.setState({
                     ...this.state,
-                    storeList: store.list.data.data
+                    storeList: store.list.data.data,
+                    idStore: store.list.data.data.result.store[storeActive]
                 }, () => {
 
-                    let requiredDataMonth = {
-                        type: 'month',
-                        start_date: period.from.format('YYYY-MM-DD'),
-                        end_date: period.to.format('YYYY-MM-DD'),
-                        storeid : store.list.data.data.result.store[storeActive]
-                    }
-                    getStoreReportDispatch(requiredDataMonth);
+                    // let requiredDataMonth = {
+                    //     type: 'month',
+                    //     start_date: period.from.format('YYYY-MM-DD'),
+                    //     end_date: period.to.format('YYYY-MM-DD'),
+                    //     storeid : store.list.data.data.result.store[storeActive]
+                    // }
+                    // getStoreReportDispatch(requiredDataMonth);
                 }) 
+            }
+        }
+
+        if(prevProps.vendorState.reportStaff !== vendorState.reportStaff){
+            if(vendorState.reportStaff.isLoaded){
+
+                this.setState({
+                    ...this.state,
+                    dailyOrdered: vendorState.reportStaff.data.data.result.data
+                },() => {
+                    // console.log(this.state);
+                    this.populateTableData();
+                });
             }
         }
     }
@@ -112,17 +144,11 @@ class AdminStoresReport extends Component {
     //#
 	toggleTab = (tabIndex, store) => {
 
-        // console.log(store);
-        // const { getMenuStoreListDispatch, action } = this.props;
-        // let data = { id : type.id }
-
-        // action.getMenuStoreList(data);
         this.setState({
             activeTab: tabIndex,
-            // storeIdTab: store
+            storeIdTab: store
 		}, () => {   
-            console.log(this.state);
-            // this.populateTableData();
+            // console.log(this.state);
         })
 	}
     
@@ -138,7 +164,6 @@ class AdminStoresReport extends Component {
                     name: data.name,
                     data: data
                 }
-
                 vendorReportListResults.push(vendorReportListResult);
             })
         };
@@ -154,31 +179,76 @@ class AdminStoresReport extends Component {
 
     //#
     handlePeriodChange = (type, date) => {
-
     	const { period } = this.state;
     	period[type] = date;
         this.forceUpdate();
     }
 
     //#
-    handleShow = () => {
+    handleShow = (e) => {
 
-        const {period,storeReportMonth, storeActive, storeList} = this.state;
-        const { getStoreReportDispatch, vendorState } = this.props;
+        e.preventDefault();
+        const {period, storeActive} = this.state;
+        const { vendorState, store, getStoreStaffReportDispatch, user} = this.props;
 
-        const requiredDataMonth = {
-            type: 'month',
+        const requiredDataStoreStaff = {
+            store: store.list.data.data.result.store[storeActive].id,
             start_date: period.from.format('YYYY-MM-DD'),
             end_date: period.to.format('YYYY-MM-DD'),
-            storeid: storeList.result.store[storeActive]
+            staff: user.id,
+            print: false
+        }
+        getStoreStaffReportDispatch(requiredDataStoreStaff);
+    }
+
+    populateTableData = () => {
+
+        const {report, vendorState} = this.props;
+        const { dailyOrdered } = this.state;
+        
+        const columns = [{
+            title: 'Nama Staff ',
+            accessor: 'staff',
+            align: 'left'
+        }, {
+            title: 'Nama Customer ',
+            accessor: 'customer',
+            align: 'left'
+        },{
+            title: 'Tanggal Transaksi',
+            accessor: 'date',
+            align: 'left'
+        },{
+            title: 'Total Transaksi',
+            accessor: 'total',
+            align: 'left',
+            isCurrency: true
+        }]
+
+        const rows = [] 
+        
+        if(vendorState.reportStaff.isLoaded){
+            dailyOrdered.forEach((value) => {
+                let row = {
+                    staff: value.user.name,
+                    customer: value.member.name,
+                    date: value.date,
+                    total: value.total
+                }
+                rows.push(row);
+            })
         }
 
-        // FIRE dispatch in here !!!
-        getStoreReportDispatch(requiredDataMonth).then(()=> {
-            console.log("Get report ");
-            
-        });
+        this.setState({
+            ...this.state,
+            table: {
+                ...this.state.table,
+                columns: columns,
+                rows: rows
+            }
+        })
     }
+
 
     render() {
         const { activeTab, storeList} = this.state;
@@ -193,10 +263,12 @@ class AdminStoresReport extends Component {
                             <TabContent activeTab={activeTab} tabIndex={i}>            
                                 <PropsRoute
                                     component={AdminStoresReportView}
-                                    toggleTab={this.toggleTab}
                                     {...this.props}
                                     {...this.state}
-                                />
+                                    handlePeriodChange= {this.handlePeriodChange}
+                                    toggleTab={this.toggleTab}
+                                    handleShow={this.handleShow}
+                                    />
                             </TabContent>
                         )
                     })
@@ -218,7 +290,9 @@ class AdminStoresReport extends Component {
                         }) : null}
                     </Nav>
 
-                    {/* IN HERE code of : Get report owner list || /report/owner?accessToken={accessToken} */}
+                    {/* IN HERE code of : Get report owner list & Get report store staff */}
+
+
 
                     {/* RENDER CONTENT BASED ON ID STORE */}
                     {renderTabContent()}

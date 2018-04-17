@@ -55,7 +55,7 @@ class AdminTransactionCheckout extends Component {
                                     <NumberFormat
                                         format="#### #### #### ####"
                                         displayType={'text'}
-                                        value={memberInfo.memberData.card ? memberInfo.memberData.card.id : null}
+                                        // value={memberInfo.memberData.card ? memberInfo.memberData.card.id : null}
                                     />
                                    : null
                                 }
@@ -109,7 +109,7 @@ class AdminTransactionCheckout extends Component {
                                 </InputAddon>
                                 <Input
                                     name="memberID"
-                                    type="number"
+                                    type="password"
                                     onChange={(e) => handleInputChange(memberInfo, e)}
                                     placeholder="Gesek kartu..."
                                     autoFocus="true"

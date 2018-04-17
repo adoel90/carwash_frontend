@@ -285,21 +285,14 @@ export const changeEmployeeStatus = (data) => {
 }
 
 //#GET REPORT STORE STAFF
-
-// ***staff (integer)
-// ***store (integer)
-// ***start_date (string)
-// ***end_date (string)
-// ***print (string)
-
-export const getReportStoreStaff = (data) => {
+export const getStoreStaffReport = (data) => {
 	console.log(data);
-	
+
 	return async dispatch => {
 		dispatch(fetchRequest());
 		return axios
-			// .get(`${constant.API_PATH}report/owner?accessToken=${accessToken}&type=${data.type}&start_date=${data.start_date}&end_date=${data.end_date}&store=${data.storeid.id}`)
-			.get(`${constant.API_PATH}report/owner?accessToken=${accessToken}&staff=${whoIsLoginNow.id}&store=${data.store}&start_date=${data.start_date}&end_date=${data.end_date}&print=${data.print}`)
+			// .get(`${constant.API_PATH}store/staff/report?accessToken=${accessToken}&staff=${data.staff}&store=${data.store}&start_date=${data.start_date}&end_date=${data.end_date}&print=${data.print}`)
+			.get(`${constant.API_PATH}store/staff/report?accessToken=${accessToken}&staff=${data.staff}&store=${data.store}&start_date=${data.start_date}&end_date=${data.end_date}`)
 			.then((response) => {
 				dispatch(fetchSuccess(response));
 			})

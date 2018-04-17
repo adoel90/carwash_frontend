@@ -256,7 +256,8 @@ class AdminTransaction extends Component{
 		const {
 			dispatch,
             accessToken,
-            action
+            action,
+            user
 		} = this.props;
 
 		const {
@@ -269,9 +270,13 @@ class AdminTransaction extends Component{
         let requiredData = {
             menu : selectedMenuItem,
             store : storeIdTab,
-            token : memberInfo.memberToken
+            token : memberInfo.memberToken,
+            // staff: null
+            staff: user.id
         }
 
+        // console.log(this.props)
+        console.log(requiredData)
         action.createStoreTransaction(requiredData);
     }
     

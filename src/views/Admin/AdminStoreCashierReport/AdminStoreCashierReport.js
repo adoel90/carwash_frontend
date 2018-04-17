@@ -1,78 +1,169 @@
 import React, {Component } from 'react';
-import { PropsRoute } from '../../../components/Route';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import moment from 'moment';
 
-import { Nav, NavItem, NavLink, NavTabLink} from '../../../components/Nav';
-import { TabContent } from '../../../components/Tab';
 import { AdminStoreCashierReportView } from '../AdminStoreCashierReport';
+import { getReportStoreCashierMember, getReportStoreCashierMemberPrint} from '../../../actions/store.action';
+
+
+function mapStateToProps(state) {
+    return {
+        store: state.store
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        getReportStoreCashierMemberDispatch: (data) => dispatch(getReportStoreCashierMember(data)),
+        getReportStoreCashierMemberPrintDispatch: (data) => dispatch(getReportStoreCashierMemberPrint(data)),
+        action: bindActionCreators({ getReportStoreCashierMember }, dispatch)
+    }
+}
 
 class AdminStoreCashierReport extends Component {
 
     constructor(){
         super();
-        this.toggleTab = this.toggleTab.bind(this);
-
+        this.showDate = this.showDate.bind(this);
+        this.handlePeriodChange = this.handlePeriodChange.bind(this);
+        this.populateTableData= this.populateTableData.bind(this);
+        this.handlePrint = this.handlePrint.bind(this);
         this.state = {
-            tabReport : [
-                {id : 1, tabName: "Top-Up Daily" },
-                {id : 2, tabName: "Kartu-Baru Daily"},
-                {id : 3, tabName: "Refund-Kartu Daily"}
-                
-            ],
-
-            activeTab: 0
+            table: {
+                columns: [],
+                rows: [],
+                limit: 10
+            },
+            period: {
+                from: moment().add(-1, 'month'),
+        		to: moment()
+            }, 
+            report: {},
+            printData: {}
         }
     }
 
-    //#
-    toggleTab = (tabIndex, tab) => {
+    componentDidMount(){
+        const {getReportStoreCashierMemberDispatch, user} = this.props;
+        const { period } = this.state;
 
-        this.setState({
-            activeTab: tabIndex
-        })
+        let data = {
+            start_date : moment(period.from).format('YYYY-MM-DD'),
+            end_date : moment(period.to).format('YYYY-MM-DD'),
+            user: user.id,
+            print: null
+        }
+        getReportStoreCashierMemberDispatch(data);
     }
 
-    render () { 
-        const { tabReport, activeTab } = this.state;
-   
-        const renderTabContent = () => {
+    componentDidUpdate(prevProps){
+        const { store } = this.props;
+        if(prevProps.store.reportCashierMember !== store.reportCashierMember){
+            if(store.reportCashierMember.isLoaded){
+                this.populateTableData();
+            }
+        }
+    }
 
-            return tabReport.map((tab) => {
-                return (
-                    <TabContent activeTab={activeTab} tabIndex={tab.id}>            
-                        <PropsRoute
-                            component={AdminStoreCashierReportView}
-                            {...this.props}
-                            {...this.state}
-                        />
-                    </TabContent>
-                )
+    showDate = (e) => {
+        e.preventDefault();
+        const { getReportStoreCashierMemberDispatch, user } = this.props;
+        let { period } = this.state;
+
+        let requiredData = {
+            start_date : moment(period.from).format('YYYY-MM-DD'),
+            end_date : moment(period.to).format('YYYY-MM-DD'),
+            user: user.id,
+            print: false
+        }
+        getReportStoreCashierMemberDispatch(requiredData);
+    }
+
+    handlePeriodChange = (fromTo, date) => {
+        const { period } = this.state;
+    	period[fromTo] = date;
+    	this.forceUpdate();
+    }
+
+    populateTableData = () => {
+        const { store } = this.props;
+       
+        const columns = [
+        {
+            title: 'Tanggal Transaksi',
+            accessor: 'transaction_date',
+            align: 'left'
+        },
+        {
+            title: 'Nama Kasir ',
+            accessor: 'kasirName',
+            align: 'left'
+        }, 
+        {
+            title: 'Deskripsi',
+            accessor: 'description',
+            align: 'left'
+        }, 
+        {
+            title: 'Total Transaksi',
+            accessor: 'total',
+            align: 'left',
+            isCurrency: true
+        }]
+
+        const rows = [] 
+        
+        if(store.reportCashierMember.isLoaded){
+            store.reportCashierMember.data.result.data.forEach((value, i) => {
+                let row = {
+                    // id: value.id,
+                    kasirName: value.user.name,
+                    transaction_date: moment(value.transaction_date).format('DD-MM-YYYY'),
+                    description: value.description,
+                    total: value.total
+                }
+                rows.push(row);
             })
         }
 
+        this.setState({
+            ...this.state,
+            table: {
+                ...this.state.table,
+                columns: columns,
+                rows: rows
+            }
+        })
+    }
 
+    handlePrint(period){
+        const { getReportStoreCashierMemberPrintDispatch, user } = this.props;
+
+        let requiredData = {
+            start_date : moment(period.from).format('YYYY-MM-DD'),
+            end_date : moment(period.to).format('YYYY-MM-DD'),
+            user: user.id,
+            print: true
+        }
+        getReportStoreCashierMemberPrintDispatch(requiredData);
+        
+    }
+
+    render () { 
         return(
             <div>
-                <Nav tabs className="flex justify-content--space-between">
-                    {tabReport.map((tab) => (
-                        <NavItem>   
-                            <NavTabLink active={activeTab === tab.id} onClick = { () => this.toggleTab(tab.id, tab)} >
-                                <h4>{tab.tabName}</h4>
-                            </NavTabLink>
-                        </NavItem>
-
-                    )) }
-                </Nav>
-                
-                {/* RENDER CONTENT BASED ON ID STORE */}
-                {renderTabContent()}
-
-                {/* <AdminStoreCashierReportView 
+                <AdminStoreCashierReportView 
                     {...this.props}
                     {...this.state}
-                /> */}
+                    showDate={this.showDate}
+                    handlePeriodChange={this.handlePeriodChange}
+                    handlePrint= {this.handlePrint}
+                />
             </div>
         )   
     }
 }
 
-export default AdminStoreCashierReport;
+export default connect( mapStateToProps, mapDispatchToProps )(AdminStoreCashierReport);

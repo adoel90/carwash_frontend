@@ -30,6 +30,23 @@ const AdminMemberView = props => {
       } = props;
 
 
+      const tableStyle = {
+            color:  '#333',
+            'font-family':' Helvetica, Arial, sans-serif',
+            width: '100%',
+            'border-collapse':'collapse',
+            'border-spacing': '0'
+      }
+
+      const tdThStyle = {
+            border: '1px solid #CCC',
+            height: '30px'
+      }
+
+      const tdStyle = {
+            'text-align': 'center'
+      }
+
 
       //Modal detail
       const renderMemberDetailModal = () => {
@@ -53,30 +70,23 @@ const AdminMemberView = props => {
                                                       <h6>Id Kartu : {selectedMemberDetail.cardNumber}</h6>
                                                       <h6>Tipe Kartu : {selectedMemberDetail.cardType}</h6>
                                                       <h6>Saldo saat ini : {listMemberTransactionHistoris.balance} </h6><br />
-                                                      
-                                                            <Column>Tanggal Transaksi</Column>
-                                                            <Column>Total Pembayaran</Column>
-                                                            <Column>Belanja di : </Column><br />
-                                                                 
-                                                                  {member.memberHistoris.isLoaded ?  props.member.memberHistoris.data.data.result.transaction.map((value) => {
-                                                                        
-                                                                        return (
-                                                                              <Row>
-                                                                                    <Column>
-                                                                                          {moment(value.date).format('DD-MM-YYYY')}
-                                                                                    </Column>
-                                                                                    <Column>
-                                                                                          {value.total}
-                                                                                    </Column>
-                                                                                    <Column>
-                                                                                          {value.type}
-                                                                                    </Column>
-                                                                              </Row>
-                                                                              
-                                                                        )
-                                                                  }) : null }
-                                                            
-                                                     
+                                                
+                                                      <table style={tableStyle}>
+                                                            <tr>
+                                                                  <th style={tdThStyle}>Tanggal Transaksi</th>
+                                                                  <th style={tdThStyle}>Total Pembayaran</th>
+                                                                  <th style={tdThStyle}>Belanja di :</th>
+                                                            </tr>
+                                                            {member.memberHistoris.isLoaded ?  props.member.memberHistoris.data.data.result.transaction.map((value) => {
+                                                                  return (
+                                                                        <tr>
+                                                                              <td style={tdThStyle, tdStyle}> {moment(value.date).format('DD-MM-YYYY')}</td>
+                                                                              <td style={tdThStyle, tdStyle}> {value.total}</td>
+                                                                              <td style={tdThStyle, tdStyle}>{value.type}</td>
+                                                                        </tr>      
+                                                                  )
+                                                            }) : null }
+                                                      </table>
                                                 </Column>
                                           </Row>
                                     </ModalBody>

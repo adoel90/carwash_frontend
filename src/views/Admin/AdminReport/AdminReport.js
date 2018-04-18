@@ -58,7 +58,6 @@ class AdminReport extends Component {
     
     componentDidUpdate = (prevProps) => {
         const  { report } = this.props;
-
         //Get Report Owner -  didUpdate
         if(prevProps.report.reportOwner !== report.reportOwner){
             if(report.reportOwner.isLoaded){
@@ -102,8 +101,8 @@ class AdminReport extends Component {
             accessor: 'name',
             align: 'left'
         }, {
-            title: 'Alamat Email',
-            accessor: 'email',
+            title: 'Nama Toko',
+            accessor: 'store',
             align: 'left'
         }, {
             title: 'Total Penjualan',
@@ -122,9 +121,10 @@ class AdminReport extends Component {
 
         if(report.reportOwner.isLoaded){
             report.reportOwner.data.result.forEach((value, i) => {
+                console.log(value);
                 let row = {
                     name: value.name,
-                    email: value.email,
+                    store: value.store.store_name,
                     price: value.price
                 }
 

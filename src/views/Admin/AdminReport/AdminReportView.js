@@ -27,7 +27,7 @@ const AdminReportView = props => {
         <div className="admin-report">
             <Panel>
                 <PanelHeader>
-                    <h4 className="heading-title">Laporan Owner</h4>
+                    <h4 className="heading-title">Laporan Total Penjualan Toko </h4>
                 </PanelHeader>
                 <PanelBody>
                     <Form onSubmit={showDate}>

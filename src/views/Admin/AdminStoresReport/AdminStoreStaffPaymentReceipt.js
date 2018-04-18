@@ -41,11 +41,13 @@ class AdminStoreStaffPaymentReceipt extends Component {
                             <div className="margin-bottom-small">
                                 {/* <h5 className="fw-bold">{customerName}</h5> */}
                             </div>
-                            <p className="fw-bold">805 Carwash</p>
-                            <p>Jln. Raya Pegangsaan 2 no 23-B <br/> 0896-0457-8309 <br/> 021-957-362-77</p>
+                            {/* <h4 className="fw-bold"><b>805 CARWASH</b></h4> */}
+                            <h1><b>805 CARWASH</b></h1>
+                            <h6>LAPORAN HARIAN STAFF</h6>
                         </div>
                         <div className="align-center margin-top-base margin-bottom-base">
-                            <h5 className="fw-bold">{storeStaffName}</h5>
+                            <h5 className="fw-bold"><b>{storeStaffName}</b></h5>
+                            <p className="fw-semibold">{moment(new Date).format('LLL')}</p>
                         </div>
                         <div className="receipt-body margin-bottom-small">
                             {/* <table style={{width: '100%'}}>
@@ -78,7 +80,7 @@ class AdminStoreStaffPaymentReceipt extends Component {
                             <div className="margin-bottom-small">
                                 {/* <p className="fw-semibold">For Customer <br/>{printData.status === 200 ? printData.result.member.name : null}</p> */}
                             </div>
-                            <p className="fw-semibold">{moment(new Date).format('LLL')}</p>
+                            {/* <p className="fw-semibold">{moment(new Date).format('LLL')}</p> */}
                             <p>
                                 {/* Thank you :) */}
                             </p>

@@ -47,9 +47,6 @@ const AdminStoresReportView = props => {
                     <ModalHeader>
                         <h5>Detail</h5>
                     </ModalHeader>
-
-
-
                 </Modal>
             )
         }

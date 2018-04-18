@@ -28,12 +28,9 @@ import {
     AdminStoresEmployeeCreate,
     AdminStoresReport,
     AdminTransaction
-   
-    
 } from '../../Admin';
 
 import NoMatch from '../NoMatch';
-
 import { AdminPanelView } from '../AdminPanel';
 
 class AdminPanel extends Component {    
@@ -141,6 +138,7 @@ class AdminPanel extends Component {
                 if(menu[i].group === "store") {
                     dataMenu.items.push(itemSeperate);
                 }
+
             } else {
                 dataMenu = {
                     category : menu[i].name,

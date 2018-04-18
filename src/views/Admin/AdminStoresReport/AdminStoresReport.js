@@ -374,10 +374,7 @@ class AdminStoresReport extends Component {
                     </Nav>
                     {/* want to print mini pos */}
                     <AdminStoreStaffPaymentReceipt {...this.props} {...this.state}/>
-
-
                     {/* IN HERE code of : Get report owner list & Get report store staff */}
-
 
                     {/* RENDER CONTENT BASED ON ID STORE */}
                     {renderTabContent()}

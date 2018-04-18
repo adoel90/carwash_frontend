@@ -3,10 +3,11 @@ import { connect } from 'react-redux';
 import NumberFormat from 'react-number-format';
 import moment from 'moment';
 
+import { Button } from '../../../components/Button';
 import { TabContent } from '../../../components/Tab';
 import { PropsRoute } from '../../../components/Route';
 import { Nav, NavItem, NavLink, NavTabLink} from '../../../components/Nav';
-import { AdminStoresReportView } from '../AdminStoresReport';
+import { AdminStoresReportView, AdminStoreStaffPaymentReceipt } from '../AdminStoresReport';
 import { getStoreList, getStoreStaffReport,  getStoreStaffReportWithPrint} from '../../../actions/vendor.action';
 // import { getStoreReportList } from '../../../actions/vendor.report.action';
 
@@ -67,7 +68,8 @@ class AdminStoresReport extends Component {
             activeTab: 0,
             storeIdTab: {},
             idStore: {},
-            dailyOrdered: {}
+            dailyOrdered: {},
+            statusPrintData: null
         }
     }
 
@@ -186,11 +188,14 @@ class AdminStoresReport extends Component {
 
         const requiredDataStoreStaff = {
             store: store.list.data.data.result.store[storeActive].id,
-            start_date: period.from.format('YYYY-MM-DD'),
+            // start_date: period.from.format('YYYY-MM-DD'),
+            start_date: moment(new Date()).format('YYYY-MM-DD'),
             end_date: period.to.format('YYYY-MM-DD'),
             staff: user.id,
             print: false
         }
+
+        // console.log(requiredDataStoreStaff);
         getStoreStaffReportDispatch(requiredDataStoreStaff);
     }
 
@@ -200,32 +205,49 @@ class AdminStoresReport extends Component {
         const { dailyOrdered } = this.state;
         
         const columns = [{
-            title: 'Nama Staff ',
-            accessor: 'staff',
+            title: 'No. Bill/ No. Invoice ',
+            accessor: 'queue',
             align: 'left'
         }, {
             title: 'Nama Customer ',
             accessor: 'customer',
             align: 'left'
-        },{
-            title: 'Tanggal Transaksi',
-            accessor: 'date',
-            align: 'left'
-        },{
-            title: 'Total Transaksi',
+        },
+        // {
+        //     title: 'Tanggal Transaksi',
+        //     accessor: 'date',
+        //     align: 'left'
+        // },
+        {
+            title: 'Total',
             accessor: 'total',
             align: 'left',
             isCurrency: true
-        }]
+        },
+        {
+            title: 'Aksi',
+            accessor: 'action',
+            // render: (data) => (
+            render: (row) => (
+                <td>
+                    <Button className="margin-right-small" type="button" onClick={() => this.openVendorEmployeeModal(row)}>Detail</Button>
+                    
+                </td>
+            )
+        }
+    ]
 
         const rows = [] 
         
         if(vendorState.reportStaff.isLoaded){
             dailyOrdered.forEach((value) => {
+                console.log(value);
+
                 let row = {
-                    staff: value.user.name,
+                    // staff: value.user.name,
+                    queue: "CRS805-" + value.queue,
                     customer: value.member.name,
-                    date: value.date,
+                    // date: value.date,
                     total: value.total
                 }
                 rows.push(row);
@@ -242,26 +264,25 @@ class AdminStoresReport extends Component {
         })
     }
 
-    // handlePrint(period){
     handlePrint(e, period){
 
         e.preventDefault();
-        const { getStoreStaffReportWithPrintDispatch, user, store } = this.props;
-        const { storeActive } = this.state;
+        // const { getStoreStaffReportWithPrintDispatch, user, store } = this.props;
+        // const { storeActive } = this.state;
+        const { dailyOrdered } = this.state;
+        // console.log(this.props);
+        // console.log(this.state);
 
-        let requiredData = {
-            store: store.list.isLoaded ? store.list.data.data.result.store[storeActive].id : null,
-            start_date: period.from.format('YYYY-MM-DD'),
-            end_date: period.to.format('YYYY-MM-DD'),
-            staff: user.id,
-            print: true
-        }
 
-        console.log(period);
-        console.log(requiredData);
-        getStoreStaffReportWithPrintDispatch(requiredData);
-
-        
+        this.setState({
+            ...this.state,
+                printData: dailyOrdered,
+                statusPrintData: 200
+                
+            }, () => {
+                console.log(this.state);
+                window.print();
+        })
     }
 
 
@@ -305,6 +326,10 @@ class AdminStoresReport extends Component {
                             )                        
                         }) : null}
                     </Nav>
+                    {/* want to print mini pos */}
+                    <AdminStoreStaffPaymentReceipt {...this.props} {...this.state}/>
+
+
                     {/* IN HERE code of : Get report owner list & Get report store staff */}
 
 

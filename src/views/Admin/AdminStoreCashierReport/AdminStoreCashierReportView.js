@@ -29,7 +29,7 @@ const AdminStoreCashierReportView = props => {
                             <Column className="flex">
                                 <div className="margin-right-small">
                                     <FormField>
-                                        <InputGroup>
+                                        {/* <InputGroup>
                                             <InputAddon>
                                                 <i className="fas fa-calendar-alt"></i>
                                             </InputAddon>
@@ -40,7 +40,7 @@ const AdminStoreCashierReportView = props => {
                                                 selected={period.from}
                                                 onChange={(date) => handlePeriodChange('from', date)}
                                             />
-                                        </InputGroup>
+                                        </InputGroup> */}
                                     </FormField>
                                 </div>
                                 <div className="margin-right-small">

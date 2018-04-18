@@ -68,16 +68,20 @@ class AdminStoreCashierReport extends Component {
     }
 
     showDate = (e) => {
+        
         e.preventDefault();
         const { getReportStoreCashierMemberDispatch, user } = this.props;
         let { period } = this.state;
 
         let requiredData = {
-            start_date : moment(period.from).format('YYYY-MM-DD'),
+            // start_date : moment(period.from).format('YYYY-MM-DD'),
+            start_date : moment(new Date()).format('YYYY-MM-DD'),
             end_date : moment(period.to).format('YYYY-MM-DD'),
             user: user.id,
             print: false
         }
+
+        // console.log(requiredData);
         getReportStoreCashierMemberDispatch(requiredData);
     }
 

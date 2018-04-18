@@ -297,6 +297,8 @@ export const printStoreTransaction = (data) => {
 //  Calls the API to get `accessToken` required to access the app.
 */
 export const kasirTopUpLogin = (data) => { 
+
+	console.log(data);
     return async dispatch => {
         dispatch(loginRequest());
 

@@ -230,7 +230,7 @@ class AdminStoresReport extends Component {
             // render: (data) => (
             render: (row) => (
                 <td>
-                    <Button className="margin-right-small" type="button" onClick={() => this.openVendorEmployeeModal(row)}>Detail</Button>
+                    <Button className="margin-right-small" type="button" onClick={() => this.openModalDetail(row)}>Detail</Button>
                     
                 </td>
             )
@@ -245,7 +245,8 @@ class AdminStoresReport extends Component {
 
                 let row = {
                     // staff: value.user.name,
-                    queue: "CRS805-" + value.queue,
+                    // queue: "CRS805-" + value.queue,
+                    queue: value.queue,
                     customer: value.member.name,
                     // date: value.date,
                     total: value.total
@@ -267,20 +268,13 @@ class AdminStoresReport extends Component {
     handlePrint(e, period){
 
         e.preventDefault();
-        // const { getStoreStaffReportWithPrintDispatch, user, store } = this.props;
-        // const { storeActive } = this.state;
         const { dailyOrdered } = this.state;
-        // console.log(this.props);
-        // console.log(this.state);
-
 
         this.setState({
             ...this.state,
                 printData: dailyOrdered,
                 statusPrintData: 200
-                
             }, () => {
-                console.log(this.state);
                 window.print();
         })
     }
@@ -331,7 +325,6 @@ class AdminStoresReport extends Component {
 
 
                     {/* IN HERE code of : Get report owner list & Get report store staff */}
-
 
 
                     {/* RENDER CONTENT BASED ON ID STORE */}

@@ -8,14 +8,10 @@ import { ListGroup, ListGroupItem } from '../../../components/List';
 
 class CashierTopUpPaymentReceipt extends Component{
 
-
-    
-
     render (){
 
         const { storeState, printData } = this.props
 
-        //#
         const renderSummary = () => {
 
             let nominalTopUp = printData.status === 200 ? printData.result.topup : null;
@@ -33,7 +29,6 @@ class CashierTopUpPaymentReceipt extends Component{
                                     <p>{nominalTopUp}</p>
                                 </td>
                             </tr>
-
                             <tr className="padding-bottom-small">
                                 <td>Saldo Awal Anda :</td>
                                 <td className="ta-right">
@@ -47,8 +42,6 @@ class CashierTopUpPaymentReceipt extends Component{
                                     <p>{saldoAkhir}</p>
                                 </td>
                             </tr>
-
-
                         </tbody>
                     </table>
                 )
@@ -58,25 +51,27 @@ class CashierTopUpPaymentReceipt extends Component{
     
 
         if(storeState.printMember.isPrinted){
-            const { printData } = this.props;
+            const { printData, user } = this.props;
 
-            // let queue = printData.status === 200 ? printData.result.queue : null;
+            console.log(printData);
+
+            let queueInvoice = printData.status === 200 ? printData.result.queue : null;
             // let date = printData.status === 200 ? printData.result.date : null;
-
             let nameCustomer = printData.status === 200 ? printData.result.name : null;
+            let nameStoreStaff =  printData.status === 200 ? user.level.name : null;
 
             return (
                 <Printable>
                     <div className="receipt">
                         <div className="receipt-header ta-center margin-bottom-small">
                             <div className="margin-bottom-small">
-                                {/* <h5 className="fw-bold">{queue}</h5> */}
+                                <h5 className="fw-bold">{queueInvoice}</h5>
                             </div>
                             <p className="fw-bold">805 Carwash</p>
                             <p>Jln. Raya Pegangsaan 2 no 23-B <br/> 0896-0457-8309 <br/> 021-957-362-77</p>
                         </div>
                         <div className="align-center margin-top-base margin-bottom-base">
-                            <p className="fw-bold">{nameCustomer}</p>
+                            <p className="fw-bold">{nameStoreStaff}</p>
                         </div>
                         <div className="receipt-body margin-bottom-small">
                             {renderSummary()}
@@ -85,17 +80,16 @@ class CashierTopUpPaymentReceipt extends Component{
                         
                         <div className="receipt-footer ta-center">
                             <div className="margin-bottom-small">
-                                {/* <p className="fw-semibold">For Customer <br/>{printData.status === 200 ? printData.result.member.name : null}</p> */}
+                                <p className="fw-semibold">For Customer <br/>{printData.status === 200 ? printData.result.name : null}</p>
                             </div>
                             <p className="fw-semibold">{moment(new Date).format('LLL')}</p>
                             <p>
-                                Thank you and please come again soon.
+                                {/* Thank you and please come again soon. */}
                             </p>
                         </div>
                     </div>
                 </Printable>
             )
-
         }
 
         return null;

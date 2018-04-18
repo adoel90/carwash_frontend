@@ -8,8 +8,6 @@ class CashierTopUpPaymentCheckout extends Component{
 
         const { isModalOpen, toggleModal, handleTopupSubmit } = this.props;
 
-        console.log(this.props);
-
         return (
             <Modal
                 isOpen={isModalOpen.topUpPaymentCheckout}

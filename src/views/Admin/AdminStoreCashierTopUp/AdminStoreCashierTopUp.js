@@ -4,12 +4,10 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Currency from '../../../components/Currency';
 import { Dialog } from '../../../components/Dialog';
-// import  {CashierTopUp}  from '../../../components/Cashier';
 import  {CashierTopUp}  from '../AdminStoreCashierTopUp';
 import { kasirTopUpLogin, getBonusTaxiOnline, printMemberTransaction } from '../../../actions/store.action';//Scenario-nya kasir meminta customer untuk GESEK KARTU MEMBER
 import { memberCustomerTopup } from '../../../actions/member.action'
 import { openDialog, closeDialog } from '../../../actions/dialog.action';
-
 
 function mapStateToProps(state) {
     return {
@@ -95,7 +93,7 @@ class AdminStoreCashierTopUp extends Component {
                     accessTokenMember: storeState.userData
 
                 }, () => {
-                    console.log(this.state);
+                    // console.log(this.state);
                     this.forceUpdate();
                     this.handleTopUp();     
                 })         
@@ -141,6 +139,18 @@ class AdminStoreCashierTopUp extends Component {
                     this.toggleDialog(dialogData);
                 }
             }.bind(this), 1000);
+        }
+
+        //#Print this file
+        if(prevProps.storeState.printMember !== storeState.printMember){
+            if(storeState.printMember.isPrinted){
+                this.setState({
+                    ...this.state,
+                    printData: storeState.printMember.data
+                }, () => {
+                    window.print();
+                })
+            }
         }
     }
    
@@ -230,11 +240,12 @@ class AdminStoreCashierTopUp extends Component {
 
         e.preventDefault();
 
-		const { action } = this.props;        
+		const { action, user } = this.props;        
 
 		let requiredData = {
 			balance: parseInt(topupData.balance.replace(/,/g, '')),
-            payment: topupData.payment
+            payment: topupData.payment,
+            staff: user.level.id
         }
         action.memberCustomerTopup(requiredData, accessTokenMember.accessToken);
     }
@@ -247,11 +258,11 @@ class AdminStoreCashierTopUp extends Component {
 
     handlePrintReceipt = () => {
         const { action, member } = this.props;
+
         let requireData = {
             id : member.item.data.result.transaction
         }
         action.printMemberTransaction(requireData);
-
     }
 
     render() {
@@ -265,10 +276,12 @@ class AdminStoreCashierTopUp extends Component {
                     handleAuthentication = { this.handleAuthentication}
                     handleTopupSubmit={this.handleTopupSubmit}
                     toggleDialog={this.toggleDialog}
+                    handleTopUpPaymentCheckout = {this.handleTopUpPaymentCheckout}
+                    handlePrintReceipt={this.handlePrintReceipt}
                     openDialog={this.openDialog}
                     closeDialog={this.closeDialog}
-                    handleTopUpPaymentCheckout = {this.handleTopUpPaymentCheckout}
                 />
+                
                 {this.renderDialog()}
             </div>
         )

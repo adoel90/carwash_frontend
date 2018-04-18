@@ -11,7 +11,8 @@ class AdminTransactionPrint extends Component {
             printData,
             selectedMenuItem,
             dataTransaction,
-            grandTotal
+            grandTotal, 
+            user
         } = this.props;
         
         const renderItem = (item, i) => {
@@ -48,13 +49,14 @@ class AdminTransactionPrint extends Component {
         const renderSummary = () => {
             if(printData.result.member) {
                 let total = parseFloat(grandTotal)+((parseFloat(grandTotal)*parseFloat(dataTransaction.markup))/100);
+
                 return (
                     <table style={{width: '100%'}}>
                         <tbody>
                             <tr>
-                                <td>Diskon:</td>
+                                <td>{dataTransaction.discount != 0 ? "Diskon :" : null}</td>
                                 <td className="ta-right">
-                                    {dataTransaction.discount}%
+                                    {dataTransaction.discount != 0 ? dataTransaction.discount + "%": null}
                                 </td>
                             </tr>
                             <tr>
@@ -96,6 +98,10 @@ class AdminTransactionPrint extends Component {
         
         if(store.print.isPrinted) {
             if(printData.status === 200) {
+
+                console.log(this.props);
+                let storeStaffName = printData.status === 200 ? user.name : null;
+
                 return (
                     <Printable>
                         <div className="receipt">
@@ -105,6 +111,7 @@ class AdminTransactionPrint extends Component {
                                 </div>
                                 <p className="fw-bold">805 Carwash</p>
                                 <p>Jln. Raya Pegangsaan 2 no 23-B <br/> 0896-0457-8309 <br/> 021-957-362-77</p>
+                                <p><b>{storeStaffName}</b></p>
                             </div>
                             <div className="receipt-body margin-bottom-large">
                                 {renderItemList()}
@@ -115,7 +122,7 @@ class AdminTransactionPrint extends Component {
                                     <p className="fw-semibold">For Customer <br/>{printData.result.member ? printData.result.member.name : null}</p>
                                 </div>
                                 <p className="fw-semibold">{moment(printData.result.date).format('LLL')}</p>
-                                <p>Thank you and please come again soon.</p>
+                                {/* <p>Thank you and please come again soon.</p> */}
                             </div>
                         </div>
                     </Printable>

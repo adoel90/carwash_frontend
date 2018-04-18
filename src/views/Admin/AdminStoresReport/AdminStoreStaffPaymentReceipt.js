@@ -9,7 +9,7 @@ class AdminStoreStaffPaymentReceipt extends Component {
 
     render(){
 
-        const { statusPrintData, printData } = this.props;
+        const { statusPrintData, printData, user } = this.props;
         console.log(this.props);
 
         const tableStyle = {
@@ -32,6 +32,8 @@ class AdminStoreStaffPaymentReceipt extends Component {
 
         if(statusPrintData === 200 ){
 
+            let storeStaffName = statusPrintData === 200 ? user.name : null;
+
             return (
                 <Printable>
                     <div className="receipt">
@@ -43,7 +45,7 @@ class AdminStoreStaffPaymentReceipt extends Component {
                             <p>Jln. Raya Pegangsaan 2 no 23-B <br/> 0896-0457-8309 <br/> 021-957-362-77</p>
                         </div>
                         <div className="align-center margin-top-base margin-bottom-base">
-                            {/* <h5 className="fw-bold">{customerName}</h5> */}
+                            <h5 className="fw-bold">{storeStaffName}</h5>
                         </div>
                         <div className="receipt-body margin-bottom-small">
                             {/* <table style={{width: '100%'}}>
@@ -78,7 +80,7 @@ class AdminStoreStaffPaymentReceipt extends Component {
                             </div>
                             <p className="fw-semibold">{moment(new Date).format('LLL')}</p>
                             <p>
-                                Thank you :)
+                                {/* Thank you :) */}
                             </p>
                         </div>
                     </div>

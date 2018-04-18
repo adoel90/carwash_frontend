@@ -26,7 +26,7 @@ const AdminStoresEmployeeView = props => {
         search
     } = props;
 
-    const renderVendorEmployeeModal = () => {
+    const renderVendorEmployeeModal = () => {               
 
         if(selectedVendorEmployee){
             //#
@@ -167,7 +167,7 @@ const AdminStoresEmployeeView = props => {
                         {/* <h1>Hai</h1> */}
                     </PanelBody>
                 </Panel>
-            { renderVendorEmployeeModal() }
+                { renderVendorEmployeeModal() }
             </div>
         </div>
     )

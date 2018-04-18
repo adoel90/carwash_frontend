@@ -107,7 +107,6 @@ class AdminPanel extends Component {
                 { name: 'report', path: `${this.props.match.url}/report`, component: AdminStoresReport },
                 { component: NoMatch }
             ];
-
             mainRoute = routePage;
         } else {
             mainRoute = [];

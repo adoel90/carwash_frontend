@@ -10,7 +10,12 @@ import {
 	GET_REPORT_MEMBER_LIST_REJECTED,
 	GET_REPORT_MEMBER_GRAPH_REQUESTED,
 	GET_REPORT_MEMBER_GRAPH_FULFILLED,
-	GET_REPORT_MEMBER_GRAPH_REJECTED
+	GET_REPORT_MEMBER_GRAPH_REJECTED,
+
+	GET_REPORT_OWNER_SUPERADMIN_LIST_REQUESTED, //#GET REPORT OWNER SUPERADMIN LIST REQUESTED
+	GET_REPORT_OWNER_SUPERADMIN_LIST_FULFILLED,
+	GET_REPORT_OWNER_SUPERADMIN_LIST_REJECTED
+
 } from '../actions/report.action';
 
 const initialState = {
@@ -38,6 +43,12 @@ const initialState = {
 		isFetching: false,
 		isLoaded: false,
 		isError: false
+	},
+	reportOwner: {
+		data: {},
+		isFetching: false,
+		isLoaded: false,
+		isError: false,
 	},
 	error: {}
 }
@@ -191,6 +202,46 @@ const report = (state = initialState, action) => {
 				...state,
 				dashboard: {
 					...state.dashboard,
+					data: {},
+					isFetching: false,
+					isLoaded: false,
+					isError: true,
+					error: action.payload
+				}
+			}
+		}
+
+		//#GET REPORT OWNER SUPERADMIN LIST REQUESTED
+		case GET_REPORT_OWNER_SUPERADMIN_LIST_REQUESTED: {
+			return {
+				...state,
+				reportOwner: {
+					...state.reportOwner,
+					isFetching: true,
+					isLoaded: false,
+					isError: false
+				}
+			}
+		}
+
+		case GET_REPORT_OWNER_SUPERADMIN_LIST_FULFILLED: {
+			return {
+				...state,
+				reportOwner: {
+					...state.reportOwner,
+					data: action.payload.data,
+					isFetching: false,
+					isLoaded: true,
+					isError: false
+				}
+			}
+		}
+
+		case GET_REPORT_OWNER_SUPERADMIN_LIST_REJECTED: {
+			return {
+				...state,
+				reportOwner: {
+					...state.reportOwner,
 					data: {},
 					isFetching: false,
 					isLoaded: false,

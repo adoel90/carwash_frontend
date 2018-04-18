@@ -19,14 +19,15 @@ const AdminReportView = props => {
         reportList,
         showDate,
         period,
-        handlePeriodChange
+        handlePeriodChange,
+        handleExportToExcell
     } = props;
 
     return (
         <div className="admin-report">
             <Panel>
                 <PanelHeader>
-                    <h4 className="heading-title">Daftar Report</h4>
+                    <h4 className="heading-title">Laporan Owner</h4>
                 </PanelHeader>
                 <PanelBody>
                     <Form onSubmit={showDate}>
@@ -72,14 +73,21 @@ const AdminReportView = props => {
                                         </Button>
                                     </FormField>
                                 </div>
+                                <div>
+                                    <FormField>
+                                        <Button onClick={(e) => handleExportToExcell(e, period)} theme="danger" className="margin-right-small" type="submit" style={{height: '50px', 'margin-left': '3px'}}>
+                                            Export to xls
+                                        </Button>
+                                    </FormField>
+                                </div>
                             </Column>
                         </Row>
                     </Form>
 
                     <div className="admin-report__content">
                         <TableSet
-                            loading={report.member.isFetching}
-                            loaded={report.member.isLoaded}
+                            loading={report.reportOwner.isFetching}
+                            loaded={report.reportOwner.isLoaded}
                             columns={table.columns}
                             rows={table.rows}
                             striped 

@@ -42,7 +42,12 @@ import {
 
 	GET_REPORT_STORE_STAFF_PRINT_REQUESTED,//#GET REPORT STORE STAFF WITH PRINT
 	GET_REPORT_STORE_STAFF_PRINT_FULFILLED,
-	GET_REPORT_STORE_STAFF_PRINT_REJECTED
+	GET_REPORT_STORE_STAFF_PRINT_REJECTED,
+
+	GET_STORE_STAFF_REPORT_DETAIL_REQUESTED,//#GET STORE STAFF REPORT DETAIL 
+	GET_STORE_STAFF_REPORT_DETAIL_FULFILLED,
+	GET_STORE_STAFF_REPORT_DETAIL_REJECTED
+
 
 } from '../actions/vendor.action'
 
@@ -137,7 +142,14 @@ const initialState = {
         isLoaded: false,
         isError: false,
         error: {}
-    }
+	},
+	reportDetailStoreStaff: {
+		data: {},
+		isFetching: false,
+		isLoaded: false,
+		isError: false,
+		error: {}
+	},
 }
 
 /*
@@ -592,6 +604,49 @@ const vendorState = (state = initialState, action) => {
 				...state,
 				reportPrintStaff: {
 					...state.reportPrintStaff,
+					data: {},
+					isLoaded: false,
+					isFetching: false,
+					isError: true,
+					error: action.payload
+				}
+			}
+		}
+
+		//#GET STORE STAFF REPORT DETAIL 
+		case GET_STORE_STAFF_REPORT_DETAIL_REQUESTED: {
+			return {
+				...state,
+				reportDetailStoreStaff: {
+					...state.reportDetailStoreStaff,
+					data: {},
+					isFetching: true,
+					isLoaded: false,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case GET_STORE_STAFF_REPORT_DETAIL_FULFILLED: {
+			return {
+				...state,
+				reportDetailStoreStaff: {
+					...state.reportDetailStoreStaff,
+					data: action.payload,
+					isLoaded: true,
+					isFetching: false,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case GET_STORE_STAFF_REPORT_DETAIL_REJECTED: {
+			return {
+				...state,
+				reportDetailStoreStaff: {
+					...state.reportDetailStoreStaff,
 					data: {},
 					isLoaded: false,
 					isFetching: false,

@@ -8,7 +8,7 @@ import { TabContent } from '../../../components/Tab';
 import { PropsRoute } from '../../../components/Route';
 import { Nav, NavItem, NavLink, NavTabLink} from '../../../components/Nav';
 import { AdminStoresReportView, AdminStoreStaffPaymentReceipt } from '../AdminStoresReport';
-import { getStoreList, getStoreStaffReport,  getStoreStaffReportWithPrint} from '../../../actions/vendor.action';
+import { getStoreList, getStoreStaffReport, getStoreStaffReportWithPrint, getStoreStaffReportDetailAyoTail } from '../../../actions/vendor.action';
 // import { getStoreReportList } from '../../../actions/vendor.report.action';
 
 function mapStateToProps(state) {
@@ -23,7 +23,8 @@ function mapDispatchToProps(dispatch) {
     return {
         getStoreListDispatch: () => dispatch(getStoreList()),
         getStoreStaffReportDispatch: (data) => dispatch(getStoreStaffReport(data)),
-        getStoreStaffReportWithPrintDispatch: (data) => dispatch(getStoreStaffReportWithPrint(data))
+        getStoreStaffReportWithPrintDispatch: (data) => dispatch(getStoreStaffReportWithPrint(data)),
+        getStoreStaffReportDetailAyoTailDispatch: (data) => dispatch(getStoreStaffReportDetailAyoTail(data))
     }
 }
 
@@ -39,8 +40,14 @@ class AdminStoresReport extends Component {
         this.populateTableData = this.populateTableData.bind(this);
         this.handlePrint = this.handlePrint.bind(this);
 
+        this.openModalDetail = this.openModalDetail.bind(this);
+        this.toggleModal = this.toggleModal.bind(this);
+
         this.state = {
 
+            isModalOpen: {
+                detailReportStaff: false
+            },
             vendorReport : {},
             vendorReportList : {},
             table: {
@@ -69,7 +76,8 @@ class AdminStoresReport extends Component {
             storeIdTab: {},
             idStore: {},
             dailyOrdered: {},
-            statusPrintData: null
+            statusPrintData: null,
+            selectedRow: {}
         }
     }
 
@@ -147,6 +155,18 @@ class AdminStoresReport extends Component {
         })
 	}
     
+    //#
+    toggleModal = (name) => {
+        
+        const { isModalOpen } = this.state;
+        this.setState({
+            ...this.state,
+            isModalOpen: {
+                [name]: !isModalOpen[name]
+            }
+        })
+    }
+
     populateData = () => {
         const { storeReportMonth } = this.state;
         const vendorReportListResults = []; 
@@ -246,6 +266,7 @@ class AdminStoresReport extends Component {
                 let row = {
                     // staff: value.user.name,
                     // queue: "CRS805-" + value.queue,
+                    id:value.id,
                     queue: value.queue,
                     customer: value.member.name,
                     // date: value.date,
@@ -265,6 +286,7 @@ class AdminStoresReport extends Component {
         })
     }
 
+    //#
     handlePrint(e, period){
 
         e.preventDefault();
@@ -276,6 +298,35 @@ class AdminStoresReport extends Component {
                 statusPrintData: 200
             }, () => {
                 window.print();
+        })
+    }
+
+    //#
+    openModalDetail = (row) => {
+        // console.log(row);
+        this.setState({
+            ...this.state,
+            selectedRow: row
+        }, () => {
+            // console.log(this.state);
+            // console.log(this.props);
+
+            this.toggleModal('detailReportStaff');
+
+            const {getStoreStaffReportDetailAyoTailDispatch, user} = this.props;
+            let { period, selectedRow, idStore} = this.state;
+
+            let requireData = {
+                id: selectedRow.id,
+                // staff: user.name,
+                // store: idStore.id,
+                start_date: moment(new Date()).format('YYYY-MM-DD'),    
+                end_date : moment(period.to).format('YYYY-MM-DD'),
+                // print: false
+            }
+
+            console.log(requireData);
+            getStoreStaffReportDetailAyoTailDispatch(requireData);
         })
     }
 
@@ -299,6 +350,7 @@ class AdminStoresReport extends Component {
                                     toggleTab={this.toggleTab}
                                     handleShow={this.handleShow}
                                     handlePrint= {this.handlePrint}
+                                    toggleModal={this.toggleModal}
                                     />
                             </TabContent>
                         )

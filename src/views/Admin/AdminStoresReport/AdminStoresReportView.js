@@ -11,6 +11,8 @@ import { Button } from '../../../components/Button';
 import { ButtonDewek } from '../../../components/ButtonDewek';
 import { Input, InputGroup, InputAddon, Switch, Select } from '../../../components/Input';
 import { TableSet } from '../../../components/Table';
+import { Modal, ModalHeader, ModalBody, ModalFooter } from '../../../components/Modal';
+
 import NumberFormat from 'react-number-format';
 
 import DatePicker from 'react-datepicker';
@@ -28,12 +30,30 @@ const AdminStoresReportView = props => {
         period,
         vendorState,
         dailyOrdered,
-        handlePrint
+        handlePrint,
+        selectedRow,
+        isModalOpen,
+        toggleModal
     } = props;
 
     const priceFormatter = function (data) {
         return "Rp. " + parseFloat(data).toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 2});
     };
+
+    const renderDetailReportStoreStaffModal = () => {
+        if(selectedRow){
+            return (
+                <Modal isOpen={isModalOpen.detailReportStaff} toggle={() => toggleModal('detailReportStaff')}>
+                    <ModalHeader>
+                        <h5>Detail</h5>
+                    </ModalHeader>
+
+
+
+                </Modal>
+            )
+        }
+    }
 
     return (
         <div>
@@ -114,6 +134,9 @@ const AdminStoresReportView = props => {
                     </div>     
                 </PanelBody>
             </Panel>
+
+            {/* RENDER DETAIL  REPORT STORE STAFF MODAL */}renderDetailReportStoreStaffModal
+            {renderDetailReportStoreStaffModal()}
         </div>
     )
 };

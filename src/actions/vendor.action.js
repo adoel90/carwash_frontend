@@ -54,6 +54,10 @@ export const GET_REPORT_STORE_STAFF_PRINT_REQUESTED = "GET_REPORT_STORE_STAFF_PR
 export const GET_REPORT_STORE_STAFF_PRINT_FULFILLED = "GET_REPORT_STORE_STAFF_PRINT_FULFILLED";
 export const GET_REPORT_STORE_STAFF_PRINT_REJECTED = "GET_REPORT_STORE_STAFF_PRINT_REJECTED";
 
+//#GET STORE STAFF REPORT DETAIL 
+export const GET_STORE_STAFF_REPORT_DETAIL_REQUESTED = 'GET_STORE_STAFF_REPORT_DETAIL_REQUESTED';
+export const GET_STORE_STAFF_REPORT_DETAIL_FULFILLED = 'GET_STORE_STAFF_REPORT_DETAIL_FULFILLED';
+export const GET_STORE_STAFF_REPORT_DETAIL_REJECTED = 'GET_STORE_STAFF_REPORT_DETAIL_REJECTED';
 
 const accessToken = localStorage.getItem('accessToken') ? localStorage.getItem('accessToken') : null;
 const userLoginNow = localStorage.getItem('userData') ? localStorage.getItem('userData') : null;
@@ -338,5 +342,31 @@ export const getStoreStaffReportWithPrint = (data) => {
 	function fetchRequest() { return { type: GET_REPORT_STORE_STAFF_PRINT_REQUESTED } }
 	function fetchSuccess(data) { return { type: GET_REPORT_STORE_STAFF_PRINT_FULFILLED, payload: data } }
 	function fetchError(data) { return { type: GET_REPORT_STORE_STAFF_PRINT_REJECTED, payload: data } }
+}
+ 
+//#GET STORE STAFF REPORT DETAIL || reportDetailStoreStaff -- state
+export const getStoreStaffReportDetailAyoTail = (data) => {
+	console.log(data);
+	
+	// return {
+	// 	type: null
+	// }
+
+	return async dispatch => {
+		dispatch(fetchRequest());
+		return axios
+			// .get(`${constant.API_PATH}store/staff/report/detail?accessToken=${accessToken}&id=${data.id}&staff=${data.staff}&store=${data.store}&start_date=${data.start_date}&end_date=${data.end_date}&print=${data.print}`)
+			.get(`${constant.API_PATH}store/staff/report/detail?accessToken=${accessToken}&id=${data.id}&start_date=${data.start_date}&end_date=${data.end_date}`)
+			.then((response) => {
+				dispatch(fetchSuccess(response.data));
+			})
+			.catch((error) => {
+				dispatch(fetchError(error));
+			})
+	}
+
+	function fetchRequest() { return { type: GET_STORE_STAFF_REPORT_DETAIL_REQUESTED } }
+	function fetchSuccess(data) { return { type: GET_STORE_STAFF_REPORT_DETAIL_FULFILLED, payload: data } }
+	function fetchError(data) { return { type: GET_STORE_STAFF_REPORT_DETAIL_REJECTED, payload: data } }
 }
 

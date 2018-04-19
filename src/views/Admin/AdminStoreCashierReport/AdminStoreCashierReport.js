@@ -81,7 +81,6 @@ class AdminStoreCashierReport extends Component {
             print: false
         }
 
-        // console.log(requiredData);
         getReportStoreCashierMemberDispatch(requiredData);
     }
 

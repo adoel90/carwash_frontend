@@ -16,6 +16,7 @@ import {
     AdminStore,
     AdminStoreCreate,
     AdminReport,
+    AdminReportSellingTotal,
     AdminLogout,
     AdminSetting,
     AdminStoreCashierTopUp,
@@ -50,13 +51,10 @@ class AdminPanel extends Component {
     }
 
     renderMenu = () => {
-        const {
-            routes,
-            menus
-        } = this.state;
+        const {routes, menus} = this.state;
         
+        let level = JSON.parse(localStorage.getItem('userData')).level;
         let menu = JSON.parse(localStorage.getItem('userData')).module;
-
         let mainRoute = {};
 
         if(menu[0].group === 'admin') {
@@ -75,12 +73,13 @@ class AdminPanel extends Component {
                 { name: 'store', path: `${this.props.match.url}/store`, component: AdminStore },
                 { name: 'create-new-store', path: `${this.props.match.url}/store/create-new-store`, component: AdminStoreCreate },
                 { name: 'report', path: `${this.props.match.url}/report`, component: AdminReport },
+                { name: 'report-member', path: `${this.props.match.url}/report/report-member`, component: AdminReportSellingTotal },
                 { name: 'logout', path: `${this.props.match.url}/logout`, component: AdminLogout },
                 { name: 'setting', path: `${this.props.match.url}/setting`, component: AdminSetting },
                 { component: NoMatch }
             ];
-
             mainRoute = routePage;
+
         } else if (menu[0].group === 'kasir') {
             let routePage = [
                 { name: 'topup', path: `${this.props.match.url}/topup`, component: AdminStoreCashierTopUp },
@@ -91,8 +90,8 @@ class AdminPanel extends Component {
                 { name: 'report', path: `${this.props.match.url}/report`, component: AdminStoreCashierReport },
                 { component: NoMatch }
             ];
-
             mainRoute = routePage;
+
         } else if (menu[0].group === 'store') {
             let routePage = [
                 { name: 'product', path: `${this.props.match.url}/product`, component: AdminStoresMenu },
@@ -113,12 +112,50 @@ class AdminPanel extends Component {
         let newMenu = [];
         
         for (let i=0; i<menu.length; i++) {
+
             let dataMenu = {};
             let split = menu[i].name.split(" ");
+
             let nameCategory = menu[0].group !== 'kasir' ? `${menu[i].name}` : `${menu[i].name}`;
             let nameRoute = menu[0].group === 'kasir' ? `${menu[i].name}` : `Daftar ${split[1]}`;
 
-            if(split.length > 1) {
+            let nameRouteReportSuperadmin = `${menu[i].name}`
+            let dataItems = [];
+
+            //# MENU LAPORAN PENJUALAN 
+            if(split.length === 1 && split[0] === "Laporan" && level.name === "Superadmin"){
+
+                //Laporan Total Penjualan
+                let linkItem = { name: nameRouteReportSuperadmin, path: `${this.props.match.url}${menu[i].path ? '/' + menu[i].path : 'null'}` }
+
+                dataMenu = {
+                    category : nameCategory,
+                    items: []
+                }
+
+                if(menu[i].path !== "report") {
+                    dataMenu.items.push(linkItem)
+                }
+                
+                let itemSeparateReport = {
+                    name: `${split[0]} Total Penjualan`, 
+                    path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}` : 'null'}`
+                }
+
+                if(menu[i].group === "all" && menu[i].path === "report"){
+                    dataMenu.items.push(itemSeparateReport);
+                }
+
+                //Laporan Member
+                let laporanMember = {
+                    name: `${split[0]} Member`, 
+                    path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}/report-member` : 'null'}`
+                }
+
+                if(menu[i].group === "all" && menu[i].path === "report"){
+                    dataMenu.items.push(laporanMember);
+                }
+            } else if(split.length > 1) {
                 dataMenu = {
                     category : nameCategory,
                     items: [
@@ -133,11 +170,14 @@ class AdminPanel extends Component {
 
                 if (menu[i].group === "admin" && menu[i].path !== "member") {
                     dataMenu.items.push(itemSeperate);
+               
                 }
 
                 if(menu[i].group === "store") {
                     dataMenu.items.push(itemSeperate);
                 }
+
+                
 
             } else {
                 dataMenu = {
@@ -150,6 +190,8 @@ class AdminPanel extends Component {
 
             newMenu.push(dataMenu);
         }
+
+
 
         this.setState({
             menus: newMenu,

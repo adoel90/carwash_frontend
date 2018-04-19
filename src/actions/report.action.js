@@ -22,6 +22,19 @@ export const GET_REPORT_OWNER_SUPERADMIN_LIST_REQUESTED = 'GET_REPORT_OWNER_SUPE
 export const GET_REPORT_OWNER_SUPERADMIN_LIST_FULFILLED = 'GET_REPORT_OWNER_SUPERADMIN_LIST_FULFILLED';
 export const GET_REPORT_OWNER_SUPERADMIN_LIST_REJECTED = 'GET_REPORT_OWNER_SUPERADMIN_LIST_REJECTED';
 
+//#GET REPORT MEMBER SUPERADMIN
+export const GET_REPORT_MEMBER_SUPERADMIN_REQUESTED = 'GET_REPORT_MEMBER_SUPERADMIN_REQUESTED';
+export const GET_REPORT_MEMBER_SUPERADMIN_FULFILLED = 'GET_REPORT_MEMBER_SUPERADMIN_FULFILLED';
+export const GET_REPORT_MEMBER_SUPERADMIN_REJECTED = 'GET_REPORT_MEMBER_SUPERADMIN_REJECTED';
+
+//#GET REPORT MEMBER SUPERADMIN WITH PRINT
+export const GET_REPORT_MEMBER_SUPERADMIN_WITH_PRINT_REQUESTED = 'GET_REPORT_MEMBER_SUPERADMIN_WITH_PRINT_REQUESTED';
+export const GET_REPORT_MEMBER_SUPERADMIN_WITH_PRINT_FULFILLED = 'GET_REPORT_MEMBER_SUPERADMIN_WITH_PRINT_FULFILLED';
+export const GET_REPORT_MEMBER_SUPERADMIN_WITH_PRINT_REJECTED = 'GET_REPORT_MEMBER_SUPERADMIN_WITH_PRINT_REJECTED';
+
+
+
+
 const accessToken = localStorage.getItem('accessToken') ? localStorage.getItem('accessToken') : null;
 
 export const getSalesReport = (data, accessToken) => {
@@ -140,4 +153,52 @@ export const getReportOwnerSuperAdmin = (data) => {
 	function fetchRequest() { return { type: GET_REPORT_OWNER_SUPERADMIN_LIST_REQUESTED } }
 	function fetchSuccess(data) { return { type: GET_REPORT_OWNER_SUPERADMIN_LIST_FULFILLED, payload: data } }
 	function fetchError(data) { return { type: GET_REPORT_OWNER_SUPERADMIN_LIST_REJECTED, payload: data } }
+}
+
+//#GET REPORT MEMBER SUPERADMIN || reportMember -- state
+export const getReportMemberSuperAdmin = (data) => {
+	
+	console.log(data);
+
+	return async dispatch => {
+
+		dispatch(fetchRequest());
+
+		return axios
+			.get(`${constant.API_PATH}report/member/list?accessToken=${accessToken}&start_date=${data.start_date}&end_date=${data.end_date}`)
+			.then((response) => {
+				dispatch(fetchSuccess(response));
+				// window.open(`${constant.API_PATH}report/member/list?accessToken=${accessToken}&start_date=${data.start_date}&end_date=${data.end_date}&convert=${data.convert}`, '_blank');
+			})
+			.catch((error) => {
+				dispatch(fetchSuccess(error));
+			})
+	}
+
+	function fetchRequest() { return { type: GET_REPORT_MEMBER_SUPERADMIN_REQUESTED } }
+	function fetchSuccess(data) { return { type: GET_REPORT_MEMBER_SUPERADMIN_FULFILLED, payload: data } }
+	function fetchError(data) { return { type: GET_REPORT_MEMBER_SUPERADMIN_REJECTED, payload: data } }
+}
+
+//#GET REPORT MEMBER SUPERADMIN WITH PRINT || reportMemberPrint -state
+export const getReportMemberSuperAdminPrint = (data) => {
+
+	console.log(data);
+
+	return async dispatch => {
+		dispatch(fetchRequest());
+		return axios
+			.get(`${constant.API_PATH}report/member/list?accessToken=${accessToken}&start_date=${data.start_date}&end_date=${data.end_date}&print=${data.print}`)
+			.then((response) => {
+				dispatch(fetchSuccess(response.data));
+				window.open(`${constant.API_PATH}report/member/list?accessToken=${accessToken}&start_date=${data.start_date}&end_date=${data.end_date}&print=${data.print}`, '_blank');
+			})
+			.catch((error) => {
+				dispatch(fetchSuccess(error));
+			})
+	}
+
+	function fetchRequest() { return { type: GET_REPORT_MEMBER_SUPERADMIN_WITH_PRINT_REQUESTED } }
+	function fetchSuccess(data) { return { type: GET_REPORT_MEMBER_SUPERADMIN_WITH_PRINT_FULFILLED, payload: data } }
+	function fetchError(data) { return { type: GET_REPORT_MEMBER_SUPERADMIN_WITH_PRINT_REJECTED, payload: data } }
 }

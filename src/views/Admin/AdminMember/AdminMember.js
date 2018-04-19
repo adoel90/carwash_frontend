@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getAllMemberList, updateMember, changeMemberStatus, getMemberDetailHistoris } from '../../../actions/member.action';
 import { Button } from '../../../components/Button';
-import { openDialog, closeDialog } from '../../../actions/dialog.action';
 import { ModalDialog } from '../../../components/Modal';
 import AdminMemberView from './AdminMemberView';
+import moment from 'moment';
+
+import { getAllMemberList, updateMember, changeMemberStatus, getMemberDetailHistoris } from '../../../actions/member.action';
+import { openDialog, closeDialog } from '../../../actions/dialog.action';
+import { getReportMemberExportToExcell } from '../../../actions/report.action';
+
 
 class AdminMember extends Component {
       constructor() {
@@ -27,6 +31,10 @@ class AdminMember extends Component {
                               { accessor: 'cardType', name: 'Tipe Member' },
                         ]
                   },
+                  period: {
+                        from: moment().add(-12, 'month'),
+                        to: moment()
+                  },
                   isModalOpen: {
                         updateMember: false,
                         detailMember: false
@@ -46,6 +54,7 @@ class AdminMember extends Component {
             this.populateTableData = this.populateTableData.bind(this);
 
             this.openMemberModalDetailNew = this.openMemberModalDetailNew.bind(this);
+            this.handleExportToExcell = this.handleExportToExcell.bind(this);
       }
       
       componentDidMount = () => {
@@ -190,8 +199,8 @@ class AdminMember extends Component {
                   align: 'center',
                   render: (row) => (
                         <td className="flex justify-content--center">
+                              <Button className="margin-right-small" theme="light" type="button" onClick={() => this.openMemberModalDetailNew(row)}>Detail</Button>                              
                               <Button className="margin-right-small" type="button" onClick={() => this.openMemberDetail(row)}>Ubah</Button>
-                              <Button className="margin-right-small" theme="danger" type="button" onClick={() => this.openMemberModalDetailNew(row)}>Detail</Button>                              
                               <Button type="button" theme={row.data.status ? "success" : "danger"} onClick={() => this.changdeMemberStatus(row)}>{ row.data.status ? 'Aktif' : 'Non Aktif' }</Button>
                         </td>
                   )
@@ -314,6 +323,23 @@ class AdminMember extends Component {
             getAllMemberList();
       }
 
+      
+      //#
+      handleExportToExcell = (e, period) => {
+            e.preventDefault();
+            const { getReportMemberExportToExcellDispatch } = this.props;
+
+            let requiredData = {
+                  start_date : moment(period.from).format('YYYY-MM-DD'),
+                  // end_date : moment(period.to).format('YYYY-MM-DD'), 
+                  // start_date: moment(new Date()).format('YYYY-MM-DD'),
+                  end_date: moment(new Date()).format('YYYY-MM-DD'),
+                  convert: true
+            }
+            // console.log(requiredData);
+            getReportMemberExportToExcellDispatch(requiredData);
+      }
+
       render() {
             return (
                   <div>
@@ -323,6 +349,7 @@ class AdminMember extends Component {
                               handleInputChange={this.handleInputChange}
                               updateMember={this.updateMember}
                               toggleModal={this.toggleModal}
+                              handleExportToExcell={this.handleExportToExcell}
                         />
                         {this.renderDialog()}
                   </div>
@@ -340,6 +367,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
       return {
           getAllMemberList: () => dispatch(getAllMemberList()),
+          getReportMemberExportToExcellDispatch: (data) => dispatch(getReportMemberExportToExcell(data)),
           action: bindActionCreators({ getMemberDetailHistoris, updateMember, changeMemberStatus, openDialog, closeDialog }, dispatch)
       }
 }

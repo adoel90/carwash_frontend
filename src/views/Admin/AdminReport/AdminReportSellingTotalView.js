@@ -12,32 +12,24 @@ import { Modal, ModalHeader, ModalBody, ModalFooter } from '../../../components/
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
-const AdminReportView = props => {
-    
-    const {
-        table,
-        report,
-        reportList,
-        showDate,
-        period,
-        handlePeriodChange,
-        // handleExportToExcell
-    } = props;
+const AdminReportSellingTotalView = props => {
+
+    const { showDate, period, handlePeriodChange, table, report, handlePrint, handleExportToExcell } = props;
 
     return (
         <div className="admin-report">
             <Panel>
                 <PanelHeader>
-                    <h4 className="heading-title">Laporan Total Penjualan Toko </h4>
+                    <h4 className="heading-title">Laporan Member </h4>
                 </PanelHeader>
-                <PanelBody>
-                    <Form onSubmit={showDate}>
+                <PanelBody> 
+                <Form onSubmit={showDate}>
                         <Row>
                             <Column className="flex">
                                 <div className="margin-right-small">
                                     <FormField>
                                         <InputGroup>
-                                            <InputAddon>
+                                            <InputAddon >
                                                 <i className="fas fa-calendar-alt"></i>
                                             </InputAddon>
                                             <DatePicker
@@ -51,7 +43,7 @@ const AdminReportView = props => {
                                     </FormField>
                                 </div>
                                 <div className="margin-right-small">
-                                    <FormField>
+                                    <FormField >
                                         <InputGroup>
                                             <InputAddon>
                                                 <i className="fas fa-calendar-alt"></i>
@@ -69,26 +61,34 @@ const AdminReportView = props => {
                                 </div>
                                 <div>
                                     <FormField>
-                                        <Button type="submit" style={{height: '50px'}}>
+                                        <Button className="margin-right-small" type="submit">
                                             Cari
                                         </Button>
                                     </FormField>
                                 </div>
-                                {/* <div>
+                                <div>
                                     <FormField>
-                                        <Button onClick={(e) => handleExportToExcell(e, period)} theme="danger" className="margin-right-small" type="submit" style={{height: '50px', 'margin-left': '3px'}}>
+                                        <Button onClick={() => handlePrint(period)} theme="danger" className="margin-right-small" type="submit" >
+                                            Print
+                                        </Button>
+                                    </FormField>
+                                    
+                                </div>
+                                <div>
+                                    <FormField>
+                                        <Button onClick={(e) => handleExportToExcell(e, period)} className="margin-right-small" theme="success" type="submit" >
                                             Export to xls
                                         </Button>
                                     </FormField>
-                                </div> */}
+                                </div>
                             </Column>
                         </Row>
                     </Form>
 
                     <div className="admin-report__content">
                         <TableSet
-                            loading={report.reportOwner.isFetching}
-                            loaded={report.reportOwner.isLoaded}
+                            loading={report.reportMember.isFetching}
+                            loaded={report.reportMember.isLoaded}
                             columns={table.columns}
                             rows={table.rows}
                             striped 
@@ -99,11 +99,7 @@ const AdminReportView = props => {
                 </PanelBody>
             </Panel>
         </div>
-    );
-};
+    )
+}
 
-AdminReportView.propTypes = {
-    
-};
-
-export default AdminReportView;
+export default AdminReportSellingTotalView;

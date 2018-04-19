@@ -14,7 +14,16 @@ import {
 
 	GET_REPORT_OWNER_SUPERADMIN_LIST_REQUESTED, //#GET REPORT OWNER SUPERADMIN LIST REQUESTED
 	GET_REPORT_OWNER_SUPERADMIN_LIST_FULFILLED,
-	GET_REPORT_OWNER_SUPERADMIN_LIST_REJECTED
+	GET_REPORT_OWNER_SUPERADMIN_LIST_REJECTED,
+
+	GET_REPORT_MEMBER_SUPERADMIN_REQUESTED, //#GET REPORT MEMBER SUPERADMIN
+	GET_REPORT_MEMBER_SUPERADMIN_FULFILLED,
+	GET_REPORT_MEMBER_SUPERADMIN_REJECTED,
+
+	GET_REPORT_MEMBER_SUPERADMIN_WITH_PRINT_REQUESTED,//#GET REPORT MEMBER SUPERADMIN WITH PRINT
+	GET_REPORT_MEMBER_SUPERADMIN_WITH_PRINT_FULFILLED,
+	GET_REPORT_MEMBER_SUPERADMIN_WITH_PRINT_REJECTED
+
 
 } from '../actions/report.action';
 
@@ -49,6 +58,19 @@ const initialState = {
 		isFetching: false,
 		isLoaded: false,
 		isError: false,
+	},
+	reportMember: {
+		data: {},
+		isFetching: false,
+		isLoaded: false,
+		isError: false,
+	},
+	reportMemberPrint:{
+		data: {},
+		isPrinting: false,
+		isPrinted: false,
+		isError: false,
+		error: {}
 	},
 	error: {}
 }
@@ -245,6 +267,89 @@ const report = (state = initialState, action) => {
 					data: {},
 					isFetching: false,
 					isLoaded: false,
+					isError: true,
+					error: action.payload
+				}
+			}
+		}
+
+		//#GET REPORT MEMBER SUPERADMIN
+		case GET_REPORT_MEMBER_SUPERADMIN_REQUESTED: {
+			return {
+				...state,
+				reportMember: {
+					...state.reportMember,
+					isFetching: true,
+					isLoaded: false,
+					isError: false
+				}
+			}
+		}
+
+		case GET_REPORT_MEMBER_SUPERADMIN_FULFILLED: {
+			return {
+				...state,
+				reportMember: {
+					...state.reportMember,
+					data: action.payload.data,
+					isFetching: false,
+					isLoaded: true,
+					isError: false
+				}
+			}
+		}
+
+		case GET_REPORT_MEMBER_SUPERADMIN_REJECTED: {
+			return {
+				...state,
+				reportMember: {
+					...state.reportMember,
+					data: {},
+					isFetching: false,
+					isLoaded: false,
+					isError: true,
+					error: action.payload
+				}
+			}
+		}
+
+		//#GET REPORT MEMBER SUPERADMIN WITH PRINT
+		case GET_REPORT_MEMBER_SUPERADMIN_WITH_PRINT_REQUESTED: {
+			return {
+				...state,
+				reportMemberPrint: {
+					...state.reportMemberPrint,
+					data: {},
+					isPrinting: true,
+					isPrinted: false,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case GET_REPORT_MEMBER_SUPERADMIN_WITH_PRINT_FULFILLED: {
+			return {
+				...state,
+				reportMemberPrint: {
+					...state.reportMemberPrint,
+					data: action.payload,
+					isPrinting: false,
+					isPrinted: true,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case GET_REPORT_MEMBER_SUPERADMIN_WITH_PRINT_REJECTED: {
+			return {
+				...state,
+				reportMemberPrint: {
+					...state.reportMemberPrint,
+					data: {},
+					isPrinting: false,
+					isPrinted: false,
 					isError: true,
 					error: action.payload
 				}

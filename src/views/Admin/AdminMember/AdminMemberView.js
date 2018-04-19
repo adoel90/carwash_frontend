@@ -26,7 +26,10 @@ const AdminMemberView = props => {
             search,
             detailMember,
             listMemberTransactionHistoris,
-            member
+            member,
+
+            handleExportToExcell,
+            period
       } = props;
 
 
@@ -75,7 +78,7 @@ const AdminMemberView = props => {
                                                             <tr>
                                                                   <th style={tdThStyle}>Tanggal Transaksi</th>
                                                                   <th style={tdThStyle}>Total Pembayaran</th>
-                                                                  <th style={tdThStyle}>Belanja di :</th>
+                                                                  <th style={tdThStyle}>Transaksi</th>
                                                             </tr>
                                                             {member.memberHistoris.isLoaded ?  props.member.memberHistoris.data.data.result.transaction.map((value) => {
                                                                   return (
@@ -173,7 +176,15 @@ const AdminMemberView = props => {
                                           handleInputChange={handleInputChange}
                                           {...props}
                                     />
+
+                                    {/* <FormField>
+                                          <Button onClick={(e) => handleExportToExcell(e, period)} theme="secondary" className="margin-right-small" type="submit" style={{height: '50px', 'margin-left': '3px'}}>
+                                                Export to xls
+                                          </Button>
+                                    </FormField> */}
                               </div>
+
+
                         </PanelBody>
                   </Panel>
                   { renderMemberDetailModal() }

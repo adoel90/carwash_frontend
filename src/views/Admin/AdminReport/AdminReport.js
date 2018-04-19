@@ -16,7 +16,7 @@ function mapStateToProps(state){
 function mapDispatchToProps(dispatch){
     return {
         getReportOwnerSuperAdminDispatch: (data) => dispatch(getReportOwnerSuperAdmin(data)),
-        getReportMemberExportToExcellDispatch: (data) => dispatch(getReportMemberExportToExcell(data)),
+        // getReportMemberExportToExcellDispatch: (data) => dispatch(getReportMemberExportToExcell(data)),
         action: bindActionCreators({getReportOwnerSuperAdmin }, dispatch)
     }
 }
@@ -27,7 +27,7 @@ class AdminReport extends Component {
         this.populateTableData = this.populateTableData.bind(this);
         this.showDate = this.showDate.bind(this);
         this.handlePeriodChange = this.handlePeriodChange.bind(this);
-        this.handleExportToExcell = this.handleExportToExcell.bind(this);
+        // this.handleExportToExcell = this.handleExportToExcell.bind(this);
         this.state = {
             report: {},
             reportList: {},
@@ -94,7 +94,6 @@ class AdminReport extends Component {
 
     populateTableData = () => {
         const { report } = this.props;
-        const { reportOwnerList } = this.state; 
         
         const columns = [{
             title: 'Nama Owner',
@@ -108,24 +107,19 @@ class AdminReport extends Component {
             title: 'Total Penjualan',
             accessor: 'price',
             align: 'left'
-        }, 
-        // {
-        //     title: 'Harga',
-        //     accessor: 'price',
-        //     align: 'center',
-        //     isCurrency: true
-        // }
-    ]
+        }]
 
         const rows = [];
+        const store_names = [];
 
         if(report.reportOwner.isLoaded){
             report.reportOwner.data.result.forEach((value, i) => {
                 console.log(value);
                 let row = {
                     name: value.name,
-                    store: value.store.store_name,
-                    price: value.price
+                    store: value.store.length > 1 ?  value.store[0].store_name + ", " + value.store[1].store_name : value.store[0].store_name ,
+                    price: value.price ? "Rp " + value.price : "-"
+                    // price: value.price
                 }
 
                 rows.push(row);
@@ -155,17 +149,17 @@ class AdminReport extends Component {
     }
 
     //#
-    handleExportToExcell = (e, period) => {
-        e.preventDefault();
-        const { getReportMemberExportToExcellDispatch } = this.props;
+    // handleExportToExcell = (e, period) => {
+    //     e.preventDefault();
+    //     const { getReportMemberExportToExcellDispatch } = this.props;
 
-        let requiredData = {
-            start_date : moment(period.from).format('YYYY-MM-DD'),
-            end_date : moment(period.to).format('YYYY-MM-DD'), 
-            convert: true
-        }
-        getReportMemberExportToExcellDispatch(requiredData);
-    }
+    //     let requiredData = {
+    //         start_date : moment(period.from).format('YYYY-MM-DD'),
+    //         end_date : moment(period.to).format('YYYY-MM-DD'), 
+    //         convert: true
+    //     }
+    //     getReportMemberExportToExcellDispatch(requiredData);
+    // }
 
     render() {
         return(
@@ -175,7 +169,7 @@ class AdminReport extends Component {
                     {...this.props}
                     showDate={this.showDate}
                     handlePeriodChange={this.handlePeriodChange}
-                    handleExportToExcell={this.handleExportToExcell}
+                    // handleExportToExcell={this.handleExportToExcell}
                 />;
             </div>
         ) 

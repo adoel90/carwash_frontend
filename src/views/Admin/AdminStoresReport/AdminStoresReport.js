@@ -308,8 +308,6 @@ class AdminStoresReport extends Component {
             ...this.state,
             selectedRow: row
         }, () => {
-            // console.log(this.state);
-            // console.log(this.props);
 
             this.toggleModal('detailReportStaff');
 

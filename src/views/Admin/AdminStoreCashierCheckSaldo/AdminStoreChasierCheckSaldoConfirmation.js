@@ -23,25 +23,22 @@ class AdminStoreChasierCheckSaldoConfirmation extends Component{
             <Modal
                 isOpen={isModalOpen.saldoConfirmation}>
                 <ModalHeader align="center">
-                    <h6 className="fw-semibold">Saldo Saat ini</h6>
+                    <h6 className="fw-semibold">Saldo Customer : {selectedMember.name} </h6>
                 </ModalHeader>
                 <Form>
 					<ModalBody className="flex flex-column justify-content--center">
 						<Alert theme="secondary" className="flex align-items--center margin-bottom-small">
 							<i className="ion-alert-circled icon icon--base margin-right-small"></i>
-							<p>Setelah Cek saldo berhasil, jangan lupa untuk mengambil kartu member.</p>
+							<p><b>Setelah Cek saldo berhasil, jangan lupa untuk mengambil kartu member.</b></p>
 						</Alert>
 						<div className="flex flex-column align-items--center justify-content--center ta-center">
 							<img src={CardIcon} style={{ width: '100px' }} />
 							<div className="flex-column margin-bottom-small">
 								<h4 className="clr-primary">{selectedMember.name}</h4>
-								<h5 className="fw-semibold">
-									{/* {selectedMember.card ? selectedMember.card.id : null} */}
-								</h5>
-								<h3>Sisa saldo Anda : <Currency style={currencyStyle} value={selectedMember.balance}/></h3>
 								<Badge theme="secondary">
 									<small className="fw-semibold tt-uppercase ls-base">{selectedMember.card ? selectedMember.card.type.name: null}</small>
 								</Badge>
+								<p><b>Sisa saldo Anda : <Currency style={currencyStyle} value={selectedMember.balance}/></b></p>
 							</div>
 						</div>
 					</ModalBody>

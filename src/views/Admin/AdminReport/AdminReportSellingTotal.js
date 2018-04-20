@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import moment from 'moment';
-
+import { getReportMemberExportToExcell, getReportOwnerSuperAdmin} from '../../../actions/report.action';
+import { Button } from '../../../components/Button';
 import { AdminReportSellingTotalView } from '../AdminReport';
-import { getReportMemberSuperAdmin, getReportMemberSuperAdminPrint, getReportMemberExportToExcell} from '../../../actions/report.action';
+import moment from 'moment';
 
 function mapStateToProps(state){
     return {
@@ -14,134 +14,112 @@ function mapStateToProps(state){
 
 function mapDispatchToProps(dispatch){
     return {
-        getReportMemberExportToExcellDispatch: (data) => dispatch(getReportMemberExportToExcell(data)),
-        action: bindActionCreators({getReportMemberSuperAdmin, getReportMemberSuperAdminPrint }, dispatch)
+        getReportOwnerSuperAdminDispatch: (data) => dispatch(getReportOwnerSuperAdmin(data)),
+        // getReportMemberExportToExcellDispatch: (data) => dispatch(getReportMemberExportToExcell(data)),
+        action: bindActionCreators({getReportOwnerSuperAdmin }, dispatch)
     }
 }
 
-
 class AdminReportSellingTotal extends Component {
-
-    constructor(){
+    constructor() {
         super();
-        this.handlePeriodChange = this.handlePeriodChange.bind(this);
-        this.showDate = this.showDate.bind(this);
         this.populateTableData = this.populateTableData.bind(this);
-        this.handlePrint = this.handlePrint.bind(this);
-        this.handleExportToExcell = this.handleExportToExcell.bind(this);
-
+        this.showDate = this.showDate.bind(this);
+        this.handlePeriodChange = this.handlePeriodChange.bind(this);
+        // this.handleExportToExcell = this.handleExportToExcell.bind(this);
         this.state = {
-            period: {
-                from: moment().add(-1, 'month'),
-        		to: moment()
-            },
+            report: {},
+            reportList: {},
             table: {
                 columns: [],
                 rows: [],
                 limit: 10
             },
-            reportMemberList: {}
+            period: {
+                from: moment().add(-1, 'month'),
+        		to: moment()
+            },
+            reportOwnerList : {}
         }
     }
+    
+    componentDidMount = () => {
 
-    componentDidMount(){
-        const { action } = this.props;
-        let { period } = this.state;
+        const { getReportOwnerSuperAdminDispatch } = this.props;
+        const { period } = this.state;
 
         let requiredData = {
             start_date : moment(period.from).format('YYYY-MM-DD'),
             end_date : moment(period.to).format('YYYY-MM-DD')
         }
-        action.getReportMemberSuperAdmin(requiredData);
+        getReportOwnerSuperAdminDispatch(requiredData);
     }
-
-    componentDidUpdate(prevProps){
-
-        const { report } = this.props;
-
-        if(prevProps.report.reportMember !== report.reportMember){
-
-            if(report.reportMember.isLoaded){
+    
+    componentDidUpdate = (prevProps) => {
+        const  { report } = this.props;
+        //Get Report Owner -  didUpdate
+        if(prevProps.report.reportOwner !== report.reportOwner){
+            if(report.reportOwner.isLoaded){
                 this.setState({
                     ...this.state,
-                    reportMemberList: report.reportMember,
+                    reportOwnerList: report.reportOwner
                 }, () => {
                     this.populateTableData();
                 })
             }
-        }
-
-        //#GET REPORT MEMBER SUPERADMIN WITH PRINT
-        if(prevProps.report.reportMemberPrint !== report.reportMemberPrint){
-
         }
     }
 
     handlePeriodChange = (type, date) => {
     	const { period } = this.state;
         period[type] = date;
+        
     	this.forceUpdate();
     }
 
     showDate = (e) => {
-
-        e.preventDefault();
         const { action } = this.props;
+
         let { period } = this.state;
+        e.preventDefault();
 
         let requiredData = {
             start_date : moment(period.from).format('YYYY-MM-DD'),
             end_date : moment(period.to).format('YYYY-MM-DD')
         }
-        action.getReportMemberSuperAdmin(requiredData);
+        action.getReportOwnerSuperAdmin(requiredData);
 
     }
 
     populateTableData = () => {
-
         const { report } = this.props;
         
         const columns = [{
-            title: 'Nomor Kartu',
-            accessor: 'id',
-            align: 'left'
-        }, 
-        // {
-        //     title: 'Jenis Kartu',
-        //     accessor: 'card',
-        //     align: 'left'
-        // }, 
-        {
-            title: 'Nama Member',
+            title: 'Nama Owner',
             accessor: 'name',
             align: 'left'
-        },{
-            title: 'Tanggal Daftar',
-            accessor: 'created',
+        }, {
+            title: 'Nama Toko',
+            accessor: 'store',
             align: 'left'
-        },{
-            title: 'Saldo',
-            accessor: 'balance',
-            align: 'left',
-            isCurrency: true
-        },{
-            title: 'Tanggal Transaksi',
-            accessor: 'last',
+        }, {
+            title: 'Total Penjualan',
+            accessor: 'price',
             align: 'left'
-        }]
+        }
+    ]
 
         const rows = [];
+        const store_names = [];
 
-        if(report.reportMember.isLoaded){
-            report.reportMember.data.result.report.forEach((value, i) => {
-                // console.log(value);
+        if(report.reportOwner.isLoaded){
+            report.reportOwner.data.result.forEach((value, i) => {
+                console.log(value);
                 let row = {
-                    id: value.card.id,
-                    // card: report.reportMember.isLoaded ? value.card.type.name : null,
                     name: value.name,
-                    created: value.created_at,
-                    balance: value.balance,
-                    last: value.last_transaction
+                    store: value.store.length > 1 ?  value.store[0].store_name + ", " + value.store[1].store_name : value.store[0].store_name ,
+                    price: value.price ? "Rp " + value.price : "-"
+                    // price: value.price
                 }
 
                 rows.push(row);
@@ -158,46 +136,46 @@ class AdminReportSellingTotal extends Component {
         })
     }
 
-    //#
-    handlePrint(period){
+    getReportMemberList = () => {
         const { action } = this.props;
 
-        let requiredData = {
-            start_date : moment(period.from).format('YYYY-MM-DD'),
-            end_date : moment(period.to).format('YYYY-MM-DD'),
-            print: true
-        }
-
-        action.getReportMemberSuperAdminPrint(requiredData);
-    }
-    
-    handleExportToExcell = (e, period) => {
-        e.preventDefault();
-        const { getReportMemberExportToExcellDispatch } = this.props;
+        let {period } = this.state;
 
         let requiredData = {
             start_date : moment(period.from).format('YYYY-MM-DD'),
-            end_date : moment(period.to).format('YYYY-MM-DD'), 
-            convert: true
+            end_date : moment(period.to).format('YYYY-MM-DD')
         }
-        getReportMemberExportToExcellDispatch(requiredData);
+        action.getReportMemberList(requiredData);
     }
 
-    render (){
+    //#
+    // handleExportToExcell = (e, period) => {
+    //     e.preventDefault();
+    //     const { getReportMemberExportToExcellDispatch } = this.props;
+
+    //     let requiredData = {
+    //         start_date : moment(period.from).format('YYYY-MM-DD'),
+    //         end_date : moment(period.to).format('YYYY-MM-DD'), 
+    //         convert: true
+    //     }
+    //     getReportMemberExportToExcellDispatch(requiredData);
+    // }
+
+    render() {
         return(
             <div>
-                <AdminReportSellingTotalView 
-                    {...this.state} 
-                    { ...this.props} 
+                <AdminReportSellingTotalView
+                    {...this.state}
+                    {...this.props}
                     showDate={this.showDate}
                     handlePeriodChange={this.handlePeriodChange}
-                    handlePrint={this.handlePrint}
-                    handleExportToExcell= {this.handleExportToExcell}
-                    />
-
+                    // handleExportToExcell={this.handleExportToExcell}
+                />;
             </div>
-        )
+        ) 
+
     }
 }
+
 
 export default connect( mapStateToProps, mapDispatchToProps )(AdminReportSellingTotal);

@@ -72,8 +72,8 @@ class AdminPanel extends Component {
                 { name: 'create-new-access', path: `${this.props.match.url}/access/create-new-access`, component: AdminAccessCreate },
                 { name: 'store', path: `${this.props.match.url}/store`, component: AdminStore },
                 { name: 'create-new-store', path: `${this.props.match.url}/store/create-new-store`, component: AdminStoreCreate },
-                { name: 'report', path: `${this.props.match.url}/report`, component: AdminReport },
-                { name: 'report-member', path: `${this.props.match.url}/report/report-member`, component: AdminReportSellingTotal },
+                { name: 'report-member', path: `${this.props.match.url}/report/report-member`, component: AdminReport },
+                { name: 'report', path: `${this.props.match.url}/report`, component: AdminReportSellingTotal },
                 { name: 'logout', path: `${this.props.match.url}/logout`, component: AdminLogout },
                 { name: 'setting', path: `${this.props.match.url}/setting`, component: AdminSetting },
                 { component: NoMatch }

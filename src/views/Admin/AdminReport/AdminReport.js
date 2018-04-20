@@ -1,125 +1,183 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getReportMemberExportToExcell, getReportOwnerSuperAdmin} from '../../../actions/report.action';
-import { Button } from '../../../components/Button';
-import { AdminReportView } from '../AdminReport';
 import moment from 'moment';
 
-function mapStateToProps(state){
+import { Button } from '../../../components/Button';
+import { AdminReportView } from '../AdminReport';
+import { getReportMemberSuperAdmin, getReportMemberSuperAdminPrint, getReportMemberExportToExcell} from '../../../actions/report.action';
+import { getMemberDetailHistoris } from '../../../actions/member.action';
 
+function mapStateToProps(state){
     return {
-        report: state.report
+        report: state.report,
+        member: state.member
     }
 }
 
 function mapDispatchToProps(dispatch){
     return {
-        getReportOwnerSuperAdminDispatch: (data) => dispatch(getReportOwnerSuperAdmin(data)),
-        // getReportMemberExportToExcellDispatch: (data) => dispatch(getReportMemberExportToExcell(data)),
-        action: bindActionCreators({getReportOwnerSuperAdmin }, dispatch)
+        getMemberDetailHistorisDispatch: (data) => dispatch(getMemberDetailHistoris(data)),
+        getReportMemberExportToExcellDispatch: (data) => dispatch(getReportMemberExportToExcell(data)),
+        action: bindActionCreators({getReportMemberSuperAdmin, getReportMemberSuperAdminPrint }, dispatch)
     }
 }
 
 class AdminReport extends Component {
-    constructor() {
+
+    constructor(){
         super();
-        this.populateTableData = this.populateTableData.bind(this);
-        this.showDate = this.showDate.bind(this);
         this.handlePeriodChange = this.handlePeriodChange.bind(this);
-        // this.handleExportToExcell = this.handleExportToExcell.bind(this);
+        this.showDate = this.showDate.bind(this);
+        this.populateTableData = this.populateTableData.bind(this);
+        this.handlePrint = this.handlePrint.bind(this);
+        this.handleExportToExcell = this.handleExportToExcell.bind(this);
+        this.openMemberModalDetailNew = this.openMemberModalDetailNew.bind(this);
+        this.toggleModal = this.toggleModal.bind(this);
+
         this.state = {
-            report: {},
-            reportList: {},
+            period: {
+                from: moment().add(-1, 'month'),
+        		to: moment()
+            },
             table: {
                 columns: [],
                 rows: [],
                 limit: 10
             },
-            period: {
-                from: moment().add(-1, 'month'),
-        		to: moment()
+            isModalOpen: {
+                detailMemberHistory: false
             },
-            reportOwnerList : {}
+            selectedMemberDetail: {},
+            reportMemberList: {},
+            listMemberTransactionHistoris: {}
         }
     }
-    
-    componentDidMount = () => {
 
-        const { getReportOwnerSuperAdminDispatch } = this.props;
-        const { period } = this.state;
+    componentDidMount(){
+        const { action } = this.props;
+        let { period } = this.state;
 
         let requiredData = {
             start_date : moment(period.from).format('YYYY-MM-DD'),
             end_date : moment(period.to).format('YYYY-MM-DD')
         }
-        getReportOwnerSuperAdminDispatch(requiredData);
+        action.getReportMemberSuperAdmin(requiredData);
     }
-    
-    componentDidUpdate = (prevProps) => {
-        const  { report } = this.props;
-        //Get Report Owner -  didUpdate
-        if(prevProps.report.reportOwner !== report.reportOwner){
-            if(report.reportOwner.isLoaded){
+
+    componentDidUpdate(prevProps){
+
+        const { report, member } = this.props;
+
+        if(prevProps.report.reportMember !== report.reportMember){
+
+            if(report.reportMember.isLoaded){
                 this.setState({
                     ...this.state,
-                    reportOwnerList: report.reportOwner
+                    reportMemberList: report.reportMember,
                 }, () => {
                     this.populateTableData();
                 })
             }
         }
+
+        //#GET REPORT MEMBER SUPERADMIN WITH PRINT
+        if(prevProps.report.reportMemberPrint !== report.reportMemberPrint){
+
+        }
+        
+         //Get Detail Member Historis
+        if(prevProps.member.memberHistoris !== member.memberHistoris){
+            if(member.memberHistoris.isLoaded){
+                  this.setState({
+                        ...this.state,
+                        listMemberTransactionHistoris: member.memberHistoris.data.data.result
+                  },() => {
+                        // console.log(this.state);
+                  } );
+
+            }
+      }
     }
 
     handlePeriodChange = (type, date) => {
     	const { period } = this.state;
         period[type] = date;
-        
     	this.forceUpdate();
     }
 
     showDate = (e) => {
-        const { action } = this.props;
 
-        let { period } = this.state;
         e.preventDefault();
+        const { action } = this.props;
+        let { period } = this.state;
 
         let requiredData = {
             start_date : moment(period.from).format('YYYY-MM-DD'),
             end_date : moment(period.to).format('YYYY-MM-DD')
         }
-        action.getReportOwnerSuperAdmin(requiredData);
+        action.getReportMemberSuperAdmin(requiredData);
 
     }
 
     populateTableData = () => {
+
         const { report } = this.props;
         
         const columns = [{
-            title: 'Nama Owner',
+            title: 'Nomor Kartu',
+            accessor: 'id',
+            align: 'left'
+        }, 
+        // {
+        //     title: 'Jenis Kartu',
+        //     accessor: 'card',
+        //     align: 'left'
+        // }, 
+        {
+            title: 'Nama Member',
             accessor: 'name',
             align: 'left'
-        }, {
-            title: 'Nama Toko',
-            accessor: 'store',
+        },{
+            title: 'Tanggal Daftar',
+            accessor: 'created',
             align: 'left'
-        }, {
-            title: 'Total Penjualan',
-            accessor: 'price',
+        },{
+            title: 'Saldo',
+            accessor: 'balance',
+            align: 'left',
+            isCurrency: true
+        },{
+            title: 'Tanggal Transaksi',
+            accessor: 'last',
             align: 'left'
+        },{
+            title: 'Status',
+            accessor: 'action',
+            width: '30%',
+            align: 'center',
+            render: (row) => (
+                  <td className="flex justify-content--center">
+                        <Button className="margin-right-small" theme="light" type="button" onClick={() => this.openMemberModalDetailNew(row)}>Histori</Button>                              
+                  </td>
+            )
         }]
 
         const rows = [];
-        const store_names = [];
 
-        if(report.reportOwner.isLoaded){
-            report.reportOwner.data.result.forEach((value, i) => {
-                console.log(value);
+        if(report.reportMember.isLoaded){
+            report.reportMember.data.result.report.forEach((value, i) => {
+                // console.log(value);
                 let row = {
+                    id: value.card.id,
+                    // card: report.reportMember.isLoaded ? value.card.type.name : null,
                     name: value.name,
-                    store: value.store.length > 1 ?  value.store[0].store_name + ", " + value.store[1].store_name : value.store[0].store_name ,
-                    price: value.price ? "Rp " + value.price : "-"
-                    // price: value.price
+                    created: value.created_at,
+                    balance: value.balance,
+                    last: value.last_transaction,
+                    memberId: value.id,
+                    // cardType: value.card.type.name
+                
                 }
 
                 rows.push(row);
@@ -136,49 +194,81 @@ class AdminReport extends Component {
         })
     }
 
-    getReportMemberList = () => {
-        const { action } = this.props;
-
-        let {period } = this.state;
-
-        let requiredData = {
-            start_date : moment(period.from).format('YYYY-MM-DD'),
-            end_date : moment(period.to).format('YYYY-MM-DD')
-        }
-        action.getReportMemberList(requiredData);
+    //#
+    toggleModal = (name) => {
+        const { isModalOpen } = this.state;
+        
+        this.setState({
+              ...this.state,
+              isModalOpen: {
+                    [name]: !isModalOpen[name]
+              }
+        })
     }
 
     //#
-    // handleExportToExcell = (e, period) => {
-    //     e.preventDefault();
-    //     const { getReportMemberExportToExcellDispatch } = this.props;
+    handlePrint(period){
+        const { action } = this.props;
 
-    //     let requiredData = {
-    //         start_date : moment(period.from).format('YYYY-MM-DD'),
-    //         end_date : moment(period.to).format('YYYY-MM-DD'), 
-    //         convert: true
-    //     }
-    //     getReportMemberExportToExcellDispatch(requiredData);
-    // }
+        let requiredData = {
+            start_date : moment(period.from).format('YYYY-MM-DD'),
+            end_date : moment(period.to).format('YYYY-MM-DD'),
+            print: true
+        }
 
-    render() {
+        action.getReportMemberSuperAdminPrint(requiredData);
+    }
+    
+    handleExportToExcell = (e, period) => {
+        e.preventDefault();
+        const { getReportMemberExportToExcellDispatch } = this.props;
+
+        let requiredData = {
+            start_date : moment(period.from).format('YYYY-MM-DD'),
+            end_date : moment(period.to).format('YYYY-MM-DD'), 
+            convert: true
+        }
+        getReportMemberExportToExcellDispatch(requiredData);
+    }
+
+    openMemberModalDetailNew = (row) => {
+        // console.log(row);
+        this.setState({
+              ...this.state,
+              selectedMemberDetail: row
+        }, () => {
+
+            const { selectedMemberDetail } = this.state;
+            const { getMemberDetailHistorisDispatch } = this.props;
+
+            // console.log(selectedMemberDetail);
+            let data = {
+                id: selectedMemberDetail.memberId,
+                // transaction: selectedMemberDetail.data.status
+                transaction: true
+            }
+            getMemberDetailHistorisDispatch(data);
+            this.toggleModal('detailMemberHistory');
+        });
+        
+  }
+
+    render (){
         return(
             <div>
-                <AdminReportView
-                    {...this.state}
-                    {...this.props}
+                <AdminReportView 
+                    {...this.state} 
+                    { ...this.props} 
                     showDate={this.showDate}
                     handlePeriodChange={this.handlePeriodChange}
-                    // handleExportToExcell={this.handleExportToExcell}
-                />;
-            </div>
-        ) 
+                    handlePrint={this.handlePrint}
+                    handleExportToExcell= {this.handleExportToExcell}
+                    toggleModal={this.toggleModal}
+                    />
 
+            </div>
+        )
     }
 }
 
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(AdminReport);
+export default connect( mapStateToProps, mapDispatchToProps )(AdminReport);

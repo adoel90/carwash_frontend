@@ -8,36 +8,102 @@ import { Panel, PanelHeader, PanelBody } from '../../../components/Panel';
 import { TableSet } from '../../../components/Table';
 import { Button } from '../../../components/Button';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from '../../../components/Modal';
+// import { Input, InputGroup, InputAddon } from '../../../components/Input';
 
+import moment from 'moment';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
 const AdminReportView = props => {
-    
-    const {
-        table,
-        report,
-        reportList,
-        showDate,
-        period,
-        handlePeriodChange,
-        // handleExportToExcell
-    } = props;
+
+    const { member, showDate, period, handlePeriodChange, table, report, handlePrint, toggleModal, listMemberTransactionHistoris,
+            handleExportToExcell, openMemberModalDetailNew, detailMemberHistory, isModalOpen, selectedMemberDetail } = props;
+
+    const tableStyle = {
+        color:  '#333',
+        'font-family':' Helvetica, Arial, sans-serif',
+        'width': '100%',
+        'border-collapse':'collapse',
+        'border-spacing': '0'
+    }
+
+    const tdThStyle = {
+        'border-bottom': '1px solid #CCC',
+        'height': '30px',
+        'padding': '10px'
+    }
+
+    const tdStyle = {
+        'text-align': 'center',
+        'padding': '5px'
+    }
+
+    const borderStyle = {
+        'border-bottom': '1px solid #CCC'
+    }
+
+    //Modal detail Historis
+    const renderMemberDetailHistoryModal = () => {
+
+        let customerName = selectedMemberDetail.name;
+
+        if(selectedMemberDetail){
+
+            if(member.memberHistoris.isLoaded){
+
+                return (
+                    <Modal isOpen={isModalOpen.detailMemberHistory} toggle={ () => toggleModal('detailMemberHistory')}>
+                        <ModalHeader>
+                            <h5>Detail Histori Customer : { customerName} </h5>
+                        </ModalHeader>
+                        <ModalBody> 
+                                <Row>
+                                    <Column>
+                                    <i className="far fa-user"></i><label><b> NamaLengkap : {selectedMemberDetail.name}</b></label><br />
+                                    <i className="far fa-id-card"></i><label><b> Id Kartu :  {selectedMemberDetail.id}</b></label><br />
+                                    <i className="far fa-money-bill-alt"></i><label><b> Saldo saat ini : {listMemberTransactionHistoris.balance}</b></label><br />
+                                    {/* <h6>Tipe Kartu : {member.memberHistoris.isLoaded ? member.memberHistoris.data.result.card.type.name : selectedMemberDetail.cardType}</h6> */}
+                            
+                                    <table style={tableStyle}>
+                                        <tr>
+                                                <th style={tdThStyle}>Tanggal Transaksi</th>
+                                                <th style={tdThStyle}>Total Pembayaran</th>
+                                                <th style={tdThStyle}>Transaksi</th>
+                                        </tr>
+                                        {member.memberHistoris.isLoaded ?  props.member.memberHistoris.data.data.result.transaction.map((value) => {
+                                                return (
+                                                    <tr>
+                                                            <td style={tdThStyle, tdStyle}> {moment(value.date).format('DD-MM-YYYY')}</td>
+                                                            <td style={tdThStyle, tdStyle}> {value.total}</td>
+                                                            <td style={tdThStyle, tdStyle}>{value.type}</td>
+                                                    </tr>      
+                                                )
+                                        }) : null }
+                                    </table>
+                                    </Column>
+                                </Row>
+                        </ModalBody>
+                    </Modal>
+                )
+            }
+
+        }
+    }
 
     return (
         <div className="admin-report">
             <Panel>
                 <PanelHeader>
-                    <h4 className="heading-title">Laporan Total Penjualan Toko </h4>
+                    <h4 className="heading-title">Laporan Member </h4>
                 </PanelHeader>
-                <PanelBody>
-                    <Form onSubmit={showDate}>
+                <PanelBody> 
+                <Form onSubmit={showDate}>
                         <Row>
                             <Column className="flex">
                                 <div className="margin-right-small">
                                     <FormField>
                                         <InputGroup>
-                                            <InputAddon>
+                                            <InputAddon >
                                                 <i className="fas fa-calendar-alt"></i>
                                             </InputAddon>
                                             <DatePicker
@@ -51,7 +117,7 @@ const AdminReportView = props => {
                                     </FormField>
                                 </div>
                                 <div className="margin-right-small">
-                                    <FormField>
+                                    <FormField >
                                         <InputGroup>
                                             <InputAddon>
                                                 <i className="fas fa-calendar-alt"></i>
@@ -69,26 +135,34 @@ const AdminReportView = props => {
                                 </div>
                                 <div>
                                     <FormField>
-                                        <Button type="submit" style={{height: '50px'}}>
+                                        <Button className="margin-right-small" type="submit">
                                             Cari
                                         </Button>
                                     </FormField>
                                 </div>
-                                {/* <div>
+                                <div>
                                     <FormField>
-                                        <Button onClick={(e) => handleExportToExcell(e, period)} theme="danger" className="margin-right-small" type="submit" style={{height: '50px', 'margin-left': '3px'}}>
+                                        <Button onClick={() => handlePrint(period)} theme="danger" className="margin-right-small" type="submit" >
+                                            Print
+                                        </Button>
+                                    </FormField>
+                                    
+                                </div>
+                                <div>
+                                    <FormField>
+                                        <Button onClick={(e) => handleExportToExcell(e, period)} className="margin-right-small" theme="success" type="submit" >
                                             Export to xls
                                         </Button>
                                     </FormField>
-                                </div> */}
+                                </div>
                             </Column>
                         </Row>
                     </Form>
 
                     <div className="admin-report__content">
                         <TableSet
-                            loading={report.reportOwner.isFetching}
-                            loaded={report.reportOwner.isLoaded}
+                            loading={report.reportMember.isFetching}
+                            loaded={report.reportMember.isLoaded}
                             columns={table.columns}
                             rows={table.rows}
                             striped 
@@ -98,12 +172,10 @@ const AdminReportView = props => {
                     </div>
                 </PanelBody>
             </Panel>
-        </div>
-    );
-};
 
-AdminReportView.propTypes = {
-    
-};
+            { renderMemberDetailHistoryModal() }
+        </div>
+    )
+}
 
 export default AdminReportView;

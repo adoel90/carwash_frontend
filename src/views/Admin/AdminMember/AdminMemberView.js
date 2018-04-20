@@ -21,83 +21,20 @@ const AdminMemberView = props => {
             handleInputChange,
             updateMember,
             selectedMember,
-            selectedMemberDetail,
             access,
             search,
             detailMember,
             listMemberTransactionHistoris,
             member,
-
             handleExportToExcell,
             period
       } = props;
 
 
-      const tableStyle = {
-            color:  '#333',
-            'font-family':' Helvetica, Arial, sans-serif',
-            width: '100%',
-            'border-collapse':'collapse',
-            'border-spacing': '0'
-      }
-
-      const tdThStyle = {
-            border: '1px solid #CCC',
-            height: '30px'
-      }
-
-      const tdStyle = {
-            'text-align': 'center'
-      }
 
 
-      //Modal detail
-      const renderMemberDetailModal = () => {
-            
-            const { member, listMemberTransactionHistoris } = props;
 
-            let customerName = selectedMemberDetail.name;
-            let transactionHistory = member.memberHistoris.isLoaded ? listMemberTransactionHistoris.transaction : null;
-            
-            if(selectedMemberDetail){
-                  if(member.memberHistoris.isLoaded){
-                        return (
-                              <Modal isOpen={isModalOpen.detailMember} toggle={ () => toggleModal('detailMember')}>
-                                    <ModalHeader>
-                                          <h5>Detail Histori Customer : { customerName }</h5>
-                                    </ModalHeader>
-                                    <ModalBody> 
-                                          <Row>
-                                                <Column>
-                                                      <h4>{selectedMemberDetail.name}</h4><br/>
-                                                      <h6>Id Kartu : {selectedMemberDetail.cardNumber}</h6>
-                                                      <h6>Tipe Kartu : {selectedMemberDetail.cardType}</h6>
-                                                      <h6>Saldo saat ini : {listMemberTransactionHistoris.balance} </h6><br />
-                                                
-                                                      <table style={tableStyle}>
-                                                            <tr>
-                                                                  <th style={tdThStyle}>Tanggal Transaksi</th>
-                                                                  <th style={tdThStyle}>Total Pembayaran</th>
-                                                                  <th style={tdThStyle}>Transaksi</th>
-                                                            </tr>
-                                                            {member.memberHistoris.isLoaded ?  props.member.memberHistoris.data.data.result.transaction.map((value) => {
-                                                                  return (
-                                                                        <tr>
-                                                                              <td style={tdThStyle, tdStyle}> {moment(value.date).format('DD-MM-YYYY')}</td>
-                                                                              <td style={tdThStyle, tdStyle}> {value.total}</td>
-                                                                              <td style={tdThStyle, tdStyle}>{value.type}</td>
-                                                                        </tr>      
-                                                                  )
-                                                            }) : null }
-                                                      </table>
-                                                </Column>
-                                          </Row>
-                                    </ModalBody>
-                              </Modal>
-                        )
-                  }
-            }
-      }
+   
 
       //Modal Update
       const renderMemberUpdateModal = () => {
@@ -107,7 +44,7 @@ const AdminMemberView = props => {
                               isOpen={isModalOpen.updateMember}
                               toggle={() => toggleModal('updateMember')}>
                               <ModalHeader>
-                              <h5>Ubah Informasi Member</h5>
+                              <h5>Informasi Member</h5>
                               </ModalHeader>
                               <Form onSubmit={updateMember}>
                                     <ModalBody>
@@ -187,7 +124,6 @@ const AdminMemberView = props => {
 
                         </PanelBody>
                   </Panel>
-                  { renderMemberDetailModal() }
                   { renderMemberUpdateModal() }
             </div>
       );

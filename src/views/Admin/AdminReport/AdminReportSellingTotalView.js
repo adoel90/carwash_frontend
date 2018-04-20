@@ -13,23 +13,30 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
 const AdminReportSellingTotalView = props => {
-
-    const { showDate, period, handlePeriodChange, table, report, handlePrint, handleExportToExcell } = props;
+    
+    const {
+        table,
+        report,
+        reportList,
+        showDate,
+        period,
+        handlePeriodChange
+    } = props;
 
     return (
         <div className="admin-report">
             <Panel>
                 <PanelHeader>
-                    <h4 className="heading-title">Laporan Member </h4>
+                    <h4 className="heading-title">Laporan Total Penjualan Toko </h4>
                 </PanelHeader>
-                <PanelBody> 
-                <Form onSubmit={showDate}>
+                <PanelBody>
+                    <Form onSubmit={showDate}>
                         <Row>
                             <Column className="flex">
                                 <div className="margin-right-small">
                                     <FormField>
                                         <InputGroup>
-                                            <InputAddon >
+                                            <InputAddon>
                                                 <i className="fas fa-calendar-alt"></i>
                                             </InputAddon>
                                             <DatePicker
@@ -43,7 +50,7 @@ const AdminReportSellingTotalView = props => {
                                     </FormField>
                                 </div>
                                 <div className="margin-right-small">
-                                    <FormField >
+                                    <FormField>
                                         <InputGroup>
                                             <InputAddon>
                                                 <i className="fas fa-calendar-alt"></i>
@@ -61,34 +68,26 @@ const AdminReportSellingTotalView = props => {
                                 </div>
                                 <div>
                                     <FormField>
-                                        <Button className="margin-right-small" type="submit">
+                                        <Button type="submit" style={{height: '50px'}}>
                                             Cari
                                         </Button>
                                     </FormField>
                                 </div>
-                                <div>
+                                {/* <div>
                                     <FormField>
-                                        <Button onClick={() => handlePrint(period)} theme="danger" className="margin-right-small" type="submit" >
-                                            Print
-                                        </Button>
-                                    </FormField>
-                                    
-                                </div>
-                                <div>
-                                    <FormField>
-                                        <Button onClick={(e) => handleExportToExcell(e, period)} className="margin-right-small" theme="success" type="submit" >
+                                        <Button onClick={(e) => handleExportToExcell(e, period)} theme="danger" className="margin-right-small" type="submit" style={{height: '50px', 'margin-left': '3px'}}>
                                             Export to xls
                                         </Button>
                                     </FormField>
-                                </div>
+                                </div> */}
                             </Column>
                         </Row>
                     </Form>
 
                     <div className="admin-report__content">
                         <TableSet
-                            loading={report.reportMember.isFetching}
-                            loaded={report.reportMember.isLoaded}
+                            loading={report.reportOwner.isFetching}
+                            loaded={report.reportOwner.isLoaded}
                             columns={table.columns}
                             rows={table.rows}
                             striped 
@@ -99,7 +98,11 @@ const AdminReportSellingTotalView = props => {
                 </PanelBody>
             </Panel>
         </div>
-    )
-}
+    );
+};
+
+AdminReportSellingTotalView.propTypes = {
+    
+};
 
 export default AdminReportSellingTotalView;

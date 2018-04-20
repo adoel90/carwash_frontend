@@ -53,7 +53,6 @@ class AdminMember extends Component {
             this.updateMember = this.updateMember.bind(this);
             this.populateTableData = this.populateTableData.bind(this);
 
-            this.openMemberModalDetailNew = this.openMemberModalDetailNew.bind(this);
             this.handleExportToExcell = this.handleExportToExcell.bind(this);
       }
       
@@ -159,26 +158,6 @@ class AdminMember extends Component {
                 />
             )
       }
-
-      //#
-      openMemberModalDetailNew = (row) => {
-            // console.log(row);
-            this.setState({
-                  ...this.state,
-                  selectedMemberDetail: row
-            }, () => {
-                  const { selectedMemberDetail } = this.state;
-                  const { action } = this.props;
-                  
-                  let data = {
-                        id: selectedMemberDetail.id,
-                        transaction: selectedMemberDetail.data.status
-                  }
-                  action.getMemberDetailHistoris(data);
-                  this.toggleModal('detailMember');
-            });
-            
-      }
       populateTableData = () => {
             const { memberList } = this.state;
             
@@ -192,14 +171,14 @@ class AdminMember extends Component {
                   title: 'Tipe Member',
                   accessor: 'cardType',
                   rowAlign: 'center'
-            }, {
+            },{
                   title: 'Status',
                   accessor: 'action',
                   width: '30%',
                   align: 'center',
                   render: (row) => (
                         <td className="flex justify-content--center">
-                              <Button className="margin-right-small" theme="light" type="button" onClick={() => this.openMemberModalDetailNew(row)}>Detail</Button>                              
+                              {/* <Button className="margin-right-small" theme="light" type="button" onClick={() => this.openMemberModalDetailNew(row)}>Detail</Button>                               */}
                               <Button className="margin-right-small" type="button" onClick={() => this.openMemberDetail(row)}>Ubah</Button>
                               <Button type="button" theme={row.data.status ? "success" : "danger"} onClick={() => this.changdeMemberStatus(row)}>{ row.data.status ? 'Aktif' : 'Non Aktif' }</Button>
                         </td>

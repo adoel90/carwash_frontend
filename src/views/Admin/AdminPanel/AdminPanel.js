@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { 
+import {
+     
     AdminDashboard, 
     AdminUser, 
     AdminUserCreate,
@@ -22,6 +23,7 @@ import {
     AdminStoreCashierTopUp,
     AdminStoreCashierNewCard,
     AdminStoreCashierRefund,
+    AdminStoreCashierCheckSaldo,
     AdminStoreCashierReport,
     AdminStoresMenu,
     AdminStoresMenuCreate,
@@ -29,6 +31,7 @@ import {
     AdminStoresEmployeeCreate,
     AdminStoresReport,
     AdminTransaction
+
 } from '../../Admin';
 
 import NoMatch from '../NoMatch';
@@ -81,10 +84,12 @@ class AdminPanel extends Component {
             mainRoute = routePage;
 
         } else if (menu[0].group === 'kasir') {
+
             let routePage = [
                 { name: 'topup', path: `${this.props.match.url}/topup`, component: AdminStoreCashierTopUp },
                 { name: 'new-card', path: `${this.props.match.url}/new-card`, component: AdminStoreCashierNewCard },
                 { name: 'refund', path: `${this.props.match.url}/refund`, component: AdminStoreCashierRefund },
+                { name: 'balance', path: `${this.props.match.url}/balance`, component: AdminStoreCashierCheckSaldo },
                 { name: 'logout', path: `${this.props.match.url}/logout`, component: AdminLogout },
                 { name: 'setting', path: `${this.props.match.url}/setting`, component: AdminSetting },
                 { name: 'report', path: `${this.props.match.url}/report`, component: AdminStoreCashierReport },
@@ -105,6 +110,7 @@ class AdminPanel extends Component {
             ];
             mainRoute = routePage;
         } else {
+            
             mainRoute = [];
         }
 

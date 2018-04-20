@@ -34,6 +34,7 @@ class AdminReport extends Component {
         this.handleExportToExcell = this.handleExportToExcell.bind(this);
         this.openMemberModalDetailNew = this.openMemberModalDetailNew.bind(this);
         this.toggleModal = this.toggleModal.bind(this);
+        this.handleInputChange = this.handleInputChange.bind(this);
 
         this.state = {
             period: {
@@ -43,7 +44,16 @@ class AdminReport extends Component {
             table: {
                 columns: [],
                 rows: [],
-                limit: 10
+                limit: 10,
+                searchParams: [
+                    { accessor: 'name', name: 'Nama Member' },
+                    { accessor: 'email', name: 'Email' },
+                    { accessor: 'cardType', name: 'Tipe Member' },
+              ]
+            },
+            search: {
+                searchText: '',
+                searchBy: 'name'
             },
             isModalOpen: {
                 detailMemberHistory: false
@@ -158,7 +168,8 @@ class AdminReport extends Component {
             align: 'center',
             render: (row) => (
                   <td className="flex justify-content--center">
-                        <Button className="margin-right-small" theme="light" type="button" onClick={() => this.openMemberModalDetailNew(row)}>Histori</Button>                              
+                        {/* <Button className="margin-right-small" theme="light" type="button" onClick={() => this.openMemberModalDetailNew(row)}>Histori</Button>                               */}
+                        <Button className="margin-right-small" type="button" onClick={() => this.openMemberModalDetailNew(row)}>Histori</Button>                              
                   </td>
             )
         }]
@@ -251,7 +262,23 @@ class AdminReport extends Component {
             this.toggleModal('detailMemberHistory');
         });
         
-  }
+    }
+
+    //#
+    handleInputChange = (object, e) => {
+        const target = e.target;
+        const name = target.name;
+        const value = target.value;
+
+        this.setState({
+            ...this.state,
+            [object]: {
+                ...this.state[object],
+                [name]: value
+            }
+        });
+    }
+
 
     render (){
         return(
@@ -264,6 +291,7 @@ class AdminReport extends Component {
                     handlePrint={this.handlePrint}
                     handleExportToExcell= {this.handleExportToExcell}
                     toggleModal={this.toggleModal}
+                    handleInputChange= {this.handleInputChange}
                     />
 
             </div>

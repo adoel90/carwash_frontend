@@ -98,7 +98,7 @@ const AdminReportSellingTotalView = props => {
                 </PanelBody>
             </Panel>
         </div>
-    );
+    )
 };
 
 AdminReportSellingTotalView.propTypes = {

@@ -58,7 +58,8 @@ class AdminStoresReport extends Component {
             },
 
         	period: {
-        		from: moment().add(-1, 'day'),
+        		// from: moment().add(-1, 'day'),
+        		from: moment(),
         		to: moment()
             },
             
@@ -136,6 +137,15 @@ class AdminStoresReport extends Component {
                 });
             }
         }
+
+        //#GET STORE STAFF REPORT DETAIL
+        if(prevProps.vendorState.reportDetailStoreStaff !== vendorState.reportDetailStoreStaff){
+            if(vendorState.reportDetailStoreStaff.isLoaded){
+                //console.log("prepare");
+            }
+        }
+        
+        
     }
 
     //#Get Store List
@@ -208,9 +218,10 @@ class AdminStoresReport extends Component {
 
         const requiredDataStoreStaff = {
             store: store.list.data.data.result.store.length > 1 ? store.list.data.data.result.store[1].id || store.list.data.data.result.store[2].id :  store.list.data.data.result.store[storeActive].id,
-            // start_date: moment(new Date()).format('YYYY-MM-DD'),    
-            start_date:  period.from.format('YYYY-MM-DD'),
-            end_date: period.to.format('YYYY-MM-DD'),
+            // start_date:  period.from.format('YYYY-MM-DD'),
+            // end_date: period.to.format('YYYY-MM-DD'),
+            start_date : moment(period.to).format('YYYY-MM-DD'),
+            end_date : moment(period.to).format('YYYY-MM-DD'),
             staff: user.id,
             print: false
         }
@@ -316,7 +327,7 @@ class AdminStoresReport extends Component {
                 id: selectedRow.id,
                 // staff: user.name,
                 // store: idStore.id,
-                start_date: moment(new Date()).format('YYYY-MM-DD'),    
+                start_date: moment(period.to).format('YYYY-MM-DD'),  
                 end_date : moment(period.to).format('YYYY-MM-DD'),
                 // print: false
             }

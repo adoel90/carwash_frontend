@@ -37,7 +37,7 @@ class AdminStoreCashierReport extends Component {
                 limit: 10
             },
             period: {
-                from: moment().add(-3, 'day'),
+                from: moment(),
         		to: moment()
             }, 
             report: {},
@@ -83,9 +83,7 @@ class AdminStoreCashierReport extends Component {
         let { period } = this.state;
 
         let requiredData = {
-            start_date : moment(period.from).format('YYYY-MM-DD'),
-            // start_date : moment(new Date()).format('YYYY-MM-DD'),
-            // start_date: moment().add(-1, 'month'),
+            start_date : moment(period.to).format('YYYY-MM-DD'),
             end_date : moment(period.to).format('YYYY-MM-DD'),
             user: user.id,
             print: false
@@ -155,7 +153,7 @@ class AdminStoreCashierReport extends Component {
         const { printData } = this.state;
 
         let requiredData = {
-            start_date : moment(period.from).format('YYYY-MM-DD'),
+            start_date : moment(period.to).format('YYYY-MM-DD'),
             end_date : moment(period.to).format('YYYY-MM-DD'),
             user: user.id,
             print: true

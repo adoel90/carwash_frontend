@@ -33,22 +33,70 @@ const AdminStoresReportView = props => {
         handlePrint,
         selectedRow,
         isModalOpen,
-        toggleModal
+        toggleModal,
+        vendorReportState
     } = props;
+
 
     const priceFormatter = function (data) {
         return "Rp. " + parseFloat(data).toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 2});
     };
-
+    
     const renderDetailReportStoreStaffModal = () => {
         if(selectedRow){
-            return (
-                <Modal isOpen={isModalOpen.detailReportStaff} toggle={() => toggleModal('detailReportStaff')}>
-                    <ModalHeader>
-                        <h5>Detail</h5>
-                    </ModalHeader>
-                </Modal>
-            )
+            // console.log(vendorState);
+
+            if(vendorState.reportDetailStoreStaff.isLoaded){
+
+                return (
+                    <Modal isOpen={isModalOpen.detailReportStaff} toggle={() => toggleModal('detailReportStaff')}>
+                        <ModalHeader>
+                            <h5>Detail Transaksi</h5>
+                        </ModalHeader>
+                        <ModalBody> 
+                                <Row>
+                                    <Column>
+                                        <i className="far fa-user"></i><label><b> NamaLengkap : {selectedRow.customer}</b></label><br />
+                                        <i className="far fa-id-card"></i><label><b> No. Invoice :  {selectedRow.queue}</b></label><br />
+                                        <i className="far fa-money-bill-alt"></i><label><b> Total transaksi : Rp {selectedRow.total} pada tanggal ... {}</b></label><br />
+                                        {/* <h6>Tipe Kartu : {member.memberHistoris.isLoaded ? member.memberHistoris.data.result.card.type.name : selectedMemberDetail.cardType}</h6> */}
+                                
+                                        <table className="tableStyle">
+                                            <tr>
+                                                    <th className="tdThStyle">Tanggal Transaksi</th>
+                                                    <th className="tdThStyle">Nama Item</th>
+                                                    <th className="tdThStyle">Harga</th>
+                                                    <th className="tdThStyle">Total Item</th>
+                                                    <th className="tdThStyle">Staff</th>
+                                                    <th className="tdThStyle">Nama Toko</th>
+                                            </tr>
+                                            {vendorState.reportDetailStoreStaff.isLoaded ?  props.vendorState.reportDetailStoreStaff.data.result.data.map((value) => {
+                                                    console.log(value);
+                                                    return (
+                                                        <tr>
+                                                                <td className="tdThStyle tdStyle">{value.date}</td>
+
+                                                                {value.item.map((value) => {
+                                                                    // console.log(value);
+                                                                   return(
+                                                                    <tr>
+                                                                       <td className="tdStyle"> {value.name}</td>
+                                                                       <td className="tdStyle">{value.price}</td>
+                                                                       <td className="tdStyle">{value.quantity}</td>
+                                                                    </tr>
+                                                                   )
+
+                                                                })}
+                                                        </tr>      
+                                                    )
+                                            }) : null }
+                                        </table>
+                                    </Column>
+                                </Row>
+                        </ModalBody>
+                    </Modal>
+                )
+            }
         }
     }
 
@@ -90,7 +138,7 @@ const AdminStoresReportView = props => {
                                                 className="input"
                                                 dateFormat="DD MMM YYYY"
                                                 textPlaceholder="End Date"
-                                                minDate={period.from}
+                                                // minDate={period.from}
                                                 selected={period.to}
                                                 onChange={(date) => handlePeriodChange('to', date)}
                                             />

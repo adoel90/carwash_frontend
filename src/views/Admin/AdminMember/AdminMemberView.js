@@ -31,11 +31,6 @@ const AdminMemberView = props => {
       } = props;
 
 
-
-
-
-   
-
       //Modal Update
       const renderMemberUpdateModal = () => {
             if(selectedMember) {

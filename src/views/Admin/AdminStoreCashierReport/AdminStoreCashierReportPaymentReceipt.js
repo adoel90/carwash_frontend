@@ -9,7 +9,7 @@ class AdminStoreCashierReportPaymentReceipt extends Component {
 
     render (){
 
-        const { statusPrintData, printData, user, printDataDetail } = this.props;
+        const { statusPrintData, printData, user, printDataDetail, store } = this.props;
         // console.log(printDataDetail);
         // console.log(user);
 
@@ -49,9 +49,9 @@ class AdminStoreCashierReportPaymentReceipt extends Component {
                             <div className="margin-bottom-small">
                                 {/* <h5 className="fw-bold">{customerName}</h5> */}
                             </div>
-                            {/* <h4 className="fw-bold"><b>805 CARWASH</b></h4> */}
+
                             <h1><b>805 CARWASH</b></h1>
-                            <h6>LAPORAN KASIR</h6>
+                            <h5>LAPORAN KASIR</h5>
                         </div>
                         <div className="align-center margin-top-base margin-bottom-base">
                             <h5 className="fw-bold"><b>{storeStaffKasirName}</b></h5>
@@ -60,29 +60,25 @@ class AdminStoreCashierReportPaymentReceipt extends Component {
                         <div className="receipt-body margin-bottom-small">
                             <table style={tableStyle}>
                                 <tr>
-                                        <th style={tdThStyle}>Tanggal Transaksi</th>
+                                        <th style={tdThStyle}>Customer</th>
                                         <th style={tdThStyle}>Total </th>
                                 </tr>
-                                { printData.data.result.data.map((value) => {
-                                    // console.log(value);
+                                { store.reportCashierMember.isLoaded ? store.reportCashierMember.data.result.data.map((value) => {
+                                    console.log(value);
                                     return (
                                         <tr>
-                                            <td style={tdThStyle, tdStyle}> {value.transaction_date}</td>
+                                            <td style={tdThStyle, tdStyle}> {value.member.name ? value.member.name : null}</td>
                                             <td style={tdThStyle, tdStyle}> {value.total}</td>
                                         </tr>
                                     )
-                                }) }
+                                }): null }
                             </table>
                         </div>
     
                         <div className="receipt-footer ta-center">
                             <div className="margin-bottom-small">
-                                {/* <p className="fw-semibold">For Customer <br/>{printData.status === 200 ? printData.result.member.name : null}</p> */}
+                                
                             </div>
-                            {/* <p className="fw-semibold">{moment(new Date).format('LLL')}</p> */}
-                            <p>
-                                {/* Thank you :) */}
-                            </p>
                         </div>
                     </div>
                 </Printable>

@@ -1,0 +1,33 @@
+.tableStyle{
+    color:  #333;
+    font-family:' Helvetica, Arial, sans-serif';
+    width: 100%;
+    border-collapse :'collapse';
+    border-spacing: 0;
+}
+
+.tdThStyle{
+    // border: '1px solid #CCC',
+    border-bottom: 1px solid #CCC;
+    height: 30px;
+    padding: 10px;
+}
+
+.tdStyle{
+    text-align: center;
+    // border-left: '1px solid #CCC';
+    padding: 5px;
+}
+
+.borderStyle{
+    border-bottom: 1px solid #CCC;
+}
+
+.marginTopBottom{
+    margin-top: 24px;
+    margin-bottom: 24px;
+}
+
+.marginTable{
+    margin-top: 32px;
+}

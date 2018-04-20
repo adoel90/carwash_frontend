@@ -53,7 +53,7 @@ const AdminStoreCashierReportView = props => {
                                                 className="input"
                                                 dateFormat="DD MMM YYYY"
                                                 textPlaceholder="End Date"
-                                                minDate={period.from}
+                                                // minDate={period.from}
                                                 selected={period.to}
                                                 onChange={(date) => handlePeriodChange('to', date)}
                                             />

@@ -346,7 +346,7 @@ export const getStoreStaffReportWithPrint = (data) => {
  
 //#GET STORE STAFF REPORT DETAIL || reportDetailStoreStaff -- state
 export const getStoreStaffReportDetailAyoTail = (data) => {
-	console.log(data);
+	// console.log(data);
 	
 	// return {
 	// 	type: null

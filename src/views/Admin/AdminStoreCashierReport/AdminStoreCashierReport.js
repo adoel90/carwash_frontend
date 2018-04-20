@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import moment from 'moment';
 
-import { AdminStoreCashierReportView } from '../AdminStoreCashierReport';
+import { AdminStoreCashierReportView, AdminStoreCashierReportPaymentReceipt} from '../AdminStoreCashierReport';
 import { getReportStoreCashierMember, getReportStoreCashierMemberPrint} from '../../../actions/store.action';
 
 
@@ -37,11 +37,13 @@ class AdminStoreCashierReport extends Component {
                 limit: 10
             },
             period: {
-                from: moment().add(-1, 'month'),
+                from: moment().add(-3, 'day'),
         		to: moment()
             }, 
             report: {},
-            printData: {}
+            printData: {},
+            printDataDetail:{},
+            statusPrintData: null
         }
     }
 
@@ -62,25 +64,32 @@ class AdminStoreCashierReport extends Component {
         const { store } = this.props;
         if(prevProps.store.reportCashierMember !== store.reportCashierMember){
             if(store.reportCashierMember.isLoaded){
-                this.populateTableData();
+
+                this.setState({
+                    ...this.state,
+                    printData: store.reportCashierMember,
+                    statusPrintData: 200
+                }, () => {
+                    // console.log(this.state);
+                    this.populateTableData();
+                })
             }
         }
     }
 
     showDate = (e) => {
-        
         e.preventDefault();
         const { getReportStoreCashierMemberDispatch, user } = this.props;
         let { period } = this.state;
 
         let requiredData = {
-            // start_date : moment(period.from).format('YYYY-MM-DD'),
-            start_date : moment(new Date()).format('YYYY-MM-DD'),
+            start_date : moment(period.from).format('YYYY-MM-DD'),
+            // start_date : moment(new Date()).format('YYYY-MM-DD'),
+            // start_date: moment().add(-1, 'month'),
             end_date : moment(period.to).format('YYYY-MM-DD'),
             user: user.id,
             print: false
         }
-
         getReportStoreCashierMemberDispatch(requiredData);
     }
 
@@ -143,6 +152,7 @@ class AdminStoreCashierReport extends Component {
 
     handlePrint(period){
         const { getReportStoreCashierMemberPrintDispatch, user } = this.props;
+        const { printData } = this.state;
 
         let requiredData = {
             start_date : moment(period.from).format('YYYY-MM-DD'),
@@ -150,7 +160,20 @@ class AdminStoreCashierReport extends Component {
             user: user.id,
             print: true
         }
-        getReportStoreCashierMemberPrintDispatch(requiredData);
+
+        // e.preventDefault();
+        // const { dailyOrdered } = this.state;
+
+        this.setState({
+            ...this.state,
+            printDataDetail: printData.data.result.data,
+            statusPrintData: 200
+            }, () => {
+                window.print();
+        })
+
+
+        // getReportStoreCashierMemberPrintDispatch(requiredData);
         
     }
 
@@ -164,6 +187,9 @@ class AdminStoreCashierReport extends Component {
                     handlePeriodChange={this.handlePeriodChange}
                     handlePrint= {this.handlePrint}
                 />
+
+                 {/* want to print mini pos */}
+                 <AdminStoreCashierReportPaymentReceipt {...this.props} {...this.state}/>
             </div>
         )   
     }

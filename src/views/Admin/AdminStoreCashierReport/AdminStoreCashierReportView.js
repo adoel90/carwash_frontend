@@ -21,7 +21,7 @@ const AdminStoreCashierReportView = props => {
         <div className="admin-report">
              <Panel>
                 <PanelHeader>
-                    <h4 className="heading-title">Daftar Report</h4>
+                    <h4 className="heading-title">Laporan</h4>
                 </PanelHeader>
                 <PanelBody>
                     <Form onSubmit={showDate}>

@@ -58,7 +58,7 @@ class AdminStoresReport extends Component {
             },
 
         	period: {
-        		from: moment().add(-1, 'month'),
+        		from: moment().add(-1, 'day'),
         		to: moment()
             },
             
@@ -207,15 +207,13 @@ class AdminStoresReport extends Component {
         const { vendorState, store, getStoreStaffReportDispatch, user} = this.props;
 
         const requiredDataStoreStaff = {
-            store: store.list.data.data.result.store[storeActive].id,
-            // start_date: period.from.format('YYYY-MM-DD'),
-            start_date: moment(new Date()).format('YYYY-MM-DD'),
+            store: store.list.data.data.result.store.length > 1 ? store.list.data.data.result.store[1].id || store.list.data.data.result.store[2].id :  store.list.data.data.result.store[storeActive].id,
+            // start_date: moment(new Date()).format('YYYY-MM-DD'),    
+            start_date:  period.from.format('YYYY-MM-DD'),
             end_date: period.to.format('YYYY-MM-DD'),
             staff: user.id,
             print: false
         }
-
-        // console.log(requiredDataStoreStaff);
         getStoreStaffReportDispatch(requiredDataStoreStaff);
     }
 
@@ -261,7 +259,7 @@ class AdminStoresReport extends Component {
         
         if(vendorState.reportStaff.isLoaded){
             dailyOrdered.forEach((value) => {
-                console.log(value);
+                // console.log(value);
 
                 let row = {
                     // staff: value.user.name,
@@ -323,7 +321,7 @@ class AdminStoresReport extends Component {
                 // print: false
             }
 
-            console.log(requireData);
+            // console.log(requireData);
             getStoreStaffReportDetailAyoTailDispatch(requireData);
         })
     }

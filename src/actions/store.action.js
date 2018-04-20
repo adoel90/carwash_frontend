@@ -598,7 +598,7 @@ export const getReportStoreCashierMember = (data) => {
 
 //GET REPORT STORE CASHIER MEMBER WITH PRINT
 export const getReportStoreCashierMemberPrint = (data) => {
-	console.log(data);
+	// console.log(data);
 
 	// return {
 	// 	type: null

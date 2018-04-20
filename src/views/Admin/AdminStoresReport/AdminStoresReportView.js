@@ -132,7 +132,7 @@ const AdminStoresReportView = props => {
                 </PanelBody>
             </Panel>
 
-            {/* RENDER DETAIL  REPORT STORE STAFF MODAL */}renderDetailReportStoreStaffModal
+            {/* RENDER DETAIL  REPORT STORE STAFF MODAL */}
             {renderDetailReportStoreStaffModal()}
         </div>
     )

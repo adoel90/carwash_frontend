@@ -4,13 +4,14 @@ import NumberFormat from 'react-number-format';
 import { Printable } from '../../../components/Print';
 import { ListGroup, ListGroupItem } from '../../../components/List';
 
-class AdminStoreStaffPaymentReceipt extends Component {
 
+class AdminStoreCashierReportPaymentReceipt extends Component {
 
-    render(){
+    render (){
 
-        const { statusPrintData, printData, user } = this.props;
-        // console.log(this.props);
+        const { statusPrintData, printData, user, printDataDetail } = this.props;
+        // console.log(printDataDetail);
+        // console.log(user);
 
         const tableStyle = {
             color:  '#333',
@@ -23,16 +24,23 @@ class AdminStoreStaffPaymentReceipt extends Component {
         const tdThStyle = {
                 // border: '1px solid #CCC',
                 'border-bottom': '1px solid #CCC',
-                height: '30px'
+                height: '30px',
+               
         }
 
         const tdStyle = {
-                'text-align': 'center'
+                'text-align': 'center',
+                'border-left': '1px solid #CCC'
         }
+
+        const trStyle = {
+            // border: '1px solid #CCC'
+        }
+
 
         if(statusPrintData === 200 ){
 
-            let storeStaffName = statusPrintData === 200 ? user.name : null;
+            let storeStaffKasirName = statusPrintData === 200 ? user.name : null;
 
             return (
                 <Printable>
@@ -43,32 +51,23 @@ class AdminStoreStaffPaymentReceipt extends Component {
                             </div>
                             {/* <h4 className="fw-bold"><b>805 CARWASH</b></h4> */}
                             <h1><b>805 CARWASH</b></h1>
-                            <h6>LAPORAN HARIAN STAFF</h6>
+                            <h6>LAPORAN KASIR</h6>
                         </div>
                         <div className="align-center margin-top-base margin-bottom-base">
-                            <h5 className="fw-bold"><b>{storeStaffName}</b></h5>
+                            <h5 className="fw-bold"><b>{storeStaffKasirName}</b></h5>
                             <p className="fw-semibold">{moment(new Date).format('LLL')}</p>
                         </div>
                         <div className="receipt-body margin-bottom-small">
-                            {/* <table style={{width: '100%'}}>
-                                <tbody>
-                                    <tr className="padding-bottom-small">
-                                        <td>Tipe Kartu : </td>
-                                        <td className="ta-right"><p>{cardType}</p></td>
-                                    </tr>
-                                </tbody>
-                            </table> */}
-
                             <table style={tableStyle}>
                                 <tr>
-                                        <th style={tdThStyle}>No. Invoice</th>
+                                        <th style={tdThStyle}>Tanggal Transaksi</th>
                                         <th style={tdThStyle}>Total </th>
                                 </tr>
-                                { printData.map((value) => {
+                                { printData.data.result.data.map((value) => {
                                     // console.log(value);
-                                    return(
+                                    return (
                                         <tr>
-                                            <td style={tdThStyle, tdStyle}> {value.queue}</td>
+                                            <td style={tdThStyle, tdStyle}> {value.transaction_date}</td>
                                             <td style={tdThStyle, tdStyle}> {value.total}</td>
                                         </tr>
                                     )
@@ -94,4 +93,4 @@ class AdminStoreStaffPaymentReceipt extends Component {
     }
 }
 
-export default AdminStoreStaffPaymentReceipt;
+export default AdminStoreCashierReportPaymentReceipt;

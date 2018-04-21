@@ -34,7 +34,8 @@ const AdminStoresReportView = props => {
         selectedRow,
         isModalOpen,
         toggleModal,
-        vendorReportState
+        vendorReportState,
+        namePriceTotalList
     } = props;
 
 
@@ -71,22 +72,10 @@ const AdminStoresReportView = props => {
                                                     <th className="tdThStyle">Nama Toko</th>
                                             </tr>
                                             {vendorState.reportDetailStoreStaff.isLoaded ?  props.vendorState.reportDetailStoreStaff.data.result.data.map((value) => {
-                                                    console.log(value);
                                                     return (
                                                         <tr>
-                                                                <td className="tdThStyle tdStyle">{value.date}</td>
-
-                                                                {value.item.map((value) => {
-                                                                    // console.log(value);
-                                                                   return(
-                                                                    <tr>
-                                                                       <td className="tdStyle"> {value.name}</td>
-                                                                       <td className="tdStyle">{value.price}</td>
-                                                                       <td className="tdStyle">{value.quantity}</td>
-                                                                    </tr>
-                                                                   )
-
-                                                                })}
+                                                            <td className="tdThStyle tdStyle">{value.date}</td>
+                                                            <td className="tdThStyle tdStyle">{value.item.length > 0 ? value.item[0].name + "," + value.item[1].name : value.item[0].name + "," + value.item[1].name + "," + value.item[2].name }</td>
                                                         </tr>      
                                                     )
                                             }) : null }

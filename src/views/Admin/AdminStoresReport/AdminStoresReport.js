@@ -78,7 +78,8 @@ class AdminStoresReport extends Component {
             idStore: {},
             dailyOrdered: {},
             statusPrintData: null,
-            selectedRow: {}
+            selectedRow: {},
+            namePriceTotalList:{}
         }
     }
 
@@ -141,7 +142,13 @@ class AdminStoresReport extends Component {
         //#GET STORE STAFF REPORT DETAIL
         if(prevProps.vendorState.reportDetailStoreStaff !== vendorState.reportDetailStoreStaff){
             if(vendorState.reportDetailStoreStaff.isLoaded){
-                //console.log("prepare");
+                
+                this.setState({
+                    ...this.state,
+                    namePriceTotalList : vendorState.reportDetailStoreStaff.data.result.data
+                }, () => {
+                    console.log(this.state);
+                })
             }
         }
         

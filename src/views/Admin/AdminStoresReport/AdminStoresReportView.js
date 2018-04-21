@@ -12,7 +12,6 @@ import { ButtonDewek } from '../../../components/ButtonDewek';
 import { Input, InputGroup, InputAddon, Switch, Select } from '../../../components/Input';
 import { TableSet } from '../../../components/Table';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from '../../../components/Modal';
-
 import NumberFormat from 'react-number-format';
 
 import DatePicker from 'react-datepicker';
@@ -35,7 +34,8 @@ const AdminStoresReportView = props => {
         isModalOpen,
         toggleModal,
         vendorReportState,
-        namePriceTotalList
+        namePriceTotalList,
+        tabel
     } = props;
 
 
@@ -62,24 +62,15 @@ const AdminStoresReportView = props => {
                                         <i className="far fa-money-bill-alt"></i><label><b> Total transaksi : Rp {selectedRow.total} pada tanggal ... {}</b></label><br />
                                         {/* <h6>Tipe Kartu : {member.memberHistoris.isLoaded ? member.memberHistoris.data.result.card.type.name : selectedMemberDetail.cardType}</h6> */}
                                 
-                                        <table className="tableStyle">
-                                            <tr>
-                                                    <th className="tdThStyle">Tanggal Transaksi</th>
-                                                    <th className="tdThStyle">Nama Item</th>
-                                                    <th className="tdThStyle">Harga</th>
-                                                    <th className="tdThStyle">Total Item</th>
-                                                    <th className="tdThStyle">Staff</th>
-                                                    <th className="tdThStyle">Nama Toko</th>
-                                            </tr>
-                                            {vendorState.reportDetailStoreStaff.isLoaded ?  props.vendorState.reportDetailStoreStaff.data.result.data.map((value) => {
-                                                    return (
-                                                        <tr>
-                                                            <td className="tdThStyle tdStyle">{value.date}</td>
-                                                            <td className="tdThStyle tdStyle">{value.item.length > 0 ? value.item[0].name + "," + value.item[1].name : value.item[0].name + "," + value.item[1].name + "," + value.item[2].name }</td>
-                                                        </tr>      
-                                                    )
-                                            }) : null }
-                                        </table>
+                                        <TableSet
+                                            //   loading={vendorState.reportStaff.isFetching}
+                                              loaded={vendorState.reportDetailStoreStaff.isLoaded}
+                                              columns={tabel.kolom}
+                                              rows={tabel.baris}
+                                              striped 
+                                              fullWidth
+                                              pagination
+                                        />
                                     </Column>
                                 </Row>
                         </ModalBody>
@@ -158,7 +149,6 @@ const AdminStoresReportView = props => {
                         <TableSet
                             loading={vendorState.reportStaff.isFetching}
                             loaded={vendorState.reportStaff.isLoaded}
-                            columns={table.columns}
                             columns={table.columns}
                             rows={table.rows}
                             striped 

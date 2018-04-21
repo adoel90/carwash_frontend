@@ -43,6 +43,8 @@ class AdminStoresReport extends Component {
         this.openModalDetail = this.openModalDetail.bind(this);
         this.toggleModal = this.toggleModal.bind(this);
 
+        this.populateTableDetail = this.populateTableDetail.bind(this);
+
         this.state = {
 
             isModalOpen: {
@@ -55,6 +57,11 @@ class AdminStoresReport extends Component {
                 columns: [],
                 rows: [],
                 limit: 10
+            },
+            tabel: {
+                kolom:[],
+                baris:[],
+                limit:10
             },
 
         	period: {
@@ -78,6 +85,7 @@ class AdminStoresReport extends Component {
             idStore: {},
             dailyOrdered: {},
             statusPrintData: null,
+            statusPrintDetail: null,
             selectedRow: {},
             namePriceTotalList:{}
         }
@@ -97,6 +105,7 @@ class AdminStoresReport extends Component {
             staff: user.id,
             print: false
         }
+
         getStoreStaffReportDispatch(requiredDataStoreStaff);
     }
 
@@ -142,17 +151,18 @@ class AdminStoresReport extends Component {
         //#GET STORE STAFF REPORT DETAIL
         if(prevProps.vendorState.reportDetailStoreStaff !== vendorState.reportDetailStoreStaff){
             if(vendorState.reportDetailStoreStaff.isLoaded){
-                
+
                 this.setState({
                     ...this.state,
                     namePriceTotalList : vendorState.reportDetailStoreStaff.data.result.data
                 }, () => {
-                    console.log(this.state);
+                    //CALL populateTableDetail()
+                    // console.log(this.state);
+                    this.populateTableDetail();
+
                 })
             }
         }
-        
-        
     }
 
     //#Get Store List
@@ -267,7 +277,6 @@ class AdminStoresReport extends Component {
             render: (row) => (
                 <td>
                     <Button className="margin-right-small" type="button" onClick={() => this.openModalDetail(row)}>Detail</Button>
-                    
                 </td>
             )
         }
@@ -344,6 +353,80 @@ class AdminStoresReport extends Component {
         })
     }
 
+    //#
+    populateTableDetail = () => {
+            
+        const { vendorState } = this.props;
+        const { tabel } = this.state;
+
+        const kolom = [{
+            title: 'Tanggal Transaksi',
+            accessor: 'date',
+            align: 'left' 
+        },{
+            title: 'Nama Item',
+            accessor: 'item',
+            align: 'left' 
+        }, {
+            title: 'Harga',
+            accessor: 'price',
+            align: 'left' 
+        },{
+            title: 'Total Item',
+            accessor: 'quantity',
+            align: 'left' 
+        },{
+            title: 'Nama Staff',
+            accessor: 'staff',
+            align: 'left' 
+        },{
+            title: 'Nama Toko',
+            accessor: 'store',
+            align: 'left'       
+        }];
+
+
+        let barisArray = [];
+        
+        if(vendorState.reportDetailStoreStaff.isLoaded){
+            vendorState.reportDetailStoreStaff.data.result.data.map((value) => {
+                
+                console.log(value);
+                let barisPertama = {
+                        date: value.date,
+                        item: [],
+                        price: [],
+                        quantity: [],
+                        staff: value.user.name,
+                        store: value.store.name
+                }
+                barisArray.push(barisPertama);
+
+                // value.item.map((item) => {
+                //     console.log(item);
+
+                //     let baris = {
+                //         date: value.date,
+                //         item: item.name,
+                //         price: item.price,
+                //         quantity: item.quantity
+                //     }
+                //     barisArray.push(baris);
+                // });     
+            });
+        };
+
+        console.log(barisArray);
+
+        this.setState({
+            ...this.state,
+            tabel: {
+                ...this.state.tabel,
+                kolom: kolom,
+                baris: barisArray
+            }
+        })
+    }
 
     render() {
         const { activeTab, storeList} = this.state;

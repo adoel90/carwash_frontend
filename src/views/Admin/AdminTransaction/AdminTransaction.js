@@ -9,7 +9,7 @@ import { TabContent } from '../../../components/Tab';
 import { Button } from '../../../components/Button';
 import { ModalDialog } from '../../../components/Modal';
 import { openDialog, closeDialog } from '../../../actions/dialog.action';
-import { getStoreListWithIdUser, getMenuListStore, createStoreTransaction, printStoreTransaction, getDiscountListById } from '../../../actions/store.action';
+import { getStoreListWithIdUser, getMenuListStore, createStoreTransaction, printStoreTransaction, getDiscountListById, getMenuListStoreWithPrint  } from '../../../actions/store.action';
 import { authenticateMember } from '../../../actions/member.action';
 
 function mapStateToProps(state) {
@@ -22,6 +22,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
+        getMenuListStoreWithPrintDispatch: (data) => dispatch(getMenuListStoreWithPrint(data)),
         getStoreListWithIdUserDispatch: () => dispatch(getStoreListWithIdUser()),
         action: bindActionCreators({ getMenuListStore, authenticateMember, createStoreTransaction, openDialog, closeDialog, printStoreTransaction }, dispatch)
     }
@@ -48,6 +49,7 @@ class AdminTransaction extends Component{
         this.calculateGrandTotalPrice = this.calculateGrandTotalPrice.bind(this);
         // this.createCheckbox =this.createCheckbox.bind(this);
         // this.createCheckboxesMap = this.createCheckboxesMap.bind(this);
+        this.printListMenuStore = this.printListMenuStore.bind(this);
 
         this.state = {
             storeList: {},
@@ -276,7 +278,7 @@ class AdminTransaction extends Component{
         }
 
         // console.log(this.props)
-        console.log(requiredData)
+        // console.log(requiredData)
         action.createStoreTransaction(requiredData);
     }
     
@@ -366,6 +368,7 @@ class AdminTransaction extends Component{
         })
     }
 
+    //#
     handleInputChange = (object, e) => {
 		const target = e.target;
 		const name = target.name;
@@ -374,11 +377,25 @@ class AdminTransaction extends Component{
 		object[name] = value;
         this.forceUpdate();
         this.calculateGrandTotalPrice();
-	}
+    }
+    
+    //#
+    printListMenuStore = (e) => {
+        e.preventDefault();
+        const { getMenuListStoreWithPrintDispatch } = this.props;
+        const { storeIdTab } = this.state;
+
+        let requiredData = {
+            id: storeIdTab.id,
+            print: true
+        }
+        
+        getMenuListStoreWithPrintDispatch(requiredData);
+
+    }
 
     render(){
         const { storeList, activeTab } = this.state;
-
         const { store, match } = this.props;
 
         let firstRoutePath;
@@ -414,6 +431,7 @@ class AdminTransaction extends Component{
                                     handleMemberAuthentication={this.handleMemberAuthentication}
                                     calculateGrandTotalPrice = {this.calculateGrandTotalPrice}
                                     toggleTab={this.toggleTab}
+                                    printListMenuStore={this.printListMenuStore}
                                     {...this.props}
                                     {...this.state}
                                 />

@@ -390,6 +390,7 @@ class AdminStoresReport extends Component {
         let barisArrayKedua = [];
         let responseData = null;
 
+        //#Get
         if(vendorState.reportDetailStoreStaff.isLoaded){
             vendorState.reportDetailStoreStaff.data.result.data.map((value) => { 
 
@@ -426,12 +427,12 @@ class AdminStoresReport extends Component {
                     barisArray.push(barisPertama);
                 }
 
-                //#
+                //#3
                 let uniqueSetFinal = new Set(barisArray.map(e => JSON.stringify(e))); 
                 responseData = Array.from(uniqueSetFinal).map(e => JSON.parse(e))
  
             });
-            
+
             this.setState({
                 ...this.state,
                 tabel: {

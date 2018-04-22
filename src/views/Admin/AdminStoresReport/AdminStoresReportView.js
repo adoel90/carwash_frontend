@@ -59,18 +59,18 @@ const AdminStoresReportView = props => {
                                     <Column>
                                         <i className="far fa-user"></i><label><b> NamaLengkap : {selectedRow.customer}</b></label><br />
                                         <i className="far fa-id-card"></i><label><b> No. Invoice :  {selectedRow.queue}</b></label><br />
-                                        <i className="far fa-money-bill-alt"></i><label><b> Total transaksi : Rp {selectedRow.total} pada tanggal ... {}</b></label><br />
+                                        <i className="far fa-money-bill-alt"></i><label><b> Total transaksi : Rp {selectedRow.total}</b></label><br />
                                         {/* <h6>Tipe Kartu : {member.memberHistoris.isLoaded ? member.memberHistoris.data.result.card.type.name : selectedMemberDetail.cardType}</h6> */}
                                 
-                                        <TableSet
-                                            //   loading={vendorState.reportStaff.isFetching}
-                                              loaded={vendorState.reportDetailStoreStaff.isLoaded}
-                                              columns={tabel.kolom}
-                                              rows={tabel.baris}
-                                              striped 
-                                              fullWidth
-                                              pagination
-                                        />
+                                    <TableSet
+                                          loading={vendorState.reportStaff.isFetching}
+                                        loaded={vendorState.reportDetailStoreStaff.isLoaded}
+                                        columns={tabel.kolom}
+                                        rows={tabel.baris}
+                                        striped 
+                                        fullWidth
+                                        pagination
+                                    />
                                     </Column>
                                 </Row>
                         </ModalBody>
@@ -92,22 +92,6 @@ const AdminStoresReportView = props => {
 
                         <Row>
                             <Column className="flex">
-                                <div className="margin-right-small">
-                                    {/* <FormField>
-                                        <InputGroup>
-                                            <InputAddon>
-                                                <i className="fas fa-calendar-alt"></i>
-                                            </InputAddon>
-                                            <DatePicker
-                                                className="input"
-                                                dateFormat="DD MMM YYYY"
-                                                textPlaceholder="Start Date"
-                                                selected={period.from}
-                                                onChange={(date) => handlePeriodChange('from', date)}
-                                            />
-                                            </InputGroup>
-                                    </FormField> */}
-                                </div>
                                 <div className="margin-right-small">
                                     <FormField>
                                         <InputGroup>

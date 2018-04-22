@@ -387,45 +387,60 @@ class AdminStoresReport extends Component {
 
 
         let barisArray = [];
-        
+        let barisArrayKedua = [];
+        let responseData = null;
+
         if(vendorState.reportDetailStoreStaff.isLoaded){
-            vendorState.reportDetailStoreStaff.data.result.data.map((value) => {
-                
-                console.log(value);
-                let barisPertama = {
+            vendorState.reportDetailStoreStaff.data.result.data.map((value) => { 
+
+                //#1
+                value.item.map((item, i) => {
+
+                    let barisKedua = {
+                        date: value.date,
+                        item: item.name,
+                        price: item.price,
+                        quantity: item.quantity
+                    }
+                    barisArrayKedua.push(barisKedua);
+                }); 
+
+                //#2
+                let uniqueSet = new Set(barisArrayKedua.map(e => JSON.stringify(e))); 
+                let response = Array.from(uniqueSet).map(e => JSON.parse(e))
+
+                for(let i = 0; i < response.length; i++){
+
+                    const barisPertama = {
                         date: value.date,
                         item: [],
-                        price: [],
-                        quantity: [],
+                        price:[],
+                        quantity:[],
                         staff: value.user.name,
                         store: value.store.name
+                    }
+                    // console.log(response);
+                    barisPertama.item.push(response[i].item);
+                    barisPertama.price.push(response[i].price);
+                    barisPertama.quantity.push(response[i].quantity);
+                    barisArray.push(barisPertama);
                 }
-                barisArray.push(barisPertama);
 
-                // value.item.map((item) => {
-                //     console.log(item);
-
-                //     let baris = {
-                //         date: value.date,
-                //         item: item.name,
-                //         price: item.price,
-                //         quantity: item.quantity
-                //     }
-                //     barisArray.push(baris);
-                // });     
+                //#
+                let uniqueSetFinal = new Set(barisArray.map(e => JSON.stringify(e))); 
+                responseData = Array.from(uniqueSetFinal).map(e => JSON.parse(e))
+ 
             });
-        };
-
-        console.log(barisArray);
-
-        this.setState({
-            ...this.state,
-            tabel: {
-                ...this.state.tabel,
-                kolom: kolom,
-                baris: barisArray
-            }
-        })
+            
+            this.setState({
+                ...this.state,
+                tabel: {
+                    ...this.state.tabel,
+                    kolom: kolom,
+                    baris: responseData
+                }
+            })
+        }
     }
 
     render() {

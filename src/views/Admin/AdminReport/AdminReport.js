@@ -36,6 +36,8 @@ class AdminReport extends Component {
         this.toggleModal = this.toggleModal.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
 
+        this.populateTableDetailHistoris = this.populateTableDetailHistoris.bind(this);
+
         this.state = {
             period: {
                 from: moment().add(-1, 'month'),
@@ -50,6 +52,11 @@ class AdminReport extends Component {
                     { accessor: 'email', name: 'Email' },
                     { accessor: 'cardType', name: 'Tipe Member' },
               ]
+            },
+            tabel: {
+                kolom:[],
+                baris:[],
+                limit:10
             },
             search: {
                 searchText: '',
@@ -104,6 +111,7 @@ class AdminReport extends Component {
                         listMemberTransactionHistoris: member.memberHistoris.data.data.result
                   },() => {
                         // console.log(this.state);
+                        this.populateTableDetailHistoris();
                   } );
 
             }
@@ -168,7 +176,6 @@ class AdminReport extends Component {
             align: 'center',
             render: (row) => (
                   <td className="flex justify-content--center">
-                        {/* <Button className="margin-right-small" theme="light" type="button" onClick={() => this.openMemberModalDetailNew(row)}>Histori</Button>                               */}
                         <Button className="margin-right-small" type="button" onClick={() => this.openMemberModalDetailNew(row)}>Histori</Button>                              
                   </td>
             )
@@ -279,6 +286,50 @@ class AdminReport extends Component {
         });
     }
 
+      //#
+      populateTableDetailHistoris = () => {
+            
+        const { member } = this.props;
+        const { tabel } = this.state;
+
+        const kolom = [{
+            title: 'Tanggal Transaksi',
+            accessor: 'date',
+            align: 'left' 
+        },{
+            title: 'Total Pembayaran',
+            accessor: 'total',
+            align: 'left' 
+        }, {
+            title: 'Transaksi',
+            accessor: 'type',
+            align: 'left' 
+        }];
+
+
+        let barisArray = [];
+
+        if(member.memberHistoris.isLoaded){
+            member.memberHistoris.data.data.result.transaction.map((value) => {
+            
+                let baris = {
+                    date: moment(value.date).format('DD-MM-YYYY'),
+                    total: value.total,
+                    type: value.type
+                }
+                barisArray.push(baris);
+            })
+        }
+
+        this.setState({
+            ...this.state,
+            tabel: {
+                ...this.state.tabel,
+                kolom: kolom,
+                baris: barisArray
+            }
+        })
+    }
 
     render (){
         return(
@@ -293,7 +344,6 @@ class AdminReport extends Component {
                     toggleModal={this.toggleModal}
                     handleInputChange= {this.handleInputChange}
                     />
-
             </div>
         )
     }

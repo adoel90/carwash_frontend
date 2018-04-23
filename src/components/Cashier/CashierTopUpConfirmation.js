@@ -54,7 +54,7 @@ class CashierTopUpConfirmation extends Component {
 					{
 						this.props.bonus.map((tier) => {
 							return (
-								<Button className="padding-large" type="button" theme="primary" key={tier.id} value={tier} onClick={(e) => handleTierTopup(tier, e)}>
+								<Button className="padding-large" type="button" theme="primary" key={tier.id} value={tier} onClick={() => handleTierTopup(tier)}>
 									<h5>Rp. {parseFloat(tier.price).toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 2})}</h5>
 								</Button>
 							);

@@ -12,7 +12,6 @@ import { ButtonDewek } from '../../../components/ButtonDewek';
 import { Input, InputGroup, InputAddon, Switch, Select } from '../../../components/Input';
 import { TableSet } from '../../../components/Table';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from '../../../components/Modal';
-
 import NumberFormat from 'react-number-format';
 
 import DatePicker from 'react-datepicker';
@@ -34,7 +33,9 @@ const AdminStoresReportView = props => {
         selectedRow,
         isModalOpen,
         toggleModal,
-        vendorReportState
+        vendorReportState,
+        namePriceTotalList,
+        tabel
     } = props;
 
 
@@ -58,39 +59,18 @@ const AdminStoresReportView = props => {
                                     <Column>
                                         <i className="far fa-user"></i><label><b> NamaLengkap : {selectedRow.customer}</b></label><br />
                                         <i className="far fa-id-card"></i><label><b> No. Invoice :  {selectedRow.queue}</b></label><br />
-                                        <i className="far fa-money-bill-alt"></i><label><b> Total transaksi : Rp {selectedRow.total} pada tanggal ... {}</b></label><br />
+                                        <i className="far fa-money-bill-alt"></i><label><b> Total transaksi : Rp {selectedRow.total}</b></label><br />
                                         {/* <h6>Tipe Kartu : {member.memberHistoris.isLoaded ? member.memberHistoris.data.result.card.type.name : selectedMemberDetail.cardType}</h6> */}
                                 
-                                        <table className="tableStyle">
-                                            <tr>
-                                                    <th className="tdThStyle">Tanggal Transaksi</th>
-                                                    <th className="tdThStyle">Nama Item</th>
-                                                    <th className="tdThStyle">Harga</th>
-                                                    <th className="tdThStyle">Total Item</th>
-                                                    <th className="tdThStyle">Staff</th>
-                                                    <th className="tdThStyle">Nama Toko</th>
-                                            </tr>
-                                            {vendorState.reportDetailStoreStaff.isLoaded ?  props.vendorState.reportDetailStoreStaff.data.result.data.map((value) => {
-                                                    console.log(value);
-                                                    return (
-                                                        <tr>
-                                                                <td className="tdThStyle tdStyle">{value.date}</td>
-
-                                                                {value.item.map((value) => {
-                                                                    // console.log(value);
-                                                                   return(
-                                                                    <tr>
-                                                                       <td className="tdStyle"> {value.name}</td>
-                                                                       <td className="tdStyle">{value.price}</td>
-                                                                       <td className="tdStyle">{value.quantity}</td>
-                                                                    </tr>
-                                                                   )
-
-                                                                })}
-                                                        </tr>      
-                                                    )
-                                            }) : null }
-                                        </table>
+                                    <TableSet
+                                          loading={vendorState.reportStaff.isFetching}
+                                        loaded={vendorState.reportDetailStoreStaff.isLoaded}
+                                        columns={tabel.kolom}
+                                        rows={tabel.baris}
+                                        striped 
+                                        fullWidth
+                                        pagination
+                                    />
                                     </Column>
                                 </Row>
                         </ModalBody>
@@ -104,7 +84,7 @@ const AdminStoresReportView = props => {
         <div>
             <Panel>
                 <PanelHeader>
-                    <h4 className="heading-title">Laporan Transaksi</h4>
+                    <h4 className="heading-title">Laporan Penjualan</h4>
                 </PanelHeader>
 
                 <PanelBody>
@@ -112,22 +92,6 @@ const AdminStoresReportView = props => {
 
                         <Row>
                             <Column className="flex">
-                                <div className="margin-right-small">
-                                    {/* <FormField>
-                                        <InputGroup>
-                                            <InputAddon>
-                                                <i className="fas fa-calendar-alt"></i>
-                                            </InputAddon>
-                                            <DatePicker
-                                                className="input"
-                                                dateFormat="DD MMM YYYY"
-                                                textPlaceholder="Start Date"
-                                                selected={period.from}
-                                                onChange={(date) => handlePeriodChange('from', date)}
-                                            />
-                                            </InputGroup>
-                                    </FormField> */}
-                                </div>
                                 <div className="margin-right-small">
                                     <FormField>
                                         <InputGroup>
@@ -169,7 +133,6 @@ const AdminStoresReportView = props => {
                         <TableSet
                             loading={vendorState.reportStaff.isFetching}
                             loaded={vendorState.reportStaff.isLoaded}
-                            columns={table.columns}
                             columns={table.columns}
                             rows={table.rows}
                             striped 

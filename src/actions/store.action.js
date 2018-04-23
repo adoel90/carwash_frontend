@@ -37,6 +37,11 @@ export const GET_MENU_LIST_STORE_REQUESTED = 'GET_MENU_LIST_STORE_REQUESTED';
 export const GET_MENU_LIST_STORE_FULFILLED = 'GET_MENU_LIST_STORE_FULFILLED';
 export const GET_MENU_LIST_STORE_REJECTED = 'GET_MENU_LIST_STORE_REJECTED';
 
+//#GET MENU LIST STORE WITH PRINT
+export const GET_MENU_LIST_STORE_WITH_PRINT_REQUESTED = 'GET_MENU_LIST_STORE_WITH_PRINT_REQUESTED';
+export const GET_MENU_LIST_STORE_WITH_PRINT_FULFILLED = 'GET_MENU_LIST_STORE_WITH_PRINT_FULFILLED';
+export const GET_MENU_LIST_STORE_WITH_PRINT_REJECTED = 'GET_MENU_LIST_STORE_WITH_PRINT_REJECTED';
+
 //CREATE MENU TRANSACTION
 export const CREATE_MENU_TRANSACTION_FULFILLED = "CREATE_MENU_TRANSACTION_FULFILLED";
 export const CREATE_MENU_TRANSACTION_REJECTED = "CREATE_MENU_TRANSACTION_REJECTED";
@@ -620,6 +625,30 @@ export const getReportStoreCashierMemberPrint = (data) => {
 	function fetchRequest() { return { type: GET_REPORT_STORE_CASHIER_MEMBER_PRINT_REQUESTED } }
 	function fetchSuccess(data) { return { type: GET_REPORT_STORE_CASHIER_MEMBER_PRINT_FULFILLED, payload: data } }
 	function fetchError(data) { return { type: GET_REPORT_STORE_CASHIER_MEMBER_PRINT_REJECTED, payload: data } }
+}
+
+//#GET MENU LIST STORE WITH PRINT || printMenuStore -- state
+export const getMenuListStoreWithPrint = (data) => {
+	// console.log(data);
+
+	return async dispatch => {
+
+		dispatch(fetchRequest());
+		return axios
+			
+			.get(`${constant.API_PATH}store/menu/list?accessToken=${accessToken}&store=${data.id}&print=${data.print}`)
+			.then((response) => {
+				// dispatch(fetchSuccess(response));
+				 window.open(`${constant.API_PATH}store/menu/list?accessToken=${accessToken}&store=${data.id}&print=${data.print}`, '_blank');
+			})
+			.catch((error) => {
+				dispatch(fetchError(error));
+			})
+	}
+
+	function fetchRequest() { return { type: GET_MENU_LIST_STORE_WITH_PRINT_REQUESTED } }
+	function fetchSuccess(data) { return { type: GET_MENU_LIST_STORE_WITH_PRINT_FULFILLED, payload: data } }
+	function fetchError(data) { return { type: GET_MENU_LIST_STORE_WITH_PRINT_REJECTED, payload: data } }
 }
 
 

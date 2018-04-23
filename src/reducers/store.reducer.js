@@ -77,7 +77,13 @@ import {
 
 	GET_REPORT_STORE_CASHIER_MEMBER_PRINT_REQUESTED, //GET REPORT STORE CASHIER MEMBER WITH PRINT
 	GET_REPORT_STORE_CASHIER_MEMBER_PRINT_FULFILLED,
-	GET_REPORT_STORE_CASHIER_MEMBER_PRINT_REJECTED
+	GET_REPORT_STORE_CASHIER_MEMBER_PRINT_REJECTED,
+
+	GET_MENU_LIST_STORE_WITH_PRINT_REQUESTED, //#GET MENU LIST STORE WITH PRINT
+	GET_MENU_LIST_STORE_WITH_PRINT_FULFILLED,
+	GET_MENU_LIST_STORE_WITH_PRINT_REJECTED
+	
+
 
 } from '../actions/store.action'
 
@@ -231,6 +237,13 @@ const initialState = {
 		isFetching: false,
 		isLoaded: false,
 		isError: false
+	},
+	printMenuStore:{
+		data: {},
+		isPrinting: false,
+		isPrinted: false,
+		isError: false,
+		error: {}
 	}
 }
 
@@ -1094,6 +1107,49 @@ const store = (state = initialState, action) => {
 					data: {},
 					isFetching: false,
 					isLoaded: false,
+					isError: true,
+					error: action.payload
+				}
+			}
+		}
+
+		//#GET MENU LIST STORE WITH PRINT 
+		case GET_MENU_LIST_STORE_WITH_PRINT_REQUESTED: {
+			return {
+				...state,
+				printMenuStore: {
+					...state.printMenuStore,
+					data: {},
+					isPrinting: true,
+					isPrinted: false,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case GET_MENU_LIST_STORE_WITH_PRINT_FULFILLED: {
+			return {
+				...state,
+				printMenuStore: {
+					...state.printMenuStore,
+					data: action.payload,
+					isPrinting: false,
+					isPrinted: true,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case GET_MENU_LIST_STORE_WITH_PRINT_REJECTED: {
+			return {
+				...state,
+				printMenuStore: {
+					...state.printMenuStore,
+					data: {},
+					isPrinting: false,
+					isPrinted: false,
 					isError: true,
 					error: action.payload
 				}

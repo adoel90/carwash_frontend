@@ -21,6 +21,7 @@ const AdminReportView = props => {
             period, 
             handlePeriodChange, 
             table, 
+            tabel,
             report, 
             handlePrint, 
             toggleModal, 
@@ -55,23 +56,16 @@ const AdminReportView = props => {
                                         <i className="far fa-id-card"></i><label className="marginTopBottom"><b> Id Kartu :  {selectedMemberDetail.id}</b></label><br />
                                         <i className="far fa-money-bill-alt"></i><label className="marginTopBottom"><b> Saldo saat ini : {listMemberTransactionHistoris.balance}</b></label><br />
                                         {/* <h6>Tipe Kartu : {member.memberHistoris.isLoaded ? member.memberHistoris.data.result.card.type.name : selectedMemberDetail.cardType}</h6> */}
-                                
-                                        <table className="tableStyle marginTable">
-                                            <tr>
-                                                    <th className="tdThStyle">Tanggal Transaksi</th>
-                                                    <th className="tdThStyle">Total Pembayaran</th>
-                                                    <th className="tdThStyle">Transaksi</th>
-                                            </tr>
-                                            {member.memberHistoris.isLoaded ?  props.member.memberHistoris.data.data.result.transaction.map((value) => {
-                                                    return (
-                                                        <tr>
-                                                                <td className="tdThStyle tdStyle"> {moment(value.date).format('DD-MM-YYYY')}</td>
-                                                                <td className="tdThStyle tdStyle"> {value.total}</td>
-                                                                <td className="tdThStyle tdStyle">{value.type}</td>
-                                                        </tr>      
-                                                    )
-                                            }) : null }
-                                        </table>
+                                        <TableSet
+                                              loading={member.memberHistoris.isFetching}
+                                              loaded={member.memberHistoris.isLoaded}
+                                              columns={tabel.kolom}
+                                              rows={tabel.baris}
+                                              striped 
+                                              fullWidth
+                                              pagination
+                                        />
+                                        
                                     </Column>
                                 </Row>
                         </ModalBody>

@@ -43,6 +43,8 @@ class AdminStoresReport extends Component {
         this.openModalDetail = this.openModalDetail.bind(this);
         this.toggleModal = this.toggleModal.bind(this);
 
+        this.populateTableDetail = this.populateTableDetail.bind(this);
+
         this.state = {
 
             isModalOpen: {
@@ -55,6 +57,11 @@ class AdminStoresReport extends Component {
                 columns: [],
                 rows: [],
                 limit: 10
+            },
+            tabel: {
+                kolom:[],
+                baris:[],
+                limit:10
             },
 
         	period: {
@@ -78,7 +85,9 @@ class AdminStoresReport extends Component {
             idStore: {},
             dailyOrdered: {},
             statusPrintData: null,
-            selectedRow: {}
+            statusPrintDetail: null,
+            selectedRow: {},
+            namePriceTotalList:{}
         }
     }
 
@@ -96,6 +105,7 @@ class AdminStoresReport extends Component {
             staff: user.id,
             print: false
         }
+
         getStoreStaffReportDispatch(requiredDataStoreStaff);
     }
 
@@ -141,11 +151,18 @@ class AdminStoresReport extends Component {
         //#GET STORE STAFF REPORT DETAIL
         if(prevProps.vendorState.reportDetailStoreStaff !== vendorState.reportDetailStoreStaff){
             if(vendorState.reportDetailStoreStaff.isLoaded){
-                //console.log("prepare");
+
+                this.setState({
+                    ...this.state,
+                    namePriceTotalList : vendorState.reportDetailStoreStaff.data.result.data
+                }, () => {
+                    //CALL populateTableDetail()
+                    // console.log(this.state);
+                    this.populateTableDetail();
+
+                })
             }
         }
-        
-        
     }
 
     //#Get Store List
@@ -260,7 +277,6 @@ class AdminStoresReport extends Component {
             render: (row) => (
                 <td>
                     <Button className="margin-right-small" type="button" onClick={() => this.openModalDetail(row)}>Detail</Button>
-                    
                 </td>
             )
         }
@@ -337,6 +353,96 @@ class AdminStoresReport extends Component {
         })
     }
 
+    //#
+    populateTableDetail = () => {
+            
+        const { vendorState } = this.props;
+        const { tabel } = this.state;
+
+        const kolom = [{
+            title: 'Tanggal Transaksi',
+            accessor: 'date',
+            align: 'left' 
+        },{
+            title: 'Nama Item',
+            accessor: 'item',
+            align: 'left' 
+        }, {
+            title: 'Harga',
+            accessor: 'price',
+            align: 'left' 
+        },{
+            title: 'Total Item',
+            accessor: 'quantity',
+            align: 'left' 
+        },{
+            title: 'Nama Staff',
+            accessor: 'staff',
+            align: 'left' 
+        },{
+            title: 'Nama Toko',
+            accessor: 'store',
+            align: 'left'       
+        }];
+
+
+        let barisArray = [];
+        let barisArrayKedua = [];
+        let responseData = null;
+
+        //#Get
+        if(vendorState.reportDetailStoreStaff.isLoaded){
+            vendorState.reportDetailStoreStaff.data.result.data.map((value) => { 
+
+                //#1
+                value.item.map((item, i) => {
+
+                    let barisKedua = {
+                        date: value.date,
+                        item: item.name,
+                        price: item.price,
+                        quantity: item.quantity
+                    }
+                    barisArrayKedua.push(barisKedua);
+                }); 
+
+                //#2
+                let uniqueSet = new Set(barisArrayKedua.map(e => JSON.stringify(e))); 
+                let response = Array.from(uniqueSet).map(e => JSON.parse(e))
+
+                for(let i = 0; i < response.length; i++){
+
+                    const barisPertama = {
+                        date: value.date,
+                        item: [],
+                        price:[],
+                        quantity:[],
+                        staff: value.user.name,
+                        store: value.store.name
+                    }
+                    // console.log(response);
+                    barisPertama.item.push(response[i].item);
+                    barisPertama.price.push(response[i].price);
+                    barisPertama.quantity.push(response[i].quantity);
+                    barisArray.push(barisPertama);
+                }
+
+                //#3
+                let uniqueSetFinal = new Set(barisArray.map(e => JSON.stringify(e))); 
+                responseData = Array.from(uniqueSetFinal).map(e => JSON.parse(e))
+ 
+            });
+
+            this.setState({
+                ...this.state,
+                tabel: {
+                    ...this.state.tabel,
+                    kolom: kolom,
+                    baris: responseData
+                }
+            })
+        }
+    }
 
     render() {
         const { activeTab, storeList} = this.state;

@@ -125,8 +125,12 @@ class AdminPanel extends Component {
             let nameCategory = menu[0].group !== 'kasir' ? `${menu[i].name}` : `${menu[i].name}`;
             let nameRoute = menu[0].group === 'kasir' ? `${menu[i].name}` : `Daftar ${split[1]}`;
 
-            let nameRouteReportSuperadmin = `${menu[i].name}`
+            let nameRouteReportSuperadmin = `${menu[i].name}`;
+            let nameRouteReportStore = `${menu[i].name}`;
+
             let dataItems = [];
+
+            //#MENU LAPORAN PENNJUALAN STORE OWNER
 
             //# MENU LAPORAN PENJUALAN 
             if(split.length === 1 && split[0] === "Laporan" && level.name === "Superadmin"){

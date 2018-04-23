@@ -185,7 +185,7 @@ export const updateMenuVendor = (data) =>{
 }
 
 
-//GET LIST VENDOR EMPLOYEE 
+//GET LIST VENDOR EMPLOYEE  || employee --state
 export const getVendorEmployeeList = (data) => {
 
 	return async dispatch => {

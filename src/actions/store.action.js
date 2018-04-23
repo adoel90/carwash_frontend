@@ -108,6 +108,8 @@ export const GET_REPORT_STORE_CASHIER_MEMBER_PRINT_REQUESTED = 'GET_REPORT_STORE
 export const GET_REPORT_STORE_CASHIER_MEMBER_PRINT_FULFILLED = 'GET_REPORT_STORE_CASHIER_MEMBER_PRINT_FULFILLED';
 export const GET_REPORT_STORE_CASHIER_MEMBER_PRINT_REJECTED = 'GET_REPORT_STORE_CASHIER_MEMBER_PRINT_REJECTED';
 
+
+
 const accessToken = localStorage.getItem('accessToken') ? localStorage.getItem('accessToken') : null;
 const userLogin = localStorage.getItem('userData') ? localStorage.getItem('userData') : null;
 const userId =  localStorage.getItem('userData') ? JSON.parse(userLogin).id : null;
@@ -645,6 +647,14 @@ export const getMenuListStoreWithPrint = (data) => {
 	function fetchSuccess(data) { return { type: GET_MENU_LIST_STORE_WITH_PRINT_FULFILLED, payload: data } }
 	function fetchError(data) { return { type: GET_MENU_LIST_STORE_WITH_PRINT_REJECTED, payload: data } }
 }
+
+//#GET STORE STAFF LIST 
+// export const getStoreStaffList = (data) => {
+
+// 	return {
+// 		type: null
+// 	}
+// }
 
 
 

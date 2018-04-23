@@ -8,7 +8,8 @@ import { TabContent } from '../../../components/Tab';
 import { PropsRoute } from '../../../components/Route';
 import { Nav, NavItem, NavLink, NavTabLink} from '../../../components/Nav';
 import { AdminStoresReportView, AdminStoreStaffPaymentReceipt } from '../AdminStoresReport';
-import { getStoreList, getStoreStaffReport, getStoreStaffReportWithPrint, getStoreStaffReportDetailAyoTail } from '../../../actions/vendor.action';
+import { getVendorEmployeeList, getStoreList, getStoreStaffReport, getStoreStaffReportWithPrint, getStoreStaffReportDetailAyoTail } from '../../../actions/vendor.action';
+// import { getStoreStaffList } from '../../../actions/store.action';
 // import { getStoreReportList } from '../../../actions/vendor.report.action';
 
 function mapStateToProps(state) {
@@ -24,7 +25,8 @@ function mapDispatchToProps(dispatch) {
         getStoreListDispatch: () => dispatch(getStoreList()),
         getStoreStaffReportDispatch: (data) => dispatch(getStoreStaffReport(data)),
         getStoreStaffReportWithPrintDispatch: (data) => dispatch(getStoreStaffReportWithPrint(data)),
-        getStoreStaffReportDetailAyoTailDispatch: (data) => dispatch(getStoreStaffReportDetailAyoTail(data))
+        getStoreStaffReportDetailAyoTailDispatch: (data) => dispatch(getStoreStaffReportDetailAyoTail(data)),
+        getVendorEmployeeListDispatch: (data) => dispatch(getVendorEmployeeList(data))
     }
 }
 
@@ -92,22 +94,30 @@ class AdminStoresReport extends Component {
     }
 
     componentDidMount = () => {
-        // const {requiredData, period } = this.state;
         const {period, storeActive} = this.state;
-        const { vendorState, store, getStoreStaffReportDispatch, user} = this.props;
+        const { vendorState, store, getStoreStaffReportDispatch, getVendorEmployeeListDispatch, user} = this.props;
+        
+        //#GET STORE LIST
         this.getStoreList();
 
         //#GET REPORT STORE STAFF
-        const requiredDataStoreStaff = {
+        let requiredDataStoreStaffReport = {
             store: store.list.isLoaded ? store.list.data.data.result.store[storeActive].id : null,
             start_date: period.from.format('YYYY-MM-DD'),
             end_date: period.to.format('YYYY-MM-DD'),
             staff: user.id,
             print: false
         }
+        getStoreStaffReportDispatch(requiredDataStoreStaffReport);
 
-        getStoreStaffReportDispatch(requiredDataStoreStaff);
-    }
+        //GET STORE STAFF LIST || EMPLOYEE
+        let requiredDataStoreStaff = {
+            id: store.list.isLoaded ? store.list.data.data.result.store[storeActive].id : null,
+            active: false
+        }
+        getVendorEmployeeListDispatch(requiredDataStoreStaff);
+
+    };
 
     //#
     componentDidUpdate = (prevProps) => {
@@ -135,6 +145,7 @@ class AdminStoresReport extends Component {
             }
         }
 
+
         if(prevProps.vendorState.reportStaff !== vendorState.reportStaff){
             if(vendorState.reportStaff.isLoaded){
 
@@ -161,6 +172,12 @@ class AdminStoresReport extends Component {
                     this.populateTableDetail();
 
                 })
+            }
+        }
+
+        if(prevProps.vendorState.employee !== vendorState.employee){
+            if(vendorState.employee.isLoaded){
+                console.log(vendorState);
             }
         }
     }
@@ -241,8 +258,10 @@ class AdminStoresReport extends Component {
             start_date : moment(period.to).format('YYYY-MM-DD'),
             end_date : moment(period.to).format('YYYY-MM-DD'),
             staff: user.id,
+            // staff: user.level.id,
             print: false
         }
+
         getStoreStaffReportDispatch(requiredDataStoreStaff);
     }
 

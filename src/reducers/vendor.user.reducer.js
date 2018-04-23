@@ -757,6 +757,7 @@ const vendorState = (state = initialState, action) => {
 				reportDetailStoreMenuOwnerPrint: {
 					...state.reportDetailStoreMenuOwnerPrint,
 					data: {},
+					
 					isPrinting: false,
 					isPrinted: false,
 					isError: true,

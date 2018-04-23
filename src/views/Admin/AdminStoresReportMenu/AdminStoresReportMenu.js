@@ -10,6 +10,7 @@ import { PropsRoute } from '../../../components/Route';
 import { Button } from '../../../components/Button';
 
 import { getStoreList, getStoreMenuReportOwner, getStoreMenuReportOwnerWithPrint} from '../../../actions/vendor.action';
+import { getStoreListWithIdUser } from '../../../actions/store.action';
 import vendorState from '../../../reducers/vendor.user.reducer';
 
 function mapStateToProps(state) {
@@ -23,7 +24,8 @@ function mapDispatchToProps(dispatch) {
     return {
         getStoreListDispatch: () => dispatch(getStoreList()),
         getStoreMenuReportOwnerDispatch: (data) => dispatch(getStoreMenuReportOwner(data)),
-        getStoreMenuReportOwnerWithPrintDispatch: (data) => dispatch(getStoreMenuReportOwnerWithPrint(data))
+        getStoreMenuReportOwnerWithPrintDispatch: (data) => dispatch(getStoreMenuReportOwnerWithPrint(data)),
+        getStoreListWithIdUserDispatch: () => dispatch(getStoreListWithIdUser())
     }
 }
 
@@ -41,7 +43,6 @@ class AdminStoresReportMenu extends Component {
         this.state = {
 
             table: {
-                // vendorReportListResults: [],
                 columns: [],
                 rows: [],
                 limit: 10
@@ -60,28 +61,40 @@ class AdminStoresReportMenu extends Component {
     }
 
     componentDidMount(){
-        const { getStoreListDispatch, getStoreMenuReportOwnerDispatch, store } = this.props;
-        const {period, storeActive, idStore } = this.state;
-
-        //#
+        const { getStoreListDispatch, getStoreListWithIdUserDispatch, store } = this.props;
         getStoreListDispatch();
-        
-        //#
-        let requiredDataMenuStore = {
-            store: idStore.id,
-            // store: store.list.data.data.result.store.length > 1 ? store.list.data.data.result.store[1].id || store.list.data.data.result.store[2].id :  store.list.data.data.result.store[storeActive].id,
-            start_date : moment(period.to).format('YYYY-MM-DD'),
-            end_date : moment(period.to).format('YYYY-MM-DD'),
-            print: false
-            // convert: false
-        }
-        getStoreMenuReportOwnerDispatch(requiredDataMenuStore);
+        getStoreListWithIdUserDispatch();
+ 
     };
 
     componentDidUpdate(prevProps){
-        const { store, vendorState } = this.props;
-        const { storeActive } = this.state;
+        const { store, vendorState, getStoreMenuReportOwnerDispatch} = this.props;
+        const { period, storeActive, idStore} = this.state;
 
+
+
+        //#Get list store id 
+        if(prevProps.store.storelistspecial !== store.storelistspecial){
+            if(store.storelistspecial.isLoaded){
+
+                this.setState({
+                    ...this.state,
+                    storeList: store.storelistspecial,
+                    storeIdTab: store.storelistspecial.data.data.result.store[0]
+                }, () => {
+
+                    let requiredDataMenuStore = {
+                        store: store.storelistspecial.data.data.result.store[0].id,
+                        start_date : moment(period.to).format('YYYY-MM-DD'),
+                        end_date : moment(period.to).format('YYYY-MM-DD'),
+                        print: false
+                        // convert: false
+                    }
+                  
+                    getStoreMenuReportOwnerDispatch(requiredDataMenuStore);
+                })
+            }
+        }
         //Get Store List
         if(prevProps.store.list !== store.list) {
             if (store.list.isLoaded) {
@@ -110,24 +123,22 @@ class AdminStoresReportMenu extends Component {
 
     //#
 	toggleTab = (tabIndex, store) => {
+        const {period, storeIdTab} = this.state;
+        const {getStoreMenuReportOwnerDispatch } = this.props;
+
+        let requiredDataMenuStore = {
+            store: store.id,
+            start_date : moment(period.to).format('YYYY-MM-DD'),
+            end_date : moment(period.to).format('YYYY-MM-DD'),
+            print: false
+            // convert: false
+        }
+        getStoreMenuReportOwnerDispatch(requiredDataMenuStore);
 
         this.setState({
             activeTab: tabIndex,
             storeIdTab: store
-		}, () => {   
-            const {period, storeActive, idStore} = this.state;
-            const { store, getStoreMenuReportOwnerDispatch } = this.props;
-    
-            let requiredDataMenuStore = {
-                // store: idStore.id,
-                store: store.list.data.data.result.store.length > 1 ? store.list.data.data.result.store[1].id || store.list.data.data.result.store[2].id :  store.list.data.data.result.store[storeActive].id,
-                start_date : moment(period.to).format('YYYY-MM-DD'),
-                end_date : moment(period.to).format('YYYY-MM-DD'),
-                print: false
-                // convert: false
-            }
-            getStoreMenuReportOwnerDispatch(requiredDataMenuStore);
-        })
+		});
     }
 
     //#
@@ -140,13 +151,20 @@ class AdminStoresReportMenu extends Component {
     populateTableData = () => {
 
         const {vendorState} = this.props;
-        const { dailyOrdered, menuDetailList } = this.state;
+        const { dailyOrdered, menuDetailList, period } = this.state;
         
-        const columns = [{
-            title: 'Nama Produk',
+        const columns = [
+        {
+            title: 'Tanggal',
+            accessor: 'date',
+            align: 'left'
+        },
+        {
+            title: 'Nama Item',
             accessor: 'name',
             align: 'left'
-        }, {
+        },
+        {
             title: 'Deskripsi Produk',
             accessor: 'description',
             align: 'left'
@@ -162,6 +180,7 @@ class AdminStoresReportMenu extends Component {
         if(vendorState.reportDetailStoreMenuOwner.isLoaded){
             vendorState.reportDetailStoreMenuOwner.data.result.store.forEach((value) => {
                 let row = {
+                    date:moment(period.to).format('YYYY-MM-DD'),
                     name: value.menu.name,
                     description: value.menu.description,
                     price: value.menu.price
@@ -200,12 +219,11 @@ class AdminStoresReportMenu extends Component {
     handleShow = (e) => {
 
         e.preventDefault();
-        const {period, idStore, storeActive} = this.state;
+        const {period, storeIdTab} = this.state;
         const { store, getStoreMenuReportOwnerDispatch } = this.props;
 
         let requiredDataMenuStore = {
-            store: idStore.id,
-            // store: store.list.data.data.result.store.length > 1 ? store.list.data.data.result.store[1].id || store.list.data.data.result.store[2].id :  store.list.data.data.result.store[storeActive].id,
+            store: storeIdTab.id,
             start_date : moment(period.to).format('YYYY-MM-DD'),
             end_date : moment(period.to).format('YYYY-MM-DD'),
             print: false

@@ -98,7 +98,7 @@ class StorePaymentReceipt extends Component {
             let queue = printData.status === 200 ? printData.result.queue : null;
             let date = printData.status === 200 ? printData.result.date : null;
             
-            console.log(this.props)
+            // console.log(this.props)
             return (
                 <Printable>
                     <div className="receipt">
@@ -124,7 +124,7 @@ class StorePaymentReceipt extends Component {
                             </div>
                             <p className="fw-semibold">{moment(new Date).format('LLL')}</p>
                             <p>
-                                Thank you and please come again soon.
+                                Thank you :)
                             </p>
                         </div>
                     </div>

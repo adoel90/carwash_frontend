@@ -233,6 +233,7 @@ class AdminStoresReport extends Component {
         const {period, storeActive} = this.state;
         const { vendorState, store, getStoreStaffReportDispatch, user} = this.props;
 
+
         const requiredDataStoreStaff = {
             store: store.list.data.data.result.store.length > 1 ? store.list.data.data.result.store[1].id || store.list.data.data.result.store[2].id :  store.list.data.data.result.store[storeActive].id,
             // start_date:  period.from.format('YYYY-MM-DD'),
@@ -315,15 +316,21 @@ class AdminStoresReport extends Component {
     handlePrint(e, period){
 
         e.preventDefault();
-        const { dailyOrdered } = this.state;
+        const {storeActive} = this.state;
+        const { vendorState, store, getStoreStaffReportWithPrintDispatch, user} = this.props;
+        this.getStoreList();
 
-        this.setState({
-            ...this.state,
-                printData: dailyOrdered,
-                statusPrintData: 200
-            }, () => {
-                window.print();
-        })
+        //#GET REPORT STORE STAFF
+        const requiredDataStoreStaff = {
+            store: store.list.isLoaded ? store.list.data.data.result.store[storeActive].id : null,
+            start_date : moment(period.to).format('YYYY-MM-DD'),
+            end_date : moment(period.to).format('YYYY-MM-DD'),
+            staff: user.id,
+            print: false
+        }
+
+        getStoreStaffReportWithPrintDispatch(requiredDataStoreStaff);
+
     }
 
     //#
@@ -347,8 +354,6 @@ class AdminStoresReport extends Component {
                 end_date : moment(period.to).format('YYYY-MM-DD'),
                 // print: false
             }
-
-            // console.log(requireData);
             getStoreStaffReportDetailAyoTailDispatch(requireData);
         })
     }
@@ -447,7 +452,6 @@ class AdminStoresReport extends Component {
     render() {
         const { activeTab, storeList} = this.state;
         const { store } = this.props;
-
         const renderTabContent = () => {
 
             if(store.list.isLoaded){

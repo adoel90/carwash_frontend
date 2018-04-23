@@ -603,11 +603,6 @@ export const getReportStoreCashierMember = (data) => {
 
 //GET REPORT STORE CASHIER MEMBER WITH PRINT
 export const getReportStoreCashierMemberPrint = (data) => {
-	// console.log(data);
-
-	// return {
-	// 	type: null
-	// }
 	return async dispatch => {
 		dispatch(fetchRequest());
 		return axios

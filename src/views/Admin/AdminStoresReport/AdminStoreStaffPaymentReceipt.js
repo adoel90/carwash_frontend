@@ -9,13 +9,11 @@ class AdminStoreStaffPaymentReceipt extends Component {
 
     render(){
 
-        const { statusPrintData, printData, user } = this.props;
-        // console.log(this.props);
-
+        const { statusPrintData, printData, user, idStore, period} = this.props;
         const tableStyle = {
-            color:  '#333',
+            'color':  '#333',
             'font-family':' Helvetica, Arial, sans-serif',
-            width: '100%',
+            'width': '100%',
             'border-collapse':'collapse',
             'border-spacing': '0'
         }
@@ -46,8 +44,11 @@ class AdminStoreStaffPaymentReceipt extends Component {
                             <h6>LAPORAN HARIAN STAFF</h6>
                         </div>
                         <div className="align-center margin-top-base margin-bottom-base">
+                            <h5 className="fw-bold">{idStore.name}</h5> 
                             <h5 className="fw-bold"><b>{storeStaffName}</b></h5>
                             <p className="fw-semibold">{moment(new Date).format('LLL')}</p>
+                            {/* <p className="fw-semibold">{moment(period.to).format('YYYY-MM-DD')}</p> */}
+                            
                         </div>
                         <div className="receipt-body margin-bottom-small">
                             {/* <table style={{width: '100%'}}>

@@ -45,7 +45,6 @@ const AdminStoresReportView = props => {
     
     const renderDetailReportStoreStaffModal = () => {
         if(selectedRow){
-            // console.log(vendorState);
 
             if(vendorState.reportDetailStoreStaff.isLoaded){
 

@@ -4,12 +4,11 @@ import NumberFormat from 'react-number-format';
 import { Printable } from '../../../components/Print';
 import { ListGroup, ListGroupItem } from '../../../components/List';
 
-
 class AdminStoreCashierReportPaymentReceipt extends Component {
 
     render (){
 
-        const { statusPrintData, printData, user, printDataDetail, store } = this.props;
+        const { statusPrintData, printData, user, printDataDetail, store, period } = this.props;
         // console.log(printDataDetail);
         // console.log(user);
 
@@ -55,7 +54,9 @@ class AdminStoreCashierReportPaymentReceipt extends Component {
                         </div>
                         <div className="align-center margin-top-base margin-bottom-base">
                             <h5 className="fw-bold"><b>{storeStaffKasirName}</b></h5>
-                            <p className="fw-semibold">{moment(new Date).format('LLL')}</p>
+                            {/* <p className="fw-semibold">{moment(new Date).format('LLL')}</p> */}
+                            <p className="fw-semibold">{moment(period.to).format('YYYY-MM-DD')}</p>
+
                         </div>
                         <div className="receipt-body margin-bottom-small">
                             <table style={tableStyle}>
@@ -64,10 +65,9 @@ class AdminStoreCashierReportPaymentReceipt extends Component {
                                         <th style={tdThStyle}>Total </th>
                                 </tr>
                                 { store.reportCashierMember.isLoaded ? store.reportCashierMember.data.result.data.map((value) => {
-                                    console.log(value);
                                     return (
                                         <tr>
-                                            <td style={tdThStyle, tdStyle}> {value.member.name ? value.member.name : null}</td>
+                                            <td style={tdThStyle, tdStyle}> {value.member? value.member.name : null}</td>
                                             <td style={tdThStyle, tdStyle}> {value.total}</td>
                                         </tr>
                                     )

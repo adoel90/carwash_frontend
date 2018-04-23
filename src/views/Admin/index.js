@@ -25,5 +25,6 @@ export * from './AdminStoreCashierCheckSaldo';
 export * from './AdminStoresMenu';
 export * from './AdminStoresEmployee';
 export * from './AdminStoresReport';
+export * from './AdminStoresReportMenu';
 export * from './AdminStoresPromo';
 export * from './AdminTransaction';

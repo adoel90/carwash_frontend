@@ -46,7 +46,16 @@ import {
 
 	GET_STORE_STAFF_REPORT_DETAIL_REQUESTED,//#GET STORE STAFF REPORT DETAIL 
 	GET_STORE_STAFF_REPORT_DETAIL_FULFILLED,
-	GET_STORE_STAFF_REPORT_DETAIL_REJECTED
+	GET_STORE_STAFF_REPORT_DETAIL_REJECTED,
+
+	GET_STORE_MENU_REPORT_OWNER_DETAIL_REQUESTED, //GET STORE MENU REPORT OWNER TRANSACTION DETAIL 
+	GET_STORE_MENU_REPORT_OWNER_DETAIL_FULFILLED,
+	GET_STORE_MENU_REPORT_OWNER_DETAIL_REJECTED,
+
+	//GET STORE MENU REPORT OWNER TRANSACTION DETAIL WITH PRINT
+	GET_STORE_MENU_REPORT_OWNER_DETAIL_WITH_PRINT_REQUESTED,
+	GET_STORE_MENU_REPORT_OWNER_DETAIL_WITH_PRINT_FULFILLED,
+	GET_STORE_MENU_REPORT_OWNER_DETAIL_WITH_PRINT_REJECTED
 
 
 } from '../actions/vendor.action'
@@ -150,6 +159,20 @@ const initialState = {
 		isError: false,
 		error: {}
 	},
+	reportDetailStoreMenuOwner: {
+		data: {},
+		isFetching: false,
+		isLoaded: false,
+		isError: false,
+		error: {}
+	},
+	reportDetailStoreMenuOwnerPrint: {
+		data: {},
+		isPrinting: false,
+		isPrinted: false,
+		isError: false,
+		error: {}
+	}
 }
 
 /*
@@ -656,7 +679,91 @@ const vendorState = (state = initialState, action) => {
 			}
 		}
 
+		//GET STORE MENU REPORT OWNER TRANSACTION DETAIL  
+		case GET_STORE_MENU_REPORT_OWNER_DETAIL_REQUESTED: {
+			return {
+				...state,
+				reportDetailStoreMenuOwner: {
+					...state.reportDetailStoreMenuOwner,
+					data: {},
+					isFetching: true,
+					isLoaded: false,
+					isError: false,
+					error: {}
+				}
+			}
+		}
 
+		case GET_STORE_MENU_REPORT_OWNER_DETAIL_FULFILLED: {
+			return {
+				...state,
+				reportDetailStoreMenuOwner: {
+					...state.reportDetailStoreMenuOwner,
+					data: action.payload,
+					isLoaded: true,
+					isFetching: false,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case GET_STORE_MENU_REPORT_OWNER_DETAIL_REJECTED: {
+			return {
+				...state,
+				reportDetailStoreMenuOwner: {
+					...state.reportDetailStoreMenuOwner,
+					data: {},
+					isLoaded: false,
+					isFetching: false,
+					isError: true,
+					error: action.payload
+				}
+			}
+		}
+
+		//GET STORE MENU REPORT OWNER TRANSACTION DETAIL WITH PRINT
+		case GET_STORE_MENU_REPORT_OWNER_DETAIL_WITH_PRINT_REQUESTED: {
+			return {
+				...state,
+				reportDetailStoreMenuOwnerPrint: {
+					...state.reportDetailStoreMenuOwnerPrint,
+					data: {},
+					isPrinting: true,
+					isPrinted: false,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case GET_STORE_MENU_REPORT_OWNER_DETAIL_WITH_PRINT_FULFILLED: {
+			return {
+				...state,
+				reportDetailStoreMenuOwnerPrint: {
+					...state.reportDetailStoreMenuOwnerPrint,
+					data: action.payload,
+					isPrinting: false,
+					isPrinted: true,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case GET_STORE_MENU_REPORT_OWNER_DETAIL_WITH_PRINT_REJECTED: {
+			return {
+				...state,
+				reportDetailStoreMenuOwnerPrint: {
+					...state.reportDetailStoreMenuOwnerPrint,
+					data: {},
+					isPrinting: false,
+					isPrinted: false,
+					isError: true,
+					error: action.payload
+				}
+			}
+		}
 
 		default: {
 			return state;

@@ -19,7 +19,11 @@ const AdminTransactionView = props => {
             <div className="admin-user">
                 <Panel>
                     <PanelHeader>
-                    <h4 className="heading-title">Transakasi Pemesanan  <Button  onClick={(e) => printListMenuStore(e)}  style={buttonStyle} type="submit" theme="light">Print</Button></h4>
+
+                    {
+                        //*** if owner then appear print, else don't appear
+                        props.type.owner === true ? <h4 className="heading-title">Transakasi Pemesanan  <Button  onClick={(e) => printListMenuStore(e)}  style={buttonStyle} type="submit" theme="light">Print</Button></h4> : <h4 className="heading-title">Transakasi Pemesanan</h4>
+                        }
                     </PanelHeader>
                     <PanelBody>
                         {/* <form onSubmit={handleFormSubmit}> */}

@@ -121,7 +121,7 @@ class AdminTransaction extends Component{
                 })
             }
         }
-        //Get Menu List
+        //Get Menu List•••••
         if(prevProps.store.storemenu !== store.storemenu){
             if(store.storemenu.isLoaded){
                 this.setState({
@@ -321,17 +321,28 @@ class AdminTransaction extends Component{
 		selectedMenuItem.map((item) => {
 			totalPriceArray.push(item.totalPrice);
 		})
-
+        
         updatedGrandTotal = totalPriceArray.reduce((a, b) => a + b, 0);
         
         let total;
 
+        // if(!dataTransaction.increase && dataTransaction.discount > 0) {
+        //     total = updatedGrandTotal-(updatedGrandTotal*dataTransaction.discount/100);
+        // } else if(dataTransaction.increase && dataTransaction.discount > 0) {
+        //     total = updatedGrandTotal+(updatedGrandTotal*dataTransaction.discount/100);
+        // } else {
+        //     total = updatedGrandTotal;
+        // }
+
         if(!dataTransaction.increase && dataTransaction.discount > 0) {
             total = updatedGrandTotal-(updatedGrandTotal*dataTransaction.discount/100);
-        } else if(dataTransaction.increase && dataTransaction.discount > 0) {
-            total = updatedGrandTotal+(updatedGrandTotal*dataTransaction.discount/100);
+            console.log(total);
+        } else if(dataTransaction.markup && dataTransaction.markup > 0){
+            total = updatedGrandTotal + (updatedGrandTotal*dataTransaction.markup/100)
+            console.log(total);
         } else {
             total = updatedGrandTotal;
+            console.log(total);
         }
 
 		this.setState({

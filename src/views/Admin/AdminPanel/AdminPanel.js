@@ -30,7 +30,8 @@ import {
     AdminStoresEmployee,
     AdminStoresEmployeeCreate,
     AdminStoresReport,
-    AdminTransaction
+    AdminTransaction,
+    AdminStoresReportMenu
 
 } from '../../Admin';
 
@@ -106,6 +107,7 @@ class AdminPanel extends Component {
                 { name: 'logout', path: `${this.props.match.url}/logout`, component: AdminLogout },
                 { name: 'transaction', path: `${this.props.match.url}/transaction`, component: AdminTransaction },
                 { name: 'report', path: `${this.props.match.url}/report`, component: AdminStoresReport },
+                { name: 'report-menu', path: `${this.props.match.url}/report/report-menu`, component: AdminStoresReportMenu },
                 { component: NoMatch }
             ];
             mainRoute = routePage;
@@ -127,13 +129,52 @@ class AdminPanel extends Component {
 
             let nameRouteReportSuperadmin = `${menu[i].name}`;
             let nameRouteReportStore = `${menu[i].name}`;
+            
 
             let dataItems = [];
 
             //#MENU LAPORAN PENNJUALAN STORE OWNER
+            if(split.length === 1 && split[0] === "Laporan" && level.name === "Owner"){
+                console.log(nameRouteReportStore);
+                console.log(level.name);
 
+                let linkItem = { name: nameRouteReportStore, path: `${this.props.match.url}${menu[i].path ? '/' + menu[i].path : 'null'}` }
+                   
+                    dataMenu = {
+                        category : nameCategory,
+                        items: []
+                    }
+
+                    console.log(linkItem);
+
+                    if(menu[i].path !== "report") {
+                        dataMenu.items.push(linkItem)
+                    };
+
+                    //Laporan Penjualan Owner
+                    let itemSeparatorReportSelling = {
+                        name: `${split[0]} Penjualan`, 
+                        path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}` : 'null'}`
+                    };
+
+                    if(menu[i].group === "all" && menu[i].path === "report"){
+                        dataMenu.items.push(itemSeparatorReportSelling);
+                    }
+
+                    //Laporan Menu
+                    let laporanMenu = {
+                        name: `${split[0]} Menu`, 
+                        path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}/report-menu` : 'null'}`
+                    }
+
+                    if(menu[i].group === "all" && menu[i].path === "report"){
+                        dataMenu.items.push(laporanMenu);
+                    }
+
+
+            }
             //# MENU LAPORAN PENJUALAN 
-            if(split.length === 1 && split[0] === "Laporan" && level.name === "Superadmin"){
+            else if(split.length === 1 && split[0] === "Laporan" && level.name === "Superadmin"){
 
                 //Laporan Total Penjualan
                 let linkItem = { name: nameRouteReportSuperadmin, path: `${this.props.match.url}${menu[i].path ? '/' + menu[i].path : 'null'}` }
@@ -150,7 +191,7 @@ class AdminPanel extends Component {
                 let itemSeparateReport = {
                     name: `${split[0]} Total Penjualan`, 
                     path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}` : 'null'}`
-                }
+                };
 
                 if(menu[i].group === "all" && menu[i].path === "report"){
                     dataMenu.items.push(itemSeparateReport);

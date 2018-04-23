@@ -70,7 +70,6 @@ class AdminStoreCashierReport extends Component {
                     printData: store.reportCashierMember,
                     statusPrintData: 200
                 }, () => {
-                    // console.log(this.state);
                     this.populateTableData();
                 })
             }
@@ -159,9 +158,6 @@ class AdminStoreCashierReport extends Component {
             print: true
         }
 
-        // e.preventDefault();
-        // const { dailyOrdered } = this.state;
-
         this.setState({
             ...this.state,
             printDataDetail: printData.data.result.data,
@@ -169,10 +165,7 @@ class AdminStoreCashierReport extends Component {
             }, () => {
                 window.print();
         })
-
-
         // getReportStoreCashierMemberPrintDispatch(requiredData);
-        
     }
 
     render () { 

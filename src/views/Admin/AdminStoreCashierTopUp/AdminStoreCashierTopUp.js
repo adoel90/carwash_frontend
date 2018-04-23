@@ -8,6 +8,7 @@ import  {CashierTopUp}  from '../AdminStoreCashierTopUp';
 import { kasirTopUpLogin, getBonusTaxiOnline, printMemberTransaction } from '../../../actions/store.action';//Scenario-nya kasir meminta customer untuk GESEK KARTU MEMBER
 import { memberCustomerTopup } from '../../../actions/member.action'
 import { openDialog, closeDialog } from '../../../actions/dialog.action';
+import { log } from 'util';
 
 function mapStateToProps(state) {
     return {
@@ -37,6 +38,7 @@ class AdminStoreCashierTopUp extends Component {
 
         this.handleTopUpPaymentCheckout = this.handleTopUpPaymentCheckout.bind(this);
         this.handlePrintReceipt = this.handlePrintReceipt.bind(this);
+        this.handleTierTopup = this.handleTierTopup.bind(this);
 
         this.state = {
 
@@ -240,7 +242,7 @@ class AdminStoreCashierTopUp extends Component {
 
         e.preventDefault();
 
-		const { action, user } = this.props;        
+        const { action, user } = this.props;          
 
 		let requiredData = {
 			balance: parseInt(topupData.balance.replace(/,/g, '')),
@@ -248,6 +250,8 @@ class AdminStoreCashierTopUp extends Component {
             staff: user.level.id
         }
         action.memberCustomerTopup(requiredData, accessTokenMember.accessToken);
+        // console.log(topupData);
+        // console.log(requiredData);
     }
 
     //#
@@ -265,6 +269,26 @@ class AdminStoreCashierTopUp extends Component {
         action.printMemberTransaction(requireData);
     }
 
+    //#
+    handleTierTopup = (tier) => {
+
+        let nominalTopUpTaxi = parseInt(tier.price.replace(/,/g, ''));
+        let bonusTopUpTaxi = parseInt(tier.bonus.replace(/,/g, ''));
+        let totalTopUpTaxi = nominalTopUpTaxi + bonusTopUpTaxi;
+
+
+        // const { topupData,paymentMethod, toggleDialog, closeDialog, accessTokenMember} = this.state;
+        const { topupData, accessTokenMember} = this.state;
+		const { action, user } = this.props;        
+
+		let requiredData = {
+			balance: totalTopUpTaxi,
+            payment: topupData.payment,
+            staff: user.level.id
+        }
+        action.memberCustomerTopup(requiredData, accessTokenMember.accessToken);
+    }
+
     render() {
         return ( 
             <div>
@@ -280,6 +304,7 @@ class AdminStoreCashierTopUp extends Component {
                     handlePrintReceipt={this.handlePrintReceipt}
                     openDialog={this.openDialog}
                     closeDialog={this.closeDialog}
+                    handleTierTopup= { this.handleTierTopup}
                 />
                 
                 {this.renderDialog()}

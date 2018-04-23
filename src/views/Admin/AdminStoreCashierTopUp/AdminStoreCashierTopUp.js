@@ -275,9 +275,7 @@ class AdminStoreCashierTopUp extends Component {
         let nominalTopUpTaxi = parseInt(tier.price.replace(/,/g, ''));
         let bonusTopUpTaxi = parseInt(tier.bonus.replace(/,/g, ''));
         let totalTopUpTaxi = nominalTopUpTaxi + bonusTopUpTaxi;
-
-
-        // const { topupData,paymentMethod, toggleDialog, closeDialog, accessTokenMember} = this.state;
+        
         const { topupData, accessTokenMember} = this.state;
 		const { action, user } = this.props;        
 

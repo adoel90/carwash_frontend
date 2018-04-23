@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from '../../../components/Modal';
 import { Button } from '../../../components/Button';
 import { Form } from '../../../components/Form';
-// import { Alert } from '../Alert/index';
 import { Alert } from '../../../components/Alert/index';
 import { Badge } from '../../../components/Badge';
 import { default as CardIcon } from '../../../assets/icons/Business/credit-card-3.svg';

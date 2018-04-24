@@ -243,8 +243,6 @@ class AdminPanel extends Component {
             newMenu.push(dataMenu);
         }
 
-
-
         this.setState({
             menus: newMenu,
             routes: mainRoute

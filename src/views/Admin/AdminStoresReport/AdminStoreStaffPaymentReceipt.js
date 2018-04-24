@@ -15,13 +15,15 @@ class AdminStoreStaffPaymentReceipt extends Component {
             'font-family':' Helvetica, Arial, sans-serif',
             'width': '100%',
             'border-collapse':'collapse',
-            'border-spacing': '0'
+            'border-spacing': '0',
+
         }
 
         const tdThStyle = {
                 // border: '1px solid #CCC',
-                'border-bottom': '1px solid #CCC',
+                'border-bottom': '3px solid #CCC',
                 height: '30px'
+               
         }
 
         const tdStyle = {
@@ -41,7 +43,7 @@ class AdminStoreStaffPaymentReceipt extends Component {
                             </div>
                             {/* <h4 className="fw-bold"><b>805 CARWASH</b></h4> */}
                             <h1><b>805 CARWASH</b></h1>
-                            <h6>LAPORAN HARIAN STAFF</h6>
+                            <h5>LAPORAN HARIAN STAFF</h5>
                         </div>
                         <div className="align-center margin-top-base margin-bottom-base">
                             <h5 className="fw-bold">{idStore.name}</h5> 
@@ -51,26 +53,20 @@ class AdminStoreStaffPaymentReceipt extends Component {
                             
                         </div>
                         <div className="receipt-body margin-bottom-small">
-                            {/* <table style={{width: '100%'}}>
-                                <tbody>
-                                    <tr className="padding-bottom-small">
-                                        <td>Tipe Kartu : </td>
-                                        <td className="ta-right"><p>{cardType}</p></td>
-                                    </tr>
-                                </tbody>
-                            </table> */}
-
-                            <table style={tableStyle}>
+                            {/* <table style={tableStyle}> */}
+                            <table className="printReportDailyStaffStore">
                                 <tr>
-                                        <th style={tdThStyle}>No. Invoice</th>
-                                        <th style={tdThStyle}>Total </th>
+                                        {/* <th className="fw-bold" style={tdThStyle}>No. Invoice</th>
+                                        <th className="fw-bold" style={tdThStyle}>Total </th> */}
+                                        <th className="fw-bold tdThStyle">No. Invoice</th>
+                                        <th className="fw-bold tdThStyle">Total </th>
                                 </tr>
                                 { printData.map((value) => {
                                     // console.log(value);
                                     return(
                                         <tr>
-                                            <td style={tdThStyle, tdStyle}> {value.queue}</td>
-                                            <td style={tdThStyle, tdStyle}> {value.total}</td>
+                                            <td className="fw-bold" style={tdThStyle, tdStyle}> {value.queue}</td>
+                                            <td className="fw-bold" style={tdThStyle, tdStyle}> {value.total}</td>
                                         </tr>
                                     )
                                 }) }

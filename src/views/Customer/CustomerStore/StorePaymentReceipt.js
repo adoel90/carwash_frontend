@@ -125,9 +125,9 @@ class StorePaymentReceipt extends Component {
                                 <p className="fw-semibold">For Customer <br/>{printData.status === 200 ? printData.result.member.name : null}</p>
                             </div>
                             <p className="fw-semibold">{moment(new Date).format('LLL')}</p>
-                            <p>
+                            {/* <p>
                                 Thank you :)
-                            </p>
+                            </p> */}
                         </div>
                     </div>
                 </Printable>

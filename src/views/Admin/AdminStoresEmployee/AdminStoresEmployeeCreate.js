@@ -134,7 +134,7 @@ class AdminStoresEmployeeCreate extends Component {
         const { newStaff, storeList, storeActive, levelId , accessLevel} = this.state;
         const { action } = this.props;
 
-        console.log(newStaff);
+        // console.log(newStaff);
 
         if(newStaff.password === newStaff.confirmPassword){
 
@@ -193,9 +193,6 @@ class AdminStoresEmployeeCreate extends Component {
     
             this.toggleDialog(dialogData);
         }
-        
-        
-
     }
 
     handleInputChange = (object, e) => {
@@ -221,7 +218,6 @@ class AdminStoresEmployeeCreate extends Component {
                     {...this.props} 
                     handleInputChange = {this.handleInputChange}
                     handleFormSubmit = { this.handleFormSubmit }
-                   
                     />
 
                     {this.renderDialog()}

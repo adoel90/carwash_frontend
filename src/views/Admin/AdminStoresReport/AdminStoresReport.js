@@ -46,6 +46,7 @@ class AdminStoresReport extends Component {
         this.toggleModal = this.toggleModal.bind(this);
 
         this.populateTableDetail = this.populateTableDetail.bind(this);
+        this.handleChangeStaffOwnerOptions = this.handleChangeStaffOwnerOptions.bind(this);
 
         this.state = {
 
@@ -89,7 +90,13 @@ class AdminStoresReport extends Component {
             statusPrintData: null,
             statusPrintDetail: null,
             selectedRow: {},
-            namePriceTotalList:{}
+            namePriceTotalList:{},
+            staffOwnerList:{},
+            // newStaffSelected:{
+            //     id: null,
+            //     // name: ''
+            // },
+            staffId:null
         }
     }
 
@@ -175,9 +182,17 @@ class AdminStoresReport extends Component {
             }
         }
 
+        //Get List Vendor/Store Staff
         if(prevProps.vendorState.employee !== vendorState.employee){
             if(vendorState.employee.isLoaded){
-                console.log(vendorState);
+                // console.log(vendorState); //vendorState.employee.data.data.result.staff
+
+                this.setState({
+                    ...this.state,
+                    staffOwnerList: vendorState.employee.data.data.result.staff
+                }, () => {
+                    // console.log(this.state);
+                })
             }
         }
     }
@@ -247,18 +262,14 @@ class AdminStoresReport extends Component {
     handleShow = (e) => {
 
         e.preventDefault();
-        const {period, storeActive} = this.state;
+        const {period, storeActive, staffId, storeIdTab} = this.state;
         const { vendorState, store, getStoreStaffReportDispatch, user} = this.props;
 
-
         const requiredDataStoreStaff = {
-            store: store.list.data.data.result.store.length > 1 ? store.list.data.data.result.store[1].id || store.list.data.data.result.store[2].id :  store.list.data.data.result.store[storeActive].id,
-            // start_date:  period.from.format('YYYY-MM-DD'),
-            // end_date: period.to.format('YYYY-MM-DD'),
+            store: storeIdTab.id === undefined ? store.list.data.data.result.store[0].id : storeIdTab.id,
             start_date : moment(period.to).format('YYYY-MM-DD'),
             end_date : moment(period.to).format('YYYY-MM-DD'),
-            staff: user.id,
-            // staff: user.level.id,
+            staff: staffId === null ? user.id : staffId,
             print: false
         }
 
@@ -279,11 +290,6 @@ class AdminStoresReport extends Component {
             accessor: 'customer',
             align: 'left'
         },
-        // {
-        //     title: 'Tanggal Transaksi',
-        //     accessor: 'date',
-        //     align: 'left'
-        // },
         {
             title: 'Total',
             accessor: 'total',
@@ -335,21 +341,19 @@ class AdminStoresReport extends Component {
     handlePrint(e, period){
 
         e.preventDefault();
-        const {storeActive} = this.state;
+        const {storeActive, storeIdTab, staffId} = this.state;
         const { vendorState, store, getStoreStaffReportWithPrintDispatch, user} = this.props;
         this.getStoreList();
 
         //#GET REPORT STORE STAFF
         const requiredDataStoreStaff = {
-            store: store.list.isLoaded ? store.list.data.data.result.store[storeActive].id : null,
+            store: storeIdTab.id === undefined ? store.list.data.data.result.store[0].id : storeIdTab.id,
             start_date : moment(period.to).format('YYYY-MM-DD'),
             end_date : moment(period.to).format('YYYY-MM-DD'),
-            staff: user.id,
+            staff: staffId === null ? user.id : staffId,
             print: false
         }
-
         getStoreStaffReportWithPrintDispatch(requiredDataStoreStaff);
-
     }
 
     //#
@@ -468,6 +472,35 @@ class AdminStoresReport extends Component {
         }
     }
 
+        // handleChangeStaffOwnerOptions = (object, e) => {
+    handleChangeStaffOwnerOptions = (e) => {
+
+        const { newStaffSelected } = this.state;
+        
+        const target = e.target;
+        const name = target.name;
+        const value = target.value;
+        
+        // console.log(value);
+
+        // this.setState({
+        //     ...this.state,
+        //     [object]: {
+        //           ...this.state[object],
+        //           [name]: value
+        //     }
+        // });
+
+        this.setState({
+            ...this.state,
+            staffId :  parseInt(value)
+        }, () => {
+            // console.log(this.state);
+        })
+
+
+    }
+
     render() {
         const { activeTab, storeList} = this.state;
         const { store } = this.props;
@@ -487,6 +520,7 @@ class AdminStoresReport extends Component {
                                     handleShow={this.handleShow}
                                     handlePrint= {this.handlePrint}
                                     toggleModal={this.toggleModal}
+                                    handleChangeStaffOwnerOptions= {this.handleChangeStaffOwnerOptions}
                                     />
                             </TabContent>
                         )

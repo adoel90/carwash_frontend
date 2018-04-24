@@ -35,13 +35,25 @@ const AdminStoresReportView = props => {
         toggleModal,
         vendorReportState,
         namePriceTotalList,
-        tabel
+        tabel,
+        staffOwnerList,
+        // newStaffSelected,
+        handleChangeStaffOwnerOptions,
+        user
     } = props;
 
 
     const priceFormatter = function (data) {
         return "Rp. " + parseFloat(data).toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 2});
     };
+
+    const renderStaffOwnerOptions = (value, i) => {
+        
+        if(user.level.name === "Owner" || user.level.id === 4){
+            // console.log(value.name)
+            return <option value={value.id}>{value.name}</option>
+        }
+    } 
     
     const renderDetailReportStoreStaffModal = () => {
         if(selectedRow){
@@ -62,7 +74,7 @@ const AdminStoresReportView = props => {
                                         {/* <h6>Tipe Kartu : {member.memberHistoris.isLoaded ? member.memberHistoris.data.result.card.type.name : selectedMemberDetail.cardType}</h6> */}
                                 
                                     <TableSet
-                                          loading={vendorState.reportStaff.isFetching}
+                                        loading={vendorState.reportStaff.isFetching}
                                         loaded={vendorState.reportDetailStoreStaff.isLoaded}
                                         columns={tabel.kolom}
                                         rows={tabel.baris}
@@ -104,10 +116,29 @@ const AdminStoresReportView = props => {
                                                 // minDate={period.from}
                                                 selected={period.to}
                                                 onChange={(date) => handlePeriodChange('to', date)}
+                                                
                                             />
                                         </InputGroup>
                                     </FormField>
                                 </div>
+
+                                {/* ----------- Dropdown list Owner -----------*/}
+                                { user.level.name === "Owner" ? 
+                                    <div>
+                                        <FormField>
+                                        <Select 
+                                            name="card"
+                                            type="select"
+                                            // defaultValue={newCardData.card}
+                                            // onChange={(e) => handleChangeStaffOwnerOptions('newStaffSelected',e)}
+                                            onChange={(e) => handleChangeStaffOwnerOptions(e)}>
+                                                <option value="">Pilih Staff</option>
+                                                {vendorState.employee.isLoaded ? vendorState.employee.data.data.result.staff.map((value) => renderStaffOwnerOptions(value)) : null}
+                                            </Select>
+
+                                        </FormField>
+                                    </div> : null
+                                }
                                 <div>
                                     <FormField>
                                         <Button className="margin-left-small" theme="primary" onClick={handleShow} >
@@ -116,11 +147,9 @@ const AdminStoresReportView = props => {
                                     </FormField>
                                 </div>
                                 <div>
-                                    {/* <FormField> */}
-                                        <Button onClick={(e) => handlePrint(e, period)} theme="danger" className="margin-right-small" type="submit" style={{height: '50px', 'margin-left': '3px'}}>
-                                            Print
-                                        </Button>
-                                    {/* </FormField> */}
+                                    <Button onClick={(e) => handlePrint(e, period)} theme="danger" className="margin-right-small" type="submit" style={{height: '50px', 'margin-left': '3px'}}>
+                                        Print
+                                    </Button>
                                 </div>
                             </Column>
                             

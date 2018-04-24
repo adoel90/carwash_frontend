@@ -12,6 +12,8 @@ class StorePaymentReceipt extends Component {
             selectedMenuList,
             grandTotal
         } = this.props;
+
+        console.log(this.props);
         
         const renderItem = (item, i) => {
             return (
@@ -52,9 +54,9 @@ class StorePaymentReceipt extends Component {
                     <table style={{width: '100%'}}>
                         <tbody>
                             <tr className="padding-bottom-small">
-                                <td>Diskon:</td>
+                                <td>{dataDiscount != 0 ? "Diskon :" : null}</td>
                                 <td className="ta-right">
-                                    <p>{dataDiscount}%</p>
+                                    <p>{dataDiscount != 0 ? dataDiscount + "%" : null}</p>
                                 </td>
                             </tr>
                             <tr className="padding-bottom-small">

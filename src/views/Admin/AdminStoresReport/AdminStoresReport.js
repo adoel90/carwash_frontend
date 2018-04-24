@@ -341,7 +341,7 @@ class AdminStoresReport extends Component {
     handlePrint(e, period){
 
         e.preventDefault();
-        const {storeActive, storeIdTab, staffId} = this.state;
+        const {storeActive, storeIdTab, staffId, dailyOrdered} = this.state;
         const { vendorState, store, getStoreStaffReportWithPrintDispatch, user} = this.props;
         this.getStoreList();
 
@@ -353,7 +353,15 @@ class AdminStoresReport extends Component {
             staff: staffId === null ? user.id : staffId,
             print: false
         }
-        getStoreStaffReportWithPrintDispatch(requiredDataStoreStaff);
+        // getStoreStaffReportWithPrintDispatch(requiredDataStoreStaff);
+
+        this.setState({
+            ...this.state,
+                printData: dailyOrdered,
+                statusPrintData: 200
+            }, () => {
+                window.print();
+        })
     }
 
     //#
@@ -475,21 +483,11 @@ class AdminStoresReport extends Component {
         // handleChangeStaffOwnerOptions = (object, e) => {
     handleChangeStaffOwnerOptions = (e) => {
 
-        const { newStaffSelected } = this.state;
+        const { staffId } = this.state;
         
         const target = e.target;
         const name = target.name;
         const value = target.value;
-        
-        // console.log(value);
-
-        // this.setState({
-        //     ...this.state,
-        //     [object]: {
-        //           ...this.state[object],
-        //           [name]: value
-        //     }
-        // });
 
         this.setState({
             ...this.state,

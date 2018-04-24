@@ -12,7 +12,8 @@ class AdminTransactionPrint extends Component {
             selectedMenuItem,
             dataTransaction,
             grandTotal, 
-            user
+            user,
+            storeIdTab
         } = this.props;
         
         const renderItem = (item, i) => {
@@ -48,7 +49,7 @@ class AdminTransactionPrint extends Component {
 
         const renderSummary = () => {
             if(printData.result.member) {
-                let total = parseFloat(grandTotal)+((parseFloat(grandTotal)*parseFloat(dataTransaction.markup))/100);
+                let total = parseFloat(grandTotal);
 
                 return (
                     <table style={{width: '100%'}}>
@@ -101,6 +102,7 @@ class AdminTransactionPrint extends Component {
 
                 console.log(this.props);
                 let storeStaffName = printData.status === 200 ? user.name : null;
+                let storeName =  printData.status === 200 ? storeIdTab.name : null;
 
                 return (
                     <Printable>
@@ -111,6 +113,7 @@ class AdminTransactionPrint extends Component {
                                 </div>
                                 <p className="fw-bold">805 Carwash</p>
                                 <p>Jln. Raya Pegangsaan 2 no 23-B <br/> 0896-0457-8309 <br/> 021-957-362-77</p>
+                                <h6><b>{storeName}</b></h6>
                                 <p><b>{storeStaffName}</b></p>
                             </div>
                             <div className="receipt-body margin-bottom-large">

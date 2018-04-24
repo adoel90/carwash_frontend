@@ -46,8 +46,8 @@ class AdminStoreStaffPaymentReceipt extends Component {
                         <div className="align-center margin-top-base margin-bottom-base">
                             <h5 className="fw-bold">{idStore.name}</h5> 
                             <h5 className="fw-bold"><b>{storeStaffName}</b></h5>
-                            <p className="fw-semibold">{moment(new Date).format('LLL')}</p>
-                            {/* <p className="fw-semibold">{moment(period.to).format('YYYY-MM-DD')}</p> */}
+                            {/* <p className="fw-semibold">{moment(new Date).format('LLL')}</p> */}
+                            <p className="fw-semibold">{moment(period.to).format('YYYY-MM-DD')}</p>
                             
                         </div>
                         <div className="receipt-body margin-bottom-small">

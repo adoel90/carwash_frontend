@@ -59,16 +59,21 @@ class AdminStoreCashierReportPaymentReceipt extends Component {
 
                         </div>
                         <div className="receipt-body margin-bottom-small">
-                            <table style={tableStyle}>
+                            {/* <table style={tableStyle}> */}
+                            <table className="printReportDailyStaffStore">
                                 <tr>
-                                        <th style={tdThStyle}>Customer</th>
-                                        <th style={tdThStyle}>Total </th>
+                                        {/* <th style={tdThStyle}>Customer</th>
+                                        <th style={tdThStyle}>Total </th> */}
+                                        <th className="fw-bold tdThStyle">Customer</th>
+                                        <th className="fw-bold tdThStyle">Total </th>
+
+                                        
                                 </tr>
                                 { store.reportCashierMember.isLoaded ? store.reportCashierMember.data.result.data.map((value) => {
                                     return (
                                         <tr>
-                                            <td style={tdThStyle, tdStyle}> {value.member? value.member.name : null}</td>
-                                            <td style={tdThStyle, tdStyle}> {value.total}</td>
+                                            <td className="fw-bold" style={tdThStyle, tdStyle}> {value.member? value.member.name : null}</td>
+                                            <td className="fw-bold" style={tdThStyle, tdStyle}> {value.total}</td>
                                         </tr>
                                     )
                                 }): null }

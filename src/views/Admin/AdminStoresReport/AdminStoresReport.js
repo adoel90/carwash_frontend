@@ -282,7 +282,7 @@ class AdminStoresReport extends Component {
         const { dailyOrdered } = this.state;
         
         const columns = [{
-            title: 'No. Bill/ No. Invoice ',
+            title: 'No. Invoice ',
             accessor: 'queue',
             align: 'left'
         }, {

@@ -108,6 +108,7 @@ class AdminPanel extends Component {
                 { name: 'transaction', path: `${this.props.match.url}/transaction`, component: AdminTransaction },
                 { name: 'report', path: `${this.props.match.url}/report`, component: AdminStoresReport },
                 { name: 'report-menu', path: `${this.props.match.url}/report/report-menu`, component: AdminStoresReportMenu },
+                { name: 'setting', path: `${this.props.match.url}/setting`, component: AdminSetting },
                 { component: NoMatch }
             ];
             mainRoute = routePage;

@@ -89,6 +89,7 @@ class AdminTransaction extends Component{
     componentDidMount(){
         const { getStoreListWithIdUserDispatch } = this.props;
         getStoreListWithIdUserDispatch();
+
     }
 
     componentDidUpdate(prevProps){
@@ -134,6 +135,9 @@ class AdminTransaction extends Component{
         }
 
         if(prevProps.store.transaction !== store.transaction) {
+
+            
+
 			if(store.transaction.isPaid) {
 				let dialogData = {
 					type: 'success',
@@ -141,7 +145,8 @@ class AdminTransaction extends Component{
 					message: 'Pembayaran telah berhasil. Tunggu hingga struk transaksi dicetak sepenuhnya sebelum menutup jendela ini.',
 					onConfirm: () => this.handlePrintReceipt(),
 					confirmText: 'Print Ulang',
-					onClose: () => window.location.reload(),
+                    onClose: () => window.location.reload(),
+                    // onClose: () => window.location.origin,
 					closeText: 'Tutup'
 				}
 

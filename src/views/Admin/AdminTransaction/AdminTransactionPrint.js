@@ -52,7 +52,7 @@ class AdminTransactionPrint extends Component {
                 let total = parseFloat(grandTotal);
 
                 return (
-                    <table style={{width: '100%'}}>
+                    <table style={{width: '80%'}}>
                         <tbody>
                             <tr>
                                 <td>{dataTransaction.discount != 0 ? "Diskon :" : null}</td>

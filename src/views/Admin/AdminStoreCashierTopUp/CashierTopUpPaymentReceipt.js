@@ -53,7 +53,7 @@ class CashierTopUpPaymentReceipt extends Component{
         if(storeState.printMember.isPrinted){
             const { printData, user } = this.props;
 
-            console.log(printData);
+            // console.log(printData);
 
             let queueInvoice = printData.status === 200 ? printData.result.queue : null;
             // let date = printData.status === 200 ? printData.result.date : null;

@@ -3,7 +3,7 @@ import { Table } from '../../../components/Table';
 import { Button } from '../../../components/Button';
 import { Input, InputCurrency } from '../../../components/Input';
 import { Panel, PanelHeader, PanelBody } from '../../../components/Panel';
-import { AdminTransactionDetail, AdminTransactionCheckout, AdminTransactionPrint } from '../AdminTransaction';
+import { AdminTransactionDetail, AdminTransactionCheckout, AdminTransactionPrint, AdmintTransactionPrintSecondary } from '../AdminTransaction';
 import Currency from '../../../components/Currency';
 
 const AdminTransactionView = props => {
@@ -11,7 +11,15 @@ const AdminTransactionView = props => {
     const buttonStyle = {
         'margin-left': '320px',
     }
-    const { listMenuStore, table, handleFormSubmit, handleInputChange, selectedMenuItem, handleSelectMenu,printListMenuStore} = props;
+
+    const fixedStyle = {
+        'position': 'fixed',
+        'left': '0px',
+        'top': '0px',
+        'z-index': '-100'
+    }
+
+    const { listMenuStore, table, handleFormSubmit, handleInputChange, selectedMenuItem, handleSelectMenu,printListMenuStore, statusPrintDataConfirm } = props;
    
 
     return(
@@ -61,10 +69,15 @@ const AdminTransactionView = props => {
                         {/* </form> */}
                     </PanelBody>
                 </Panel>
-                {/* { renderMenuProductModal() } */}
+                
                 <AdminTransactionDetail {...props} />
                 <AdminTransactionCheckout {...props} />
                 <AdminTransactionPrint {...props} />
+
+                {/* Print Secondary */}
+                {statusPrintDataConfirm === 200 ? <AdmintTransactionPrintSecondary {...this.state} {...props} /> : null}
+               
+                
             </div>
         </div>
     )

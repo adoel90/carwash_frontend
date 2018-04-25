@@ -114,12 +114,11 @@ class AdminReportSellingTotal extends Component {
 
         if(report.reportOwner.isLoaded){
             report.reportOwner.data.result.forEach((value, i) => {
-                console.log(value);
+
                 let row = {
-                    name: value.name,
-                    store: value.store.length > 1 ?  value.store[0].store_name + ", " + value.store[1].store_name : value.store[0].store_name ,
-                    price: value.price ? "Rp " + value.price : "-"
-                    // price: value.price
+                    name: value.users.name,
+                    store: value.store.name,
+                    price: value.total
                 }
 
                 rows.push(row);

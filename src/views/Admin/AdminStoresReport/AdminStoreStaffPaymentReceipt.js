@@ -20,14 +20,13 @@ class AdminStoreStaffPaymentReceipt extends Component {
         }
 
         const tdThStyle = {
-                // border: '1px solid #CCC',
                 'border-bottom': '3px solid #CCC',
                 height: '30px'
                
         }
 
         const tdStyle = {
-                'text-align': 'center'
+            'text-align': 'center'
         }
 
         if(statusPrintData === 200 ){
@@ -53,13 +52,10 @@ class AdminStoreStaffPaymentReceipt extends Component {
                             
                         </div>
                         <div className="receipt-body margin-bottom-small">
-                            {/* <table style={tableStyle}> */}
                             <table className="printReportDailyStaffStore">
                                 <tr>
-                                        {/* <th className="fw-bold" style={tdThStyle}>No. Invoice</th>
-                                        <th className="fw-bold" style={tdThStyle}>Total </th> */}
-                                        <th className="fw-bold tdThStyle">No. Invoice</th>
-                                        <th className="fw-bold tdThStyle">Total </th>
+                                    <th className="fw-bold tdThStyle">No. Invoice</th>
+                                    <th className="fw-bold tdThStyle">Total </th>
                                 </tr>
                                 { printData.map((value) => {
                                     // console.log(value);

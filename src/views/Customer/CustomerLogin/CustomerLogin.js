@@ -19,6 +19,7 @@ class CustomerLogin extends Component {
 		this.handleInputChange = this.handleInputChange.bind(this);
 		this.handleAuthentication = this.handleAuthentication.bind(this);
 		this.renderAlert = this.renderAlert.bind(this);
+		this.handlePreventErurOnLogin = this.handlePreventErurOnLogin.bind(this);
 
 	};
 
@@ -67,6 +68,13 @@ class CustomerLogin extends Component {
         }
 	}
 
+	//#
+	handlePreventErurOnLogin = (e) => {
+		e.preventDefault();
+		console.log(e);
+	
+	}
+
     render() {
         return (
 			<CustomerLoginView 
@@ -75,7 +83,8 @@ class CustomerLogin extends Component {
 				handleInputChange = {this.handleInputChange}
 				handleAuthentication = {this.handleAuthentication}
 				renderAlert={this.renderAlert}
-				/>		
+				handlePreventErurOnLogin = {this.handlePreventErurOnLogin}
+			/>		
 		)
     }
 }

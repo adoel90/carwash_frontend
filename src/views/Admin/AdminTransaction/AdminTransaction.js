@@ -12,6 +12,7 @@ import { openDialog, closeDialog } from '../../../actions/dialog.action';
 import { getStoreListWithIdUser, getMenuListStore, createStoreTransaction, printStoreTransaction, getDiscountListById, getMenuListStoreWithPrint  } from '../../../actions/store.action';
 import { authenticateMember } from '../../../actions/member.action';
 
+
 function mapStateToProps(state) {
     return {
         store: state.store,
@@ -47,9 +48,8 @@ class AdminTransaction extends Component{
 		this.handleMemberAuthentication = this.handleMemberAuthentication.bind(this);
 		this.handlePrintReceipt = this.handlePrintReceipt.bind(this);
         this.calculateGrandTotalPrice = this.calculateGrandTotalPrice.bind(this);
-        // this.createCheckbox =this.createCheckbox.bind(this);
-        // this.createCheckboxesMap = this.createCheckboxesMap.bind(this);
         this.printListMenuStore = this.printListMenuStore.bind(this);
+        this.handlePrintMenuSelected = this.handlePrintMenuSelected.bind(this);
 
         this.state = {
             storeList: {},
@@ -78,13 +78,14 @@ class AdminTransaction extends Component{
                 increase: false,
                 markup: 0
             },
-            isChecked: false
+            isChecked: false,
+            statusPrintDataConfirm:null
         }
     }
 
     componentWillMount = () => {
         this.selectedCheckboxes = new Set();
-      }
+    }
 
     componentDidMount(){
         const { getStoreListWithIdUserDispatch } = this.props;
@@ -282,8 +283,6 @@ class AdminTransaction extends Component{
             staff: user.id
         }
 
-        // console.log(this.props)
-        // console.log(requiredData)
         action.createStoreTransaction(requiredData);
     }
     
@@ -331,14 +330,6 @@ class AdminTransaction extends Component{
         
         let total;
 
-        // if(!dataTransaction.increase && dataTransaction.discount > 0) {
-        //     total = updatedGrandTotal-(updatedGrandTotal*dataTransaction.discount/100);
-        // } else if(dataTransaction.increase && dataTransaction.discount > 0) {
-        //     total = updatedGrandTotal+(updatedGrandTotal*dataTransaction.discount/100);
-        // } else {
-        //     total = updatedGrandTotal;
-        // }
-
         if(!dataTransaction.increase && dataTransaction.discount > 0) {
             total = updatedGrandTotal-(updatedGrandTotal*dataTransaction.discount/100);
             console.log(total);
@@ -347,7 +338,6 @@ class AdminTransaction extends Component{
             console.log(total);
         } else {
             total = updatedGrandTotal;
-            console.log(total);
         }
 
 		this.setState({
@@ -410,6 +400,21 @@ class AdminTransaction extends Component{
 
     }
 
+    //Fire in AdminTransactionDetail.js
+    handlePrintMenuSelected = (e) => {
+        e.preventDefault();
+        const { selectedMenuItem } = this.state;
+
+        this.setState({
+            ...this.state,
+            statusPrintDataConfirm: 200
+        }, () => {
+            // console.log(this.state);
+            window.print();
+        })
+
+    }
+
     render(){
         const { storeList, activeTab } = this.state;
         const { store, match } = this.props;
@@ -448,6 +453,7 @@ class AdminTransaction extends Component{
                                     calculateGrandTotalPrice = {this.calculateGrandTotalPrice}
                                     toggleTab={this.toggleTab}
                                     printListMenuStore={this.printListMenuStore}
+                                    handlePrintMenuSelected={this.handlePrintMenuSelected}
                                     {...this.props}
                                     {...this.state}
                                 />

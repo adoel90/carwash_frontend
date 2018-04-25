@@ -201,7 +201,18 @@ class AdminStoresReport extends Component {
         this.setState({
             activeTab: tabIndex,
             storeIdTab: store
-		});
+            
+		}, () => {
+            const { storeIdTab } = this.state;
+            const { getVendorEmployeeListDispatch } = this.props;
+
+             //GET STORE STAFF LIST || EMPLOYEE
+            let requiredDataStoreStaff = {
+                id: storeIdTab.id,
+                active: false
+            }
+            getVendorEmployeeListDispatch(requiredDataStoreStaff);
+        });
 	}
     
     //#

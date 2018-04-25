@@ -16,14 +16,16 @@ const CustomerLoginView = props => {
         isAuthenticated,
         handleInputChange,
         handleAuthentication,
-        renderAlert
+        renderAlert,
+        handlePreventErurOnLogin
     } = props;
 
     const transparent = {
         'opacity': '0.9'
-    }
+    };
+
     return (
-            <div>
+            <div onClick={handlePreventErurOnLogin}>
                 <div className="main-content">
                     <Form onSubmit={handleAuthentication}>
                         <main className="layout-login landing" >

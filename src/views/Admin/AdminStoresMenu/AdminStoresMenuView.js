@@ -17,6 +17,10 @@ import { Button } from '../../../components/Button';
 
 const AdminStoresMenuView = props => {
 
+    const buttonStyle = {
+        'margin-left': '570px',
+    }
+
     const {
         isModalOpen, 
         table, 
@@ -36,7 +40,9 @@ const AdminStoresMenuView = props => {
         storeList,
         activeTab,
         toggleTab,
-        search
+        search,
+
+        printListMenuStore
     } = props;
 
     const renderMenuProductModal = () => {
@@ -121,7 +127,7 @@ const AdminStoresMenuView = props => {
             <div className="admin-user">
                 <Panel>
                     <PanelHeader>
-                        <h4 className="heading-title">Daftar Produk</h4>
+                        <h4 className="heading-title">Daftar Produk <Button  onClick={(e) => printListMenuStore(e)}  style={buttonStyle} type="submit" theme="light">Print</Button></h4>
                     </PanelHeader>
                     <PanelBody>
 

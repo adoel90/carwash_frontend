@@ -11,6 +11,7 @@ import { PageBlock, PageBlockGroup, PageContent, PageHeading} from '../../../com
 import { Nav, NavItem, NavLink, NavTabLink} from '../../../components/Nav';
 
 import { getStoreList, updateMenuVendor, getMenuStoreList, changeMenuStatus } from '../../../actions/vendor.action';
+import { getMenuListStoreWithPrint } from '../../../actions/store.action';
 import { openDialog, closeDialog } from '../../../actions/dialog.action';
 
 function mapStateToProps(state) {
@@ -23,6 +24,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
+        getMenuListStoreWithPrintDispatch: (data) => dispatch(getMenuListStoreWithPrint(data)),
         getStoreListDispatch: () => dispatch(getStoreList()),
         getMenuStoreListDispatch: (data) => { dispatch(getMenuStoreList(data))},
         action: bindActionCreators({ updateMenuVendor, openDialog, closeDialog, getMenuStoreList, changeMenuStatus }, dispatch)
@@ -46,6 +48,7 @@ class AdminStoresMenu extends Component {
         this.handleImageChange = this.handleImageChange.bind(this);
 
         this.toggleTab = this.toggleTab.bind(this);
+        this.printListMenuStore = this.printListMenuStore.bind(this);
 
         this.state = {
             search: {
@@ -97,7 +100,8 @@ class AdminStoresMenu extends Component {
             if(vendorState.store.isLoaded){
                 this.setState({
                     ...this.state,
-                    storeActiveList: vendorState.store.data.data.result.store
+                    storeActiveList: vendorState.store.data.data.result.store,
+                    storeIdTab : vendorState.store.data.data.result.store[0]
                 }, () => {
 
                     getMenuStoreListDispatch(vendorState.store.data.data.result.store[storeActive]);
@@ -388,6 +392,21 @@ class AdminStoresMenu extends Component {
         action.changeMenuStatus(requiredData);
     }
 
+    //#
+    printListMenuStore = (e) => {
+        e.preventDefault();
+        const { getMenuListStoreWithPrintDispatch } = this.props;
+        const { storeIdTab } = this.state;
+
+        let requiredData = {
+            id: storeIdTab.id,
+            print: true
+        }
+        // console.log(requiredData);
+        getMenuListStoreWithPrintDispatch(requiredData);
+
+    }
+
     render() {
 
         const { vendorState, getMenuStoreListDispatch} = this.props;
@@ -414,6 +433,7 @@ class AdminStoresMenu extends Component {
                                     handleCancelModal={this.handleCancelModal}
                                     handleImageChange = {this.handleImageChange}
                                     toggleTab={this.toggleTab}
+                                    printListMenuStore={this.printListMenuStore}
                                 />
                             </TabContent>
                         )
@@ -421,7 +441,6 @@ class AdminStoresMenu extends Component {
                 }
             }
         }
-
 
         return (
             <div>           

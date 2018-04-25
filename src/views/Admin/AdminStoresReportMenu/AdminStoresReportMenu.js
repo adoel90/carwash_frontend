@@ -169,21 +169,30 @@ class AdminStoresReportMenu extends Component {
             accessor: 'description',
             align: 'left'
         },
+        // {
+        //     title: 'Harga',
+        //     accessor: 'price',
+        //     align: 'left',
+        //     isCurrency: true
+        // }
         {
-            title: 'Harga',
-            accessor: 'price',
-            align: 'left',
-            isCurrency: true
-        }]
+            title: 'Total Item',
+            accessor: 'quantity',
+            align: 'left'
+        }
+
+    ]
 
         const rows = [];
         if(vendorState.reportDetailStoreMenuOwner.isLoaded){
             vendorState.reportDetailStoreMenuOwner.data.result.store.forEach((value) => {
+
                 let row = {
                     date:moment(period.to).format('YYYY-MM-DD'),
                     name: value.menu.name,
                     description: value.menu.description,
-                    price: value.menu.price
+                    // price: value.menu.price
+                    quantity:value.quantity
                 }
                 rows.push(row);
             })

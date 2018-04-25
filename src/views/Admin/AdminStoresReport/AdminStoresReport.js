@@ -101,7 +101,7 @@ class AdminStoresReport extends Component {
     }
 
     componentDidMount = () => {
-        const {period, storeActive} = this.state;
+        const {period, storeActive, staffId} = this.state;
         const { vendorState, store, getStoreStaffReportDispatch, getVendorEmployeeListDispatch, user} = this.props;
         
         //#GET STORE LIST
@@ -112,7 +112,8 @@ class AdminStoresReport extends Component {
             store: store.list.isLoaded ? store.list.data.data.result.store[storeActive].id : null,
             start_date: period.from.format('YYYY-MM-DD'),
             end_date: period.to.format('YYYY-MM-DD'),
-            staff: user.id,
+            // staff: user.id,
+            staff : staffId === null ? '' : user.id,
             print: false
         }
         getStoreStaffReportDispatch(requiredDataStoreStaffReport);
@@ -143,7 +144,6 @@ class AdminStoresReport extends Component {
         //Get Store List
         if(prevProps.store.list !== store.list) {
             if (store.list.isLoaded) {
-
                 this.setState({
                     ...this.state,
                     storeList: store.list.data.data,
@@ -152,7 +152,6 @@ class AdminStoresReport extends Component {
             }
         }
 
-
         if(prevProps.vendorState.reportStaff !== vendorState.reportStaff){
             if(vendorState.reportStaff.isLoaded){
 
@@ -160,7 +159,6 @@ class AdminStoresReport extends Component {
                     ...this.state,
                     dailyOrdered: vendorState.reportStaff.data.data.result.data
                 },() => {
-                    // console.log(this.state);
                     this.populateTableData();
                 });
             }
@@ -174,8 +172,6 @@ class AdminStoresReport extends Component {
                     ...this.state,
                     namePriceTotalList : vendorState.reportDetailStoreStaff.data.result.data
                 }, () => {
-                    //CALL populateTableDetail()
-                    // console.log(this.state);
                     this.populateTableDetail();
 
                 })
@@ -185,14 +181,10 @@ class AdminStoresReport extends Component {
         //Get List Vendor/Store Staff
         if(prevProps.vendorState.employee !== vendorState.employee){
             if(vendorState.employee.isLoaded){
-                // console.log(vendorState); //vendorState.employee.data.data.result.staff
-
                 this.setState({
                     ...this.state,
                     staffOwnerList: vendorState.employee.data.data.result.staff
-                }, () => {
-                    // console.log(this.state);
-                })
+                });
             }
         }
     }
@@ -209,9 +201,7 @@ class AdminStoresReport extends Component {
         this.setState({
             activeTab: tabIndex,
             storeIdTab: store
-		}, () => {   
-            // console.log(this.state);
-        })
+		});
 	}
     
     //#
@@ -265,15 +255,29 @@ class AdminStoresReport extends Component {
         const {period, storeActive, staffId, storeIdTab} = this.state;
         const { vendorState, store, getStoreStaffReportDispatch, user} = this.props;
 
-        const requiredDataStoreStaff = {
-            store: storeIdTab.id === undefined ? store.list.data.data.result.store[0].id : storeIdTab.id,
-            start_date : moment(period.to).format('YYYY-MM-DD'),
-            end_date : moment(period.to).format('YYYY-MM-DD'),
-            staff: staffId === null ? user.id : staffId,
-            print: false
+        if(staffId === 2018){
+
+            const requiredDataStoreStaff = {
+                store: storeIdTab.id === undefined ? store.list.data.data.result.store[0].id : storeIdTab.id,
+                start_date : moment(period.to).format('YYYY-MM-DD'),
+                end_date : moment(period.to).format('YYYY-MM-DD'),
+                staff: '',
+                print: false
+            }
+            getStoreStaffReportDispatch(requiredDataStoreStaff);
+
+        } else {
+
+            const requiredDataStoreStaff = {
+                store: storeIdTab.id === undefined ? store.list.data.data.result.store[0].id : storeIdTab.id,
+                start_date : moment(period.to).format('YYYY-MM-DD'),
+                end_date : moment(period.to).format('YYYY-MM-DD'),
+                staff: staffId === null ? user.id : staffId,
+                print: false
+            }
+            getStoreStaffReportDispatch(requiredDataStoreStaff);
         }
 
-        getStoreStaffReportDispatch(requiredDataStoreStaff);
     }
 
     populateTableData = () => {

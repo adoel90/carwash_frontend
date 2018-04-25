@@ -176,7 +176,7 @@ class AdminStoresReportMenu extends Component {
         //     isCurrency: true
         // }
         {
-            title: 'Total Item',
+            title: 'Item Terjual',
             accessor: 'quantity',
             align: 'left'
         }

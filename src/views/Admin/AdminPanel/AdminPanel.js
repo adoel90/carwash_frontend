@@ -118,13 +118,14 @@ class AdminPanel extends Component {
                 mainRoute = routePage;
 
             } else if(level.name === 'Staff'){
-                const routePage = [
+
+                let routePage = [
                     { name: 'transaction', path: `${this.props.match.url}/transaction`, component: AdminTransaction },
                     { name: 'logout', path: `${this.props.match.url}/logout`, component: AdminLogout },
                     { name: 'report-menu', path: `${this.props.match.url}/report/report-menu`, component: AdminStoresReportMenu },
                     { name: 'report', path: `${this.props.match.url}/report`, component: AdminStoresReport },
                     { name: 'setting', path: `${this.props.match.url}/setting`, component: AdminSetting },
-                    
+                    { component: NoMatch }
                 ];
 
                 mainRoute = routePage;

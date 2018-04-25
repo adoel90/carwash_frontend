@@ -130,9 +130,9 @@ const AdminStoresReportView = props => {
                                             name="card"
                                             type="select"
                                             // defaultValue={newCardData.card}
-                                            // onChange={(e) => handleChangeStaffOwnerOptions('newStaffSelected',e)}
                                             onChange={(e) => handleChangeStaffOwnerOptions(e)}>
                                                 <option value="">Pilih Staff</option>
+                                                <option value="2018">Semua Staff</option>
                                                 {vendorState.employee.isLoaded ? vendorState.employee.data.data.result.staff.map((value) => renderStaffOwnerOptions(value)) : null}
                                             </Select>
 
@@ -146,11 +146,16 @@ const AdminStoresReportView = props => {
                                         </Button>
                                     </FormField>
                                 </div>
-                                <div>
-                                    <Button onClick={(e) => handlePrint(e, period)} theme="danger" className="margin-right-small" type="submit" style={{height: '50px', 'margin-left': '3px'}}>
-                                        Print
-                                    </Button>
-                                </div>
+
+                                {/* ----------- Button Print Staff  -----------*/}
+                                { user.level.name === "Staff" ?  
+                                     <div>
+                                        <Button onClick={(e) => handlePrint(e, period)} theme="danger" className="margin-right-small" type="submit" style={{height: '50px', 'margin-left': '3px'}}>
+                                            Print
+                                        </Button>
+                                    </div> : null
+                                }   
+                               
                             </Column>
                             
                         </Row>

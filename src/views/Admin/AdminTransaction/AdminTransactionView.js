@@ -4,6 +4,7 @@ import { Button } from '../../../components/Button';
 import { Input, InputCurrency } from '../../../components/Input';
 import { Panel, PanelHeader, PanelBody } from '../../../components/Panel';
 import { AdminTransactionDetail, AdminTransactionCheckout, AdminTransactionPrint, AdmintTransactionPrintSecondary } from '../AdminTransaction';
+import { PageBlock } from '../../../components/Page';
 import Currency from '../../../components/Currency';
 
 const AdminTransactionView = props => {
@@ -19,9 +20,8 @@ const AdminTransactionView = props => {
         'z-index': '-100'
     }
 
-    const { listMenuStore, table, handleFormSubmit, handleInputChange, selectedMenuItem, handleSelectMenu,printListMenuStore, statusPrintDataConfirm } = props;
+    const { member, listMenuStore, table, handleFormSubmit, handleInputChange, selectedMenuItem, handleSelectMenu,printListMenuStore, statusPrintDataConfirm } = props;
    
-
     return(
         <div>
             <div className="admin-user">
@@ -59,25 +59,28 @@ const AdminTransactionView = props => {
                                                             value={item.price}
                                                         />
                                                     </td>
-                                                </tr>
+                                                  </tr>
                                             )
                                         }) : null }
                                     </tbody>
                                 </Table>
+                                <div class="confirmFixedButton">
+                                    <Button type="submit" className="margin-top-base" disabled={!selectedMenuItem.length} onClick={handleFormSubmit} size="large" block>Konfirmasi Pembayaran {selectedMenuItem.length ? `( ${selectedMenuItem.length} Terpilih )` : null}</Button>
+                                </div>
                             </div>
-                            <Button type="submit" className="margin-top-base" disabled={!selectedMenuItem.length} onClick={handleFormSubmit} size="large" block>Konfirmasi Pembayaran {selectedMenuItem.length ? `( ${selectedMenuItem.length} Terpilih )` : null}</Button>
                         {/* </form> */}
                     </PanelBody>
                 </Panel>
                 
                 <AdminTransactionDetail {...props} />
                 <AdminTransactionCheckout {...props} />
-                <AdminTransactionPrint {...props} />
+                
+                {/* Print After Authenticated Member */}
+                {/* {member.item.isAuthenticated === true ? <AdminTransactionPrint {...props} /> : null} */}
 
                 {/* Print Secondary */}
                 {statusPrintDataConfirm === 200 ? <AdmintTransactionPrintSecondary {...this.state} {...props} /> : null}
                
-                
             </div>
         </div>
     )

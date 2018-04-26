@@ -10,6 +10,8 @@ import { Badge } from '../../../components/Badge';
 import Currency from '../../../components/Currency';
 import NumberFormat from 'react-number-format';
 
+import { AdminTransactionPrint } from '../AdminTransaction';
+
 class AdminTransactionCheckout extends Component {
     render() {
         const {
@@ -132,7 +134,13 @@ class AdminTransactionCheckout extends Component {
                         : null 
                     }
                 </ModalFooter>
+                
+                
+                {/* Print After Authenticated Member */}
+                <AdminTransactionPrint {...this.state}{...this.props} />
             </Modal>
+
+            
         );
     }
 }

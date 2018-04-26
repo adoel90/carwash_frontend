@@ -4,15 +4,11 @@ import NumberFormat from 'react-number-format';
 import { Printable } from '../../../components/Print';
 import { ListGroup, ListGroupItem } from '../../../components/List';
 
-
-
 class AdmintTransactionPrintSecondary extends Component{
-
-    
 
     render (){
 
-        const { storeState, statusPrintDataConfirm, selectedMenuItem, user } = this.props
+        const { storeState, statusPrintDataConfirm, selectedMenuItem, user, storeIdTab} = this.props
 
         const tdThStyle = {
             'border-bottom': '3px solid #CCC',
@@ -36,7 +32,6 @@ class AdmintTransactionPrintSecondary extends Component{
                             <th className="fw-bold tdThStyle">Total Harga </th>
                         </tr>
                         { selectedMenuItem.map((value) => {
-                            // console.log(value);
                             return(
                                 <tr>
                                     {/* <td className="fw-bold" style={tdThStyle, tdStyle}> {value.quantity}</td> */}
@@ -50,7 +45,7 @@ class AdmintTransactionPrintSecondary extends Component{
             )
         }
 
-        if(statusPrintDataConfirm === 200){
+        if(statusPrintDataConfirm === 200){            
             let nameStoreStaff =  statusPrintDataConfirm === 200 ? user.name : null;
 
             return (
@@ -64,6 +59,7 @@ class AdmintTransactionPrintSecondary extends Component{
                             <p>Jln. Raya Pegangsaan 2 no 23-B <br/> 0896-0457-8309 <br/> 021-957-362-77</p>
                         </div>
                         <div className="align-center margin-top-base margin-bottom-base">
+                            <p className="fw-bold">{storeIdTab.name}</p>
                             <p className="fw-bold">{nameStoreStaff}</p>
                         </div>
                         <div className="receipt-body margin-bottom-small">

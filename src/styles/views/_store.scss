@@ -1,0 +1,12 @@
+.confirmFixedButton {
+    display: block;
+	width: 72%;
+	position: fixed;
+	// top: 0;
+    left: 1;
+    right:1;
+    bottom: 0;
+    margin-bottom: 5px;
+	overflow: hidden;
+	z-index: 1;
+}

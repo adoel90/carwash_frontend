@@ -122,7 +122,7 @@ class AdminTransactionPrint extends Component {
                             </div>
                             <div className="receipt-footer ta-center">
                                 <div className="margin-bottom-small">
-                                    <p className="fw-semibold">For Customer <br/>{printData.result.member ? printData.result.member.name : null}</p>
+                                    <p className="fw-semibold">For Customer <br/>{printData.status === 200 ? printData.result.member.name : null}</p>
                                 </div>
                                 <p className="fw-semibold">{moment(printData.result.date).format('LLL')}</p>
                                 {/* <p>Thank you and please come again soon.</p> */}

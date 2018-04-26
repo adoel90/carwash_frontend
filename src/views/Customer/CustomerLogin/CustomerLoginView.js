@@ -9,6 +9,7 @@ import { Input } from '../../../components/Input';
 import { Button } from '../../../components/Button';
 
 const CustomerLoginView = props => {
+    
     const {
         member,
         match,
@@ -23,8 +24,6 @@ const CustomerLoginView = props => {
     const transparent = {
         'opacity': '0.9'
     };
-
-
 
     return (
             // <div onClick={handlePreventErurOnLogin}>

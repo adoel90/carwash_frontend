@@ -74,12 +74,12 @@ const AdminTransactionView = props => {
                 
                 <AdminTransactionDetail {...props} />
                 <AdminTransactionCheckout {...props} />
-                
+            
+                {/* Print Secondary */}
+                {statusPrintDataConfirm === 200 ? <AdmintTransactionPrintSecondary {...this.state} {...props} /> : <AdminTransactionPrint {...props} />}
+
                 {/* Print After Authenticated Member */}
                 {/* {member.item.isAuthenticated === true ? <AdminTransactionPrint {...props} /> : null} */}
-
-                {/* Print Secondary */}
-                {statusPrintDataConfirm === 200 ? <AdmintTransactionPrintSecondary {...this.state} {...props} /> : null}
                
             </div>
         </div>

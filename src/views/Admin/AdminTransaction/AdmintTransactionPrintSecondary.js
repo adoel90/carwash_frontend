@@ -8,40 +8,67 @@ class AdmintTransactionPrintSecondary extends Component{
 
     render (){
 
-        const { storeState, statusPrintDataConfirm, selectedMenuItem, user, storeIdTab} = this.props
+        const { storeState, statusPrintDataConfirm, selectedMenuItem, user, storeIdTab, grandTotal} = this.props
 
         const tdThStyle = {
             'border-bottom': '3px solid #CCC',
             height: '30px'   
         }   
 
-        const tdStyle = {
-            'text-align': 'center'
+        const tdStyle = { 'text-align': 'center' }
+
+        const renderItem = (item, i) => {
+
+            return (
+                <tr>
+                    <td className="padding-right-small">{item.quantity}</td>
+                    <td className="padding-right-small">{item.name}</td>
+                    <td className="ta-right">
+                        <NumberFormat
+                            thousandSeparator={true}
+                            displayType={'text'}
+                            value={item.price}
+                        />
+                    </td>
+                </tr>
+            )
+        }
+
+        const renderItemList = () => {
+
+            if(statusPrintDataConfirm === 200) {
+                return (
+                    <table className="margin-bottom-small" style={{width: '100%'}}>
+                        <tbody>
+                            {selectedMenuItem.map(renderItem)}
+                        </tbody>
+                    </table>
+                )
+            }
         }
 
         const renderSummary = () => {
-            
-            let nameStoreStaff =  statusPrintDataConfirm === 200 ? user.name : null;
-
-            return(
-                <div className="receipt-body margin-bottom-small">
-                    <table className="printReportDailyStaffStore">
-                        <tr>
-                            {/* <th className="fw-bold tdThStyle">Item</th> */}
-                            <th className="fw-bold tdThStyle">Menu</th>
-                            <th className="fw-bold tdThStyle">Total Harga </th>
+            return (
+                <table style={{width: '100%'}}>
+                    <tbody>
+                        <tr className="padding-bottom-small">
+                            {/* <td>{dataDiscount != 0 ? "Diskon :" : null}</td> */}
+                            <td className="ta-right">
+                                {/* <p>{dataDiscount != 0 ? dataDiscount + "%" : null}</p> */}
+                            </td>
                         </tr>
-                        { selectedMenuItem.map((value) => {
-                            return(
-                                <tr>
-                                    {/* <td className="fw-bold" style={tdThStyle, tdStyle}> {value.quantity}</td> */}
-                                    <td className="fw-bold" style={tdThStyle, tdStyle}> {value.name}</td>
-                                    <td className="fw-bold" style={tdThStyle, tdStyle}> {value.price}</td>
-                                </tr>
-                            )
-                        }) }
-                    </table>
-                </div>
+                        <tr className="padding-bottom-small">
+                            <td>Total Harga:</td>
+                            <td className="ta-right">
+                                <NumberFormat
+                                    thousandSeparator={true}
+                                    displayType={'text'}
+                                    value={grandTotal} 
+                                />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             )
         }
 
@@ -63,6 +90,7 @@ class AdmintTransactionPrintSecondary extends Component{
                             <p className="fw-bold">{nameStoreStaff}</p>
                         </div>
                         <div className="receipt-body margin-bottom-small">
+                            {renderItemList()}
                             {renderSummary()}
                         </div>
                         <div className="receipt-footer ta-center">

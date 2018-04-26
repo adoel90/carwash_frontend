@@ -478,7 +478,6 @@ class AdminTransaction extends Component{
 
                 {/* RENDER CONTENT BASED ON ID STORE */}
                 {renderTabContent()}
-                {/* <Redirect from="/*" to={`${match.url}/transaction/${firstRoutePath}`} /> */}
 
                 {/*  RENDER DIALOG BERHASIL OR NOT */}
                 {this.renderDialog()}

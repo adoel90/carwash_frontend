@@ -137,7 +137,7 @@ class AdminTransactionCheckout extends Component {
                 
                 
                 {/* Print After Authenticated Member */}
-                <AdminTransactionPrint {...this.state}{...this.props} />
+                {/* <AdminTransactionPrint {...this.state}{...this.props} /> */}
             </Modal>
 
             

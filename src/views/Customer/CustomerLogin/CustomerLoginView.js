@@ -24,8 +24,12 @@ const CustomerLoginView = props => {
         'opacity': '0.9'
     };
 
+
+
     return (
-            <div onClick={handlePreventErurOnLogin}>
+            // <div onClick={handlePreventErurOnLogin}>
+            // <div onClick={document.getElementsByName('cardID').focus()}>
+            <div>
                 <div className="main-content">
                     <Form onSubmit={handleAuthentication}>
                         <main className="layout-login landing" >

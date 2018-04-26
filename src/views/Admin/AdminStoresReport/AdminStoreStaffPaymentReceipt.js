@@ -6,7 +6,6 @@ import { ListGroup, ListGroupItem } from '../../../components/List';
 
 class AdminStoreStaffPaymentReceipt extends Component {
 
-
     render(){
 
         const { statusPrintData, printData, user, idStore, period} = this.props;

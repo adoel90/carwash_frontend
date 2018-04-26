@@ -55,9 +55,7 @@ class AdminLogin extends Component {
     }
 
     handleAuthentication = (e) => {
-        const {
-            credentials
-        } = this.state;
+        const { credentials } = this.state;
 
         const { adminLogin } = this.props;
         
@@ -65,8 +63,6 @@ class AdminLogin extends Component {
             username: credentials.username,
             password: credentials.password
         }
-        
-        // console.log(requiredData);
         
         adminLogin(requiredData);
     }

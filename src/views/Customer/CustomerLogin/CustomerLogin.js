@@ -45,7 +45,6 @@ class CustomerLogin extends Component {
 		let requireData = {
 			cardID: authData.cardID
 		}
-		// console.log(requireData); //0011509695740738
 
 		customerLogin(requireData).then(() => {
 			window.location.reload();

@@ -32,6 +32,12 @@ class AdminStoreCashierReportPaymentReceipt extends Component {
                 'border-left': '1px solid #CCC'
         }
 
+        const tdStyleLeft = {
+            'text-align': 'left',
+            'border-left': '1px solid #CCC',
+            'padding-left': '12px'
+        }
+
         const trStyle = {
             // border: '1px solid #CCC'
         }
@@ -72,7 +78,7 @@ class AdminStoreCashierReportPaymentReceipt extends Component {
                                 { store.reportCashierMember.isLoaded ? store.reportCashierMember.data.result.data.map((value) => {
                                     return (
                                         <tr>
-                                            <td className="fw-bold" style={tdThStyle, tdStyle}> {value.member? value.member.name : null}</td>
+                                            <td className="fw-bold" style={tdThStyle, tdStyleLeft}> {value.member? value.member.name : null}</td>
                                             <td className="fw-bold" style={tdThStyle, tdStyle}> {value.total}</td>
                                         </tr>
                                     )

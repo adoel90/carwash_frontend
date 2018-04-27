@@ -291,7 +291,8 @@ const report = (state = initialState, action) => {
 				...state,
 				reportMember: {
 					...state.reportMember,
-					data: action.payload.data,
+					// data: action.payload.data,
+					data: action.payload,
 					isFetching: false,
 					isLoaded: true,
 					isError: false

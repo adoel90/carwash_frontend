@@ -106,7 +106,7 @@ class AdminReportSellingTotal extends Component {
             title: 'Total Penjualan',
             accessor: 'price',
             align: 'left',
-            // isCurrency: true
+            isCurrency: true
         }
     ]
 
@@ -119,7 +119,7 @@ class AdminReportSellingTotal extends Component {
                 let row = {
                     name: value.users.name,
                     store: value.store.name,
-                    price: value ? value.total : null
+                    price: value.total === null ? "-" : value.total
                 }
 
                 rows.push(row);

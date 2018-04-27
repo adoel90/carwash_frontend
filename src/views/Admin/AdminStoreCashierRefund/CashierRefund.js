@@ -23,7 +23,8 @@ class CashierRefund extends Component {
 				return (
 					<Alert theme="danger" className="flex align-items--center clr-light margin-bottom-small">
 						<i className="ion-alert-circled margin-right-small icon icon--base"></i>
-						<p className="fw-semibold">{member.item.error.response.data.message}</p>
+						<p className="fw-semibold">{member.item.error.response.data.message === "Server connection unexpected error" ? "Maaf, kartu yang Anda gunakan tidak bisa di refund" : member.item.error.response.data.message}</p>
+						{/* <p className="fw-semibold">{member.item.error.response.data.message}</p> */}
 					</Alert>
 				)
 			}

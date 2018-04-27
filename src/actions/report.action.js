@@ -158,7 +158,7 @@ export const getReportOwnerSuperAdmin = (data) => {
 //#GET REPORT MEMBER SUPERADMIN || reportMember -- state
 export const getReportMemberSuperAdmin = (data) => {
 	
-	console.log(data);
+	// console.log(data);
 
 	return async dispatch => {
 
@@ -167,7 +167,7 @@ export const getReportMemberSuperAdmin = (data) => {
 		return axios
 			.get(`${constant.API_PATH}report/member/list?accessToken=${accessToken}&start_date=${data.start_date}&end_date=${data.end_date}`)
 			.then((response) => {
-				dispatch(fetchSuccess(response));
+				dispatch(fetchSuccess(response.data));
 				// window.open(`${constant.API_PATH}report/member/list?accessToken=${accessToken}&start_date=${data.start_date}&end_date=${data.end_date}&convert=${data.convert}`, '_blank');
 			})
 			.catch((error) => {

@@ -178,7 +178,7 @@ class AdminStoreCashierRefund extends Component {
             window.print();
         })
 
-        // dispatch(memberRefund(requiredData));
+        dispatch(memberRefund(requiredData));
     }
     
     render() {

@@ -50,7 +50,7 @@ class AdminReport extends Component {
                 searchParams: [
                     { accessor: 'name', name: 'Nama Member' },
                     { accessor: 'email', name: 'Email' },
-                    { accessor: 'cardType', name: 'Tipe Member' },
+                    { accessor: 'kartu', name: 'Tipe Member' },
               ]
             },
             tabel: {
@@ -91,7 +91,7 @@ class AdminReport extends Component {
             if(report.reportMember.isLoaded){
                 this.setState({
                     ...this.state,
-                    reportMemberList: report.reportMember,
+                    reportMemberList: report.reportMember
                 }, () => {
                     this.populateTableData();
                 })
@@ -140,24 +140,25 @@ class AdminReport extends Component {
 
     populateTableData = () => {
 
-        const { report } = this.props;
+        const { report,member} = this.props;
+        const { reportMemberList  } = this.state;
         
         const columns = [{
-            title: 'Nomor Kartu',
+            title: 'No. Kartu',
             accessor: 'id',
             align: 'left'
         }, 
-        // {
-        //     title: 'Jenis Kartu',
-        //     accessor: 'card',
-        //     align: 'left'
-        // }, 
         {
-            title: 'Nama Member',
+            title: 'Kartu',
+            accessor: 'kartu',
+            align: 'left'
+        }, 
+        {
+            title: 'Nama',
             accessor: 'name',
             align: 'left'
         },{
-            title: 'Tanggal Daftar',
+            title: 'Tgl Daftar',
             accessor: 'created',
             align: 'left'
         },{
@@ -165,11 +166,13 @@ class AdminReport extends Component {
             accessor: 'balance',
             align: 'left',
             isCurrency: true
-        },{
-            title: 'Tanggal Transaksi',
-            accessor: 'last',
-            align: 'left'
-        },{
+        },
+        // {
+        //     title: 'Tgl Transaksi',
+        //     accessor: 'last',
+        //     align: 'left'
+        // },
+        {
             title: 'Status',
             accessor: 'action',
             width: '30%',
@@ -185,10 +188,9 @@ class AdminReport extends Component {
 
         if(report.reportMember.isLoaded){
             report.reportMember.data.result.report.forEach((value, i) => {
-                // console.log(value);
                 let row = {
                     id: value.card.id,
-                    // card: report.reportMember.isLoaded ? value.card.type.name : null,
+                    kartu: value.card.type ? value.card.type.name : null,
                     name: value.name,
                     created: value.created_at,
                     balance: value.balance,

@@ -175,7 +175,14 @@ class AdminStoreCashierRefund extends Component {
             printData: member,
             statusPrintData: 200
         }, () => {
-            window.print();
+            const { printData } = this.state;
+            
+            
+            if(printData.item.data.card.type.name != "Member"){
+                window.print();
+            } else {
+                console.log("You can see in AdminStoreCashierRefund");
+            }
         })
 
         dispatch(memberRefund(requiredData));

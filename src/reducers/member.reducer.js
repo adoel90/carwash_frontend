@@ -81,6 +81,13 @@ const initialState = {
 		isError: false,
 		error: {}
 	},
+	memberRefund:{
+		data: {},
+		isRefunding: false,
+		isRefunded: false,
+		isError: false,
+		error: {}
+	}
 
 }
 
@@ -291,8 +298,8 @@ const member = (state = initialState, action) => {
 		case MEMBER_REFUND_REQUESTED: {
 			return {
 				...state,
-				item: {
-					...state.item,
+				memberRefund: {
+					...state.memberRefund,
 					data: {},
 					isRefunding: true,
 					isRefunded: false,
@@ -305,8 +312,8 @@ const member = (state = initialState, action) => {
 		case MEMBER_REFUND_FULFILLED: {
 			return {
 				...state,
-				item: {
-					...state.item,
+				memberRefund: {
+					...state.memberRefund,
 					data: action.payload.data,
 					isRefunding: false,
 					isRefunded: true,
@@ -319,8 +326,8 @@ const member = (state = initialState, action) => {
 		case MEMBER_REFUND_REJECTED: {
 			return {
 				...state,
-				item: {
-					...state.item,
+				memberRefund: {
+					...state.memberRefund,
 					data: {},
 					isRefunding: false,
 					isRefunded: false,

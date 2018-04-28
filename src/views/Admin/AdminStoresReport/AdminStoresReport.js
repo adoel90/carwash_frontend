@@ -334,7 +334,7 @@ class AdminStoresReport extends Component {
                     // queue: "CRS805-" + value.queue,
                     id:value.id,
                     queue: value.queue,
-                    customer: value.member.name,
+                    customer: value.member ? value.member.name : null ,
                     // date: value.date,
                     total: value.total
                 }

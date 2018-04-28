@@ -46,8 +46,10 @@ class AdminStoreCashierRefund extends Component {
 
                 this.handleRefund();
             }
+        }
 
-            if(member.item.isRefunded) {
+        if(prevProps.member.memberRefund !== member.memberRefund){
+            if(member.memberRefund.isRefunded) {
                 //CODE PRINT SHOULD BE IN HERE
             	let dialogData = {
             		type: 'success',
@@ -148,7 +150,7 @@ class AdminStoreCashierRefund extends Component {
             member
         } = this.props;
 
-        let requiredData = { card: refund.cardID }
+        let requiredData = { card: refund.cardID };
         
         dispatch(authenticateMember(requiredData, accessToken));
     }
@@ -166,24 +168,24 @@ class AdminStoreCashierRefund extends Component {
         
         let requiredData = {
             card: selectedMember.card.id,
-            accessToken: member.item.accessToken
+            // accessToken: member.item.accessToken
         }
 
         //Code in here will bi move on componentDidUpdate()
-        this.setState({
-            ...this.state,
-            printData: member,
-            statusPrintData: 200
-        }, () => {
-            const { printData } = this.state;
+        // this.setState({
+        //     ...this.state,
+        //     printData: member,
+        //     statusPrintData: 200
+        // }, () => {
+        //     const { printData } = this.state;
             
             
-            if(printData.item.data.card.type.name != "Member"){
-                window.print();
-            } else {
-                console.log("You can see in AdminStoreCashierRefund");
-            }
-        })
+        //     if(printData.item.data.card.type.name != "Member"){
+        //         window.print();
+        //     } else {
+        //         console.log("You can see in AdminStoreCashierRefund");
+        //     }
+        // })
 
         dispatch(memberRefund(requiredData));
     }

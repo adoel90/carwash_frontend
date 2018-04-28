@@ -358,6 +358,7 @@ export const getDiscountListById = (data) => {
 //GET BONUS TAXI ONLINE
 export const getBonusTaxiOnline = () => {
 
+	// console.log(accessToken);
 	return async dispatch => {
 
 		dispatch(getBonusRequest());

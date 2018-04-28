@@ -67,7 +67,7 @@ export const authenticateMember = (data) => {
 }
 
 export const memberCustomerTopup = (data, accessToken) => {
-	console.log(data);
+	// console.log(data);
 	return async dispatch => {
 		axios
 			.post(`${constant.API_PATH}member/topup?accessToken=${accessToken}`, data)
@@ -85,10 +85,16 @@ export const memberCustomerTopup = (data, accessToken) => {
 
 // export const memberRefund = (data, accessToken) => {
 export const memberRefund = (data) => {
+
+	console.log(data);
+
+	// return {
+	// 	type: null
+	// }
 	return async dispatch => {
-		
 		axios
-			.post(`${constant.API_PATH}member/refund?accessToken=${data.accessToken}`, {
+			// .post(`${constant.API_PATH}member/refund?accessToken=${data.accessToken}`, {
+			.post(`${constant.API_PATH}member/refund?accessToken=${accessToken}`, {
 				card: data.card
 			})
 			.then((response) => {

@@ -85,18 +85,13 @@ export const memberCustomerTopup = (data, accessToken) => {
 
 // export const memberRefund = (data, accessToken) => {
 export const memberRefund = (data) => {
-
-	console.log(data);
-
-	// return {
-	// 	type: null
-	// }
 	return async dispatch => {
 		axios
 			// .post(`${constant.API_PATH}member/refund?accessToken=${data.accessToken}`, {
 			.post(`${constant.API_PATH}member/refund?accessToken=${accessToken}`, {
-				card: data.card
-			})
+				card: data.card,
+				staff: data.staff
+			},{'Content-Type': 'application/json'})
 			.then((response) => {
 				dispatch(handleSuccess(response))
 			})

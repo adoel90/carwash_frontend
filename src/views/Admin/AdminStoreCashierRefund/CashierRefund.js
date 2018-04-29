@@ -8,26 +8,25 @@ import { Alert } from '../../../components/Alert';
 import { CashierRefundConfirmation } from '../AdminStoreCashierRefund';
 
 class CashierRefund extends Component {
-
-	
 	render() {
 		const {
 			member,
 			refund,
 			handleInputChange,
-			handleAuthenticateMember
+			handleAuthenticateMember,
 		} = this.props;
 
 		const renderAlert = () => {
-			if(member.isError || member.item.isError) {
+			if(member.isError || member.memberRefund.isError || member.item.isError) {
 				return (
 					<Alert theme="danger" className="flex align-items--center clr-light margin-bottom-small">
 						<i className="ion-alert-circled margin-right-small icon icon--base"></i>
-						<p className="fw-semibold">{member.item.error.response.data.message === "Server connection unexpected error" ? "Maaf, kartu yang Anda gunakan tidak bisa di refund" : member.item.error.response.data.message}</p>
+						<p className="fw-semibold">{member.memberRefund.error.response.data.message === "Server connection unexpected error" ? "Maaf, kartu yang Anda gunakan tidak bisa di refund" : member.memberRefund.error.response.data.message}</p>
 						{/* <p className="fw-semibold">{member.item.error.response.data.message}</p> */}
 					</Alert>
 				)
 			}
+			
 		}
 		
 		return (
@@ -39,7 +38,7 @@ class CashierRefund extends Component {
 					</PanelHeader>
 					<PanelBody>
 						{ renderAlert() }
-						<Form name="refund" onSubmit={handleAuthenticateMember}>
+						<Form name="refund" onSubmit={handleAuthenticateMember}>		
 							<FormGroup>
 								<InputGroup>
 									<InputAddon>

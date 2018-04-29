@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { authenticateMember, memberRefund } from '../../../actions/member.action';
 import {openDialog, closeDialog } from '../../../actions/dialog.action';
 import { Dialog } from '../../../components/Dialog';
@@ -34,16 +35,13 @@ class AdminStoreCashierRefund extends Component {
     }
 
     componentDidUpdate = (prevProps) => {
-        const {
-            member,
-            toggleDialog
-        } = this.props;
+        const {member, toggleDialog } = this.props;
+        const { printData, statusPrintData } = this.state;
 
         if(prevProps.member.item !== member.item) {
             if(member.item.isAuthenticated) {
                 this.state.selectedMember = member.item.data;
                 this.forceUpdate();
-
                 this.handleRefund();
             }
         }
@@ -59,38 +57,51 @@ class AdminStoreCashierRefund extends Component {
             		closeText: 'Kembali'
             	}
 
-            	this.toggleDialog(dialogData);
+                this.toggleDialog(dialogData);
+
+                this.setState({
+                    ...this.state,
+                    printData: member,
+                    statusPrintData: 200
+                }, () => {
+                    const { printData } = this.state;
+                    window.print();
+                });
+            }
+
+            if(member.memberRefund.isError){
+                // console.log(member.memberRefund);
+                let dialogData = {
+            		type: 'error',
+            		title: 'Can not refund',
+            		message: 'Maaf, kartu yang Anda gunakan tidak bisa di refund',
+            		onClose: () => window.location.reload(),
+            		closeText: 'Kembali'
+            	}
+
+                this.toggleDialog(dialogData);
             }
         }
     }
 
     toggleDialog = (data) => {
-		const {
-			dialog
-        } = this.props;
+		const { dialog } = this.props;
 
 		if(!dialog.isOpened) {
 			this.openDialog(data);
-		}
-		else {
+		} else {
 			this.closeDialog();
 		}
 	}
 
 	openDialog = (data) => {
-		const {
-			dispatch
-		} = this.props;
-
-		dispatch(openDialog(data));
+		const { action } = this.props;
+        action.openDialog(data)
 	}
 
 	closeDialog = () => {
-		const {
-			dispatch
-		} = this.props;
-
-		dispatch(closeDialog());
+		const { action } = this.props;
+        action.closeDialog();
     }
     
     renderDialog = () => {
@@ -143,6 +154,7 @@ class AdminStoreCashierRefund extends Component {
         e.preventDefault();
         
         const { refund } = this.state;
+        const { authenticateMemberDispatch } = this.props;
 
         const {
             dispatch,
@@ -152,7 +164,8 @@ class AdminStoreCashierRefund extends Component {
 
         let requiredData = { card: refund.cardID };
         
-        dispatch(authenticateMember(requiredData, accessToken));
+        // dispatch(authenticateMember(requiredData, accessToken));
+        authenticateMemberDispatch(requiredData);
     }
     
     handleRefund = () => {
@@ -163,31 +176,16 @@ class AdminStoreCashierRefund extends Component {
         e.preventDefault();
 
         const { selectedMember } = this.state;
-        
-        const { dispatch,member, accessToken } = this.props;
+        const { dispatch,member, accessToken, user, memberRefundDispatch} = this.props;
+        // accessToken: member.item.accessToken
         
         let requiredData = {
             card: selectedMember.card.id,
-            // accessToken: member.item.accessToken
+            staff: user.level.id
         }
 
-        //Code in here will bi move on componentDidUpdate()
-        // this.setState({
-        //     ...this.state,
-        //     printData: member,
-        //     statusPrintData: 200
-        // }, () => {
-        //     const { printData } = this.state;
-            
-            
-        //     if(printData.item.data.card.type.name != "Member"){
-        //         window.print();
-        //     } else {
-        //         console.log("You can see in AdminStoreCashierRefund");
-        //     }
-        // })
-
-        dispatch(memberRefund(requiredData));
+        memberRefundDispatch(requiredData);
+        // dispatch(memberRefund(requiredData));
     }
     
     render() {
@@ -210,6 +208,14 @@ class AdminStoreCashierRefund extends Component {
     }
 }
 
+function mapDispatchToProps (dispatch){
+    return {
+        memberRefundDispatch: (data) => dispatch(memberRefund(data)),
+        authenticateMemberDispatch: (data) => dispatch(authenticateMember(data)),
+        action: bindActionCreators({  openDialog, closeDialog }, dispatch)
+    }
+}
+
 const mapStateToProps = (state) => {
     return {
         member: state.member,
@@ -217,4 +223,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(AdminStoreCashierRefund);
+export default connect(mapStateToProps, mapDispatchToProps)(AdminStoreCashierRefund);

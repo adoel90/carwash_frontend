@@ -28,11 +28,12 @@ nav {}
 
 			&.is-active {
 				@include font-weight(semibold);
-				// border-top: solid 3px secondary-color(base);
-				// border-top: solid 3px $danger-color-base;
-				border-bottom: solid 7px $danger-color-base;
-				background-color: gray(100);
-				color: gray(1700);
+				border-bottom: solid 2px $danger-color-base;
+				// border-bottom: solid 7px $danger-color-base;
+				// background-color: gray(100);
+				background-color:  $primary-color-base ;
+				color:white;
+				// color: gray(1700);
 				margin-top: -3px;
 
 				&:first-of-type {

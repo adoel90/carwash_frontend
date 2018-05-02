@@ -8,7 +8,7 @@ nav {}
 		@include flexbox;
 		@include flex-direction(row);
 	}
-
+	
 	.navigation__item {
 		@include flexbox;
 		margin-bottom: -1px;
@@ -28,7 +28,7 @@ nav {}
 
 			&.is-active {
 				@include font-weight(semibold);
-				border-bottom: solid 2px $danger-color-base;
+				// border-bottom: solid 2px $danger-color-base;
 				// border-bottom: solid 7px $danger-color-base;
 				// background-color: gray(100);
 				background-color:  $primary-color-base ;

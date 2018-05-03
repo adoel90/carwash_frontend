@@ -277,7 +277,7 @@ class AdminStoresReportMenu extends Component {
                         return (
                             <NavItem>
                                 <NavTabLink active= {activeTab === i} onClick={() => this.toggleTab(i, store)}>
-                                    <h4>{store.name}</h4>
+                                    <h5>{store.name}</h5>
                                 </NavTabLink>
                             </NavItem>
                         )                        

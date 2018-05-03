@@ -64,7 +64,7 @@ class AdminPanel extends Component {
         if(menu[0].group === 'admin') {
             let routePage = [
                 // { name: 'dashboard', path: `${this.props.match.url}`, component: AdminDashboard },
-                // { name: 'user', path: `${this.props.match.url}/user`, component: AdminUser },
+                { name: 'user', path: `${this.props.match.url}/user`, component: AdminUser },
                 { name: 'user', path: `${this.props.match.url}`, component: AdminUser },
                 { name: 'create-user', path: `${this.props.match.url}/user/create-new-user`, component: AdminUserCreate },
                 { name: 'user-settings', path: `${this.props.match.url}/user/settings`, component: AdminUserSettings },

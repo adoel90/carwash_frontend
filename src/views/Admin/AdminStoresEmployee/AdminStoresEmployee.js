@@ -420,7 +420,7 @@ class AdminStoresEmployee extends Component {
                     <NavItem>
                         <NavTabLink active={activeTab === i} onClick={() => this.toggleTab(i, store)}>
                             {console.log(store.name)}
-                            <h4>{store.name}</h4>
+                            <h5>{store.name}</h5>
                         </NavTabLink>
                     </NavItem>
                 )) : null }

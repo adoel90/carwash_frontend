@@ -28,15 +28,15 @@ const CustomerLoginView = props => {
                     <Form onSubmit={handleAuthentication}>
                         <main className="layout-login landing" >
                             <div className="landing__container">
-                                <img src={StoreIcon} style={{ width: '240px' }} />
-                                <h2 style={{color : '#e2dcdd'}}>Selamat datang di 805 Carwash </h2>
+                                <img src={StoreIcon} style={{ width: '65%' }} />
+                                <h2 style={{color : '#F8B004'}}>Selamat datang di 805 Carwash </h2>
                                 {/* <h5>Silahkan gesek kartu member Anda :</h5> */}
                                 
                                 { renderAlert() }
                                 
-                                <FormGroup className="margin-top-small">
+                                <FormGroup>
                                     <Input  
-                                        style={{ 'width': '270px' }}
+                                        style={{ 'width': '270px', 'margin-top': '10px'  }}
                                         type="password"
                                         name="cardID"
                                         placeholder="Tap di sini & Gesek Kartu Anda !"

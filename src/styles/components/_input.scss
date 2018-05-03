@@ -16,7 +16,7 @@
     background-image: none;
 
     &::placeholder {
-        color: gray(300);
+        color: $gray-base;
         font-weight: bold;
     }
 

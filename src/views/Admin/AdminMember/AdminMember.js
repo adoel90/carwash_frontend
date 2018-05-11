@@ -170,14 +170,14 @@ class AdminMember extends Component {
             }, {
                   title: 'Tipe Member',
                   accessor: 'cardType',
-                  rowAlign: 'center'
+                  rowAlign: 'left'
             },{
                   title: 'Status',
                   accessor: 'action',
                   width: '30%',
-                  align: 'center',
+                  // align: 'left',
                   render: (row) => (
-                        <td className="flex justify-content--center">
+                        <td>
                               {/* <Button className="margin-right-small" theme="light" type="button" onClick={() => this.openMemberModalDetailNew(row)}>Detail</Button>                               */}
                               <Button className="margin-right-small" type="button" onClick={() => this.openMemberDetail(row)}>Ubah</Button>
                               <Button type="button" theme={row.data.status ? "success" : "danger"} onClick={() => this.changdeMemberStatus(row)}>{ row.data.status ? 'Aktif' : 'Non Aktif' }</Button>

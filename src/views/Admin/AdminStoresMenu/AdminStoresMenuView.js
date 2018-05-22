@@ -106,7 +106,7 @@ const AdminStoresMenuView = props => {
                                             <Input className="input" name="image" type="file"  placeholder="Gambar Produk" onChange={(e) => handleImageChange(selectedMenuStore, e) } />
                                         </InputGroup>
                                     </FormField>
-                                    <FormField label="Category">
+                                    <FormField label="Penawaran Khusus">
                                             <SwitchSquare name="category" value={Boolean(selectedMenuStore.category)} onChange={(e) => handleInputChange('selectedMenuStore', e)} />
                                     </FormField>
                                 </Column>

@@ -123,8 +123,8 @@ class CashierTopUpConfirmation extends Component {
 		return (
 			<Modal
 				isOpen={isModalOpen.topup}>
-				{/* <Form onSubmit={handleTopupSubmit}> */}
-				<Form onSubmit={handleTopUpPaymentCheckout}>
+				<Form onSubmit={handleTopupSubmit}>
+				{/* <Form onSubmit={handleTopUpPaymentCheckout}> */}
 					<ModalHeader>
 						<h5 className="fw-bold ta-center">Isi Ulang Saldo Customer</h5>
 					</ModalHeader>

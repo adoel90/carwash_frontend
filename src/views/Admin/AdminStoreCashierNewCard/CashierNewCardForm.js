@@ -13,18 +13,21 @@ import { default as CardIcon } from '../../../assets/icons/Business/credit-card-
 
 
 class CashierNewCardForm extends Component {
+
 	constructor() {
 		super();
 		this.renderCardTypeOptions = this.renderCardTypeOptions.bind(this);
-	}
+	};
 
 	renderCardTypeOptions = (type, i) => {
+
 		if(type.status) {
 			return <option value={type.id}>{type.name}</option>
 		}
-	}
+	};
 
 	render() {
+		
 		const {
 			card,
 			cardTypes,
@@ -34,14 +37,18 @@ class CashierNewCardForm extends Component {
 			selectedCardType,
 			handleInputChange,
 			handleChangeCardType,
-			handleNewCardSubmit
+			handleNewCardSubmit,
+			handleNewCardConfirmationSubmit
 		} = this.props;
 
 		return (
-			<Form onSubmit={handleNewCardSubmit}>
+			<Form onSubmit={handleNewCardConfirmationSubmit}>
+			{/* <Form onSubmit={handleNewCardConfirmationSubmit}> */}
 				<Row className="margin-bottom-small">
-					{console.log(selectedCardType)}
-					{ !selectedCardType.refund ?
+					{console.log(newCardData)}
+
+
+					{ newCardData.card === 15 || newCardData.card === 1 ?
 							<Column md={6}>
 								<div className="column-6">
 									<FormGroup>

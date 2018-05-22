@@ -33,7 +33,7 @@ class CashierTopUp extends Component {
 					</PanelBody>
 				</Panel>
 				<CashierTopUpConfirmation {...this.props} />
-				<CashierTopUpPaymentCheckout { ...this.props} />
+				{/* <CashierTopUpPaymentCheckout { ...this.props} /> */}
 				<CashierTopUpPaymentReceipt {...this.props} />
 			</div>
 		);

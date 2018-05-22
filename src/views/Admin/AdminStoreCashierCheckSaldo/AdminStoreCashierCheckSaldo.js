@@ -28,7 +28,6 @@ class AdminStoreCashierCheckSaldo extends Component{
         this.handleToggleCheckSaldo= this.handleToggleCheckSaldo.bind(this);
 
         this.state = {
-
             checksaldo: {
                 cardID: 0
             },
@@ -46,12 +45,10 @@ class AdminStoreCashierCheckSaldo extends Component{
 
         if(prevProps.member.item !== member.item){
             // console.log(member);
-
             if(member.item.isAuthenticated) {
                 this.state.selectedMember = member.item.data;
                 this.forceUpdate();
                 this.handleToggleCheckSaldo();
-                
             }
         }
     }
@@ -84,7 +81,10 @@ class AdminStoreCashierCheckSaldo extends Component{
         const { authenticateMemberDispatch } = this.props;
         const { checksaldo } = this.state;
 
-        let requiredData = { card: checksaldo.cardID }
+        let firstData = checksaldo.cardID.replace('%', "");
+        let finalDataCardId = firstData.replace('?', "");
+        
+        let requiredData = { card: finalDataCardId }
         authenticateMemberDispatch(requiredData);
     }
 

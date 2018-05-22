@@ -174,12 +174,15 @@ class AdminStoreCashierTopUp extends Component {
     handleAuthentication = (e) => {
         e.preventDefault();
         const { action } = this.props;
-		const {authData } = this.state;
+        const {authData } = this.state;
         
-        let requireData = {
-            cardID: authData.cardID
-        }
+        let firstData = authData.cardID.replace('%', "");
+        let finalDataCardId = firstData.replace('?', "");
     
+        let requireData = {
+            cardID: finalDataCardId
+        }
+        
         action.kasirTopUpLogin(requireData);
     }
     

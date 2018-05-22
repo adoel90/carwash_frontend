@@ -42,14 +42,17 @@ class CustomerLogin extends Component {
 		const {customerLogin } = this.props;
 		const {authData } = this.state;
 		
+		let firstData = authData.cardID.replace('%', "");
+		let finalDataCardId = firstData.replace('?', "");
+
 		let requireData = {
-			cardID: authData.cardID
+			cardID: finalDataCardId
 		}
 
 		customerLogin(requireData).then(() => {
 			window.location.reload();
 		});
-	}
+	};
 
 	renderAlert = () => {
 		const {

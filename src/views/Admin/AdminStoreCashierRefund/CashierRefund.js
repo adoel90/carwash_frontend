@@ -45,7 +45,7 @@ class CashierRefund extends Component {
 										<i className="fas fa-id-card"></i>
 									</InputAddon>
 									<Input
-										type="number"
+										type="password"
 										name="cardID"
 										placeholder="16-digit nomor kartu member"
 										required="true"

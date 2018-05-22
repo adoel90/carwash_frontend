@@ -40,6 +40,7 @@ class CashierNewCardForm extends Component {
 		return (
 			<Form onSubmit={handleNewCardSubmit}>
 				<Row className="margin-bottom-small">
+					{console.log(selectedCardType)}
 					{ !selectedCardType.refund ?
 							<Column md={6}>
 								<div className="column-6">

@@ -37,7 +37,7 @@ const CustomerLoginView = props => {
                                 <FormGroup>
                                     <Input  
                                         style={{ 'width': '270px', 'margin-top': '10px'  }}
-                                        type="number"
+                                        type="password"
                                         name="cardID"
                                         placeholder="Tap di sini & Gesek Kartu Anda !"
                                         onChange={(e) => handleInputChange('authData', e)}

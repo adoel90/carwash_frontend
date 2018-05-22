@@ -162,9 +162,11 @@ class AdminStoreCashierRefund extends Component {
             member
         } = this.props;
 
-        let requiredData = { card: refund.cardID };
-        
-        // dispatch(authenticateMember(requiredData, accessToken));
+        let firstData = refund.cardID.replace('%', "");
+        let finalDataCardId = firstData.replace('?', "");
+
+        // let requiredData = { card: refund.cardID };
+        let requiredData = { card: finalDataCardId };
         authenticateMemberDispatch(requiredData);
     }
     

@@ -301,8 +301,8 @@ class AdminStoresReport extends Component {
             accessor: 'queue',
             align: 'left'
         }, {
-            title: 'Nama Customer ',
-            accessor: 'customer',
+            title: 'Nama Staff ',
+            accessor: 'staff',
             align: 'left'
         },
         {
@@ -327,15 +327,16 @@ class AdminStoresReport extends Component {
         
         if(vendorState.reportStaff.isLoaded){
             dailyOrdered.forEach((value) => {
-                // console.log(value);
+                console.log(value);
 
                 let row = {
                     // staff: value.user.name,
                     // queue: "CRS805-" + value.queue,
                     id:value.id,
                     queue: value.queue,
-                    customer: value.member ? value.member.name : null ,
+                    // customer: value.member ? value.member.name : null ,
                     // date: value.date,
+                    staff: value.user ? value.user.name : null,
                     total: value.total
                 }
                 rows.push(row);

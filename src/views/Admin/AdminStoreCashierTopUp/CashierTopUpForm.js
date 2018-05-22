@@ -47,7 +47,7 @@ class CashierTopUpForm extends Component {
 						</InputAddon>
 						<Input
 							name="cardID"
-							type="password"
+							type="number"
 							placeholder="16-digit nomor kartu member"
 							// onChange={(e) => handleInputChange(authentication, e)}
 							onChange={(e) => handleInputChange(authData, e)}

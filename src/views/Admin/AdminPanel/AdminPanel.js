@@ -16,7 +16,7 @@ import {
     AdminAccessCreate,
     AdminStore,
     AdminStoreCreate,
-    AdminReport,
+    AdminReportMember,
     AdminReportSellingTotal,
     AdminLogout,
     AdminSetting,
@@ -31,7 +31,8 @@ import {
     AdminStoresEmployeeCreate,
     AdminStoresReport,
     AdminTransaction,
-    AdminStoresReportMenu
+    AdminStoresReportMenu,
+    // AdminStoresReportSuperAdm
 
 } from '../../Admin';
 
@@ -64,6 +65,7 @@ class AdminPanel extends Component {
         if(menu[0].group === 'admin') {
             let routePage = [
                 // { name: 'dashboard', path: `${this.props.match.url}`, component: AdminDashboard },
+                
                 { name: 'user', path: `${this.props.match.url}/user`, component: AdminUser },
                 { name: 'user', path: `${this.props.match.url}`, component: AdminUser },
                 { name: 'create-user', path: `${this.props.match.url}/user/create-new-user`, component: AdminUserCreate },
@@ -77,12 +79,16 @@ class AdminPanel extends Component {
                 { name: 'create-new-access', path: `${this.props.match.url}/access/create-new-access`, component: AdminAccessCreate },
                 { name: 'store', path: `${this.props.match.url}/store`, component: AdminStore },
                 { name: 'create-new-store', path: `${this.props.match.url}/store/create-new-store`, component: AdminStoreCreate },
-                { name: 'report-member', path: `${this.props.match.url}/report/report-member`, component: AdminReport },
+                { name: 'report-member', path: `${this.props.match.url}/report/report-member`, component: AdminReportMember },
                 { name: 'report', path: `${this.props.match.url}/report`, component: AdminReportSellingTotal },
                 { name: 'report-kasir-superadmin', path: `${this.props.match.url}/report/report-kasir-superadmin`, component: AdminStoreCashierReport },
-                { name: 'report-penjualan-store-superadmin', path: `${this.props.match.url}/report/report-penjualan-store-superadmin`, component: AdminStoresReport },
+                // { name: 'report-penjualan-store-superadmin', path: `${this.props.match.url}/report/report-penjualan-store-superadmin`, component: AdminStoresReportSuperAdm },
                 { name: 'logout', path: `${this.props.match.url}/logout`, component: AdminLogout },
                 { name: 'setting', path: `${this.props.match.url}/setting`, component: AdminSetting },
+
+                //#Fussion Owner & Superadmin
+                { name: 'staff', path: `${this.props.match.url}/staff`, component: AdminStoresEmployee },
+                { name: 'create-new-staff', path: `${this.props.match.url}/staff/create-new-staff`, component: AdminStoresEmployeeCreate },
                 { component: NoMatch }
             ];
             mainRoute = routePage;
@@ -211,26 +217,36 @@ class AdminPanel extends Component {
                 if(menu[i].path !== "report") {
                     dataMenu.items.push(linkItem)
                 }
+                
+                //Laporan Total Penjualan (BETA)
+                let itemSeparateReport = {
+                    name: `${split[0]} Total Penjualan`, 
+                    path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}` : 'null'}`
+                };
+
+                if(menu[i].group === "all" && menu[i].path === "report"){
+                    dataMenu.items.push(itemSeparateReport);
+                }
 
                 //Laporan Penjualan Store Superadmin 
-                let laporanPenjualanStoreInSuperAdmin = {
-                    name: `${split[0]} Penjualan Store`, 
-                    path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}/report-penjualan-store-superadmin` : 'null'}`
-                }
+                // let laporanPenjualanStoreInSuperAdmin = {
+                //     name: `${split[0]} Penjualan Store`, 
+                //     path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}/report-penjualan-store-superadmin` : 'null'}`
+                // }
 
-                if(menu[i].group === "all" && menu[i].path === "report"){
-                    dataMenu.items.push(laporanPenjualanStoreInSuperAdmin);
-                }
+                // if(menu[i].group === "all" && menu[i].path === "report"){
+                //     dataMenu.items.push(laporanPenjualanStoreInSuperAdmin);
+                // }
 
                  //Laporan Menu Favorit Superadmin
-                 let laporanMenuFavoritInSuperAdmin = {
-                    name: `${split[0]} Menu Favorit`, 
-                    path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}/report-menu-superadmin` : 'null'}`
-                }
+                // let laporanMenuFavoritInSuperAdmin = {
+                //     name: `${split[0]} Menu Favorit`, 
+                //     path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}/report-menu-superadmin` : 'null'}`
+                // }
 
-                if(menu[i].group === "all" && menu[i].path === "report"){
-                    dataMenu.items.push(laporanMenuFavoritInSuperAdmin);
-                }
+                // if(menu[i].group === "all" && menu[i].path === "report"){
+                //     dataMenu.items.push(laporanMenuFavoritInSuperAdmin);
+                // }
                 
                 //Laporan Kasir Superadmin
                 let laporanKasirInSuperAdmin = {
@@ -254,15 +270,6 @@ class AdminPanel extends Component {
 
                
 
-                //Laporan Total Penjualan (BETA)
-                // let itemSeparateReport = {
-                //     name: `${split[0]} Total Penjualan (BETA)`, 
-                //     path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}` : 'null'}`
-                // };
-
-                // if(menu[i].group === "all" && menu[i].path === "report"){
-                //     dataMenu.items.push(itemSeparateReport);
-                // }
 
             } else if(split.length > 1) {
                 dataMenu = {

@@ -20,8 +20,116 @@ const AdminReportSellingTotalView = props => {
         reportList,
         showDate,
         period,
-        handlePeriodChange
+        periodrepot,
+        handlePeriodChange,
+
+        handlePeriodChangeAccessDetailStore,
+        selectedAccessDetailStore,
+        accessDetailStore,
+        isModalOpen,
+        toggleModal,
+        handlePrint,
+        vendorState,
+        handleChangeStaffOwnerOptions,
+        handleShow,
+        tabel
     } = props;
+
+
+    //#
+    const renderStaffOwnerOptions = (value, i) => {
+        return <option value={value.id}>{value.name}</option>
+    }; 
+
+    //#
+    const renderAccessDetailStoreModal = () => {
+        
+        if(selectedAccessDetailStore){
+            
+            return (
+                <Modal isOpen={isModalOpen.accessDetailStore} toggle={ () => toggleModal('accessDetailStore')}>
+                    <ModalHeader>
+                        <h5>Laporan Penjualan: {selectedAccessDetailStore.store}</h5>
+                    </ModalHeader>
+                    <ModalBody> 
+                        <Form inline>
+                            <Row>
+                                <Column className="flex">
+                                    <div className="margin-right-small">
+                                        <FormField>
+                                            <InputGroup>
+                                                <InputAddon>
+                                                    <i className="fas fa-calendar-alt"></i>
+                                                </InputAddon>
+                                                <DatePicker
+                                                    className="input"
+                                                    dateFormat="DD MMM YYYY"
+                                                    textPlaceholder="End Date"
+                                                    // minDate={period.from}
+                                                    selected={periodrepot.to}
+                                                    onChange={(date) => handlePeriodChangeAccessDetailStore('to', date)}
+                                                    
+                                                />
+                                            </InputGroup>
+                                        </FormField>
+                                    </div>
+                                    <div>
+                                        <FormField>
+                                        <Select 
+                                            name="card"
+                                            type="select"
+                                            // defaultValue={newCardData.card}
+                                            onChange={(e) => handleChangeStaffOwnerOptions(e)}>
+                                                <option value="">Pilih Staff</option>
+                                                <option value="2018">Semua Staff</option>
+                                                {vendorState.employee.isLoaded ? vendorState.employee.data.data.result.staff.map((value) => renderStaffOwnerOptions(value)) : null}
+
+                                            </Select>
+
+                                        </FormField>
+                                    </div> 
+                                    <div>
+                                        <FormField>
+                                            <Button className="margin-left-small" theme="primary" onClick={handleShow} >
+                                                Cari
+                                            </Button>
+                                        </FormField>
+                                    </div>
+                                    <Button onClick={(e) => handlePrint(e, periodrepot)} theme="danger" className="margin-right-small" type="submit" style={{height: '50px', 'margin-left': '3px'}}>
+                                        Print
+                                    </Button>
+                                </Column>
+                            </Row>
+                        </Form>
+
+                         <br />
+                
+                        <div className="admin-report__content">
+                            {/* <TableSet
+                                loading={vendorState.reportStaff.isFetching}
+                                loaded={vendorState.reportStaff.isLoaded}
+                                columns={table.columns}
+                                rows={table.rows}
+                                striped 
+                                fullWidth
+                                pagination
+                            /> */}
+
+                            <TableSet
+                                loading={vendorState.reportStaff.isFetching}
+                                loaded={vendorState.reportStaff.isLoaded}
+                                columns={tabel.kolom}
+                                rows={tabel.baris}
+                                striped 
+                                fullWidth
+                                pagination
+                            />
+                        </div>     
+                    </ModalBody>
+                </Modal>
+            )
+        }
+    }
 
     return (
         <div className="admin-report">
@@ -97,6 +205,8 @@ const AdminReportSellingTotalView = props => {
                     </div>
                 </PanelBody>
             </Panel>
+
+            { renderAccessDetailStoreModal() }
         </div>
     )
 };

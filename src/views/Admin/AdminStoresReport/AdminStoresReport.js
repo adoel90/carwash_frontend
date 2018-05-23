@@ -152,6 +152,7 @@ class AdminStoresReport extends Component {
             }
         }
 
+        //GET REPORT PENJUALAN
         if(prevProps.vendorState.reportStaff !== vendorState.reportStaff){
             if(vendorState.reportStaff.isLoaded){
 
@@ -159,6 +160,7 @@ class AdminStoresReport extends Component {
                     ...this.state,
                     dailyOrdered: vendorState.reportStaff.data.data.result.data
                 },() => {
+                    console.log(this.state);
                     this.populateTableData();
                 });
             }
@@ -266,7 +268,8 @@ class AdminStoresReport extends Component {
         const {period, storeActive, staffId, storeIdTab} = this.state;
         const { vendorState, store, getStoreStaffReportDispatch, user} = this.props;
 
-        if(staffId === 2018){
+        //#GET REPORT STORE STAFF
+        if(staffId === 2018){//Special case when select Staff ID
 
             const requiredDataStoreStaff = {
                 store: storeIdTab.id === undefined ? store.list.data.data.result.store[0].id : storeIdTab.id,
@@ -288,7 +291,6 @@ class AdminStoresReport extends Component {
             }
             getStoreStaffReportDispatch(requiredDataStoreStaff);
         }
-
     }
 
     populateTableData = () => {
@@ -437,7 +439,6 @@ class AdminStoresReport extends Component {
             align: 'left'       
         }];
 
-
         let barisArray = [];
         let barisArrayKedua = [];
         let responseData = null;
@@ -496,7 +497,7 @@ class AdminStoresReport extends Component {
         }
     }
 
-        // handleChangeStaffOwnerOptions = (object, e) => {
+    // handleChangeStaffOwnerOptions = (object, e) => {
     handleChangeStaffOwnerOptions = (e) => {
 
         const { staffId } = this.state;
@@ -510,9 +511,7 @@ class AdminStoresReport extends Component {
             staffId :  parseInt(value)
         }, () => {
             // console.log(this.state);
-        })
-
-
+        });
     }
 
     render() {

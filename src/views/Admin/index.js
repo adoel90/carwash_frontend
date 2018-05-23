@@ -13,6 +13,8 @@ export * from './AdminStore';
 export * from './AdminReport';
 export * from './AdminLogout';
 export * from './AdminSetting';
+export * from './AdminStoresReportSuperAdm';
+
 
 //Admin Store Cashier 
 export * from './AdminStoreCashierTopUp';

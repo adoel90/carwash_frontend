@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import moment from 'moment';
 
 import { Button } from '../../../components/Button';
-import { AdminReportView } from '../AdminReport';
+import { AdminReportMemberView } from '../AdminReport';
 import { getReportMemberSuperAdmin, getReportMemberSuperAdminPrint, getReportMemberExportToExcell} from '../../../actions/report.action';
 import { getMemberDetailHistoris } from '../../../actions/member.action';
 
@@ -23,7 +23,7 @@ function mapDispatchToProps(dispatch){
     }
 }
 
-class AdminReport extends Component {
+class AdminReportMember extends Component {
 
     constructor(){
         super();
@@ -115,7 +115,7 @@ class AdminReport extends Component {
                   } );
 
             }
-      }
+        }
     }
 
     handlePeriodChange = (type, date) => {
@@ -336,7 +336,7 @@ class AdminReport extends Component {
     render (){
         return(
             <div>
-                <AdminReportView 
+                <AdminReportMemberView 
                     {...this.state} 
                     { ...this.props} 
                     showDate={this.showDate}
@@ -351,4 +351,4 @@ class AdminReport extends Component {
     }
 }
 
-export default connect( mapStateToProps, mapDispatchToProps )(AdminReport);
+export default connect( mapStateToProps, mapDispatchToProps )(AdminReportMember);

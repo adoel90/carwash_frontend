@@ -14,7 +14,7 @@ import moment from 'moment';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
-const AdminReportView = props => {
+const AdminReportMemberView = props => {
 
     const { member, 
             showDate, 
@@ -173,4 +173,4 @@ const AdminReportView = props => {
     )
 }
 
-export default AdminReportView;
+export default AdminReportMemberView;

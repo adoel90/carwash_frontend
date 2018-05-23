@@ -51,10 +51,13 @@ class AdminStoreCashierReport extends Component {
         const {getReportStoreCashierMemberDispatch, user} = this.props;
         const { period } = this.state;
 
+        //Scenario superadmin can access route Kasir
+        let dataId = user.id === 1 ? user.id + 2 : user.id;
+
         let data = {
             start_date : moment(period.from).format('YYYY-MM-DD'),
             end_date : moment(period.to).format('YYYY-MM-DD'),
-            user: user.id,
+            user: dataId,
             print: null
         }
         getReportStoreCashierMemberDispatch(data);
@@ -81,10 +84,13 @@ class AdminStoreCashierReport extends Component {
         const { getReportStoreCashierMemberDispatch, user } = this.props;
         let { period } = this.state;
 
+        //Scenario superadmin can access route Kasir
+        let dataId = user.id === 1 ? user.id + 2 : user.id;
+        
         let requiredData = {
             start_date : moment(period.to).format('YYYY-MM-DD'),
             end_date : moment(period.to).format('YYYY-MM-DD'),
-            user: user.id,
+            user:dataId,
             print: false
         }
         getReportStoreCashierMemberDispatch(requiredData);
@@ -150,11 +156,14 @@ class AdminStoreCashierReport extends Component {
     handlePrint(period){
         const { getReportStoreCashierMemberPrintDispatch, user } = this.props;
         const { printData } = this.state;
+        
+        //Scenario superadmin can access route Kasir
+        let dataId = user.id === 1 ? user.id + 2 : user.id;
 
         let requiredData = {
             start_date : moment(period.to).format('YYYY-MM-DD'),
             end_date : moment(period.to).format('YYYY-MM-DD'),
-            user: user.id,
+            user: dataId,
             print: true
         }
 
@@ -179,7 +188,7 @@ class AdminStoreCashierReport extends Component {
                     handlePrint= {this.handlePrint}
                 />
 
-                 {/* want to print mini pos */}
+                 {/* Want to print mini pos */}
                  <AdminStoreCashierReportPaymentReceipt {...this.props} {...this.state}/>
             </div>
         )   

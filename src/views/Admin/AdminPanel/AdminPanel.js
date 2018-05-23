@@ -79,6 +79,8 @@ class AdminPanel extends Component {
                 { name: 'create-new-store', path: `${this.props.match.url}/store/create-new-store`, component: AdminStoreCreate },
                 { name: 'report-member', path: `${this.props.match.url}/report/report-member`, component: AdminReport },
                 { name: 'report', path: `${this.props.match.url}/report`, component: AdminReportSellingTotal },
+                { name: 'report-kasir-superadmin', path: `${this.props.match.url}/report/report-kasir-superadmin`, component: AdminStoreCashierReport },
+                { name: 'report-penjualan-store-superadmin', path: `${this.props.match.url}/report/report-penjualan-store-superadmin`, component: AdminStoresReport },
                 { name: 'logout', path: `${this.props.match.url}/logout`, component: AdminLogout },
                 { name: 'setting', path: `${this.props.match.url}/setting`, component: AdminSetting },
                 { component: NoMatch }
@@ -209,14 +211,35 @@ class AdminPanel extends Component {
                 if(menu[i].path !== "report") {
                     dataMenu.items.push(linkItem)
                 }
-                
-                let itemSeparateReport = {
-                    name: `${split[0]} Total Penjualan`, 
-                    path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}` : 'null'}`
-                };
+
+                //Laporan Penjualan Store Superadmin 
+                let laporanPenjualanStoreInSuperAdmin = {
+                    name: `${split[0]} Penjualan Store`, 
+                    path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}/report-penjualan-store-superadmin` : 'null'}`
+                }
 
                 if(menu[i].group === "all" && menu[i].path === "report"){
-                    dataMenu.items.push(itemSeparateReport);
+                    dataMenu.items.push(laporanPenjualanStoreInSuperAdmin);
+                }
+
+                 //Laporan Menu Favorit Superadmin
+                 let laporanMenuFavoritInSuperAdmin = {
+                    name: `${split[0]} Menu Favorit`, 
+                    path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}/report-menu-superadmin` : 'null'}`
+                }
+
+                if(menu[i].group === "all" && menu[i].path === "report"){
+                    dataMenu.items.push(laporanMenuFavoritInSuperAdmin);
+                }
+                
+                //Laporan Kasir Superadmin
+                let laporanKasirInSuperAdmin = {
+                    name: `${split[0]} Kasir`, 
+                    path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}/report-kasir-superadmin` : 'null'}`
+                }
+
+                if(menu[i].group === "all" && menu[i].path === "report"){
+                    dataMenu.items.push(laporanKasirInSuperAdmin);
                 }
 
                 //Laporan Member
@@ -228,6 +251,19 @@ class AdminPanel extends Component {
                 if(menu[i].group === "all" && menu[i].path === "report"){
                     dataMenu.items.push(laporanMember);
                 }
+
+               
+
+                //Laporan Total Penjualan (BETA)
+                // let itemSeparateReport = {
+                //     name: `${split[0]} Total Penjualan (BETA)`, 
+                //     path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}` : 'null'}`
+                // };
+
+                // if(menu[i].group === "all" && menu[i].path === "report"){
+                //     dataMenu.items.push(itemSeparateReport);
+                // }
+
             } else if(split.length > 1) {
                 dataMenu = {
                     category : nameCategory,

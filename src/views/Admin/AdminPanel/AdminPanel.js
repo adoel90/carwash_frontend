@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import {
      
     // AdminDashboard, 
+    AdminStoresEmployeeSuperAdm,
     AdminUser, 
     AdminUserCreate,
     AdminUserSettings,
@@ -33,7 +34,7 @@ import {
     AdminStoresEmployeeCreate,
     AdminStoresReport,
     AdminTransaction,
-    AdminStoresReportMenu
+    AdminStoresReportMenu,
     // AdminStoresReportSuperAdm
 
 } from '../../Admin';
@@ -84,12 +85,12 @@ class AdminPanel extends Component {
                 { name: 'report-member', path: `${this.props.match.url}/report/report-member`, component: AdminReportMember },
                 { name: 'report', path: `${this.props.match.url}/report`, component: AdminReportSellingTotal },
                 { name: 'report-kasir-superadmin', path: `${this.props.match.url}/report/report-kasir-superadmin`, component: AdminStoreCashierReport },
-                // { name: 'report-penjualan-store-superadmin', path: `${this.props.match.url}/report/report-penjualan-store-superadmin`, component: AdminStoresReportSuperAdm },
                 { name: 'logout', path: `${this.props.match.url}/logout`, component: AdminLogout },
                 { name: 'setting', path: `${this.props.match.url}/setting`, component: AdminSetting },
-
+                
                 //#Fussion Owner & Superadmin
-                { name: 'staff', path: `${this.props.match.url}/staff`, component: AdminStoresEmployee },
+                { name: 'staf-super', path: `${this.props.match.url}/staff`, component: AdminStoresEmployeeSuperAdm },
+                // { name: 'staff', path: `${this.props.match.url}/staff`, component: AdminStoresEmployee },
                 { name: 'create-new-staff', path: `${this.props.match.url}/staff/create-new-staff`, component: AdminStoresEmployeeCreate },
                 { component: NoMatch }
             ];

@@ -122,9 +122,6 @@ class TableSet extends Component {
 
             if(loaded) {
                 /** Checks if rows has array items */
-                console.log(rows);
-              
-
                 if(rows != null && rows.length ) {
 
                     if(hasSearchBar || searchParams || searchBy) {

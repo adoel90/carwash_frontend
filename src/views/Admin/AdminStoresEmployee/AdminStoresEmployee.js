@@ -419,7 +419,7 @@ class AdminStoresEmployee extends Component {
                 { vendorState.store.isLoaded ? vendorState.store.data.data.result.store.map((store, i) => (
                     <NavItem>
                         <NavTabLink active={activeTab === i} onClick={() => this.toggleTab(i, store)}>
-                            {console.log(store.name)}
+                            {/* {console.log(store.name)} */}
                             <h5>{store.name}</h5>
                         </NavTabLink>
                     </NavItem>

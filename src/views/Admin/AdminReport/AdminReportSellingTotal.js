@@ -71,6 +71,8 @@ class AdminReportSellingTotal extends Component {
             staffId:null,
             idStore:{},
             dailyOrdered: {},
+            invoice:{},
+            totalTransaction:{}
         }
     }
     
@@ -110,9 +112,11 @@ class AdminReportSellingTotal extends Component {
 
                 this.setState({
                     ...this.state,
-                    dailyOrdered: vendorState.reportStaff.data.data.result.data
+                    dailyOrdered: vendorState.reportStaff.data.data.result.data,
+                    // invoice: vendorState.reportStaff.data.data.result.data[0].queue,
+                    // totalTransaction: vendorState.reportStaff.data.data.result.data[0].total,
                 },() => {
-                    console.log(this.state.dailyOrdered);
+                    console.log(this.state.invoice);
                     this.populateTableAccessDetailStore();
                     
                 });
@@ -278,8 +282,6 @@ class AdminReportSellingTotal extends Component {
     openAccessDetailStoreModal = (row) => {
         // console.log(row);
 
-       
-
         this.setState({
               ...this.state,
               selectedAccessDetailStore: row
@@ -381,7 +383,7 @@ class AdminReportSellingTotal extends Component {
         //#Get
         if(vendorState.reportStaff.isLoaded){
             vendorState.reportStaff.data.data.result.data.map((value) => { 
-
+                
                 //#1
                 value.item.map((item, i) => {
 

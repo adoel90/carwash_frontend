@@ -31,7 +31,10 @@ const AdminReportSellingTotalView = props => {
         vendorState,
         handleChangeStaffOwnerOptions,
         handleShow,
-        tabel
+        tabel,
+        dailyOrdered,
+        invoice,
+        totalTransaction
     } = props;
 
 
@@ -103,6 +106,9 @@ const AdminReportSellingTotalView = props => {
                          <br />
                 
                         <div className="admin-report__content">
+
+                            {/* <i className="far fa-id-card"></i><label><b> No. Invoice :  {invoice }</b></label><br />
+                            <i className="far fa-money-bill-alt"></i><label><b> Total transaksi : Rp {totalTransaction} </b></label><br /> */}
                             <TableSet
                                 loading={vendorState.reportStaff.isFetching}
                                 loaded={vendorState.reportStaff.isLoaded}

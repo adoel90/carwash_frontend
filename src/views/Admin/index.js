@@ -13,10 +13,9 @@ export * from './AdminStore';
 export * from './AdminReport';
 export * from './AdminLogout';
 export * from './AdminSetting';
-export * from './AdminStoresReportSuperAdm';
+export * from './AdminStoresEmployeeSuperAdm';
 
-
-//Admin Store Cashier 
+//Admin Store Cashier
 export * from './AdminStoreCashierTopUp';
 export * from './AdminStoreCashierNewCard';
 export * from './AdminStoreCashierKartuBaru';

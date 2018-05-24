@@ -143,7 +143,7 @@ const AdminStoresEmployeeView = props => {
                     <PanelHeader>
                         <h4 className="heading-title">Manajemen Staff</h4>
                         {/* <h6 className="heading-subtitle">Tempor nostrud cupidatat officia sit ullamco eu pariatur ullamco quis laborum nulla ipsum.</h6> */}
-                        
+
                     </PanelHeader>
                     <PanelBody>
                         <div className="admin-user__content">

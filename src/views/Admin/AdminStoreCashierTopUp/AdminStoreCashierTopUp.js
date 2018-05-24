@@ -41,7 +41,6 @@ class AdminStoreCashierTopUp extends Component {
         this.handleTierTopup = this.handleTierTopup.bind(this);
 
         this.state = {
-
 			authData: {
 				cardID: ''
             },

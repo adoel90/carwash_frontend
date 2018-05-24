@@ -22,7 +22,9 @@ import {
     AdminSetting,
     AdminStoreCashierTopUp,
     AdminStoreCashierNewCard,
+    AdminStoreCashierKartuBaru,
     AdminStoreCashierRefund,
+    AdminStoreCashierStockKartu,
     AdminStoreCashierCheckSaldo,
     AdminStoreCashierReport,
     AdminStoresMenu,
@@ -31,7 +33,7 @@ import {
     AdminStoresEmployeeCreate,
     AdminStoresReport,
     AdminTransaction,
-    AdminStoresReportMenu,
+    AdminStoresReportMenu
     // AdminStoresReportSuperAdm
 
 } from '../../Admin';
@@ -97,7 +99,9 @@ class AdminPanel extends Component {
 
             let routePage = [
                 { name: 'topup', path: `${this.props.match.url}/topup`, component: AdminStoreCashierTopUp },
-                { name: 'new-card', path: `${this.props.match.url}/new-card`, component: AdminStoreCashierNewCard },
+                // { name: 'new-card', path: `${this.props.match.url}/new-card`, component: AdminStoreCashierNewCard },
+                { name: 'new-card', path: `${this.props.match.url}/new-card`, component: AdminStoreCashierKartuBaru },
+                { name: 'stock-kartu', path: `${this.props.match.url}/new-card/stock-kartu`, component: AdminStoreCashierStockKartu },
                 { name: 'refund', path: `${this.props.match.url}/refund`, component: AdminStoreCashierRefund },
                 { name: 'balance', path: `${this.props.match.url}/balance`, component: AdminStoreCashierCheckSaldo },
                 { name: 'logout', path: `${this.props.match.url}/logout`, component: AdminLogout },
@@ -170,6 +174,11 @@ class AdminPanel extends Component {
 
             let dataItems = [];
 
+            // console.log(split.length);
+            // console.log(split[0]);
+            // console.log(level.name);
+            // console.log(menu[i]);
+
             //#MENU LAPORAN PENNJUALAN STORE OWNER
             if(split.length === 1 && split[0] === "Laporan" && level.name === "Owner"){
                 let linkItem = { name: nameRouteReportStore, path: `${this.props.match.url}${menu[i].path ? '/' + menu[i].path : 'null'}` }
@@ -226,7 +235,7 @@ class AdminPanel extends Component {
 
                 if(menu[i].group === "all" && menu[i].path === "report"){
                     dataMenu.items.push(itemSeparateReport);
-                }
+                };
 
                 //Laporan Penjualan Store Superadmin 
                 // let laporanPenjualanStoreInSuperAdmin = {
@@ -268,10 +277,37 @@ class AdminPanel extends Component {
                     dataMenu.items.push(laporanMember);
                 }
 
-               
+            //# MENU KASIR -Stock Kartu 
+            } 
+            else if(split.length === 2 && split[0] === "Kartu" && level.name === "Kasir"){
 
+                dataMenu = {
+                    category : nameCategory,
+                    items: []
+                }
+                
+                //#Kartu Baru
+                let kartuBaru = {
+                    name: `${split[0]} Baru`, 
+                    path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}` : 'null'}`
+                };
 
-            } else if(split.length > 1) {
+                if(menu[i].group === "kasir"){
+                    dataMenu.items.push(kartuBaru);
+                };
+
+                //#Stock Kartu
+                let stockKartuBaru = {
+                    name: `Stock ${split[0]}`, 
+                    path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}/stock-kartu` : 'null'}`
+                };
+
+                if(menu[i].group === "kasir"){
+                    dataMenu.items.push(stockKartuBaru);
+                };
+            }
+            
+            else if(split.length > 1) {
                 dataMenu = {
                     category : nameCategory,
                     items: [

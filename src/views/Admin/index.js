@@ -20,6 +20,7 @@ export * from './AdminStoresReportSuperAdm';
 export * from './AdminStoreCashierTopUp';
 export * from './AdminStoreCashierNewCard';
 export * from './AdminStoreCashierKartuBaru';
+export * from './AdminStoreCashierStockKartu';
 export * from './AdminStoreCashierRefund';
 export * from './AdminStoreCashierReport';
 export * from './AdminStoreCashierCheckSaldo';

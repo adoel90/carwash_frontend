@@ -19,6 +19,7 @@ export * from './AdminStoresReportSuperAdm';
 //Admin Store Cashier 
 export * from './AdminStoreCashierTopUp';
 export * from './AdminStoreCashierNewCard';
+export * from './AdminStoreCashierKartuBaru';
 export * from './AdminStoreCashierRefund';
 export * from './AdminStoreCashierReport';
 export * from './AdminStoreCashierCheckSaldo';

@@ -285,9 +285,8 @@ class AdminReportSellingTotal extends Component {
               selectedAccessDetailStore: row
 
         }, () => {
-            const { selectedAccessDetailStore } = this.state;
-            const { getVendorEmployeeListDispatch } = this.props;
-            console.log(selectedAccessDetailStore);
+            const { selectedAccessDetailStore, periodrepot, staffId,} = this.state;
+            const { getVendorEmployeeListDispatch, getStoreStaffReportDispatch } = this.props;
 
             //#GET STORE STAFF LIST || EMPLOYEE
             let requiredDataStoreStaff = {
@@ -296,6 +295,17 @@ class AdminReportSellingTotal extends Component {
             }
             getVendorEmployeeListDispatch(requiredDataStoreStaff);
 
+            //#GET REPORT STORE STAFF
+            let requiredDataStoreStaffReport = {
+                store:selectedAccessDetailStore.storeId,
+                start_date : moment(),
+                end_date : moment(),
+                staff :'',
+                print: false
+            };
+
+            getStoreStaffReportDispatch(requiredDataStoreStaffReport);
+   
             //#
             this.toggleModal('accessDetailStore');
         });

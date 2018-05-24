@@ -22,7 +22,6 @@ const AdminReportSellingTotalView = props => {
         period,
         periodrepot,
         handlePeriodChange,
-
         handlePeriodChangeAccessDetailStore,
         selectedAccessDetailStore,
         accessDetailStore,
@@ -68,7 +67,6 @@ const AdminReportSellingTotalView = props => {
                                                     // minDate={period.from}
                                                     selected={periodrepot.to}
                                                     onChange={(date) => handlePeriodChangeAccessDetailStore('to', date)}
-                                                    
                                                 />
                                             </InputGroup>
                                         </FormField>
@@ -105,16 +103,6 @@ const AdminReportSellingTotalView = props => {
                          <br />
                 
                         <div className="admin-report__content">
-                            {/* <TableSet
-                                loading={vendorState.reportStaff.isFetching}
-                                loaded={vendorState.reportStaff.isLoaded}
-                                columns={table.columns}
-                                rows={table.rows}
-                                striped 
-                                fullWidth
-                                pagination
-                            /> */}
-
                             <TableSet
                                 loading={vendorState.reportStaff.isFetching}
                                 loaded={vendorState.reportStaff.isLoaded}

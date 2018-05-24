@@ -122,7 +122,11 @@ class TableSet extends Component {
 
             if(loaded) {
                 /** Checks if rows has array items */
-                if(rows.length) {
+                console.log(rows);
+              
+
+                if(rows != null && rows.length ) {
+
                     if(hasSearchBar || searchParams || searchBy) {
                         let filteredRow = rows.filter((row) => {
                             if(row[searchBy]) {
@@ -186,7 +190,8 @@ class TableSet extends Component {
         }
     
         const renderTablePagination = () => {
-            if(pagination) {
+         
+            if(pagination && rows != null ) {
                 return <PaginationSet 
                     activePage={activePage} 
                     total={rows.length} 
@@ -194,6 +199,7 @@ class TableSet extends Component {
                     onPageChange={this.handlePageChange} 
                 />
             }
+           
         }
         
         return (
@@ -204,7 +210,13 @@ class TableSet extends Component {
                     { renderTableBody() }
                 </Table>
                 <div className="flex justify-content--space-between" style={{padding: '30px 0'}}>
-                    <small>Menunjukan {upperBound > rows.length ? rows.length : upperBound} dari {rows.length} baris.</small>
+
+                    { rows != null &&  rows.length ?
+                          <small>Menunjukan {upperBound > rows.length ? rows.length : upperBound} dari {rows.length} baris.</small> :
+                            null
+                    } 
+
+                  
                     { renderTablePagination() }
                 </div>
             </div>

@@ -25,17 +25,13 @@ export const CUSTOMER_LOGIN_REJECTED = 'CUSTOMER_LOGIN_REJECTED';
 export const KASIR_LOGIN_REQUESTED = 'KASIR_LOGIN_REQUESTED';
 export const KASIR_LOGIN_FULFILLED = 'KASIR_LOGIN_FULFILLED';
 export const KASIR_LOGIN_REJECTED = 'KASIR_LOGIN_REJECTED';
-
 export const LOGOUT_FULFILLED = 'LOGOUT_FULFILLED';
-
-
 
 /*
 //  ADMIN LOGIN
 //  Calls the API to get `accessToken` required to access the app.
 */
 export const adminLogin = (data) => {  
-    
     
     return async dispatch => {
         

@@ -34,7 +34,8 @@ const AdminReportSellingTotalView = props => {
         tabel,
         dailyOrdered,
         invoice,
-        totalTransaction
+        totalTransaction,
+        dataCQT
     } = props;
 
 

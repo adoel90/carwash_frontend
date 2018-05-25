@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getReportMemberExportToExcell, getReportOwnerSuperAdmin} from '../../../actions/report.action';
 import { getVendorEmployeeList, getStoreStaffReport } from '../../../actions/vendor.action';
+import { getReportStoreCashierMemberPrint } from '../../../actions/store.action';
 import { Button } from '../../../components/Button';
 import { AdminReportSellingTotalView, AdminReportSellingTotalPaymentReceipt } from '../AdminReport';
 import moment from 'moment';
@@ -19,6 +20,7 @@ function mapDispatchToProps(dispatch){
         getReportOwnerSuperAdminDispatch: (data) => dispatch(getReportOwnerSuperAdmin(data)),
         getVendorEmployeeListDispatch: (data) => dispatch(getVendorEmployeeList(data)),
         getStoreStaffReportDispatch: (data) => dispatch(getStoreStaffReport(data)),
+        getReportStoreCashierMemberPrintDispatch: (data) => dispatch(getReportStoreCashierMemberPrint(data)),
         // getReportMemberExportToExcellDispatch: (data) => dispatch(getReportMemberExportToExcell(data)),
         action: bindActionCreators({getReportOwnerSuperAdmin }, dispatch)
     }
@@ -38,6 +40,7 @@ class AdminReportSellingTotal extends Component {
         this.handleChangeStaffOwnerOptions = this.handleChangeStaffOwnerOptions.bind(this);
         this.handleShow = this.handleShow.bind(this);
         this.populateTableAccessDetailStore = this.populateTableAccessDetailStore.bind(this);
+        this.handlePrint = this.handlePrint.bind(this);
 
 
         this.state = {
@@ -72,13 +75,18 @@ class AdminReportSellingTotal extends Component {
             idStore:{},
             dailyOrdered: {},
             invoice:{},
-            totalTransaction:{}
+            totalTransaction:{},
+            printData: {},
+            printDataDetail:{},
+            statusPrintData: null,
+
+            dataCQT: {}
         }
     }
     
     componentDidMount = () => {
 
-        const { getReportOwnerSuperAdminDispatch, getVendorEmployeeListDispatch } = this.props;
+        const { getReportOwnerSuperAdminDispatch } = this.props;
         const { period } = this.state;
 
         let requiredData = {
@@ -86,13 +94,10 @@ class AdminReportSellingTotal extends Component {
             end_date : moment(period.to).format('YYYY-MM-DD')
         }
         getReportOwnerSuperAdminDispatch(requiredData);
-
-
-       
     }
     
     componentDidUpdate = (prevProps) => {
-        const  { report, vendorState } = this.props;
+        const  { report, vendorState, store } = this.props;
         //Get Report Owner -  didUpdate
         if(prevProps.report.reportOwner !== report.reportOwner){
             if(report.reportOwner.isLoaded){
@@ -122,6 +127,19 @@ class AdminReportSellingTotal extends Component {
                 });
             }
         }
+
+        // if(prevProps.store.reportCashierMember !== store.reportCashierMember){
+        //     if(store.reportCashierMember.isLoaded){
+
+        //         this.setState({
+        //             ...this.state,
+        //             printData: store.reportCashierMember,
+        //             statusPrintData: 200
+        //         }, () => {
+        //             this.populateTableData();
+        //         })
+        //     }
+        // }
 
         // if(prevProps.vendorState.reportDetailStoreStaff !== vendorState.reportDetailStoreStaff){
         //     if(vendorState.reportDetailStoreStaff.isLoaded){
@@ -387,13 +405,21 @@ class AdminReportSellingTotal extends Component {
                 //#1
                 value.item.map((item, i) => {
 
+                   
+
+                    //#
                     let barisKedua = {
+                       
+
                         date: value.date,
                         item: item.name,
                         price: item.price,
                         quantity: item.quantity
                     }
+
                     barisArrayKedua.push(barisKedua);
+
+
                 }); 
 
                 //#2
@@ -434,6 +460,36 @@ class AdminReportSellingTotal extends Component {
         }
     }
 
+    handlePrint(e, periodrepot){
+        e.preventDefault();
+
+        const { getReportStoreCashierMemberPrintDispatch, user } = this.props;
+        const { printData } = this.state;
+        
+        //Scenario superadmin can access route Kasir
+        let dataId = user.id === 1 ? user.id + 2 : user.id;
+
+        let requiredData = {
+            start_date : moment(periodrepot.to).format('YYYY-MM-DD'),
+            end_date : moment(periodrepot.to).format('YYYY-MM-DD'),
+            user: dataId,
+            print: true
+        }
+
+        // console.log(requiredData);
+
+        this.setState({
+            ...this.state,
+            // printDataDetail: printData.data.result.data,
+            statusPrintData: 200
+            }, () => {
+                console.log(this.state.printDataDetail);
+                window.print();
+
+        })
+        // getReportStoreCashierMemberPrintDispatch(requiredData);
+    }
+
 
     render() {
         return(
@@ -447,6 +503,7 @@ class AdminReportSellingTotal extends Component {
                     toggleModal={this.toggleModal}
                     handleChangeStaffOwnerOptions={this.handleChangeStaffOwnerOptions}
                     handleShow={this.handleShow}
+                    handlePrint= {this.handlePrint}
                     // handleExportToExcell={this.handleExportToExcell}
                 />;
 

@@ -28,7 +28,6 @@ const AdminStoresEmployeeSuperAdmView = props => {
             handleCancelModal,
             handleUpdateSubmitStoreStaff } = props;
 
-
     const renderStoreStaffModal = () => {
 
         if(selectedStaff){

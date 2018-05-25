@@ -95,7 +95,7 @@ class AdminStoresMenu extends Component {
         const { vendorState, getMenuStoreListDispatch } = this.props;
         const { storeList, storeActive, storeMenuList } = this.state;
 
-        //Get menu store based on ID STORE
+        //Get 
         if(prevProps.vendorState.store !== vendorState.store){
             if(vendorState.store.isLoaded){
                 this.setState({
@@ -236,7 +236,7 @@ class AdminStoresMenu extends Component {
                     </td>
                 )
             }
-        ]
+        ];
 
         const rows = [];
 

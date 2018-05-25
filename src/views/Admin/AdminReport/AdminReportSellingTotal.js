@@ -118,10 +118,10 @@ class AdminReportSellingTotal extends Component {
                 this.setState({
                     ...this.state,
                     dailyOrdered: vendorState.reportStaff.data.data.result.data,
-                    // invoice: vendorState.reportStaff.data.data.result.data[0].queue,
+                    invoice: vendorState.reportStaff.data.data.result.data[0].queue,
                     // totalTransaction: vendorState.reportStaff.data.data.result.data[0].total,
                 },() => {
-                    console.log(this.state.invoice);
+                    // console.log(this.state.invoice);
                     this.populateTableAccessDetailStore();
                     
                 });

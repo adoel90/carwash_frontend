@@ -248,7 +248,6 @@ export const getMenuStoreList = (data) => {
 
 		dispatch(fetchRequest());
 		return axios
-		
 			.get(`${constant.API_PATH}store/menu/list?accessToken=${accessToken}&store=${data.id}`)
 			.then((response) => {
 				dispatch(fetchSuccess(response));

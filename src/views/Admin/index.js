@@ -14,6 +14,7 @@ export * from './AdminReport';
 export * from './AdminLogout';
 export * from './AdminSetting';
 export * from './AdminStoresEmployeeSuperAdm';
+export * from './AdminStoresMenuSuperAdm';
 
 //Admin Store Cashier
 export * from './AdminStoreCashierTopUp';

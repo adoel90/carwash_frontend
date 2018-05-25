@@ -163,8 +163,6 @@ const AdminStoresEmployeeView = props => {
                                 {...props}
                             />
                         </div>
-
-                        {/* <h1>Hai</h1> */}
                     </PanelBody>
                 </Panel>
                 { renderVendorEmployeeModal() }

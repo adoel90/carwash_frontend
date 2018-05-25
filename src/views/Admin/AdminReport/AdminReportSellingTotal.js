@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { getReportMemberExportToExcell, getReportOwnerSuperAdmin} from '../../../actions/report.action';
 import { getVendorEmployeeList, getStoreStaffReport } from '../../../actions/vendor.action';
 import { Button } from '../../../components/Button';
-import { AdminReportSellingTotalView } from '../AdminReport';
+import { AdminReportSellingTotalView, AdminReportSellingTotalPaymentReceipt } from '../AdminReport';
 import moment from 'moment';
 
 function mapStateToProps(state){
@@ -449,6 +449,9 @@ class AdminReportSellingTotal extends Component {
                     handleShow={this.handleShow}
                     // handleExportToExcell={this.handleExportToExcell}
                 />;
+
+                {/* Want to print mini pos */}
+                <AdminReportSellingTotalPaymentReceipt {...this.props} {...this.state} />
             </div>
         ) 
 

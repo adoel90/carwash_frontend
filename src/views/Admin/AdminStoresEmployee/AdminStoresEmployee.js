@@ -302,13 +302,12 @@ class AdminStoresEmployee extends Component {
     openVendorEmployeeModal = (row) => {
         this.setState({
             ...this.state,
-            // selectedVendorEmployee : row.data
             selectedVendorEmployee: row
 
         }, () => {
             this.toggleModal('updateVendorEmployee')
         })
-    }
+    };
 
     handleUpdateSubmitVendorEmployee = (e) => {
         e.preventDefault();
@@ -350,7 +349,6 @@ class AdminStoresEmployee extends Component {
                         onClose: () => this.toggleDialog(),
                         closeText: 'Kembali'
                     }
-            
                     this.toggleDialog(dialogData);  
                 }
             })

@@ -8,8 +8,9 @@ import { Nav, NavItem, NavLink, NavTabLink} from '../../../components/Nav';
 import { TabContent } from '../../../components/Tab';
 
 
-import { getMenuStoreList } from '../../../actions/vendor.action';
+import { getMenuStoreList, updateMenuVendor, changeMenuStatus } from '../../../actions/vendor.action';
 import { getStoreList } from '../../../actions/store.action';
+import { openDialog, closeDialog } from '../../../actions/dialog.action';
 
 import { AdminStoresMenuSuperAdmView } from '../AdminStoresMenuSuperAdm';
 
@@ -18,7 +19,7 @@ function mapStateToProps(state) {
         store: state.store,
         vendorState: state.vendorState,
         // access: state.access,
-        // dialog: state.dialog
+        dialog: state.dialog
     };
 }
 
@@ -26,9 +27,9 @@ function mapDispatchToProps(dispatch) {
     return {
         // getVendorEmployeeListDispatch: (data) => dispatch(getVendorEmployeeList(data)),
         getStoreListDispatch: () => dispatch(getStoreList()),
-        getMenuStoreListDispatch : (data) => dispatch(getMenuStoreList(data))
+        getMenuStoreListDispatch : (data) => dispatch(getMenuStoreList(data)),
         // getAccessListDispatch: (data) => dispatch(getAccessList(data)),
-        // action: bindActionCreators({ updateVendorEmployee, openDialog, closeDialog, getVendorEmployeeList, changeEmployeeStatus }, dispatch)
+        action: bindActionCreators({ updateMenuVendor, openDialog, closeDialog, changeMenuStatus  }, dispatch)
     }
 }
 
@@ -39,6 +40,13 @@ class AdminStoresMenuSuperAdm extends Component {
         super();
         this.handleClickChange = this.handleClickChange.bind(this);
         this.populateTableData = this.populateTableData.bind(this);
+        this.openModalMenuProductStore = this.openModalMenuProductStore.bind(this);
+        this.toggleModal = this.toggleModal.bind(this);
+        this.handleUpdateMenuProductSubmit = this.handleUpdateMenuProductSubmit.bind(this);
+        this.handleCancelModal = this.handleCancelModal.bind(this);
+        this.handleInputChange = this.handleInputChange.bind(this);
+        this.renderDialog = this.renderDialog.bind(this);
+        this.handleChangeMenuStatus = this.handleChangeMenuStatus.bind(this);
 
         this.state = {
 
@@ -52,6 +60,12 @@ class AdminStoresMenuSuperAdm extends Component {
 					{ accessor: 'name', name: 'Nama Produk' }
 				]
             },
+
+            selectedMenuStore:{},
+            isModalOpen:{
+                modalUpdateMenuProductStore: false
+            },
+
         }
     };
 
@@ -70,7 +84,8 @@ class AdminStoresMenuSuperAdm extends Component {
     };
 
     componentDidUpdate(prevProps){
-        const{ store, vendorState, access } = this.props;
+        const { store, vendorState, access } = this.props;
+        const { storeMenuList } = this.state;
 
         //#GET STORE LIST
         if(prevProps.store.list !== store.list){   
@@ -93,13 +108,97 @@ class AdminStoresMenuSuperAdm extends Component {
                     // storeMenuList: vendorState.storemenu.isLoaded ? vendorState.storemenu.data.data.result.menu : null
                     storeMenuList: vendorState.storemenu
                 },() => {
-                    console.log(this.state.storeMenuList);
+                    // console.log(this.state.storeMenuList);
                     this.populateTableData();
+                })
+            }
+        }
+
+        //Chage Status Aktif - Non Aktif Menu Produk
+
+        if(prevProps.vendorState.status !== vendorState.status) {
+            if(vendorState.status.isStatusChanging) {
+                storeMenuList.data.data.result.menu.map((item) => {
+                    item.statusChanging = true;
+                    this.forceUpdate();
+                })
+            }
+
+            if(vendorState.status.isStatusChanged) {
+                storeMenuList.data.data.result.menu.map((item) => {
+                    if (item.id === vendorState.status.id) {
+                            item.statusChanging = false;
+
+                            if(item.status) {
+                            item.status = false;
+                            } 
+                            else {
+                            item.status = true;
+                            }
+
+                            this.forceUpdate();
+                    }
                 })
             }
         }
     }
 
+    //#
+    toggleModal = (name) => {
+        const { isModalOpen } = this.state;
+        this.setState({
+            ...this.state,
+            isModalOpen: {
+                [name]: !isModalOpen[name]
+            }
+        })
+    }
+
+    //#
+    renderDialog = () => {
+        const { dialog, toggleDialog } = this.props;
+        
+        return (
+              <Dialog
+                    isOpen={dialog.isOpened}
+                    toggle={toggleDialog}
+                    type={dialog.data.type}
+                    title={dialog.data.title}
+                    message={dialog.data.message}
+                    onConfirm={dialog.data.onConfirm}
+                    confirmText={dialog.data.confirmText}
+                    onClose={dialog.data.onClose}
+                    closeText={dialog.data.closeText}
+              />
+        )
+    }
+
+    //#
+    toggleDialog = (data) => {
+        const {
+            dialog,
+            action
+        } = this.props;
+
+        if(!dialog.isOpened) {
+            action.openDialog(data);
+        } else {
+            action.closeDialog();
+        }
+    }
+
+    handleCancelModal = (e) =>{
+
+        e.preventDefault();
+        const {isModalOpen} = this.state;
+
+        this.setState({
+            ...this.state,
+            isModalOpen:{
+                modalUpdateMenuProductStore:false
+            }
+        });
+    }
     //#
     handleClickChange = (e) => {
 
@@ -116,7 +215,28 @@ class AdminStoresMenuSuperAdm extends Component {
         // console.log(requireData);
         const { getMenuStoreListDispatch } = this.props;
         getMenuStoreListDispatch(requireData);
+    }
 
+    openModalMenuProductStore = (row) => {        
+        this.setState({
+            ...this.state,
+            selectedMenuStore : row
+
+        }, () => {
+            this.toggleModal('modalUpdateMenuProductStore')
+        })
+    }
+
+    handleChangeMenuStatus = (row) => {
+        const {
+              action
+        } = this.props;
+
+        let requiredData = {
+              id: row.data.id
+        }
+
+        action.changeMenuStatus(requiredData);
     }
 
     populateTableData = () => {
@@ -143,8 +263,8 @@ class AdminStoresMenuSuperAdm extends Component {
                 accessor: 'action',
                 render: (row) => (
                     <td>
-                        <Button className="margin-right-small" type="button" onClick={() => this.openMenuVendorModal(row)}>Ubah</Button>
-                        {/* <Button type="button" theme={row.data.status ? "success" : "danger"} onClick={() => this.changeMenuStatus(row)}>{ row.data.status ? 'Aktif' : 'Non Aktif' }</Button> */}
+                        <Button className="margin-right-small" type="button" onClick={() => this.openModalMenuProductStore(row)}>Ubah</Button>
+                        <Button type="button" theme={row.data.status ? "success" : "danger"} onClick={() => this.handleChangeMenuStatus(row)}>{ row.data.status ? 'Aktif' : 'Non Aktif' }</Button>
                     </td>
                 )
             }
@@ -182,15 +302,93 @@ class AdminStoresMenuSuperAdm extends Component {
         }) 
     }
 
+    //#
+    handleInputChange = (object, e) => {
+
+        const target = e.target;
+        const name = target.name;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
+
+        this.setState({
+            ...this.state,
+            [object]: {
+                ...this.state[object],
+                [name]: value
+            }
+        });
+    } 
+
+    //#
+    handleUpdateMenuProductSubmit = (e) =>{
+
+        e.preventDefault();
+
+        //#
+        const {selectedMenuStore,isModalOpen } = this.state;
+        const {updateVendorMenuState,vendorState, action} = this.props;
+
+        const rowsUpdate = [];
+
+        let requireDataUpdate = {
+            id : selectedMenuStore.id,
+            name: selectedMenuStore.name,
+            description: selectedMenuStore.description,
+            price: parseInt(selectedMenuStore.price.replace(/,/g, '')),
+            image: selectedMenuStore.image,
+            category: selectedMenuStore.category
+        };
+
+        console.log(requireDataUpdate);
+        
+        //#
+        action.updateMenuVendor(requireDataUpdate).then(() => {
+            
+            const { vendorState } = this.props;
+
+            if(vendorState.menuUpdate.isUpdated){
+                let dialogData = {
+                    type: 'success',
+                    title: 'Berhasil',
+                    message: 'Produk telah berhasil diubah. Klik tombol berikut untuk kembali.',
+                    onClose: () => window.location.reload(),
+                    closeText: 'Kembali'
+                }
+      
+                this.toggleDialog(dialogData);
+            }
+
+            if (vendorState.menuUpdate.isError) {
+                let dialogData = {
+                      type: 'danger',
+                      title: 'Gagal',
+                      message: 'Produk gagal diubah. Klik tombol berikut untuk kembali.',
+                      onClose: () => this.toggleDialog(),
+                      closeText: 'Kembali'
+                }
+        
+                this.toggleDialog(dialogData);
+          }
+        });
+    }
+
+
     render(){
 
         return (
             <div>
                 <AdminStoresMenuSuperAdmView 
                     handleClickChange = {this.handleClickChange}
+                    toggleModal= {this.toggleModal}
+                    handleUpdateMenuProductSubmit = { this.handleUpdateMenuProductSubmit}
+                    handleCancelModal = { this.handleCancelModal}
+                    handleInputChange = { this.handleInputChange}
+                    handleChangeMenuStatus = { this.handleChangeMenuStatus}
                     {...this.props} 
                     {...this.state} 
                 />
+
+                {/*  RENDER DIALOG BERHASIL OR NOT */}
+                {this.renderDialog()}
             </div>
         )
     }

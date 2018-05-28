@@ -7,11 +7,11 @@ import { Dialog } from '../../../components/Dialog';
 import { Nav, NavItem, NavLink, NavTabLink} from '../../../components/Nav';
 import { TabContent } from '../../../components/Tab';
 
-import { AdminStoresMenuSuperAdmView } from '../AdminStoresMenuSuperAdm';
 
 import { getMenuStoreList } from '../../../actions/vendor.action';
 import { getStoreList } from '../../../actions/store.action';
 
+import { AdminStoresMenuSuperAdmView } from '../AdminStoresMenuSuperAdm';
 
 function mapStateToProps(state) {
     return {
@@ -92,14 +92,13 @@ class AdminStoresMenuSuperAdm extends Component {
                     ...this.state,
                     // storeMenuList: vendorState.storemenu.isLoaded ? vendorState.storemenu.data.data.result.menu : null
                     storeMenuList: vendorState.storemenu
-                },()=>{
+                },() => {
                     console.log(this.state.storeMenuList);
                     this.populateTableData();
                 })
             }
         }
     }
-
 
     //#
     handleClickChange = (e) => {
@@ -117,6 +116,7 @@ class AdminStoresMenuSuperAdm extends Component {
         // console.log(requireData);
         const { getMenuStoreListDispatch } = this.props;
         getMenuStoreListDispatch(requireData);
+
     }
 
     populateTableData = () => {
@@ -188,8 +188,8 @@ class AdminStoresMenuSuperAdm extends Component {
             <div>
                 <AdminStoresMenuSuperAdmView 
                     handleClickChange = {this.handleClickChange}
-                    {...this.state} 
                     {...this.props} 
+                    {...this.state} 
                 />
             </div>
         )

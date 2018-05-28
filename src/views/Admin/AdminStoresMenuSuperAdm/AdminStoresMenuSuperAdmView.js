@@ -16,6 +16,7 @@ const AdminStoresMenuSuperAdmView = props => {
             vendorState,
             table,
             handleClickChange,
+            storeMenuList,
             handleFormSubmit } = props;
 
     return (
@@ -29,9 +30,11 @@ const AdminStoresMenuSuperAdmView = props => {
                         <Row>
                             <Column className="flex">
                                 <div className="margin-right-small">
-                                    <Form onSubmit={handleFormSubmit}>
+                                    {/* <Form onSubmit={handleFormSubmit}> */}
+
+                                    <Form>
                                         <FormField> 
-                                            <Select name="store" onClick={(e) => handleClickChange(e) }>
+                                            <Select name="store" onChange={(e) => handleClickChange(e) }>
                                                 <option>Pilih Store</option>
                                                 {
                                                     store.list.isLoaded  ? store.list.data.data.result.store.map((store, i) => {
@@ -50,9 +53,9 @@ const AdminStoresMenuSuperAdmView = props => {
 
                          <div className="admin-user__content">
                             {console.log(vendorState)}
-                            {/* <TableSet
-                                loading={vendorState.storemenu.isFetching}
-                                loaded={vendorState.storemenu.isLoaded}
+                            <TableSet
+                                loading={storeMenuList.isFetching}
+                                loaded={storeMenuList.isLoaded}
                                 columns={table.columns}
                                 rows={table.rows}
                                 striped 
@@ -64,7 +67,7 @@ const AdminStoresMenuSuperAdmView = props => {
                                 // searchBy={search.searchBy}
                                 // handleInputChange={handleInputChange}
                                 {...props}
-                            /> */}
+                            />
                         </div>
                     </PanelBody>
 

@@ -56,6 +56,7 @@ class AdminStoreStaffPaymentReceipt extends Component {
                                     <th className="fw-bold tdThStyle">No. Invoice</th>
                                     <th className="fw-bold tdThStyle">Total </th>
                                 </tr>
+                                
                                 { printData.map((value) => {
                                     // console.log(value);
                                     return(

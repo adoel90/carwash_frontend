@@ -1,20 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
+import { PropsRoute } from '../../../components/Route';
 import { Dialog } from '../../../components/Dialog';
-import { AdminStoresEmployeeCreateView } from '../AdminStoresEmployee';
 
-
-
-import { getStoreList } from '../../../actions/vendor.action';
+import { AdminStoresCreateEmployeeSuperAdmView } from '../AdminStoresEmployeeSuperAdm';
+import { getStoreList } from '../../../actions/store.action';
 import { createStaffStore } from '../../../actions/store.action';
 import { getAccessList } from '../../../actions/access.action';
 import { openDialog, closeDialog } from '../../../actions/dialog.action';
 
+
+
 function mapStateToProps(state) {
     return {
-        store : state.store,
+        vendorState: state.vendorState,
+        store: state.store,
         dialog: state.dialog,
         access: state.access
     };
@@ -28,14 +29,13 @@ function mapDispatchToProps(dispatch) {
     }
 }
 
-class AdminStoresEmployeeCreate extends Component {
-    
+
+class AdminStoresCreateEmployeeSuperAdm extends Component {
+
     constructor(){
         super();
-        this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleInputChange = this.handleInputChange.bind(this); 
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
-        // this.renderDialog = this.renderDialog.bind(this);
-        // this.getAccessList = this.getAccessList.bind(this);
 
         this.state = {
 
@@ -48,52 +48,47 @@ class AdminStoresEmployeeCreate extends Component {
                 level:null,
                 store: null
             },
-
+            storeActiveList: {},
             accessLevel: {},
-            storeList: {},
-            storeActive: 0,
             levelId: null,
         }
-    }
+
+
+    };
 
     componentDidMount(){
+        //#
         const { getStoreListDispatch, getAccessListDispatch } = this.props;
-        getStoreListDispatch();    
+        getStoreListDispatch();
 
+        //#
         let requiredData = {
             active : true
         }
         getAccessListDispatch(requiredData);
-
-        // this.state.levelId = JSON.parse(localStorage.getItem('userData')).level.id;
-    
     }
 
-    //#
     componentDidUpdate(prevProps){
-        const { store, access } = this.props;
-        //Get Store List
-        if(prevProps.store.list !== store.list) {
-            if (store.list.isLoaded) { 
-                this.setState({
-                    ...this.state,
-                    storeList: store.list.data.data.result.store
+        const { vendorState, access } = this.props;
 
+        if(prevProps.vendorState.store != vendorState.store){
+            if(vendorState.store.isLoaded){
+                this.setState({  
+                    ...this.state,
+                    storeActiveList: vendorState.store.isLoaded ? vendorState.store.data.data.result.store : null
                 }, () => {
-                    // console.log(this.state);
-                })
+                    // console.log(this.state.storeActiveList);
+                });
             }
         }
-
+        
         //#Get All Access List
         if(prevProps.access.list !== access.list){
             if(access.list.isLoaded){ 
                 this.setState({
                     ...this.state,
                     accessLevel: access.list.data.result
-                }, () => {
-                    console.log(this.state);
-                })
+                });
             }
         }
     }
@@ -129,6 +124,20 @@ class AdminStoresEmployeeCreate extends Component {
         )
     }
 
+    handleInputChange = (object, e) => {
+        const target = e.target;
+        const name = target.name;
+        const value = target.value;
+        
+        this.setState({
+              ...this.state,
+              [object]: {
+                    ...this.state[object],
+                    [name]: value
+              }
+        });
+    }
+
     handleFormSubmit = (e) => {
         e.preventDefault();
         const { newStaff, storeList, storeActive, levelId , accessLevel} = this.state;
@@ -147,7 +156,7 @@ class AdminStoresEmployeeCreate extends Component {
                 level: newStaff.level ? parseInt(newStaff.level) : "Failed parse INTEGER!!!"
             }
             
-            console.log(requiredData);
+            // console.log(requiredData);
     
             action.createStaffStore(requiredData).then(() => {
                 if(this.props.store.staffemployee.isCreated){
@@ -195,38 +204,22 @@ class AdminStoresEmployeeCreate extends Component {
         }
     }
 
-    handleInputChange = (object, e) => {
-        const target = e.target;
-        const name = target.name;
-        const value = target.value;
-        
-        this.setState({
-              ...this.state,
-              [object]: {
-                    ...this.state[object],
-                    [name]: value
-              }
-        });
-    }
 
     render() {
-        
         return (
             <div>
-                <AdminStoresEmployeeCreateView 
-                    {...this.state} 
-                    {...this.props} 
+                <AdminStoresCreateEmployeeSuperAdmView 
                     handleInputChange = {this.handleInputChange}
-                    handleFormSubmit = { this.handleFormSubmit }
-                    />
+                    handleFormSubmit = {this.handleFormSubmit}
+                    {...this.state} 
+                    {...this.props} />
 
-                    {this.renderDialog()}
-                
+                {this.renderDialog()}
             </div>
         )
         
-           
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AdminStoresEmployeeCreate); 
+// export default AdminStoresCreateEmployeeSuperAdm;
+export default connect( mapStateToProps, mapDispatchToProps )(AdminStoresCreateEmployeeSuperAdm);

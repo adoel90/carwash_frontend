@@ -9,7 +9,7 @@ class AdminReportSellingTotalPaymentReceipt extends Component {
 
     render (){
 
-        const { statusPrintData, printData, user, printDataDetail, store, periodrepot } = this.props;
+        const { statusPrintData, printData, user, printDataDetail, store, periodrepot, dailyOrdered } = this.props;
 
         const tableStyle = {
             color:  '#333',
@@ -50,10 +50,7 @@ class AdminReportSellingTotalPaymentReceipt extends Component {
                 <Printable>
                     <div className="receipt">
                         <div className="receipt-header ta-center margin-bottom-small">
-                            <div className="margin-bottom-small">
-                                {/* <h5 className="fw-bold">{customerName}</h5> */}
-                            </div>
-
+                            <div className="margin-bottom-small"></div>
                             <h1><b>805 CARWASH</b></h1>
                             <h5>LAPORAN KASIR</h5>
                         </div>
@@ -61,9 +58,23 @@ class AdminReportSellingTotalPaymentReceipt extends Component {
                             <h5 className="fw-bold"><b>{storeStaffKasirName}</b></h5>
                             <p className="fw-semibold">{moment(periodrepot.to).format('YYYY-MM-DD')}</p>
                         </div>
-                        
-
-
+                        <div className="receipt-body margin-bottom-small">
+                            <table className="printReportDailyStaffStore">
+                                <tr>
+                                    <th className="fw-bold tdThStyle">No. Invoice</th>
+                                    <th className="fw-bold tdThStyle">Total </th>
+                                </tr>
+                                
+                                { dailyOrdered.map((value) => {
+                                    return(
+                                        <tr>
+                                            <td className="fw-bold" style={tdThStyle, tdStyle}> {value.queue}</td>
+                                            <td className="fw-bold" style={tdThStyle, tdStyle}> {value.total}</td>
+                                        </tr>
+                                    )
+                                }) }
+                            </table>
+                        </div>
                     </div>
                 </Printable>
             )

@@ -118,7 +118,7 @@ class AdminReportSellingTotal extends Component {
                 this.setState({
                     ...this.state,
                     dailyOrdered: vendorState.reportStaff.data.data.result.data,
-                    invoice: vendorState.reportStaff.data.data.result.data[0].queue,
+                    // invoice: vendorState.reportStaff.data.data.result.data[0].queue,
                     // totalTransaction: vendorState.reportStaff.data.data.result.data[0].total,
                 },() => {
                     // console.log(this.state.invoice);
@@ -177,6 +177,8 @@ class AdminReportSellingTotal extends Component {
 
     }
 
+    // vendorState.reportStaff
+
     populateTableData = () => {
         const { report } = this.props;
         
@@ -201,7 +203,7 @@ class AdminReportSellingTotal extends Component {
                 render: (row) => (
                     <td className="flex justify-content--center">
                             <Button className="margin-right-small" type="button" onClick={() => this.openAccessDetailStoreModal(row)}>Penjualan</Button>                              
-                            {/* <Button className="margin-right-small" theme="secondary" type="button" onClick={() => this.openAccessDetailStoreModal(row)}>Staff</Button>                               */}
+                            {/* <Button className="margin-right-small" theme="secondary" type="button" onClick={() => this.openAccessDetailStoreModal(row)}>Menu Favorit</Button>                               */}
                     </td>
                     
                 )
@@ -292,8 +294,6 @@ class AdminReportSellingTotal extends Component {
         this.setState({
             ...this.state,
             staffId :  parseInt(value)
-        }, () => {
-            // console.log(this.state);
         });
     }
     
@@ -306,7 +306,7 @@ class AdminReportSellingTotal extends Component {
 
         }, () => {
             const { selectedAccessDetailStore, periodrepot, staffId,} = this.state;
-            const { getVendorEmployeeListDispatch, getStoreStaffReportDispatch } = this.props;
+            const { getVendorEmployeeListDispatch } = this.props;
 
             //#GET STORE STAFF LIST || EMPLOYEE
             let requiredDataStoreStaff = {
@@ -315,17 +315,6 @@ class AdminReportSellingTotal extends Component {
             }
             getVendorEmployeeListDispatch(requiredDataStoreStaff);
 
-            //#GET REPORT STORE STAFF
-            let requiredDataStoreStaffReport = {
-                store:selectedAccessDetailStore.storeId,
-                start_date : moment(),
-                end_date : moment(),
-                staff :'',
-                print: false
-            };
-
-            getStoreStaffReportDispatch(requiredDataStoreStaffReport);
-   
             //#
             this.toggleModal('accessDetailStore');
         });
@@ -405,12 +394,10 @@ class AdminReportSellingTotal extends Component {
                 //#1
                 value.item.map((item, i) => {
 
-                   
-
                     //#
                     let barisKedua = {
                        
-
+                        queue: value.queue,
                         date: value.date,
                         item: item.name,
                         price: item.price,
@@ -465,8 +452,7 @@ class AdminReportSellingTotal extends Component {
 
         const { getReportStoreCashierMemberPrintDispatch, user } = this.props;
         const { printData } = this.state;
-        
-        //Scenario superadmin can access route Kasir
+
         let dataId = user.id === 1 ? user.id + 2 : user.id;
 
         let requiredData = {
@@ -476,18 +462,13 @@ class AdminReportSellingTotal extends Component {
             print: true
         }
 
-        // console.log(requiredData);
-
         this.setState({
             ...this.state,
-            // printDataDetail: printData.data.result.data,
             statusPrintData: 200
             }, () => {
-                console.log(this.state.printDataDetail);
                 window.print();
 
         })
-        // getReportStoreCashierMemberPrintDispatch(requiredData);
     }
 
 

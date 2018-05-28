@@ -36,7 +36,8 @@ import {
     AdminTransaction,
     AdminStoresReportMenu,
     AdminStoresMenuSuperAdm,
-    AdminStoresCreateEmployeeSuperAdm
+    AdminStoresCreateEmployeeSuperAdm,
+    AdminStoresCreateMenuSuperAdm
     // AdminStoresReportSuperAdm
 
 } from '../../Admin';
@@ -91,11 +92,10 @@ class AdminPanel extends Component {
                 { name: 'setting', path: `${this.props.match.url}/setting`, component: AdminSetting },
                 
                 //#Fussion Owner & Superadmin
-                // { name: 'staff', path: `${this.props.match.url}/staff`, component: AdminStoresEmployee },
                 { name: 'staf-super', path: `${this.props.match.url}/staff`, component: AdminStoresEmployeeSuperAdm },
                 { name: 'create-new-staff', path: `${this.props.match.url}/staff/create-new-staff`, component: AdminStoresCreateEmployeeSuperAdm },
                 { name: 'product', path: `${this.props.match.url}/product`, component: AdminStoresMenuSuperAdm },
-                { name: 'create-new-product', path: `${this.props.match.url}/product/create-new-product`, component: AdminStoresMenuCreate },
+                { name: 'create-new-product', path: `${this.props.match.url}/product/create-new-product`, component: AdminStoresCreateMenuSuperAdm },
                 { component: NoMatch }
             ];
             mainRoute = routePage;

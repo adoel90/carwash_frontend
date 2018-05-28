@@ -1,36 +1,40 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Dialog } from '../../../components/Dialog';
-import { getStoreList } from '../../../actions/vendor.action';
+import { getStoreList } from '../../../actions/store.action';
 import { createMenuProduct } from '../../../actions/store.action';
-import { AdminStoresMenuCreateView } from '../AdminStoresMenu';
 import { openDialog, closeDialog } from '../../../actions/dialog.action';
+
+import { Dialog } from '../../../components/Dialog';
+import { AdminStoresCreateMenuSuperAdmView } from '../AdminStoresMenuSuperAdm';
 
 
 function mapStateToProps(state) {
     return {
-        store : state.store,
+        vendorState: state.vendorState,
+        store: state.store,
         dialog: state.dialog
     };
-}
+};
 
 function mapDispatchToProps(dispatch) {
     return {
         getStoreListDispatch: () => dispatch(getStoreList()),
-        // createMenuProductDispatch : (data) => dispatch(createMenuProduct(data)),
+        // getAccessListDispatch: (data) => dispatch(getAccessList(data)),
         action: bindActionCreators({openDialog, closeDialog, createMenuProduct}, dispatch)
     }
 }
 
-class AdminStoresMenuCreate extends Component {
+
+class AdminStoresCreateMenuSuperAdm extends Component {
+
 
     constructor(){
         super();
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
-        this.renderDialog = this.renderDialog.bind(this);
         this.handleImageChange = this.handleImageChange.bind(this);
+        this.renderDialog = this.renderDialog.bind(this);
 
         this.state = {
 
@@ -49,25 +53,14 @@ class AdminStoresMenuCreate extends Component {
     }
 
     componentDidMount(){
+
+        //#
         const { getStoreListDispatch } = this.props;
-        getStoreListDispatch();    
+        getStoreListDispatch();
+
     }
 
     //#
-    componentDidUpdate(prevProps){
-        const { store } = this.props;
-        //Get Store List
-        if(prevProps.store.list !== store.list) {
-            if (store.list.isLoaded) {
-            
-                this.setState({
-                    ...this.state,
-                    storeList: store.list.data.data.result.store
-                });
-            }
-        }
-    }
-
     toggleDialog = (data) => {
         const { dialog, action } = this.props;
 
@@ -114,7 +107,7 @@ class AdminStoresMenuCreate extends Component {
                     [name]: value
               }
         });
-    }
+    };
 
     handleImageChange = (object, e) => {
 		const target = e.target;
@@ -138,6 +131,7 @@ class AdminStoresMenuCreate extends Component {
 
 		reader.readAsDataURL(file);
 	}
+
 
     handleFormSubmit = (e) => {
         e.preventDefault();
@@ -175,25 +169,27 @@ class AdminStoresMenuCreate extends Component {
             
                     this.toggleDialog(dialogData);
             }
-
         });
     }
 
+
     render() {
+
         return (
             <div>
-                <AdminStoresMenuCreateView 
-                    {...this.state} 
-                    {...this.props} 
-                    handleInputChange = {this.handleInputChange}
-                    handleFormSubmit = { this.handleFormSubmit }
-                    handleImageChange= {this.handleImageChange}
+                <AdminStoresCreateMenuSuperAdmView 
+                    handleInputChange = { this.handleInputChange }
+                    handleFormSubmit = { this.handleFormSubmit}
+                    handleImageChange = { this.handleImageChange}
+                    {...this.state}
+                    {...this.props}
                 />
+
                 {this.renderDialog()}
             </div>
-        )   
+        );
     }
 }
 
-// export default AdminStoresMenuCreate;
-export default connect(mapStateToProps, mapDispatchToProps)(AdminStoresMenuCreate); 
+// export default AdminStoresCreateMenuSuperAdm;
+export default connect( mapStateToProps, mapDispatchToProps )(AdminStoresCreateMenuSuperAdm);

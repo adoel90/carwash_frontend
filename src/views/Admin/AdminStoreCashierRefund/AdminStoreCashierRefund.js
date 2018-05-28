@@ -186,6 +186,7 @@ class AdminStoreCashierRefund extends Component {
             staff: user.level.id
         }
 
+        console.log(requiredData);
         memberRefundDispatch(requiredData);
         // dispatch(memberRefund(requiredData));
     }

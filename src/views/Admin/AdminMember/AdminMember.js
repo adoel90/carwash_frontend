@@ -180,7 +180,7 @@ class AdminMember extends Component {
                         <td>
                               {/* <Button className="margin-right-small" theme="light" type="button" onClick={() => this.openMemberModalDetailNew(row)}>Detail</Button>                               */}
                               <Button className="margin-right-small" type="button" onClick={() => this.openMemberDetail(row)}>Ubah</Button>
-                              <Button type="button" theme={row.data.status ? "success" : "danger"} onClick={() => this.changdeMemberStatus(row)}>{ row.data.status ? 'Aktif' : 'Non Aktif' }</Button>
+                              <Button type="button" theme={row.data.status ? "success" : "danger"} onClick={() => this.changeMemberStatus(row)}>{ row.data.status ? 'Aktif' : 'Non Aktif' }</Button>
                         </td>
                   )
             }]

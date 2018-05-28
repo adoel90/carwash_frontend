@@ -415,6 +415,7 @@ class AdminStoresEmployee extends Component {
             <div>
                 <Nav tabs className="flex justify-content--space-between">
                 { vendorState.store.isLoaded ? vendorState.store.data.data.result.store.map((store, i) => (
+                    
                     <NavItem>
                         <NavTabLink active={activeTab === i} onClick={() => this.toggleTab(i, store)}>
                             {/* {console.log(store.name)} */}

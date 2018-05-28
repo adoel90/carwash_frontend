@@ -104,8 +104,8 @@ class AdminPanel extends Component {
 
             let routePage = [
                 { name: 'topup', path: `${this.props.match.url}/topup`, component: AdminStoreCashierTopUp },
-                // { name: 'new-card', path: `${this.props.match.url}/new-card`, component: AdminStoreCashierNewCard },
-                { name: 'new-card', path: `${this.props.match.url}/new-card`, component: AdminStoreCashierKartuBaru },
+                { name: 'new-card', path: `${this.props.match.url}/new-card`, component: AdminStoreCashierNewCard },
+                { name: 'kartu-baru', path: `${this.props.match.url}/new-card/kartu-baru-new`, component: AdminStoreCashierKartuBaru },
                 { name: 'stock-kartu', path: `${this.props.match.url}/new-card/stock-kartu`, component: AdminStoreCashierStockKartu },
                 { name: 'refund', path: `${this.props.match.url}/refund`, component: AdminStoreCashierRefund },
                 { name: 'balance', path: `${this.props.match.url}/balance`, component: AdminStoreCashierCheckSaldo },
@@ -299,6 +299,16 @@ class AdminPanel extends Component {
 
                 if(menu[i].group === "kasir"){
                     dataMenu.items.push(kartuBaru);
+                };
+
+                //#New Card - Kartu Baru
+                let kartuBaruNew = {
+                    name: `${split[0]} Baru New`, 
+                    path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}/kartu-baru-new` : 'null'}`
+                }
+              
+                if(menu[i].group === "kasir"){
+                    dataMenu.items.push(kartuBaruNew);
                 };
 
                 //#Stock Kartu

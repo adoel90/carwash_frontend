@@ -4,6 +4,9 @@ import { Section } from '../../../layouts/Section';
 import { Panel, PanelHeader, PanelBody } from '../../../components/Panel';
 
 const AdminStoreCashierStockKartuView = props => {
+
+    const { cardType } = props;
+
     return (
         <div className="admin-dashboard">
             <Section>

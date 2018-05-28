@@ -68,7 +68,8 @@ const AdminStoresReportView = props => {
                         <ModalBody> 
                                 <Row>
                                     <Column>
-                                        <i className="far fa-user"></i><label><b> NamaLengkap : {selectedRow.customer}</b></label><br />
+                                        {console.log(selectedRow)}
+                                        {/* <i className="far fa-user"></i><label><b> NamaLengkap : {selectedRow.customer}</b></label><br /> */}
                                         <i className="far fa-id-card"></i><label><b> No. Invoice :  {selectedRow.queue}</b></label><br />
                                         <i className="far fa-money-bill-alt"></i><label><b> Total transaksi : Rp {selectedRow.total}</b></label><br />
                                         {/* <h6>Tipe Kartu : {member.memberHistoris.isLoaded ? member.memberHistoris.data.result.card.type.name : selectedMemberDetail.cardType}</h6> */}

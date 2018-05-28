@@ -54,7 +54,6 @@ class AdminStoreCashierStockKartu extends Component {
         })
     }
 
-
     render() {
 
         const { cardType, activeTab } = this.state;

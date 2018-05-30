@@ -160,7 +160,7 @@ class AdminStoresReport extends Component {
                     ...this.state,
                     dailyOrdered: vendorState.reportStaff.data.data.result.data
                 },() => {
-                    console.log(this.state);
+                    // console.log(this.state);
                     this.populateTableData();
                 });
             }

@@ -304,7 +304,6 @@ class CustomerStoreContent extends React.Component {
 		}
 
 		dispatch(printStoreTransaction(requiredData));
-		
 		// window.print();
 	}
 

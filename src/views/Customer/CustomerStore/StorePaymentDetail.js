@@ -64,6 +64,7 @@ class StorePaymentDetail extends Component {
 			isModalOpen,
 			toggleModal,
 			handlePaymentCheckout,
+			handlePaymentCheckoutSubmit,
 			selectedMenuList,
 			grandTotal,
 			store,
@@ -85,7 +86,7 @@ class StorePaymentDetail extends Component {
 				<ModalHeader className="align-center">
 					<h5 className="flex justify-content--center fw-semibold">Konfirmasi Layanan: <h5 className="margin-left-small fw-bold">{nameService}</h5></h5>
 				</ModalHeader>
-				<Form onSubmit={handlePaymentCheckout}>
+				<Form onSubmit={handlePaymentCheckoutSubmit}>
 					<ModalBody>
 						<div className="payment-detail">
 							{ this.renderMemberContent() }

@@ -26,7 +26,6 @@ function mapDispatchToProps(dispatch) {
 
 class AdminStoreCashierStockKartu extends Component {
 
-
     constructor(){
         super();
         this.toggleTab = this.toggleTab.bind(this);

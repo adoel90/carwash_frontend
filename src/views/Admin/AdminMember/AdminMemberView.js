@@ -88,7 +88,7 @@ const AdminMemberView = props => {
       return (
             <div className="admin-store">
                   <Row>
-                        <Column md={9}>
+                        <Column md={11}>
                               <Panel>
                                     <PanelHeader>
                                           <h4 className="heading-title">Daftar Member</h4>

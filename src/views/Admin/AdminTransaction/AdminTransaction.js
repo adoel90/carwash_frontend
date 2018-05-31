@@ -290,10 +290,14 @@ class AdminTransaction extends Component{
 		e.preventDefault();
 
 		const { memberInfo } = this.state;
-		const { action } = this.props;
+        const { action } = this.props;
+        
+        let firstData = memberInfo.memberID.replace('%', "");
+        let finalDataCardId = firstData.replace('?', "");
 		
 		let requiredData = {
-			card: memberInfo.memberID
+            // card: memberInfo.memberID
+            card: finalDataCardId
 		}
 		
 		action.authenticateMember(requiredData);

@@ -17,6 +17,10 @@ export const CHANGE_CARD_TYPE_STATUS_REJECTED = 'CHANGE_CARD_TYPE_STATUS_REJECTE
 export const DELETE_CARD_TYPE_FULFILLED = 'DELETE_CARD_TYPE_FULFILLED';
 export const DELETE_CARD_TYPE_REJECTED = 'DELETE_CARD_TYPE_REJECTED';
 
+//#Create Stock List New Card
+export const CREATE_STOCK_LIST_NEW_CARD_FULFILLED = 'CREATE_STOCK_LIST_NEW_CARD_FULFILLED';
+export const CREATE_STOCK_LIST_NEW_CARD_REJECTED = 'CREATE_STOCK_LIST_NEW_CARD_REJECTED';
+
 const accessToken = localStorage.getItem('accessToken') ? localStorage.getItem('accessToken') : null;
 
 export const getCardTypeList = (data) => {
@@ -139,3 +143,24 @@ export const deleteCardType = (data) => {
 	function handleSuccess(data) { return { type: DELETE_CARD_TYPE_FULFILLED, payload: data}}
 	function handleError(data) { return { type: DELETE_CARD_TYPE_REJECTED, payload: data}}
 }
+
+
+//#Create Stock List New Card
+export const createStockListNewCard = (data) => {
+	return async dispatch => {
+		return axios 
+			.post(`${constant.API_PATH}card/list/generate/id?accessToken=${accessToken}`, {
+				type: data.id
+			})
+			.then((response) => {
+				dispatch(handleSuccess(response.data))
+			})
+			.catch((error) => {
+				dispatch(handleError(error))
+			})
+	}
+
+	function handleSuccess(data) { return { type: CREATE_STOCK_LIST_NEW_CARD_FULFILLED, payload: data}}
+	function handleError(data) { return { type: CREATE_STOCK_LIST_NEW_CARD_REJECTED, payload: data}}
+
+};

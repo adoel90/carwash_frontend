@@ -9,6 +9,11 @@ import {
 	CHANGE_CARD_TYPE_STATUS_REQUESTED,
 	CHANGE_CARD_TYPE_STATUS_FULFILLED,
 	CHANGE_CARD_TYPE_STATUS_REJECTED,
+
+	CREATE_STOCK_LIST_NEW_CARD_FULFILLED, //#Create Stock List New Card
+	CREATE_STOCK_LIST_NEW_CARD_REJECTED
+
+
 } from '../actions/card.action';
 
 const initialState = {
@@ -27,6 +32,13 @@ const initialState = {
 		isCreated: false,
 		isStatusChanging: false,
 		isStatusChanged: false,
+		isError: false,
+		error: {}
+	},
+	list : {
+		data: {},
+		isCreating: false,
+		isCreated: false,
 		isError: false,
 		error: {}
 	}
@@ -160,6 +172,32 @@ const card = (state = initialState, action) => {
 					data: {},
 					isStatusChanging: false,
 					isStatusChanged: false,
+					isError: true,
+					error: action.payload
+				}
+			}
+		}
+
+		//#Create Stock List New Card
+		case CREATE_STOCK_LIST_NEW_CARD_FULFILLED: {
+			return {
+				...state,
+				list: {
+					...state.list,
+					data: action.payload,
+					isCreated: true,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case CREATE_STOCK_LIST_NEW_CARD_REJECTED: {
+			return {
+				...state,
+				list: {
+					...state.list,
+					isCreated: false,
 					isError: true,
 					error: action.payload
 				}

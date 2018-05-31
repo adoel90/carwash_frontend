@@ -11,16 +11,19 @@ import { Button } from '../../../components/Button';
 import { AdminStoreCashierStockKartuView } from '../AdminStoreCashierStockKartu';
 
 import { getStoreList } from '../../../actions/store.action';
+import { createStockListNewCard } from '../../../actions/card.action';
 
 function mapStateToProps(state) {
     return {
         vendorState: state.vendorState,
+        card : state.card
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
         getStoreListDispatch: () => dispatch(getStoreList()),
+        createStockListNewCardDispatch : (data) => dispatch(createStockListNewCard(data))
     }
 }
 
@@ -48,13 +51,33 @@ class AdminStoreCashierStockKartu extends Component {
             },
             selectedRow: {},
             copied: false,
+            listStockNewCard: {}
         }
     };
 
     componentDidMount(){
         const {getStoreListDispatch} = this.props;
         getStoreListDispatch();
-        this.populateTableData();
+        // this.populateTableData();
+        
+    };
+
+    componentDidUpdate(prevProps){
+
+        const { card } = this.props;
+
+        if(prevProps.card.list != card.list){
+            if(card.list.isCreated){
+                this.setState({
+                    ...this.state,
+                    listStockNewCard: card.list.data.result
+                },() => {
+                  
+                  this.populateTableData();
+                })
+            }
+           
+        }   
     }
 
     //#
@@ -71,6 +94,12 @@ class AdminStoreCashierStockKartu extends Component {
 
     //#
     toggleTab = (tabIndex, data) => {
+        let requireData = {
+            id: data.id
+        }
+        const { createStockListNewCardDispatch } = this.props;
+        createStockListNewCardDispatch(requireData);
+
 
         this.setState({
             activeTab: tabIndex
@@ -81,7 +110,7 @@ class AdminStoreCashierStockKartu extends Component {
     //#
     populateTableData = () => {
 
-        const {report, vendorState} = this.props;
+        const {report, vendorState, card} = this.props;
         // const { dailyOrdered } = this.state;
         
         const columns = [{
@@ -102,20 +131,15 @@ class AdminStoreCashierStockKartu extends Component {
                    
                 </td>
             )
-        }
-    ];
+        }];
 
         const rows = [];
-        
-        // let row = {
-        //     number : "35454254235423"
-        // };
-        
-        if(vendorState.store.isLoaded){
-            vendorState.store.data.data.result.store.forEach((value) => {
+
+        if(card.list.isCreated){
+            card.list.data.result.forEach((value) => {
 
                 let row = {
-                    number: value.user.id
+                    number: value.c_id
                 };
                 rows.push(row);
             });
@@ -140,8 +164,6 @@ class AdminStoreCashierStockKartu extends Component {
             return cardType.map((card, i) => {
                 return (
                     <TabContent activeTab={activeTab} tabIndex={i}>  
-                        
-
                         <PropsRoute
                             component={AdminStoreCashierStockKartuView}
                             type={card}
@@ -153,7 +175,6 @@ class AdminStoreCashierStockKartu extends Component {
                     </TabContent>
                 )
             })
-          
         }
 
         return (
@@ -171,7 +192,6 @@ class AdminStoreCashierStockKartu extends Component {
                     })}
                  </Nav>
                 
-
                 {/* RENDER CONTENT BASED ON ID STORE */}
                 {renderTabContent()}
             </div>

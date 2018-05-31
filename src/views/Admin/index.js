@@ -32,3 +32,8 @@ export * from './AdminStoresReport';
 export * from './AdminStoresReportMenu';
 export * from './AdminStoresPromo';
 export * from './AdminTransaction';
+
+
+//Documentation Developers 
+export * from './Documentation';
+

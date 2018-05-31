@@ -18,14 +18,14 @@ function mapStateToProps(state) {
         vendorState: state.vendorState,
         card : state.card
     };
-}
+};
 
 function mapDispatchToProps(dispatch) {
     return {
         getStoreListDispatch: () => dispatch(getStoreList()),
         createStockListNewCardDispatch : (data) => dispatch(createStockListNewCard(data))
     }
-}
+};
 
 class AdminStoreCashierStockKartu extends Component {
 
@@ -56,9 +56,22 @@ class AdminStoreCashierStockKartu extends Component {
     };
 
     componentDidMount(){
+
+        //#
         const {getStoreListDispatch} = this.props;
         getStoreListDispatch();
-        // this.populateTableData();
+
+        //#
+        this.setState({
+            activeTab: 2
+            // storeIdTab: data
+        }, () => {
+            let requireData = {
+                id: this.state.activeTab
+            }
+            const { createStockListNewCardDispatch } = this.props;
+            createStockListNewCardDispatch(requireData);
+        });
         
     };
 

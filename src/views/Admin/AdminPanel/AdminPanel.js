@@ -37,7 +37,8 @@ import {
     AdminStoresReportMenu,
     AdminStoresMenuSuperAdm,
     AdminStoresCreateEmployeeSuperAdm,
-    AdminStoresCreateMenuSuperAdm
+    AdminStoresCreateMenuSuperAdm,
+    Documentation
     // AdminStoresReportSuperAdm
 
 } from '../../Admin';
@@ -96,6 +97,9 @@ class AdminPanel extends Component {
                 { name: 'create-new-staff', path: `${this.props.match.url}/staff/create-new-staff`, component: AdminStoresCreateEmployeeSuperAdm },
                 { name: 'product', path: `${this.props.match.url}/product`, component: AdminStoresMenuSuperAdm },
                 { name: 'create-new-product', path: `${this.props.match.url}/product/create-new-product`, component: AdminStoresCreateMenuSuperAdm },
+
+                //Documentation
+                { name: 'documentation', path: `${this.props.match.url}/documentation`, component: Documentation },
                 { component: NoMatch }
             ];
             mainRoute = routePage;

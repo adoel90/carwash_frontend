@@ -56,22 +56,28 @@ class AdminStoreCashierStockKartu extends Component {
     };
 
     componentDidMount(){
+
+        //#
         const {getStoreListDispatch} = this.props;
         getStoreListDispatch();
 
+        //#
+        this.setState({
+            activeTab: 2
+            // storeIdTab: data
+        }, () => {
+            let requireData = {
+                id: this.state.activeTab
+            }
+            const { createStockListNewCardDispatch } = this.props;
+            createStockListNewCardDispatch(requireData);
+        });
         
     };
 
     componentDidUpdate(prevProps){
 
-        const { card, vendorState} = this.props;
-
-        if(prevProps.vendorState.store != vendorState.store){
-            if(vendorState.store.isLoaded){
-
-                // this.populateTableData();
-            }
-        }
+        const { card } = this.props;
 
         if(prevProps.card.list != card.list){
             if(card.list.isCreated){

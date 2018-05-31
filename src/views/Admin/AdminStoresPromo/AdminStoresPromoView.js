@@ -8,9 +8,6 @@ import { Row, Column } from '../../../layouts/Grid';
 import { Input, InputGroup, Switch, InputAddon } from '../../../components/Input';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from '../../../components/Modal';
 import { Button } from '../../../components/Button';
-import { ButtonDewek } from '../../../components/ButtonDewek';
-
-
 
 
 const AdminStoresPromoView = props => {

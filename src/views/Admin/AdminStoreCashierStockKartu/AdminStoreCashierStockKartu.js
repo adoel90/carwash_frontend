@@ -18,14 +18,14 @@ function mapStateToProps(state) {
         vendorState: state.vendorState,
         card : state.card
     };
-}
+};
 
 function mapDispatchToProps(dispatch) {
     return {
         getStoreListDispatch: () => dispatch(getStoreList()),
         createStockListNewCardDispatch : (data) => dispatch(createStockListNewCard(data))
     }
-}
+};
 
 class AdminStoreCashierStockKartu extends Component {
 
@@ -58,13 +58,20 @@ class AdminStoreCashierStockKartu extends Component {
     componentDidMount(){
         const {getStoreListDispatch} = this.props;
         getStoreListDispatch();
-        // this.populateTableData();
+
         
     };
 
     componentDidUpdate(prevProps){
 
-        const { card } = this.props;
+        const { card, vendorState} = this.props;
+
+        if(prevProps.vendorState.store != vendorState.store){
+            if(vendorState.store.isLoaded){
+
+                // this.populateTableData();
+            }
+        }
 
         if(prevProps.card.list != card.list){
             if(card.list.isCreated){

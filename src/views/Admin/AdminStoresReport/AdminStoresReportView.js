@@ -8,7 +8,6 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsive
 import { Column, Row} from '../../../layouts/Grid';
 import { Form, FormField, FormGroup } from '../../../layouts/Form';
 import { Button } from '../../../components/Button';
-import { ButtonDewek } from '../../../components/ButtonDewek';
 import { Input, InputGroup, InputAddon, Switch, Select } from '../../../components/Input';
 import { TableSet } from '../../../components/Table';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from '../../../components/Modal';

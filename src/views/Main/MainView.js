@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { PropsRoute } from '../../utilities/Route';
-import { Admin, Customer } from '../../views';
+import { Admin, Customer, Documentation } from '../../views';
 
 class MainView extends Component {
     

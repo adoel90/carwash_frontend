@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { ButtonDewek } from '../../../components/ButtonDewek';
 import { NavLink } from '../../../components/Nav';
 import { default as CarwashLogo } from '../../../assets/images/805carwash_white.svg';
 

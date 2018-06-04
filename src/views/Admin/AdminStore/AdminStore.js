@@ -200,9 +200,7 @@ class AdminStore extends Component {
             }
     
             action.updateStore(requiredData).then(() => {
-                  const {
-                        store
-                  } = this.props;
+                  const { store } = this.props;
 
                   if (store.updateStore.isUpdated) {
                         let dialogData = {

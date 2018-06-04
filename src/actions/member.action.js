@@ -53,6 +53,8 @@ export const authenticateMember = (data) => {
 			})
 			.then((response) => {
 				dispatch(handleSuccess(response.data.result));
+				console.log(response.data.result);
+
 				// localStorage.setItem("accessToken", response.data.data);
 				// localStorage.setItem("member", response.data.data.member);
 			})

@@ -29,6 +29,7 @@ class AdminStoreCashierKartuBaru extends Component {
         this.toggleModal = this.toggleModal.bind(this);
         this.handleToggleUpdate= this.handleToggleUpdate.bind(this);
         this.handleUpdateCreateMember = this.handleUpdateCreateMember.bind(this);
+        this.handleCancelModal = this.handleCancelModal.bind(this);
 
         this.state = {
             authData: {
@@ -43,8 +44,13 @@ class AdminStoreCashierKartuBaru extends Component {
 				// name: '',
 				phone: '',
 				email: null,
-				address: '',
-			},
+				address: ''
+            },
+            paymentMethod: [
+				{ id: 1, name: 'Cash' },
+				{ id: 2, name: 'Debit' },
+				{ id: 3, name: 'Credit' },
+			],
             selectedMember: {}
         }
     }
@@ -96,6 +102,19 @@ class AdminStoreCashierKartuBaru extends Component {
 		}
     };
 
+    //#
+    handleCancelModal = (e) => {
+        e.preventDefault();
+        const {isModalOpen} = this.state;
+
+        this.setState({
+            ...this.state,
+            isModalOpen:{
+                updateMemberNewCardConfirmation:false
+            }
+        });
+    }
+
     handleAuthenticateMember = (e) => {
         e.preventDefault();
         const { authenticateMemberDispatch } = this.props;
@@ -131,12 +150,14 @@ class AdminStoreCashierKartuBaru extends Component {
         e.preventDefault();
         const { selectedMember, newCardData } = this.state;
 
-        console.log(newCardData);
+        console.log(selectedMember.card.type.name);
 
         let requiredData = {
-            //   id : selectedStore.id,
+              id : selectedMember.id,
               name : selectedMember.name,
-              email: newCardData.email
+              email: newCardData.email,
+              phone: newCardData.phone,
+              address: newCardData.address
             //   category : selectedStore.type.id ? parseInt(selectedStore.type.id) : parseInt(selectedStore.type)
         };
 
@@ -186,6 +207,7 @@ class AdminStoreCashierKartuBaru extends Component {
                     toggleModal={this.toggleModal}
                     handleToggleUpdate = {this.handleToggleUpdate}
                     handleUpdateCreateMember = { this.handleUpdateCreateMember}
+                    handleCancelModal = { this.handleCancelModal}
                     {...this.state} {...this.props} 
                 
                 />

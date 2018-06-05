@@ -157,7 +157,7 @@ class AdminStoreCashierNewCard extends Component {
 				...isModalOpen,
 				[name]: !isModalOpen[name]
 			}
-		})
+		});
 	}
 
 	handleInputChange = (object, e) => {

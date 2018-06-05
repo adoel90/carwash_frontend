@@ -27,7 +27,9 @@ class AdminStoreCashierKartuBaruConfirmationModal extends Component{
                 handleInputChange,
                 handleInputChangeInModalUpdate,
                 selectedMember, 
-                newCardData
+                newCardData,
+                handleCancelModal,
+                paymentMethod
             } = this.props;
 
         return(
@@ -38,7 +40,7 @@ class AdminStoreCashierKartuBaruConfirmationModal extends Component{
                 <Form onSubmit={handleUpdateCreateMember}>
                     <ModalBody>
                         <Row className="margin-bottom-small">
-                            <Column md={12}>
+                            <Column md={6}>
                                 <FormGroup>
                                     <FormField label="Nama Lengkap">
                                         <InputGroup>
@@ -70,13 +72,88 @@ class AdminStoreCashierKartuBaruConfirmationModal extends Component{
                                             />
                                         </InputGroup>
                                     </FormField>
+                                </FormGroup>
+                                <FormGroup>
+                                    <FormField label="Nomor Telepon">
+                                        <InputGroup>
+                                            <InputAddon>
+                                                <i className="fas fa-phone"></i>
+                                            </InputAddon>
+                                            <Input
+                                                name="phone"
+                                                type="text"
+                                                placeholder="+62"
+                                                onChange={(e) => handleInputChange(newCardData, e)}
+                                                // required="false"
+                                            />
+                                        </InputGroup>
+                                    </FormField>
+                                </FormGroup>
 
+                                <FormGroup>
+                                    <FormField label="Alamat">
+                                        <Textarea
+                                            name="address"
+                                            type="textarea"
+                                            placeholder="Provinsi, Kecamatan, Jalan, Kode Pos"
+                                            onChange={(e) => handleInputChange(newCardData, e)}
+                                            // required="false"
+                                        />
+                                    </FormField>
+                                </FormGroup>
+
+                            </Column>
+                            <Column md={6}>
+                                <FormGroup>
+                                    <FormField label="Tipe Kartu">
+                                        <Input
+                                            name="name"
+                                            type="text"
+                                            placeholder={selectedMember.card ? selectedMember.card.type.name : "Ulangi peng-copyan nomor seri kartu"}
+                                            defaultValue={selectedMember.card ? selectedMember.card.type.name : "Ulangi peng-copyan nomor seri kartu"}
+                                            // onChange={(e) => handleInputChangeInModalUpdate('selectedMember', e)}
+                                            readOnly
+                                        />
+                                    </FormField>
+                                </FormGroup>
+                                <FormGroup>
+                                    <FormField label="Saldo Awal">
+                                        <InputGroup>
+                                            <InputAddon>
+                                                <small className="fw-semibold tt-uppercase ls-base">RP</small>
+                                            </InputAddon>
+                                            <InputCurrency
+                                                name="starting"
+                                                type="text"
+                                                className="input"
+                                                value={selectedMember.balance ? selectedMember.balance : "Ulangi peng-copyan nomor seri kartu"}
+                                                readOnly
+                                            />
+                                        </InputGroup>
+                                        <small className="clr-dark-light">Merupakan minimal saldo yang harus diisi calon member untuk pembuatan kartu.</small>
+                                    </FormField>
+                                </FormGroup>
+                                <FormGroup>
+                                    <FormField label="Metode Pembayaran">
+                                        <Select
+                                            name="payment"
+                                            type="select"
+                                            onChange={(e) => handleInputChange(newCardData, e)}
+                                            deafultValue={newCardData.payment}>
+                                            {
+                                                paymentMethod.map((method) => {
+                                                    return <option value={method.id}>{method.name}</option>
+                                                })
+                                            }
+                                        </Select>
+                                        <small className="clr-dark-light">Merupakan metode pembayaran yang dipilih calon member untuk pembuatan kartu.</small>
+                                    </FormField>
                                 </FormGroup>
                             </Column>
                         </Row>
 
                         <div className="flex justify-content--center">
-                            <Button theme="danger" type="submit" className="margin-right-small">
+                            <Button theme="danger" type="button" className="margin-right-small">
                                 <small className="fw-semibold tt-uppercase ls-base">Cancel</small>
                             </Button>
                             <Button theme="primary" type="submit" className="margin-right-small">

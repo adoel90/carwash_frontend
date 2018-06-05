@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { createNewMember } from '../../../actions/member.action';
+
 
 import { Form, FormGroup} from '../../../components/Form';
 import { FormField } from '../../../layouts/Form';
@@ -9,6 +9,9 @@ import { Row, Column } from '../../../layouts/Grid';
 import { Modal } from 'reactstrap';
 import { ModalHeader, ModalContent, ModalFooter } from '../../../components/Modal';
 import { Button } from '../../../components/Button';
+
+
+import { createNewMember } from '../../../actions/member.action';
 import { default as CardIcon } from '../../../assets/icons/Business/credit-card-3.svg';
 
 

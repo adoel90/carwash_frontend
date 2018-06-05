@@ -12,13 +12,15 @@ class AdminStoreCashierKartuBaruView extends Component {
 			member,
 			memberData,
 			authentication,
-			// error,
-			// handleInputChange,
 			handleMemberAuthenticateSubmit,
 			authData,
+			
+			
 			handleInputChange,
-			handleAuthentication,
+			handleAuthenticateMember,
+			handleToggleUpdate,
 			isModalOpen,
+			toggleModal,
 			error
 
 		} = this.props;
@@ -35,10 +37,8 @@ class AdminStoreCashierKartuBaruView extends Component {
 		}
 
 		return (
- 			<Form onSubmit={handleAuthentication}>
-
+ 			<Form onSubmit={handleAuthenticateMember}>
 				{/* { renderAlert() } */}
-			
 				<FormGroup>
 					<InputGroup>
 						<InputAddon>

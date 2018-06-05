@@ -10,6 +10,8 @@ import { Alert } from '../../../components/Alert';
 import { default as CardIcon2 } from '../../../assets/icons/Business/credit-card-6.svg';
 import Currency from '../../../components/Currency';
 import NumberFormat from 'react-number-format';
+
+import { AdminStoreCashierKartuBaruConfirmationModal } from '../AdminStoreCashierKartuBaru';
 import { AdminStoreCashierKartuBaruView } from '../AdminStoreCashierKartuBaru';
 import { Panel, PanelHeader, PanelBody } from '../../../components/Panel';
 
@@ -27,11 +29,12 @@ class AdminStoreCashierKartuBaruWrapper extends Component {
 							<p className="clr-dark-light">Silahkan gesek kartu untuk membuat Kartu Member Baru pada kolom berikut.</p><br />
 						</Row>
 						
-						<AdminStoreCashierKartuBaruView {...this.props} handleInputChange={this.props.handleInputChange} />
+						<AdminStoreCashierKartuBaruView {...this.props} />
 					</PanelBody>
 				</Panel>
-				{/* <CashierTopUpConfirmation {...this.props} /> */}
-				{/* <CashierTopUpPaymentReceipt {...this.props} /> */}
+
+				<AdminStoreCashierKartuBaruConfirmationModal {...this.props} />
+				
 			</div>
 		);
 	}

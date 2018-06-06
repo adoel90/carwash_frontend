@@ -44,10 +44,8 @@ class AdminStoreCashierKartuBaruConfirmationModal extends Component {
                 <Form>
                     <ModalBody>
                         <Row className="margin-bottom-small">
-                            {/* {console.log( member.item.data.card.type.id === 1 ? member.item.data.card.type.id : null)} */}
-                            {/* {console.log( member.item.data.card.type.id === 1 ? member.item.data.card.type.id : null)} */}
     
-                            {/* {member.item.data.card.type.id  === 1 ?  */}
+                            {typeNumberMember  === 1 ? 
                                     <Column md={6}>
                                         <FormGroup>
                                             <FormField label="Nama Lengkap">
@@ -110,8 +108,8 @@ class AdminStoreCashierKartuBaruConfirmationModal extends Component {
                                             </FormField>
                                         </FormGroup>
                                     </Column>
-                                 {/* : null  */}
-                             {/* }  */}
+                                  : null  
+                            }  
                             <Column md={6}>
                                 <FormGroup>
                                     <FormField label="Tipe Kartu">

@@ -75,14 +75,13 @@ class AdminStoreCashierKartuBaru extends Component {
 
                 //#
                 this.state.selectedMember = member.item.data;
-
+                this.state.typeNumberMember = member.item.data.card ? member.item.data.card.type.id : null;
                 //#
                 // if (member.item.data) {
-                //     this.setState({
-                //         ...this.state,
-                //         selectedMember : member.item.data,
-                        // typeNumberMember: member.item.data ? member.item.data.card.type.id : null
-                //     });
+                // this.setState({
+                //     ...this.state,
+                //     typeNumberMember: member.item.data ? member.item.data.card.type.id : null
+                // });
                 // }
 
                 this.forceUpdate();
@@ -105,7 +104,7 @@ class AdminStoreCashierKartuBaru extends Component {
                 ...isModalOpen,
                 [name]: !isModalOpen[name]
             }
-        })
+        });
     }
 
     renderDialog = () => {
@@ -189,8 +188,6 @@ class AdminStoreCashierKartuBaru extends Component {
         const name = target.name;
         const value = target.value;
 
-        // console.log(value);
-
         this.setState({
             ...this.state,
             [object]: {
@@ -215,9 +212,6 @@ class AdminStoreCashierKartuBaru extends Component {
             //   category : selectedStore.type.id ? parseInt(selectedStore.type.id) : parseInt(selectedStore.type)
         };
 
-        // console.log(requiredData);
-
-
         action.updateMember(requiredData).then(() => {
             const { member } = this.props;
 
@@ -237,7 +231,8 @@ class AdminStoreCashierKartuBaru extends Component {
                     dataMemberAfterUpdate: {
                         name: selectedMember.name,
                         cardType:  selectedMember.card ? selectedMember.card.type.name : "-",
-                        saldoNow: selectedMember.balance ? selectedMember.balance : "-"
+                        saldoNow: selectedMember.balance ? selectedMember.balance : "-",
+                        bonus: selectedMember.card.type ? selectedMember.card.type.bonus : ""
                     }
                 });
                 
@@ -264,9 +259,9 @@ class AdminStoreCashierKartuBaru extends Component {
     }
 
     handleNewCardPrintSubmit = () => {
-		// e.preventDefault();
+        // e.preventDefault();
+        
 		const { selectedMember } = this.state;
-		// console.log(newMember);
 
 		this.setState({
 			...this.state,
@@ -296,7 +291,6 @@ class AdminStoreCashierKartuBaru extends Component {
 
                 />
                 <AdminStoreCashierKartuBaruPaymentReceipt {...this.props} {...this.state} /> 
-
                 {this.renderDialog()}
                
             </div>
@@ -304,5 +298,4 @@ class AdminStoreCashierKartuBaru extends Component {
     }
 }
 
-// export default AdminStoreCashierKartuBaru;
 export default connect(mapStateToProps, mapDispatchToProps)(AdminStoreCashierKartuBaru);

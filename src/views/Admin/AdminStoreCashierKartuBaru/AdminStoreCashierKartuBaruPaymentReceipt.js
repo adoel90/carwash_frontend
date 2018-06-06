@@ -16,7 +16,7 @@ class AdminStoreCashierKartuBaruPaymentReceipt extends Component{
 
             let customerName = dataMemberAfterUpdate.name;
             let cardType = dataMemberAfterUpdate.cardType;
-            // let bonusMoney = printData.data.data.result.card.type.bonus;
+            let bonusMoney = dataMemberAfterUpdate.bonus;
             let saldoNow = dataMemberAfterUpdate.saldoNow;
 
             return (

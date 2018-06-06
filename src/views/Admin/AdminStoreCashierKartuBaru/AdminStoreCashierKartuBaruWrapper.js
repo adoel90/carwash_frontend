@@ -19,8 +19,6 @@ class AdminStoreCashierKartuBaruWrapper extends Component {
 
 	render() {
 
-		// console.log(this.props);
-
 		return (
 			<div className="inner-view">
 				<Panel className="ta-center">

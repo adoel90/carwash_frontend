@@ -48,9 +48,6 @@ class CashierNewCardForm extends Component {
 			<Form onSubmit={handleNewCardConfirmationSubmit}>
 			{/* <Form onSubmit={handleNewCardConfirmationSubmit}> */}
 				<Row className="margin-bottom-small">
-					{console.log(newCardData)}
-
-
 					{ newCardData.card === 15 || newCardData.card === 1 ?
 							<Column md={6}>
 								<div className="column-6">

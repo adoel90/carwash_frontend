@@ -10,9 +10,10 @@ import { FormField } from '../../../layouts/Form';
 import { InputCashier, Input, InputGroup, InputAddon, InputCurrency, Label, Select, Textarea } from '../../../components/Input';
 import Currency from '../../../components/Currency';
 
+import NumberFormat from 'react-number-format';
 import { default as CardIcon } from '../../../assets/icons/Business/credit-card-3.svg';
 
-import NumberFormat from 'react-number-format';
+
 
 
 class AdminStoreCashierKartuBaruConfirmationModal extends Component {
@@ -30,7 +31,8 @@ class AdminStoreCashierKartuBaruConfirmationModal extends Component {
             newCardData,
             handleCancelModal,
             paymentMethod,
-            typeNumberMember
+            typeNumberMember,
+            member
         } = this.props;
 
         return (
@@ -38,14 +40,14 @@ class AdminStoreCashierKartuBaruConfirmationModal extends Component {
                 <ModalHeader align="center">
                     <h6 className="fw-semibold">Buat Member Baru</h6>
                 </ModalHeader>
-                <Form onSubmit={handleUpdateCreateMember}>
+                {/* <Form onSubmit={handleUpdateCreateMember}> */}
+                <Form>
                     <ModalBody>
                         <Row className="margin-bottom-small">
-
-
-                        {console.log(typeNumberMember)}
-
-                            {typeNumberMember === 1 ? 
+                            {/* {console.log( member.item.data.card.type.id === 1 ? member.item.data.card.type.id : null)} */}
+                            {/* {console.log( member.item.data.card.type.id === 1 ? member.item.data.card.type.id : null)} */}
+    
+                            {/* {member.item.data.card.type.id  === 1 ?  */}
                                     <Column md={6}>
                                         <FormGroup>
                                             <FormField label="Nama Lengkap">
@@ -108,8 +110,8 @@ class AdminStoreCashierKartuBaruConfirmationModal extends Component {
                                             </FormField>
                                         </FormGroup>
                                     </Column>
-                                : null 
-                            }
+                                 {/* : null  */}
+                             {/* }  */}
                             <Column md={6}>
                                 <FormGroup>
                                     <FormField label="Tipe Kartu">
@@ -162,7 +164,7 @@ class AdminStoreCashierKartuBaruConfirmationModal extends Component {
 
                     <ModalFooter className="flex justify-content--flex-end">
                         <Button className="margin-right-small" theme="danger" onClick={(e) => handleCancelModal(e)}> Cancel </Button>
-                        <Button type="Submit">Simpan</Button>
+                        <Button type="Submit" onClick={(e) => handleUpdateCreateMember(e)}>Simpan</Button>
                     </ModalFooter>
 
                 </Form>

@@ -11,13 +11,15 @@ import { default as CardIcon2 } from '../../../assets/icons/Business/credit-card
 import Currency from '../../../components/Currency';
 import NumberFormat from 'react-number-format';
 
-import { AdminStoreCashierKartuBaruConfirmationModal } from '../AdminStoreCashierKartuBaru';
+import { AdminStoreCashierKartuBaruConfirmationModal, AdminStoreCashierKartuBaruPaymentReceipt } from '../AdminStoreCashierKartuBaru';
 import { AdminStoreCashierKartuBaruView } from '../AdminStoreCashierKartuBaru';
 import { Panel, PanelHeader, PanelBody } from '../../../components/Panel';
 
 class AdminStoreCashierKartuBaruWrapper extends Component {
 
 	render() {
+
+		// console.log(this.props);
 
 		return (
 			<div className="inner-view">
@@ -29,11 +31,12 @@ class AdminStoreCashierKartuBaruWrapper extends Component {
 							<p className="clr-dark-light">Silahkan gesek kartu untuk membuat Kartu Member Baru pada kolom berikut.</p><br />
 						</Row>
 						
-						<AdminStoreCashierKartuBaruView {...this.props} />
+						<AdminStoreCashierKartuBaruView {...this.props}  handleInputChange={this.props.handleInputChange}/>
 					</PanelBody>
 				</Panel>
 
-				<AdminStoreCashierKartuBaruConfirmationModal {...this.props} />
+				<AdminStoreCashierKartuBaruConfirmationModal {...this.props} {...this.state}/>
+				
 				
 			</div>
 		);

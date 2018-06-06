@@ -20,6 +20,7 @@ import {
 	CREATE_MEMBER_FULFILLED,
 	CREATE_MEMBER_REJECTED,
 
+
 	UPDATE_MEMBER_REQUESTED,
 	UPDATE_MEMBER_FULFILLED,
 	UPDATE_MEMBER_REJECTED,
@@ -239,6 +240,20 @@ const member = (state = initialState, action) => {
 					isCreated: false,
 					isError: true,
 					error: action.payload
+				}
+			}
+		}
+
+		//#Update Member
+		case UPDATE_MEMBER_REQUESTED: {
+			return {
+				...state,
+				item: {
+					...state.item,
+					data: {},
+					isUpdated: false,
+					isError: false,
+					error: {}
 				}
 			}
 		}

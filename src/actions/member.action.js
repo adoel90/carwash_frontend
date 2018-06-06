@@ -202,6 +202,7 @@ export const updateMember = (data) => {
 			})
 	}
 
+	function handleRequest() { return { type: UPDATE_MEMBER_REQUESTED}}
 	function handleSuccess(data) { return { type: UPDATE_MEMBER_FULFILLED, payload: data } }
 	function handleError(data) { return { type: UPDATE_MEMBER_REJECTED, payload: data } }
 }

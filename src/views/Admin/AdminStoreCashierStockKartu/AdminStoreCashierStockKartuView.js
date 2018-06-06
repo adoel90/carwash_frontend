@@ -4,7 +4,6 @@ import { Section } from '../../../layouts/Section';
 import { Panel, PanelHeader, PanelBody } from '../../../components/Panel';
 import { TableSet } from '../../../components/Table';
 
-
 const AdminStoreCashierStockKartuView = props => {
 
     const { cardType, table, vendorState } = props;
@@ -21,7 +20,6 @@ const AdminStoreCashierStockKartuView = props => {
                             <TableSet
                                 // loading={vendorState.reportStaff.isFetching}
                                 loaded={vendorState.store.isLoaded}
-                                
                                 columns={table.columns}
                                 rows={table.rows}
                                 striped 

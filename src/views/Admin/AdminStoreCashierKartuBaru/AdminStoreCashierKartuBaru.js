@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import { authenticateMember } from '../../../actions/member.action';
+import { ModalDialog } from '../../../components/Modal';
+
+import { openDialog, closeDialog } from '../../../actions/dialog.action';
+import { authenticateMember, updateMember } from '../../../actions/member.action';
 import { AdminStoreCashierKartuBaruWrapper } from '../AdminStoreCashierKartuBaru';
 
 
@@ -15,7 +18,8 @@ function mapStateToProps (state){
 
 function mapDispatchToProps(dispatch){
     return {
-        authenticateMemberDispatch: (data) => dispatch(authenticateMember(data))
+        authenticateMemberDispatch: (data) => dispatch(authenticateMember(data)),
+        action: bindActionCreators({ updateMember, openDialog, closeDialog  }, dispatch)
     }
 }
 
@@ -30,6 +34,7 @@ class AdminStoreCashierKartuBaru extends Component {
         this.handleToggleUpdate= this.handleToggleUpdate.bind(this);
         this.handleUpdateCreateMember = this.handleUpdateCreateMember.bind(this);
         this.handleCancelModal = this.handleCancelModal.bind(this);
+        this.renderDialog = this.renderDialog.bind(this);
 
         this.state = {
             authData: {
@@ -68,6 +73,12 @@ class AdminStoreCashierKartuBaru extends Component {
                 this.handleToggleUpdate();
             }
         }
+
+        if(prevProps.member.item !== member.item){
+            if(member.item.isUpdated){
+
+            }
+        }
     }
 
     toggleModal = (name) => {
@@ -79,6 +90,34 @@ class AdminStoreCashierKartuBaru extends Component {
 				[name]: !isModalOpen[name]
 			}
 		})
+    }
+
+    renderDialog = () => {
+        const { dialog, toggleDialog } = this.props;
+        
+        return (
+              <ModalDialog
+                    isOpen={dialog.isOpened}
+                    toggle={toggleDialog}
+                    type={dialog.data.type}
+                    title={dialog.data.title}
+                    message={dialog.data.message}
+                    onConfirm={dialog.data.onConfirm}
+                    confirmText={dialog.data.confirmText}
+                    onClose={dialog.data.onClose}
+                    closeText={dialog.data.closeText}
+              />
+        )
+    }
+
+    toggleDialog = (data) => {
+        const { dialog, action } = this.props;
+
+        if(!dialog.isOpened) {
+            action.openDialog(data);
+        } else {
+            action.closeDialog();
+        }
     }
     
     handleToggleUpdate = () => {
@@ -146,11 +185,9 @@ class AdminStoreCashierKartuBaru extends Component {
 
     //#
     handleUpdateCreateMember = (e) => {
-        // const { action } = this.props;
         e.preventDefault();
+        const { action } = this.props;
         const { selectedMember, newCardData } = this.state;
-
-        console.log(selectedMember.card.type.name);
 
         let requiredData = {
               id : selectedMember.id,
@@ -164,35 +201,34 @@ class AdminStoreCashierKartuBaru extends Component {
         console.log(requiredData);
 
 
-        // action.updateStore(requiredData).then(() => {
-        //       const {
-        //             store
-        //       } = this.props;
+        action.updateMember(requiredData).then(() => {
+              const { member  } = this.props;
 
-        //       if (store.updateStore.isUpdated) {
-        //             let dialogData = {
-        //                   type: 'success',
-        //                   title: 'Berhasil',
-        //                   message: 'Store telah berhasil diubah. Klik tombol berikut untuk kembali.',
-        //                   onClose: () => window.location.reload(),
-        //                   closeText: 'Kembali'
-        //             }
+              member.item.isUpdated
+              if (member.item.isUpdated) {
+                    let dialogData = {
+                          type: 'success',
+                          title: 'Berhasil',
+                          message: 'Member telah berhasil di simpan. Klik tombol berikut untuk kembali.',
+                          onClose: () => window.location.reload(),
+                          closeText: 'Kembali'
+                    }
             
-        //             this.toggleDialog(dialogData);
-        //       }
-  
-        //       if (store.updateStore.isError) {
-        //             let dialogData = {
-        //                   type: 'danger',
-        //                   title: 'Gagal',
-        //                   message: 'Store gagal diubah. Klik tombol berikut untuk kembali.',
-        //                   onClose: () => this.toggleDialog(),
-        //                   closeText: 'Kembali'
-        //             }
+                    this.toggleDialog(dialogData);
+              } else if (member.item.isError) {
+                    let dialogData = {
+                          type: 'danger',
+                          title: 'Gagal',
+                          message: 'Member gagal di simpan. Klik tombol berikut untuk kembali.',
+                          onClose: () => this.toggleDialog(),
+                          closeText: 'Kembali'
+                    }
             
-        //             this.toggleDialog(dialogData);
-        //       }
-        // });
+                    this.toggleDialog(dialogData);
+              } else {
+                  alert("Hubungi Superadmin untuk memperbaiki !");
+              }
+        });
     }
 
 
@@ -208,9 +244,11 @@ class AdminStoreCashierKartuBaru extends Component {
                     handleToggleUpdate = {this.handleToggleUpdate}
                     handleUpdateCreateMember = { this.handleUpdateCreateMember}
                     handleCancelModal = { this.handleCancelModal}
+                    
                     {...this.state} {...this.props} 
                 
                 />
+                {this.renderDialog()}
             </div>
         ) 
     }

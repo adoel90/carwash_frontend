@@ -39,9 +39,9 @@ class AdminStoreCashierStockKartu extends Component {
             activeTab: 0,
             storeIdTab: {},
             cardType : [
-                { id : 1, name: "Taxi Online", status: true },
+                { id : 3, name: "Taxi Online", status: true },
                 { id : 2, name: "Non Member", status: true },
-                { id : 3, name: "Member", status: true }
+                { id : 1, name: "Member", status: true }
             ],
 
             table: {

@@ -1,11 +1,11 @@
-import React, {Component } from 'react';
+import React, { Component } from 'react';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from '../../../components/Modal';
 import { Button } from '../../../components/Button';
 import { Alert } from '../../../components/Alert/index';
 import { Row, Column } from '../../../layouts/Grid';
 import { Badge } from '../../../components/Badge';
 
-import { Form, FormGroup} from '../../../components/Form';
+import { Form, FormGroup } from '../../../components/Form';
 import { FormField } from '../../../layouts/Form';
 import { InputCashier, Input, InputGroup, InputAddon, InputCurrency, Label, Select, Textarea } from '../../../components/Input';
 import Currency from '../../../components/Currency';
@@ -15,24 +15,24 @@ import { default as CardIcon } from '../../../assets/icons/Business/credit-card-
 import NumberFormat from 'react-number-format';
 
 
-class AdminStoreCashierKartuBaruConfirmationModal extends Component{
+class AdminStoreCashierKartuBaruConfirmationModal extends Component {
 
-    render(){
+    render() {
 
-        const { isModalOpen, 
-                updateMemberNewCardConfirmation, 
-                toggleModal, 
-                handleToggleUpdate, 
-                handleUpdateCreateMember,
-                handleInputChange,
-                handleInputChangeInModalUpdate,
-                selectedMember, 
-                newCardData,
-                handleCancelModal,
-                paymentMethod
-            } = this.props;
+        const { isModalOpen,
+            updateMemberNewCardConfirmation,
+            toggleModal,
+            handleToggleUpdate,
+            handleUpdateCreateMember,
+            handleInputChange,
+            handleInputChangeInModalUpdate,
+            selectedMember,
+            newCardData,
+            handleCancelModal,
+            paymentMethod
+        } = this.props;
 
-        return(
+        return (
             <Modal isOpen={isModalOpen.updateMemberNewCardConfirmation}>
                 <ModalHeader align="center">
                     <h6 className="fw-semibold">Buat Member Baru</h6>
@@ -67,7 +67,7 @@ class AdminStoreCashierKartuBaruConfirmationModal extends Component{
                                             <Input
                                                 name="email"
                                                 type="email"
-                                                placeholder= "Tulis Alamat email"
+                                                placeholder="Tulis Alamat email"
                                                 onChange={(e) => handleInputChange(newCardData, e)}
                                             />
                                         </InputGroup>
@@ -84,7 +84,7 @@ class AdminStoreCashierKartuBaruConfirmationModal extends Component{
                                                 type="text"
                                                 placeholder="+62"
                                                 onChange={(e) => handleInputChange(newCardData, e)}
-                                                // required="false"
+                                            // required="false"
                                             />
                                         </InputGroup>
                                     </FormField>
@@ -97,7 +97,7 @@ class AdminStoreCashierKartuBaruConfirmationModal extends Component{
                                             type="textarea"
                                             placeholder="Provinsi, Kecamatan, Jalan, Kode Pos"
                                             onChange={(e) => handleInputChange(newCardData, e)}
-                                            // required="false"
+                                        // required="false"
                                         />
                                     </FormField>
                                 </FormGroup>
@@ -151,16 +151,13 @@ class AdminStoreCashierKartuBaruConfirmationModal extends Component{
                                 </FormGroup>
                             </Column>
                         </Row>
-
-                        <div className="flex justify-content--center">
-                            <Button theme="danger" type="button" className="margin-right-small">
-                                <small className="fw-semibold tt-uppercase ls-base">Cancel</small>
-                            </Button>
-                            <Button theme="primary" type="submit" className="margin-right-small">
-                                <small className="fw-semibold tt-uppercase ls-base">Simpan</small>
-                            </Button>
-                        </div>
                     </ModalBody>
+
+                    <ModalFooter className="flex justify-content--flex-end">
+                        <Button className="margin-right-small" theme="danger" onClick={(e) => handleCancelModal(e)}> Cancel </Button>
+                        <Button type="Submit">Simpan</Button>
+                    </ModalFooter>
+
                 </Form>
             </Modal>
         )

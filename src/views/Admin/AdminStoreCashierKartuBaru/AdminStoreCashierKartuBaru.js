@@ -142,8 +142,12 @@ class AdminStoreCashierKartuBaru extends Component {
     };
 
     //#
-    handleCancelModal = (e) => {
-        e.preventDefault();
+    handleCancelModal = () => {
+
+        console.log(this.state);
+        
+
+        // e.preventDefault();
         const {isModalOpen} = this.state;
 
         this.setState({
@@ -244,7 +248,6 @@ class AdminStoreCashierKartuBaru extends Component {
                     handleToggleUpdate = {this.handleToggleUpdate}
                     handleUpdateCreateMember = { this.handleUpdateCreateMember}
                     handleCancelModal = { this.handleCancelModal}
-                    
                     {...this.state} {...this.props} 
                 
                 />

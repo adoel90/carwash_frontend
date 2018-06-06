@@ -63,11 +63,11 @@ class AdminStoreCashierStockKartu extends Component {
 
         //#
         this.setState({
-            activeTab: 2
+            activeTab: 1
             // storeIdTab: data
         }, () => {
             let requireData = {
-                id: this.state.activeTab
+                id: this.state.activeTab + 1 // ==> Type "Non-Member"
             }
             const { createStockListNewCardDispatch } = this.props;
             createStockListNewCardDispatch(requireData);

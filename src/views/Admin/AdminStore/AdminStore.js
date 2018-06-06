@@ -122,12 +122,12 @@ class AdminStore extends Component {
             }
       }
     
-        renderDialog = () => {
+      renderDialog = () => {
             const {
-                dialog,
-                toggleDialog
+                  dialog,
+                  toggleDialog
             } = this.props;
-    
+
             console.log(this.props)
             
             return (

@@ -29,7 +29,8 @@ class AdminStoreCashierKartuBaruConfirmationModal extends Component {
             selectedMember,
             newCardData,
             handleCancelModal,
-            paymentMethod
+            paymentMethod,
+            typeNumberMember
         } = this.props;
 
         return (
@@ -40,69 +41,75 @@ class AdminStoreCashierKartuBaruConfirmationModal extends Component {
                 <Form onSubmit={handleUpdateCreateMember}>
                     <ModalBody>
                         <Row className="margin-bottom-small">
-                            <Column md={6}>
-                                <FormGroup>
-                                    <FormField label="Nama Lengkap">
-                                        <InputGroup>
-                                            <InputAddon>
-                                                <i className="far fa-user"></i>
-                                            </InputAddon>
-                                            <Input
-                                                name="name"
-                                                type="text"
-                                                placeholder={selectedMember.name}
-                                                defaultValue={selectedMember.name ? selectedMember.name : "Tulis Nama Lengkap"}
-                                                onChange={(e) => handleInputChangeInModalUpdate('selectedMember', e)}
-                                                required="true"
-                                            />
-                                        </InputGroup>
-                                    </FormField>
-                                </FormGroup>
-                                <FormGroup>
-                                    <FormField label="Alamat E-mail">
-                                        <InputGroup>
-                                            <InputAddon>
-                                                <i className="far fa-envelope"></i>
-                                            </InputAddon>
-                                            <Input
-                                                name="email"
-                                                type="email"
-                                                placeholder="Tulis Alamat email"
-                                                onChange={(e) => handleInputChange(newCardData, e)}
-                                            />
-                                        </InputGroup>
-                                    </FormField>
-                                </FormGroup>
-                                <FormGroup>
-                                    <FormField label="Nomor Telepon">
-                                        <InputGroup>
-                                            <InputAddon>
-                                                <i className="fas fa-phone"></i>
-                                            </InputAddon>
-                                            <Input
-                                                name="phone"
-                                                type="text"
-                                                placeholder="+62"
-                                                onChange={(e) => handleInputChange(newCardData, e)}
-                                            // required="false"
-                                            />
-                                        </InputGroup>
-                                    </FormField>
-                                </FormGroup>
 
-                                <FormGroup>
-                                    <FormField label="Alamat">
-                                        <Textarea
-                                            name="address"
-                                            type="textarea"
-                                            placeholder="Provinsi, Kecamatan, Jalan, Kode Pos"
-                                            onChange={(e) => handleInputChange(newCardData, e)}
-                                        // required="false"
-                                        />
-                                    </FormField>
-                                </FormGroup>
 
-                            </Column>
+                        {console.log(typeNumberMember)}
+
+                            {typeNumberMember === 1 ? 
+                                    <Column md={6}>
+                                        <FormGroup>
+                                            <FormField label="Nama Lengkap">
+                                                <InputGroup>
+                                                    <InputAddon>
+                                                        <i className="far fa-user"></i>
+                                                    </InputAddon>
+                                                    <Input
+                                                        name="name"
+                                                        type="text"
+                                                        placeholder={selectedMember.name}
+                                                        defaultValue={selectedMember.name ? selectedMember.name : "Tulis Nama Lengkap"}
+                                                        onChange={(e) => handleInputChangeInModalUpdate('selectedMember', e)}
+                                                        required="true"
+                                                    />
+                                                </InputGroup>
+                                            </FormField>
+                                        </FormGroup>
+                                        <FormGroup>
+                                            <FormField label="Alamat E-mail">
+                                                <InputGroup>
+                                                    <InputAddon>
+                                                        <i className="far fa-envelope"></i>
+                                                    </InputAddon>
+                                                    <Input
+                                                        name="email"
+                                                        type="email"
+                                                        placeholder="Tulis Alamat email"
+                                                        onChange={(e) => handleInputChange(newCardData, e)}
+                                                    />
+                                                </InputGroup>
+                                            </FormField>
+                                        </FormGroup>
+                                        <FormGroup>
+                                            <FormField label="Nomor Telepon">
+                                                <InputGroup>
+                                                    <InputAddon>
+                                                        <i className="fas fa-phone"></i>
+                                                    </InputAddon>
+                                                    <Input
+                                                        name="phone"
+                                                        type="text"
+                                                        placeholder="+62"
+                                                        onChange={(e) => handleInputChange(newCardData, e)}
+                                                    // required="false"
+                                                    />
+                                                </InputGroup>
+                                            </FormField>
+                                        </FormGroup>
+
+                                        <FormGroup>
+                                            <FormField label="Alamat">
+                                                <Textarea
+                                                    name="address"
+                                                    type="textarea"
+                                                    placeholder="Provinsi, Kecamatan, Jalan, Kode Pos"
+                                                    onChange={(e) => handleInputChange(newCardData, e)}
+                                                // required="false"
+                                                />
+                                            </FormField>
+                                        </FormGroup>
+                                    </Column>
+                                : null 
+                            }
                             <Column md={6}>
                                 <FormGroup>
                                     <FormField label="Tipe Kartu">

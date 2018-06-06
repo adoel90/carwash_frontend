@@ -56,7 +56,8 @@ class AdminStoreCashierKartuBaru extends Component {
 				{ id: 2, name: 'Debit' },
 				{ id: 3, name: 'Credit' },
 			],
-            selectedMember: {}
+            selectedMember: {},
+            typeNumberMember: {}
         }
     }
 
@@ -68,7 +69,16 @@ class AdminStoreCashierKartuBaru extends Component {
         if(prevProps.member.item !== member.item){
             // console.log(member);
             if(member.item.isAuthenticated) {
+                
+                //#
                 this.state.selectedMember = member.item.data;
+
+                //#
+                this.setState({
+                    ...this.state,
+                    typeNumberMember: member.item.data ? member.item.data.card.type.id : null
+                });
+                
                 this.forceUpdate();
                 this.handleToggleUpdate();
             }

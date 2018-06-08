@@ -8,9 +8,10 @@ import { ModalDialog } from '../../../components/Modal';
 import { AdminStoreView } from '../AdminStore';
 
 class AdminStore extends Component {
-      constructor() {
-            super();
 
+      constructor() {
+
+            super();
             this.getStoreList = this.getStoreList.bind(this);
             this.getCategoryList = this.getCategoryList.bind(this);
             this.toggleModal = this.toggleModal.bind(this);
@@ -20,6 +21,7 @@ class AdminStore extends Component {
             this.changeStatusStore = this.changeStatusStore.bind(this);
             this.updateStore = this.updateStore.bind(this);
             this.populateTableData = this.populateTableData.bind(this);
+
             this.state = {
                   store: {},
                   storeList: {},
@@ -49,13 +51,9 @@ class AdminStore extends Component {
       }
 
       componentDidUpdate = (prevProps) => {
-            const {
-                  store
-            } = this.props;
-      
-            const {
-                  storeList
-            } = this.state;
+
+            const { store } = this.props;
+            const { storeList } = this.state;
 
             if(prevProps.store.list !== store.list) {
                   this.setState({
@@ -125,7 +123,7 @@ class AdminStore extends Component {
       renderDialog = () => {
 
             const { dialog, toggleDialog } = this.props;
-            
+
             return (
                   <ModalDialog
                         isOpen={dialog.isOpened}
@@ -166,7 +164,6 @@ class AdminStore extends Component {
 
       changeStatusStore = (row) => {
 
-            console.log(row);
             const {
                   action
             } = this.props;

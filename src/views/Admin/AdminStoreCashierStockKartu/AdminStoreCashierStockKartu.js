@@ -34,6 +34,7 @@ class AdminStoreCashierStockKartu extends Component {
         this.toggleTab = this.toggleTab.bind(this);
         this.populateTableData = this.populateTableData.bind(this);
         this.handleCopyNumberCard = this.handleCopyNumberCard.bind(this);
+        this.handleCetakCardNumber = this.handleCetakCardNumber.bind(this);
 
         this.state = {
             activeTab: 0,
@@ -62,15 +63,16 @@ class AdminStoreCashierStockKartu extends Component {
         getStoreListDispatch();
 
         //#
+        
         this.setState({
-            activeTab: 1
-            // storeIdTab: data
+            // activeTab: 1
         }, () => {
-            let requireData = {
-                id: this.state.activeTab + 1 // ==> Type "Non-Member"
-            }
-            const { createStockListNewCardDispatch } = this.props;
-            createStockListNewCardDispatch(requireData);
+            // let requireData = {
+            //     id: this.state.activeTab + 1 // ==> Type "Non-Member"
+            // }
+
+            // const { createStockListNewCardDispatch } = this.props;
+            // createStockListNewCardDispatch(requireData);
         });
         
     };
@@ -107,16 +109,10 @@ class AdminStoreCashierStockKartu extends Component {
 
     //#
     toggleTab = (tabIndex, data) => {
-        let requireData = {
-            id: data.id
-        }
-        const { createStockListNewCardDispatch } = this.props;
-        createStockListNewCardDispatch(requireData);
 
-
+     
         this.setState({
             activeTab: tabIndex
-            // storeIdTab: data
         });
     };
 
@@ -168,6 +164,30 @@ class AdminStoreCashierStockKartu extends Component {
         });
     };
 
+    //#
+    handleCetakCardNumber = (e) => {
+
+        e.preventDefault();
+
+        const { activeTab, tabIndex } = this.state;
+        const { createStockListNewCardDispatch } = this.props;
+
+        if(activeTab === 0){
+        
+            let requireData = { id: 3 };  //Taxi-Online 3
+            createStockListNewCardDispatch(requireData);
+            
+        } else if(activeTab === 1){
+
+            let requireData = { id: 2 };  //Non-Member : 2
+            createStockListNewCardDispatch(requireData);
+
+        } else {
+            let requireData = { id: 1 }; //Member : 1
+            createStockListNewCardDispatch(requireData);
+        }
+    }
+
     render() {
         const { cardType, activeTab } = this.state;
         const { vendorState } = this.props;
@@ -179,6 +199,7 @@ class AdminStoreCashierStockKartu extends Component {
                     <TabContent activeTab={activeTab} tabIndex={i}>  
                         <PropsRoute
                             component={AdminStoreCashierStockKartuView}
+                            handleCetakCardNumber = {this.handleCetakCardNumber}
                             type={card}
                             {...this.props}
                             {...this.state}

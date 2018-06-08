@@ -47,13 +47,14 @@ import NoMatch from '../NoMatch';
 import { AdminPanelView } from '../AdminPanel';
 
 class AdminPanel extends Component {    
+
     constructor(props) {
 
         super(props);
         this.state = {
             routes: {},
             menus: {}
-        }
+        };
 
         this.renderMenu = this.renderMenu.bind(this);
     }
@@ -71,10 +72,10 @@ class AdminPanel extends Component {
 
         if(menu[0].group === 'admin') {
             let routePage = [
-                // { name: 'dashboard', path: `${this.props.match.url}`, component: AdminDashboard },
                 
-                { name: 'user', path: `${this.props.match.url}/user`, component: AdminUser },
+                // { name: 'dashboard', path: `${this.props.match.url}`, component: AdminDashboard },                
                 { name: 'user', path: `${this.props.match.url}`, component: AdminUser },
+                { name: 'user', path: `${this.props.match.url}/user`, component: AdminUser },
                 { name: 'create-user', path: `${this.props.match.url}/user/create-new-user`, component: AdminUserCreate },
                 { name: 'user-settings', path: `${this.props.match.url}/user/settings`, component: AdminUserSettings },
                 { name: 'vendor', path: `${this.props.match.url}/vendor`, component: AdminVendor },           
@@ -97,9 +98,6 @@ class AdminPanel extends Component {
                 { name: 'create-new-staff', path: `${this.props.match.url}/staff/create-new-staff`, component: AdminStoresCreateEmployeeSuperAdm },
                 { name: 'product', path: `${this.props.match.url}/product`, component: AdminStoresMenuSuperAdm },
                 { name: 'create-new-product', path: `${this.props.match.url}/product/create-new-product`, component: AdminStoresCreateMenuSuperAdm },
-
-                //Documentation
-                { name: 'documentation', path: `${this.props.match.url}/documentation`, component: Documentation },
                 { component: NoMatch }
             ];
             mainRoute = routePage;
@@ -121,8 +119,7 @@ class AdminPanel extends Component {
             mainRoute = routePage;
 
         } else if (menu[0].group === 'store') {
-            
-            //
+        
             if(level.name === 'Owner'){
                 let routePage = [
                     { name: 'product', path: `${this.props.match.url}/product`, component: AdminStoresMenu },
@@ -180,13 +177,7 @@ class AdminPanel extends Component {
             let nameRouteReportSuperadmin = `${menu[i].name}`;
             let nameRouteReportStore = `${menu[i].name}`;
             
-
             let dataItems = [];
-
-            // console.log(split.length);
-            // console.log(split[0]);
-            // console.log(level.name);
-            // console.log(menu[i]);
 
             //#MENU LAPORAN PENNJUALAN STORE OWNER
             if(split.length === 1 && split[0] === "Laporan" && level.name === "Owner"){
@@ -221,10 +212,10 @@ class AdminPanel extends Component {
                         dataMenu.items.push(laporanMenu);
                     }
             }
-            //# MENU LAPORAN PENJUALAN 
+            //# MENU LAPORAN PENJUALAN Superadmin
             else if(split.length === 1 && split[0] === "Laporan" && level.name === "Superadmin"){
 
-                //Laporan Total Penjualan
+                //Laporan Superadmin
                 let linkItem = { name: nameRouteReportSuperadmin, path: `${this.props.match.url}${menu[i].path ? '/' + menu[i].path : 'null'}` }
 
                 dataMenu = {
@@ -236,7 +227,7 @@ class AdminPanel extends Component {
                     dataMenu.items.push(linkItem)
                 }
                 
-                //Laporan Total Penjualan (BETA)
+                //Laporan Total Pennjualan Superadmin
                 let itemSeparateReport = {
                     name: `${split[0]} Total Penjualan`, 
                     path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}` : 'null'}`
@@ -286,8 +277,8 @@ class AdminPanel extends Component {
                     dataMenu.items.push(laporanMember);
                 }
 
-            //# MENU KASIR -Stock Kartu 
-            } 
+            
+            } //# Features of KASIR
             else if(split.length === 2 && split[0] === "Kartu" && level.name === "Kasir"){
 
                 dataMenu = {
@@ -295,17 +286,17 @@ class AdminPanel extends Component {
                     items: []
                 }
                 
-                //#Kartu Baru
-                let kartuBaru = {
-                    name: `${split[0]} Baru`, 
-                    path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}` : 'null'}`
-                };
+                //#Feature Kartu Baru (OLD)
+                // let kartuBaru = {
+                //     name: `${split[0]} Baru`, 
+                //     path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}` : 'null'}`
+                // };
 
-                if(menu[i].group === "kasir"){
-                    dataMenu.items.push(kartuBaru);
-                };
+                // if(menu[i].group === "kasir"){
+                //     dataMenu.items.push(kartuBaru);
+                // };
 
-                //#New Card - Kartu Baru
+                //#Feature Kartu Baru -New Card (NEW)
                 let kartuBaruNew = {
                     name: `${split[0]} Baru New`, 
                     path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}/kartu-baru-new` : 'null'}`
@@ -315,7 +306,7 @@ class AdminPanel extends Component {
                     dataMenu.items.push(kartuBaruNew);
                 };
 
-                //#Stock Kartu
+                //#Feature Stock Kartu
                 let stockKartuBaru = {
                     name: `Stock ${split[0]}`, 
                     path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}/stock-kartu` : 'null'}`
@@ -366,6 +357,7 @@ class AdminPanel extends Component {
     }
     
     render() {
+        
         const user = JSON.parse(localStorage.getItem('userData'));
         return (
             <AdminPanelView

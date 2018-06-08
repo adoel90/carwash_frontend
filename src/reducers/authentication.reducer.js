@@ -19,9 +19,8 @@ import {
     // CUSTOMER_TOPUP_LOGIN_FULFILLED,
     // CUSTOMER_TOPUP_LOGIN_REJECTED
     
-
-
     LOGOUT_FULFILLED
+    
 } from '../actions/authentication.action';
 
 const initialState = {

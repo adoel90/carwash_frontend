@@ -123,12 +123,8 @@ class AdminStore extends Component {
       }
     
       renderDialog = () => {
-            const {
-                  dialog,
-                  toggleDialog
-            } = this.props;
 
-            console.log(this.props)
+            const { dialog, toggleDialog } = this.props;
             
             return (
                   <ModalDialog

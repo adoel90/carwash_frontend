@@ -18,7 +18,7 @@ const AdminStoreCashierStockKartuView = props => {
                     </PanelHeader>
                     <PanelBody>
 
-                        <Button onClick={(e) => handleCetakCardNumber(e)}>Cetak Seri Nomor Kartu</Button>
+                        {/* <Button onClick={(e) => handleCetakCardNumber(e)}>Cetak Seri Nomor Kartu</Button> */}
 
                         <div className="admin-report__content">
                             <TableSet

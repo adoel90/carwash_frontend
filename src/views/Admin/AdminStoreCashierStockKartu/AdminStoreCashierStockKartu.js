@@ -63,18 +63,16 @@ class AdminStoreCashierStockKartu extends Component {
         getStoreListDispatch();
 
         //#
-        
         this.setState({
-            // activeTab: 1
+            activeTab: 1
         }, () => {
-            // let requireData = {
-            //     id: this.state.activeTab + 1 // ==> Type "Non-Member"
-            // }
+            let requireData = {
+                id: this.state.activeTab + 1 // ==> Type "Non-Member"
+            }
 
-            // const { createStockListNewCardDispatch } = this.props;
-            // createStockListNewCardDispatch(requireData);
+            const { createStockListNewCardDispatch } = this.props;
+            createStockListNewCardDispatch(requireData);
         });
-        
     };
 
     componentDidUpdate(prevProps){
@@ -91,13 +89,13 @@ class AdminStoreCashierStockKartu extends Component {
                   this.populateTableData();
                 })
             }
-           
         }   
     }
 
     //#
     handleCopyNumberCard = (row) => {
         console.log(row.number);
+        console.log("Fire API delete ");
     };
 
     //#
@@ -110,7 +108,15 @@ class AdminStoreCashierStockKartu extends Component {
     //#
     toggleTab = (tabIndex, data) => {
 
-     
+        //#
+        let requireData = {
+            id: data.id
+        };
+
+        const { createStockListNewCardDispatch } = this.props;
+        createStockListNewCardDispatch(requireData);
+        
+        //#
         this.setState({
             activeTab: tabIndex
         });
@@ -172,20 +178,20 @@ class AdminStoreCashierStockKartu extends Component {
         const { activeTab, tabIndex } = this.state;
         const { createStockListNewCardDispatch } = this.props;
 
-        if(activeTab === 0){
+        // if(activeTab === 0){
         
-            let requireData = { id: 3 };  //Taxi-Online 3
-            createStockListNewCardDispatch(requireData);
+        //     let requireData = { id: 3 };  //Taxi-Online 3
+        //     createStockListNewCardDispatch(requireData);
             
-        } else if(activeTab === 1){
+        // } else if(activeTab === 1){
 
-            let requireData = { id: 2 };  //Non-Member : 2
-            createStockListNewCardDispatch(requireData);
+        //     let requireData = { id: 2 };  //Non-Member : 2
+        //     createStockListNewCardDispatch(requireData);
 
-        } else {
-            let requireData = { id: 1 }; //Member : 1
-            createStockListNewCardDispatch(requireData);
-        }
+        // } else {
+        //     let requireData = { id: 1 }; //Member : 1
+        //     createStockListNewCardDispatch(requireData);
+        // }
     }
 
     render() {

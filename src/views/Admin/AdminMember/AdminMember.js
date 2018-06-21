@@ -159,6 +159,7 @@ class AdminMember extends Component {
             )
       }
       populateTableData = () => {
+
             const { memberList } = this.state;
             
             const columns = [{
@@ -183,7 +184,7 @@ class AdminMember extends Component {
                               <Button type="button" theme={row.data.status ? "success" : "danger"} onClick={() => this.changeMemberStatus(row)}>{ row.data.status ? 'Aktif' : 'Non Aktif' }</Button>
                         </td>
                   )
-            }]
+            }];
     
             const rows = [];
 
@@ -210,9 +211,7 @@ class AdminMember extends Component {
                         columns: columns,
                         rows: rows
                   }
-            }, () => {
-                  // console.log(this.state)
-            })
+            });
       }
 
       openMemberDetail = (row) => {
@@ -221,7 +220,7 @@ class AdminMember extends Component {
                   ...this.state,
                   selectedMember: row.data
             }, () => {
-                  console.log(this.state);
+                  // console.log(this.state);
                   this.toggleModal('updateMember');
             })
       }

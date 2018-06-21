@@ -67,7 +67,6 @@ const AdminStoresReportView = props => {
                         <ModalBody> 
                                 <Row>
                                     <Column>
-                                        {console.log(selectedRow)}
                                         {/* <i className="far fa-user"></i><label><b> NamaLengkap : {selectedRow.customer}</b></label><br /> */}
                                         <i className="far fa-id-card"></i><label><b> No. Invoice :  {selectedRow.queue}</b></label><br />
                                         <i className="far fa-money-bill-alt"></i><label><b> Total transaksi : Rp {selectedRow.total}</b></label><br />

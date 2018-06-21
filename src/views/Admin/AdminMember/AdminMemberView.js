@@ -88,35 +88,37 @@ const AdminMemberView = props => {
       return (
             <div className="admin-store">
                   <Row>
-                        <Column md={11}>
+                        <Column md={9}>
                               <Panel>
                                     <PanelHeader>
                                           <h4 className="heading-title">Daftar Member</h4>
                                     </PanelHeader>
                                     <PanelBody>
-                                          <div className="admin-Member__content">
-                                                <TableSet
-                                                      loading={memberList.isFetching}
-                                                      loaded={memberList.isLoaded}
-                                                      columns={table.columns}
-                                                      rows={table.rows}
-                                                      striped 
-                                                      fullWidth
-                                                      pagination
-                                                      placeholder="Cari member yang terdaftar"
-                                                      hasSearchBar
-                                                      searchParams={table.searchParams}
-                                                      searchBy={search.searchBy}
-                                                      handleInputChange={handleInputChange}
-                                                      {...props}
-                                                />
+                                          <Column md={10}>
+                                                <div className="admin-Member__content">
+                                                      <TableSet
+                                                            loading={memberList.isFetching}
+                                                            loaded={memberList.isLoaded}
+                                                            columns={table.columns}
+                                                            rows={table.rows}
+                                                            striped 
+                                                            fullWidth
+                                                            pagination
+                                                            placeholder="Cari member yang terdaftar"
+                                                            hasSearchBar
+                                                            searchParams={table.searchParams}
+                                                            searchBy={search.searchBy}
+                                                            handleInputChange={handleInputChange}
+                                                            {...props}
+                                                      />
 
-                                                {/* <FormField>
-                                                      <Button onClick={(e) => handleExportToExcell(e, period)} theme="secondary" className="margin-right-small" type="submit" style={{height: '50px', 'margin-left': '3px'}}>
-                                                            Export to xls
-                                                      </Button>
-                                                </FormField> */}
-                                          </div>
+                                                      {/* <FormField>
+                                                            <Button onClick={(e) => handleExportToExcell(e, period)} theme="secondary" className="margin-right-small" type="submit" style={{height: '50px', 'margin-left': '3px'}}>
+                                                                  Export to xls
+                                                            </Button>
+                                                      </FormField> */}
+                                                </div>
+                                          </Column>
                                     </PanelBody>
                               </Panel>
                         </Column>

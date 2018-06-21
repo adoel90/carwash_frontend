@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import {
-     
+
     // AdminDashboard, 
     AdminStoresEmployeeSuperAdm,
-    AdminUser, 
+    AdminUser,
     AdminUserCreate,
     AdminUserSettings,
     AdminVendor,
@@ -46,7 +46,7 @@ import {
 import NoMatch from '../NoMatch';
 import { AdminPanelView } from '../AdminPanel';
 
-class AdminPanel extends Component {    
+class AdminPanel extends Component {
 
     constructor(props) {
 
@@ -64,21 +64,21 @@ class AdminPanel extends Component {
     }
 
     renderMenu = () => {
-        const {routes, menus} = this.state;
-        
+        const { routes, menus } = this.state;
+
         let level = JSON.parse(localStorage.getItem('userData')).level;
         let menu = JSON.parse(localStorage.getItem('userData')).module;
         let mainRoute = {};
 
-        if(menu[0].group === 'admin') {
+        if (menu[0].group === 'admin') {
             let routePage = [
-                
+
                 // { name: 'dashboard', path: `${this.props.match.url}`, component: AdminDashboard },                
                 { name: 'user', path: `${this.props.match.url}`, component: AdminUser },
                 { name: 'user', path: `${this.props.match.url}/user`, component: AdminUser },
                 { name: 'create-user', path: `${this.props.match.url}/user/create-new-user`, component: AdminUserCreate },
                 { name: 'user-settings', path: `${this.props.match.url}/user/settings`, component: AdminUserSettings },
-                { name: 'vendor', path: `${this.props.match.url}/vendor`, component: AdminVendor },           
+                { name: 'vendor', path: `${this.props.match.url}/vendor`, component: AdminVendor },
                 { name: 'create-new-vendor', path: `${this.props.match.url}/vendor/create-new-vendor`, component: AdminVendorCreate },
                 { name: 'member', path: `${this.props.match.url}/member`, component: AdminMember },
                 { name: 'card', path: `${this.props.match.url}/card`, component: AdminCard },
@@ -92,7 +92,7 @@ class AdminPanel extends Component {
                 { name: 'report-kasir-superadmin', path: `${this.props.match.url}/report/report-kasir-superadmin`, component: AdminStoreCashierReport },
                 { name: 'logout', path: `${this.props.match.url}/logout`, component: AdminLogout },
                 { name: 'setting', path: `${this.props.match.url}/setting`, component: AdminSetting },
-                
+
                 //#Fussion Owner & Superadmin
                 { name: 'staf-super', path: `${this.props.match.url}/staff`, component: AdminStoresEmployeeSuperAdm },
                 { name: 'create-new-staff', path: `${this.props.match.url}/staff/create-new-staff`, component: AdminStoresCreateEmployeeSuperAdm },
@@ -119,8 +119,8 @@ class AdminPanel extends Component {
             mainRoute = routePage;
 
         } else if (menu[0].group === 'store') {
-        
-            if(level.name === 'Owner'){
+
+            if (level.name === 'Owner') {
                 let routePage = [
                     { name: 'product', path: `${this.props.match.url}/product`, component: AdminStoresMenu },
                     { name: 'create-new-product', path: `${this.props.match.url}/product/create-new-product`, component: AdminStoresMenuCreate },
@@ -133,10 +133,10 @@ class AdminPanel extends Component {
                     { name: 'setting', path: `${this.props.match.url}/setting`, component: AdminSetting },
                     { component: NoMatch }
                 ];
-    
+
                 mainRoute = routePage;
 
-            } else if(level.name === 'Staff'){
+            } else if (level.name === 'Staff') {
 
                 let routePage = [
                     { name: 'transaction', path: `${this.props.match.url}/transaction`, component: AdminTransaction },
@@ -154,19 +154,19 @@ class AdminPanel extends Component {
                     { name: 'logout', path: `${this.props.match.url}/logout`, component: AdminLogout },
                     { component: NoMatch }
                 ];
-    
+
                 mainRoute = routePage;
             }
 
         } else {
-            
+
             mainRoute = [];
         }
 
         /* Create Menu Nav */
         let newMenu = [];
-        
-        for (let i=0; i<menu.length; i++) {
+
+        for (let i = 0; i < menu.length; i++) {
 
             let dataMenu = {};
             let split = menu[i].name.split(" ");
@@ -176,64 +176,64 @@ class AdminPanel extends Component {
 
             let nameRouteReportSuperadmin = `${menu[i].name}`;
             let nameRouteReportStore = `${menu[i].name}`;
-            
+
             let dataItems = [];
 
             //#MENU LAPORAN PENNJUALAN STORE OWNER
-            if(split.length === 1 && split[0] === "Laporan" && level.name === "Owner"){
+            if (split.length === 1 && split[0] === "Laporan" && level.name === "Owner") {
                 let linkItem = { name: nameRouteReportStore, path: `${this.props.match.url}${menu[i].path ? '/' + menu[i].path : 'null'}` }
-                   
-                    dataMenu = {
-                        category : nameCategory,
-                        items: []
-                    }
 
-                    if(menu[i].path !== "report") {
-                        dataMenu.items.push(linkItem)
-                    };
+                dataMenu = {
+                    category: nameCategory,
+                    items: []
+                }
 
-                    //Laporan Penjualan Owner
-                    let itemSeparatorReportSelling = {
-                        name: `${split[0]} Penjualan`, 
-                        path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}` : 'null'}`
-                    };
+                if (menu[i].path !== "report") {
+                    dataMenu.items.push(linkItem)
+                };
 
-                    if(menu[i].group === "all" && menu[i].path === "report"){
-                        dataMenu.items.push(itemSeparatorReportSelling);
-                    }
+                //Laporan Penjualan Owner
+                let itemSeparatorReportSelling = {
+                    name: `${split[0]} Penjualan`,
+                    path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}` : 'null'}`
+                };
 
-                    //Laporan Menu
-                    let laporanMenu = {
-                        name: `${split[0]} Menu`, 
-                        path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}/report-menu` : 'null'}`
-                    }
+                if (menu[i].group === "all" && menu[i].path === "report") {
+                    dataMenu.items.push(itemSeparatorReportSelling);
+                }
 
-                    if(menu[i].group === "all" && menu[i].path === "report"){
-                        dataMenu.items.push(laporanMenu);
-                    }
+                //Laporan Menu
+                let laporanMenu = {
+                    name: `${split[0]} Menu`,
+                    path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}/report-menu` : 'null'}`
+                }
+
+                if (menu[i].group === "all" && menu[i].path === "report") {
+                    dataMenu.items.push(laporanMenu);
+                }
             }
             //# MENU LAPORAN PENJUALAN Superadmin
-            else if(split.length === 1 && split[0] === "Laporan" && level.name === "Superadmin"){
+            else if (split.length === 1 && split[0] === "Laporan" && level.name === "Superadmin") {
 
                 //Laporan Superadmin
                 let linkItem = { name: nameRouteReportSuperadmin, path: `${this.props.match.url}${menu[i].path ? '/' + menu[i].path : 'null'}` }
 
                 dataMenu = {
-                    category : nameCategory,
+                    category: nameCategory,
                     items: []
                 }
 
-                if(menu[i].path !== "report") {
+                if (menu[i].path !== "report") {
                     dataMenu.items.push(linkItem)
                 }
-                
+
                 //Laporan Total Pennjualan Superadmin
                 let itemSeparateReport = {
-                    name: `${split[0]} Total Penjualan`, 
+                    name: `${split[0]} Total Penjualan`,
                     path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}` : 'null'}`
                 };
 
-                if(menu[i].group === "all" && menu[i].path === "report"){
+                if (menu[i].group === "all" && menu[i].path === "report") {
                     dataMenu.items.push(itemSeparateReport);
                 };
 
@@ -247,7 +247,7 @@ class AdminPanel extends Component {
                 //     dataMenu.items.push(laporanPenjualanStoreInSuperAdmin);
                 // }
 
-                 //Laporan Menu Favorit Superadmin
+                //Laporan Menu Favorit Superadmin
                 // let laporanMenuFavoritInSuperAdmin = {
                 //     name: `${split[0]} Menu Favorit`, 
                 //     path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}/report-menu-superadmin` : 'null'}`
@@ -256,36 +256,36 @@ class AdminPanel extends Component {
                 // if(menu[i].group === "all" && menu[i].path === "report"){
                 //     dataMenu.items.push(laporanMenuFavoritInSuperAdmin);
                 // }
-                
+
                 //Laporan Kasir Superadmin
                 let laporanKasirInSuperAdmin = {
-                    name: `${split[0]} Kasir`, 
+                    name: `${split[0]} Kasir`,
                     path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}/report-kasir-superadmin` : 'null'}`
                 }
 
-                if(menu[i].group === "all" && menu[i].path === "report"){
+                if (menu[i].group === "all" && menu[i].path === "report") {
                     dataMenu.items.push(laporanKasirInSuperAdmin);
                 }
 
                 //Laporan Member
                 let laporanMember = {
-                    name: `${split[0]} Member`, 
+                    name: `${split[0]} Member`,
                     path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}/report-member` : 'null'}`
                 }
 
-                if(menu[i].group === "all" && menu[i].path === "report"){
+                if (menu[i].group === "all" && menu[i].path === "report") {
                     dataMenu.items.push(laporanMember);
                 }
 
-            
+
             } //# Features of KASIR
-            else if(split.length === 2 && split[0] === "Kartu" && level.name === "Kasir"){
+            else if (split.length === 2 && split[0] === "Kartu" && level.name === "Kasir") {
 
                 dataMenu = {
-                    category : nameCategory,
+                    category: nameCategory,
                     items: []
                 }
-                
+
                 //#Feature Kartu Baru (OLD)
                 // let kartuBaru = {
                 //     name: `${split[0]} Baru`, 
@@ -298,49 +298,49 @@ class AdminPanel extends Component {
 
                 //#Feature Kartu Baru -New Card (NEW)
                 let kartuBaruNew = {
-                    name: `${split[0]} Baru New`, 
+                    name: `${split[0]} Baru New`,
                     path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}/kartu-baru-new` : 'null'}`
                 }
-              
-                if(menu[i].group === "kasir"){
+
+                if (menu[i].group === "kasir") {
                     dataMenu.items.push(kartuBaruNew);
                 };
 
                 //#Feature Stock Kartu
                 let stockKartuBaru = {
-                    name: `Stock ${split[0]}`, 
+                    name: `Stock ${split[0]}`,
                     path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}/stock-kartu` : 'null'}`
                 };
 
-                if(menu[i].group === "kasir"){
+                if (menu[i].group === "kasir") {
                     dataMenu.items.push(stockKartuBaru);
                 };
             }
-            
-            else if(split.length > 1) {
+
+            else if (split.length > 1) {
                 dataMenu = {
-                    category : nameCategory,
+                    category: nameCategory,
                     items: [
                         { name: nameRoute, path: `${this.props.match.url}${menu[i].path ? '/' + menu[i].path : ''}` }
                     ]
                 }
 
-                let itemSeperate = { 
-                    name: `Buat ${split[1]} Baru`, 
-                    path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}/create-new-` + menu[i].path : ''}` 
+                let itemSeperate = {
+                    name: `Buat ${split[1]} Baru`,
+                    path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}/create-new-` + menu[i].path : ''}`
                 }
 
                 if (menu[i].group === "admin" && menu[i].path !== "member") {
                     dataMenu.items.push(itemSeperate);
-               
+
                 }
 
-                if(menu[i].group === "store") {
+                if (menu[i].group === "store") {
                     dataMenu.items.push(itemSeperate);
                 }
             } else {
                 dataMenu = {
-                    category : menu[i].name,
+                    category: menu[i].name,
                     items: [
                         { name: `${split[0]}`, path: `${this.props.match.url}${menu[i].path ? '/' + menu[i].path : ''}` }
                     ]
@@ -355,14 +355,14 @@ class AdminPanel extends Component {
             routes: mainRoute
         })
     }
-    
+
     render() {
-        
+
         const user = JSON.parse(localStorage.getItem('userData'));
         return (
             <AdminPanelView
-                {...this.state} 
-                {...this.props} 
+                {...this.state}
+                {...this.props}
                 user={user}
             />
         )

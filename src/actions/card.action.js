@@ -148,11 +148,6 @@ export const deleteCardType = (data) => {
 //#Create Stock List New Card
 export const getStockListNewCard = (data) => {
 
-	console.log(data);
-
-	// return {
-	// 	type : null
-	// }
 	return async dispatch => {
 		return axios 
 			.get(`${constant.API_PATH}card/list/generate/id?type=${data.id}&accessToken=${accessToken}`)
@@ -168,3 +163,36 @@ export const getStockListNewCard = (data) => {
 	function handleError(data) { return { type: CREATE_STOCK_LIST_NEW_CARD_REJECTED, payload: data}}
 
 };
+
+//#REMOVE MEMBER
+// export const featureRemoveMember = (data) => {
+
+// }
+
+/*
+//  REMOVE MEMBER
+//  Calls the API to get `accessToken` required to access the app.
+*/
+// export const featureRemoveMember = (data) => { 
+
+//     return async dispatch => {
+
+// 		// member/remove?accessToken=
+
+//         return axios
+//             .delete(`${constant.API_PATH}member/authenticate`)
+//             .then((response) => {
+//                 let result = response.data.result;
+                
+//                 dispatch(loginSuccess(result));
+//             })
+//             .catch((error) => {
+//                 dispatch(loginError(error));
+//             })
+//     }
+
+//     function loginRequest() { return { type: CUSTOMER_TOPUP_LOGIN_REQUESTED } }
+//     function loginSuccess(data) { return { type: CUSTOMER_TOPUP_LOGIN_FULFILLED, payload: data } }
+//     function loginError(data) { return { type: CUSTOMER_TOPUP_LOGIN_REJECTED, payload: data } }
+// }
+

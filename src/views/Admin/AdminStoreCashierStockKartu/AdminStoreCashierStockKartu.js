@@ -12,6 +12,7 @@ import { AdminStoreCashierStockKartuView } from '../AdminStoreCashierStockKartu'
 
 import { getStoreList } from '../../../actions/store.action';
 import { getStockListNewCard } from '../../../actions/card.action';
+// featureRemoveMember
 
 function mapStateToProps(state) {
     return {
@@ -96,6 +97,8 @@ class AdminStoreCashierStockKartu extends Component {
     handleCopyNumberCard = (row) => {
         console.log(row.number);
         console.log("Fire API delete ");
+
+
     };
 
     //#

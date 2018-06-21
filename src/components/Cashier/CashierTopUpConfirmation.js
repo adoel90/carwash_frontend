@@ -149,7 +149,7 @@ class CashierTopUpConfirmation extends Component {
 							</FormField>
 						</FormGroup>
 						<FormGroup row>
-							<FormField label="Minimum Saldo">
+							<FormField label="Minimum Top Up">
 								<InputGroup>
 									<InputAddon>
 										<small className="tt-uppercase fw-semibold ls-base">Rp</small>

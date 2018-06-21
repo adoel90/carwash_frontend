@@ -197,9 +197,7 @@ class AdminReportMember extends Component {
                     last: value.last_transaction,
                     memberId: value.id,
                     // cardType: value.card.type.name
-                
                 }
-
                 rows.push(row);
             })
         }

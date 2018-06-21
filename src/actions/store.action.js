@@ -305,7 +305,6 @@ export const printStoreTransaction = (data) => {
 */
 export const kasirTopUpLogin = (data) => { 
 
-	console.log(data);
     return async dispatch => {
         dispatch(loginRequest());
 

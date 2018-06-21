@@ -200,7 +200,7 @@ class AdminMember extends Component {
                         }
     
                         rows.push(row);
-                  })
+                  });
             }
     
             this.setState({

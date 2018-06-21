@@ -126,7 +126,7 @@ class AdminStoreCashierStockKartu extends Component {
     populateTableData = () => {
 
         const {report, vendorState, card} = this.props;
-        // const { dailyOrdered } = this.state;
+        const { copied } = this.state;
         
         const columns = [{
             title: 'Nomor Kartu',
@@ -139,11 +139,9 @@ class AdminStoreCashierStockKartu extends Component {
             // render: (data) => (
             render: (row) => (
                 <td>
-
                      <CopyToClipboard onCopy={this.onCopy} text={row.number}>
                         <Button className="margin-right-small" type="button" onClick={() => this.handleCopyNumberCard(row)}>Copy Nomor Kartu</Button>
                     </CopyToClipboard>
-                   
                 </td>
             )
         }];

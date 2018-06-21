@@ -146,12 +146,16 @@ export const deleteCardType = (data) => {
 
 
 //#Create Stock List New Card
-export const createStockListNewCard = (data) => {
+export const getStockListNewCard = (data) => {
+
+	console.log(data);
+
+	// return {
+	// 	type : null
+	// }
 	return async dispatch => {
 		return axios 
-			.post(`${constant.API_PATH}card/list/generate/id?accessToken=${accessToken}`, {
-				type: data.id
-			})
+			.get(`${constant.API_PATH}card/list/generate/id?type=${data.id}&accessToken=${accessToken}`)
 			.then((response) => {
 				dispatch(handleSuccess(response.data))
 			})

@@ -11,7 +11,7 @@ import { Button } from '../../../components/Button';
 import { AdminStoreCashierStockKartuView } from '../AdminStoreCashierStockKartu';
 
 import { getStoreList } from '../../../actions/store.action';
-import { createStockListNewCard } from '../../../actions/card.action';
+import { getStockListNewCard } from '../../../actions/card.action';
 
 function mapStateToProps(state) {
     return {
@@ -23,7 +23,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         getStoreListDispatch: () => dispatch(getStoreList()),
-        createStockListNewCardDispatch : (data) => dispatch(createStockListNewCard(data))
+        getStockListNewCardDispatch : (data) => dispatch(getStockListNewCard(data))
     }
 };
 
@@ -70,8 +70,8 @@ class AdminStoreCashierStockKartu extends Component {
                 id: this.state.activeTab + 1 // ==> Type "Non-Member"
             }
 
-            const { createStockListNewCardDispatch } = this.props;
-            createStockListNewCardDispatch(requireData);
+            const { getStockListNewCardDispatch } = this.props;
+            getStockListNewCardDispatch(requireData);
         });
     };
 
@@ -113,8 +113,8 @@ class AdminStoreCashierStockKartu extends Component {
             id: data.id
         };
 
-        const { createStockListNewCardDispatch } = this.props;
-        createStockListNewCardDispatch(requireData);
+        const { getStockListNewCardDispatch } = this.props;
+        getStockListNewCardDispatch(requireData);
         
         //#
         this.setState({
@@ -174,22 +174,22 @@ class AdminStoreCashierStockKartu extends Component {
         e.preventDefault();
 
         const { activeTab, tabIndex } = this.state;
-        const { createStockListNewCardDispatch } = this.props;
+        const { getStockListNewCardDispatch } = this.props;
 
-        // if(activeTab === 0){
+        if(activeTab === 0){
         
-        //     let requireData = { id: 3 };  //Taxi-Online 3
-        //     createStockListNewCardDispatch(requireData);
+            let requireData = { id: 3 };  //Taxi-Online 3
+            getStockListNewCardDispatch(requireData);
             
-        // } else if(activeTab === 1){
+        } else if(activeTab === 1){
 
-        //     let requireData = { id: 2 };  //Non-Member : 2
-        //     createStockListNewCardDispatch(requireData);
+            let requireData = { id: 2 };  //Non-Member : 2
+            getStockListNewCardDispatch(requireData);
 
-        // } else {
-        //     let requireData = { id: 1 }; //Member : 1
-        //     createStockListNewCardDispatch(requireData);
-        // }
+        } else {
+            let requireData = { id: 1 }; //Member : 1
+            getStockListNewCardDispatch(requireData);
+        }
     }
 
     render() {

@@ -45,6 +45,7 @@ class PaginationSet extends Component {
         const renderPagers = () => {
             let page = 1;
             let pagers = [];
+            
             while(page <= pages) {
                 let pager = page;
                 

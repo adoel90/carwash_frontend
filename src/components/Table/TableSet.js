@@ -35,6 +35,7 @@ class TableSet extends Component {
     }
 
     renderTableSearchBar = () => {
+        
 		const {
 			search,
 			searchBy,
@@ -90,6 +91,7 @@ class TableSet extends Component {
         )
 
         const renderTableColumns = () => {
+
             return columns.map((column, i) => {
                 return (
                     <th key={i} width={column.width}>
@@ -155,6 +157,7 @@ class TableSet extends Component {
 
         const renderTableCell = (row) => {            
             return columns.map((column, i) => {
+
                 if(column.render) {
                     return column.render(row);
                 }
@@ -194,6 +197,8 @@ class TableSet extends Component {
                     total={rows.length} 
                     limit={limit}  
                     onPageChange={this.handlePageChange} 
+                    {...this.state}
+                    {...this.props}
                 />
             }
            

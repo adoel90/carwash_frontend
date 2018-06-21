@@ -6,13 +6,17 @@ import {
 	CREATE_CARD_TYPE_REJECTED,
 	UPDATE_CARD_TYPE_FULFILLED,
 	UPDATE_CARD_TYPE_REJECTED,
+
 	CHANGE_CARD_TYPE_STATUS_REQUESTED,
 	CHANGE_CARD_TYPE_STATUS_FULFILLED,
 	CHANGE_CARD_TYPE_STATUS_REJECTED,
 
 	CREATE_STOCK_LIST_NEW_CARD_FULFILLED, //#Create Stock List New Card
-	CREATE_STOCK_LIST_NEW_CARD_REJECTED
+	CREATE_STOCK_LIST_NEW_CARD_REJECTED,
 
+	REMOVE_MEMBER_REQUESTED, //#REMOVE MEMBER
+	REMOVE_MEMBER_FULFILLED,
+	REMOVE_MEMBER_REJECTED
 
 } from '../actions/card.action';
 
@@ -39,6 +43,13 @@ const initialState = {
 		data: {},
 		isCreating: false,
 		isCreated: false,
+		isError: false,
+		error: {}
+	},
+	listmemberremove:{
+		data: {},
+		isDeleting: false,
+		isDeleted: false,
 		isError: false,
 		error: {}
 	}
@@ -198,6 +209,48 @@ const card = (state = initialState, action) => {
 				list: {
 					...state.list,
 					isCreated: false,
+					isError: true,
+					error: action.payload
+				}
+			}
+		}
+
+		//#**************************************************************
+		case REMOVE_MEMBER_REQUESTED: {
+
+			return {
+				...state,
+				listmemberremove: {
+					...state.listmemberremove,
+					data: {},
+					isDeleting: true,
+					isDeleted: false,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case REMOVE_MEMBER_FULFILLED: {
+			return {
+				...state,
+				listmemberremove: {
+					...state.listmemberremove,
+					data: action.payload,
+					isDeleting: false,
+					isDeleted: true,
+				}
+			}
+		}
+
+		case REMOVE_MEMBER_REJECTED: {
+			return {
+				...state,
+				listmemberremove: {
+					...state.listmemberremove,
+					data: {},
+					isDeleting: false,
+					isDeleted: false,
 					isError: true,
 					error: action.payload
 				}

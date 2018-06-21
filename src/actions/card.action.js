@@ -17,6 +17,10 @@ export const CHANGE_CARD_TYPE_STATUS_REJECTED = 'CHANGE_CARD_TYPE_STATUS_REJECTE
 export const DELETE_CARD_TYPE_FULFILLED = 'DELETE_CARD_TYPE_FULFILLED';
 export const DELETE_CARD_TYPE_REJECTED = 'DELETE_CARD_TYPE_REJECTED';
 
+export const REMOVE_MEMBER_REQUESTED = 'REMOVE_MEMBER_REQUESTED'; //#REMOVE MEMBER 
+export const REMOVE_MEMBER_FULFILLED = 'REMOVE_MEMBER_FULFILLED'; 
+export const REMOVE_MEMBER_REJECTED = 'REMOVE_MEMBER_REJECTED';
+
 //#Create Stock List New Card
 export const CREATE_STOCK_LIST_NEW_CARD_FULFILLED = 'CREATE_STOCK_LIST_NEW_CARD_FULFILLED';
 export const CREATE_STOCK_LIST_NEW_CARD_REJECTED = 'CREATE_STOCK_LIST_NEW_CARD_REJECTED';
@@ -164,35 +168,26 @@ export const getStockListNewCard = (data) => {
 
 };
 
-//#REMOVE MEMBER
-// export const featureRemoveMember = (data) => {
-
-// }
 
 /*
-//  REMOVE MEMBER
+//  REMOVE MEMBER DELETE
 //  Calls the API to get `accessToken` required to access the app.
 */
-// export const featureRemoveMember = (data) => { 
 
-//     return async dispatch => {
+export const featureRemoveMember = (data) => {
 
-// 		// member/remove?accessToken=
+	return async dispatch => {
+		return axios
+			.put(`${constant.API_PATH}member/remove?accessToken=${accessToken}`)
+			.then((response) => {
+				return dispatch(handleSuccess(response.data))
+			})
+			.catch((error) => {
+				return dispatch(handleError(error))
+			})
+	}
 
-//         return axios
-//             .delete(`${constant.API_PATH}member/authenticate`)
-//             .then((response) => {
-//                 let result = response.data.result;
-                
-//                 dispatch(loginSuccess(result));
-//             })
-//             .catch((error) => {
-//                 dispatch(loginError(error));
-//             })
-//     }
-
-//     function loginRequest() { return { type: CUSTOMER_TOPUP_LOGIN_REQUESTED } }
-//     function loginSuccess(data) { return { type: CUSTOMER_TOPUP_LOGIN_FULFILLED, payload: data } }
-//     function loginError(data) { return { type: CUSTOMER_TOPUP_LOGIN_REJECTED, payload: data } }
-// }
-
+	function handleRequest() { return { type: REMOVE_MEMBER_REQUESTED } }
+	function handleSuccess(data) { return { type: REMOVE_MEMBER_FULFILLED, payload: data} }
+	function handleError(data) { return { type: REMOVE_MEMBER_REJECTED, payload: data} }
+};

@@ -40,7 +40,7 @@ const AdminUserCreateView = props => {
                                             <InputAddon>
                                                 <i className="far fa-envelope"></i>
                                             </InputAddon>
-                                            <Input name="email" type="text" placeholder="Masukkan alamat email user (jika ada)" onChange={(e) => handleInputChange('newUser', e) } required />
+                                            <Input name="email" type="text" placeholder="Masukkan alamat email user (jika ada)" onChange={(e) => handleInputChange('newUser', e) } />
                                         </InputGroup>
                                     </FormField>
                                     <FormField label="Username">

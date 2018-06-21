@@ -182,7 +182,7 @@ class AdminReportMember extends Component {
                         <Button className="margin-right-small" type="button" onClick={() => this.openMemberModalDetailNew(row)}>Histori</Button>                              
                   </td>
             )
-        }]
+        }];
 
         const rows = [];
 
@@ -250,7 +250,6 @@ class AdminReportMember extends Component {
     }
 
     openMemberModalDetailNew = (row) => {
-        // console.log(row);
         this.setState({
               ...this.state,
               selectedMemberDetail: row
@@ -262,13 +261,11 @@ class AdminReportMember extends Component {
             // console.log(selectedMemberDetail);
             let data = {
                 id: selectedMemberDetail.memberId,
-                // transaction: selectedMemberDetail.data.status
                 transaction: true
             }
             getMemberDetailHistorisDispatch(data);
             this.toggleModal('detailMemberHistory');
         });
-        
     }
 
     //#
@@ -305,7 +302,6 @@ class AdminReportMember extends Component {
             accessor: 'type',
             align: 'left' 
         }];
-
 
         let barisArray = [];
 

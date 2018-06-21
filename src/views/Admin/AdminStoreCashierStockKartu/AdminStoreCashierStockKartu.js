@@ -12,7 +12,7 @@ import { AdminStoreCashierStockKartuView } from '../AdminStoreCashierStockKartu'
 
 import { getStoreList } from '../../../actions/store.action';
 import { getStockListNewCard } from '../../../actions/card.action';
-// featureRemoveMember
+// import { featureRemoveMember } from '../../../actions/store.action';
 
 function mapStateToProps(state) {
     return {
@@ -23,6 +23,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
+        // featureRemoveMemberDispatch : () => dispatch(featureRemoveMember()),
         getStoreListDispatch: () => dispatch(getStoreList()),
         getStockListNewCardDispatch : (data) => dispatch(getStockListNewCard(data))
     }
@@ -143,7 +144,7 @@ class AdminStoreCashierStockKartu extends Component {
             render: (row) => (
                 <td>
                      <CopyToClipboard onCopy={this.onCopy} text={row.number}>
-                        <Button className="margin-right-small" type="button" onClick={() => this.handleCopyNumberCard(row)}>Copy Nomor Kartu</Button>
+                        <Button className="margin-right-small" theme={row.number ? "success" : "danger"} type="button" onClick={() => this.handleCopyNumberCard(row)}>{ row.number ? 'Copy Nomor Kartu' : 'Copied' }</Button>
                     </CopyToClipboard>
                 </td>
             )

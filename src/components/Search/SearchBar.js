@@ -5,6 +5,7 @@ import { Input, InputGroup, InputAddon, Select } from '../Input';
 // import { Row } from '../Grid';
 
 class SearchBar extends Component {
+	
 	render() {
 		const {
 			placeholder,

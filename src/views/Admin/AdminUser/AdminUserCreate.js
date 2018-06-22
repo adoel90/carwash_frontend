@@ -132,7 +132,7 @@ class AdminUserCreate extends Component {
                     let dialogData = {
                         type: 'danger',
                         title: 'Gagal',
-                        message: 'User tidak bisa ditambahkan. Klik tombol berikut untuk kembali.',
+                        message: 'Username sudah ada, silahkan pilih username yang lain. Klik tombol berikut untuk kembali.',
                         onClose: () => this.toggleDialog(),
                         closeText: 'Kembali'
                     }

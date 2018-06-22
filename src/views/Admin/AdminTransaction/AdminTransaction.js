@@ -107,7 +107,7 @@ class AdminTransaction extends Component{
 					}
 				})
 			}
-		}
+		};
 
         //#Get list store id 
         if(prevProps.store.storelistspecial !== store.storelistspecial){
@@ -167,22 +167,17 @@ class AdminTransaction extends Component{
     }
 
     toggleDialog = (data) => {
-		const {
-			dialog,
-			dispatch
-		} = this.props;
+		const { dialog, dispatch } = this.props;
 
 		if(!dialog.isOpened) {
 			this.openDialog(data);
-		}
-		else {
+		} else {
 			this.closeDialog();
 		}
-	}
+	};
 
 	openDialog = (data) => {
 		const { dialog, action } = this.props;
-
 		action.openDialog(data);
 	}
 
@@ -410,7 +405,6 @@ class AdminTransaction extends Component{
             ...this.state,
             statusPrintDataConfirm: 200
         }, () => {
-            // console.log(this.state);
             window.print();
         })
 
@@ -422,17 +416,12 @@ class AdminTransaction extends Component{
 
         let firstRoutePath;
 
-        // console.log(storeList.data.data.result.store[0]);
-
         if(storeList.isLoaded) {
-            console.log(store.storelistspecial.isLoaded ? store.storelistspecial : null);
-            
-
             firstRoutePath = store.storelistspecial.data.data.result.store[0].name.replace(/\s+/g, '-').toLowerCase();
-        }
+        };
 
-         //#
-         const renderTabContent = () => {
+        //#
+        const renderTabContent = () => {
 
             if(storeList.isLoaded){
                 if(storeList.data.data.result.store.length){
@@ -488,7 +477,6 @@ class AdminTransaction extends Component{
                 {/*  RENDER DIALOG BERHASIL OR NOT */}
                 {this.renderDialog()}
             </div>
-
         )
     }
 }

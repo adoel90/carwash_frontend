@@ -60,7 +60,6 @@ class AdminStoreCashierStockKartu extends Component {
 
     componentDidMount(){
 
-        //#
         const {getStoreListDispatch} = this.props;
         getStoreListDispatch();
 
@@ -70,7 +69,7 @@ class AdminStoreCashierStockKartu extends Component {
         }, () => {
             let requireData = {
                 id: this.state.activeTab + 1 // ==> Type "Non-Member"
-            }
+            };
 
             const { getStockListNewCardDispatch } = this.props;
             getStockListNewCardDispatch(requireData);

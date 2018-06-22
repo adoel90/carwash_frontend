@@ -115,9 +115,10 @@ class AdminStoresReport extends Component {
             // staff: user.id,
             staff : staffId === null ? '' : user.id,
             print: false
-        }
+        };
         
         getStoreStaffReportDispatch(requiredDataStoreStaffReport);
+
 
         //GET STORE STAFF LIST || EMPLOYEE
         let requiredDataStoreStaff = {
@@ -125,7 +126,6 @@ class AdminStoresReport extends Component {
             active: false
         }
         getVendorEmployeeListDispatch(requiredDataStoreStaff);
-
     };
 
     //#
@@ -140,18 +140,32 @@ class AdminStoresReport extends Component {
             }, () => {
                 this.populateData();
             });
-        }  
+        };  
         
-        //Get Store List
+        //Get Store List & Report Store Staff
         if(prevProps.store.list !== store.list) {
             if (store.list.isLoaded) {
                 this.setState({
                     ...this.state,
                     storeList: store.list.data.data,
                     idStore: store.list.data.data.result.store[storeActive]
-                }) 
-            }
-        }
+                }, () => {
+                    const { getStoreStaffReportDispatch, user} = this.props;
+                    const { idStore, staffId } = this.state;
+
+                    let requiredDataStoreStaffReport = {
+                        store: idStore.id,
+                        start_date: period.from.format('YYYY-MM-DD'),
+                        end_date: period.to.format('YYYY-MM-DD'),
+                        // staff: user.id,
+                        staff : staffId === null ? '' : user.id,
+                        print: false
+                    };
+                    
+                    getStoreStaffReportDispatch(requiredDataStoreStaffReport);
+                });
+            };
+        };
 
         //GET REPORT PENJUALAN
         if(prevProps.vendorState.reportStaff !== vendorState.reportStaff){
@@ -330,7 +344,6 @@ class AdminStoresReport extends Component {
         
         if(vendorState.reportStaff.isLoaded){
             dailyOrdered.forEach((value) => {
-                console.log(value);
 
                 let row = {
                     // staff: value.user.name,

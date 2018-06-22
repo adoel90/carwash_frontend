@@ -307,11 +307,6 @@ export const changeEmployeeStatus = (data) => {
 
 //#GET REPORT STORE STAFF
 export const getStoreStaffReport = (data) => {
-	console.log(data);
-
-	// return {
-	// 	type: null
-	// }
 
 	return async dispatch => {
 		dispatch(fetchRequest());

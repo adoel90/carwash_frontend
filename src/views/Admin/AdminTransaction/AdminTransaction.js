@@ -136,9 +136,6 @@ class AdminTransaction extends Component{
         }
 
         if(prevProps.store.transaction !== store.transaction) {
-
-            
-
 			if(store.transaction.isPaid) {
 				let dialogData = {
 					type: 'success',
@@ -425,8 +422,13 @@ class AdminTransaction extends Component{
 
         let firstRoutePath;
 
+        // console.log(storeList.data.data.result.store[0]);
+
         if(storeList.isLoaded) {
-            firstRoutePath = storeList.data.data.result.store[0].name.replace(/\s+/g, '-').toLowerCase();
+            console.log(store.storelistspecial.isLoaded ? store.storelistspecial : null);
+            
+
+            firstRoutePath = store.storelistspecial.data.data.result.store[0].name.replace(/\s+/g, '-').toLowerCase();
         }
 
          //#

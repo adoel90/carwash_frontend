@@ -518,6 +518,9 @@ export const getStoreListWithIdUser = (data) => {
 	
 	return async dispatch => {
 
+		//#Doel (Owner) : 76
+		//#wahyundut (Staff) : 215
+
 		dispatch(fetchRequest());
 		return axios
 			.get(`${constant.API_PATH}store/list?accessToken=${accessToken}&id=${userId}`)

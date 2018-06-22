@@ -68,8 +68,8 @@ const AdminStoresCreateEmployeeSuperAdmView = props => {
                                         <Select name="level" defaultValue={newStaff.level} onChange={(e) => handleInputChange('newStaff', e) }>
                                             <option value="">Pilih Level</option>
                                             {
-                                            access.list.isLoaded ? access.list.data.result.map((item, i) => {
-                                                    if(item.id ) {
+                                                access.list.isLoaded ? access.list.data.result.map((item, i) => {
+                                                    if(item.id === 5) {
                                                         return <option value={item.id}>{item.name}</option>
                                                     }
                                                 }) : null

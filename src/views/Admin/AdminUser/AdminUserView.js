@@ -5,7 +5,7 @@ import { Form, FormField } from '../../../layouts/Form';
 import { Row, Column } from '../../../layouts/Grid';
 import { Input, InputGroup, InputAddon, Switch, Select } from '../../../components/Input';
 import { Panel, PanelHeader, PanelBody } from '../../../components/Panel';
-import { TableSet } from '../../../components/Table';
+import { TableSet, TableSetOld } from '../../../components/Table';
 import { Button } from '../../../components/Button';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from '../../../components/Modal';
 

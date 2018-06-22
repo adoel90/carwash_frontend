@@ -82,7 +82,6 @@ class AdminStoresReport extends Component {
             storeReportMonth: {},
             storeActive: 0,
             storeList: {},
-
             activeTab: 0,
             storeIdTab: {},
             idStore: {},

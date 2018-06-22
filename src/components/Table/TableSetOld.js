@@ -8,7 +8,7 @@ import { Badge } from '../Badge';
 import Currency from '../Currency';
 import SearchBar from '../SearchBar';
 
-class TableSet extends Component {
+class TableSetOld extends Component {
 	constructor() {
 		super();
 		this.renderTableColumn = this.renderTableColumn.bind(this);
@@ -300,4 +300,4 @@ class TableSet extends Component {
 
 }
 
-export default TableSet;
+export default TableSetOld;

@@ -141,6 +141,7 @@ class AdminUser extends Component {
     }
 
     handleInputChange = (object, e) => {
+
         const target = e.target;
         const name = target.name;
         const value = target.value;

@@ -116,6 +116,7 @@ class AdminStoresReport extends Component {
             staff : staffId === null ? '' : user.id,
             print: false
         }
+        
         getStoreStaffReportDispatch(requiredDataStoreStaffReport);
 
         //GET STORE STAFF LIST || EMPLOYEE

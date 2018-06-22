@@ -16,17 +16,12 @@ class TableSet extends Component {
             limit: 10,
             activePage: 1
         }
-    }
+    };
 
     handlePageChange = (page) => {
-        const {
-            activePage
-        } = this.props;
+        const { activePage } = this.props;
         
-        const {
-            offset,
-            limit,
-        } = this.state;
+        const { offset, limit } = this.state;
         
         this.setState({
             ...this.state,
@@ -46,6 +41,7 @@ class TableSet extends Component {
         } = this.props;
 
         return (
+
 			<SearchBar
 				value={search.searchText}
                 placeholder={placeholder}
@@ -104,9 +100,7 @@ class TableSet extends Component {
         }
 
         const renderFilteredRow = (row, i) => {
-            const {
-                searchText
-            } = this.props;
+            const { searchText } = this.props;
     
             return row.name.toLowerCase().includes(searchText.toLowerCase());
         }
@@ -131,7 +125,9 @@ class TableSet extends Component {
                             if(row[searchBy]) {
                                 return row[searchBy].toString().toLowerCase().includes(search.searchText.toLowerCase())
                             }
-                        })
+                        });
+
+                        // console.log(rows);
 
                         if(!filteredRow.length) {
                             return <td colSpan={columns.length} style={{padding: '30px', textAlign: 'center'}}>Data tidak ditemukan</td>

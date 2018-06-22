@@ -11,10 +11,11 @@ class PaginationSet extends Component {
     }
 
     componentDidUpdate = (prevProps) => {
+
         if(prevProps.total !== this.props.total) {
             this.updatePagination();
         }
-    }
+    };
 
     updatePagination = () => {        
         const {
@@ -28,9 +29,8 @@ class PaginationSet extends Component {
             ...this.state,
             pages: pages
         });
-    }
+    };
 
-    
     render() {
         const {
             pages 

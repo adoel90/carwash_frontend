@@ -7,8 +7,23 @@ import { Panel, PanelHeader, PanelBody } from '../../../components/Panel';
 import { Input, InputGroup, InputAddon, Select, InputCurrency } from '../../../components/Input';
 import { Button } from '../../../components/Button';
 
-const AdminStoresMenuCreateView = props => {
 
+//Type Id 1 === Service
+//Type Id 2 === F&B
+
+
+
+const AdminStoresMenuCreateView = props => {
+    
+    const renderSomething = () => {
+    
+        const { newMenuProduct } = props;
+        console.log(newMenuProduct);
+        return (
+            <h1>Hai</h1>
+        )
+    }
+    
     const { handleFormSubmit, handleInputChange, newMenuProduct, handleImageChange, store } = props;
 
     return (
@@ -29,12 +44,17 @@ const AdminStoresMenuCreateView = props => {
                                             <option>Pilih Store</option>
                                             {
                                                 store.list.isLoaded   ? store.list.data.data.result.store.map((item, i) => {
-                                                    return <option value={item.id}>{item.name}</option>
+                                                    // {console.log(item)}
+                                                    return (
+                                                        <option value={item.id}>{item.name}</option> 
+                                                    )
+                                                   
                                                 })
                                                 : null
                                             }
                                         </Select>
                                     </FormField>
+                                    {renderSomething()}
 
                                     <FormField label="Nama Produk">
                                         <InputGroup>
@@ -68,6 +88,7 @@ const AdminStoresMenuCreateView = props => {
                                             />
                                         </InputGroup>
                                     </FormField>
+                                   
                                     <FormField label= "Gambar Produk" >
                                         <InputGroup>
                                             <InputAddon>

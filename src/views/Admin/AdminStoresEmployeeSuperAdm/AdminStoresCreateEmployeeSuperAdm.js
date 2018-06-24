@@ -10,8 +10,6 @@ import { createStaffStore } from '../../../actions/store.action';
 import { getAccessList } from '../../../actions/access.action';
 import { openDialog, closeDialog } from '../../../actions/dialog.action';
 
-
-
 function mapStateToProps(state) {
     return {
         vendorState: state.vendorState,
@@ -33,6 +31,7 @@ function mapDispatchToProps(dispatch) {
 class AdminStoresCreateEmployeeSuperAdm extends Component {
 
     constructor(){
+        
         super();
         this.handleInputChange = this.handleInputChange.bind(this); 
         this.handleFormSubmit = this.handleFormSubmit.bind(this);

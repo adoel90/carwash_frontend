@@ -19,9 +19,9 @@ const AdminStoresMenuCreateView = props => {
     
         const { newMenuProduct } = props;
         console.log(newMenuProduct);
-        return (
-            <h1>Hai</h1>
-        )
+        // return (
+        //     <h1>Hai</h1>
+        // )
     }
     
     const { handleFormSubmit, handleInputChange, newMenuProduct, handleImageChange, store } = props;
@@ -45,6 +45,9 @@ const AdminStoresMenuCreateView = props => {
                                             {
                                                 store.list.isLoaded   ? store.list.data.data.result.store.map((item, i) => {
                                                     // {console.log(item)}
+
+                                                    
+
                                                     return (
                                                         <option value={item.id}>{item.name}</option> 
                                                     )

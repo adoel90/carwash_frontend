@@ -4,7 +4,7 @@ import { Section } from '../../../layouts/Section';
 import { Container, Row, Column } from '../../../layouts/Grid';
 import { Form, FormField } from '../../../layouts/Form';
 import { Panel, PanelHeader, PanelBody } from '../../../components/Panel';
-import { Input, InputGroup, InputAddon, Select } from '../../../components/Input';
+import { Input, InputGroup, InputAddon, SelectSpecial } from '../../../components/Input';
 import { Button } from '../../../components/Button';
 
 
@@ -26,7 +26,7 @@ const AdminStoresEmployeeCreateView = props => {
 
                                     {/* PILIH STORE */}
                                     <FormField label="Store">
-                                         <Select name="store" defaultValue={newStaff.id} onChange={(e) => handleInputChange('newStaff', e) }>
+                                         <SelectSpecial name="store" defaultValue={newStaff.id} onChange={(e) => handleInputChange('newStaff', e) }>
                                             <option value="">Pilih Store</option>
                                             {
                                                 store.list.isLoaded   ? store.list.data.data.result.store.map((item, i) => {
@@ -34,7 +34,7 @@ const AdminStoresEmployeeCreateView = props => {
                                                 })
                                                 : null
                                             }
-                                        </Select>
+                                        </SelectSpecial>
                                     </FormField>
                                     <FormField label="Nama Lengkap">
                                         <InputGroup>
@@ -66,15 +66,7 @@ const AdminStoresEmployeeCreateView = props => {
                                     </FormField>
 
                                     <FormField label="Level Akses">
-                                        {/* <Select name="level" defaultValue={newStaff.level.id} onChange={(e) => handleInputChange('newStaff', e) }>
-                                            {
-                                               store.list.isLoaded ? newStaff.level.map((item, i) => {
-                                                    return <option value={item.id}>{item.name}</option>
-                                                }) : null
-                                               
-                                            }
-                                        </Select> */}
-                                        <Select name="level" defaultValue={newStaff.level} onChange={(e) => handleInputChange('newStaff', e) }>
+                                        <SelectSpecial name="level" defaultValue={newStaff.level} onChange={(e) => handleInputChange('newStaff', e) }>
                                             <option value="">Pilih Level</option>
                                             {
                                                access.list.isLoaded ? access.list.data.result.map((item, i) => {
@@ -83,7 +75,7 @@ const AdminStoresEmployeeCreateView = props => {
                                                     }
                                                 }) : null
                                             }
-                                        </Select>
+                                        </SelectSpecial>
                                     </FormField>
                                     <FormField label="Email">
                                         <InputGroup>

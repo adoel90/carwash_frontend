@@ -37,6 +37,7 @@ class AdminStoresCreateMenuSuperAdm extends Component {
         this.renderDialog = this.renderDialog.bind(this);
 
         this.handleInputChangeSpecial = this.handleInputChangeSpecial.bind(this);
+        this.getAttributeById = this.getAttributeById.bind(this);
 
         this.state = {
 
@@ -56,7 +57,8 @@ class AdminStoresCreateMenuSuperAdm extends Component {
             },
 
             storeList: {},
-            storeActive: 0
+            storeActive: 0,
+            obj: null
         }
     }
 
@@ -130,16 +132,27 @@ class AdminStoresCreateMenuSuperAdm extends Component {
     handleInputChangeSpecial = (object, e) => {
         const target = e.target;
         const name = target.name;
-        const value = target.value;
+
+        const { stateObject } = this.state;
+        // const value = target.value;
         
-        this.setState({
-            ...this.state,
-            [object]: {
-                  ...this.state[object],
-                  [name]: value
-            }
-      });
+        // this.setState({
+        //     ...this.state,
+        //     [object]: {
+        //           ...this.state[object],
+        //           [name]: value
+        //     }
+        // });
+
+       this.setState({
+           ...this.state,
+           obj: this.props.listOption[e.target.value].obj
+       });//https://stackoverflow.com/questions/42564515/react-selecting-option-with-object-as-attribut-value
     };
+
+    getAttributeById = (data) => {
+        console.log(data);
+    }
 
     handleImageChange = (object, e) => {
 		const target = e.target;

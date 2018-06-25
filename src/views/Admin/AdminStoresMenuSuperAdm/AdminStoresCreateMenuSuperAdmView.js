@@ -123,19 +123,24 @@ const AdminStoresMenuCreateView = props => {
                                 <Form onSubmit={handleFormSubmit}>
                                     <FormField label="Pilih Store">
                                          <SelectSpecial name="store"  onChange={(e) => handleInputChangeSpecial('newMenuProductSpecial', e) }>
+                                         
+                                         {console.log(newMenuProduct)}
                                          {/* <SelectSpecial name="store"  onChange={(e) => handleInputChange('newMenuProduct', e) }> */}
                                             <option>Pilih Store</option>
                                             {
                                                 store.list.isLoaded ? store.list.data.data.result.store.map((item, i) => {
 
                                                     return (
-                                                        // <option value={item.type.id}>{item.name} (Store ID: {item.id})</option> 
-                                                        <option value={item.type.id}>{item.id}. {item.name}</option> 
+                                                        <option value={item}>{item.name}</option> 
+                                                        // <option value={item.type.id} key={item}>{item.id}. {item.name}</option> 
                                                     )
                                                    
                                                 })
                                                 : null
                                             }
+
+                                            
+
                                         </SelectSpecial>
                                     </FormField>
                                     {renderSomething()}

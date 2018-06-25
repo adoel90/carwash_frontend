@@ -112,7 +112,7 @@ const AdminUserView = props => {
                 </PanelHeader>
                 <PanelBody>
                     <div className="admin-user__content">
-                        <TableSetOld
+                        <TableSet
                             loading={userList.isFetching}
                             loaded={userList.isLoaded}
                             columns={table.columns}
@@ -122,8 +122,8 @@ const AdminUserView = props => {
                             pagination
                             placeholder="Cari user yang terdaftar"
                             hasSearchBar
-                            searchParams={table.searchParams}
                             searchBy={search.searchBy}
+                            searchParams={table.searchParams}
                             handleInputChange={handleInputChange}
                             {...props}
                         />

@@ -241,6 +241,7 @@ class TableSetOld extends Component {
 	}
 
 	renderTableColumn = () => {
+
 		const {
 			columns,
 			settings,
@@ -261,11 +262,11 @@ class TableSetOld extends Component {
 
 		if(onUpdate || onDelete || onChangeStatus) {
 			tableColumns.push(<th>Pengaturan</th>)
-		}
+		};
 
 		if(settings) {
 			tableColumns.push(<th>Pengaturan</th>)
-		}
+		};
 
 		return tableColumns;
 	}
@@ -278,11 +279,7 @@ class TableSetOld extends Component {
 			hasSearchBar
 		} = this.props;
 
-		const {
-			limit,
-			offset,
-			activePage
-		} = this.state;
+		const { limit, offset, activePage } = this.state;
 
 		return (
 			<div className="table-main">

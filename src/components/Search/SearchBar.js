@@ -5,9 +5,10 @@ import { Input, InputGroup, InputAddon, Select } from '../Input';
 // import { Row } from '../Grid';
 
 class SearchBar extends Component {
-	
+
 	render() {
 		const {
+			activePage,
 			placeholder,
 			className,
 			name,
@@ -16,7 +17,9 @@ class SearchBar extends Component {
 			onChange,
 			onSearchChange,
 			searchBy,
-			searchParams
+			searchParams,
+			search
+		
 		} = this.props;
 
 		const classes = classNames(
@@ -41,19 +44,39 @@ class SearchBar extends Component {
 			}
 		}
 
-		return (
-			<Form onSubmit={onSubmit} className={`${classes}`}>
-                <InputGroup>
-                    <InputAddon>
-                        <i className="fas fa-search"></i>
-                    </InputAddon>
-                    <Input
+		const renderSomething = () => {
+
+			return(
+				<Input
                         name="searchText"
                         placeholder={placeholder} 
                         value={value} 
                         onChange={onChange} 
                         style={{borderTopRightRadius: '0px', borderBottomRightRadius: '0px'}}
                     />
+			)
+		}
+
+		const renderSomethingSecond = () => {
+
+			
+		}
+
+		return (
+			<Form onSubmit={onSubmit} className={`${classes}`}>
+                <InputGroup>
+                    <InputAddon>
+                        <i className="fas fa-search"></i>
+                    </InputAddon>
+					<Input
+                        name="searchText"
+                        placeholder={placeholder} 
+                        value={value} 
+                        onChange={onChange} 
+                        style={{borderTopRightRadius: '0px', borderBottomRightRadius: '0px'}}
+                    />
+					{/* {activePage === 1 ? renderSomething() : renderSomethingSecond()} */}
+                    
                     { searchOptions() }
                 </InputGroup>
 			</Form>

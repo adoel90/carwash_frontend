@@ -109,15 +109,14 @@ class AdminStoresReport extends Component {
         //#GET REPORT STORE STAFF
         let requiredDataStoreStaffReport = {
             store: store.list.isLoaded ? store.list.data.data.result.store[storeActive].id : null,
-            start_date: period.from.format('YYYY-MM-DD'),
+            // start_date: period.from.format('YYYY-MM-DD'),
+            start_date: moment().add(-12, 'month').format('YYYY-MM-DD'),
             end_date: period.to.format('YYYY-MM-DD'),
             // staff: user.id,
             staff : staffId === null ? '' : user.id,
             print: false
         };
-        
         getStoreStaffReportDispatch(requiredDataStoreStaffReport);
-
 
         //GET STORE STAFF LIST || EMPLOYEE
         let requiredDataStoreStaff = {

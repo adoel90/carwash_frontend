@@ -94,7 +94,7 @@ const AdminStoresReportView = props => {
         <div>
             <Panel>
                 <PanelHeader>
-                    <h4 className="heading-title">Laporan Penjualan</h4>
+                    <h4 className="heading-title" title="Laporan penjualan ini memunculkan semua history dari penjualan yang paling lama hingga yang paling baru" >Laporan Penjualan</h4>
                 </PanelHeader>
 
                 <PanelBody>
@@ -106,9 +106,10 @@ const AdminStoresReportView = props => {
                                     <FormField>
                                         <InputGroup>
                                             <InputAddon>
-                                            <i className="fas fa-calendar-alt"></i>
+                                                <i className="fas fa-calendar-alt"></i>
                                             </InputAddon>
                                             <DatePicker
+                                                title="Laporan penjualan ini memunculkan semua history dari penjualan yang paling lama hingga yang paling baru"
                                                 className="input"
                                                 dateFormat="DD MMM YYYY"
                                                 textPlaceholder="End Date"
@@ -140,7 +141,7 @@ const AdminStoresReportView = props => {
                                 }
                                 <div>
                                     <FormField>
-                                        <Button className="margin-left-small" theme="primary" onClick={handleShow} >
+                                        <Button className="margin-left-small" theme="primary" onClick={handleShow} title="Laporan penjualan ini memunculkan semua history dari penjualan yang paling lama hingga yang paling baru" >
                                             Cari
                                         </Button>
                                     </FormField>

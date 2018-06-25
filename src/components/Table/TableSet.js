@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Table, TableHead, TableBody } from '../Table';
 import { PaginationSet } from '../Pagination';
-import { SearchBar } from '../Search';
+import  { SearchBar }  from '../Search';
 import Currency from '../Currency';
 
 class TableSet extends Component {
@@ -11,6 +11,8 @@ class TableSet extends Component {
         super();
         this.handlePageChange = this.handlePageChange.bind(this);
         this.renderTableSearchBar = this.renderTableSearchBar.bind(this);
+        this.handleResetPagination = this.handleResetPagination.bind(this);
+
         this.state = {
             offset: 0,
             limit: 10,
@@ -18,9 +20,14 @@ class TableSet extends Component {
         }
     };
 
+    handleResetPagination = () => {
+		this.setState({
+			activePage: 1
+		})
+    }
+    
     handlePageChange = (page) => {
         const { activePage } = this.props;
-        
         const { offset, limit } = this.state;
         
         this.setState({
@@ -40,6 +47,8 @@ class TableSet extends Component {
 			handleInputChange
         } = this.props;
 
+
+
         return (
 
 			<SearchBar
@@ -50,7 +59,10 @@ class TableSet extends Component {
 				onSearchChange={(e) => handleInputChange('search', e)}
 				className="margin-bottom-large"
 				searchBy={searchBy}
-				searchParams={searchParams}
+                searchParams={searchParams}
+                // handleResetPagination= {(e) => handleResetPagination(e)}
+                {...this.state}
+                {...this.props}
 			/>
 		)
 	}
@@ -101,15 +113,14 @@ class TableSet extends Component {
 
         const renderFilteredRow = (row, i) => {
             const { searchText } = this.props;
-    
             return row.name.toLowerCase().includes(searchText.toLowerCase());
-        }
+        };
 
         const renderTableBody = () => (
             <TableBody>
                 { renderTableRows() }
             </TableBody>
-        )
+        );
 
         const renderTableRows = () => {
             if(loading) {
@@ -122,15 +133,14 @@ class TableSet extends Component {
 
                     if(hasSearchBar || searchParams || searchBy) {
                         let filteredRow = rows.filter((row) => {
+
                             if(row[searchBy]) {
                                 return row[searchBy].toString().toLowerCase().includes(search.searchText.toLowerCase())
                             }
                         });
 
-                        // console.log(rows);
-
                         if(!filteredRow.length) {
-                            return <td colSpan={columns.length} style={{padding: '30px', textAlign: 'center'}}>Data tidak ditemukan</td>
+                            return <span colSpan={columns.length} style={{padding: '30px', textAlign: 'center'}}>Data tidak ditemukan</span>
                         }
 
                         return filteredRow
@@ -190,6 +200,7 @@ class TableSet extends Component {
             if(pagination && rows != null ) {
                 return <PaginationSet 
                     activePage={activePage} 
+                    // total={rows.slice(lowerBound, upperBound).length} 
                     total={rows.length} 
                     limit={limit}  
                     onPageChange={this.handlePageChange} 
@@ -220,7 +231,7 @@ class TableSet extends Component {
             </div>
         );
     }
-}
+};
 
 TableSet.propTypes = {
     columns: PropTypes.array,

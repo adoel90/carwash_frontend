@@ -18,10 +18,7 @@ class PaginationSet extends Component {
     };
 
     updatePagination = () => {        
-        const {
-            total,
-            limit
-        } = this.props;
+        const { total, limit } = this.props;
     
         const pages = Math.ceil(total / limit);
 

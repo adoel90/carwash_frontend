@@ -112,7 +112,7 @@ const AdminUserView = props => {
                 </PanelHeader>
                 <PanelBody>
                     <div className="admin-user__content">
-                        <TableSet
+                        <TableSetOld
                             loading={userList.isFetching}
                             loaded={userList.isLoaded}
                             columns={table.columns}

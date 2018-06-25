@@ -36,14 +36,22 @@ class AdminStoresCreateMenuSuperAdm extends Component {
         this.handleImageChange = this.handleImageChange.bind(this);
         this.renderDialog = this.renderDialog.bind(this);
 
+        this.handleInputChangeSpecial = this.handleInputChangeSpecial.bind(this);
+
         this.state = {
+
+            newMenuProductSpecial:{
+                typeStore:'',
+                idStore:''
+            },
 
             newMenuProduct: {
                 store: '',
                 name: '',
                 deskripsi: '',
                 harga: '',
-                image: null
+                image: null,
+                category: false
 
             },
 
@@ -53,11 +61,25 @@ class AdminStoresCreateMenuSuperAdm extends Component {
     }
 
     componentDidMount(){
-
         //#
         const { getStoreListDispatch } = this.props;
         getStoreListDispatch();
 
+    }
+
+    componentDidUpdate(prevProps){
+        const { store } = this.props;
+        const { storeActiveList } = this.state;
+
+        //#GET STORE LIST
+        if(prevProps.store.list !== store.list){   
+            if(store.list.isLoaded){
+                this.setState({  
+                    ...this.state,
+                    storeList: store.list.isLoaded ? store.list.data.data.result.store : null
+                });
+            }
+        }
     }
 
     //#
@@ -68,18 +90,13 @@ class AdminStoresCreateMenuSuperAdm extends Component {
             action.openDialog(data);
         } else {
             action.closeDialog();
-        }
+        };
     }
 
     //#Fungsi Modal Dll
     renderDialog = () => {
-        const {
-            dialog,
-            toggleDialog
-        } = this.props;
+        const { dialog, toggleDialog } = this.props;
 
-        // console.log(this.props)
-        
         return (
               <Dialog
                     isOpen={dialog.isOpened}
@@ -98,7 +115,8 @@ class AdminStoresCreateMenuSuperAdm extends Component {
     handleInputChange = (object, e) => {
         const target = e.target;
         const name = target.name;
-        const value = target.value;
+        // const value = target.value;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
 
         this.setState({
               ...this.state,
@@ -107,6 +125,20 @@ class AdminStoresCreateMenuSuperAdm extends Component {
                     [name]: value
               }
         });
+    };
+
+    handleInputChangeSpecial = (object, e) => {
+        const target = e.target;
+        const name = target.name;
+        const value = target.value;
+        
+        this.setState({
+            ...this.state,
+            [object]: {
+                  ...this.state[object],
+                  [name]: value
+            }
+      });
     };
 
     handleImageChange = (object, e) => {
@@ -181,6 +213,7 @@ class AdminStoresCreateMenuSuperAdm extends Component {
                     handleInputChange = { this.handleInputChange }
                     handleFormSubmit = { this.handleFormSubmit}
                     handleImageChange = { this.handleImageChange}
+                    handleInputChangeSpecial = { this.handleInputChangeSpecial}
                     {...this.state}
                     {...this.props}
                 />

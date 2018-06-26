@@ -1,28 +1,28 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getReportMemberExportToExcell, getReportOwnerSuperAdmin} from '../../../actions/report.action';
+import { getReportMemberExportToExcell, getReportOwnerSuperAdmin } from '../../../actions/report.action';
 import { getVendorEmployeeList, getStoreStaffReport } from '../../../actions/vendor.action';
 import { getReportStoreCashierMemberPrint } from '../../../actions/store.action';
 import { Button } from '../../../components/Button';
 import { AdminReportSellingTotalView, AdminReportSellingTotalPaymentReceipt } from '../AdminReport';
 import moment from 'moment';
 
-function mapStateToProps(state){
+function mapStateToProps(state) {
     return {
         report: state.report,
         vendorState: state.vendorState
     }
 }
 
-function mapDispatchToProps(dispatch){
+function mapDispatchToProps(dispatch) {
     return {
         getReportOwnerSuperAdminDispatch: (data) => dispatch(getReportOwnerSuperAdmin(data)),
         getVendorEmployeeListDispatch: (data) => dispatch(getVendorEmployeeList(data)),
         getStoreStaffReportDispatch: (data) => dispatch(getStoreStaffReport(data)),
         getReportStoreCashierMemberPrintDispatch: (data) => dispatch(getReportStoreCashierMemberPrint(data)),
         // getReportMemberExportToExcellDispatch: (data) => dispatch(getReportMemberExportToExcell(data)),
-        action: bindActionCreators({getReportOwnerSuperAdmin }, dispatch)
+        action: bindActionCreators({ getReportOwnerSuperAdmin }, dispatch)
     }
 }
 
@@ -52,55 +52,55 @@ class AdminReportSellingTotal extends Component {
                 limit: 10
             },
             tabel: {
-                kolom:[],
-                baris:[],
-                limit:10
+                kolom: [],
+                baris: [],
+                limit: 10
             },
             period: {
                 from: moment().add(-1, 'month'),
-        		to: moment()
+                to: moment()
             },
             periodrepot: {
-        		// from: moment().add(-1, 'day'),
-        		from: moment(),
-        		to: moment()
+                // from: moment().add(-1, 'day'),
+                from: moment(),
+                to: moment()
             },
-            
-            reportOwnerList : {},
+
+            reportOwnerList: {},
             selectedAccessDetailStore: {},
             isModalOpen: {
                 accessDetailStore: false
             },
-            staffId:null,
-            idStore:{},
+            staffId: null,
+            idStore: {},
             dailyOrdered: {},
-            invoice:{},
-            totalTransaction:{},
+            invoice: {},
+            totalTransaction: {},
             printData: {},
-            printDataDetail:{},
+            printDataDetail: {},
             statusPrintData: null,
 
             dataCQT: {}
         }
     }
-    
+
     componentDidMount = () => {
 
         const { getReportOwnerSuperAdminDispatch } = this.props;
         const { period } = this.state;
 
         let requiredData = {
-            start_date : moment(period.from).format('YYYY-MM-DD'),
-            end_date : moment(period.to).format('YYYY-MM-DD')
+            start_date: moment(period.from).format('YYYY-MM-DD'),
+            end_date: moment(period.to).format('YYYY-MM-DD')
         }
         getReportOwnerSuperAdminDispatch(requiredData);
     }
-    
+
     componentDidUpdate = (prevProps) => {
-        const  { report, vendorState, store } = this.props;
+        const { report, vendorState, store } = this.props;
         //Get Report Owner -  didUpdate
-        if(prevProps.report.reportOwner !== report.reportOwner){
-            if(report.reportOwner.isLoaded){
+        if (prevProps.report.reportOwner !== report.reportOwner) {
+            if (report.reportOwner.isLoaded) {
                 this.setState({
                     ...this.state,
                     reportOwnerList: report.reportOwner
@@ -111,19 +111,19 @@ class AdminReportSellingTotal extends Component {
         }
 
         //GET REPORT PENJUALAN
-        if(prevProps.vendorState.reportStaff !== vendorState.reportStaff){
+        if (prevProps.vendorState.reportStaff !== vendorState.reportStaff) {
 
-            if(vendorState.reportStaff.isLoaded){
+            if (vendorState.reportStaff.isLoaded) {
 
                 this.setState({
                     ...this.state,
                     dailyOrdered: vendorState.reportStaff.data.data.result.data,
                     // invoice: vendorState.reportStaff.data.data.result.data[0].queue,
                     // totalTransaction: vendorState.reportStaff.data.data.result.data[0].total,
-                },() => {
+                }, () => {
                     // console.log(this.state.invoice);
                     this.populateTableAccessDetailStore();
-                    
+
                 });
             }
         }
@@ -157,10 +157,10 @@ class AdminReportSellingTotal extends Component {
     }
 
     handlePeriodChange = (type, date) => {
-    	const { period } = this.state;
+        const { period } = this.state;
         period[type] = date;
-        
-    	this.forceUpdate();
+
+        this.forceUpdate();
     }
 
     showDate = (e) => {
@@ -170,8 +170,8 @@ class AdminReportSellingTotal extends Component {
         e.preventDefault();
 
         let requiredData = {
-            start_date : moment(period.from).format('YYYY-MM-DD'),
-            end_date : moment(period.to).format('YYYY-MM-DD')
+            start_date: moment(period.from).format('YYYY-MM-DD'),
+            end_date: moment(period.to).format('YYYY-MM-DD')
         }
         action.getReportOwnerSuperAdmin(requiredData);
 
@@ -181,39 +181,39 @@ class AdminReportSellingTotal extends Component {
 
     populateTableData = () => {
         const { report } = this.props;
-        
+
         const columns = [{
-                title: 'Nama Owner',
-                accessor: 'name',
-                align: 'left'
-            }, {
-                title: 'Nama Toko',
-                accessor: 'store',
-                align: 'left'
-            }, {
-                title: 'Total Laba Kotor',
-                accessor: 'price',
-                align: 'left',
-                isCurrency: true
-            },{
-                title: 'Akses Detail',
-                accessor: 'action',
-                width: '30%',
-                align: 'center',
-                render: (row) => (
-                    <td className="flex justify-content--center">
-                            <Button className="margin-right-small" type="button" onClick={() => this.openAccessDetailStoreModal(row)}>Penjualan</Button>                              
-                            {/* <Button className="margin-right-small" theme="secondary" type="button" onClick={() => this.openAccessDetailStoreModal(row)}>Menu Favorit</Button>                               */}
-                    </td>
-                    
-                )
-            }
+            title: 'Nama Owner',
+            accessor: 'name',
+            align: 'left'
+        }, {
+            title: 'Nama Toko',
+            accessor: 'store',
+            align: 'left'
+        }, {
+            title: 'Total Laba Kotor',
+            accessor: 'price',
+            align: 'left',
+            isCurrency: true
+        }, {
+            title: 'Akses Detail',
+            accessor: 'action',
+            width: '30%',
+            align: 'center',
+            render: (row) => (
+                <td className="flex justify-content--center">
+                    <Button className="margin-right-small" type="button" onClick={() => this.openAccessDetailStoreModal(row)}>Penjualan</Button>
+                    {/* <Button className="margin-right-small" theme="secondary" type="button" onClick={() => this.openAccessDetailStoreModal(row)}>Menu Favorit</Button>                               */}
+                </td>
+
+            )
+        }
         ];
 
         const rows = [];
         const store_names = [];
 
-        if(report.reportOwner.isLoaded){
+        if (report.reportOwner.isLoaded) {
             report.reportOwner.data.result.forEach((value, i) => {
 
                 let row = {
@@ -241,11 +241,11 @@ class AdminReportSellingTotal extends Component {
     getReportMemberList = () => {
         const { action } = this.props;
 
-        let {period } = this.state;
+        let { period } = this.state;
 
         let requiredData = {
-            start_date : moment(period.from).format('YYYY-MM-DD'),
-            end_date : moment(period.to).format('YYYY-MM-DD')
+            start_date: moment(period.from).format('YYYY-MM-DD'),
+            end_date: moment(period.to).format('YYYY-MM-DD')
         }
         action.getReportMemberList(requiredData);
     }
@@ -266,7 +266,7 @@ class AdminReportSellingTotal extends Component {
     //#
     toggleModal = (name) => {
         const { isModalOpen } = this.state;
-        
+
         this.setState({
             ...this.state,
             isModalOpen: {
@@ -274,37 +274,37 @@ class AdminReportSellingTotal extends Component {
             }
         })
     }
-    
+
     handlePeriodChangeAccessDetailStore = (type, date) => {
         const { periodrepot } = this.state;
-    	periodrepot[type] = date;
+        periodrepot[type] = date;
         this.forceUpdate();
 
-    
+
     }
 
     handleChangeStaffOwnerOptions = (e) => {
 
         const { staffId } = this.state;
-        
+
         const target = e.target;
         const name = target.name;
         const value = target.value;
 
         this.setState({
             ...this.state,
-            staffId :  parseInt(value)
+            staffId: parseInt(value)
         });
     }
-    
+
     openAccessDetailStoreModal = (row) => {
 
         this.setState({
-              ...this.state,
-              selectedAccessDetailStore: row
+            ...this.state,
+            selectedAccessDetailStore: row
 
         }, () => {
-            const { selectedAccessDetailStore, periodrepot, staffId,} = this.state;
+            const { selectedAccessDetailStore, periodrepot, staffId, } = this.state;
             const { getVendorEmployeeListDispatch, getStoreStaffReportDispatch } = this.props;
 
             //#GET STORE STAFF LIST || EMPLOYEE
@@ -319,10 +319,10 @@ class AdminReportSellingTotal extends Component {
             //#Get Laporan Total Penjualan Toko
             //#GET REPORT STORE STAFF
             let requiredDataStoreStaffReport = {
-                store:selectedAccessDetailStore.storeId,
-                start_date : moment().add(-12, 'month').format('YYYY-MM-DD'),
-                end_date : moment(periodrepot.to).format('YYYY-MM-DD'),
-                staff :'',
+                store: selectedAccessDetailStore.storeId,
+                start_date: moment().add(-12, 'month').format('YYYY-MM-DD'),
+                end_date: moment(periodrepot.to).format('YYYY-MM-DD'),
+                staff: '',
                 print: false
             };
             // console.log(requiredDataStoreStaffReport);
@@ -332,44 +332,44 @@ class AdminReportSellingTotal extends Component {
             this.toggleModal('accessDetailStore');
         });
     };
-    
+
     //#
     handleShow = (e) => {
-        
+
         e.preventDefault();
-        const {periodrepot, staffId, selectedAccessDetailStore} = this.state;
+        const { periodrepot, staffId, selectedAccessDetailStore } = this.state;
         const { getStoreStaffReportDispatch } = this.props;
 
-         //#GET REPORT STORE STAFF
-         if(staffId === 2018){//Special case when select Staff ID
+        //#GET REPORT STORE STAFF
+        if (staffId === 2018) {//Special case when select Staff ID
 
             let requiredDataStoreStaffReport = {
-                store:selectedAccessDetailStore.storeId,
-                start_date : moment(periodrepot.to).format('YYYY-MM-DD'),
-                end_date : moment(periodrepot.to).format('YYYY-MM-DD'),
-                staff :'',
+                store: selectedAccessDetailStore.storeId,
+                start_date: moment(periodrepot.to).format('YYYY-MM-DD'),
+                end_date: moment(periodrepot.to).format('YYYY-MM-DD'),
+                staff: '',
                 print: false
             };
             // console.log(requiredDataStoreStaffReport);
             getStoreStaffReportDispatch(requiredDataStoreStaffReport);
 
-         } else {
+        } else {
 
             let requiredDataStoreStaffReport = {
-                store:selectedAccessDetailStore.storeId,
-                start_date : moment(periodrepot.to).format('YYYY-MM-DD'),
-                end_date : moment(periodrepot.to).format('YYYY-MM-DD'),
-                staff :staffId,
+                store: selectedAccessDetailStore.storeId,
+                start_date: moment(periodrepot.to).format('YYYY-MM-DD'),
+                end_date: moment(periodrepot.to).format('YYYY-MM-DD'),
+                staff: staffId,
                 print: false
             };
 
             // console.log(requiredDataStoreStaffReport);
             getStoreStaffReportDispatch(requiredDataStoreStaffReport);
-         }
+        }
     };
 
     populateTableAccessDetailStore = () => {
-        
+
         const { vendorState } = this.props;
         const { tabel } = this.state;
 
@@ -378,31 +378,31 @@ class AdminReportSellingTotal extends Component {
             {
                 title: 'Tanggal Transaksi',
                 accessor: 'date',
-                align: 'left' 
+                align: 'left'
             },
             {
                 title: 'Nama Item',
                 accessor: 'item',
-                align: 'left' 
+                align: 'left'
             }, {
                 title: 'Harga',
                 accessor: 'price',
                 align: 'left',
                 isCurrency: true
-            },{
+            }, {
                 title: 'Total Item',
                 accessor: 'quantity',
-                align: 'left' 
+                align: 'left'
             },
             {
                 title: 'Nama Staff',
                 accessor: 'staff',
-                align: 'left' 
+                align: 'left'
             },
             {
                 title: 'Nama Toko',
                 accessor: 'store',
-                align: 'left'       
+                align: 'left'
             }
         ];
 
@@ -411,21 +411,25 @@ class AdminReportSellingTotal extends Component {
         let responseData = null;
 
         //#Get
-        if(vendorState.reportStaff.isLoaded){
-            vendorState.reportStaff.data.data.result.data.map((data) => { 
+        if (vendorState.reportStaff.isLoaded) {
+            vendorState.reportStaff.data.data.result.data.map((data) => {
 
                 //#
                 let dataItemProduct = data.item.filter((data, index, self) => {
                     return index == self.indexOf(data);
                 });
 
-                if(dataItemProduct.length){
+                if (dataItemProduct.length) {
 
                     dataItemProduct.map((value) => {
 
-                        console.log(data);
+                        // console.log(data);
+
+                        console.log(data.date);
 
                         let row = {
+                            // date: moment(data.date).format('YYYY-MM-DD, hh:mm:ss a'),
+                            // date: moment(data.date).format('LLLL'),
                             date: data.date,
                             item: value.name,
                             price: value.price,
@@ -435,7 +439,7 @@ class AdminReportSellingTotal extends Component {
                         };
                         barisArray.push(row);
                     });
-        
+
                 }
 
                 //#1
@@ -475,7 +479,7 @@ class AdminReportSellingTotal extends Component {
                 // //#3
                 // let uniqueSetFinal = new Set(barisArray.map(e => JSON.stringify(e))); 
                 // responseData = Array.from(uniqueSetFinal).map(e => JSON.parse(e))
- 
+
             });
 
             // this.setState({
@@ -501,7 +505,7 @@ class AdminReportSellingTotal extends Component {
         }
     }
 
-    handlePrint(e, periodrepot){
+    handlePrint(e, periodrepot) {
         e.preventDefault();
 
         const { getReportStoreCashierMemberPrintDispatch, user } = this.props;
@@ -510,8 +514,8 @@ class AdminReportSellingTotal extends Component {
         let dataId = user.id === 1 ? user.id + 2 : user.id;
 
         let requiredData = {
-            start_date : moment(periodrepot.to).format('YYYY-MM-DD'),
-            end_date : moment(periodrepot.to).format('YYYY-MM-DD'),
+            start_date: moment(periodrepot.to).format('YYYY-MM-DD'),
+            end_date: moment(periodrepot.to).format('YYYY-MM-DD'),
             user: dataId,
             print: true
         }
@@ -519,36 +523,36 @@ class AdminReportSellingTotal extends Component {
         this.setState({
             ...this.state,
             statusPrintData: 200
-            }, () => {
-                window.print();
+        }, () => {
+            window.print();
 
         })
     }
 
 
     render() {
-        return(
+        return (
             <div>
                 <AdminReportSellingTotalView
                     {...this.state}
                     {...this.props}
                     showDate={this.showDate}
                     handlePeriodChange={this.handlePeriodChange}
-                    handlePeriodChangeAccessDetailStore= {this.handlePeriodChangeAccessDetailStore}
+                    handlePeriodChangeAccessDetailStore={this.handlePeriodChangeAccessDetailStore}
                     toggleModal={this.toggleModal}
                     handleChangeStaffOwnerOptions={this.handleChangeStaffOwnerOptions}
                     handleShow={this.handleShow}
-                    handlePrint= {this.handlePrint}
-                    // handleExportToExcell={this.handleExportToExcell}
+                    handlePrint={this.handlePrint}
+                // handleExportToExcell={this.handleExportToExcell}
                 />;
 
                 {/* Want to print mini pos */}
                 <AdminReportSellingTotalPaymentReceipt {...this.props} {...this.state} />
             </div>
-        ) 
+        )
 
     }
 }
 
 
-export default connect( mapStateToProps, mapDispatchToProps )(AdminReportSellingTotal);
+export default connect(mapStateToProps, mapDispatchToProps)(AdminReportSellingTotal);

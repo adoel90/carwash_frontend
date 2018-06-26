@@ -298,7 +298,6 @@ class AdminReportSellingTotal extends Component {
     }
     
     openAccessDetailStoreModal = (row) => {
-        // console.log(row);
 
         this.setState({
               ...this.state,
@@ -306,14 +305,28 @@ class AdminReportSellingTotal extends Component {
 
         }, () => {
             const { selectedAccessDetailStore, periodrepot, staffId,} = this.state;
-            const { getVendorEmployeeListDispatch } = this.props;
+            const { getVendorEmployeeListDispatch, getStoreStaffReportDispatch } = this.props;
 
             //#GET STORE STAFF LIST || EMPLOYEE
             let requiredDataStoreStaff = {
                 id: selectedAccessDetailStore.storeId,
                 active: false
             }
+
+            //#Get List Staff Employee
             getVendorEmployeeListDispatch(requiredDataStoreStaff);
+
+            //#Get Laporan Total Penjualan Toko
+            //#GET REPORT STORE STAFF
+            let requiredDataStoreStaffReport = {
+                store:selectedAccessDetailStore.storeId,
+                start_date : moment().add(-12, 'month').format('YYYY-MM-DD'),
+                end_date : moment(periodrepot.to).format('YYYY-MM-DD'),
+                staff :'',
+                print: false
+            };
+            // console.log(requiredDataStoreStaffReport);
+            getStoreStaffReportDispatch(requiredDataStoreStaffReport);
 
             //#
             this.toggleModal('accessDetailStore');
@@ -336,18 +349,20 @@ class AdminReportSellingTotal extends Component {
                 end_date : moment(periodrepot.to).format('YYYY-MM-DD'),
                 staff :'',
                 print: false
-            }
+            };
             // console.log(requiredDataStoreStaffReport);
             getStoreStaffReportDispatch(requiredDataStoreStaffReport);
 
          } else {
+
             let requiredDataStoreStaffReport = {
                 store:selectedAccessDetailStore.storeId,
                 start_date : moment(periodrepot.to).format('YYYY-MM-DD'),
                 end_date : moment(periodrepot.to).format('YYYY-MM-DD'),
                 staff :staffId,
                 print: false
-            }
+            };
+
             // console.log(requiredDataStoreStaffReport);
             getStoreStaffReportDispatch(requiredDataStoreStaffReport);
          }

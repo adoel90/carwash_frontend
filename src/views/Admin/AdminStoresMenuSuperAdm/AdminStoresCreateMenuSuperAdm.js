@@ -42,9 +42,10 @@ class AdminStoresCreateMenuSuperAdm extends Component {
         this.state = {
 
             newMenuProductSpecial:{
-                typeStore:'',
                 idStore:''
             },
+            typeStore:'',
+            nameStore:'',
 
             newMenuProduct: {
                 store: '',
@@ -71,7 +72,7 @@ class AdminStoresCreateMenuSuperAdm extends Component {
 
     componentDidUpdate(prevProps){
         const { store } = this.props;
-        const { storeActiveList } = this.state;
+        const { storeActiveLis,newMenuProduct } = this.state;
 
         //#GET STORE LIST
         if(prevProps.store.list !== store.list){   
@@ -80,6 +81,26 @@ class AdminStoresCreateMenuSuperAdm extends Component {
                     ...this.state,
                     storeList: store.list.isLoaded ? store.list.data.data.result.store : null
                 });
+            }
+
+            //Get Type Store from Dropdownlist
+            if(store.list.isLoaded){
+                const found =  store.list.isLoaded ? store.list.data.data.result.store.find((element) => {
+
+                    if(element.id === parseInt(newMenuProduct.store)){
+
+                        console.log(element);
+
+                        this.setState({
+                            ...this.state,
+                            typeStore: element.type.id,
+                            nameStore: element.name
+
+                        });
+                    }
+                 }) : null;        
+            } else {
+                console.log("Errur to Get Type Store from Dropdownlist ");
             }
         }
     }
@@ -126,28 +147,33 @@ class AdminStoresCreateMenuSuperAdm extends Component {
                     ...this.state[object],
                     [name]: value
               }
+        }, () => {
+           
         });
+
+        console.log(this.state.newMenuProduct);
+        const { getStoreListDispatch } = this.props;
+        getStoreListDispatch();
     };
 
     handleInputChangeSpecial = (object, e) => {
         const target = e.target;
         const name = target.name;
-
-        const { stateObject } = this.state;
-        // const value = target.value;
+        const value = target.value;
         
+        this.setState({
+            ...this.state,
+            [object]: {
+                ...this.state[object],
+                [name]: value
+            }
+        });
+        
+        // const { stateObject } = this.state;
         // this.setState({
         //     ...this.state,
-        //     [object]: {
-        //           ...this.state[object],
-        //           [name]: value
-        //     }
-        // });
-
-       this.setState({
-           ...this.state,
-           obj: this.props.listOption[e.target.value].obj
-       });//https://stackoverflow.com/questions/42564515/react-selecting-option-with-object-as-attribut-value
+        //     obj: this.props.listOption[e.target.value].obj
+        // });//https://stackoverflow.com/questions/42564515/react-selecting-option-with-object-as-attribut-value
     };
 
     getAttributeById = (data) => {

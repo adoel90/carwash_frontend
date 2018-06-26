@@ -12,10 +12,10 @@ import { Button } from '../../../components/Button';
 //Type Id 2 === F&B
 
 const AdminStoresMenuCreateView = props => {
-    
+
     const renderSomething = () => {
 
-        if(newMenuProductSpecial.store === "1" ){
+        if(typeStore === 1 ){
             return(
                 <div>
                     <FormField label="Nama Produk">
@@ -65,7 +65,7 @@ const AdminStoresMenuCreateView = props => {
                     <Button type="submit">Simpan</Button>
                 </div>
             )
-       } else if(newMenuProductSpecial.store === "2"){
+       } else if(typeStore === 2){
            return (
                <div>
                     <FormField label="Nama Produk">
@@ -108,7 +108,7 @@ const AdminStoresMenuCreateView = props => {
 
     }
     
-    const { handleFormSubmit, handleInputChange, handleInputChangeSpecial, newMenuProduct, newMenuProductSpecial, handleImageChange, store, storeList } = props;
+    const { handleFormSubmit, handleInputChange, handleInputChangeSpecial, newMenuProduct, newMenuProductSpecial, handleImageChange, store, storeList, typeStore, nameStore } = props;
 
     return (
         <div className="admin-dashboard">
@@ -122,19 +122,16 @@ const AdminStoresMenuCreateView = props => {
                             <PanelBody>
                                 <Form onSubmit={handleFormSubmit}>
                                     <FormField label="Pilih Store">
-                                         <SelectSpecial name="store"  onChange={(e) => handleInputChangeSpecial('newMenuProductSpecial', e) }>
-                                         
-                                         {console.log(newMenuProduct)}
-                                         {/* <SelectSpecial name="store"  onChange={(e) => handleInputChange('newMenuProduct', e) }> */}
-                                            <option>Pilih Store</option>
+                                         {/* <SelectSpecial name="store"  onChange={(e) => handleInputChangeSpecial('newMenuProductSpecial', e) }> */}
+                                         <SelectSpecial name="store"  onChange={(e) => handleInputChange('newMenuProduct', e) }>
+                                            <option> {nameStore ? nameStore : "Pilih Store"}</option>
                                             {
                                                 store.list.isLoaded ? store.list.data.data.result.store.map((item, i) => {
 
                                                     return (
-                                                        <option value={item}>{item.name}</option> 
+                                                        <option value={item.id}>{item.name}</option> 
                                                         // <option value={item.type.id} key={item}>{item.id}. {item.name}</option> 
                                                     )
-                                                   
                                                 })
                                                 : null
                                             }

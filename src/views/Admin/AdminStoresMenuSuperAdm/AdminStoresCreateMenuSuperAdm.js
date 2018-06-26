@@ -81,7 +81,7 @@ class AdminStoresCreateMenuSuperAdm extends Component {
                     ...this.state,
                     storeList: store.list.isLoaded ? store.list.data.data.result.store : null
                 });
-            }
+            };
 
             //Get Type Store from Dropdownlist
             if(store.list.isLoaded){

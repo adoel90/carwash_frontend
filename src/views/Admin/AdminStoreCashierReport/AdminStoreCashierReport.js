@@ -10,7 +10,7 @@ import { getReportStoreCashierMember, getReportStoreCashierMemberPrint} from '..
 
 function mapStateToProps(state) {
     return {
-        store: state.store
+        store: state.store,
     };
 }
 

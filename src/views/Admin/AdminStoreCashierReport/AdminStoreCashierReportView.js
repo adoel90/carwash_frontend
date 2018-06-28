@@ -14,14 +14,15 @@ import { Modal, ModalHeader, ModalBody, ModalFooter } from '../../../components/
 
 const AdminStoreCashierReportView = props => {
 
-    const { showDate, table, period, report, handlePeriodChange, store, handlePrint} = props;
+    const { showDate, table, period, report, handlePeriodChange, store, handlePrint, user } = props;
 
 
     return (
         <div className="admin-report">
-             <Panel>
+            <Panel>
                 <PanelHeader>
-                    <h4 className="heading-title">Laporan</h4>
+                    {console.log(props)}
+                    <h4 className="heading-title">{user.level.name === "Superadmin" ? "Laporan Kasir" : "Kasir"}</h4>
                 </PanelHeader>
                 <PanelBody>
                     <Form onSubmit={showDate}>
@@ -62,14 +63,14 @@ const AdminStoreCashierReportView = props => {
                                 </div>
                                 <div>
                                     <FormField>
-                                        <Button type="submit" style={{height: '50px'}}>
+                                        <Button type="submit" style={{ height: '50px' }}>
                                             Cari
                                         </Button>
                                     </FormField>
                                 </div>
                                 <div>
                                     <FormField>
-                                        <Button onClick={() => handlePrint(period)} theme="danger" className="margin-right-small" type="submit" style={{height: '50px', 'margin-left': '3px'}}>
+                                        <Button onClick={() => handlePrint(period)} theme="danger" className="margin-right-small" type="submit" style={{ height: '50px', 'margin-left': '3px' }}>
                                             Print
                                         </Button>
                                     </FormField>
@@ -85,7 +86,7 @@ const AdminStoreCashierReportView = props => {
                             loaded={store.reportCashierMember.isLoaded}
                             columns={table.columns}
                             rows={table.rows}
-                            striped 
+                            striped
                             fullWidth
                             pagination
                         />

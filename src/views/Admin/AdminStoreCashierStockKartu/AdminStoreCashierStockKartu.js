@@ -41,12 +41,12 @@ class AdminStoreCashierStockKartu extends Component {
         this.state = {
             activeTab: 0,
             storeIdTab: {},
+            storeNameTab:{},
             cardType : [
                 { id : 3, name: "Taxi Online", status: true },
                 { id : 2, name: "Non Member", status: true },
                 { id : 1, name: "Member", status: true }
             ],
-
             table: {
                 columns: [],
                 rows: [],
@@ -64,16 +64,16 @@ class AdminStoreCashierStockKartu extends Component {
         getStoreListDispatch();
 
         //#
-        this.setState({
-            activeTab: 1
-        }, () => {
-            let requireData = {
-                id: this.state.activeTab + 1 // ==> Type "Non-Member"
-            };
+        // this.setState({
+        //     activeTab: 1
+        // }, () => {
+        //     let requireData = {
+        //         id: this.state.activeTab + 1 // ==> Type "Non-Member"
+        //     };
 
-            const { getStockListNewCardDispatch } = this.props;
-            getStockListNewCardDispatch(requireData);
-        });
+        //     const { getStockListNewCardDispatch } = this.props;
+        //     getStockListNewCardDispatch(requireData);
+        // });
     };
 
     componentDidUpdate(prevProps){
@@ -86,19 +86,16 @@ class AdminStoreCashierStockKartu extends Component {
                     ...this.state,
                     listStockNewCard: card.list.data.result
                 },() => {
-                  
                   this.populateTableData();
                 })
             }
         }   
-    }
+    };
 
     //#
     handleCopyNumberCard = (row) => {
         console.log(row.number);
         console.log("Fire API delete ");
-
-
     };
 
     //#
@@ -116,9 +113,8 @@ class AdminStoreCashierStockKartu extends Component {
             id: data.id
         };
 
-        const { getStockListNewCardDispatch } = this.props;
-        getStockListNewCardDispatch(requireData);
-        
+        this.props.card.list.isCreated = false;
+
         //#
         this.setState({
             activeTab: tabIndex
@@ -153,7 +149,6 @@ class AdminStoreCashierStockKartu extends Component {
 
         if(card.list.isCreated){
             card.list.data.result.forEach((value) => {
-
                 let row = {
                     number: value.c_id
                 };
@@ -173,9 +168,7 @@ class AdminStoreCashierStockKartu extends Component {
 
     //#
     handleCetakCardNumber = (e) => {
-
         e.preventDefault();
-
         const { activeTab, tabIndex } = this.state;
         const { getStockListNewCardDispatch } = this.props;
 
@@ -193,6 +186,7 @@ class AdminStoreCashierStockKartu extends Component {
             let requireData = { id: 1 }; //Member : 1
             getStockListNewCardDispatch(requireData);
         }
+
     }
 
     render() {
@@ -234,6 +228,7 @@ class AdminStoreCashierStockKartu extends Component {
                  </Nav>
                 
                 {/* RENDER CONTENT BASED ON ID STORE */}
+                
                 {renderTabContent()}
             </div>
         )

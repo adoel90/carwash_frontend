@@ -14,7 +14,6 @@ import { Button } from '../../../components/Button';
 const AdminStoresMenuCreateView = props => {
 
     const renderSomething = () => {
-
         if(typeStore === 1 ){
             return(
                 <div>
@@ -100,6 +99,7 @@ const AdminStoresMenuCreateView = props => {
                             />
                         </InputGroup>
                     </FormField>
+                    <Button type="submit">Simpan</Button>
                 </div>
            )
        } else { 
@@ -135,9 +135,6 @@ const AdminStoresMenuCreateView = props => {
                                                 })
                                                 : null
                                             }
-
-                                            
-
                                         </SelectSpecial>
                                     </FormField>
                                     {renderSomething()}

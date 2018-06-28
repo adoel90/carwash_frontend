@@ -7,7 +7,7 @@ import {Button} from '../../../components/Button';
 
 const AdminStoreCashierStockKartuView = props => {
 
-    const { cardType, table, vendorState, handleCetakCardNumber, typeMember } = props;
+    const { cardType, table, vendorState, handleCetakCardNumber, typeMember, card } = props;
     return (
         <div className="admin-dashboard">
             <Section>
@@ -17,20 +17,22 @@ const AdminStoreCashierStockKartuView = props => {
                         {/* <h6 className="heading-subtitle">Non veniam do cupidatat culpa dolor consectetur fugiat dolore qui id amet ad incididunt.</h6> */}
                     </PanelHeader>
                     <PanelBody>
-
-                        {/* <Button onClick={(e) => handleCetakCardNumber(e)}>Cetak Seri Nomor Kartu</Button> */}
-
-                        <div className="admin-report__content">
-                            <TableSet
-                                // loading={vendorState.reportStaff.isFetching}
-                                loaded={vendorState.store.isLoaded}
-                                columns={table.columns}
-                                rows={table.rows}
-                                striped 
-                                fullWidth
-                                pagination
-                            />
-                        </div>     
+                        <Button onClick={(e) => handleCetakCardNumber(e)}>Cetak Seri Nomor Kartu</Button>
+                        {
+                            card.list.isCreated ?
+                                <div className="admin-report__content">
+                                    <TableSet
+                                        // loading={vendorState.reportStaff.isFetching}
+                                        loaded={vendorState.store.isLoaded}
+                                        columns={table.columns}
+                                        rows={table.rows}
+                                        striped 
+                                        fullWidth
+                                        pagination
+                                    />
+                                </div>     
+                            : null
+                        }
                     </PanelBody>
                 </Panel>
             </Section>

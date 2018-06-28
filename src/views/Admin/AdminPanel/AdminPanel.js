@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import {
-
     // AdminDashboard, 
     AdminStoresEmployeeSuperAdm,
     AdminUser,
@@ -70,6 +69,8 @@ class AdminPanel extends Component {
         let menu = JSON.parse(localStorage.getItem('userData')).module;
         let mainRoute = {};
 
+        console.log(menu);
+
         if (menu[0].group === 'admin') {
             let routePage = [
 
@@ -98,6 +99,14 @@ class AdminPanel extends Component {
                 { name: 'create-new-staff', path: `${this.props.match.url}/staff/create-new-staff`, component: AdminStoresCreateEmployeeSuperAdm },
                 { name: 'product', path: `${this.props.match.url}/product`, component: AdminStoresMenuSuperAdm },
                 { name: 'create-new-product', path: `${this.props.match.url}/product/create-new-product`, component: AdminStoresCreateMenuSuperAdm },
+
+
+                //#Fussion Kasir & Superadmin
+                { name: 'topup', path: `${this.props.match.url}/topup`, component: AdminStoreCashierTopUp },
+                { name: 'new-card', path: `${this.props.match.url}/new-card`, component: AdminStoreCashierKartuBaru},
+                { name: 'stock-kartu', path: `${this.props.match.url}/new-card/stock-kartu`, component: AdminStoreCashierStockKartu },
+                { name: 'balance', path: `${this.props.match.url}/balance`, component: AdminStoreCashierCheckSaldo },
+                { name: 'refund', path: `${this.props.match.url}/refund`, component: AdminStoreCashierRefund },
                 { component: NoMatch }
             ];
             mainRoute = routePage;
@@ -159,7 +168,6 @@ class AdminPanel extends Component {
             }
 
         } else {
-
             mainRoute = [];
         }
 
@@ -177,7 +185,13 @@ class AdminPanel extends Component {
             let nameRouteReportSuperadmin = `${menu[i].name}`;
             let nameRouteReportStore = `${menu[i].name}`;
 
+            let nameRouteKasirSuperadmin = `${menu[i].name}`;
+
             let dataItems = [];
+
+            console.log(split);
+
+
 
             //#MENU LAPORAN PENNJUALAN STORE OWNER
             if (split.length === 1 && split[0] === "Laporan" && level.name === "Owner") {
@@ -232,69 +246,125 @@ class AdminPanel extends Component {
                     name: `${split[0]} Total Penjualan`,
                     path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}` : 'null'}`
                 };
-
                 if (menu[i].group === "all" && menu[i].path === "report") {
                     dataMenu.items.push(itemSeparateReport);
                 };
-
-                //Laporan Penjualan Store Superadmin 
-                // let laporanPenjualanStoreInSuperAdmin = {
-                //     name: `${split[0]} Penjualan Store`, 
-                //     path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}/report-penjualan-store-superadmin` : 'null'}`
-                // }
-
-                // if(menu[i].group === "all" && menu[i].path === "report"){
-                //     dataMenu.items.push(laporanPenjualanStoreInSuperAdmin);
-                // }
-
-                //Laporan Menu Favorit Superadmin
-                // let laporanMenuFavoritInSuperAdmin = {
-                //     name: `${split[0]} Menu Favorit`, 
-                //     path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}/report-menu-superadmin` : 'null'}`
-                // }
-
-                // if(menu[i].group === "all" && menu[i].path === "report"){
-                //     dataMenu.items.push(laporanMenuFavoritInSuperAdmin);
-                // }
 
                 //Laporan Kasir Superadmin
                 let laporanKasirInSuperAdmin = {
                     name: `${split[0]} Kasir`,
                     path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}/report-kasir-superadmin` : 'null'}`
-                }
+                };
 
                 if (menu[i].group === "all" && menu[i].path === "report") {
                     dataMenu.items.push(laporanKasirInSuperAdmin);
-                }
+                };
 
                 //Laporan Member
                 let laporanMember = {
                     name: `${split[0]} Member`,
                     path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}/report-member` : 'null'}`
-                }
+                };
 
                 if (menu[i].group === "all" && menu[i].path === "report") {
                     dataMenu.items.push(laporanMember);
-                }
+                };
 
+                //ISI ULANG KASIR
+                let isiUlangKasir = {
+                    name: `Isi Ulang`,
+                    path: `${this.props.match.url}${menu[i].path ? `/topup` : 'null'}`
+                };
 
-            } //# Features of KASIR
+                if (menu[i].group === "kasir" && menu[i].path === "topup") {
+                    dataMenu.items.push(isiUlangKasir);
+                };
+
+                // KARTU BARU KASIR - SUPERADMIN
+                let kartuBaruKasir = {
+                    name: `Kartu Baru`,
+                    path: `${this.props.match.url}${menu[i].path ? `/new-card` : 'null'}`
+                };
+
+                if (menu[i].group === "kasir" && menu[i].path === "new-card") {
+                    dataMenu.items.push(kartuBaruKasir);
+                };
+
+                //STOCK KARTU KASIR - SUPERADMIN
+                let stockKartuKasir = {
+                    name: `Stock Kartu`,
+                    path: `${this.props.match.url}${menu[i].path ? `/stock-kartu` : 'null'}`
+                };
+                
+                if (menu[i].group === "kasir" && menu[i].path === "stock-kartu") {
+                    dataMenu.items.push(stockKartuKasir);
+                };
+            }
+            //#ISI ULANG SUPERADMIN
+            // else if (split[0] === "Isi"){
+
+            //     dataMenu = {
+            //         category: nameCategory,
+            //         items: []
+            //     };
+
+            //     //ISI ULANG KASIR
+            //     let isiUlangKasir = {
+            //         name: `Isi Ulang`,
+            //         path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}` : 'null'}`
+            //     };
+
+            //     if (menu[i].group === "kasir" && menu[i].path === "topup") {
+            //         dataMenu.items.push(isiUlangKasir);
+            //     };
+
+            // }//#KARTU BARU SUPERADMIN
+            // else if(split[0] === "Kartu"){
+                
+            //     let linkItem = { name: nameRouteKasirSuperadmin, path: `${this.props.match.url}${menu[i].path ? '/' + menu[i].path : 'null'}` }
+
+            //     if (menu[i].path !== "new-card"){
+            //         dataMenu.items.push(linkItem)
+            //     };
+
+            //     dataMenu = {
+            //         category: nameCategory,
+            //         items: []
+            //     };
+
+            //     // KARTU BARU KASIR - SUPERADMIN
+            //     let kartuBaruKasir = {
+            //         name: `Kartu Baru`,
+            //         path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}` : 'null'}`
+            //         // path: `${this.props.match.url}${menu[i].path ? `/new-card` : 'null'}`
+            //     };
+
+            //     if (menu[i].group === "kasir" && menu[i].path === "new-card") {
+            //         dataMenu.items.push(kartuBaruKasir);
+                    
+            //     };
+
+            //     // //STOCK KARTU KASIR - SUPERADMIN
+            //     // let stockKartuKasir = {
+            //     //     name: `Stock Kartu`,
+            //     //     path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}` : 'null'}`
+            //     //     // path: `${this.props.match.url}${menu[i].path ? `/new-card` : 'null'}`
+            //     // };
+                
+            //     // if (menu[i].group === "kasir" && menu[i].path === "stock-kartu") {
+            //     //     dataMenu.items.push(stockKartuKasir);
+            //     // };
+            // }
+            
+            
+            //# Features of KASIR
             else if (split.length === 2 && split[0] === "Kartu" && level.name === "Kasir") {
 
+                // console.log(split)
                 dataMenu = {
                     category: nameCategory,
                     items: []
                 }
-
-                //#Feature Kartu Baru (OLD)
-                // let kartuBaru = {
-                //     name: `${split[0]} Baru`, 
-                //     path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}` : 'null'}`
-                // };
-
-                // if(menu[i].group === "kasir"){
-                //     dataMenu.items.push(kartuBaru);
-                // };
 
                 //#Feature Kartu Baru -New Card (NEW)
                 let kartuBaruNew = {
@@ -311,7 +381,7 @@ class AdminPanel extends Component {
                     name: `Stock ${split[0]}`,
                     path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}/stock-kartu` : 'null'}`
                 };
-
+    
                 if (menu[i].group === "kasir") {
                     dataMenu.items.push(stockKartuBaru);
                 };
@@ -338,6 +408,7 @@ class AdminPanel extends Component {
                 if (menu[i].group === "store") {
                     dataMenu.items.push(itemSeperate);
                 }
+
             } else {
                 dataMenu = {
                     category: menu[i].name,

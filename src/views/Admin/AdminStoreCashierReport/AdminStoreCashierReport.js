@@ -45,7 +45,7 @@ class AdminStoreCashierReport extends Component {
             printDataDetail:{},
             statusPrintData: null
         }
-    }
+    };
 
     componentDidMount(){
         const {getReportStoreCashierMemberDispatch, user} = this.props;
@@ -77,7 +77,7 @@ class AdminStoreCashierReport extends Component {
                 })
             }
         }
-    }
+    };
 
     showDate = (e) => {
         e.preventDefault();

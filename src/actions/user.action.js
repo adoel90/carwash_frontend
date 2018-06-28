@@ -27,7 +27,9 @@ const accessToken = localStorage.getItem('accessToken') ? localStorage.getItem('
 export const getUserList = (e) => {
 	let data = {
 		access: e.access ? e.access : "",
-		active: e.active ? e.active : ""
+		active: e.active ? e.active : "",
+		// limit: e.limit,
+		// offset: e.offset
 	}
 	
 	return async dispatch => {

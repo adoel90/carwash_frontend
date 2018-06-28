@@ -12,102 +12,7 @@ import { Button } from '../../../components/Button';
 //Type Id 2 === F&B
 
 const AdminStoresMenuCreateView = props => {
-
-    const renderSomething = () => {
-        if(typeStore === 1 ){
-            return(
-                <div>
-                    <FormField label="Nama Produk">
-                        <InputGroup>
-                            <InputAddon>
-                                <i className="fas fa-clipboard-list"></i>
-                            </InputAddon>
-                            <Input name="name" type="text" placeholder="Masukkan nama produk" onChange={(e) => handleInputChange('newMenuProduct', e) } />
-                        </InputGroup>
-                    </FormField>
-     
-                        <FormField label="Deskripsi Produk">
-                        <InputGroup>
-                            <InputAddon>
-                                <i className="fas fa-clipboard-list"></i>
-                            </InputAddon>
-                            <Input name="deskripsi" type="text" placeholder="Masukkan deskripsi produk" onChange={(e) => handleInputChange('newMenuProduct', e) } />
-                        </InputGroup>
-                    </FormField>
-     
-                    <FormField label="Harga">
-                        <InputGroup>
-                            <InputAddon>
-                                <small class="fw-semibold tt-uppercase ls-base">Rp</small>
-                            </InputAddon>
-                            <InputCurrency 
-                                className="input"
-                                name="harga" 
-                                type="text" 
-                                placeholder="Masukan Harga Produk" 
-                                onChange={(e) => handleInputChange('newMenuProduct', e) } 
-                            />
-                        </InputGroup>
-                    </FormField>
-                    <FormField label= "Gambar Produk" >
-                        <InputGroup>
-                            <InputAddon>
-                                <i className="fas fa-images"></i>
-                            </InputAddon> 
-                            <Input className="input" name="image" type="file"  placeholder="Gambar Produk" onChange={(e) => handleImageChange(newMenuProduct, e) } />
-                        </InputGroup>
-                    </FormField>
-                    <FormField label="Penawaran Khusus">
-                            <SwitchSquare name="category" value={Boolean(newMenuProduct.category)} onChange={(e) => handleInputChange('newMenuProduct', e)} />
-                    </FormField>
-
-                    <Button type="submit">Simpan</Button>
-                </div>
-            )
-       } else if(typeStore === 2){
-           return (
-               <div>
-                    <FormField label="Nama Produk">
-                        <InputGroup>
-                            <InputAddon>
-                                <i className="fas fa-clipboard-list"></i>
-                            </InputAddon>
-                            <Input name="name" type="text" placeholder="Masukkan nama produk" onChange={(e) => handleInputChange('newMenuProduct', e) } />
-                        </InputGroup>
-                    </FormField>
-     
-                        <FormField label="Deskripsi Produk">
-                        <InputGroup>
-                            <InputAddon>
-                                <i className="fas fa-clipboard-list"></i>
-                            </InputAddon>
-                            <Input name="deskripsi" type="text" placeholder="Masukkan deskripsi produk" onChange={(e) => handleInputChange('newMenuProduct', e) } />
-                        </InputGroup>
-                    </FormField>
-     
-                    <FormField label="Harga">
-                        <InputGroup>
-                            <InputAddon>
-                                <small class="fw-semibold tt-uppercase ls-base">Rp</small>
-                            </InputAddon>
-                            <InputCurrency 
-                                className="input"
-                                name="harga" 
-                                type="text" 
-                                placeholder="Masukan Harga Produk" 
-                                onChange={(e) => handleInputChange('newMenuProduct', e) } 
-                            />
-                        </InputGroup>
-                    </FormField>
-                    <Button type="submit">Simpan</Button>
-                </div>
-           )
-       } else { 
-           console.log("Can not get type of Store");
-       }
-
-    }
-    
+ 
     const { handleFormSubmit, handleInputChange, handleInputChangeSpecial, newMenuProduct, newMenuProductSpecial, handleImageChange, store, storeList, typeStore, nameStore } = props;
 
     return (
@@ -137,9 +42,52 @@ const AdminStoresMenuCreateView = props => {
                                             }
                                         </SelectSpecial>
                                     </FormField>
-                                    {renderSomething()}
 
-                                   
+                                    {/* {renderSomething()} */}
+                                    <FormField label="Nama Produk">
+                                        <InputGroup>
+                                            <InputAddon>
+                                                <i className="fas fa-clipboard-list"></i>
+                                            </InputAddon>
+                                            <Input name="name" type="text" placeholder="Masukkan nama produk" onChange={(e) => handleInputChange('newMenuProduct', e) } />
+                                        </InputGroup>
+                                    </FormField>
+                    
+                                        <FormField label="Deskripsi Produk">
+                                        <InputGroup>
+                                            <InputAddon>
+                                                <i className="fas fa-clipboard-list"></i>
+                                            </InputAddon>
+                                            <Input name="deskripsi" type="text" placeholder="Masukkan deskripsi produk" onChange={(e) => handleInputChange('newMenuProduct', e) } />
+                                        </InputGroup>
+                                    </FormField>
+                    
+                                    <FormField label="Harga">
+                                        <InputGroup>
+                                            <InputAddon>
+                                                <small class="fw-semibold tt-uppercase ls-base">Rp</small>
+                                            </InputAddon>
+                                            <InputCurrency 
+                                                className="input"
+                                                name="harga" 
+                                                type="text" 
+                                                placeholder="Masukan Harga Produk" 
+                                                onChange={(e) => handleInputChange('newMenuProduct', e) } 
+                                            />
+                                        </InputGroup>
+                                    </FormField>
+                                    <FormField label= "Gambar Produk" >
+                                        <InputGroup>
+                                            <InputAddon>
+                                                <i className="fas fa-images"></i>
+                                            </InputAddon> 
+                                            <Input className="input" name="image" type="file"  placeholder="Gambar Produk" onChange={(e) => handleImageChange(newMenuProduct, e) } />
+                                        </InputGroup>
+                                    </FormField>
+                                    <FormField label="Penawaran Khusus">
+                                            <SwitchSquare name="category" value={Boolean(newMenuProduct.category)} onChange={(e) => handleInputChange('newMenuProduct', e)} />
+                                    </FormField>
+                                    <Button type="submit">Simpan</Button>
                                 </Form>
                             </PanelBody>
                         </Panel>

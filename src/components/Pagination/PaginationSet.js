@@ -37,7 +37,11 @@ class PaginationSet extends Component {
             activePage,
             total,
             onPageChange,
+            currentActive
         } = this.props;
+
+        console.log(currentActive);
+        console.log(activePage);
         
         const renderPagers = () => {
             let page = 1;

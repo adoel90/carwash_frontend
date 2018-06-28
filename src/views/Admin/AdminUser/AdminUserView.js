@@ -5,7 +5,7 @@ import { Form, FormField } from '../../../layouts/Form';
 import { Row, Column } from '../../../layouts/Grid';
 import { Input, InputGroup, InputAddon, Switch, Select } from '../../../components/Input';
 import { Panel, PanelHeader, PanelBody } from '../../../components/Panel';
-import { TableSet, TableSetOld } from '../../../components/Table';
+import { TableSet, TableSetOld, TableSetKhusus } from '../../../components/Table';
 import { Button } from '../../../components/Button';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from '../../../components/Modal';
 
@@ -16,10 +16,15 @@ const AdminUserView = props => {
         userList,
         toggleModal,
         handleInputChange,
+        handleSearchPaginationSecond,
+        handleClickPagination,
         updateUser,
         selectedUser,
         access,
-        search
+        search,
+        handleGetCurrentActivePage,
+        currentActive,
+        postCurrentActivePage
     } = props;
 
     const renderUserDetailModal = () => {
@@ -103,6 +108,7 @@ const AdminUserView = props => {
         }
     }
 
+    
     return (
         <div className="admin-user">
             <Panel>
@@ -112,7 +118,7 @@ const AdminUserView = props => {
                 </PanelHeader>
                 <PanelBody>
                     <div className="admin-user__content">
-                        <TableSet
+                        <TableSetKhusus
                             loading={userList.isFetching}
                             loaded={userList.isLoaded}
                             columns={table.columns}
@@ -125,7 +131,12 @@ const AdminUserView = props => {
                             searchBy={search.searchBy}
                             searchParams={table.searchParams}
                             handleInputChange={handleInputChange}
+                            handleSearchPaginationSecond= {handleSearchPaginationSecond}
+                            handleClickPagination= { handleClickPagination}
+                            getCurrentActivePage = { handleGetCurrentActivePage }
+                            postCurrentActivePage = { postCurrentActivePage }
                             {...props}
+                            
                         />
                     </div>
                 </PanelBody>

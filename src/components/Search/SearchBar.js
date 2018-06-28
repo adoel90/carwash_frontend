@@ -18,7 +18,8 @@ class SearchBar extends Component {
 			onSearchChange,
 			searchBy,
 			searchParams,
-			search
+			search,
+			handleClickPagination
 		
 		} = this.props;
 
@@ -65,7 +66,7 @@ class SearchBar extends Component {
 		return (
 			<Form onSubmit={onSubmit} className={`${classes}`}>
                 <InputGroup>
-                    <InputAddon>
+                    <InputAddon >
                         <i className="fas fa-search"></i>
                     </InputAddon>
 					<Input

@@ -17,10 +17,14 @@ class AdminUser extends Component {
         this.toggleModal = this.toggleModal.bind(this);
         this.renderDialog = this.renderDialog.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleSearchPaginationSecond = this.handleSearchPaginationSecond.bind(this);
+        this.handleClickPagination = this.handleClickPagination.bind(this);
         this.openUserDetail = this.openUserDetail.bind(this);
         this.changeStatusUser = this.changeStatusUser.bind(this);
         this.updateUser = this.updateUser.bind(this);
         this.populateTableData = this.populateTableData.bind(this);
+        this.handleGetCurrentActivePage = this.handleGetCurrentActivePage.bind(this);
+
         this.state = {
             user: {},
             userList: {},
@@ -39,7 +43,9 @@ class AdminUser extends Component {
             },
             isModalOpen: {
                 updateUser: false
-            }
+            },
+            currentActive: null,
+            currentActiveLength: 0
         }
     }
 
@@ -140,7 +146,44 @@ class AdminUser extends Component {
         )
     }
 
+
+    handleGetCurrentActivePage(currentActivePage){
+        console.log("ACTIVE PAGE ANGELA");
+
+        this.setState({
+            ...this.state,
+            currentActive: currentActivePage
+        });
+    };
+
+    handleClickPagination = () => {
+        const { currentActive } = this.state;
+        console.log("Brr !!!");
+        console.log(currentActive);
+
+        this.setState({
+            ...this.state,
+            currentActive : 1
+        });
+
+    }
+    
+    handleSearchPaginationSecond = () => {
+        const { currentActive } = this.state;
+        console.log(currentActive);
+
+        this.setState({
+            ...this.state,
+            currentActive: 1
+        }, () => {
+            console.log(this.state.currentActive);
+            // this.props.postCurrentActivePage(this.state.currentActive);
+        });
+    };
+
     handleInputChange = (object, e) => {
+        
+        const { currentActive } = this.state;
 
         const target = e.target;
         const name = target.name;
@@ -151,7 +194,11 @@ class AdminUser extends Component {
             [object]: {
                 ...this.state[object],
                 [name]: value
-            }
+            },
+            currentActive:1
+            
+        }, () => {
+            console.log(this.state.currentActive);
         });
     }
 
@@ -166,10 +213,7 @@ class AdminUser extends Component {
 
     changeStatusUser = (row) => {
 
-        console.log(row);
-        const {
-            action
-        } = this.props;
+        const { action } = this.props;
 
         let requiredData = {
             id: row.data.id
@@ -308,7 +352,6 @@ class AdminUser extends Component {
             access : null,
             active : false
       }
-
         getUserList(requiredData);
     }
 
@@ -331,8 +374,11 @@ class AdminUser extends Component {
                     {...this.state}
                     {...this.props}
                     handleInputChange={this.handleInputChange}
+                    handleSearchPaginationSecond= { this.handleSearchPaginationSecond}
+                    handleClickPagination= {this.handleClickPagination}
                     updateUser={this.updateUser}
                     toggleModal={this.toggleModal}
+                    handleGetCurrentActivePage = {this.handleGetCurrentActivePage }
                 />
                 {this.renderDialog()}
             </div>

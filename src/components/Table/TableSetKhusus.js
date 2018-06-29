@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Table, TableHead, TableBody } from '../Table';
-import { PaginationSet } from '../Pagination';
+import { PaginationSet, PaginationSetKhusus } from '../Pagination';
 import { SearchBar } from '../Search';
 import Currency from '../Currency';
 
@@ -135,11 +135,12 @@ class TableSetKhusus extends Component {
 
         const renderTableBody = () => (
             <TableBody>
-                {renderTableRows()}
+                { search.searchText.length > 0 ? renderTableRows() : renderTableRows()}
             </TableBody>
         );
 
         const renderTableRows = () => {
+            
             if (loading) {
                 return <td colSpan={columns.length} style={{ padding: '30px', textAlign: 'center' }}>Tunggu sebentar, mengambil data dari sistem...</td>
             }
@@ -148,7 +149,7 @@ class TableSetKhusus extends Component {
                 /** Checks if rows has array items */
                 if (rows != null && rows.length) {
 
-                    if (hasSearchBar || searchParams || searchBy) {
+                    if (hasSearchBar || searchParams || searchBy || search.searchText.length > 0) {
                         let filteredRow = rows.filter((row) => {
 
                             if (row[searchBy]) {
@@ -217,8 +218,9 @@ class TableSetKhusus extends Component {
 
             if (pagination && rows != null) {
 
-                return <PaginationSet
+                return <PaginationSetKhusus
                     activePage={search.searchText.length > 0 ? currentActive : activePage}
+                    // activePage={activePage}
                     // total={rows.slice(lowerBound, upperBound).length} 
                     total={rows.length}
                     limit={limit}

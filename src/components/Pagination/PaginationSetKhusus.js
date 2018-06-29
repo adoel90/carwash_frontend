@@ -46,21 +46,46 @@ class PaginationSet extends Component {
             let page = 1;
             let pagers = [];
             
-            while(page <= pages) {
-                let pager = page;
-                
-                pagers.push(
-                    <PaginationItem>
-                        <PaginationLink 
-                            onClick={() => onPageChange(pager)} 
-                            active={pager === activePage}>
-                            {pager}
-                        </PaginationLink>
-                    </PaginationItem>
-                )
-                page++;
-            };
-        
+            console.log(currentActive);
+            console.log(activePage);
+
+            if(search.searchText.length > 0){
+
+                while(page <= pages) {
+                    let pager = page;
+                            
+                    pagers.push(
+                        <PaginationItem>
+                            <PaginationLink 
+                                onClick={() => onPageChange(pager)} 
+                                active={pager === currentActive}>
+                                {pager}
+                            </PaginationLink>
+                        </PaginationItem>
+                    )
+
+                    page++;
+                }
+            } else {
+
+                while(page <= pages) {
+                    let pager = page;
+                    
+                    pagers.push(
+                        <PaginationItem>
+                            <PaginationLink 
+                                onClick={() => onPageChange(pager)} 
+                                active={pager === activePage}>
+                                {pager}
+                            </PaginationLink>
+                        </PaginationItem>
+                    )
+    
+                    page++;
+                }
+            }
+
+
             return pagers;
         }
 

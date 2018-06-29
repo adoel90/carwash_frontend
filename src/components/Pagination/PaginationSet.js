@@ -37,31 +37,55 @@ class PaginationSet extends Component {
             activePage,
             total,
             onPageChange,
-            currentActive
+            currentActive,
+            search
         } = this.props;
 
-        console.log(currentActive);
-        console.log(activePage);
         
         const renderPagers = () => {
             let page = 1;
             let pagers = [];
             
-            while(page <= pages) {
-                let pager = page;
-                
-                pagers.push(
-                    <PaginationItem>
-                        <PaginationLink 
-                            onClick={() => onPageChange(pager)} 
-                            active={pager === activePage}>
-                            {pager}
-                        </PaginationLink>
-                    </PaginationItem>
-                )
+            
+            console.log(currentActive);
+            console.log(activePage);
+            console.log(search);
 
-                page++;
+            if(search.searchText.length > 0){
+                while(page <= pages) {
+                    let pager = page;
+                            
+                    pagers.push(
+                        <PaginationItem>
+                            <PaginationLink 
+                                onClick={() => onPageChange(pager)} 
+                                active={pager === currentActive}>
+                                {pager}
+                            </PaginationLink>
+                        </PaginationItem>
+                    )
+
+                    page++;
+                        }
+            } else {
+
+                while(page <= pages) {
+                    let pager = page;
+                    
+                    pagers.push(
+                        <PaginationItem>
+                            <PaginationLink 
+                                onClick={() => onPageChange(pager)} 
+                                active={pager === activePage}>
+                                {pager}
+                            </PaginationLink>
+                        </PaginationItem>
+                    )
+    
+                    page++;
+                }
             }
+
 
             return pagers;
         }

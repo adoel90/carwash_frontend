@@ -135,10 +135,11 @@ class AdminStoreCashierReport extends Component {
                 let row = {
                     // id: value.id,
                     kasirName: value.user.name,
-                    transaction_date: moment(value.transaction_date).format('DD-MM-YYYY'),
+                    transaction_date: moment(value.transaction_date).format('DD MMM YYYY'),
                     description: value.description,
                     total: value.total
                 }
+
                 rows.push(row);
             })
         }

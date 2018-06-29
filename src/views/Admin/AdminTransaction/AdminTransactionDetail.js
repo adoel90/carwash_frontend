@@ -66,6 +66,8 @@ class AdminTransactionDetail extends Component {
 							fullWidth
 							{...this.props}
 						/>
+
+						{/* Diskon and Markup Feature */}
 						<Row className="flex justify-content--space-between padding-top-small">
 							<Column md={10}>
 								<small className="tt-uppercase ls-base fw-bold">Diskon %</small>

@@ -37,7 +37,8 @@ class TableSetKhusus extends Component {
             ...this.state,
             activePage: page
         }, () => {
-            this.props.getCurrentActivePage(this.state.activePage);
+            // this.props.getCurrentActivePage(this.state.activePage);
+            // console.log(this.state.activePage); 
         });
     };
 
@@ -148,26 +149,29 @@ class TableSetKhusus extends Component {
             if (loaded) {
                 /** Checks if rows has array items */
                 if (rows != null && rows.length) {
-
                     if (hasSearchBar || searchParams || searchBy || search.searchText.length > 0) {
                         let filteredRow = rows.filter((row) => {
-
                             if (row[searchBy]) {
                                 return row[searchBy].toString().toLowerCase().includes(search.searchText.toLowerCase())
                             }
                         });
 
-
                         if (!filteredRow.length) {
                             return <span colSpan={columns.length} style={{ padding: '30px', textAlign: 'center' }}>Data tidak ditemukan</span>
                         }
 
+                        // console.log(filteredRow);
+
                         return filteredRow
                             .slice(lowerBound, upperBound)
                             .map((row, i) => {
-                                return <tr key={i}>{renderTableCell(row)}</tr>
+                                return (
+                                    <tr key={i}>{renderTableCell(row)}</tr>
+                                  
+                                )
+                                
                             })
-                    }
+                    };
 
                     return rows
                         .slice(lowerBound, upperBound)
@@ -181,11 +185,14 @@ class TableSetKhusus extends Component {
         }
 
         const renderTableCell = (row) => {
+
+            console.log(row);
+
             return columns.map((column, i) => {
 
                 if (column.render) {
                     return column.render(row);
-                }
+                };
 
                 for (var key in row) {
                     if (column.accessor == key) {

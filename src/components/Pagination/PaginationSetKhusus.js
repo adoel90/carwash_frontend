@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Pagination, PaginationList, PaginationItem, PaginationLink } from '../Pagination';
 
 class PaginationSet extends Component {
+
     constructor() {
         super();
         this.updatePagination = this.updatePagination.bind(this);
@@ -11,7 +12,6 @@ class PaginationSet extends Component {
     }
 
     componentDidUpdate = (prevProps) => {
-
         if(prevProps.total !== this.props.total) {
             this.updatePagination();
         }
@@ -19,7 +19,6 @@ class PaginationSet extends Component {
 
     updatePagination = () => {        
         const { total, limit } = this.props;
-    
         const pages = Math.ceil(total / limit);
 
         this.setState({
@@ -29,9 +28,7 @@ class PaginationSet extends Component {
     };
 
     render() {
-        const {
-            pages 
-        } = this.state;
+        const { pages } = this.state;
         
         const {
             activePage,

@@ -198,7 +198,7 @@ class AdminUser extends Component {
             currentActive:1
             
         }, () => {
-            console.log(this.state.currentActive);
+            // console.log(this.state.currentActive);
         });
     }
 

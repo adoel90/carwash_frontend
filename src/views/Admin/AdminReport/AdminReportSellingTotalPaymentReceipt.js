@@ -52,7 +52,7 @@ class AdminReportSellingTotalPaymentReceipt extends Component {
                         <div className="receipt-header ta-center margin-bottom-small">
                             <div className="margin-bottom-small"></div>
                             <h1><b>805 CARWASH</b></h1>
-                            <h5>LAPORAN KASIR</h5>
+                            <h5>LAPORAN PENJUALAN TOKO</h5>
                         </div>
                         <div className="align-center margin-top-base margin-bottom-base">
                             <h5 className="fw-bold"><b>{storeStaffKasirName}</b></h5>

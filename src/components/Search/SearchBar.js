@@ -58,10 +58,7 @@ class SearchBar extends Component {
 			)
 		}
 
-		const renderSomethingSecond = () => {
-
-			
-		}
+		const renderSomethingSecond = () => {}
 
 		return (
 			<Form onSubmit={onSubmit} className={`${classes}`}>

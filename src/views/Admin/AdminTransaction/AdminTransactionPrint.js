@@ -20,7 +20,6 @@ class AdminTransactionPrint extends Component {
         
         const renderItem = (item, i) => {
             let totalPrice = parseFloat(item.totalPrice)+((parseFloat(item.totalPrice)*parseFloat(dataTransaction.markup))/100);
-
             return (
                 <tr>
                     <td className="padding-right-1">{item.quantity}</td>

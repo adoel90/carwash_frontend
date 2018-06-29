@@ -8,7 +8,14 @@ class AdmintTransactionPrintSecondary extends Component{
 
     render (){
 
-        const { storeState, statusPrintDataConfirm, selectedMenuItem, user, storeIdTab, grandTotal} = this.props
+        const { 
+            storeState, 
+            statusPrintDataConfirm, 
+            selectedMenuItem, 
+            user, 
+            dataTransaction,
+            storeIdTab, 
+            grandTotal} = this.props
 
         const tdThStyle = {
             'border-bottom': '3px solid #CCC',
@@ -18,6 +25,7 @@ class AdmintTransactionPrintSecondary extends Component{
         const tdStyle = { 'text-align': 'center' }
 
         const renderItem = (item, i) => {
+            let totalPrice = parseFloat(item.totalPrice)+((parseFloat(item.totalPrice)*parseFloat(dataTransaction.markup))/100);
 
             return (
                 <tr>
@@ -27,7 +35,7 @@ class AdmintTransactionPrintSecondary extends Component{
                         <NumberFormat
                             thousandSeparator={true}
                             displayType={'text'}
-                            value={item.price}
+                            value={totalPrice}
                         />
                     </td>
                 </tr>
@@ -82,7 +90,7 @@ class AdmintTransactionPrintSecondary extends Component{
                             <div className="margin-bottom-small">
                                 {/* <h5 className="fw-bold">{queueInvoice}</h5> */}
                             </div>
-                            <p className="fw-bold">805 Carwash</p>
+                            <p className="fw-bold">805 Carwash HAI HAI</p>
                             <p>Jln. Raya Pegangsaan 2 no 23-B <br/> 0896-0457-8309 <br/> 021-957-362-77</p>
                         </div>
                         <div className="align-center margin-top-base margin-bottom-base">

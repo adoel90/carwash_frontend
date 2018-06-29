@@ -5,7 +5,9 @@ import { ListGroup, ListGroupItem } from '../../../components/List';
 import NumberFormat from 'react-number-format';
 
 class AdminTransactionPrint extends Component {
+    
     render() {
+
         const {
             store,
             printData,
@@ -100,7 +102,6 @@ class AdminTransactionPrint extends Component {
         if(store.print.isPrinted) {
             if(printData.status === 200) {
 
-                console.log(this.props);
                 let storeStaffName = printData.status === 200 ? user.name : null;
                 let storeName =  printData.status === 200 ? storeIdTab.name : null;
 

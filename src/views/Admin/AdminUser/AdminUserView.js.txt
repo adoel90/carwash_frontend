@@ -9,16 +9,10 @@ import { TableSet, TableSetOld, TableSetKhusus } from '../../../components/Table
 import { Button } from '../../../components/Button';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from '../../../components/Modal';
 
-import BootstrapTable from 'react-bootstrap-table-next';
-import '../../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import filterFactory, { textFilter } from 'react-bootstrap-table2-filter';
-import paginationFactory from 'react-bootstrap-table2-paginator';
-
 const AdminUserView = props => {
     const {
         isModalOpen,
         table,
-        column,
         userList,
         toggleModal,
         handleInputChange,
@@ -32,49 +26,6 @@ const AdminUserView = props => {
         currentActive,
         postCurrentActivePage
     } = props;
-
-    const columns = [
-        {
-            filter: textFilter(),
-            text: 'Nama User',
-            dataField: 'name'
-           
-        }, 
-        {
-            text: 'Alamat Email',
-            dataField: 'email'
-        }, 
-        {
-            text: 'Level Akses',
-            dataField: 'accessLevel',
-            // align: 'center'
-        }, 
-        {
-            text: 'Status',
-            dataField: 'action',
-            // width: '30%',
-            // align: 'center',
-            // render: (row) => (
-            //     <td className="flex justify-content--center">
-            //         <Button className="margin-right-small" type="button" onClick={() => this.openUserDetail(row)}>Ubah</Button>
-            //         <Button type="button" theme={row.data.status ? "success" : "danger"} onClick={() => this.changeStatusUser(row)}>{ row.data.status ? 'Aktif' : 'Non Aktif' }</Button>
-            //     </td>
-            // )
-        }
-    ];
-
-    // const selectRow = {
-    //     mode: 'checkbox',
-    //     clickToSelect: true
-    // };
-
-    const rowEvent = {
-        onClick: (e, row, rowIndex) => {
-            console.log(row );
-        }
-    }
-
-
 
     const renderUserDetailModal = () => {
         if(selectedUser) {
@@ -166,20 +117,27 @@ const AdminUserView = props => {
                     {/* <h6 className="heading-subtitle">Menampilkan semua daftar user</h6> */}
                 </PanelHeader>
                 <PanelBody>
-                    <div className="admin-user__content">              
-                    {console.log(table)}
-                 
-                    <BootstrapTable 
-                        keyField='name' 
-                        data={ table.rows } 
-                        columns={ columns } 
-                        filter={ filterFactory() } 
-                        pagination={ paginationFactory() }
-                        bordered={false}
-                        // selectRow={selectRow}
-                        rowEvents = { rowEvent}
-                        striped hover /> 
-                   
+                    <div className="admin-user__content">
+                        <TableSetKhusus
+                            loading={userList.isFetching}
+                            loaded={userList.isLoaded}
+                            columns={table.columns}
+                            rows={table.rows}
+                            striped 
+                            fullWidth
+                            pagination
+                            placeholder="Cari user yang terdaftar"
+                            hasSearchBar
+                            searchBy={search.searchBy}
+                            searchParams={table.searchParams}
+                            handleInputChange={handleInputChange}
+                            handleSearchPaginationSecond= {handleSearchPaginationSecond}
+                            handleClickPagination= { handleClickPagination}
+                            getCurrentActivePage = { handleGetCurrentActivePage }
+                            postCurrentActivePage = { postCurrentActivePage }
+                            {...props}
+                            
+                        />
                     </div>
                 </PanelBody>
             </Panel>

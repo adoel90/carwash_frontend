@@ -8,7 +8,7 @@ import { Form, FormField } from '../../../layouts/Form';
 import { Row, Column } from '../../../layouts/Grid';
 import { Input, InputGroup, InputAddon, Switch, Textarea } from '../../../components/Input';
 import { Panel, PanelHeader, PanelBody } from '../../../components/Panel';
-import { TableSet } from '../../../components/Table';
+import { TableSet, TableSetKhusus} from '../../../components/Table';
 import { Button } from '../../../components/Button';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from '../../../components/Modal';
 
@@ -96,7 +96,7 @@ const AdminMemberView = props => {
                                     <PanelBody>
                                           <Column md={10}>
                                                 <div className="admin-Member__content">
-                                                      <TableSet
+                                                      <TableSetKhusus
                                                             loading={memberList.isFetching}
                                                             loaded={memberList.isLoaded}
                                                             columns={table.columns}

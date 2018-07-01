@@ -59,10 +59,10 @@ class AdmintTransactionPrintSecondary extends Component{
             return (
                 <table style={{width: '100%'}}>
                     <tbody>
-                        <tr className="padding-bottom-small">
-                            {/* <td>{dataDiscount != 0 ? "Diskon :" : null}</td> */}
+                        <tr>
+                            <td>{dataTransaction.discount != 0 ? "Diskon :" : null}</td>
                             <td className="ta-right">
-                                {/* <p>{dataDiscount != 0 ? dataDiscount + "%" : null}</p> */}
+                                {dataTransaction.discount != 0 ? dataTransaction.discount + "%": null}
                             </td>
                         </tr>
                         <tr className="padding-bottom-small">
@@ -90,7 +90,7 @@ class AdmintTransactionPrintSecondary extends Component{
                             <div className="margin-bottom-small">
                                 {/* <h5 className="fw-bold">{queueInvoice}</h5> */}
                             </div>
-                            <p className="fw-bold">805 Carwash HAI HAI</p>
+                            <p className="fw-bold">805 Carwash</p>
                             <p>Jln. Raya Pegangsaan 2 no 23-B <br/> 0896-0457-8309 <br/> 021-957-362-77</p>
                         </div>
                         <div className="align-center margin-top-base margin-bottom-base">

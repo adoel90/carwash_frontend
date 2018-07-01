@@ -5,7 +5,7 @@ import { Form, FormField } from '../../../layouts/Form';
 import { Row, Column } from '../../../layouts/Grid';
 import { Input, InputGroup, InputAddon, Switch, Select } from '../../../components/Input';
 import { Panel, PanelHeader, PanelBody } from '../../../components/Panel';
-import { TableSet } from '../../../components/Table';
+import { TableSet, TableSetKhusus } from '../../../components/Table';
 import { Button } from '../../../components/Button';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from '../../../components/Modal';
 import { PageBlock } from '../../../components/Page';
@@ -149,7 +149,7 @@ const AdminReportMemberView = props => {
                 </PageBlock><br />
 
                 <div className="admin-report__content">
-                    <TableSet
+                    <TableSetKhusus
                         loading={report.reportMember.isFetching}
                         loaded={report.reportMember.isLoaded}
                         columns={table.columns}

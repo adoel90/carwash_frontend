@@ -13,7 +13,7 @@ class TableSetKhusus extends Component {
         this.handlePageChange = this.handlePageChange.bind(this);
         this.renderTableSearchBar = this.renderTableSearchBar.bind(this);
         this.handleResetPagination = this.handleResetPagination.bind(this);
-        this.handleClickPagination = this.handleClickPagination.bind(this);
+        // this.handleClickPagination = this.handleClickPagination.bind(this);
         // this.handleSearchPaginationSecond = this.handleSearchPaginationSecond.bind(this);
 
         this.state = {
@@ -40,16 +40,15 @@ class TableSetKhusus extends Component {
         });
     };
 
-    handleClickPagination = (e) => {
-        e.preventDefault();
-        const { activePage } = this.state;
-        console.log("Brr !!!");
+    // handleClickPagination = () => {
+    //     const { activePage } = this.state;
+    //     console.log("Brr !!!");
 
-        this.setState({
-            ...this.state,
-            activePage : 1
-        });
-    }
+    //     // this.setState({
+    //     //     ...this.state,
+    //     //     activePage : 1
+    //     // });
+    // }
 
     renderTableSearchBar = () => {
 
@@ -60,13 +59,10 @@ class TableSetKhusus extends Component {
             placeholder,
             searchParams,
             handleInputChange,
+            handleClickPagination,
             handleSearchPaginationSecond,
             currentActive,
         } = this.props;
-
-
-        // console.log(handleSearchPaginationSecond);
-        // console.log(handleInputChange);
 
         return (
 
@@ -79,7 +75,7 @@ class TableSetKhusus extends Component {
                     className="margin-bottom-large"
                     searchBy={searchBy}
                     searchParams={searchParams}
-                    handleClickPagination={this.handleClickPagination}
+                    handleClickPagination={handleClickPagination}
                     // handleResetPagination= {(e) => handleResetPagination(e)}
                     {...this.state}
                     {...this.props}

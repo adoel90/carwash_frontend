@@ -16,14 +16,11 @@ const AdminUserView = props => {
         userList,
         toggleModal,
         handleInputChange,
-        handleSearchPaginationSecond,
         handleClickPagination,
         updateUser,
         selectedUser,
         access,
-        search,
-        currentActive,
-        
+        search
     } = props;
 
     const renderUserDetailModal = () => {
@@ -130,12 +127,8 @@ const AdminUserView = props => {
                             searchBy={search.searchBy}
                             searchParams={table.searchParams}
                             handleInputChange={handleInputChange}
-                            handleSearchPaginationSecond= {handleSearchPaginationSecond}
-                            handleClickPagination= { handleClickPagination}
-                            
-                    
+                            handleClickPagination= {handleClickPagination}
                             {...props}
-                            
                         />
                     </div>
                 </PanelBody>

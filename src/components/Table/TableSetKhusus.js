@@ -42,14 +42,13 @@ class TableSetKhusus extends Component {
 
     handleClickPagination = (e) => {
         e.preventDefault();
-        const { currentActive } = this.state;
+        const { activePage } = this.state;
         console.log("Brr !!!");
-        // console.log(currentActive);
 
-        // this.setState({
-        //     ...this.state,
-        //     currentActive : 1
-        // });
+        this.setState({
+            ...this.state,
+            activePage : 1
+        });
     }
 
     renderTableSearchBar = () => {
@@ -80,7 +79,7 @@ class TableSetKhusus extends Component {
                     className="margin-bottom-large"
                     searchBy={searchBy}
                     searchParams={searchParams}
-                    onhandleClickPagination={this.handleClickPagination}
+                    handleClickPagination={this.handleClickPagination}
                     // handleResetPagination= {(e) => handleResetPagination(e)}
                     {...this.state}
                     {...this.props}

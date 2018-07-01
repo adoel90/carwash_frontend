@@ -34,8 +34,10 @@ class PaginationSet extends Component {
             activePage,
             total,
             onPageChange,
+            onHandleResetPagination,
             currentActive,
-            search
+            search,
+            onChange
         } = this.props;
 
         
@@ -43,18 +45,18 @@ class PaginationSet extends Component {
             let page = 1;
             let pagers = [];
             
-            console.log(currentActive);
-            console.log(activePage);
+            // console.log(currentActive);
+            // console.log(activePage);
 
             if(search.searchText.length > 0){
-
                 while(page <= pages) {
                     let pager = page;
                             
                     pagers.push(
                         <PaginationItem>
                             <PaginationLink 
-                                onClick={() => onPageChange(pager)} 
+                                // onClick={() =>  onPageChange(pager)} 
+                                onClick={() =>  onHandleResetPagination()} 
                                 active={pager === currentActive}>
                                 {pager}
                             </PaginationLink>

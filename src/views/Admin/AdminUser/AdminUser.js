@@ -17,13 +17,12 @@ class AdminUser extends Component {
         this.toggleModal = this.toggleModal.bind(this);
         this.renderDialog = this.renderDialog.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
-        this.handleSearchPaginationSecond = this.handleSearchPaginationSecond.bind(this);
-        this.handleClickPagination = this.handleClickPagination.bind(this);
+        // this.handleClickPagination = this.handleClickPagination.bind(this);
         this.openUserDetail = this.openUserDetail.bind(this);
         this.changeStatusUser = this.changeStatusUser.bind(this);
         this.updateUser = this.updateUser.bind(this);
         this.populateTableData = this.populateTableData.bind(this);
-        this.handleGetCurrentActivePage = this.handleGetCurrentActivePage.bind(this);
+        // this.handleGetCurrentActivePage = this.handleGetCurrentActivePage.bind(this);
 
         this.state = {
             user: {},
@@ -44,9 +43,7 @@ class AdminUser extends Component {
             isModalOpen: {
                 updateUser: false
             },
-            currentActive: null,
-            currentActiveLength: 0,
-           
+            currentActiveLength: 0
         }
     }
 
@@ -68,7 +65,6 @@ class AdminUser extends Component {
             this.setState({
                 ...this.state,
                 userList: user.list
-                // userList: user.list.isLoaded ? user.list.data.data.result : null
             }, () => {
                 this.populateTableData();
             });
@@ -148,40 +144,26 @@ class AdminUser extends Component {
         )
     }
 
+    // handleGetCurrentActivePage(currentActivePage){
+    //     console.log("ACTIVE PAGE ANGELA");
 
-    handleGetCurrentActivePage(currentActivePage){
-        console.log("ACTIVE PAGE ANGELA");
+    //     this.setState({
+    //         ...this.state,
+    //         currentActive: currentActivePage
+    //     });
+    // };
 
-        this.setState({
-            ...this.state,
-            currentActive: currentActivePage
-        });
-    };
+    // handleClickPagination = () => {
+    //     const { currentActive } = this.state;
+    //     console.log("Brr !!!");
+    //     console.log(currentActive);
 
-    handleClickPagination = () => {
-        const { currentActive } = this.state;
-        console.log("Brr !!!");
-        console.log(currentActive);
+    //     this.setState({
+    //         ...this.state,
+    //         currentActive : 1
+    //     });
+    // }
 
-        this.setState({
-            ...this.state,
-            currentActive : 1
-        });
-
-    }
-    
-    handleSearchPaginationSecond = () => {
-        const { currentActive } = this.state;
-        console.log(currentActive);
-
-        this.setState({
-            ...this.state,
-            currentActive: 1
-        }, () => {
-            console.log(this.state.currentActive);
-            // this.props.postCurrentActivePage(this.state.currentActive);
-        });
-    };
 
     handleInputChange = (object, e) => {
         
@@ -198,9 +180,6 @@ class AdminUser extends Component {
                 [name]: value
             },
             currentActive:1
-            
-        }, () => {
-            // console.log(this.state.currentActive);
         });
     }
 
@@ -293,35 +272,29 @@ class AdminUser extends Component {
 
     populateTableData = () => {
         const { userList } = this.state;
-
-
-        const columns = [
-            {
-                text: 'Nama User',
-                dataField: 'name'
-            }, 
-            {
-                text: 'Alamat Email',
-                dataField: 'email'
-            }, 
-            {
-                text: 'Level Akses',
-                dataField: 'accessLevel',
-                // align: 'center'
-            }, 
-            {
-                text: 'Status',
-                dataField: 'action',
-                // width: '30%',
-                // align: 'center',
-                // render: (row) => (
-                //     <td className="flex justify-content--center">
-                //         <Button className="margin-right-small" type="button" onClick={() => this.openUserDetail(row)}>Ubah</Button>
-                //         <Button type="button" theme={row.data.status ? "success" : "danger"} onClick={() => this.changeStatusUser(row)}>{ row.data.status ? 'Aktif' : 'Non Aktif' }</Button>
-                //     </td>
-                // )
-            }
-        ]
+        
+        const columns = [{
+            title: 'Nama User',
+            accessor: 'name'
+        }, {
+            title: 'Alamat Email',
+            accessor: 'email'
+        }, {
+            title: 'Level Akses',
+            accessor: 'accessLevel',
+            align: 'center'
+        }, {
+            title: 'Status',
+            accessor: 'action',
+            width: '30%',
+            align: 'center',
+            render: (row) => (
+                <td className="flex justify-content--center">
+                    <Button className="margin-right-small" type="button" onClick={() => this.openUserDetail(row)}>Ubah</Button>
+                    <Button type="button" theme={row.data.status ? "success" : "danger"} onClick={() => this.changeStatusUser(row)}>{ row.data.status ? 'Aktif' : 'Non Aktif' }</Button>
+                </td>
+            )
+        }]
 
         const rows = [] 
         
@@ -382,11 +355,10 @@ class AdminUser extends Component {
                     {...this.state}
                     {...this.props}
                     handleInputChange={this.handleInputChange}
-                    handleSearchPaginationSecond= { this.handleSearchPaginationSecond}
-                    handleClickPagination= {this.handleClickPagination}
+                    // handleClickPagination= {this.handleClickPagination}
                     updateUser={this.updateUser}
                     toggleModal={this.toggleModal}
-                    handleGetCurrentActivePage = {this.handleGetCurrentActivePage }
+                    // handleGetCurrentActivePage = {this.handleGetCurrentActivePage }
                 />
                 {this.renderDialog()}
             </div>

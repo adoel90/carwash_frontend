@@ -45,7 +45,8 @@ class AdminUser extends Component {
                 updateUser: false
             },
             currentActive: null,
-            currentActiveLength: 0
+            currentActiveLength: 0,
+           
         }
     }
 
@@ -67,6 +68,7 @@ class AdminUser extends Component {
             this.setState({
                 ...this.state,
                 userList: user.list
+                // userList: user.list.isLoaded ? user.list.data.data.result : null
             }, () => {
                 this.populateTableData();
             });
@@ -291,29 +293,35 @@ class AdminUser extends Component {
 
     populateTableData = () => {
         const { userList } = this.state;
-        
-        const columns = [{
-            title: 'Nama User',
-            accessor: 'name'
-        }, {
-            title: 'Alamat Email',
-            accessor: 'email'
-        }, {
-            title: 'Level Akses',
-            accessor: 'accessLevel',
-            align: 'center'
-        }, {
-            title: 'Status',
-            accessor: 'action',
-            width: '30%',
-            align: 'center',
-            render: (row) => (
-                <td className="flex justify-content--center">
-                    <Button className="margin-right-small" type="button" onClick={() => this.openUserDetail(row)}>Ubah</Button>
-                    <Button type="button" theme={row.data.status ? "success" : "danger"} onClick={() => this.changeStatusUser(row)}>{ row.data.status ? 'Aktif' : 'Non Aktif' }</Button>
-                </td>
-            )
-        }]
+
+
+        const columns = [
+            {
+                text: 'Nama User',
+                dataField: 'name'
+            }, 
+            {
+                text: 'Alamat Email',
+                dataField: 'email'
+            }, 
+            {
+                text: 'Level Akses',
+                dataField: 'accessLevel',
+                // align: 'center'
+            }, 
+            {
+                text: 'Status',
+                dataField: 'action',
+                // width: '30%',
+                // align: 'center',
+                // render: (row) => (
+                //     <td className="flex justify-content--center">
+                //         <Button className="margin-right-small" type="button" onClick={() => this.openUserDetail(row)}>Ubah</Button>
+                //         <Button type="button" theme={row.data.status ? "success" : "danger"} onClick={() => this.changeStatusUser(row)}>{ row.data.status ? 'Aktif' : 'Non Aktif' }</Button>
+                //     </td>
+                // )
+            }
+        ]
 
         const rows = [] 
         

@@ -63,8 +63,8 @@ class SearchBar extends Component {
 		return (
 			<Form onSubmit={onSubmit} className={`${classes}`}>
                 <InputGroup>
-                    <InputAddon >
-                        <i className="fas fa-search"></i>
+                    <InputAddon onCLick={handleClickPagination}>
+                        <i  className="fas fa-search"></i>
                     </InputAddon>
 					<Input
                         name="searchText"

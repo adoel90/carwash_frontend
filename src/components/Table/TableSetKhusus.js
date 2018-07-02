@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Table, TableHead, TableBody } from '../Table';
 import { PaginationSet, PaginationSetKhusus } from '../Pagination';
 import { SearchBar } from '../Search';
+import { SearchPagination } from '../SearchPagination';
 import Currency from '../Currency';
 
 class TableSetKhusus extends Component {
@@ -30,17 +31,24 @@ class TableSetKhusus extends Component {
     };
 
     handlePageChange = (page) => {
-        const { activePage } = this.props;
-        const { offset, limit } = this.state;
+        // const { activePage } = this.props;
+        const { offset, limit, activePage} = this.state;
 
         this.setState({
             ...this.state,
             activePage: page
-        }, () => {
-            // this.props.getCurrentActivePage(this.state.activePage);
-            // console.log(this.state.activePage); 
         });
     };
+
+    // handleClickPagination = () => {
+    //     const { activePage } = this.state;
+    //     console.log("Brr !!!");
+
+    //     // this.setState({
+    //     //     ...this.state,
+    //     //     activePage : 1
+    //     // });
+    // }
 
     renderTableSearchBar = () => {
 
@@ -51,30 +59,27 @@ class TableSetKhusus extends Component {
             placeholder,
             searchParams,
             handleInputChange,
+            handleClickPagination,
             handleSearchPaginationSecond,
             currentActive,
         } = this.props;
 
-
-        // console.log(handleSearchPaginationSecond);
-        // console.log(handleInputChange);
-
         return (
 
-            <SearchBar
-                value={search.searchText}
-                placeholder={placeholder}
-                handleInputChange={handleInputChange}
-                onChange={(e) => handleInputChange('search', e)}
-                onSearchChange={(e) => handleInputChange('search', e)}
-                className="margin-bottom-large"
-                searchBy={searchBy}
-                searchParams={searchParams}
-                handleSearchPaginationSecond={handleSearchPaginationSecond}
-                // handleResetPagination= {(e) => handleResetPagination(e)}
-                {...this.state}
-                {...this.props}
-            />
+                <SearchBar
+                    value={search.searchText}
+                    placeholder={placeholder}
+                    handleInputChange={handleInputChange}
+                    onChange={(e) => handleInputChange('search', e)}
+                    onSearchChange={(e) => handleInputChange('search', e)}
+                    className="margin-bottom-large"
+                    searchBy={searchBy}
+                    searchParams={searchParams}
+                    handleClickPagination={handleClickPagination}
+                    // handleResetPagination= {(e) => handleResetPagination(e)}
+                    {...this.state}
+                    {...this.props}
+                />
 
             // <div>
             //     <h1>Hai</h1>
@@ -99,15 +104,25 @@ class TableSetKhusus extends Component {
             searchParams,
             searchBy,
             search,
-            currentActive,
+            limitActive,
             ...attributes
         } = this.props;
 
         // console.log(activePage);
 
-        let lowerBound = (activePage - 1) * limit;
-        let upperBound = activePage * limit;
+        let currentActive = 1;
+        let lowerBound = 0;
+        let upperBound = 0;
 
+        if(search.searchText.length > 0 ){
+             lowerBound = (activePage - 1) * 1;
+             upperBound = activePage * 1; 
+        } else {
+
+             lowerBound = (activePage - 1) * limit;
+             upperBound = activePage * limit;
+        };
+        
         const renderTableHead = () => (
             <TableHead>
                 <tr>
@@ -154,7 +169,7 @@ class TableSetKhusus extends Component {
                             if (row[searchBy]) {
                                 return row[searchBy].toString().toLowerCase().includes(search.searchText.toLowerCase())
                             }
-                        });
+                        }); 
 
                         if (!filteredRow.length) {
                             return <span colSpan={columns.length} style={{ padding: '30px', textAlign: 'center' }}>Data tidak ditemukan</span>
@@ -186,7 +201,7 @@ class TableSetKhusus extends Component {
 
         const renderTableCell = (row) => {
 
-            console.log(row);
+            // console.log(row);
 
             return columns.map((column, i) => {
 
@@ -225,16 +240,39 @@ class TableSetKhusus extends Component {
 
             if (pagination && rows != null) {
 
-                return <PaginationSetKhusus
-                    activePage={search.searchText.length > 0 ? currentActive : activePage}
-                    // activePage={activePage}
-                    // total={rows.slice(lowerBound, upperBound).length} 
-                    total={rows.length}
-                    limit={limit}
-                    onPageChange={this.handlePageChange}
-                    {...this.state}
-                    {...this.props}
-                />
+                if(search.searchText.length > 0){
+
+                    return <PaginationSetKhusus
+                        activePage={search.searchText.length > 0 ? currentActive : activePage}
+                        total={rows.length}
+                        limit={limit}
+                        onHandleResetPagination={ this.handleResetPagination}
+                        {...this.state}
+                        {...this.props}
+                    />
+                }else{
+                    return <PaginationSetKhusus
+                        activePage={search.searchText.length > 0 ? currentActive : activePage}
+                        // activePage={activePage}
+                        // total={rows.slice(lowerBound, upperBound).length} 
+                        total={rows.length}
+                        limit={limit}
+                        onPageChange={ this.handlePageChange}
+                        {...this.state}
+                        {...this.props}
+                    />
+                }
+                
+                // return <PaginationSetKhusus
+                //     activePage={search.searchText.length > 0 ? currentActive : activePage}
+                //     // activePage={activePage}
+                //     // total={rows.slice(lowerBound, upperBound).length} 
+                //     total={rows.length}
+                //     limit={limit}
+                //     onPageChange={ this.handlePageChange}
+                //     {...this.state}
+                //     {...this.props}
+                // />
             }
 
         }
@@ -255,6 +293,7 @@ class TableSetKhusus extends Component {
                     }
 
                     {renderTablePagination()}
+                    
                 </div>
             </div>
         );

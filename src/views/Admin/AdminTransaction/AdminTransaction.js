@@ -273,7 +273,8 @@ class AdminTransaction extends Component{
         
         selectedMenuItem.map((item) => {
 
-            if(item.totalPrice > grandTotal){
+
+            if(item.totalPrice > grandTotal){                
                 item.totalPrice = grandTotal;
                 selectedMenuItemArray.push(item);
             } else if(item.totalPrice < grandTotal){
@@ -283,7 +284,6 @@ class AdminTransaction extends Component{
                 selectedMenuItemArray.push(item);
             };
         });
-
 
         let requiredData = {
             menu : selectedMenuItemArray,
@@ -379,9 +379,7 @@ class AdminTransaction extends Component{
         this.setState({
             activeTab: tabIndex,
             storeIdTab: type
-		}, () => {                       
-            // #
-        })
+		});
     }
 
     //#
@@ -404,7 +402,7 @@ class AdminTransaction extends Component{
         let requiredData = {
             id: storeIdTab.id,
             print: true
-        }
+        };
         
         getMenuListStoreWithPrintDispatch(requiredData);
 

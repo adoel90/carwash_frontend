@@ -97,7 +97,7 @@ const AdminMemberView = props => {
                         </Modal>
                   )
             }
-      }
+      };
 
       return (
             <div className="admin-store">
@@ -110,10 +110,10 @@ const AdminMemberView = props => {
                                     <PanelBody>
                                           <Column md={12}>
                                                 <div className="admin-Member__content"><br /><br /><br />   
-                                                       <BootstrapTable data={table.rows} options={optionsPagination} striped={true} hover={true} version='4' bordered={false} dataAlign="center" searchPlaceholder={"Ketik nama user yang terdaftar"} pagination search>
-                                                            <TableHeaderColumn dataField="id" headerAlign="left" dataAlign="left" isKey={true} hidden><h3>Nama User</h3></TableHeaderColumn>
-                                                            <TableHeaderColumn dataField="name" headerAlign="left" dataAlign="left">Nama User</TableHeaderColumn>
-                                                            <TableHeaderColumn dataField="email" headerAlign="left" dataAlign="left">Alamat Email</TableHeaderColumn>
+                                                      <BootstrapTable data={table.rows} options={optionsPagination} striped={true} hover={true} version='4' bordered={false} dataAlign="center" searchPlaceholder={"Ketik Member yang terdaftar"} pagination search>
+                                                            <TableHeaderColumn dataField="id" headerAlign="left" dataAlign="left" isKey={true} hidden><h3>ID</h3></TableHeaderColumn>
+                                                            <TableHeaderColumn dataField="name" headerAlign="left" dataAlign="left">Nama Member</TableHeaderColumn>
+                                                            <TableHeaderColumn dataField="cardNumber" headerAlign="left" dataAlign="left">Nomor kartu</TableHeaderColumn>
                                                             <TableHeaderColumn dataField="cardType" headerAlign="left" dataAlign="left" >Tipe Member</TableHeaderColumn>
                                                             <TableHeaderColumn dataField="data" dataFormat={componentButtonUpdate}>Status</TableHeaderColumn>
                                                       </BootstrapTable>

@@ -284,6 +284,7 @@ class AdminTransaction extends Component{
             };
         });
 
+
         let requiredData = {
             menu : selectedMenuItemArray,
             store : storeIdTab,
@@ -419,9 +420,8 @@ class AdminTransaction extends Component{
             statusPrintDataConfirm: 200
         }, () => {
             window.print();
-        })
-
-    }
+        });
+    };
 
     render(){
         const { storeList, activeTab } = this.state;
@@ -483,11 +483,9 @@ class AdminTransaction extends Component{
                         </NavItem>
                     )) : null }
                 </Nav>
-
-                {/* RENDER CONTENT BASED ON ID STORE */}
+                
                 {renderTabContent()}
 
-                {/*  RENDER DIALOG BERHASIL OR NOT */}
                 {this.renderDialog()}
             </div>
         )

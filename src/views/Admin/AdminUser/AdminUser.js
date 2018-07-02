@@ -8,6 +8,22 @@ import { openDialog, closeDialog } from '../../../actions/dialog.action';
 import { ModalDialog } from '../../../components/Modal';
 import { Button } from '../../../components/Button';
 
+function mapStateToProps(state) {
+    return {
+        user: state.user,
+        access: state.access,
+        dialog: state.dialog
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        getUserList: (requiredData) => dispatch(getUserList(requiredData)),
+        getAccessList: (data) => dispatch(getAccessList(data)),
+        action: bindActionCreators({ updateUser, changeStatusUser, openDialog, closeDialog }, dispatch)
+    }
+}
+
 class AdminUser extends Component {
 
     constructor() {
@@ -17,13 +33,10 @@ class AdminUser extends Component {
         this.toggleModal = this.toggleModal.bind(this);
         this.renderDialog = this.renderDialog.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
-        this.handleSearchPaginationSecond = this.handleSearchPaginationSecond.bind(this);
-        this.handleClickPagination = this.handleClickPagination.bind(this);
         this.openUserDetail = this.openUserDetail.bind(this);
         this.changeStatusUser = this.changeStatusUser.bind(this);
         this.updateUser = this.updateUser.bind(this);
         this.populateTableData = this.populateTableData.bind(this);
-        this.handleGetCurrentActivePage = this.handleGetCurrentActivePage.bind(this);
 
         this.optionsPagination = {
             prePage:'Prev',
@@ -71,9 +84,7 @@ class AdminUser extends Component {
     }
 
     componentDidUpdate = (prevProps) => {
-        const {
-            user
-        } = this.props;
+        const { user } = this.props;
 
         const {
             userList
@@ -143,10 +154,7 @@ class AdminUser extends Component {
     }
 
     renderDialog = () => {
-        const {
-            dialog,
-            toggleDialog
-        } = this.props;
+        const { dialog, toggleDialog } = this.props;
 
         return (
             <ModalDialog
@@ -161,41 +169,6 @@ class AdminUser extends Component {
                 closeText={dialog.data.closeText}
             />
         )
-    }
-
-
-    handleGetCurrentActivePage(currentActivePage) {
-        console.log("ACTIVE PAGE ANGELA");
-
-        this.setState({
-            ...this.state,
-            currentActive: currentActivePage
-        });
-    };
-
-    handleClickPagination = () => {
-        const { currentActive } = this.state;
-        console.log("Brr !!!");
-        console.log(currentActive);
-
-        this.setState({
-            ...this.state,
-            currentActive: 1
-        });
-
-    }
-
-    handleSearchPaginationSecond = () => {
-        const { currentActive } = this.state;
-        console.log(currentActive);
-
-        this.setState({
-            ...this.state,
-            currentActive: 1
-        }, () => {
-            console.log(this.state.currentActive);
-            // this.props.postCurrentActivePage(this.state.currentActive);
-        });
     };
 
     handleInputChange = (object, e) => {
@@ -239,14 +212,9 @@ class AdminUser extends Component {
     }
 
     updateUser = (e) => {
-        const { action } = this.props;
-
-        let {
-            selectedUser
-        } = this.state;
-
         e.preventDefault();
-
+        const { action } = this.props;
+        let { selectedUser } = this.state;
         // console.log(selectedUser.level.id ? parseInt(selectedUser.level.id) : parseInt(selectedUser.level));
 
         if ((selectedUser.password === selectedUser.confirmPassword) || (selectedUser.password === null && selectedUser.confirmPassword === null)) {
@@ -317,21 +285,12 @@ class AdminUser extends Component {
             {
                 text: 'Level Akses',
                 dataField: 'accessLevel',
-                // align: 'center'
             },
             {
                 text: 'Status',
                 dataField: 'action',
-                // width: '30%',
-                // align: 'center',
-                // render: (row) => (
-                //     <td className="flex justify-content--center">
-                //         <Button className="margin-right-small" type="button" onClick={() => this.openUserDetail(row)}>Ubah</Button>
-                //         <Button type="button" theme={row.data.status ? "success" : "danger"} onClick={() => this.changeStatusUser(row)}>{ row.data.status ? 'Aktif' : 'Non Aktif' }</Button>
-                //     </td>
-                // )
             }
-        ]
+        ];
 
         const rows = []
 
@@ -349,7 +308,7 @@ class AdminUser extends Component {
                     rows.push(row);
                 }
             })
-        }
+        };
 
         this.setState({
             ...this.state,
@@ -362,9 +321,7 @@ class AdminUser extends Component {
     }
 
     getUserList = () => {
-        const {
-            getUserList
-        } = this.props;
+        const { getUserList } = this.props;
 
         let requiredData = {
             access: null,
@@ -374,13 +331,11 @@ class AdminUser extends Component {
     }
 
     getAccessList = () => {
-        const {
-            getAccessList
-        } = this.props;
+        const { getAccessList } = this.props;
 
         let requiredData = {
             active: true
-        }
+        };
 
         getAccessList(requiredData);
     }
@@ -389,17 +344,14 @@ class AdminUser extends Component {
         return (
             <div>
                 <AdminUserView
-                    {...this.state}
-                    {...this.props}
                     handleInputChange={this.handleInputChange}
-                    handleSearchPaginationSecond={this.handleSearchPaginationSecond}
-                    handleClickPagination={this.handleClickPagination}
                     updateUser={this.updateUser}
                     toggleModal={this.toggleModal}
-                    handleGetCurrentActivePage={this.handleGetCurrentActivePage}
                     openUserDetail={this.openUserDetail}
                     changeStatusUser={this.changeStatusUser}
                     optionsPagination={this.optionsPagination}
+                    {...this.state}
+                    {...this.props}
                 />
                 {this.renderDialog()}
             </div>
@@ -407,21 +359,7 @@ class AdminUser extends Component {
     }
 }
 
-function mapStateToProps(state) {
-    return {
-        user: state.user,
-        access: state.access,
-        dialog: state.dialog
-    };
-}
 
-function mapDispatchToProps(dispatch) {
-    return {
-        getUserList: (requiredData) => dispatch(getUserList(requiredData)),
-        getAccessList: (data) => dispatch(getAccessList(data)),
-        action: bindActionCreators({ updateUser, changeStatusUser, openDialog, closeDialog }, dispatch)
-    }
-}
 
 export default connect(
     mapStateToProps,

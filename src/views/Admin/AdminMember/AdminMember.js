@@ -14,6 +14,31 @@ import { getReportMemberExportToExcell } from '../../../actions/report.action';
 class AdminMember extends Component {
       constructor() {
             super();
+            this.getMemberList = this.getMemberList.bind(this);
+            this.toggleModal = this.toggleModal.bind(this);
+            this.renderDialog = this.renderDialog.bind(this);
+            this.handleInputChange = this.handleInputChange.bind(this);
+            this.openMemberDetail = this.openMemberDetail.bind(this);
+            this.changeMemberStatus = this.changeMemberStatus.bind(this);
+            this.updateMember = this.updateMember.bind(this);
+            this.populateTableData = this.populateTableData.bind(this);
+            this.handleExportToExcell = this.handleExportToExcell.bind(this);
+
+            this.optionsPagination = {
+                  prePage:'Prev',
+                  nextPage:'Next',
+                  firstPage: '.', // First page button text
+                  lastPage: '.', // Last page button text
+                  sortIndicator: true,
+                  noDataText: 'Nama User tidak di temukan',
+                  // searchField: (props) => (<MySearchField { ...props } name="Search users"/>),
+                  hideSizePerPage: true,
+                  searchPosition: 'left',
+                  // onRowDoubleClick: function(row) {
+                  //     props.toggle();
+                  // }
+            };
+
             this.state = {
                   member: {},
                   memberList: {},
@@ -42,19 +67,8 @@ class AdminMember extends Component {
                   selectedMemberDetail: {},
                   selectedMember:{},
                   listMemberTransactionHistoris: {}
-            }
-
-            this.getMemberList = this.getMemberList.bind(this);
-            this.toggleModal = this.toggleModal.bind(this);
-            this.renderDialog = this.renderDialog.bind(this);
-            this.handleInputChange = this.handleInputChange.bind(this);
-            this.openMemberDetail = this.openMemberDetail.bind(this);
-            this.changeMemberStatus = this.changeMemberStatus.bind(this);
-            this.updateMember = this.updateMember.bind(this);
-            this.populateTableData = this.populateTableData.bind(this);
-
-            this.handleExportToExcell = this.handleExportToExcell.bind(this);
-      }
+            };
+      };
       
       componentDidMount = () => {
             this.getMemberList();
@@ -177,13 +191,13 @@ class AdminMember extends Component {
                   accessor: 'action',
                   width: '30%',
                   // align: 'left',
-                  render: (row) => (
-                        <td>
-                              {/* <Button className="margin-right-small" theme="light" type="button" onClick={() => this.openMemberModalDetailNew(row)}>Detail</Button>                               */}
-                              <Button className="margin-right-small" type="button" onClick={() => this.openMemberDetail(row)}>Ubah</Button>
-                              <Button type="button" theme={row.data.status ? "success" : "danger"} onClick={() => this.changeMemberStatus(row)}>{ row.data.status ? 'Aktif' : 'Non Aktif' }</Button>
-                        </td>
-                  )
+                  // render: (row) => (
+                  //       <td>
+                  //             {/* <Button className="margin-right-small" theme="light" type="button" onClick={() => this.openMemberModalDetailNew(row)}>Detail</Button>                               */}
+                  //             <Button className="margin-right-small" type="button" onClick={() => this.openMemberDetail(row)}>Ubah</Button>
+                  //             <Button type="button" theme={row.data.status ? "success" : "danger"} onClick={() => this.changeMemberStatus(row)}>{ row.data.status ? 'Aktif' : 'Non Aktif' }</Button>
+                  //       </td>
+                  // )
             }];
     
             const rows = [];
@@ -215,10 +229,10 @@ class AdminMember extends Component {
       }
 
       openMemberDetail = (row) => {
-            
+           console.log(row); 
             this.setState({
                   ...this.state,
-                  selectedMember: row.data
+                  selectedMember: row
             }, () => {
                   // console.log(this.state);
                   this.toggleModal('updateMember');
@@ -231,7 +245,7 @@ class AdminMember extends Component {
             } = this.props;
     
             let requiredData = {
-                  id: row.data.id
+                  id: row.id
             }
     
             action.changeMemberStatus(requiredData);
@@ -328,6 +342,9 @@ class AdminMember extends Component {
                               updateMember={this.updateMember}
                               toggleModal={this.toggleModal}
                               handleExportToExcell={this.handleExportToExcell}
+                              openMemberDetail={this.openMemberDetail}
+                              changeMemberStatus={this.changeMemberStatus}
+                              optionsPagination={this.optionsPagination}
                         />
                         {this.renderDialog()}
                   </div>

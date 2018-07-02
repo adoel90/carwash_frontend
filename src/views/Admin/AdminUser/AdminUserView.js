@@ -13,8 +13,6 @@ import { BootstrapTable, TableHeaderColumn, SearchField } from 'react-bootstrap-
 // import '../../../../node_modules/react-bootstrap-table/dist/react-bootstrap-table.min.css';
 // import '../../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
-
-
 const AdminUserView = props => {
     const {
         isModalOpen,
@@ -37,15 +35,12 @@ const AdminUserView = props => {
     } = props;
     
     const componentButtonUpdate = (datarow) => {
-
         return (
-            <td className="flex justify-content--center">
+            <div>
                 <Button className="margin-right-small" type="button" onClick={() => openUserDetail(datarow )}>Ubah</Button>
                 <Button type="button" theme={datarow.status ? "success" : "danger"} onClick={() => changeStatusUser(datarow)}>{ datarow.status ? 'Aktif' : 'Non Aktif' }</Button>
-            </td>
-        )
-        
-        // <button type="button" onClick={(e) => openUserDetail(data, e)}>Ubah</button>
+            </div>
+        );
     };
 
     const renderUserDetailModal = () => {
@@ -130,17 +125,15 @@ const AdminUserView = props => {
         }
     }
 
-    
     return (
         <div className="admin-user">
             <Panel>
                 <PanelHeader>
                     <h4 className="heading-title">Daftar User</h4>
-                    {/* <h6 className="heading-subtitle">Menampilkan semua daftar user</h6> */}
                 </PanelHeader>
                 <PanelBody>
-                    <div className="admin-user__content"> <br /><br /><br />       
-                        <BootstrapTable data={table.rows} options={optionsPagination} striped={true} hover={true} version='4' bordered={false} dataAlign="center" searchPlaceholder={"Cari user yang terdaftar"} pagination search>
+                    <div className="admin-user__content"><br /><br /><br />       
+                        <BootstrapTable data={table.rows} options={optionsPagination} striped={true} hover={true} version='4' bordered={false} dataAlign="center" searchPlaceholder={"Ketik nama user yang terdaftar"} pagination search>
                             <TableHeaderColumn dataField="id" headerAlign="left" dataAlign="left" isKey={true} hidden><h3>Nama User</h3></TableHeaderColumn>
                             <TableHeaderColumn dataField="name" headerAlign="left" dataAlign="left">Nama User</TableHeaderColumn>
                             <TableHeaderColumn dataField="email" headerAlign="left" dataAlign="left">Alamat Email</TableHeaderColumn>

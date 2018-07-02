@@ -12,7 +12,10 @@ import { TableSet, TableSetKhusus} from '../../../components/Table';
 import { Button } from '../../../components/Button';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from '../../../components/Modal';
 
+import { BootstrapTable, TableHeaderColumn, SearchField } from 'react-bootstrap-table';
+
 const AdminMemberView = props => {
+
       const {
             isModalOpen,
             table,
@@ -27,9 +30,20 @@ const AdminMemberView = props => {
             listMemberTransactionHistoris,
             member,
             handleExportToExcell,
-            period
+            period,
+            optionsPagination,
+            openMemberDetail,
+            changeMemberStatus
       } = props;
 
+      const componentButtonUpdate = (datarow) => {
+            return (
+                <div>
+                    <Button className="margin-right-small" type="button" onClick={() => openMemberDetail(datarow )}>Ubah</Button>
+                    <Button type="button" theme={datarow.status ? "success" : "danger"} onClick={() => changeMemberStatus(datarow)}>{ datarow.status ? 'Aktif' : 'Non Aktif' }</Button>
+                </div>
+            );
+      };
 
       //Modal Update
       const renderMemberUpdateModal = () => {
@@ -88,35 +102,21 @@ const AdminMemberView = props => {
       return (
             <div className="admin-store">
                   <Row>
-                        <Column md={9}>
+                        <Column md={12}>
                               <Panel>
                                     <PanelHeader>
                                           <h4 className="heading-title">Daftar Member</h4>
                                     </PanelHeader>
                                     <PanelBody>
-                                          <Column md={10}>
-                                                <div className="admin-Member__content">
-                                                      <TableSetKhusus
-                                                            loading={memberList.isFetching}
-                                                            loaded={memberList.isLoaded}
-                                                            columns={table.columns}
-                                                            rows={table.rows}
-                                                            striped 
-                                                            fullWidth
-                                                            pagination
-                                                            placeholder="Cari member yang terdaftar"
-                                                            hasSearchBar
-                                                            searchParams={table.searchParams}
-                                                            searchBy={search.searchBy}
-                                                            handleInputChange={handleInputChange}
-                                                            {...props}
-                                                      />
-
-                                                      {/* <FormField>
-                                                            <Button onClick={(e) => handleExportToExcell(e, period)} theme="secondary" className="margin-right-small" type="submit" style={{height: '50px', 'margin-left': '3px'}}>
-                                                                  Export to xls
-                                                            </Button>
-                                                      </FormField> */}
+                                          <Column md={12}>
+                                                <div className="admin-Member__content"><br /><br /><br />   
+                                                       <BootstrapTable data={table.rows} options={optionsPagination} striped={true} hover={true} version='4' bordered={false} dataAlign="center" searchPlaceholder={"Ketik nama user yang terdaftar"} pagination search>
+                                                            <TableHeaderColumn dataField="id" headerAlign="left" dataAlign="left" isKey={true} hidden><h3>Nama User</h3></TableHeaderColumn>
+                                                            <TableHeaderColumn dataField="name" headerAlign="left" dataAlign="left">Nama User</TableHeaderColumn>
+                                                            <TableHeaderColumn dataField="email" headerAlign="left" dataAlign="left">Alamat Email</TableHeaderColumn>
+                                                            <TableHeaderColumn dataField="cardType" headerAlign="left" dataAlign="left" >Tipe Member</TableHeaderColumn>
+                                                            <TableHeaderColumn dataField="data" dataFormat={componentButtonUpdate}>Status</TableHeaderColumn>
+                                                      </BootstrapTable>
                                                 </div>
                                           </Column>
                                     </PanelBody>

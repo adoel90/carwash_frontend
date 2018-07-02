@@ -188,7 +188,7 @@ class AdminStoresReportMenu extends Component {
             vendorState.reportDetailStoreMenuOwner.data.result.store.forEach((value) => {
 
                 let row = {
-                    date:moment(period.to).format('YYYY-MM-DD'),
+                    date:moment(period.to).format('DD MMM YYYY'),
                     name: value.menu.name,
                     description: value.menu.description,
                     // price: value.menu.price

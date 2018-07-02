@@ -11,14 +11,14 @@ const AdminTransactionView = props => {
 
     const buttonStyle = {
         'margin-left': '320px',
-    }
+    };
 
     const fixedStyle = {
         'position': 'fixed',
         'left': '0px',
         'top': '0px',
         'z-index': '-100'
-    }
+    };
 
     const { member, listMenuStore, table, handleFormSubmit, handleInputChange, selectedMenuItem, handleSelectMenu,printListMenuStore, statusPrintDataConfirm } = props;
    

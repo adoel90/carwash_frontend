@@ -251,6 +251,7 @@ class AdminTransaction extends Component{
     }
     
     handlePaymentCheckoutSubmit = (e) => {
+
 		e.preventDefault();
 
 		const {
@@ -258,23 +259,38 @@ class AdminTransaction extends Component{
             accessToken,
             action,
             user
-		} = this.props;
-
+        } = this.props;
+        
 		const {
 			memberInfo,
             selectedMenuItem,
             storeIdTab,
-            storeList
+            storeList,
+            grandTotal
         } = this.state;
 
+        let selectedMenuItemArray = [];
+        
+        selectedMenuItem.map((item) => {
+
+            if(item.totalPrice > grandTotal){
+                item.totalPrice = grandTotal;
+                selectedMenuItemArray.push(item);
+            } else if(item.totalPrice < grandTotal){
+                item.totalPrice = grandTotal;
+                selectedMenuItemArray.push(item);
+            } else {
+                selectedMenuItemArray.push(item);
+            };
+        });
+
         let requiredData = {
-            menu : selectedMenuItem,
+            menu : selectedMenuItemArray,
             store : storeIdTab,
             token : memberInfo.memberToken,
             // staff: null
             staff: user.id
-        }
-
+        };
         action.createStoreTransaction(requiredData);
     }
     
@@ -304,23 +320,21 @@ class AdminTransaction extends Component{
 
 		let requiredData = {
 			id: store.transaction.data.result.transaction
-		}
+		};
 
         action.printStoreTransaction(requiredData, accessToken);
-	}
+	};
     
     calculateGrandTotalPrice = () => {
-		const {
-            selectedMenuItem,
-            dataTransaction
-		} = this.state;
+
+		const { selectedMenuItem, dataTransaction } = this.state;
 
 		let totalPriceArray = [];
 		let updatedGrandTotal;
 
 		selectedMenuItem.map((item) => {
 			totalPriceArray.push(item.totalPrice);
-		})
+		});
         
         updatedGrandTotal = totalPriceArray.reduce((a, b) => a + b, 0);
         
@@ -328,19 +342,18 @@ class AdminTransaction extends Component{
 
         if(!dataTransaction.increase && dataTransaction.discount > 0) {
             total = updatedGrandTotal-(updatedGrandTotal*dataTransaction.discount/100);
-            console.log(total);
         } else if(dataTransaction.markup && dataTransaction.markup > 0){
             total = updatedGrandTotal + (updatedGrandTotal*dataTransaction.markup/100)
-            console.log(total);
         } else {
             total = updatedGrandTotal;
-        }
+        };
 
 		this.setState({
 			...this.state,
-			grandTotal: total
-		})
-    }
+            grandTotal: total,
+            selectedMenuItem: selectedMenuItem
+		});
+    };
     
     handleIndexedInputChange = (object, index, e) => {
 		const target = e.target;

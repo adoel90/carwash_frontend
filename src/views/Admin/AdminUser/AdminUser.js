@@ -9,7 +9,7 @@ import { ModalDialog } from '../../../components/Modal';
 import { Button } from '../../../components/Button';
 
 class AdminUser extends Component {
-    
+
     constructor() {
         super();
         this.getUserList = this.getUserList.bind(this);
@@ -25,6 +25,21 @@ class AdminUser extends Component {
         this.populateTableData = this.populateTableData.bind(this);
         this.handleGetCurrentActivePage = this.handleGetCurrentActivePage.bind(this);
 
+        this.options = {
+            prePage:'Prev',
+            nextPage:'Next',
+            firstPage: '.', // First page button text
+            lastPage: '.', // Last page button text
+            sortIndicator: true,
+            noDataText: 'Nama User tidak di temukan',
+            // searchField: (props) => (<MySearchField { ...props } name="Search users"/>),
+            hideSizePerPage: true,
+            searchPosition: 'left',
+            // onRowDoubleClick: function(row) {
+            //     props.toggle();
+            // }
+        };
+
         this.state = {
             user: {},
             userList: {},
@@ -37,16 +52,16 @@ class AdminUser extends Component {
                 rows: [],
                 limit: 10,
                 searchParams: [
-					{ accessor: 'name', name: 'Nama User' },
-					{ accessor: 'email', name: 'Alamat Email' },
-				]
+                    { accessor: 'name', name: 'Nama User' },
+                    { accessor: 'email', name: 'Alamat Email' },
+                ]
             },
             isModalOpen: {
                 updateUser: false
             },
             currentActive: null,
             currentActiveLength: 0,
-           
+
         }
     }
 
@@ -63,8 +78,8 @@ class AdminUser extends Component {
         const {
             userList
         } = this.state;
-        
-        if(prevProps.user.list !== user.list) {
+
+        if (prevProps.user.list !== user.list) {
             this.setState({
                 ...this.state,
                 userList: user.list
@@ -74,22 +89,22 @@ class AdminUser extends Component {
             });
         }
 
-        if(prevProps.user.status !== user.status) {
-            if(user.status.isStatusChanging) {
+        if (prevProps.user.status !== user.status) {
+            if (user.status.isStatusChanging) {
                 userList.data.data.result.map((item) => {
-                    if(item.id === user.status.id) {
+                    if (item.id === user.status.id) {
                         item.statusChanging = true;
                         this.forceUpdate();
                     }
                 })
             }
 
-            if(user.status.isStatusChanged) {
+            if (user.status.isStatusChanged) {
                 userList.data.data.result.forEach((item) => {
-                    if(item.id === user.status.id) {
+                    if (item.id === user.status.id) {
                         item.statusChanging = false;
 
-                        if(item.status) {
+                        if (item.status) {
                             item.status = false;
                         }
                         else {
@@ -105,7 +120,7 @@ class AdminUser extends Component {
 
     toggleModal = (name) => {
         const { isModalOpen } = this.state;
-        
+
         this.setState({
             ...this.state,
             isModalOpen: {
@@ -120,7 +135,7 @@ class AdminUser extends Component {
             action
         } = this.props;
 
-        if(!dialog.isOpened) {
+        if (!dialog.isOpened) {
             action.openDialog(data);
         } else {
             action.closeDialog();
@@ -132,7 +147,7 @@ class AdminUser extends Component {
             dialog,
             toggleDialog
         } = this.props;
-        
+
         return (
             <ModalDialog
                 isOpen={dialog.isOpened}
@@ -149,7 +164,7 @@ class AdminUser extends Component {
     }
 
 
-    handleGetCurrentActivePage(currentActivePage){
+    handleGetCurrentActivePage(currentActivePage) {
         console.log("ACTIVE PAGE ANGELA");
 
         this.setState({
@@ -165,11 +180,11 @@ class AdminUser extends Component {
 
         this.setState({
             ...this.state,
-            currentActive : 1
+            currentActive: 1
         });
 
     }
-    
+
     handleSearchPaginationSecond = () => {
         const { currentActive } = this.state;
         console.log(currentActive);
@@ -184,7 +199,7 @@ class AdminUser extends Component {
     };
 
     handleInputChange = (object, e) => {
-        
+
         const { currentActive } = this.state;
 
         const target = e.target;
@@ -197,20 +212,23 @@ class AdminUser extends Component {
                 ...this.state[object],
                 [name]: value
             },
-            currentActive:1
-            
+            currentActive: 1
+
         }, () => {
             // console.log(this.state.currentActive);
         });
     }
 
     openUserDetail = (row) => {
-        this.setState({
-            ...this.state,
-            selectedUser: row.data
-        }, () => {
-            this.toggleModal('updateUser');
-        })
+
+        console.log(row);
+
+        // this.setState({
+        //     ...this.state,
+        //     selectedUser: row.data
+        // }, () => {
+        //     this.toggleModal('updateUser');
+        // })
     }
 
     changeStatusUser = (row) => {
@@ -238,14 +256,14 @@ class AdminUser extends Component {
         // console.log(selectedUser.level.id ? parseInt(selectedUser.level.id) : parseInt(selectedUser.level));
 
         if ((selectedUser.password === selectedUser.confirmPassword) || (selectedUser.password === null && selectedUser.confirmPassword === null)) {
-            
+
             let requiredData = {
-                id : selectedUser.id,
-                name : selectedUser.name,
-                email : selectedUser.email,
-                username : selectedUser.username,
-                password : selectedUser.password,
-                level : selectedUser.level.id ? parseInt(selectedUser.level.id) : parseInt(selectedUser.level)
+                id: selectedUser.id,
+                name: selectedUser.name,
+                email: selectedUser.email,
+                username: selectedUser.username,
+                password: selectedUser.password,
+                level: selectedUser.level.id ? parseInt(selectedUser.level.id) : parseInt(selectedUser.level)
             }
 
             action.updateUser(requiredData).then(() => {
@@ -261,7 +279,7 @@ class AdminUser extends Component {
                         onClose: () => window.location.reload(),
                         closeText: 'Kembali'
                     }
-            
+
                     this.toggleDialog(dialogData);
                 }
 
@@ -273,7 +291,7 @@ class AdminUser extends Component {
                         onClose: () => this.toggleDialog(),
                         closeText: 'Kembali'
                     }
-            
+
                     this.toggleDialog(dialogData);
                 }
             });
@@ -286,7 +304,7 @@ class AdminUser extends Component {
                 onClose: () => this.toggleDialog(),
                 closeText: 'Kembali'
             }
-    
+
             this.toggleDialog(dialogData);
         }
     }
@@ -299,16 +317,16 @@ class AdminUser extends Component {
             {
                 text: 'Nama User',
                 dataField: 'name'
-            }, 
+            },
             {
                 text: 'Alamat Email',
                 dataField: 'email'
-            }, 
+            },
             {
                 text: 'Level Akses',
                 dataField: 'accessLevel',
                 // align: 'center'
-            }, 
+            },
             {
                 text: 'Status',
                 dataField: 'action',
@@ -323,9 +341,9 @@ class AdminUser extends Component {
             }
         ]
 
-        const rows = [] 
-        
-        if(userList.isLoaded) {
+        const rows = []
+
+        if (userList.isLoaded) {
             userList.data.data.result.forEach((user, i) => {
                 let row = {
                     id: user.id,
@@ -335,7 +353,7 @@ class AdminUser extends Component {
                     data: user
                 }
 
-                if(user.level.id < 5) {
+                if (user.level.id < 5) {
                     rows.push(row);
                 }
             })
@@ -357,9 +375,9 @@ class AdminUser extends Component {
         } = this.props;
 
         let requiredData = {
-            access : null,
-            active : false
-      }
+            access: null,
+            active: false
+        }
         getUserList(requiredData);
     }
 
@@ -369,12 +387,12 @@ class AdminUser extends Component {
         } = this.props;
 
         let requiredData = {
-            active : true
+            active: true
         }
 
         getAccessList(requiredData);
     }
-    
+
     render() {
         return (
             <div>
@@ -382,11 +400,13 @@ class AdminUser extends Component {
                     {...this.state}
                     {...this.props}
                     handleInputChange={this.handleInputChange}
-                    handleSearchPaginationSecond= { this.handleSearchPaginationSecond}
-                    handleClickPagination= {this.handleClickPagination}
+                    handleSearchPaginationSecond={this.handleSearchPaginationSecond}
+                    handleClickPagination={this.handleClickPagination}
                     updateUser={this.updateUser}
                     toggleModal={this.toggleModal}
-                    handleGetCurrentActivePage = {this.handleGetCurrentActivePage }
+                    handleGetCurrentActivePage={this.handleGetCurrentActivePage}
+                    openUserDetail={this.openUserDetail}
+                    options={this.options}
                 />
                 {this.renderDialog()}
             </div>

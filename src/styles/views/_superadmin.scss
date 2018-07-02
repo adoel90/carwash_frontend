@@ -1,0 +1,122 @@
+
+//#Pagination.css
+//#**************************************************************************************************
+.react-bs-table-container .react-bs-table-pagination .row .col-md-6 .react-bootstrap-table-page-btns-ul li.page-item a.page-link {
+    padding: 1rem;
+}
+
+ul.react-bootstrap-table-page-btns-ul.pagination{
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+}
+
+ul.react-bootstrap-table-page-btns-ul.pagination li {display: inline;}
+
+ul.react-bootstrap-table-page-btns-ul.pagination li a {
+    color: #158DBC;
+    float: center;
+    // padding: 8px 16px;
+    text-decoration: none;
+}
+
+ul.pagination li a.active {
+    background-color: #158DBC;
+    color: white;
+}
+
+ul.react-bootstrap-table-page-btns-ul.pagination li a:hover:not(.active) {background-color: #ddd;}
+
+//#DropdownList-Pagination 
+//#**************************************************************************************************
+
+
+
+
+
+//#Table.css from SBH
+.react-bs-table-container .react-bs-table .react-bs-container-header table.table thead tr th,
+.react-bs-table-container .react-bs-table .react-bs-container-body table.table tbody tr td {
+    border: none;
+}
+
+.react-bs-table-container .react-bs-table .react-bs-container-body table.table tbody tr td {
+    padding: 1.25rem;
+    vertical-align: top;
+    border-top: 1px solid #e9ecef;
+    white-space: normal;
+}
+
+.react-bs-table-tool-bar {
+    position: absolute;
+    margin-top: -95px;
+    width: 80%;
+    margin-left: -20px;
+}
+
+.table.table-invoice tbody tr.table-row-list td {
+    padding: 25px 10px;
+}
+
+
+
+
+//#Input.css from SBH
+input.form-control,
+.textarea {
+
+    @include transition($input__transition);
+    position: relative;
+    display: inline-block;
+    box-sizing: border-box;
+    margin: 10px;
+    padding: 10px;
+    width: 100%;
+    list-style: none;
+    line-height: $input__line-height;
+    border: $input__border;
+    border-radius: $input__border-radius;
+    padding: $input__size;
+    background-image: none;
+
+    &::placeholder {
+        color: $gray-base;
+        font-weight: bold;
+    }
+
+    &:hover {
+        border: $input--hovered__border;
+    }
+
+    &:focus {
+        outline: none;
+        border: $input--focused__border;
+    }
+
+    &:disabled {
+        border: $input--disabled__border;
+        background-color: gray(100);
+        cursor: not-allowed;
+    }
+
+    &[type="number"].mod::-webkit-outer-spin-button, 
+    &[type="number"].mod::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        background: #FFF url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJCAYAAADgkQYQAAAAKUlEQVQYlWNgwAT/sYhhKPiPT+F/LJgEsHv37v+EMGkmkuImoh2NoQAANlcun/q4OoYAAAAASUVORK5CYII=) no-repeat center center;
+        width: 1em;
+        border-left: 1px solid #BBB;
+        opacity: .8; /* shows Spin Buttons per default (Chrome >= 39) */
+        position: absolute;
+        padding: 10px 20px;
+        top: 0;
+        right: 0;
+        bottom: 0;
+    }
+
+    &[type="number"].mod::-webkit-inner-spin-button:hover,
+    &[type="number"].mod::-webkit-inner-spin-button:active {
+        box-shadow: 0 0 2px #0CF;
+        opacity: .8;
+    }
+}
+

@@ -9,9 +9,9 @@ import { TableSet, TableSetOld, TableSetKhusus } from '../../../components/Table
 import { Button } from '../../../components/Button';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from '../../../components/Modal';
 
-import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
+import { BootstrapTable, TableHeaderColumn, SearchField } from 'react-bootstrap-table';
 // import '../../../../node_modules/react-bootstrap-table/dist/react-bootstrap-table.min.css';
-import '../../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
+// import '../../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 const AdminUserView = props => {
     const {
@@ -29,24 +29,17 @@ const AdminUserView = props => {
         search,
         handleGetCurrentActivePage,
         currentActive,
-        postCurrentActivePage
+        openUserDetail,
+        options
     } = props;
 
+    function buttonFormatter(cell, row){
+        console.log(row)
 
-
-    let products = [{
-        id: 1,
-        name: "Item name 1",
-        price: 100
-    },{
-        id: 2,
-        name: "Item name 2",
-        price: 100
-    }];
-
-    function priceFormatter(cell, row){
-        return '<i class="glyphicon glyphicon-usd"></i> ' + cell;
-    }
+        // return (
+        //     '<Button className="margin-right-small" type="submit" onClick={this.openUserDetail(row)}>Ubah</Button>';
+        // )
+    };
 
     const renderUserDetailModal = () => {
         if(selectedUser) {
@@ -138,11 +131,12 @@ const AdminUserView = props => {
                     {/* <h6 className="heading-subtitle">Menampilkan semua daftar user</h6> */}
                 </PanelHeader>
                 <PanelBody>
-                    <div className="admin-user__content">               
-                        <BootstrapTable data={products} striped={true} hover={true}>
-                            <TableHeaderColumn dataField="id" isKey={true} dataAlign="center" dataSort={true}>Product ID</TableHeaderColumn>
-                            <TableHeaderColumn dataField="name" dataSort={true}>Product Name</TableHeaderColumn>
-                            <TableHeaderColumn dataField="price" dataFormat={priceFormatter}>Product Price</TableHeaderColumn>
+                    <div className="admin-user__content"> <br /><br /><br />       
+                        <BootstrapTable data={table.rows} options={options} striped={true} hover={true} version='4' bordered={false} dataAlign="center" pagination search>
+                            <TableHeaderColumn dataField="name" headerAlign="left" dataAlign="left" isKey={true}>Nama User</TableHeaderColumn>
+                            <TableHeaderColumn dataField="email" headerAlign="left" dataAlign="left">Alamat Email</TableHeaderColumn>
+                            <TableHeaderColumn headerAlign="left" dataAlign="left" dataField="accessLevel" >Level Akses</TableHeaderColumn>
+                            <TableHeaderColumn dataField="action" dataFormat={buttonFormatter}>Status</TableHeaderColumn>
                         </BootstrapTable>
                     </div>
                 </PanelBody>

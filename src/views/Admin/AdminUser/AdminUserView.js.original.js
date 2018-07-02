@@ -9,44 +9,19 @@ import { TableSet, TableSetOld, TableSetKhusus } from '../../../components/Table
 import { Button } from '../../../components/Button';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from '../../../components/Modal';
 
-import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
-// import '../../../../node_modules/react-bootstrap-table/dist/react-bootstrap-table.min.css';
-import '../../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
-
 const AdminUserView = props => {
     const {
         isModalOpen,
         table,
-        column,
         userList,
         toggleModal,
         handleInputChange,
-        handleSearchPaginationSecond,
         handleClickPagination,
         updateUser,
         selectedUser,
         access,
-        search,
-        handleGetCurrentActivePage,
-        currentActive,
-        postCurrentActivePage
+        search
     } = props;
-
-
-
-    let products = [{
-        id: 1,
-        name: "Item name 1",
-        price: 100
-    },{
-        id: 2,
-        name: "Item name 2",
-        price: 100
-    }];
-
-    function priceFormatter(cell, row){
-        return '<i class="glyphicon glyphicon-usd"></i> ' + cell;
-    }
 
     const renderUserDetailModal = () => {
         if(selectedUser) {
@@ -138,12 +113,23 @@ const AdminUserView = props => {
                     {/* <h6 className="heading-subtitle">Menampilkan semua daftar user</h6> */}
                 </PanelHeader>
                 <PanelBody>
-                    <div className="admin-user__content">               
-                        <BootstrapTable data={products} striped={true} hover={true}>
-                            <TableHeaderColumn dataField="id" isKey={true} dataAlign="center" dataSort={true}>Product ID</TableHeaderColumn>
-                            <TableHeaderColumn dataField="name" dataSort={true}>Product Name</TableHeaderColumn>
-                            <TableHeaderColumn dataField="price" dataFormat={priceFormatter}>Product Price</TableHeaderColumn>
-                        </BootstrapTable>
+                    <div className="admin-user__content">
+                        <TableSetKhusus
+                            loading={userList.isFetching}
+                            loaded={userList.isLoaded}
+                            columns={table.columns}
+                            rows={table.rows}
+                            striped 
+                            fullWidth
+                            pagination
+                            placeholder="Cari user yang terdaftar"
+                            hasSearchBar
+                            searchBy={search.searchBy}
+                            searchParams={table.searchParams}
+                            handleInputChange={handleInputChange}
+                            handleClickPagination= {handleClickPagination}
+                            {...props}
+                        />
                     </div>
                 </PanelBody>
             </Panel>

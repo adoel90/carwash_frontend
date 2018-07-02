@@ -17,13 +17,12 @@ class AdminUser extends Component {
         this.toggleModal = this.toggleModal.bind(this);
         this.renderDialog = this.renderDialog.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
-        this.handleSearchPaginationSecond = this.handleSearchPaginationSecond.bind(this);
         this.handleClickPagination = this.handleClickPagination.bind(this);
         this.openUserDetail = this.openUserDetail.bind(this);
         this.changeStatusUser = this.changeStatusUser.bind(this);
         this.updateUser = this.updateUser.bind(this);
         this.populateTableData = this.populateTableData.bind(this);
-        this.handleGetCurrentActivePage = this.handleGetCurrentActivePage.bind(this);
+        // this.handleGetCurrentActivePage = this.handleGetCurrentActivePage.bind(this);
 
         this.state = {
             user: {},
@@ -43,10 +42,7 @@ class AdminUser extends Component {
             },
             isModalOpen: {
                 updateUser: false
-            },
-            currentActive: null,
-            currentActiveLength: 0,
-           
+            }
         }
     }
 
@@ -68,7 +64,6 @@ class AdminUser extends Component {
             this.setState({
                 ...this.state,
                 userList: user.list
-                // userList: user.list.isLoaded ? user.list.data.data.result : null
             }, () => {
                 this.populateTableData();
             });
@@ -148,44 +143,23 @@ class AdminUser extends Component {
         )
     }
 
+    // handleGetCurrentActivePage(currentActivePage){
+    //     console.log("ACTIVE PAGE ANGELA");
 
-    handleGetCurrentActivePage(currentActivePage){
-        console.log("ACTIVE PAGE ANGELA");
-
-        this.setState({
-            ...this.state,
-            currentActive: currentActivePage
-        });
-    };
+    //     this.setState({
+    //         ...this.state,
+    //         currentActive: currentActivePage
+    //     });
+    // };
 
     handleClickPagination = () => {
         const { currentActive } = this.state;
         console.log("Brr !!!");
-        console.log(currentActive);
-
-        this.setState({
-            ...this.state,
-            currentActive : 1
-        });
-
     }
-    
-    handleSearchPaginationSecond = () => {
-        const { currentActive } = this.state;
-        console.log(currentActive);
-
-        this.setState({
-            ...this.state,
-            currentActive: 1
-        }, () => {
-            console.log(this.state.currentActive);
-            // this.props.postCurrentActivePage(this.state.currentActive);
-        });
-    };
 
     handleInputChange = (object, e) => {
         
-        const { currentActive } = this.state;
+        // const { currentActive } = this.state;
 
         const target = e.target;
         const name = target.name;
@@ -196,11 +170,7 @@ class AdminUser extends Component {
             [object]: {
                 ...this.state[object],
                 [name]: value
-            },
-            currentActive:1
-            
-        }, () => {
-            // console.log(this.state.currentActive);
+            }
         });
     }
 
@@ -225,14 +195,8 @@ class AdminUser extends Component {
     }
 
     updateUser = (e) => {
-        const {
-            action
-        } = this.props;
-
-        let {
-            selectedUser
-        } = this.state;
-
+        const { action } = this.props;
+        let { selectedUser } = this.state;
         e.preventDefault();
 
         // console.log(selectedUser.level.id ? parseInt(selectedUser.level.id) : parseInt(selectedUser.level));
@@ -246,12 +210,10 @@ class AdminUser extends Component {
                 username : selectedUser.username,
                 password : selectedUser.password,
                 level : selectedUser.level.id ? parseInt(selectedUser.level.id) : parseInt(selectedUser.level)
-            }
+            };
 
             action.updateUser(requiredData).then(() => {
-                const {
-                    user
-                } = this.props;
+                const { user } = this.props;
 
                 if (user.updateUser.isUpdated) {
                     let dialogData = {
@@ -293,35 +255,29 @@ class AdminUser extends Component {
 
     populateTableData = () => {
         const { userList } = this.state;
-
-
-        const columns = [
-            {
-                text: 'Nama User',
-                dataField: 'name'
-            }, 
-            {
-                text: 'Alamat Email',
-                dataField: 'email'
-            }, 
-            {
-                text: 'Level Akses',
-                dataField: 'accessLevel',
-                // align: 'center'
-            }, 
-            {
-                text: 'Status',
-                dataField: 'action',
-                // width: '30%',
-                // align: 'center',
-                // render: (row) => (
-                //     <td className="flex justify-content--center">
-                //         <Button className="margin-right-small" type="button" onClick={() => this.openUserDetail(row)}>Ubah</Button>
-                //         <Button type="button" theme={row.data.status ? "success" : "danger"} onClick={() => this.changeStatusUser(row)}>{ row.data.status ? 'Aktif' : 'Non Aktif' }</Button>
-                //     </td>
-                // )
-            }
-        ]
+        
+        const columns = [{
+            title: 'Nama User',
+            accessor: 'name'
+        }, {
+            title: 'Alamat Email',
+            accessor: 'email'
+        }, {
+            title: 'Level Akses',
+            accessor: 'accessLevel',
+            align: 'center'
+        }, {
+            title: 'Status',
+            accessor: 'action',
+            width: '30%',
+            align: 'center',
+            render: (row) => (
+                <td className="flex justify-content--center">
+                    <Button className="margin-right-small" type="button" onClick={() => this.openUserDetail(row)}>Ubah</Button>
+                    <Button type="button" theme={row.data.status ? "success" : "danger"} onClick={() => this.changeStatusUser(row)}>{ row.data.status ? 'Aktif' : 'Non Aktif' }</Button>
+                </td>
+            )
+        }]
 
         const rows = [] 
         
@@ -352,25 +308,21 @@ class AdminUser extends Component {
     }
 
     getUserList = () => {
-        const {
-            getUserList
-        } = this.props;
+        const { getUserList } = this.props;
 
         let requiredData = {
             access : null,
             active : false
-      }
+        };
         getUserList(requiredData);
     }
 
     getAccessList = () => {
-        const {
-            getAccessList
-        } = this.props;
+        const { getAccessList } = this.props;
 
         let requiredData = {
             active : true
-        }
+        };
 
         getAccessList(requiredData);
     }
@@ -382,11 +334,10 @@ class AdminUser extends Component {
                     {...this.state}
                     {...this.props}
                     handleInputChange={this.handleInputChange}
-                    handleSearchPaginationSecond= { this.handleSearchPaginationSecond}
                     handleClickPagination= {this.handleClickPagination}
                     updateUser={this.updateUser}
                     toggleModal={this.toggleModal}
-                    handleGetCurrentActivePage = {this.handleGetCurrentActivePage }
+                    // handleGetCurrentActivePage = {this.handleGetCurrentActivePage }
                 />
                 {this.renderDialog()}
             </div>

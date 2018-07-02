@@ -25,7 +25,7 @@ class AdminUser extends Component {
         this.populateTableData = this.populateTableData.bind(this);
         this.handleGetCurrentActivePage = this.handleGetCurrentActivePage.bind(this);
 
-        this.options = {
+        this.optionsPagination = {
             prePage:'Prev',
             nextPage:'Next',
             firstPage: '.', // First page button text
@@ -214,21 +214,17 @@ class AdminUser extends Component {
             },
             currentActive: 1
 
-        }, () => {
-            // console.log(this.state.currentActive);
         });
     }
 
     openUserDetail = (row) => {
 
-        console.log(row);
-
-        // this.setState({
-        //     ...this.state,
-        //     selectedUser: row.data
-        // }, () => {
-        //     this.toggleModal('updateUser');
-        // })
+        this.setState({
+            ...this.state,
+            selectedUser: row
+        }, () => {
+            this.toggleModal('updateUser');
+        })
     }
 
     changeStatusUser = (row) => {
@@ -236,16 +232,14 @@ class AdminUser extends Component {
         const { action } = this.props;
 
         let requiredData = {
-            id: row.data.id
+            id: row.id
         }
 
         action.changeStatusUser(requiredData);
     }
 
     updateUser = (e) => {
-        const {
-            action
-        } = this.props;
+        const { action } = this.props;
 
         let {
             selectedUser
@@ -267,9 +261,7 @@ class AdminUser extends Component {
             }
 
             action.updateUser(requiredData).then(() => {
-                const {
-                    user
-                } = this.props;
+                const { user } = this.props;
 
                 if (user.updateUser.isUpdated) {
                     let dialogData = {
@@ -406,7 +398,8 @@ class AdminUser extends Component {
                     toggleModal={this.toggleModal}
                     handleGetCurrentActivePage={this.handleGetCurrentActivePage}
                     openUserDetail={this.openUserDetail}
-                    options={this.options}
+                    changeStatusUser={this.changeStatusUser}
+                    optionsPagination={this.optionsPagination}
                 />
                 {this.renderDialog()}
             </div>

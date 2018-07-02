@@ -13,6 +13,8 @@ import { BootstrapTable, TableHeaderColumn, SearchField } from 'react-bootstrap-
 // import '../../../../node_modules/react-bootstrap-table/dist/react-bootstrap-table.min.css';
 // import '../../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
+
+
 const AdminUserView = props => {
     const {
         isModalOpen,
@@ -30,19 +32,25 @@ const AdminUserView = props => {
         handleGetCurrentActivePage,
         currentActive,
         openUserDetail,
-        options
+        changeStatusUser,
+        optionsPagination
     } = props;
+    
+    const componentButtonUpdate = (datarow) => {
 
-    function buttonFormatter(cell, row){
-        console.log(row)
-
-        // return (
-        //     '<Button className="margin-right-small" type="submit" onClick={this.openUserDetail(row)}>Ubah</Button>';
-        // )
+        return (
+            <td className="flex justify-content--center">
+                <Button className="margin-right-small" type="button" onClick={() => openUserDetail(datarow )}>Ubah</Button>
+                <Button type="button" theme={datarow.status ? "success" : "danger"} onClick={() => changeStatusUser(datarow)}>{ datarow.status ? 'Aktif' : 'Non Aktif' }</Button>
+            </td>
+        )
+        
+        // <button type="button" onClick={(e) => openUserDetail(data, e)}>Ubah</button>
     };
 
     const renderUserDetailModal = () => {
-        if(selectedUser) {
+        if(selectedUser){
+
             return (
                 <Modal
                     isOpen={isModalOpen.updateUser}
@@ -132,11 +140,12 @@ const AdminUserView = props => {
                 </PanelHeader>
                 <PanelBody>
                     <div className="admin-user__content"> <br /><br /><br />       
-                        <BootstrapTable data={table.rows} options={options} striped={true} hover={true} version='4' bordered={false} dataAlign="center" pagination search>
-                            <TableHeaderColumn dataField="name" headerAlign="left" dataAlign="left" isKey={true}>Nama User</TableHeaderColumn>
+                        <BootstrapTable data={table.rows} options={optionsPagination} striped={true} hover={true} version='4' bordered={false} dataAlign="center" searchPlaceholder={"Cari user yang terdaftar"} pagination search>
+                            <TableHeaderColumn dataField="id" headerAlign="left" dataAlign="left" isKey={true} hidden><h3>Nama User</h3></TableHeaderColumn>
+                            <TableHeaderColumn dataField="name" headerAlign="left" dataAlign="left">Nama User</TableHeaderColumn>
                             <TableHeaderColumn dataField="email" headerAlign="left" dataAlign="left">Alamat Email</TableHeaderColumn>
                             <TableHeaderColumn headerAlign="left" dataAlign="left" dataField="accessLevel" >Level Akses</TableHeaderColumn>
-                            <TableHeaderColumn dataField="action" dataFormat={buttonFormatter}>Status</TableHeaderColumn>
+                            <TableHeaderColumn dataField="data" dataFormat={componentButtonUpdate}>Status</TableHeaderColumn>
                         </BootstrapTable>
                     </div>
                 </PanelBody>

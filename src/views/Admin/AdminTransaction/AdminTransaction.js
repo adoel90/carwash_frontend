@@ -266,7 +266,8 @@ class AdminTransaction extends Component{
             selectedMenuItem,
             storeIdTab,
             storeList,
-            grandTotal
+            grandTotal,
+            dataTransaction
         } = this.state;
 
         let selectedMenuItemArray = [];
@@ -274,11 +275,25 @@ class AdminTransaction extends Component{
         selectedMenuItem.map((item) => {
 
 
-            if(item.totalPrice > grandTotal){                
+            if(item.totalPrice > grandTotal){         
+                //#DISCOUNT       
                 item.totalPrice = grandTotal;
+
+                //#
+                let discountPerItem = parseInt(item.price) * parseInt(dataTransaction.discount) / 100;
+                let priceAfterDiscount = parseInt(item.price) - discountPerItem;
+                item.price = priceAfterDiscount.toString();
                 selectedMenuItemArray.push(item);
             } else if(item.totalPrice < grandTotal){
+
+                //#MARK-UP
                 item.totalPrice = grandTotal;
+
+                //#
+                let markUpPerItem = parseInt(item.price) * parseInt(dataTransaction.markup) / 100;
+                let priceAfterMarkup = parseInt(item.price) + markUpPerItem;
+                item.price = priceAfterMarkup.toString();
+
                 selectedMenuItemArray.push(item);
             } else {
                 selectedMenuItemArray.push(item);
@@ -292,6 +307,7 @@ class AdminTransaction extends Component{
             // staff: null
             staff: user.id
         };
+        
         action.createStoreTransaction(requiredData);
     }
     

@@ -309,7 +309,7 @@ class AdminReportMember extends Component {
             member.memberHistoris.data.data.result.transaction.map((value) => {
             
                 let baris = {
-                    date: moment(value.date).format('DD-MM-YYYY'),
+                    date: moment(value.date).format('DD MMM YYYY'),
                     total: value.total,
                     type: value.type
                 }

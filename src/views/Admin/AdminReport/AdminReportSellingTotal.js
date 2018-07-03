@@ -304,7 +304,7 @@ class AdminReportSellingTotal extends Component {
             selectedAccessDetailStore: row
 
         }, () => {
-            const { selectedAccessDetailStore, periodrepot, staffId, } = this.state;
+            const { selectedAccessDetailStore, periodrepot, staffId, period  } = this.state;
             const { getVendorEmployeeListDispatch, getStoreStaffReportDispatch } = this.props;
 
             //#GET STORE STAFF LIST || EMPLOYEE
@@ -318,14 +318,16 @@ class AdminReportSellingTotal extends Component {
 
             //#Get Laporan Total Penjualan Toko
             //#GET REPORT STORE STAFF
+
             let requiredDataStoreStaffReport = {
                 store: selectedAccessDetailStore.storeId,
-                start_date: moment().add(-12, 'month').format('YYYY-MM-DD'),
+                // start_date: moment().add(-12, 'month').format('YYYY-MM-DD'),
+                start_date: moment(period.from).format('YYYY-MM-DD'),
                 end_date: moment(periodrepot.to).format('YYYY-MM-DD'),
                 staff: '',
                 print: false
             };
-            // console.log(requiredDataStoreStaffReport);
+            
             getStoreStaffReportDispatch(requiredDataStoreStaffReport);
 
             //#
@@ -518,7 +520,7 @@ class AdminReportSellingTotal extends Component {
             end_date: moment(periodrepot.to).format('YYYY-MM-DD'),
             user: dataId,
             print: true
-        }
+        };
 
         this.setState({
             ...this.state,

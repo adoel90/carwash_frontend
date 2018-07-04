@@ -105,7 +105,7 @@ const AdminStoreView = props => {
                             {...props}
                         /> */}
 
-                        <BootstrapTable data={table.rows} options={optionsPagination} striped={true} hover={true} version='4' bordered={false} dataAlign="center" searchPlaceholder={"Ketik nama user yang terdaftar"} pagination search>
+                        <BootstrapTable data={table.rows} options={optionsPagination} striped={true} hover={true} version='4' bordered={false} dataAlign="center" searchPlaceholder={"Ketik nama Store..."} pagination search>
                             <TableHeaderColumn dataField="id" headerAlign="left" dataAlign="left" isKey={true} hidden><h3>ID</h3></TableHeaderColumn>
                             <TableHeaderColumn dataField="name" headerAlign="left" dataAlign="left">Nama Store</TableHeaderColumn>
                             <TableHeaderColumn dataField="user" headerAlign="left" dataAlign="left">Owner</TableHeaderColumn>

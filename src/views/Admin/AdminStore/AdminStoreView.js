@@ -9,6 +9,8 @@ import { TableSet } from '../../../components/Table';
 import { Button } from '../../../components/Button';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from '../../../components/Modal';
 
+import { BootstrapTable, TableHeaderColumn, SearchField } from 'react-bootstrap-table';
+
 const AdminStoreView = props => {
     const {
         isModalOpen,
@@ -19,8 +21,20 @@ const AdminStoreView = props => {
         updateStore,
         selectedStore,
         store,
-        search
+        search,
+        optionsPagination,
+        openStoreDetail,
+        changeStatusStore
     } = props;
+
+    const componentButtonUpdate = (datarow) => {
+        return (
+            <div>
+                <Button className="margin-right-small" type="button" onClick={() => openStoreDetail(datarow )}>Ubah</Button>
+                <Button type="button" theme={datarow.status ? "success" : "danger"} onClick={() => changeStatusStore(datarow)}>{ datarow.status ? 'Aktif' : 'Non Aktif' }</Button>
+            </div>
+        );
+    };
 
     const renderStoreDetailModal = () => {
         if(selectedStore) {
@@ -74,8 +88,8 @@ const AdminStoreView = props => {
                     {/* <h6 className="heading-subtitle">Tempor nostrud cupidatat officia sit ullamco eu pariatur ullamco quis laborum nulla ipsum.</h6> */}
                 </PanelHeader>
                 <PanelBody>
-                    <div className="admin-store__content">
-                        <TableSet
+                    <div className="admin-store__content"><br /><br /><br />   
+                        {/* <TableSet
                             loading={storeList.isFetching}
                             loaded={storeList.isLoaded}
                             columns={table.columns}
@@ -89,7 +103,15 @@ const AdminStoreView = props => {
                             searchBy={search.searchBy}
                             handleInputChange={handleInputChange}
                             {...props}
-                        />
+                        /> */}
+
+                        <BootstrapTable data={table.rows} options={optionsPagination} striped={true} hover={true} version='4' bordered={false} dataAlign="center" searchPlaceholder={"Ketik nama user yang terdaftar"} pagination search>
+                            <TableHeaderColumn dataField="id" headerAlign="left" dataAlign="left" isKey={true} hidden><h3>ID</h3></TableHeaderColumn>
+                            <TableHeaderColumn dataField="name" headerAlign="left" dataAlign="left">Nama Store</TableHeaderColumn>
+                            <TableHeaderColumn dataField="user" headerAlign="left" dataAlign="left">Owner</TableHeaderColumn>
+                            <TableHeaderColumn dataField="type" headerAlign="left" dataAlign="left"  >Kategori</TableHeaderColumn>
+                            <TableHeaderColumn dataField="data" headerAlign="left" dataAlign="left"  dataFormat={componentButtonUpdate}>Status</TableHeaderColumn>
+                        </BootstrapTable>
                     </div>
                 </PanelBody>
             </Panel>

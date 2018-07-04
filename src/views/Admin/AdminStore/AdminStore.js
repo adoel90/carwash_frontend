@@ -22,6 +22,21 @@ class AdminStore extends Component {
             this.updateStore = this.updateStore.bind(this);
             this.populateTableData = this.populateTableData.bind(this);
 
+            this.optionsPagination = {
+                  prePage:'Prev',
+                  nextPage:'Next',
+                  firstPage: '.', // First page button text
+                  lastPage: '.', // Last page button text
+                  sortIndicator: true,
+                  noDataText: 'Nama User tidak di temukan',
+                  // searchField: (props) => (<MySearchField { ...props } name="Search users"/>),
+                  hideSizePerPage: true,
+                  searchPosition: 'left',
+                  // onRowDoubleClick: function(row) {
+                  //     props.toggle();
+                  // }
+              };
+
             this.state = {
                   store: {},
                   storeList: {},
@@ -156,7 +171,7 @@ class AdminStore extends Component {
       openStoreDetail = (row) => {
             this.setState({
                   ...this.state,
-                  selectedStore: row.data
+                  selectedStore: row
             }, () => {
                   this.toggleModal('updateStore');
             })
@@ -164,13 +179,11 @@ class AdminStore extends Component {
 
       changeStatusStore = (row) => {
 
-            const {
-                  action
-            } = this.props;
+            const { action } = this.props;
     
             let requiredData = {
-                  id: row.data.id
-            }
+                  id: row.id
+            };
     
             action.changeStatusStore(requiredData);
       }
@@ -240,14 +253,14 @@ class AdminStore extends Component {
             }, {
                   title: 'Status',
                   accessor: 'action',
-                  width: '30%',
-                  align: 'center',
-                  render: (row) => (
-                        <td className="flex justify-content--center">
-                              <Button className="margin-right-small" type="button" onClick={() => this.openStoreDetail(row)}>Ubah</Button>
-                              <Button type="button" theme={row.data.status ? "success" : "danger"} onClick={() => this.changeStatusStore(row)}>{ row.data.status ? 'Aktif' : 'Non Aktif' }</Button>
-                        </td>
-                  )
+                  // width: '30%',
+                  // align: 'center',
+                  // render: (row) => (
+                  //       <td className="flex justify-content--center">
+                  //             <Button className="margin-right-small" type="button" onClick={() => this.openStoreDetail(row)}>Ubah</Button>
+                  //             <Button type="button" theme={row.data.status ? "success" : "danger"} onClick={() => this.changeStatusStore(row)}>{ row.data.status ? 'Aktif' : 'Non Aktif' }</Button>
+                  //       </td>
+                  // )
             }]
     
             const rows = [] 
@@ -303,6 +316,9 @@ class AdminStore extends Component {
                               handleInputChange={this.handleInputChange}
                               updateStore={this.updateStore}
                               toggleModal={this.toggleModal}
+                              optionsPagination={this.optionsPagination}
+                              openStoreDetail={this.openStoreDetail}
+                              changeStatusStore={this.changeStatusStore}
                         />
                         {this.renderDialog()}
                   </div>

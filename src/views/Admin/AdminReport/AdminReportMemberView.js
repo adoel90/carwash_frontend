@@ -14,6 +14,8 @@ import moment from 'moment';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
+import { BootstrapTable, TableHeaderColumn, SearchField } from 'react-bootstrap-table';
+
 const AdminReportMemberView = props => {
 
     const { member, 
@@ -32,8 +34,17 @@ const AdminReportMemberView = props => {
             isModalOpen, 
             selectedMemberDetail,
             handleInputChange,
-            search
+            search,
+            optionsPagination
         } = props;
+
+    const componentButtonHistory = (datarow) => {
+        return (
+            <div>
+                <Button className="margin-right-small" type="button" onClick={() => openMemberModalDetailNew(datarow )}>Histori</Button>
+            </div>
+        );
+    };
 
     //Modal detail Historis
     const renderMemberDetailHistoryModal = () => {
@@ -65,7 +76,6 @@ const AdminReportMemberView = props => {
                                               fullWidth
                                               pagination
                                         />
-                                        
                                     </Column>
                                 </Row>
                         </ModalBody>
@@ -148,8 +158,8 @@ const AdminReportMemberView = props => {
                     </Form>
                 </PageBlock><br />
 
-                <div className="admin-report__content">
-                    <TableSetKhusus
+                <div className="admin-report__content"><br /><br /><br />  
+                    {/* <TableSetKhusus
                         loading={report.reportMember.isFetching}
                         loaded={report.reportMember.isLoaded}
                         columns={table.columns}
@@ -163,8 +173,17 @@ const AdminReportMemberView = props => {
                         searchBy={search.searchBy}
                         handleInputChange={handleInputChange}
                         {...props}
-                    />
-                </div>
+                    /> */}
+
+                    <BootstrapTable data={table.rows} options={optionsPagination} striped={true} hover={true} version='4' bordered={false} dataAlign="center" searchPlaceholder={"Ketik nama member yang terdaftar"} pagination search>
+                        <TableHeaderColumn dataField="id" headerAlign="left" dataAlign="left" isKey={true}>No. Kartu</TableHeaderColumn>
+                        <TableHeaderColumn dataField="kartu" headerAlign="left" dataAlign="left">Kartu</TableHeaderColumn>
+                        <TableHeaderColumn dataField="name" headerAlign="left" dataAlign="left">Nama </TableHeaderColumn>
+                        <TableHeaderColumn dataField="created" headerAlign="left" dataAlign="left">Tgl Daftar</TableHeaderColumn>
+                        <TableHeaderColumn dataField="balance" headerAlign="left" dataAlign="left">Saldo</TableHeaderColumn>
+                        <TableHeaderColumn dataField="data" dataFormat={componentButtonHistory}>Histori</TableHeaderColumn>
+                    </BootstrapTable>
+</div>
                 </PanelBody>
             </Panel>
 

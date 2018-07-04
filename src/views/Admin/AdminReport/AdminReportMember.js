@@ -38,6 +38,21 @@ class AdminReportMember extends Component {
 
         this.populateTableDetailHistoris = this.populateTableDetailHistoris.bind(this);
 
+        this.optionsPagination = {
+            prePage:'Prev',
+            nextPage:'Next',
+            firstPage: '.', // First page button text
+            lastPage: '.', // Last page button text
+            sortIndicator: true,
+            noDataText: 'Nama User tidak di temukan',
+            // searchField: (props) => (<MySearchField { ...props } name="Search users"/>),
+            hideSizePerPage: true,
+            searchPosition: 'left',
+            // onRowDoubleClick: function(row) {
+            //     props.toggle();
+            // }
+        };
+
         this.state = {
             period: {
                 from: moment().add(-1, 'month'),
@@ -68,8 +83,8 @@ class AdminReportMember extends Component {
             selectedMemberDetail: {},
             reportMemberList: {},
             listMemberTransactionHistoris: {}
-        }
-    }
+        };
+    };
 
     componentDidMount(){
         const { action } = this.props;
@@ -339,6 +354,7 @@ class AdminReportMember extends Component {
                     handleExportToExcell= {this.handleExportToExcell}
                     toggleModal={this.toggleModal}
                     handleInputChange= {this.handleInputChange}
+                    optionsPagination = {this.optionsPagination}
                     />
             </div>
         )

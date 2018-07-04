@@ -14,6 +14,8 @@ import { Nav, NavItem, NavLink, NavTabLink} from '../../../components/Nav';
 import { TabContent } from '../../../components/Tab';
 import { Button } from '../../../components/Button';
 
+import { BootstrapTable, TableHeaderColumn, SearchField } from 'react-bootstrap-table';
+
 const AdminStoresMenuView = props => {
 
     const buttonStyle = {
@@ -40,9 +42,20 @@ const AdminStoresMenuView = props => {
         activeTab,
         toggleTab,
         search,
-
-        printListMenuStore
+        printListMenuStore,
+        optionsPagination,
+        openMenuVendorModal,
+        changeMenuStatus
     } = props;
+
+    const componentButtonUpdate = (datarow) => {
+        return (
+            <div>
+                <Button className="margin-right-small" type="button" onClick={() => openMenuVendorModal(datarow )}>Ubah</Button>
+                <Button type="button" theme={datarow.status ? "success" : "danger"} onClick={() => changeMenuStatus(datarow)}>{ datarow.status ? 'Aktif' : 'Non Aktif' }</Button>
+            </div>
+        );
+    };
 
     const renderMenuProductModal = () => {
 
@@ -131,8 +144,8 @@ const AdminStoresMenuView = props => {
                     <PanelBody>
 
                         {/* ******************FINISH****************** */}
-                        <div className="admin-user__content">
-                            <TableSet
+                        <div className="admin-user__content"><br /><br /><br />
+                            {/* <TableSet
                                 loading={storeMenuList.isFetching}
                                 loaded={storeMenuList.isLoaded}
                                 columns={table.columns}
@@ -146,7 +159,15 @@ const AdminStoresMenuView = props => {
                                 searchBy={search.searchBy}
                                 handleInputChange={handleInputChange}
                                 {...props}
-                            />
+                            /> */}
+
+                            <BootstrapTable data={table.rows} options={optionsPagination} striped={true} hover={true} version='4' bordered={false} dataAlign="center" searchPlaceholder={"Telusuri nama produk..."} pagination search>
+                                <TableHeaderColumn dataField="id" headerAlign="left" dataAlign="left" isKey={true} hidden>ID</TableHeaderColumn>
+                                <TableHeaderColumn dataField="name" headerAlign="left" dataAlign="left">Nama Produk</TableHeaderColumn>
+                                <TableHeaderColumn dataField="description" headerAlign="left" dataAlign="left">Deskripsi Produk</TableHeaderColumn>
+                                <TableHeaderColumn dataField="price" headerAlign="left" dataAlign="center">Harga</TableHeaderColumn>
+                                <TableHeaderColumn dataField="data" headerAlign="left" dataAlign="right" dataFormat={componentButtonUpdate}>Status</TableHeaderColumn>
+                            </BootstrapTable>
                         </div>
                     </PanelBody>
                 </Panel>

@@ -2,16 +2,18 @@
 //#Pagination.css
 //#**************************************************************************************************
 .react-bs-table-container .react-bs-table-pagination .row .col-md-6 .react-bootstrap-table-page-btns-ul li.page-item a.page-link {
-    padding: 1rem;
+    padding: 0.4rem;
+    margin: 5px;
 }
 
 ul.react-bootstrap-table-page-btns-ul.pagination{
     display: inline-block;
     padding-top: 10px;
     padding-bottom: 20px;
+    // top:10px;
     left:0px;
-    right: 0px;
-    bottom:0px;
+    right: 10px;
+    bottom:10px;
     position: absolute;
     text-align: right;
 }
@@ -141,7 +143,7 @@ input.form-control,
     };
 };
 
-//#
+//#Width of field of pencarian
 .col-xs-6.col-sm-6.col-md-6.col-lg-8{
     width: 100%;
 }

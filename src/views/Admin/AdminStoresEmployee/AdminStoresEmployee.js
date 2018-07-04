@@ -74,7 +74,22 @@ class AdminStoresEmployee extends Component {
             storeActive: 0,
             activeTab: 0,
             storeIdTab: {}
-        }
+        };
+
+        this.optionsPagination = {
+            prePage:'Prev',
+            nextPage:'Next',
+            firstPage: '.', // First page button text
+            lastPage: '.', // Last page button text
+            sortIndicator: true,
+            noDataText: 'Nama Staff tidak di temukan',
+            // searchField: (props) => (<MySearchField { ...props } name="Search users"/>),
+            hideSizePerPage: true,
+            searchPosition: 'left',
+            // onRowDoubleClick: function(row) {
+            //     props.toggle();
+            // }
+        };
     }
 
     componentDidMount = () => {
@@ -205,14 +220,14 @@ class AdminStoresEmployee extends Component {
             },
             {
                 title: 'Aksi',
-                accessor: 'action',
-                // render: (data) => (
-                render: (row) => (
-                    <td>
-                        <Button className="margin-right-small" type="button" onClick={() => this.openVendorEmployeeModal(row)}>Ubah</Button>
-                        <Button type="button" theme={row.data.status ? "success" : "danger"} onClick={() => this.changeEmployeeStatus(row)}>{ row.data.status ? 'Aktif' : 'Non Aktif' }</Button>
-                    </td>
-                )
+                // accessor: 'action',
+                // // render: (data) => (
+                // render: (row) => (
+                //     <td>
+                //         <Button className="margin-right-small" type="button" onClick={() => this.openVendorEmployeeModal(row)}>Ubah</Button>
+                //         <Button type="button" theme={row.data.status ? "success" : "danger"} onClick={() => this.changeEmployeeStatus(row)}>{ row.data.status ? 'Aktif' : 'Non Aktif' }</Button>
+                //     </td>
+                // )
             }
         ]
 
@@ -375,7 +390,7 @@ class AdminStoresEmployee extends Component {
         const { action } = this.props;
 
         let requiredData = {
-              id: row.data.id
+              id: row.id
         }
 
         action.changeEmployeeStatus(requiredData);
@@ -403,6 +418,9 @@ class AdminStoresEmployee extends Component {
                                     handleUpdateSubmitVendorEmployee={this.handleUpdateSubmitVendorEmployee}
                                     handleCancelModal= {this.handleCancelModal}
                                     toggleTab={this.toggleTab}
+                                    optionsPagination={this.optionsPagination}
+                                    openVendorEmployeeModal={this.openVendorEmployeeModal}
+                                    changeEmployeeStatus= {this.changeEmployeeStatus}
                                 />
                             </TabContent>
                         )

@@ -50,6 +50,21 @@ class AdminStoresMenu extends Component {
         this.toggleTab = this.toggleTab.bind(this);
         this.printListMenuStore = this.printListMenuStore.bind(this);
 
+        this.optionsPagination = {
+            prePage:'Prev',
+            nextPage:'Next',
+            firstPage: '.', // First page button text
+            lastPage: '.', // Last page button text
+            sortIndicator: true,
+            noDataText: 'Nama User tidak di temukan',
+            // searchField: (props) => (<MySearchField { ...props } name="Search users"/>),
+            hideSizePerPage: true,
+            searchPosition: 'left',
+            // onRowDoubleClick: function(row) {
+            //     props.toggle();
+            // }
+        };
+
         this.state = {
             search: {
                 searchText: '',
@@ -386,7 +401,7 @@ class AdminStoresMenu extends Component {
         } = this.props;
 
         let requiredData = {
-              id: row.data.id
+              id: row.id
         }
 
         action.changeMenuStatus(requiredData);
@@ -434,6 +449,9 @@ class AdminStoresMenu extends Component {
                                     handleImageChange = {this.handleImageChange}
                                     toggleTab={this.toggleTab}
                                     printListMenuStore={this.printListMenuStore}
+                                    optionsPagination={this.optionsPagination}
+                                    openMenuVendorModal={this.openMenuVendorModal}
+                                    changeMenuStatus={this.changeMenuStatus}
                                 />
                             </TabContent>
                         )

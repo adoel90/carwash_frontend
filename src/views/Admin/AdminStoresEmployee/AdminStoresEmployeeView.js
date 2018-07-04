@@ -9,6 +9,8 @@ import { Input, InputGroup, Switch, InputAddon, Select } from '../../../componen
 import { Modal, ModalHeader, ModalBody, ModalFooter } from '../../../components/Modal';
 import {Button} from '../../../components/Button';
 
+import { BootstrapTable, TableHeaderColumn, SearchField } from 'react-bootstrap-table';
+
 const AdminStoresEmployeeView = props => {
     
     const {
@@ -23,8 +25,20 @@ const AdminStoresEmployeeView = props => {
         selectedVendorEmployee,
         handleUpdateSubmitVendorEmployee,
         handleCancelModal,
-        search
+        search,
+        optionsPagination,
+        openVendorEmployeeModal,
+        changeEmployeeStatus
     } = props;
+
+    const componentButtonUpdate = (datarow) => {
+        return (
+            <div>
+                <Button className="margin-right-small" type="button" onClick={() => openVendorEmployeeModal(datarow )}>Ubah</Button>
+                <Button type="button" theme={datarow.status ? "success" : "danger"} onClick={() => changeEmployeeStatus(datarow)}>{ datarow.status ? 'Aktif' : 'Non Aktif' }</Button>
+            </div>
+        );
+    };
 
     const renderVendorEmployeeModal = () => {               
 
@@ -146,8 +160,8 @@ const AdminStoresEmployeeView = props => {
 
                     </PanelHeader>
                     <PanelBody>
-                        <div className="admin-user__content">
-                            <TableSet
+                        <div className="admin-user__content"><br /><br /><br /> 
+                            {/* <TableSet
                                 loading={vendorEmployeeList.isFetching}
                                 loaded={vendorEmployeeList.isLoaded}
                                 columns={table.columns}
@@ -161,7 +175,14 @@ const AdminStoresEmployeeView = props => {
                                 searchBy={search.searchBy}
                                 handleInputChange={handleInputChange}
                                 {...props}
-                            />
+                            /> */}
+
+                            <BootstrapTable data={table.rows} options={optionsPagination} striped={true} hover={true} version='4' bordered={false} dataAlign="center" searchPlaceholder={"Telusuri nama staff..."} pagination search>
+                                <TableHeaderColumn dataField="id" headerAlign="left" dataAlign="left" isKey={true} hidden><h3>ID</h3></TableHeaderColumn>
+                                <TableHeaderColumn dataField="name" headerAlign="left" dataAlign="left">Nama Staff</TableHeaderColumn>
+                                <TableHeaderColumn dataField="email" headerAlign="left" dataAlign="left">Alamat Email</TableHeaderColumn>
+                                <TableHeaderColumn dataField="data" dataFormat={componentButtonUpdate}>Status</TableHeaderColumn>
+                            </BootstrapTable>
                         </div>
                     </PanelBody>
                 </Panel>

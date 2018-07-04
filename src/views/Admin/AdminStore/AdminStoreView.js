@@ -98,7 +98,7 @@ const AdminStoreView = props => {
                             fullWidth
                             pagination
                             placeholder="Cari store yang terdaftar"
-                            hasSearchBar
+                            hasSearchBar 
                             searchParams={table.searchParams}
                             searchBy={search.searchBy}
                             handleInputChange={handleInputChange}

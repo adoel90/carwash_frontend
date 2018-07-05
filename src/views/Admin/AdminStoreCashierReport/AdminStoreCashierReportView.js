@@ -14,14 +14,13 @@ import { Modal, ModalHeader, ModalBody, ModalFooter } from '../../../components/
 
 const AdminStoreCashierReportView = props => {
 
-    const { showDate, table, period, report, handlePeriodChange, store, handlePrint, user } = props;
+    const { showDate, table, period, report, handlePeriodChange, store, handlePrint, user, handleConvertExcell } = props;
 
 
     return (
         <div className="admin-report">
             <Panel>
                 <PanelHeader>
-                    {console.log(props)}
                     <h4 className="heading-title">{user.level.name === "Superadmin" ? "Laporan Kasir" : "Kasir"}</h4>
                 </PanelHeader>
                 <PanelBody>
@@ -75,7 +74,13 @@ const AdminStoreCashierReportView = props => {
                                         </Button>
                                     </FormField>
                                 </div>
-
+                                <div>
+                                    <FormField>
+                                        <Button onClick={(e) => handleConvertExcell(e)} theme="success" className="margin-right-small" type="submit" style={{ height: '50px', 'margin-left': '3px' }}>
+                                            Export to xls
+                                        </Button>
+                                    </FormField>
+                                </div>
                             </Column>
                         </Row>
                     </Form>

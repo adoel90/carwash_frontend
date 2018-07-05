@@ -30,6 +30,8 @@ class AdminStoreCashierReport extends Component {
         this.handlePeriodChange = this.handlePeriodChange.bind(this);
         this.populateTableData= this.populateTableData.bind(this);
         this.handlePrint = this.handlePrint.bind(this);
+        this.handleConvertExcell = this.handleConvertExcell.bind(this);
+
         this.state = {
             table: {
                 columns: [],
@@ -138,7 +140,7 @@ class AdminStoreCashierReport extends Component {
                     transaction_date: moment(value.transaction_date).format('DD MMM YYYY'),
                     description: value.description,
                     total: value.total
-                }
+                };
 
                 rows.push(row);
             })
@@ -151,8 +153,8 @@ class AdminStoreCashierReport extends Component {
                 columns: columns,
                 rows: rows
             }
-        })
-    }
+        });
+    };
 
     handlePrint(period){
         const { getReportStoreCashierMemberPrintDispatch, user } = this.props;
@@ -176,6 +178,22 @@ class AdminStoreCashierReport extends Component {
                 window.print();
         })
         // getReportStoreCashierMemberPrintDispatch(requiredData);
+    };
+
+    handleConvertExcell(e){
+        e.preventDefault();
+
+        const { period, dataId } = this.state;
+
+        let requiredData = {
+            start_date : moment(period.to).format('YYYY-MM-DD'),
+            end_date : moment(period.to).format('YYYY-MM-DD'),
+            user: dataId,
+            print: false
+        };
+
+        console.log(requiredData);
+
     }
 
     render () { 
@@ -187,6 +205,7 @@ class AdminStoreCashierReport extends Component {
                     showDate={this.showDate}
                     handlePeriodChange={this.handlePeriodChange}
                     handlePrint= {this.handlePrint}
+                    handleConvertExcell = {this.handleConvertExcell}
                 />
 
                  {/* Want to print mini pos */}

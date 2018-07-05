@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getReportMemberExportToExcell, getReportOwnerSuperAdmin } from '../../../actions/report.action';
 import { getVendorEmployeeList, getStoreStaffReport } from '../../../actions/vendor.action';
-import { getReportStoreCashierMemberPrint } from '../../../actions/store.action';
+import { getReportStoreCashierMemberPrint, getReportStoreCashierMemberConvertExcell } from '../../../actions/store.action';
 import { Button } from '../../../components/Button';
 import { AdminReportSellingTotalView, AdminReportSellingTotalPaymentReceipt } from '../AdminReport';
 import moment from 'moment';
@@ -13,7 +13,7 @@ function mapStateToProps(state) {
         report: state.report,
         vendorState: state.vendorState
     }
-}
+};
 
 function mapDispatchToProps(dispatch) {
     return {
@@ -22,6 +22,7 @@ function mapDispatchToProps(dispatch) {
         getStoreStaffReportDispatch: (data) => dispatch(getStoreStaffReport(data)),
         getReportStoreCashierMemberPrintDispatch: (data) => dispatch(getReportStoreCashierMemberPrint(data)),
         // getReportMemberExportToExcellDispatch: (data) => dispatch(getReportMemberExportToExcell(data)),
+        getReportStoreCashierMemberConvertExcellDispatch : (data) => dispatch(getReportStoreCashierMemberConvertExcell(data)),
         action: bindActionCreators({ getReportOwnerSuperAdmin }, dispatch)
     }
 }
@@ -41,6 +42,7 @@ class AdminReportSellingTotal extends Component {
         this.handleShow = this.handleShow.bind(this);
         this.populateTableAccessDetailStore = this.populateTableAccessDetailStore.bind(this);
         this.handlePrint = this.handlePrint.bind(this);
+        this.handleExportToExcell = this.handleExportToExcell.bind(this);
 
 
         this.state = {
@@ -108,7 +110,7 @@ class AdminReportSellingTotal extends Component {
                     this.populateTableData();
                 })
             }
-        }
+        };
 
         //GET REPORT PENJUALAN
         if (prevProps.vendorState.reportStaff !== vendorState.reportStaff) {
@@ -422,12 +424,7 @@ class AdminReportSellingTotal extends Component {
                 });
 
                 if (dataItemProduct.length) {
-
                     dataItemProduct.map((value) => {
-
-                        // console.log(data);
-
-                        console.log(data.date);
 
                         let row = {
                             // date: moment(data.date).format('YYYY-MM-DD, hh:mm:ss a'),
@@ -441,57 +438,8 @@ class AdminReportSellingTotal extends Component {
                         };
                         barisArray.push(row);
                     });
-
-                }
-
-                //#1
-                // value.item.map((item, i) => {
-                //     //#
-                //     let barisKedua = {   
-                //         queue: value.queue,
-                //         date: value.date,
-                //         item: item.name,
-                //         price: item.price,
-                //         quantity: item.quantity
-                //     }
-                //     barisArrayKedua.push(barisKedua);
-                // }); 
-
-                // //#2
-                // let uniqueSet = new Set(barisArrayKedua.map(e => JSON.stringify(e))); 
-                // let response = Array.from(uniqueSet).map(e => JSON.parse(e))
-
-                // for(let i = 0; i < response.length; i++){
-
-                //     const barisPertama = {
-                //         date: value.date,
-                //         item: [],
-                //         price:[],
-                //         quantity:[],
-                //         staff: value.user.name,
-                //         store: value.store.name
-                //     }
-                //     // console.log(response);
-                //     barisPertama.item.push(response[i].item);
-                //     barisPertama.price.push(response[i].price);
-                //     barisPertama.quantity.push(response[i].quantity);
-                //     barisArray.push(barisPertama);
-                // }
-
-                // //#3
-                // let uniqueSetFinal = new Set(barisArray.map(e => JSON.stringify(e))); 
-                // responseData = Array.from(uniqueSetFinal).map(e => JSON.parse(e))
-
+                };
             });
-
-            // this.setState({
-            //     ...this.state,
-            //     tabel: {
-            //         ...this.state.tabel,
-            //         kolom: kolom,
-            //         baris: responseData
-            //     }
-            // })
 
             //************ 
             this.setState({
@@ -527,9 +475,47 @@ class AdminReportSellingTotal extends Component {
             statusPrintData: 200
         }, () => {
             window.print();
+        });
+    };
 
-        })
-    }
+    handleExportToExcell(e) {
+
+        e.preventDefault();
+
+        const { periodrepot, staffId, selectedAccessDetailStore } = this.state;
+        const { getReportStoreCashierMemberConvertExcellDispatch } = this.props;
+
+        //#GET REPORT STORE STAFF
+        if (staffId === 2018) {//Special case when select Staff ID
+
+            let requiredDataStoreStaffReport = {
+                store: selectedAccessDetailStore.storeId,
+                start_date: moment(periodrepot.to).format('YYYY-MM-DD'),
+                end_date: moment(periodrepot.to).format('YYYY-MM-DD'),
+                staff: '',
+                print: false
+            };
+            // console.log(requiredDataStoreStaffReport);
+            getReportStoreCashierMemberConvertExcellDispatch(requiredDataStoreStaffReport);
+
+        } else {
+
+            let requiredDataStoreStaffReport = {
+                store: selectedAccessDetailStore.storeId,
+                start_date: moment(periodrepot.to).format('YYYY-MM-DD'),
+                end_date: moment(periodrepot.to).format('YYYY-MM-DD'),
+                staff: staffId,
+                print: false
+            };
+
+            // console.log(requiredDataStoreStaffReport);
+            getReportStoreCashierMemberConvertExcellDispatch(requiredDataStoreStaffReport);
+        }
+        // console.log(requiredData);
+
+        // getReportStoreCashierMemberConvertExcellDispatch(requiredData);
+
+    };
 
 
     render() {
@@ -545,7 +531,7 @@ class AdminReportSellingTotal extends Component {
                     handleChangeStaffOwnerOptions={this.handleChangeStaffOwnerOptions}
                     handleShow={this.handleShow}
                     handlePrint={this.handlePrint}
-                // handleExportToExcell={this.handleExportToExcell}
+                    handleExportToExcell={this.handleExportToExcell}
                 />;
 
                 {/* Want to print mini pos */}

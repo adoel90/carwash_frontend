@@ -35,7 +35,8 @@ const AdminReportSellingTotalView = props => {
         dailyOrdered,
         invoice,
         totalTransaction,
-        dataCQT
+        dataCQT,
+        handleExportToExcell
     } = props;
 
 
@@ -97,8 +98,11 @@ const AdminReportSellingTotalView = props => {
                                             </Button>
                                         </FormField>
                                     </div>
-                                    <Button onClick={(e) => handlePrint(e, periodrepot)} theme="danger" className="margin-right-small" type="submit" style={{height: '50px', 'margin-left': '3px'}}>
+                                    <Button onClick={(e) => handlePrint(e, periodrepot)} theme="danger" type="submit" style={{height: '50px', 'margin-left': '3px'}}>
                                         Print
+                                    </Button>
+                                    <Button onClick={(e) => handleExportToExcell(e)} theme="success" className="margin-right-small" type="submit" style={{height: '50px', 'margin-left': '3px'}}>
+                                        Export to xls
                                     </Button>
                                 </Column>
                             </Row>

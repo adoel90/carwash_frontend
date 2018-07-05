@@ -108,6 +108,10 @@ export const GET_REPORT_STORE_CASHIER_MEMBER_PRINT_REQUESTED = 'GET_REPORT_STORE
 export const GET_REPORT_STORE_CASHIER_MEMBER_PRINT_FULFILLED = 'GET_REPORT_STORE_CASHIER_MEMBER_PRINT_FULFILLED';
 export const GET_REPORT_STORE_CASHIER_MEMBER_PRINT_REJECTED = 'GET_REPORT_STORE_CASHIER_MEMBER_PRINT_REJECTED';
 
+//GET REPORT STORE CASHIER MEMBER WITH CONVERT EXCELL
+// export const GET_REPORT_STORE_CASHIER_MEMBER_CONVERT_EXCELL_REQUESTED = 'GET_REPORT_STORE_CASHIER_MEMBER_CONVERT_EXCELL_REQUESTED';
+// export const GET_REPORT_STORE_CASHIER_MEMBER_CONVERT_EXCELL_FULFILLED = 'GET_REPORT_STORE_CASHIER_MEMBER_CONVERT_EXCELL_FULFILLED';
+// export const GET_REPORT_STORE_CASHIER_MEMBER_CONVERT_EXCELL_REJECTED = 'GET_REPORT_STORE_CASHIER_MEMBER_CONVERT_EXCELL_REJECTED';
 
 
 const accessToken = localStorage.getItem('accessToken') ? localStorage.getItem('accessToken') : null;
@@ -626,6 +630,28 @@ export const getReportStoreCashierMemberPrint = (data) => {
 	function fetchSuccess(data) { return { type: GET_REPORT_STORE_CASHIER_MEMBER_PRINT_FULFILLED, payload: data } }
 	function fetchError(data) { return { type: GET_REPORT_STORE_CASHIER_MEMBER_PRINT_REJECTED, payload: data } }
 }
+
+//GET REPORT STORE CASHIER MEMBER WITH CONVERT EXCELL
+export const getReportStoreCashierMemberConvertExcell = (data) => {
+
+	// console.log(data);
+
+	return async dispatch => {
+		dispatch(fetchRequest());
+		return axios
+			.get(`${constant.API_PATH}store/staff/report?accessToken=${accessToken}&staff=${data.staff}&store=${data.store}&start_date=${data.start_date}&end_date=${data.end_date}&print=&convert=true`)
+			.then((response) => {
+				window.open(`${constant.API_PATH}store/staff/report?accessToken=${accessToken}&staff=${data.staff}&store=${data.store}&start_date=${data.start_date}&end_date=${data.end_date}&print=&convert=true`, '_blank');
+			})
+			.catch((error) => {
+				dispatch(fetchSuccess(error));
+			})
+	}
+
+	function fetchRequest() { return { type: GET_REPORT_STORE_CASHIER_MEMBER_REQUESTED } }
+	function fetchSuccess(data) { return { type: GET_REPORT_STORE_CASHIER_MEMBER_FULFILLED, payload: data } }
+	function fetchError(data) { return { type: GET_REPORT_STORE_CASHIER_MEMBER_REJECTED, payload: data } }
+};
 
 //#GET MENU LIST STORE WITH PRINT || printMenuStore -- state
 export const getMenuListStoreWithPrint = (data) => {

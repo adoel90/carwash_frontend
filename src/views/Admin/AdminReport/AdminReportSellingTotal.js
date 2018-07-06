@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getReportMemberExportToExcell, getReportOwnerSuperAdmin } from '../../../actions/report.action';
-import { getVendorEmployeeList, getStoreStaffReport } from '../../../actions/vendor.action';
+import { getVendorEmployeeList, getStoreStaffReport, getStoreStaffReportConvertExcell } from '../../../actions/vendor.action';
 import { getReportStoreCashierMemberPrint, getReportStoreCashierMemberConvertExcell } from '../../../actions/store.action';
 import { Button } from '../../../components/Button';
 import { AdminReportSellingTotalView, AdminReportSellingTotalPaymentReceipt } from '../AdminReport';
@@ -23,6 +23,7 @@ function mapDispatchToProps(dispatch) {
         getReportStoreCashierMemberPrintDispatch: (data) => dispatch(getReportStoreCashierMemberPrint(data)),
         // getReportMemberExportToExcellDispatch: (data) => dispatch(getReportMemberExportToExcell(data)),
         getReportStoreCashierMemberConvertExcellDispatch : (data) => dispatch(getReportStoreCashierMemberConvertExcell(data)),
+        getStoreStaffReportConvertExcellDispatch : (data) => dispatch(getStoreStaffReportConvertExcell(data)),
         action: bindActionCreators({ getReportOwnerSuperAdmin }, dispatch)
     }
 }
@@ -156,7 +157,7 @@ class AdminReportSellingTotal extends Component {
         //         })
         //     }
         // }
-    }
+    };
 
     handlePeriodChange = (type, date) => {
         const { period } = this.state;
@@ -251,19 +252,6 @@ class AdminReportSellingTotal extends Component {
         }
         action.getReportMemberList(requiredData);
     }
-
-    //#
-    // handleExportToExcell = (e, period) => {
-    //     e.preventDefault();
-    //     const { getReportMemberExportToExcellDispatch } = this.props;
-
-    //     let requiredData = {
-    //         start_date : moment(period.from).format('YYYY-MM-DD'),
-    //         end_date : moment(period.to).format('YYYY-MM-DD'), 
-    //         convert: true
-    //     }
-    //     getReportMemberExportToExcellDispatch(requiredData);
-    // }
 
     //#
     toggleModal = (name) => {
@@ -478,25 +466,25 @@ class AdminReportSellingTotal extends Component {
         });
     };
 
-    handleExportToExcell(e) {
+    handleExportToExcell(e){
 
         e.preventDefault();
-
-        const { periodrepot, staffId, selectedAccessDetailStore } = this.state;
-        const { getReportStoreCashierMemberConvertExcellDispatch } = this.props;
+        const { periodrepot, period,  staffId, selectedAccessDetailStore } = this.state;
+        const { getStoreStaffReportConvertExcellDispatch } = this.props;
 
         //#GET REPORT STORE STAFF
-        if (staffId === 2018) {//Special case when select Staff ID
+        if (staffId === 2018 || staffId === null) {//Special case when select Staff ID
 
             let requiredDataStoreStaffReport = {
                 store: selectedAccessDetailStore.storeId,
-                start_date: moment(periodrepot.to).format('YYYY-MM-DD'),
+                start_date: moment(period.from).format('YYYY-MM-DD') ?  moment(period.from).format('YYYY-MM-DD') : moment(periodrepot.to).format('YYYY-MM-DD'),
                 end_date: moment(periodrepot.to).format('YYYY-MM-DD'),
                 staff: '',
                 print: false
             };
-            // console.log(requiredDataStoreStaffReport);
-            getReportStoreCashierMemberConvertExcellDispatch(requiredDataStoreStaffReport);
+            
+            console.log(requiredDataStoreStaffReport);
+            getStoreStaffReportConvertExcellDispatch(requiredDataStoreStaffReport);
 
         } else {
 
@@ -508,12 +496,10 @@ class AdminReportSellingTotal extends Component {
                 print: false
             };
 
-            // console.log(requiredDataStoreStaffReport);
-            getReportStoreCashierMemberConvertExcellDispatch(requiredDataStoreStaffReport);
+            console.log(requiredDataStoreStaffReport);
+            getStoreStaffReportConvertExcellDispatch(requiredDataStoreStaffReport);
         }
-        // console.log(requiredData);
 
-        // getReportStoreCashierMemberConvertExcellDispatch(requiredData);
 
     };
 

@@ -113,6 +113,11 @@ export const GET_REPORT_STORE_CASHIER_MEMBER_PRINT_REJECTED = 'GET_REPORT_STORE_
 // export const GET_REPORT_STORE_CASHIER_MEMBER_CONVERT_EXCELL_FULFILLED = 'GET_REPORT_STORE_CASHIER_MEMBER_CONVERT_EXCELL_FULFILLED';
 // export const GET_REPORT_STORE_CASHIER_MEMBER_CONVERT_EXCELL_REJECTED = 'GET_REPORT_STORE_CASHIER_MEMBER_CONVERT_EXCELL_REJECTED';
 
+//GET REPORT CASHIER SUPERADMIN CONVERT EXCELL ***Catatan: Untuk API CONVERT TO EXCEEL tidak memakai reducer sehingga tidak ada state ter-generate (hanya panggi API convert!!!)
+export const GET_REPORT_CASHIER_SUPERADM_REQUESTED = 'GET_REPORT_CASHIER_SUPERADM_REQUESTED';
+export const GET_REPORT_CASHIER_SUPERADM_FULFILLED = 'GET_REPORT_CASHIER_SUPERADM_FULFILLED';
+export const GET_REPORT_CASHIER_SUPERADM_REJECTED = 'GET_REPORT_CASHIER_SUPERADM_REJECTED';
+
 
 const accessToken = localStorage.getItem('accessToken') ? localStorage.getItem('accessToken') : null;
 const userLogin = localStorage.getItem('userData') ? localStorage.getItem('userData') : null;
@@ -634,8 +639,6 @@ export const getReportStoreCashierMemberPrint = (data) => {
 //GET REPORT STORE CASHIER MEMBER WITH CONVERT EXCELL
 export const getReportStoreCashierMemberConvertExcell = (data) => {
 
-	// console.log(data);
-
 	return async dispatch => {
 		dispatch(fetchRequest());
 		return axios
@@ -655,7 +658,6 @@ export const getReportStoreCashierMemberConvertExcell = (data) => {
 
 //#GET MENU LIST STORE WITH PRINT || printMenuStore -- state
 export const getMenuListStoreWithPrint = (data) => {
-	// console.log(data);
 
 	return async dispatch => {
 
@@ -675,15 +677,28 @@ export const getMenuListStoreWithPrint = (data) => {
 	function fetchRequest() { return { type: GET_MENU_LIST_STORE_WITH_PRINT_REQUESTED } }
 	function fetchSuccess(data) { return { type: GET_MENU_LIST_STORE_WITH_PRINT_FULFILLED, payload: data } }
 	function fetchError(data) { return { type: GET_MENU_LIST_STORE_WITH_PRINT_REJECTED, payload: data } }
-}
+};
 
-//#GET STORE STAFF LIST 
-// export const getStoreStaffList = (data) => {
+//GET REPORT CASHIER SUPERADMIN CONVERT EXCELL
+export const getReportCashierSuperAdmConvertExcell = (data) => {
+	return async dispatch => {
+		dispatch(fetchRequest());
+		return axios
+			// .get(`${constant.API_PATH}report/user?accessToken=${accessToken}&start_date=${data.start_date}&end_date=${data.end_date}&user=${userId}&print=${data.print}`)
+			.get(`${constant.API_PATH}report/user?accessToken=${accessToken}&start_date=${data.start_date}&end_date=${data.end_date}&user=${data.user}&convert=true`)
+			.then((response) => {
+				window.open(`${constant.API_PATH}report/user?accessToken=${accessToken}&start_date=${data.start_date}&end_date=${data.end_date}&user=${data.user}&convert=true`, '_blank');
+			})
+			.catch((error) => {
+				dispatch(fetchSuccess(error));
+			})
+	}
 
-// 	return {
-// 		type: null
-// 	}
-// }
+	function fetchRequest() { return { type: GET_REPORT_CASHIER_SUPERADM_REQUESTED } }
+	function fetchSuccess(data) { return { type: GET_REPORT_CASHIER_SUPERADM_FULFILLED, payload: data } }
+	function fetchError(data) { return { type: GET_REPORT_CASHIER_SUPERADM_REJECTED, payload: data } }
+};
+
 
 
 

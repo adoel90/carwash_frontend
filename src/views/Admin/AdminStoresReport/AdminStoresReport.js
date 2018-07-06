@@ -8,7 +8,7 @@ import { TabContent } from '../../../components/Tab';
 import { PropsRoute } from '../../../components/Route';
 import { Nav, NavItem, NavLink, NavTabLink} from '../../../components/Nav';
 import { AdminStoresReportView, AdminStoreStaffPaymentReceipt } from '../AdminStoresReport';
-import { getVendorEmployeeList, getStoreList, getStoreStaffReport, getStoreStaffReportWithPrint, getStoreStaffReportDetailAyoTail } from '../../../actions/vendor.action';
+import { getVendorEmployeeList, getStoreList, getStoreStaffReport, getStoreStaffReportConvertExcell, getStoreStaffReportWithPrint, getStoreStaffReportDetailAyoTail } from '../../../actions/vendor.action';
 // import { getStoreStaffList } from '../../../actions/store.action';
 // import { getStoreReportList } from '../../../actions/vendor.report.action';
 
@@ -26,6 +26,7 @@ function mapDispatchToProps(dispatch) {
         getStoreStaffReportDispatch: (data) => dispatch(getStoreStaffReport(data)),
         getStoreStaffReportWithPrintDispatch: (data) => dispatch(getStoreStaffReportWithPrint(data)),
         getStoreStaffReportDetailAyoTailDispatch: (data) => dispatch(getStoreStaffReportDetailAyoTail(data)),
+        getStoreStaffReportConvertExcellDispatch: (data) => dispatch(getStoreStaffReportConvertExcell(data)),
         getVendorEmployeeListDispatch: (data) => dispatch(getVendorEmployeeList(data))
     }
 }
@@ -47,6 +48,7 @@ class AdminStoresReport extends Component {
 
         this.populateTableDetail = this.populateTableDetail.bind(this);
         this.handleChangeStaffOwnerOptions = this.handleChangeStaffOwnerOptions.bind(this);
+        this.handleConvertExcell = this.handleConvertExcell.bind(this);
 
         this.state = {
 
@@ -303,8 +305,8 @@ class AdminStoresReport extends Component {
                 print: false
             }
             getStoreStaffReportDispatch(requiredDataStoreStaff);
-        }
-    }
+        };
+    };
 
     populateTableData = () => {
 
@@ -392,7 +394,38 @@ class AdminStoresReport extends Component {
             }, () => {
                 window.print();
         })
-    }
+    };
+
+    handleConvertExcell(e){
+        e.preventDefault();
+        const {period, storeActive, staffId, storeIdTab} = this.state;
+        const { vendorState, store, getStoreStaffReportConvertExcellDispatch, user} = this.props;
+
+        //#GET REPORT STORE STAFF
+        if(staffId === 2018){//Special case when select Staff ID
+
+            const requiredDataStoreStaff = {
+                store: storeIdTab.id === undefined ? store.list.data.data.result.store[0].id : storeIdTab.id,
+                start_date : moment(period.to).format('YYYY-MM-DD'),
+                end_date : moment(period.to).format('YYYY-MM-DD'),
+                staff: '',
+                print: false
+            };
+            getStoreStaffReportConvertExcellDispatch(requiredDataStoreStaff);
+
+        } else {
+
+            const requiredDataStoreStaff = {
+                store: storeIdTab.id === undefined ? store.list.data.data.result.store[0].id : storeIdTab.id,
+                start_date : moment(period.to).format('YYYY-MM-DD'),
+                end_date : moment(period.to).format('YYYY-MM-DD'),
+                staff: staffId === null ? user.id : staffId,
+                print: false
+            };
+
+            getStoreStaffReportConvertExcellDispatch(requiredDataStoreStaff);
+        };
+    };
 
     //#
     openModalDetail = (row) => {
@@ -416,7 +449,7 @@ class AdminStoresReport extends Component {
                 // print: false
             }
             getStoreStaffReportDetailAyoTailDispatch(requireData);
-        })
+        });
     }
 
     //#
@@ -507,7 +540,7 @@ class AdminStoresReport extends Component {
                 }
             })
         }
-    }
+    };
 
     // handleChangeStaffOwnerOptions = (object, e) => {
     handleChangeStaffOwnerOptions = (e) => {
@@ -521,12 +554,11 @@ class AdminStoresReport extends Component {
         this.setState({
             ...this.state,
             staffId :  parseInt(value)
-        }, () => {
-            // console.log(this.state);
         });
-    }
+    };
 
     render() {
+
         const { activeTab, storeList} = this.state;
         const { store } = this.props;
         const renderTabContent = () => {
@@ -546,6 +578,7 @@ class AdminStoresReport extends Component {
                                     handlePrint= {this.handlePrint}
                                     toggleModal={this.toggleModal}
                                     handleChangeStaffOwnerOptions= {this.handleChangeStaffOwnerOptions}
+                                    handleConvertExcell={this.handleConvertExcell}
                                     />
                             </TabContent>
                         )

@@ -5,19 +5,20 @@ import { bindActionCreators } from 'redux';
 import moment from 'moment';
 
 import { AdminStoreCashierReportView, AdminStoreCashierReportPaymentReceipt} from '../AdminStoreCashierReport';
-import { getReportStoreCashierMember, getReportStoreCashierMemberPrint} from '../../../actions/store.action';
+import { getReportStoreCashierMember, getReportStoreCashierMemberPrint, getReportCashierSuperAdmConvertExcell} from '../../../actions/store.action';
 
 
 function mapStateToProps(state) {
     return {
         store: state.store,
     };
-}
+};
 
 function mapDispatchToProps(dispatch) {
     return {
         getReportStoreCashierMemberDispatch: (data) => dispatch(getReportStoreCashierMember(data)),
         getReportStoreCashierMemberPrintDispatch: (data) => dispatch(getReportStoreCashierMemberPrint(data)),
+        getReportCashierSuperAdmConvertExcellDispatch : (data) => dispatch(getReportCashierSuperAdmConvertExcell(data)),
         action: bindActionCreators({ getReportStoreCashierMember }, dispatch)
     }
 }
@@ -183,7 +184,11 @@ class AdminStoreCashierReport extends Component {
     handleConvertExcell(e){
         e.preventDefault();
 
-        const { period, dataId } = this.state;
+        const { period } = this.state;
+        const { user, getReportCashierSuperAdmConvertExcellDispatch } = this.props;
+
+          //Scenario superadmin can access route Kasir
+          let dataId = user.id === 1 ? user.id + 2 : user.id;
 
         let requiredData = {
             start_date : moment(period.to).format('YYYY-MM-DD'),
@@ -192,7 +197,7 @@ class AdminStoreCashierReport extends Component {
             print: false
         };
 
-        console.log(requiredData);
+        getReportCashierSuperAdmConvertExcellDispatch(requiredData);
 
     }
 

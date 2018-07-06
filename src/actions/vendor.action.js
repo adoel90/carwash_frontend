@@ -69,7 +69,16 @@ export const GET_STORE_MENU_REPORT_OWNER_DETAIL_WITH_PRINT_REQUESTED = 'GET_STOR
 export const GET_STORE_MENU_REPORT_OWNER_DETAIL_WITH_PRINT_FULFILLED = 'GET_STORE_MENU_REPORT_OWNER_DETAIL_WITH_PRINT_FULFILLED';
 export const GET_STORE_MENU_REPORT_OWNER_DETAIL_WITH_PRINT_REJECTED = 'GET_STORE_MENU_REPORT_OWNER_DETAIL_WITH_PRINT_REJECTED';
 
-//getStoreMenuReportOwnerWithPrint 
+
+//GET REPORT STORE STAFF CONVERT EXCELL
+export const GET_REPORT_STORE_STAFF_CONVERT_EXCELL_REQUESTED = 'GET_REPORT_STORE_STAFF_CONVERT_EXCELL_REQUESTED';
+export const GET_REPORT_STORE_STAFF_CONVERT_EXCELL_FULFILLED = 'GET_REPORT_STORE_STAFF_CONVERT_EXCELL_FULFILLED';
+export const GET_REPORT_STORE_STAFF_CONVERT_EXCELL_REJECTED = 'GET_REPORT_STORE_STAFF_CONVERT_EXCELL_REJECTED';
+
+//GET MENU REPORT OWNER CONVERT EXCELL
+export const GET_STORE_MENU_REPORT_OWNER_CONVERT_EXCELL_REQUESTED = 'GET_STORE_MENU_REPORT_OWNER_CONVERT_EXCELL_REQUESTED';
+export const GET_STORE_MENU_REPORT_OWNER_CONVERT_EXCELL_FULFILLED = 'GET_STORE_MENU_REPORT_OWNER_CONVERT_EXCELL_FULFILLED';
+export const GET_STORE_MENU_REPORT_OWNER_CONVERT_EXCELL_REJECTED = 'GET_STORE_MENU_REPORT_OWNER_CONVERT_EXCELL_REJECTED';
 
 const accessToken = localStorage.getItem('accessToken') ? localStorage.getItem('accessToken') : null;
 const userLoginNow = localStorage.getItem('userData') ? localStorage.getItem('userData') : null;
@@ -324,15 +333,33 @@ export const getStoreStaffReport = (data) => {
 	function fetchRequest() { return { type: GET_REPORT_STORE_STAFF_REQUESTED } }
 	function fetchSuccess(data) { return { type: GET_REPORT_STORE_STAFF_FULFILLED, payload: data } }
 	function fetchError(data) { return { type: GET_REPORT_STORE_STAFF_REJECTED, payload: data } }
-}
+};
+
+//#GET REPORT STORE STAFF CONVERT EXCELL
+export const getStoreStaffReportConvertExcell = (data) => {
+
+	return async dispatch => {
+		dispatch(fetchRequest());
+		return axios
+			// .get(`${constant.API_PATH}store/staff/report?accessToken=${accessToken}&staff=${data.staff}&store=${data.store}&start_date=${data.start_date}&end_date=${data.end_date}&print=${data.print}`)
+			.get(`${constant.API_PATH}store/staff/report?accessToken=${accessToken}&staff=${data.staff}&store=${data.store}&start_date=${data.start_date}&end_date=${data.end_date}&convert=true`)
+			.then((response) => {
+				window.open(`${constant.API_PATH}store/staff/report?accessToken=${accessToken}&staff=${data.staff}&store=${data.store}&start_date=${data.start_date}&end_date=${data.end_date}&convert=true`, '_blank');
+			})
+			.catch((error) => {
+				dispatch(fetchError(error));
+			});
+	};
+
+	function fetchRequest() { return { type: GET_REPORT_STORE_STAFF_CONVERT_EXCELL_REQUESTED } }
+	function fetchSuccess(data) { return { type: GET_REPORT_STORE_STAFF_CONVERT_EXCELL_FULFILLED, payload: data } }
+	function fetchError(data) { return { type: GET_REPORT_STORE_STAFF_CONVERT_EXCELL_REJECTED, payload: data } }
+
+};
 
 //#GET REPORT STORE STAFF WITH PRINT
 export const getStoreStaffReportWithPrint = (data) => {
-	console.log(data);
 
-	// return {
-	// 	type: null
-	// }
 
 	return async dispatch => {
 		dispatch(fetchRequest());
@@ -385,7 +412,6 @@ export const getStoreMenuReportOwner = (data) => {
 			.get(`${constant.API_PATH}store/report/transactions/item?accessToken=${accessToken}&store=${data.store}&start_date=${data.start_date}&end_date=${data.end_date}`)
 			.then((response) => {
 				dispatch(fetchSuccess(response.data));
-				
 			})
 			.catch((error) => {
 				dispatch(fetchError(error));
@@ -395,7 +421,27 @@ export const getStoreMenuReportOwner = (data) => {
 	function fetchRequest() { return { type: GET_STORE_MENU_REPORT_OWNER_DETAIL_REQUESTED } }
 	function fetchSuccess(data) { return { type: GET_STORE_MENU_REPORT_OWNER_DETAIL_FULFILLED, payload: data } }
 	function fetchError(data) { return { type: GET_STORE_MENU_REPORT_OWNER_DETAIL_REJECTED, payload: data } }
-}
+};
+
+//GET MENU REPORT OWNER CONVERT EXCELL
+export const getStoreMenuReportOwnerConvertExcell = (data) => {
+
+	return async dispatch => {
+		dispatch(fetchRequest());
+		return axios
+			.get(`${constant.API_PATH}store/report/transactions/item?accessToken=${accessToken}&store=${data.store}&start_date=${data.start_date}&end_date=${data.end_date}&convert=true`)
+			.then((response) => {
+				window.open(`${constant.API_PATH}store/report/transactions/item?accessToken=${accessToken}&store=${data.store}&start_date=${data.start_date}&end_date=${data.end_date}&convert=true`, '_blank');
+			})
+			.catch((error) => {
+				dispatch(fetchError(error));
+			});
+	};
+
+	function fetchRequest() { return { type: GET_STORE_MENU_REPORT_OWNER_CONVERT_EXCELL_REQUESTED } }
+	function fetchSuccess(data) { return { type: GET_STORE_MENU_REPORT_OWNER_CONVERT_EXCELL_FULFILLED, payload: data } }
+	function fetchError(data) { return { type: GET_STORE_MENU_REPORT_OWNER_CONVERT_EXCELL_REJECTED, payload: data } }
+};
 
 ////GET STORE MENU REPORT OWNER TRANSACTION DETAIL WITH PRINT || reportDetailStoreMenuOwnerPrint --state
 export const getStoreMenuReportOwnerWithPrint = (data) => {

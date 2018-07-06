@@ -9,7 +9,7 @@ import { TabContent } from '../../../components/Tab';
 import { PropsRoute } from '../../../components/Route';
 import { Button } from '../../../components/Button';
 
-import { getStoreList, getStoreMenuReportOwner, getStoreMenuReportOwnerWithPrint} from '../../../actions/vendor.action';
+import { getStoreList, getStoreMenuReportOwner, getStoreMenuReportOwnerConvertExcell, getStoreMenuReportOwnerWithPrint} from '../../../actions/vendor.action';
 import { getStoreListWithIdUser } from '../../../actions/store.action';
 import vendorState from '../../../reducers/vendor.user.reducer';
 
@@ -24,7 +24,9 @@ function mapDispatchToProps(dispatch) {
     return {
         getStoreListDispatch: () => dispatch(getStoreList()),
         getStoreMenuReportOwnerDispatch: (data) => dispatch(getStoreMenuReportOwner(data)),
+        getStoreMenuReportOwnerConvertExcellDispatch : (data) => dispatch(getStoreMenuReportOwnerConvertExcell(data)),
         getStoreMenuReportOwnerWithPrintDispatch: (data) => dispatch(getStoreMenuReportOwnerWithPrint(data)),
+        
         getStoreListWithIdUserDispatch: () => dispatch(getStoreListWithIdUser())
     }
 }
@@ -39,6 +41,7 @@ class AdminStoresReportMenu extends Component {
         this.handleShow = this.handleShow.bind(this);
         this.populateTableData = this.populateTableData.bind(this);
         this.handlePrint = this.handlePrint.bind(this);
+        this.handleConvertExcell = this.handleConvertExcell.bind(this);
 
         this.state = {
 
@@ -222,6 +225,23 @@ class AdminStoresReportMenu extends Component {
             // convert: false
         }
         getStoreMenuReportOwnerWithPrintDispatch(requiredDataMenuStorePrint);
+    };
+
+    handleConvertExcell(e){
+
+        e.preventDefault();
+        const {period, storeIdTab} = this.state;
+        const { store, getStoreMenuReportOwnerConvertExcellDispatch } = this.props;
+
+        let requiredDataMenuStore = {
+            store: storeIdTab.id,
+            start_date : moment(period.to).format('YYYY-MM-DD'),
+            end_date : moment(period.to).format('YYYY-MM-DD'),
+            print: false
+            // convert: false
+        };
+        // console.log(requiredDataMenuStore);
+        getStoreMenuReportOwnerConvertExcellDispatch(requiredDataMenuStore);
     }
 
     //#
@@ -261,6 +281,7 @@ class AdminStoresReportMenu extends Component {
                                     handlePeriodChange= {this.handlePeriodChange}
                                     handleShow={this.handleShow}
                                     handlePrint= {this.handlePrint}
+                                    handleConvertExcell={this.handleConvertExcell}
                                 
                                     />
                             </TabContent>

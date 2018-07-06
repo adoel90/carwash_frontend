@@ -38,7 +38,8 @@ const AdminStoresReportView = props => {
         staffOwnerList,
         // newStaffSelected,
         handleChangeStaffOwnerOptions,
-        user
+        user,
+        handleConvertExcell
     } = props;
 
 
@@ -51,7 +52,7 @@ const AdminStoresReportView = props => {
         if(user.level.name === "Owner" || user.level.id === 4){
             // console.log(value.name)
             return <option value={value.id}>{value.name}</option>
-        }
+        };
     } 
     
     const renderDetailReportStoreStaffModal = () => {
@@ -148,16 +149,14 @@ const AdminStoresReportView = props => {
                                 </div>
 
                                 {/* ----------- Button Print Staff  -----------*/}
-                                {/* { user.level.name === "Staff" ?  
-                                     <div>
-                                        <Button onClick={(e) => handlePrint(e, period)} theme="danger" className="margin-right-small" type="submit" style={{height: '50px', 'margin-left': '3px'}}>
-                                            Print
-                                        </Button>
-                                    </div> : null
-                                }    */}
-                               <div>
-                                    <Button onClick={(e) => handlePrint(e, period)} theme="danger" className="margin-right-small" type="submit" style={{height: '50px', 'margin-left': '3px'}}>
+                                <div>
+                                    <Button onClick={(e) => handlePrint(e, period)} theme="danger" type="submit" style={{height: '50px', 'margin-left': '3px'}}>
                                         Print
+                                    </Button>
+                                </div>
+                                <div>
+                                    <Button onClick={(e) => handleConvertExcell(e)} theme="success" className="margin-right-small" type="submit" style={{height: '50px', 'margin-left': '3px'}}>
+                                        Export to xls
                                     </Button>
                                 </div> 
                             </Column>

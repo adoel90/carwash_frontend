@@ -16,7 +16,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 
 const AdminStoresReportMenuView = props => {
 
-    const { table, handlePeriodChange, period, handleShow, vendorState, handlePrint } = props;
+    const { table, handlePeriodChange, period, handleShow, vendorState, handlePrint, handleConvertExcell } = props;
 
     return (
         <div className="admin-report">
@@ -56,6 +56,11 @@ const AdminStoresReportMenuView = props => {
                                 <div>
                                     <Button onClick={(e) => handlePrint(e, period)} theme="danger" className="margin-right-small" type="submit" style={{height: '50px', 'margin-left': '3px'}}>
                                         Print
+                                    </Button>
+                                </div>
+                                <div>
+                                    <Button onClick={(e) => handleConvertExcell(e)} theme="success" className="margin-right-small" type="submit" style={{ height: '50px', 'margin-left': '3px' }}>
+                                        Export to xls
                                     </Button>
                                 </div>
                             </Column>

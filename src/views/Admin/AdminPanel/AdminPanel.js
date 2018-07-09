@@ -102,7 +102,7 @@ class AdminPanel extends Component {
 
 
                 //#Fussion Kasir & Superadmin
-                { name: 'topup', path: `${this.props.match.url}/topup`, component: AdminStoreCashierTopUp },
+                { name: 'topup', path: `${this.props.match.url}/member/topup`, component: AdminStoreCashierTopUp },
                 { name: 'new-card', path: `${this.props.match.url}/new-card`, component: AdminStoreCashierKartuBaru},
                 { name: 'stock-kartu', path: `${this.props.match.url}/new-card/stock-kartu`, component: AdminStoreCashierStockKartu },
                 { name: 'balance', path: `${this.props.match.url}/balance`, component: AdminStoreCashierCheckSaldo },
@@ -184,23 +184,66 @@ class AdminPanel extends Component {
 
             let nameRouteReportSuperadmin = `${menu[i].name}`;
             let nameRouteReportStore = `${menu[i].name}`;
-
             let nameRouteKasirSuperadmin = `${menu[i].name}`;
-
             let dataItems = [];
 
-            console.log(split);
+            //#Superadmin -- Jenis Membership
+            if(split[0] === "Jenis" && level.name === "Superadmin" ){
+
+                dataMenu = {
+                    category: nameCategory,
+                    items: []
+                };
+
+                //JENIS MEMBERSHIP SUPERADMIN
+                let jenisMemberShipSuperadmin = {
+                    name: `Jenis Membership`,
+                    path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}` : 'null'}`
+                };
+
+                if (menu[i].id === 5 && menu[i].path === "card") {
+                    dataMenu.items.push(jenisMemberShipSuperadmin);
+                };
+
+                
+            }
+            //#Superadmin -- Member
+            else if(split[0] === "Member" && level.name === "Superadmin"){
+                dataMenu = {
+                    category: nameCategory,
+                    items: []
+                };
+
+                //DAFTAR MEMBER BARU
+                let daftarMemberBaruSuperadmin = {
+                    name : "Daftar Member Baru",
+                    path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}` : 'null'}`
+                };
+
+                if(menu[i].id === 4 && menu[i].path === "member"){
+                    dataMenu.items.push(daftarMemberBaruSuperadmin);
+                }
+
+                //ISI ULANG KASIR SUPERADMIN
+                let isiUlangKasirSuperadmin = {
+                    name: `Isi Ulang`,
+                    path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}/topup` : 'null'}`
+                };
+
+                if (menu[i].group === "admin") {
+                    dataMenu.items.push(isiUlangKasirSuperadmin);
+                };
 
 
-
+            }
             //#MENU LAPORAN PENNJUALAN STORE OWNER
-            if (split.length === 1 && split[0] === "Laporan" && level.name === "Owner") {
+            else if (split.length === 1 && split[0] === "Laporan" && level.name === "Owner") {
                 let linkItem = { name: nameRouteReportStore, path: `${this.props.match.url}${menu[i].path ? '/' + menu[i].path : 'null'}` }
 
                 dataMenu = {
                     category: nameCategory,
                     items: []
-                }
+                };
 
                 if (menu[i].path !== "report") {
                     dataMenu.items.push(linkItem)
@@ -208,13 +251,13 @@ class AdminPanel extends Component {
 
                 //Laporan Penjualan Owner
                 let itemSeparatorReportSelling = {
-                    name: `${split[0]} Penjualan`,
+                    name: `${split[0]} Harian`,
                     path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}` : 'null'}`
                 };
 
                 if (menu[i].group === "all" && menu[i].path === "report") {
                     dataMenu.items.push(itemSeparatorReportSelling);
-                }
+                };
 
                 //Laporan Menu
                 let laporanMenu = {
@@ -226,7 +269,7 @@ class AdminPanel extends Component {
                     dataMenu.items.push(laporanMenu);
                 }
             }
-            //# MENU LAPORAN PENJUALAN Superadmin
+            //#MENU LAPORAN PENJUALAN Superadmin
             else if (split.length === 1 && split[0] === "Laporan" && level.name === "Superadmin") {
 
                 //Laporan Superadmin
@@ -235,7 +278,7 @@ class AdminPanel extends Component {
                 dataMenu = {
                     category: nameCategory,
                     items: []
-                }
+                };
 
                 if (menu[i].path !== "report") {
                     dataMenu.items.push(linkItem)
@@ -270,25 +313,6 @@ class AdminPanel extends Component {
                     dataMenu.items.push(laporanMember);
                 };
             }
-            //#ISI ULANG SUPERADMIN
-            else if (split[0] === "Isi"){
-
-                dataMenu = {
-                    category: nameCategory,
-                    items: []
-                };
-
-                //ISI ULANG KASIR
-                let isiUlangKasirSuperadmin = {
-                    name: `Isi Ulang`,
-                    path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}` : 'null'}`
-                };
-
-                if (menu[i].id === 8 && menu[i].path === "topup") {
-                    dataMenu.items.push(isiUlangKasirSuperadmin);
-                };
-
-            }
             //#CHECK SALDO SUPERADMIN
             else if(split[0] === "Cek"){
                 
@@ -321,13 +345,10 @@ class AdminPanel extends Component {
                 if(menu[i].id === 10 && menu[i].path === "refund"){
                     dataMenu.items.push(refundKartuSuperadmin);
                 };
-
-
             }
             //#KARTU BARU SUPERADMIN
             else if(split[0] === "Kartu" && level.name === "Superadmin"){
-               
-
+            
                 dataMenu = {
                     category: nameCategory,
                     items: []
@@ -341,7 +362,6 @@ class AdminPanel extends Component {
 
                 if (menu[i].id === 9 && menu[i].path === "new-card") {
                     dataMenu.items.push(kartuBaruKasirSuperadmin);
-                    
                 };
 
                 // //STOCK KARTU KASIR - SUPERADMIN
@@ -355,8 +375,6 @@ class AdminPanel extends Component {
                     dataMenu.items.push(stockKartuKasirSuperadmin);
                 };
             }
-            
-            
             //# Features of KASIR
             else if (split.length === 2 && split[0] === "Kartu" && level.name === "Kasir") {
 

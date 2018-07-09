@@ -95,7 +95,9 @@ const AdminStoresReportView = props => {
         <div>
             <Panel>
                 <PanelHeader>
-                    <h4 className="heading-title" title="Laporan penjualan ini memunculkan semua history dari penjualan yang paling lama hingga yang paling baru" >Laporan Penjualan</h4>
+                    {/* <h4 className="heading-title" title="Laporan penjualan ini memunculkan semua history dari penjualan yang paling lama hingga yang paling baru" >Laporan Penjualan</h4> */}
+                    <h4 className="heading-title" title="" >Laporan Harian</h4>
+                    
                 </PanelHeader>
 
                 <PanelBody>

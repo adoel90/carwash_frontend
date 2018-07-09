@@ -269,92 +269,92 @@ class AdminPanel extends Component {
                 if (menu[i].group === "all" && menu[i].path === "report") {
                     dataMenu.items.push(laporanMember);
                 };
+            }
+            //#ISI ULANG SUPERADMIN
+            else if (split[0] === "Isi"){
 
-                //ISI ULANG KASIR
-                let isiUlangKasir = {
-                    name: `Isi Ulang`,
-                    path: `${this.props.match.url}${menu[i].path ? `/topup` : 'null'}`
+                dataMenu = {
+                    category: nameCategory,
+                    items: []
                 };
 
-                if (menu[i].group === "kasir" && menu[i].path === "topup") {
-                    dataMenu.items.push(isiUlangKasir);
+                //ISI ULANG KASIR
+                let isiUlangKasirSuperadmin = {
+                    name: `Isi Ulang`,
+                    path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}` : 'null'}`
+                };
+
+                if (menu[i].id === 8 && menu[i].path === "topup") {
+                    dataMenu.items.push(isiUlangKasirSuperadmin);
+                };
+
+            }
+            //#CHECK SALDO SUPERADMIN
+            else if(split[0] === "Cek"){
+                
+                dataMenu = {
+                    category : nameCategory,
+                    items: []
+                };
+
+                let checkSaldoKasirSuperadmin =  {
+                    name: `Check Saldo`,
+                    path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}` : 'null'}`
+                };
+
+                if(menu[i].id === 16 && menu[i].path === "balance"){
+                    dataMenu.items.push(checkSaldoKasirSuperadmin);
+                };
+            } 
+            //#REFUND KARTU SUPERADMIN
+            else if(split[0] === "Refund"){
+                dataMenu = {
+                    category: nameCategory,
+                    items: []
+                };
+
+                let refundKartuSuperadmin = {
+                    name: `Refund Kartu`,
+                    path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}` : 'null'}`
+                };
+
+                if(menu[i].id === 10 && menu[i].path === "refund"){
+                    dataMenu.items.push(refundKartuSuperadmin);
+                };
+
+
+            }
+            //#KARTU BARU SUPERADMIN
+            else if(split[0] === "Kartu" && level.name === "Superadmin"){
+               
+
+                dataMenu = {
+                    category: nameCategory,
+                    items: []
                 };
 
                 // KARTU BARU KASIR - SUPERADMIN
-                let kartuBaruKasir = {
+                let kartuBaruKasirSuperadmin = {
                     name: `Kartu Baru`,
-                    path: `${this.props.match.url}${menu[i].path ? `/new-card` : 'null'}`
+                    path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}` : 'null'}`
                 };
 
-                if (menu[i].group === "kasir" && menu[i].path === "new-card") {
-                    dataMenu.items.push(kartuBaruKasir);
+                if (menu[i].id === 9 && menu[i].path === "new-card") {
+                    dataMenu.items.push(kartuBaruKasirSuperadmin);
+                    
                 };
 
-                //STOCK KARTU KASIR - SUPERADMIN
-                let stockKartuKasir = {
+                // //STOCK KARTU KASIR - SUPERADMIN
+                let stockKartuKasirSuperadmin = {
                     name: `Stock Kartu`,
-                    path: `${this.props.match.url}${menu[i].path ? `/stock-kartu` : 'null'}`
+                    path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}` : 'null'}`
+                    // path: `${this.props.match.url}${menu[i].path ? `/new-card` : 'null'}`
                 };
                 
-                if (menu[i].group === "kasir" && menu[i].path === "stock-kartu") {
-                    dataMenu.items.push(stockKartuKasir);
+                if (menu[i].path === "stock-kartu") {
+                    dataMenu.items.push(stockKartuKasirSuperadmin);
                 };
             }
-            //#ISI ULANG SUPERADMIN
-            // else if (split[0] === "Isi"){
-
-            //     dataMenu = {
-            //         category: nameCategory,
-            //         items: []
-            //     };
-
-            //     //ISI ULANG KASIR
-            //     let isiUlangKasir = {
-            //         name: `Isi Ulang`,
-            //         path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}` : 'null'}`
-            //     };
-
-            //     if (menu[i].group === "kasir" && menu[i].path === "topup") {
-            //         dataMenu.items.push(isiUlangKasir);
-            //     };
-
-            // }//#KARTU BARU SUPERADMIN
-            // else if(split[0] === "Kartu"){
-                
-            //     let linkItem = { name: nameRouteKasirSuperadmin, path: `${this.props.match.url}${menu[i].path ? '/' + menu[i].path : 'null'}` }
-
-            //     if (menu[i].path !== "new-card"){
-            //         dataMenu.items.push(linkItem)
-            //     };
-
-            //     dataMenu = {
-            //         category: nameCategory,
-            //         items: []
-            //     };
-
-            //     // KARTU BARU KASIR - SUPERADMIN
-            //     let kartuBaruKasir = {
-            //         name: `Kartu Baru`,
-            //         path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}` : 'null'}`
-            //         // path: `${this.props.match.url}${menu[i].path ? `/new-card` : 'null'}`
-            //     };
-
-            //     if (menu[i].group === "kasir" && menu[i].path === "new-card") {
-            //         dataMenu.items.push(kartuBaruKasir);
-                    
-            //     };
-
-            //     // //STOCK KARTU KASIR - SUPERADMIN
-            //     // let stockKartuKasir = {
-            //     //     name: `Stock Kartu`,
-            //     //     path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}` : 'null'}`
-            //     //     // path: `${this.props.match.url}${menu[i].path ? `/new-card` : 'null'}`
-            //     // };
-                
-            //     // if (menu[i].group === "kasir" && menu[i].path === "stock-kartu") {
-            //     //     dataMenu.items.push(stockKartuKasir);
-            //     // };
-            // }
             
             
             //# Features of KASIR

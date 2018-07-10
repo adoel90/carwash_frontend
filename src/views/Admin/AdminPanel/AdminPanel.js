@@ -99,19 +99,20 @@ class AdminPanel extends Component {
                 { name: 'create-new-staff', path: `${this.props.match.url}/staff/create-new-staff`, component: AdminStoresCreateEmployeeSuperAdm },
                 { name: 'product', path: `${this.props.match.url}/product`, component: AdminStoresMenuSuperAdm },
                 { name: 'create-new-product', path: `${this.props.match.url}/product/create-new-product`, component: AdminStoresCreateMenuSuperAdm },
+                { name: 'transaction', path: `${this.props.match.url}/transaction`, component: AdminTransaction },
 
 
                 //#Fussion Kasir & Superadmin
                 { name: 'topup', path: `${this.props.match.url}/member/topup`, component: AdminStoreCashierTopUp },
-                { name: 'new-card', path: `${this.props.match.url}/new-card`, component: AdminStoreCashierKartuBaru},
-                { name: 'stock-kartu', path: `${this.props.match.url}/new-card/stock-kartu`, component: AdminStoreCashierStockKartu },
-                { name: 'balance', path: `${this.props.match.url}/balance`, component: AdminStoreCashierCheckSaldo },
-                { name: 'refund', path: `${this.props.match.url}/refund`, component: AdminStoreCashierRefund },
+                { name: 'new-card', path: `${this.props.match.url}/member/new-card`, component: AdminStoreCashierKartuBaru},
+                { name: 'stock-kartu', path: `${this.props.match.url}/member/stock-kartu`, component: AdminStoreCashierStockKartu },
+                { name: 'balance', path: `${this.props.match.url}/member/balance`, component: AdminStoreCashierCheckSaldo },
+                { name: 'refund', path: `${this.props.match.url}/member/refund`, component: AdminStoreCashierRefund },
                 { component: NoMatch }
             ];
             mainRoute = routePage;
 
-        } else if (menu[0].group === 'kasir') {
+        } else if (menu[0].group === 'kasir'){
 
             let routePage = [
                 { name: 'topup', path: `${this.props.match.url}/topup`, component: AdminStoreCashierTopUp },
@@ -127,7 +128,7 @@ class AdminPanel extends Component {
             ];
             mainRoute = routePage;
 
-        } else if (menu[0].group === 'store') {
+        } else if (menu[0].group === 'store'){
 
             if (level.name === 'Owner') {
                 let routePage = [
@@ -234,7 +235,45 @@ class AdminPanel extends Component {
                     dataMenu.items.push(isiUlangKasirSuperadmin);
                 };
 
+                //REFUND KASIR SUPERADMIN
+                let refundKartuSuperadmin = {
+                    name: `Refund Kartu`,
+                    path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}/refund` : 'null'}`
+                };
 
+                if(menu[i].group === "admin"){
+                    dataMenu.items.push(refundKartuSuperadmin);
+                };
+
+                //CHECK SALDO KASIR SUPERADMIN
+                let checkSaldoKasirSuperadmin =  {
+                    name: `Check Saldo`,
+                    path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}/balance` : 'null'}`
+                };
+
+                if(menu[i].group === "admin"){
+                    dataMenu.items.push(checkSaldoKasirSuperadmin);
+                };
+
+                //KARTU BARU & STOCK KARTU KASIR SUPERADMIN
+                let kartuBaruKasirSuperadmin = {
+                    name: `Kartu Baru`,
+                    path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}/new-card` : 'null'}`
+                };
+
+                if (menu[i].group === "admin") {
+                    dataMenu.items.push(kartuBaruKasirSuperadmin);
+                };
+
+                //KARTU BARU & STOCK KARTU KASIR SUPERADMIN
+                let stockKartuKasirSuperadmin = {
+                    name: `Tulis Kartu`,
+                    path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}/stock-kartu` : 'null'}`
+                };
+                
+                if (menu[i].group === "admin") {
+                    dataMenu.items.push(stockKartuKasirSuperadmin);
+                };
             }
             //#MENU LAPORAN PENNJUALAN STORE OWNER
             else if (split.length === 1 && split[0] === "Laporan" && level.name === "Owner") {
@@ -311,68 +350,6 @@ class AdminPanel extends Component {
 
                 if (menu[i].group === "all" && menu[i].path === "report") {
                     dataMenu.items.push(laporanMember);
-                };
-            }
-            //#CHECK SALDO SUPERADMIN
-            else if(split[0] === "Cek"){
-                
-                dataMenu = {
-                    category : nameCategory,
-                    items: []
-                };
-
-                let checkSaldoKasirSuperadmin =  {
-                    name: `Check Saldo`,
-                    path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}` : 'null'}`
-                };
-
-                if(menu[i].id === 16 && menu[i].path === "balance"){
-                    dataMenu.items.push(checkSaldoKasirSuperadmin);
-                };
-            } 
-            //#REFUND KARTU SUPERADMIN
-            else if(split[0] === "Refund"){
-                dataMenu = {
-                    category: nameCategory,
-                    items: []
-                };
-
-                let refundKartuSuperadmin = {
-                    name: `Refund Kartu`,
-                    path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}` : 'null'}`
-                };
-
-                if(menu[i].id === 10 && menu[i].path === "refund"){
-                    dataMenu.items.push(refundKartuSuperadmin);
-                };
-            }
-            //#KARTU BARU SUPERADMIN
-            else if(split[0] === "Kartu" && level.name === "Superadmin"){
-            
-                dataMenu = {
-                    category: nameCategory,
-                    items: []
-                };
-
-                // KARTU BARU KASIR - SUPERADMIN
-                let kartuBaruKasirSuperadmin = {
-                    name: `Kartu Baru`,
-                    path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}` : 'null'}`
-                };
-
-                if (menu[i].id === 9 && menu[i].path === "new-card") {
-                    dataMenu.items.push(kartuBaruKasirSuperadmin);
-                };
-
-                // //STOCK KARTU KASIR - SUPERADMIN
-                let stockKartuKasirSuperadmin = {
-                    name: `Stock Kartu`,
-                    path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}` : 'null'}`
-                    // path: `${this.props.match.url}${menu[i].path ? `/new-card` : 'null'}`
-                };
-                
-                if (menu[i].path === "stock-kartu") {
-                    dataMenu.items.push(stockKartuKasirSuperadmin);
                 };
             }
             //# Features of KASIR

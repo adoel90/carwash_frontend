@@ -116,7 +116,7 @@ class AdminReportMember extends Component {
         //#GET REPORT MEMBER SUPERADMIN WITH PRINT
         if(prevProps.report.reportMemberPrint !== report.reportMemberPrint){
 
-        }
+        };
         
          //Get Detail Member Historis
         if(prevProps.member.memberHistoris !== member.memberHistoris){
@@ -130,7 +130,7 @@ class AdminReportMember extends Component {
                   } );
 
             }
-        }
+        };
     }
 
     handlePeriodChange = (type, date) => {
@@ -189,14 +189,14 @@ class AdminReportMember extends Component {
         // },
         {
             title: 'Status',
-            accessor: 'action',
-            width: '30%',
-            align: 'center',
-            render: (row) => (
-                  <td className="flex justify-content--center">
-                        <Button className="margin-right-small" type="button" onClick={() => this.openMemberModalDetailNew(row)}>Histori</Button>                              
-                  </td>
-            )
+            accessor: 'data',
+            // width: '30%',
+            // align: 'center',
+            // render: (row) => (
+            //       <td className="flex justify-content--center">
+            //             <Button className="margin-right-small" type="button" onClick={() => this.openMemberModalDetailNew(row)}>Histori</Button>                              
+            //       </td>
+            // )
         }];
 
         const rows = [];
@@ -210,7 +210,8 @@ class AdminReportMember extends Component {
                     created: value.created_at,
                     balance: value.balance,
                     last: value.last_transaction,
-                    memberId: value.id,
+                    id: value.id,
+                    data:value
                     // cardType: value.card.type.name
                 }
                 rows.push(row);
@@ -265,6 +266,9 @@ class AdminReportMember extends Component {
     }
 
     openMemberModalDetailNew = (row) => {
+
+        console.log(row);
+
         this.setState({
               ...this.state,
               selectedMemberDetail: row
@@ -273,9 +277,8 @@ class AdminReportMember extends Component {
             const { selectedMemberDetail } = this.state;
             const { getMemberDetailHistorisDispatch } = this.props;
 
-            // console.log(selectedMemberDetail);
             let data = {
-                id: selectedMemberDetail.memberId,
+                id: selectedMemberDetail.id,
                 transaction: true
             }
             getMemberDetailHistorisDispatch(data);
@@ -355,6 +358,7 @@ class AdminReportMember extends Component {
                     toggleModal={this.toggleModal}
                     handleInputChange= {this.handleInputChange}
                     optionsPagination = {this.optionsPagination}
+                    openMemberModalDetailNew = { this.openMemberModalDetailNew}
                     />
             </div>
         )

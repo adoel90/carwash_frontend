@@ -146,7 +146,9 @@ class StoreMenuList extends Component {
 
 		return (
 			<div>
-				{renderSearchBar()}
+
+				{/* In here feature Search */}
+				{/* {renderSearchBar()} */}
 				{renderMenuList()}
 			</div>
 		);

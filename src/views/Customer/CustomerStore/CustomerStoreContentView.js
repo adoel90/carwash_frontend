@@ -37,7 +37,7 @@ class CustomerStoreContentView extends Component {
 
 		return (
 			<div>
-				<PageBlock className="padding-small margin-bottom-base" style={{marginLeft: '-15px', marginRight: '15px'}}>
+				{/* <PageBlock className="padding-small margin-bottom-base" style={{marginLeft: '-15px', marginRight: '15px'}}>
 					<Row> 
 						<Column md={9}>
 							<h5 className="fw-medium">Selamat datang, <h4 className="fw-semibold">{memberData.name}.</h4></h5>
@@ -53,7 +53,7 @@ class CustomerStoreContentView extends Component {
 							</p>
 						</Column>
 					</Row>
-				</PageBlock>
+				</PageBlock> */}
 				{ renderStoreMenuList() }
 				<StorePaymentDetail {...this.props} />
 				<StorePaymentCheckout {...this.props} />

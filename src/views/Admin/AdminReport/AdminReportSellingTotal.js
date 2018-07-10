@@ -437,9 +437,7 @@ class AdminReportSellingTotal extends Component {
                     kolom: kolom,
                     baris: barisArray
                 }
-            })
-
-
+            });
         }
     }
 
@@ -495,12 +493,8 @@ class AdminReportSellingTotal extends Component {
                 staff: staffId,
                 print: false
             };
-
-            console.log(requiredDataStoreStaffReport);
             getStoreStaffReportConvertExcellDispatch(requiredDataStoreStaffReport);
         }
-
-
     };
 
 

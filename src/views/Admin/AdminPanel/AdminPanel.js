@@ -259,7 +259,7 @@ class AdminPanel extends Component {
 
                 //KARTU BARU & STOCK KARTU KASIR SUPERADMIN
                 let kartuBaruKasirSuperadmin = {
-                    name: `Kartu Baru`,
+                    name: `Customer Baru`,
                     path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}/new-card` : 'null'}`
                 };
 
@@ -396,7 +396,7 @@ class AdminPanel extends Component {
 
                 //#Feature Kartu Baru -New Card (NEW)
                 let kartuBaruNew = {
-                    name: `${split[0]} Baru`,
+                    name: `Customer Baru`,
                     path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}/kartu-baru-new` : 'null'}`
                 }
 

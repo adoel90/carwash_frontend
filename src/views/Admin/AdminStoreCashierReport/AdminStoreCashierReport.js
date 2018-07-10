@@ -58,11 +58,14 @@ class AdminStoreCashierReport extends Component {
         let dataId = user.id === 1 ? user.id + 2 : user.id;
 
         let data = {
-            start_date : moment(period.from).format('YYYY-MM-DD'),
+            // start_date : moment(period.from).format('YYYY-MM-DD'),
+            start_date : moment(period.from).add(-12, 'month').format('YYYY-MM-DD'),
             end_date : moment(period.to).format('YYYY-MM-DD'),
             user: dataId,
             print: null
-        }
+        };
+
+        console.log(data);
         getReportStoreCashierMemberDispatch(data);
     }
 

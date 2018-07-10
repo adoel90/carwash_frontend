@@ -25,8 +25,8 @@ class AdminStoreCashierKartuBaruWrapper extends Component {
 					<PanelBody>
 						<img src={CardIcon2} style={{width: '150px'}}/>
 						<Row className="flex flex-column padding-bottom-small">
-							<h3 className="fw-semibold">Kartu Baru</h3>
-							<p className="clr-dark-light">Silahkan gesek kartu untuk membuat Kartu Member Baru pada kolom berikut.</p><br />
+							<h3 className="fw-semibold">Buat Customer Baru</h3>
+							<p className="clr-dark-light">Silahkan gesek kartu untuk membuat Kartu Customer Baru pada kolom berikut.</p><br />
 						</Row>
 						
 						<AdminStoreCashierKartuBaruView {...this.props}  handleInputChange={this.props.handleInputChange}/>

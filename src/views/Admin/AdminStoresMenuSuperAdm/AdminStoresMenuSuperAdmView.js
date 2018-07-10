@@ -46,7 +46,6 @@ const AdminStoresMenuSuperAdmView = props => {
                         <ModalBody>
                             <Row>
                                 <Column>
-
                                     <FormField label="Nama Produk">
                                         <InputGroup>
                                             <InputAddon>
@@ -55,7 +54,6 @@ const AdminStoresMenuSuperAdmView = props => {
                                             <Input  className="input" name="name" placeholder={selectedMenuStore.name} defaultValue={selectedMenuStore.name} onChange={(e) => handleInputChange('selectedMenuStore', e)} />
                                         </InputGroup>
                                     </FormField>
-                                
                                     <FormField label="Deskripsi Produk">
                                         <InputGroup>
                                             <InputAddon>
@@ -118,7 +116,6 @@ const AdminStoresMenuSuperAdmView = props => {
                             <Column className="flex">
                                 <div className="margin-right-small">
                                     {/* <Form onSubmit={handleFormSubmit}> */}
-
                                     <Form>
                                         <FormField> 
                                             <Select name="store" onChange={(e) => handleClickChange(e) }>

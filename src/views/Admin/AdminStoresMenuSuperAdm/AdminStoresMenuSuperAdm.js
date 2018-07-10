@@ -30,8 +30,8 @@ function mapDispatchToProps(dispatch) {
         getMenuStoreListDispatch : (data) => dispatch(getMenuStoreList(data)),
         // getAccessListDispatch: (data) => dispatch(getAccessList(data)),
         action: bindActionCreators({ updateMenuVendor, openDialog, closeDialog, changeMenuStatus  }, dispatch)
-    }
-}
+    };
+};
 
 
 class AdminStoresMenuSuperAdm extends Component {
@@ -60,13 +60,11 @@ class AdminStoresMenuSuperAdm extends Component {
 					{ accessor: 'name', name: 'Nama Produk' }
 				]
             },
-
             selectedMenuStore:{},
             isModalOpen:{
                 modalUpdateMenuProductStore: false
             },
-
-        }
+        };
     };
 
     componentDidMount = () => {
@@ -141,7 +139,7 @@ class AdminStoresMenuSuperAdm extends Component {
                 })
             }
         }
-    }
+    };
 
     //#
     toggleModal = (name) => {

@@ -263,7 +263,7 @@ export const getMenuListStore = (data) => {
 export const createStoreTransaction = (data) => {
 	let requiredData = {
 		menu : data.menu,
-		store : data.store.id,
+		store : data.store.id ? data.store.id : data.store,
 		token : data.token ? data.token : null,
 		staff: data.staff 
 	}

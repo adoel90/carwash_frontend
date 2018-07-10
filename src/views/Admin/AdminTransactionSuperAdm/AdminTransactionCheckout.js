@@ -10,7 +10,7 @@ import { Badge } from '../../../components/Badge';
 import Currency from '../../../components/Currency';
 import NumberFormat from 'react-number-format';
 
-import { AdminTransactionPrint } from '../AdminTransaction';
+// import { AdminTransactionPrint } from '../AdminTransactionSuperAdm';
 
 class AdminTransactionCheckout extends Component {
     render() {

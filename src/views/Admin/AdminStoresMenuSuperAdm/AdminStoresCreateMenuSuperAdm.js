@@ -23,11 +23,9 @@ function mapDispatchToProps(dispatch) {
         // getAccessListDispatch: (data) => dispatch(getAccessList(data)),
         action: bindActionCreators({openDialog, closeDialog, createMenuProduct}, dispatch)
     }
-}
-
+};
 
 class AdminStoresCreateMenuSuperAdm extends Component {
-
 
     constructor(){
         super();

@@ -27,7 +27,7 @@ function mapDispatchToProps(dispatch) {
         getStoreListWithIdUserDispatch: () => dispatch(getStoreListWithIdUser()),
         action: bindActionCreators({ getMenuListStore, authenticateMember, createStoreTransaction, openDialog, closeDialog, printStoreTransaction }, dispatch)
     }
-}
+};
 
 class AdminTransaction extends Component{
     
@@ -81,7 +81,7 @@ class AdminTransaction extends Component{
             isChecked: false,
             statusPrintDataConfirm:null
         }
-    }
+    };
 
     componentWillMount = () => {
         this.selectedCheckboxes = new Set();
@@ -105,8 +105,8 @@ class AdminTransaction extends Component{
 						memberData: member.item.data,
 						memberToken: member.item.accessToken
 					}
-				})
-			}
+				});
+			};
 		};
 
         //#Get list store id 
@@ -120,20 +120,19 @@ class AdminTransaction extends Component{
                 }, () => {
                     // console.log(store.storelistspecial.data.data.result.store);
                     this.props.action.getMenuListStore(store.storelistspecial.data.data.result.store[0]);
-                })
+                });
             }
-        }
+        };
+        
         //Get Menu List•••••
         if(prevProps.store.storemenu !== store.storemenu){
             if(store.storemenu.isLoaded){
                 this.setState({
                     ...this.state,
                     listMenuStore: store.storemenu
-                }, () => {
-                    // console.log(this.state);
-                })
-            }
-        }
+                });
+            };
+        };
 
         if(prevProps.store.transaction !== store.transaction) {
 			if(store.transaction.isPaid) {
@@ -151,7 +150,7 @@ class AdminTransaction extends Component{
 				this.toggleDialog(dialogData);
 				this.handlePrintReceipt();
 			}
-		}
+		};
 
 		if(prevProps.store.print !== store.print) {
 			if(store.print.isPrinted) {
@@ -162,8 +161,7 @@ class AdminTransaction extends Component{
 					window.print();
 				})
 			}
-			
-		}
+		};
     }
 
     toggleDialog = (data) => {
@@ -179,7 +177,7 @@ class AdminTransaction extends Component{
 	openDialog = (data) => {
 		const { dialog, action } = this.props;
 		action.openDialog(data);
-	}
+	};
 
 	closeDialog = () => {
 		const { dialog, action } = this.props;
@@ -206,8 +204,8 @@ class AdminTransaction extends Component{
 				confirmText={dialog.data.confirmText}
 				closeText={dialog.data.closeText}
 			/>
-		)
-	}
+		);
+	};
 
     toggleModal = (name) => {
 		const { isModalOpen } = this.state;
@@ -248,7 +246,7 @@ class AdminTransaction extends Component{
         e.preventDefault();
 		
 		this.toggleModal('paymentCheckout');
-    }
+    };
     
     handlePaymentCheckoutSubmit = (e) => {
 
@@ -382,7 +380,7 @@ class AdminTransaction extends Component{
 		this.setState({newObject}, () => {
 			this.calculateGrandTotalPrice();
 		})
-	}
+	};
 
     //#
 	toggleTab = (tabIndex, type) => {
@@ -421,8 +419,7 @@ class AdminTransaction extends Component{
         };
         
         getMenuListStoreWithPrintDispatch(requiredData);
-
-    }
+    };
 
     //Fire in AdminTransactionDetail.js
     handlePrintMenuSelected = (e) => {

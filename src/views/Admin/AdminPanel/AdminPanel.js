@@ -37,7 +37,8 @@ import {
     AdminStoresMenuSuperAdm,
     AdminStoresCreateEmployeeSuperAdm,
     AdminStoresCreateMenuSuperAdm,
-    Documentation
+    Documentation,
+    AdminTransactionSuperAdm
     // AdminStoresReportSuperAdm
 
 } from '../../Admin';
@@ -99,8 +100,7 @@ class AdminPanel extends Component {
                 { name: 'create-new-staff', path: `${this.props.match.url}/staff/create-new-staff`, component: AdminStoresCreateEmployeeSuperAdm },
                 { name: 'product', path: `${this.props.match.url}/product`, component: AdminStoresMenuSuperAdm },
                 { name: 'create-new-product', path: `${this.props.match.url}/product/create-new-product`, component: AdminStoresCreateMenuSuperAdm },
-                { name: 'transaction', path: `${this.props.match.url}/transaction`, component: AdminTransaction },
-
+                { name: 'transaction', path: `${this.props.match.url}/transaction`, component: AdminTransactionSuperAdm },
 
                 //#Fussion Kasir & Superadmin
                 { name: 'topup', path: `${this.props.match.url}/member/topup`, component: AdminStoreCashierTopUp },

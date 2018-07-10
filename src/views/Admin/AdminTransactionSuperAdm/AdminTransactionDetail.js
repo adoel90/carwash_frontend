@@ -40,7 +40,7 @@ class AdminTransactionDetail extends Component {
 		const renderPrintMenuList = () => {
 			console.log("Wew");
 
-		};
+		}
 
 		return (
 			<Modal

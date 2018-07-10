@@ -13,7 +13,7 @@ function mapStateToProps(state){
         report: state.report,
         member: state.member
     }
-}
+};
 
 function mapDispatchToProps(dispatch){
     return {
@@ -21,7 +21,7 @@ function mapDispatchToProps(dispatch){
         getReportMemberExportToExcellDispatch: (data) => dispatch(getReportMemberExportToExcell(data)),
         action: bindActionCreators({getReportMemberSuperAdmin, getReportMemberSuperAdminPrint }, dispatch)
     }
-}
+};
 
 class AdminReportMember extends Component {
 
@@ -137,7 +137,7 @@ class AdminReportMember extends Component {
     	const { period } = this.state;
         period[type] = date;
     	this.forceUpdate();
-    }
+    };
 
     showDate = (e) => {
 

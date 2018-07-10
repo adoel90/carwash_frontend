@@ -100,7 +100,7 @@ class AdminPanel extends Component {
                 { name: 'create-new-staff', path: `${this.props.match.url}/staff/create-new-staff`, component: AdminStoresCreateEmployeeSuperAdm },
                 { name: 'product', path: `${this.props.match.url}/product`, component: AdminStoresMenuSuperAdm },
                 { name: 'create-new-product', path: `${this.props.match.url}/product/create-new-product`, component: AdminStoresCreateMenuSuperAdm },
-                { name: 'transaction', path: `${this.props.match.url}/transaction`, component: AdminTransactionSuperAdm },
+                { name: 'transaction', path: `${this.props.match.url}/store/transaction`, component: AdminTransactionSuperAdm },
 
                 //#Fussion Kasir & Superadmin
                 { name: 'topup', path: `${this.props.match.url}/member/topup`, component: AdminStoreCashierTopUp },
@@ -188,6 +188,8 @@ class AdminPanel extends Component {
             let nameRouteKasirSuperadmin = `${menu[i].name}`;
             let dataItems = [];
 
+            console.log(split);
+
             //#Superadmin -- Jenis Membership
             if(split[0] === "Jenis" && level.name === "Superadmin" ){
 
@@ -273,6 +275,37 @@ class AdminPanel extends Component {
                 
                 if (menu[i].group === "admin") {
                     dataMenu.items.push(stockKartuKasirSuperadmin);
+                };
+            } 
+            //#MANAJEMEN STORE SUPERADMIN - DAFTAR STORE, BUAT STORE BARU, TRANSAKSI 
+            else if(split[1] === "Store" && level.name === "Superadmin"){
+                dataMenu = {
+                    category: nameCategory,
+                    items: []
+                };
+
+                //DAFTAR STORE SUPERADMIN
+                let daftarStoreSuperadmin = {
+                    name: `Daftar Store`,
+                    path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}` : 'null'}`
+                }
+
+                //BUAT STORE BARU
+                let buatStoreBaruSuperadmin = {
+                    name: `Buat Store Baru`,
+                    path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}/create-new-store` : 'null'}`
+                };
+
+                //TRANSAKSI SUPERADMIN
+                let transactionSuperadmin = {
+                    name: `Transaksi`,
+                    path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}/transaction` : 'null'}`
+                };
+
+                if (menu[i].group === "admin") {
+                    dataMenu.items.push(daftarStoreSuperadmin);
+                    dataMenu.items.push(buatStoreBaruSuperadmin);
+                    dataMenu.items.push(transactionSuperadmin);
                 };
             }
             //#MENU LAPORAN PENNJUALAN STORE OWNER
@@ -373,7 +406,7 @@ class AdminPanel extends Component {
 
                 //#Feature Stock Kartu
                 let stockKartuBaru = {
-                    name: `Stock ${split[0]}`,
+                    name: `Tulis ${split[0]}`,
                     path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}/stock-kartu` : 'null'}`
                 };
     

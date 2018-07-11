@@ -12,6 +12,9 @@ import { Modal, ModalHeader, ModalBody, ModalFooter } from '../../../components/
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
+import NumberFormat from 'react-number-format';
+import { BootstrapTable, TableHeaderColumn, SearchField } from 'react-bootstrap-table';
+
 const AdminReportSellingTotalView = props => {
     
     const {
@@ -36,9 +39,22 @@ const AdminReportSellingTotalView = props => {
         invoice,
         totalTransaction,
         dataCQT,
-        handleExportToExcell
+        handleExportToExcell,
+        openAccessDetailStoreModal,
+        optionsPagination
     } = props;
 
+    const componentButton = (datarow) => {
+        return (
+            <div>
+                <Button className="margin-right-small" type="button" onClick={() => openAccessDetailStoreModal(datarow)}>Penjualan</Button>
+            </div>
+        );
+    };
+
+    const priceFormatter = (data) => {
+        return <NumberFormat value={data} displayType={'text'} thousandSeparator={true} fixedDecimalScale={true} prefix={'Rp. '} decimalScale={2} />;
+    }
 
     //#
     const renderStaffOwnerOptions = (value, i) => {
@@ -192,7 +208,7 @@ const AdminReportSellingTotalView = props => {
                     </Form>
 
                     <div className="admin-report__content">
-                        <TableSet
+                        {/* <TableSet
                             loading={report.reportOwner.isFetching}
                             loaded={report.reportOwner.isLoaded}
                             columns={table.columns}
@@ -200,7 +216,54 @@ const AdminReportSellingTotalView = props => {
                             striped 
                             fullWidth
                             pagination
-                        />
+                        /> */}
+
+                        <BootstrapTable data={table.rows} options={optionsPagination} striped={true} hover={true} version='4' bordered={false} dataAlign="center" searchPlaceholder={"Ketik nama customer yang terdaftar..."} pagination>
+                            <TableHeaderColumn 
+                                dataField="storeId" 
+                                // headerAlign="left" 
+                                // dataAlign="center" 
+                                isKey={true}
+                                // width="10%"
+                                hidden
+                            >
+                                id
+                            </TableHeaderColumn>
+                            <TableHeaderColumn 
+                                dataField="name" 
+                                headerAlign="left" 
+                                dataAlign="left"
+                                width="25%"
+                            >
+                                Nama Owner
+                            </TableHeaderColumn>
+                            <TableHeaderColumn 
+                                dataField="store" 
+                                headerAlign="left" 
+                                dataAlign="left"
+                                width="25%"
+                            >
+                                Nama Toko
+                            </TableHeaderColumn>
+                            <TableHeaderColumn 
+                                dataField="price" 
+                                headerAlign="center" 
+                                dataAlign="right"
+                                width="25%"
+                                dataFormat={priceFormatter}
+                            >
+                                Total Laba Kotor
+                            </TableHeaderColumn>
+                            <TableHeaderColumn 
+                                dataField="data" 
+                                headerAlign="center"
+                                dataAlign="center"
+                                dataFormat={componentButton}
+                                width="25%"
+                            >
+                                Akses Detail
+                            </TableHeaderColumn>
+                        </BootstrapTable>
                     </div>
                 </PanelBody>
             </Panel>
@@ -208,10 +271,6 @@ const AdminReportSellingTotalView = props => {
             { renderAccessDetailStoreModal() }
         </div>
     )
-};
-
-AdminReportSellingTotalView.propTypes = {
-    
 };
 
 export default AdminReportSellingTotalView;

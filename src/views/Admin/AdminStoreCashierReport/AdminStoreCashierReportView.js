@@ -12,10 +12,28 @@ import { TableSet } from '../../../components/Table';
 import { Button } from '../../../components/Button';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from '../../../components/Modal';
 
+import NumberFormat from 'react-number-format';
+import { BootstrapTable, TableHeaderColumn, SearchField } from 'react-bootstrap-table';
+
 const AdminStoreCashierReportView = props => {
 
-    const { showDate, table, period, report, handlePeriodChange, store, handlePrint, user, handleConvertExcell } = props;
+    const { 
+        showDate, 
+        table, 
+        period, 
+        report, 
+        handlePeriodChange, 
+        store, 
+        handlePrint, 
+        user, 
+        handleConvertExcell,
+        optionsPagination
+    } = props;
 
+
+    const priceFormatter = (data) => {
+        return <NumberFormat value={data} displayType={'text'} thousandSeparator={true} fixedDecimalScale={true} prefix={'Rp. '} decimalScale={2} />;
+    }
 
     return (
         <div className="admin-report">
@@ -86,7 +104,7 @@ const AdminStoreCashierReportView = props => {
                     </Form>
 
                     <div className="admin-report__content">
-                        <TableSet
+                        {/* <TableSet
                             // loading={store.reportCashierMember.isFetching}
                             loaded={store.reportCashierMember.isLoaded}
                             columns={table.columns}
@@ -94,9 +112,54 @@ const AdminStoreCashierReportView = props => {
                             striped
                             fullWidth
                             pagination
-                        />
-                    </div>
+                        /> */}
 
+                        <BootstrapTable data={table.rows} options={optionsPagination} striped={true} hover={true} version='4' bordered={false} dataAlign="center" searchPlaceholder={"Ketik nama customer yang terdaftar..."} pagination>
+                            <TableHeaderColumn 
+                                dataField="id" 
+                                // headerAlign="left" 
+                                // dataAlign="center" 
+                                isKey={true}
+                                // width="10%"
+                                hidden
+                            >
+                                id
+                            </TableHeaderColumn>
+                            <TableHeaderColumn 
+                                dataField="transaction_date" 
+                                headerAlign="center" 
+                                dataAlign="center"
+                                width="25%"
+                            >
+                                Tanggal Transaksi
+                            </TableHeaderColumn>
+                            <TableHeaderColumn 
+                                dataField="kasirName" 
+                                headerAlign="center" 
+                                dataAlign="center"
+                                width="25%"
+                            >
+                                Nama Toko
+                            </TableHeaderColumn>
+                            <TableHeaderColumn 
+                                dataField="kasirName" 
+                                headerAlign="center" 
+                                dataAlign="center"
+                                width="25%"
+                            >
+                                Deskripsi
+                            </TableHeaderColumn>
+                            <TableHeaderColumn 
+                                dataField="total" 
+                                headerAlign="center" 
+                                dataAlign="right"
+                                width="25%"
+                                dataFormat={priceFormatter}
+                            >
+                                Total Transaksi
+                            </TableHeaderColumn>
+                        </BootstrapTable>
+                    </div>
                 </PanelBody>
             </Panel>
         </div>

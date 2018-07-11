@@ -48,6 +48,21 @@ class AdminStoreCashierReport extends Component {
             printDataDetail:{},
             statusPrintData: null
         }
+
+        this.optionsPagination = {
+            prePage:'Prev',
+            nextPage:'Next',
+            firstPage: '.', // First page button text
+            lastPage: '.', // Last page button text
+            sortIndicator: true,
+            noDataText: 'Nama User tidak di temukan',
+            // searchField: (props) => (<MySearchField { ...props } name="Search users"/>),
+            hideSizePerPage: true,
+            searchPosition: 'left',
+            // onRowDoubleClick: function(row) {
+            //     props.toggle();
+            // }
+        };
     };
 
     componentDidMount(){
@@ -139,7 +154,7 @@ class AdminStoreCashierReport extends Component {
         if(store.reportCashierMember.isLoaded){
             store.reportCashierMember.data.result.data.forEach((value, i) => {
                 let row = {
-                    // id: value.id,
+                    id: value.id,
                     kasirName: value.user.name,
                     transaction_date: moment(value.transaction_date).format('DD MMM YYYY'),
                     description: value.description,
@@ -214,6 +229,7 @@ class AdminStoreCashierReport extends Component {
                     handlePeriodChange={this.handlePeriodChange}
                     handlePrint= {this.handlePrint}
                     handleConvertExcell = {this.handleConvertExcell}
+                    optionsPagination = {this.optionsPagination}
                 />
 
                  {/* Want to print mini pos */}

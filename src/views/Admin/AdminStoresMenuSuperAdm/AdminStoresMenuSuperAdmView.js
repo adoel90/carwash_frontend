@@ -8,26 +8,56 @@ import { Panel, PanelHeader, PanelBody } from '../../../components/Panel';
 import { Input, InputGroup, Switch, InputAddon, Select, InputCurrency, SwitchSquare } from '../../../components/Input';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from '../../../components/Modal';
 import { Button } from '../../../components/Button';
+import NumberFormat from 'react-number-format';
 
+import { BootstrapTable, TableHeaderColumn, SearchField } from 'react-bootstrap-table';
 
 const AdminStoresMenuSuperAdmView = props => {
 
     const { 
-            isModalOpen,
-            modalUpdateMenuProductStore,
-            toggleModal,
-            selectedMenuStore,
-            handleUpdateMenuProductSubmit,
-            handleInputChange,
-            handleCancelModal,
-            handleImageChange,
-            store,
-            vendorState,
-            table,
-            handleClickChange,
-            storeMenuList,
-            handleFormSubmit } = props;
+        isModalOpen,
+        modalUpdateMenuProductStore,
+        toggleModal,
+        selectedMenuStore,
+        handleUpdateMenuProductSubmit,
+        handleInputChange,
+        handleCancelModal,
+        handleImageChange,
+        store,
+        vendorState,
+        table,
+        handleClickChange,
+        storeMenuList,
+        handleFormSubmit,
+        openModalMenuProductStore,
+        handleChangeMenuStatus,
+        optionsPagination 
+    } = props;
 
+    const componentButtonUpdate = (datarow) => {
+        return (
+            <div>
+                <Button 
+                    type="button" 
+                    className="margin-right-small" 
+                    onClick={() => openModalMenuProductStore(datarow)}
+                >
+                    Ubah
+                </Button>
+                <Button 
+                    type="button" 
+                    theme={datarow.status ? "success" : "danger"} 
+                    onClick={() => handleChangeMenuStatus(datarow)}
+                >
+                    { datarow.status ? 'Aktif' : 'Non Aktif' }
+                </Button>
+            </div>
+        );
+    };
+
+    const priceFormatter = (data) => {
+        return <NumberFormat value={data} displayType={'text'} thousandSeparator={true} fixedDecimalScale={true} prefix={'Rp. '} decimalScale={2} />;
+    }
 
     const renderMenuProductStoreModal = () => {
         
@@ -118,7 +148,11 @@ const AdminStoresMenuSuperAdmView = props => {
                                     {/* <Form onSubmit={handleFormSubmit}> */}
                                     <Form>
                                         <FormField> 
-                                            <Select name="store" onChange={(e) => handleClickChange(e) }>
+                                            <Select 
+                                                name="store" 
+                                                onChange={(e) => handleClickChange(e) }
+                                                style={{zIndex:1}}
+                                            >
                                                 <option>Pilih Store</option>
                                                 {
                                                     store.list.isLoaded  ? store.list.data.data.result.store.map((store, i) => {
@@ -137,7 +171,7 @@ const AdminStoresMenuSuperAdmView = props => {
 
                          <div className="admin-user__content">
                             {/* {console.log(vendorState)} */}
-                            <TableSet
+                            {/* <TableSet
                                 loading={storeMenuList.isFetching}
                                 loaded={storeMenuList.isLoaded}
                                 columns={table.columns}
@@ -151,7 +185,66 @@ const AdminStoresMenuSuperAdmView = props => {
                                 // searchBy={search.searchBy}
                                 // handleInputChange={handleInputChange}
                                 {...props}
-                            />
+                            /> */}
+
+                            {
+                                table.rows.length > 0 ?
+                                    <BootstrapTable 
+                                        data={table.rows} 
+                                        options={optionsPagination} 
+                                        striped={true} 
+                                        hover={true} 
+                                        version='4' 
+                                        bordered={false} 
+                                        dataAlign="center" 
+                                        searchPlaceholder={"Telusuri nama staff..."} 
+                                        pagination 
+                                        search
+                                    >
+                                        <TableHeaderColumn 
+                                            dataField="id" 
+                                            isKey={true} 
+                                            hidden
+                                        >
+                                            id
+                                        </TableHeaderColumn>
+                                        <TableHeaderColumn 
+                                            dataField="name" 
+                                            headerAlign="left" 
+                                            dataAlign="left"
+                                            width="25%"
+                                        >
+                                            Nama Produk
+                                        </TableHeaderColumn>
+                                        <TableHeaderColumn 
+                                            dataField="description" 
+                                            headerAlign="left" 
+                                            dataAlign="left"
+                                            width="35%"
+                                        >
+                                            Deskripsi Produk
+                                        </TableHeaderColumn>
+                                        <TableHeaderColumn 
+                                            dataField="price" 
+                                            headerAlign="center" 
+                                            dataAlign="right"
+                                            width="15%"
+                                            dataFormat={priceFormatter}
+                                        >
+                                            Harga
+                                        </TableHeaderColumn>
+                                        <TableHeaderColumn 
+                                            dataField="data" 
+                                            headerAlign="center"
+                                            dataAlign="center"
+                                            dataFormat={componentButtonUpdate}
+                                            width="25%"
+                                        >
+                                            Aksi
+                                        </TableHeaderColumn>
+                                    </BootstrapTable>
+                                : null
+                            }
                         </div>
                     </PanelBody>
                 </Panel>

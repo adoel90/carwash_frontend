@@ -13,6 +13,7 @@ import { getStoreList } from '../../../actions/store.action';
 import { openDialog, closeDialog } from '../../../actions/dialog.action';
 
 import { AdminStoresMenuSuperAdmView } from '../AdminStoresMenuSuperAdm';
+import MySearchFieldAccess from '../../../components/Input/MySearchFieldAccess';
 
 function mapStateToProps(state) {
     return {
@@ -64,6 +65,21 @@ class AdminStoresMenuSuperAdm extends Component {
             isModalOpen:{
                 modalUpdateMenuProductStore: false
             },
+        };
+
+        this.optionsPagination = {
+            prePage:'Prev',
+            nextPage:'Next',
+            firstPage: '.', // First page button text
+            lastPage: '.', // Last page button text
+            sortIndicator: true,
+            noDataText: 'Nama Staff tidak di temukan',
+            searchField: (props) => (<MySearchFieldAccess { ...props } name="Cari berdasarkan nama produk, deskripsi produk atau harga"/>),
+            hideSizePerPage: true,
+            searchPosition: 'left'
+            // onRowDoubleClick: function(row) {
+            //     props.toggle();
+            // }
         };
     };
 
@@ -380,7 +396,9 @@ class AdminStoresMenuSuperAdm extends Component {
                     handleUpdateMenuProductSubmit = { this.handleUpdateMenuProductSubmit}
                     handleCancelModal = { this.handleCancelModal}
                     handleInputChange = { this.handleInputChange}
+                    openModalMenuProductStore = {this.openModalMenuProductStore}
                     handleChangeMenuStatus = { this.handleChangeMenuStatus}
+                    optionsPagination={this.optionsPagination}
                     {...this.props} 
                     {...this.state} 
                 />

@@ -6,6 +6,7 @@ import { Button } from '../../../components/Button';
 import { openDialog, closeDialog } from '../../../actions/dialog.action';
 import { ModalDialog } from '../../../components/Modal';
 import { AdminStoreView } from '../AdminStore';
+import MySearchField from '../../../components/Input/MySearchField';
 
 class AdminStore extends Component {
 
@@ -29,7 +30,7 @@ class AdminStore extends Component {
                   lastPage: '.', // Last page button text
                   sortIndicator: true,
                   noDataText: 'Nama User tidak di temukan',
-                  // searchField: (props) => (<MySearchField { ...props } name="Search users"/>),
+                  searchField: (props) => (<MySearchField { ...props } name="Cari berdasarkan nama store, owner atau kategori"/>),
                   hideSizePerPage: true,
                   searchPosition: 'left',
                   // onRowDoubleClick: function(row) {

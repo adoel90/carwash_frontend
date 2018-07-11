@@ -7,6 +7,7 @@ import { getAccessList } from '../../../actions/access.action';
 import { openDialog, closeDialog } from '../../../actions/dialog.action';
 import { ModalDialog } from '../../../components/Modal';
 import { Button } from '../../../components/Button';
+import MySearchField from '../../../components/Input/MySearchField';
 
 function mapStateToProps(state) {
     return {
@@ -45,7 +46,7 @@ class AdminUser extends Component {
             lastPage: '.', // Last page button text
             sortIndicator: true,
             noDataText: 'Nama User tidak di temukan',
-            // searchField: (props) => (<MySearchField { ...props } name="Search users"/>),
+            searchField: (props) => (<MySearchField { ...props } name="Cari berdasarkan nama user, email atau level akses"/>),
             hideSizePerPage: true,
             searchPosition: 'left',
             // onRowDoubleClick: function(row) {

@@ -6,6 +6,7 @@ import { Button } from '../../../components/Button';
 import AdminCardView from './AdminCardView';
 import { openDialog, closeDialog } from '../../../actions/dialog.action';
 import { ModalDialog } from '../../../components/Modal';
+import MySearchField from '../../../components/Input/MySearchField';
 
 class AdminCard extends Component {
       constructor() {
@@ -29,6 +30,7 @@ class AdminCard extends Component {
                         updateCard: false
                   }
             }
+
             this.getCardTypeList = this.getCardTypeList.bind(this);
             this.populateTableData = this.populateTableData.bind(this);
             this.toggleModal = this.toggleModal.bind(this);
@@ -37,6 +39,21 @@ class AdminCard extends Component {
             this.changeCardStatus = this.changeCardStatus.bind(this);
             this.updateCard = this.updateCard.bind(this);
             this.renderDialog = this.renderDialog.bind(this);
+
+            this.optionsPagination = {
+                  prePage:'Prev',
+                  nextPage:'Next',
+                  firstPage: '.', // First page button text
+                  lastPage: '.', // Last page button text
+                  sortIndicator: true,
+                  noDataText: 'Nama Staff tidak di temukan',
+                  searchField: (props) => (<MySearchField { ...props } name="Cari kartu yang terdaftar"/>),
+                  hideSizePerPage: true,
+                  searchPosition: 'left'
+                  // onRowDoubleClick: function(row) {
+                  //     props.toggle();
+                  // }
+              };
       }
 
       componentDidMount = () => {
@@ -300,6 +317,7 @@ class AdminCard extends Component {
                               handleInputChange={this.handleInputChange}
                               updateCard={this.updateCard}
                               toggleModal={this.toggleModal}
+                              optionsPagination={this.optionsPagination}
                         />
                         {this.renderDialog()}
                   </div>

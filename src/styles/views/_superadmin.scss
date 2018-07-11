@@ -2,27 +2,29 @@
 //#Pagination.css
 //#**************************************************************************************************
 .react-bs-table-container .react-bs-table-pagination .row .col-md-6 .react-bootstrap-table-page-btns-ul li.page-item a.page-link {
-    padding: 0.4rem;
-    margin: 5px;
+    padding: 1rem 1.5rem;
+    // margin: 20px;
 }
 
 ul.react-bootstrap-table-page-btns-ul.pagination{
     display: inline-block;
-    padding-top: 10px;
+    padding-top: 20px;
     padding-bottom: 20px;
     // top:10px;
     left:0px;
-    right: 10px;
-    bottom:10px;
+    right: 30px;
+    bottom:0px;
     position: absolute;
     text-align: right;
 }
 
-ul.react-bootstrap-table-page-btns-ul.pagination li {display: inline;}
+ul.react-bootstrap-table-page-btns-ul.pagination li {
+    display: inline;
+}
 
 ul.react-bootstrap-table-page-btns-ul.pagination li a {
     float: center;
-    // padding: 8px 16px;
+    padding: 8px 16px;
     text-decoration: none;
 }
 
@@ -57,17 +59,17 @@ ul.react-bootstrap-table-page-btns-ul.pagination li a:hover:not(.active) {backgr
 }
 
 .react-bs-table-container .react-bs-table .react-bs-container-body table.table tbody tr td {
-    padding: 1.25rem;
-    vertical-align: top;
+    padding: 1rem;
+    vertical-align: middle;
     border-top: 1px solid #e9ecef;
     white-space: normal;
 }
 
 .react-bs-table-tool-bar {
     position: absolute;
-    margin-top: -95px;
-    width: 80%;
-    margin-left: -20px;
+    margin-top: -80px;
+    width: 90%;
+    margin-left: 20px;
 }
 
 .table.table-hover{

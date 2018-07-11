@@ -9,24 +9,39 @@ import { Input, InputGroup, InputAddon, Select, InputCurrency } from '../../../c
 import { Modal, ModalHeader, ModalBody, ModalFooter } from '../../../components/Modal';
 import { Button } from '../../../components/Button';
 
+import { BootstrapTable, TableHeaderColumn, SearchField } from 'react-bootstrap-table';
+
 const AdminStoresEmployeeSuperAdmView = props => {
 
     const { 
-            isModalOpen,
-            table,
-            store,
-            access, 
-            vendorState, 
-            storeStaffList,
-            handleFormSubmit, 
-            populateTableData,
-            handleClickChange, 
-            handleInputChange,
-            selectedStaff,
-            modalUpdateStaff,
-            toggleModal,
-            handleCancelModal,
-            handleUpdateSubmitStoreStaff } = props;
+        isModalOpen,
+        table,
+        store,
+        access, 
+        vendorState, 
+        storeStaffList,
+        handleFormSubmit, 
+        populateTableData,
+        handleClickChange, 
+        handleInputChange,
+        selectedStaff,
+        modalUpdateStaff,
+        toggleModal,
+        handleCancelModal,
+        handleUpdateSubmitStoreStaff,
+        openVendorEmployeeModal,
+        changeEmployeeStatus,
+        optionsPagination
+    } = props;
+
+    const componentButtonUpdate = (datarow) => {
+        return (
+            <div>
+                <Button className="margin-right-small" type="button" onClick={() => openVendorEmployeeModal(datarow)}>Ubah</Button>
+                <Button type="button" theme={datarow.status ? "success" : "danger"} onClick={() => changeEmployeeStatus(datarow)}>{ datarow.status ? 'Aktif' : 'Non Aktif' }</Button>
+            </div>
+        );
+    };
 
     const renderStoreStaffModal = () => {
 
@@ -128,7 +143,7 @@ const AdminStoresEmployeeSuperAdmView = props => {
             <Section>
                 <Panel>
                     <PanelHeader>
-                        <h4 className="heading-title">Daftar Staff </h4>
+                        <h4 className="heading-title">Daftar Staff</h4>
                     </PanelHeader>
                     <PanelBody>
                         <Row>
@@ -136,7 +151,11 @@ const AdminStoresEmployeeSuperAdmView = props => {
                                 <div className="margin-right-small">
                                     <Form onSubmit={handleFormSubmit}>
                                         <FormField> 
-                                            <Select name="store" onClick={(e) => handleClickChange(e) }>
+                                            <Select 
+                                                name="store" 
+                                                onClick={(e) => handleClickChange(e) }
+                                                style={{zIndex: 1}}
+                                            >
                                                 <option>Pilih Store</option>
                                                 {
                                                     store.list.isLoaded  ? store.list.data.data.result.store.map((store, i) => {
@@ -176,9 +195,8 @@ const AdminStoresEmployeeSuperAdmView = props => {
                             </Column>
                         </Row>
 
-
                          <div className="admin-user__content">
-                            <TableSet
+                            {/* <TableSet
                                 loading={vendorState.employee.isFetching}
                                 loaded={vendorState.employee.isLoaded}
                                 columns={table.columns}
@@ -192,7 +210,57 @@ const AdminStoresEmployeeSuperAdmView = props => {
                                 // searchBy={search.searchBy}
                                 // handleInputChange={handleInputChange}
                                 {...props}
-                            />
+                            /> */}
+
+                            {
+                                table.rows.length > 0 ?
+                                    <BootstrapTable 
+                                        data={table.rows} 
+                                        options={optionsPagination} 
+                                        striped={true} 
+                                        hover={true} 
+                                        version='4' 
+                                        bordered={false} 
+                                        dataAlign="center" 
+                                        searchPlaceholder={"Telusuri nama staff..."} 
+                                        pagination 
+                                        search
+                                    >
+                                        <TableHeaderColumn 
+                                            dataField="id" 
+                                            isKey={true} 
+                                            hidden
+                                        >
+                                            id
+                                        </TableHeaderColumn>
+                                        <TableHeaderColumn 
+                                            dataField="name" 
+                                            headerAlign="left" 
+                                            dataAlign="left"
+                                            width="30%"
+                                        >
+                                            Nama Staff
+                                        </TableHeaderColumn>
+                                        <TableHeaderColumn 
+                                            dataField="email" 
+                                            headerAlign="left" 
+                                            dataAlign="left"
+                                            width="30%"
+                                        >
+                                            Email
+                                        </TableHeaderColumn>
+                                        <TableHeaderColumn 
+                                            dataField="data" 
+                                            headerAlign="center"
+                                            dataAlign="center"
+                                            dataFormat={componentButtonUpdate}
+                                            width="40%"
+                                        >
+                                            Status
+                                        </TableHeaderColumn>
+                                    </BootstrapTable>
+                                : null
+                            }
                         </div>
                     </PanelBody>
                 </Panel>

@@ -85,6 +85,21 @@ class AdminReportSellingTotal extends Component {
 
             dataCQT: {}
         }
+
+        this.optionsPagination = {
+            prePage:'Prev',
+            nextPage:'Next',
+            firstPage: '.', // First page button text
+            lastPage: '.', // Last page button text
+            sortIndicator: true,
+            noDataText: 'Nama User tidak di temukan',
+            // searchField: (props) => (<MySearchField { ...props } name="Search users"/>),
+            hideSizePerPage: true,
+            searchPosition: 'left',
+            // onRowDoubleClick: function(row) {
+            //     props.toggle();
+            // }
+        };
     }
 
     componentDidMount = () => {
@@ -224,7 +239,14 @@ class AdminReportSellingTotal extends Component {
                     nameId: value.users.id, //Id User Owner
                     name: value.users.name,
                     store: value.store.name,
-                    price: value.total === null ? "-" : value.total
+                    price: value.total === null ? "-" : value.total,
+                    data: {
+                        storeId: value.store.id,
+                        nameId: value.users.id,
+                        name: value.users.name,
+                        store: value.store.name,
+                        price: value.total === null ? "-" : value.total,
+                    }
                 }
 
                 rows.push(row);
@@ -512,7 +534,9 @@ class AdminReportSellingTotal extends Component {
                     handleShow={this.handleShow}
                     handlePrint={this.handlePrint}
                     handleExportToExcell={this.handleExportToExcell}
-                />;
+                    optionsPagination={this.optionsPagination}
+                    openAccessDetailStoreModal={this.openAccessDetailStoreModal}
+                />
 
                 {/* Want to print mini pos */}
                 <AdminReportSellingTotalPaymentReceipt {...this.props} {...this.state} />

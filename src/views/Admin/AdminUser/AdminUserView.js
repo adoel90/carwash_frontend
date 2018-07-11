@@ -133,12 +133,46 @@ const AdminUserView = props => {
                 </PanelHeader>
                 <PanelBody>
                     <div className="admin-user__content"><br /><br /><br />       
-                        <BootstrapTable data={table.rows} options={optionsPagination} striped={true} hover={true} version='4' bordered={false} dataAlign="center" searchPlaceholder={"Telusuri nama user..."} pagination search>
-                            <TableHeaderColumn dataField="id" headerAlign="left" dataAlign="left" isKey={true} hidden>ID</TableHeaderColumn>
-                            <TableHeaderColumn dataField="name" headerAlign="left" dataAlign="left">Nama User</TableHeaderColumn>
-                            <TableHeaderColumn dataField="email" headerAlign="left" dataAlign="left">Alamat Email</TableHeaderColumn>
-                            <TableHeaderColumn headerAlign="left" dataAlign="left" dataField="accessLevel" >Level Akses</TableHeaderColumn>
-                            <TableHeaderColumn dataField="data" dataFormat={componentButtonUpdate}>Status</TableHeaderColumn>
+                        <BootstrapTable className="table--bootstrap" data={table.rows} options={optionsPagination} striped={true} hover={true} version='4' bordered={false} dataAlign="center" searchPlaceholder={"Telusuri nama user..."} pagination search>
+                            <TableHeaderColumn 
+                                dataField="id" 
+                                isKey={true} 
+                                hidden
+                            >
+                                ID
+                            </TableHeaderColumn>
+                            <TableHeaderColumn 
+                                dataField="name" 
+                                headerAlign="left" 
+                                width="25%"
+                                dataAlign="left"
+                            >
+                                Nama User
+                            </TableHeaderColumn>
+                            <TableHeaderColumn 
+                                dataField="email" 
+                                headerAlign="left" 
+                                width="30%"
+                                dataAlign="left"
+                            >
+                                Email
+                            </TableHeaderColumn>
+                            <TableHeaderColumn 
+                                // headerAlign="left" 
+                                dataAlign="left" 
+                                width="15%"
+                                dataField="accessLevel"
+                            >
+                                Level Akses
+                            </TableHeaderColumn>
+                            <TableHeaderColumn 
+                                dataField="data" 
+                                dataAlign="center"
+                                width="30%"
+                                dataFormat={componentButtonUpdate}
+                            >
+                                Status
+                            </TableHeaderColumn>
                         </BootstrapTable>
                     </div>
                 </PanelBody>

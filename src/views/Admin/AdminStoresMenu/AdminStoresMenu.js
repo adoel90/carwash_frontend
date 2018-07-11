@@ -13,6 +13,7 @@ import { Nav, NavItem, NavLink, NavTabLink} from '../../../components/Nav';
 import { getStoreList, updateMenuVendor, getMenuStoreList, changeMenuStatus } from '../../../actions/vendor.action';
 import { getMenuListStoreWithPrint } from '../../../actions/store.action';
 import { openDialog, closeDialog } from '../../../actions/dialog.action';
+import MySearchField from '../../../components/Input/MySearchField';
 
 function mapStateToProps(state) {
     return {
@@ -57,7 +58,7 @@ class AdminStoresMenu extends Component {
             lastPage: '.', // Last page button text
             sortIndicator: true,
             noDataText: 'Nama User tidak di temukan',
-            // searchField: (props) => (<MySearchField { ...props } name="Search users"/>),
+            searchField: (props) => (<MySearchField { ...props } name="Cari berdasarkan nama produk, deskripsi produk atau harga"/>),
             hideSizePerPage: true,
             searchPosition: 'left',
             // onRowDoubleClick: function(row) {

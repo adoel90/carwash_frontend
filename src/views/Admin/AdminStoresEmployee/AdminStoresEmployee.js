@@ -7,7 +7,7 @@ import { AdminStoresEmployeeView } from '../AdminStoresEmployee';
 import { Button } from '../../../components/Button';
 import { Dialog } from '../../../components/Dialog';
 import { Nav, NavItem, NavLink, NavTabLink} from '../../../components/Nav';
-
+import MySearchField from '../../../components/Input/MySearchField';
 
 import { getVendorEmployeeList, updateVendorEmployee, changeEmployeeStatus } from '../../../actions/vendor.action';
 import { getStoreList } from '../../../actions/vendor.action';
@@ -83,7 +83,7 @@ class AdminStoresEmployee extends Component {
             lastPage: '.', // Last page button text
             sortIndicator: true,
             noDataText: 'Nama Staff tidak di temukan',
-            // searchField: (props) => (<MySearchField { ...props } name="Search users"/>),
+            searchField: (props) => (<MySearchField { ...props } name="Cari berdasarkan nama staff atau email"/>),
             hideSizePerPage: true,
             searchPosition: 'left',
             // onRowDoubleClick: function(row) {

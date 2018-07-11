@@ -111,11 +111,45 @@ const AdminMemberView = props => {
                                           <Column md={12}>
                                                 <div className="admin-Member__content"><br /><br /><br />   
                                                       <BootstrapTable data={table.rows} options={optionsPagination} striped={true} hover={true} version='4' bordered={false} dataAlign="center" searchPlaceholder={"Ketik nama member yang terdaftar..."} pagination search>
-                                                            <TableHeaderColumn dataField="id" headerAlign="left" dataAlign="left" isKey={true} hidden><h3>ID</h3></TableHeaderColumn>
-                                                            <TableHeaderColumn dataField="name" headerAlign="left" dataAlign="left">Nama Member</TableHeaderColumn>
-                                                            <TableHeaderColumn dataField="cardNumber" headerAlign="left" dataAlign="left">Nomor kartu</TableHeaderColumn>
-                                                            <TableHeaderColumn dataField="cardType" headerAlign="left" dataAlign="left" >Tipe Member</TableHeaderColumn>
-                                                            <TableHeaderColumn dataField="data" dataFormat={componentButtonUpdate}>Status</TableHeaderColumn>
+                                                            <TableHeaderColumn 
+                                                                  dataField="id" 
+                                                                  isKey={true} hidden
+                                                            >
+                                                                  id
+                                                            </TableHeaderColumn>
+                                                            <TableHeaderColumn 
+                                                                  dataField="name" 
+                                                                  headerAlign="left" 
+                                                                  dataAlign="left"
+                                                                  width="25%"
+                                                            >
+                                                                  Nama Member
+                                                            </TableHeaderColumn>
+                                                            <TableHeaderColumn 
+                                                                  dataField="cardNumber" 
+                                                                  headerAlign="center" 
+                                                                  dataAlign="center"
+                                                                  width="25%"
+                                                            >
+                                                                  Nomor kartu
+                                                            </TableHeaderColumn>
+                                                            <TableHeaderColumn 
+                                                                  dataField="cardType" 
+                                                                  headerAlign="center" 
+                                                                  dataAlign="center"
+                                                                  width="25%"
+                                                            >
+                                                                  Tipe Member
+                                                            </TableHeaderColumn>
+                                                            <TableHeaderColumn 
+                                                                  dataField="data" 
+                                                                  headerAlign="center"
+                                                                  dataAlign="center"
+                                                                  dataFormat={componentButtonUpdate}
+                                                                  width="25%"
+                                                            >
+                                                                  Status
+                                                            </TableHeaderColumn>
                                                       </BootstrapTable>
                                                 </div>
                                           </Column>

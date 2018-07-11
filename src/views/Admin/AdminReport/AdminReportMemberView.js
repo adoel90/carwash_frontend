@@ -13,7 +13,7 @@ import { PageBlock } from '../../../components/Page';
 import moment from 'moment';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-
+import NumberFormat from 'react-number-format';
 import { BootstrapTable, TableHeaderColumn, SearchField } from 'react-bootstrap-table';
 
 const AdminReportMemberView = props => {
@@ -45,6 +45,10 @@ const AdminReportMemberView = props => {
             </div>
         );
     };
+
+    const priceFormatter = (data) => {
+        return <NumberFormat value={data} displayType={'text'} thousandSeparator={true} fixedDecimalScale={true} prefix={'Rp. '} decimalScale={2} />;
+    }
 
     //Modal detail Historis
     const renderMemberDetailHistoryModal = () => {
@@ -93,9 +97,8 @@ const AdminReportMemberView = props => {
                     <h4 className="heading-title">Laporan Member </h4>
                 </PanelHeader>
                 <PanelBody> 
-                <PageBlock>
                     
-                <Form onSubmit={showDate}>
+                    <Form onSubmit={showDate}>
                         <Row>
                             <Column className="flex">
                                 <div className="margin-right-small">
@@ -156,34 +159,79 @@ const AdminReportMemberView = props => {
                             </Column>
                         </Row>
                     </Form>
-                </PageBlock><br />
 
-                <div className="admin-report__content"><br /><br /><br />  
-                    {/* <TableSetKhusus
-                        loading={report.reportMember.isFetching}
-                        loaded={report.reportMember.isLoaded}
-                        columns={table.columns}
-                        rows={table.rows}
-                        striped 
-                        fullWidth
-                        pagination
-                        placeholder="Cari member yang terdaftar"
-                        hasSearchBar
-                        searchParams={table.searchParams}
-                        searchBy={search.searchBy}
-                        handleInputChange={handleInputChange}
-                        {...props}
-                    /> */}
+                    <div className="admin-report__content">
+                        {/* <br /><br /><br />   */}
+                        {/* <TableSetKhusus
+                            loading={report.reportMember.isFetching}
+                            loaded={report.reportMember.isLoaded}
+                            columns={table.columns}
+                            rows={table.rows}
+                            striped 
+                            fullWidth
+                            pagination
+                            placeholder="Cari member yang terdaftar"
+                            hasSearchBar
+                            searchParams={table.searchParams}
+                            searchBy={search.searchBy}
+                            handleInputChange={handleInputChange}
+                            {...props}
+                        /> */}
 
-                    <BootstrapTable data={table.rows} options={optionsPagination} striped={true} hover={true} version='4' bordered={false} dataAlign="center" searchPlaceholder={"Ketik nama customer yang terdaftar..."} pagination search>
-                        <TableHeaderColumn dataField="id" headerAlign="left" dataAlign="left" isKey={true}>No. Kartu</TableHeaderColumn>
-                        <TableHeaderColumn dataField="kartu" headerAlign="left" dataAlign="left">Kartu</TableHeaderColumn>
-                        <TableHeaderColumn dataField="name" headerAlign="left" dataAlign="left">Nama </TableHeaderColumn>
-                        <TableHeaderColumn dataField="created" headerAlign="left" dataAlign="left">Tgl Daftar</TableHeaderColumn>
-                        <TableHeaderColumn dataField="balance" headerAlign="left" dataAlign="left">Saldo</TableHeaderColumn>
-                        <TableHeaderColumn dataField="data" dataFormat={componentButtonHistory}>Histori</TableHeaderColumn>
-                    </BootstrapTable>
-</div>
+                        <BootstrapTable data={table.rows} options={optionsPagination} striped={true} hover={true} version='4' bordered={false} dataAlign="center" searchPlaceholder={"Ketik nama customer yang terdaftar..."} pagination>
+                            <TableHeaderColumn 
+                                dataField="id" 
+                                headerAlign="left" 
+                                dataAlign="center" 
+                                isKey={true}
+                                width="10%"
+                            >
+                                No. Kartu
+                            </TableHeaderColumn>
+                            <TableHeaderColumn 
+                                dataField="kartu" 
+                                headerAlign="center" 
+                                dataAlign="center"
+                                width="20%"
+                            >
+                                Kartu
+                            </TableHeaderColumn>
+                            <TableHeaderColumn 
+                                dataField="name" 
+                                headerAlign="left" 
+                                dataAlign="left"
+                                width="20%"
+                            >
+                                Nama
+                            </TableHeaderColumn>
+                            <TableHeaderColumn 
+                                dataField="created" 
+                                headerAlign="center" 
+                                dataAlign="center"
+                                width="20%"
+                            >
+                                Tgl Daftar
+                            </TableHeaderColumn>
+                            <TableHeaderColumn 
+                                dataField="balance" 
+                                headerAlign="center" 
+                                dataAlign="right"
+                                width="15%"
+                                dataFormat={priceFormatter}
+                            >
+                                Saldo
+                            </TableHeaderColumn>
+                            <TableHeaderColumn 
+                                dataField="data" 
+                                headerAlign="center"
+                                dataAlign="center"
+                                dataFormat={componentButtonHistory}
+                                width="35%"
+                            >
+                                Histori
+                            </TableHeaderColumn>
+                        </BootstrapTable>
+                    </div>
                 </PanelBody>
             </Panel>
 

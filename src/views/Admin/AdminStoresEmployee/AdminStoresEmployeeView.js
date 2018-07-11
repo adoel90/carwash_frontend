@@ -178,10 +178,38 @@ const AdminStoresEmployeeView = props => {
                             /> */}
 
                             <BootstrapTable data={table.rows} options={optionsPagination} striped={true} hover={true} version='4' bordered={false} dataAlign="center" searchPlaceholder={"Telusuri nama staff..."} pagination search>
-                                <TableHeaderColumn dataField="id" headerAlign="left" dataAlign="left" isKey={true} hidden><h3>ID</h3></TableHeaderColumn>
-                                <TableHeaderColumn dataField="name" headerAlign="left" dataAlign="left">Nama Staff</TableHeaderColumn>
-                                <TableHeaderColumn dataField="email" headerAlign="left" dataAlign="left">Alamat Email</TableHeaderColumn>
-                                <TableHeaderColumn dataField="data" dataFormat={componentButtonUpdate}>Status</TableHeaderColumn>
+                                <TableHeaderColumn 
+                                    dataField="id" 
+                                    isKey={true} 
+                                    hidden
+                                >
+                                    id
+                                </TableHeaderColumn>
+                                <TableHeaderColumn 
+                                    dataField="name" 
+                                    headerAlign="left" 
+                                    dataAlign="left"
+                                    width="30%"
+                                >
+                                    Nama Staff
+                                </TableHeaderColumn>
+                                <TableHeaderColumn 
+                                    dataField="email" 
+                                    headerAlign="left" 
+                                    dataAlign="left"
+                                    width="30%"
+                                >
+                                    Alamat Email
+                                </TableHeaderColumn>
+                                <TableHeaderColumn 
+                                    dataField="data" 
+                                    headerAlign="center"
+                                    dataAlign="center"
+                                    dataFormat={componentButtonUpdate}
+                                    width="40%"
+                                >
+                                    Status
+                                </TableHeaderColumn>
                             </BootstrapTable>
                         </div>
                     </PanelBody>

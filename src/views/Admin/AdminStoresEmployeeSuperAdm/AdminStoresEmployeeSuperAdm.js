@@ -12,6 +12,7 @@ import { getStoreList } from '../../../actions/store.action';
 import { openDialog, closeDialog } from '../../../actions/dialog.action';
 import { getAccessList } from '../../../actions/access.action';
 import { AdminStoresEmployeeSuperAdmView } from '../AdminStoresEmployeeSuperAdm';
+import MySearchFieldAccess from '../../../components/Input/MySearchFieldAccess';
 
 function mapStateToProps(state) {
     return {
@@ -67,6 +68,21 @@ class AdminStoresEmployeeSuperAdm extends Component {
             selectedStaff: {}
 
         }
+
+        this.optionsPagination = {
+            prePage:'Prev',
+            nextPage:'Next',
+            firstPage: '.', // First page button text
+            lastPage: '.', // Last page button text
+            sortIndicator: true,
+            noDataText: 'Nama Staff tidak di temukan',
+            searchField: (props) => (<MySearchFieldAccess { ...props } name="Cari berdasarkan nama staff atau email"/>),
+            hideSizePerPage: true,
+            searchPosition: 'left'
+            // onRowDoubleClick: function(row) {
+            //     props.toggle();
+            // }
+        };
     }
 
     componentDidMount = () => {
@@ -377,6 +393,7 @@ class AdminStoresEmployeeSuperAdm extends Component {
                     handleUpdateSubmitStoreStaff = { this.handleUpdateSubmitStoreStaff}
                     handleInputChange={this.handleInputChange}
                     // populateTableData = {this.populateTableData}
+                    optionsPagination={this.optionsPagination}
                     {...this.state} 
                     {...this.props} />
 

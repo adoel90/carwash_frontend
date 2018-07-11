@@ -9,6 +9,7 @@ import moment from 'moment';
 import { getAllMemberList, updateMember, changeMemberStatus, getMemberDetailHistoris } from '../../../actions/member.action';
 import { openDialog, closeDialog } from '../../../actions/dialog.action';
 import { getReportMemberExportToExcell } from '../../../actions/report.action';
+import MySearchField from '../../../components/Input/MySearchField';
 
 
 class AdminMember extends Component {
@@ -31,7 +32,7 @@ class AdminMember extends Component {
                   lastPage: '.', // Last page button text
                   sortIndicator: true,
                   noDataText: 'Nama User tidak di temukan',
-                  // searchField: (props) => (<MySearchField { ...props } name="Search users"/>),
+                  searchField: (props) => (<MySearchField { ...props } name="Cari berdasarkan nama member, nomor kartu atau tipe member"/>),
                   hideSizePerPage: true,
                   searchPosition: 'left',
                   // onRowDoubleClick: function(row) {

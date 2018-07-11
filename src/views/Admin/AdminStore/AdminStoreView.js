@@ -106,11 +106,46 @@ const AdminStoreView = props => {
                         /> */}
 
                         <BootstrapTable data={table.rows} options={optionsPagination} striped={true} hover={true} version='4' bordered={false} dataAlign="center" searchPlaceholder={"Telusuri nama Store..."} pagination search>
-                            <TableHeaderColumn dataField="id" headerAlign="left" dataAlign="left" isKey={true} hidden><h3>ID</h3></TableHeaderColumn>
-                            <TableHeaderColumn dataField="name" headerAlign="left" dataAlign="left">Nama Store</TableHeaderColumn>
-                            <TableHeaderColumn dataField="user" headerAlign="left" dataAlign="left">Owner</TableHeaderColumn>
-                            <TableHeaderColumn dataField="type" headerAlign="left" dataAlign="left"  >Kategori</TableHeaderColumn>
-                            <TableHeaderColumn dataField="data" headerAlign="left" dataAlign="left"  dataFormat={componentButtonUpdate}>Status</TableHeaderColumn>
+                            <TableHeaderColumn 
+                                dataField="id" 
+                                isKey={true} 
+                                hidden
+                            >
+                                ID
+                            </TableHeaderColumn>
+                            <TableHeaderColumn 
+                                dataField="name" 
+                                headerAlign="left" 
+                                dataAlign="left"
+                                width="25%"
+                            >
+                                Nama Store
+                            </TableHeaderColumn>
+                            <TableHeaderColumn 
+                                dataField="user" 
+                                headerAlign="left" 
+                                dataAlign="left"
+                                width="25%"
+                            >
+                                Owner
+                            </TableHeaderColumn>
+                            <TableHeaderColumn 
+                                dataField="type" 
+                                headerAlign="center" 
+                                dataAlign="center"
+                                width="20%"
+                            >
+                                Kategori
+                            </TableHeaderColumn>
+                            <TableHeaderColumn 
+                                dataField="data" 
+                                headerAlign="center" 
+                                dataAlign="center"
+                                dataFormat={componentButtonUpdate}
+                                width="20%"
+                            >
+                                Status
+                            </TableHeaderColumn>
                         </BootstrapTable>
                     </div>
                 </PanelBody>

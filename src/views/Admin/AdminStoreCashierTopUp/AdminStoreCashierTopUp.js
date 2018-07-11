@@ -152,7 +152,7 @@ class AdminStoreCashierTopUp extends Component {
                     window.print();
                 })
             }
-        }
+        };
     }
    
     handleInputChange = (object, e) => {

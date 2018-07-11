@@ -71,8 +71,6 @@ class AdminPanel extends Component {
         let menu = JSON.parse(localStorage.getItem('userData')).module;
         let mainRoute = {};
 
-        console.log(menu);
-
         if (menu[0].group === 'admin') {
             let routePage = [
 

@@ -19,8 +19,10 @@ import { BootstrapTable, TableHeaderColumn, SearchField } from 'react-bootstrap-
 const AdminStoresMenuView = props => {
 
     const buttonStyle = {
-        'margin-left': '570px',
-    }
+        'margin-left': '850px',
+        'margin-bottom': '25px',
+        'left': '0px'
+    };
 
     const {
         isModalOpen, 
@@ -139,12 +141,11 @@ const AdminStoresMenuView = props => {
             <div className="admin-user">
                 <Panel>
                     <PanelHeader>
-                        <h4 className="heading-title">Daftar Produk <Button  onClick={(e) => printListMenuStore(e)}  style={buttonStyle} type="submit" theme="light">Print</Button></h4>
+                        <h4 className="heading-title">Daftar Produk </h4>
                     </PanelHeader>
                     <PanelBody>
-
                         {/* ******************FINISH****************** */}
-                        <div className="admin-user__content"><br /><br /><br />
+                        <div className="admin-user__content"><br />
                             {/* <TableSet
                                 loading={storeMenuList.isFetching}
                                 loaded={storeMenuList.isLoaded}
@@ -160,8 +161,10 @@ const AdminStoresMenuView = props => {
                                 handleInputChange={handleInputChange}
                                 {...props}
                             /> */}
-
+                            <Button  onClick={(e) => printListMenuStore(e)}  style={buttonStyle} type="submit" theme="light">Print</Button>
                             <BootstrapTable data={table.rows} options={optionsPagination} striped={true} hover={true} version='4' bordered={false} dataAlign="center" searchPlaceholder={"Telusuri nama produk..."} pagination search>
+                                
+                                
                                 <TableHeaderColumn dataField="id" headerAlign="left" dataAlign="left" isKey={true} hidden>ID</TableHeaderColumn>
                                 <TableHeaderColumn dataField="name" headerAlign="left" dataAlign="left">Nama Produk</TableHeaderColumn>
                                 <TableHeaderColumn dataField="description" headerAlign="left" dataAlign="left">Deskripsi Produk</TableHeaderColumn>

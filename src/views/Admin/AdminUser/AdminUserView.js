@@ -123,7 +123,7 @@ const AdminUserView = props => {
                 </Modal>
             )
         }
-    }
+    };
 
     return (
         <div className="admin-user">

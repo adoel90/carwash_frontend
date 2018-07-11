@@ -125,6 +125,24 @@ class AdminStoreCashierKartuBaruConfirmationModal extends Component {
                                   : null  
                             }  
                             <Column md={6}>
+                                    <FormGroup>
+                                        <FormField label="Nama Lengkap">
+                                            <InputGroup>
+                                                <InputAddon>
+                                                    <i className="far fa-user"></i>
+                                                </InputAddon>
+                                                <Input
+                                                    name="name"
+                                                    type="text"
+                                                    placeholder="Tulis Nama Lengkap"
+                                                    // placeholder={selectedMember.name}
+                                                    // defaultValue={selectedMember.name ? selectedMember.name : "Tulis Nama Lengkap"}
+                                                    onChange={(e) => handleInputChangeInModalUpdate('selectedMember', e)}
+                                                    required="true"
+                                                />
+                                            </InputGroup>
+                                        </FormField>
+                                    </FormGroup>
                                 <FormGroup>
                                     <FormField label="Tipe Kartu">
                                         <Input
@@ -170,6 +188,13 @@ class AdminStoreCashierKartuBaruConfirmationModal extends Component {
                                         {/* <small className="clr-dark-light">Merupakan metode pembayaran yang dipilih calon member untuk pembuatan kartu.</small> */}
                                     </FormField>
                                 </FormGroup>
+                                
+                                {/* <FormGroup row>
+                                    <FormField label="Tambah Saldo">
+                                    { typeMember === "Taxi Online" ? this.renderTambahSaldoForTaxiOnline() : this.renderTambahSaldoCommon()}
+                                    </FormField>
+                                </FormGroup> */}
+
                             </Column>
                         </Row>
                     </ModalBody>

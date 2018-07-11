@@ -29,6 +29,11 @@ const AdminStoreCashierStockKartuView = props => {
         cardNonMember, 
         cardMember } = props;
 
+    const renderDetailModal = () => {
+
+
+    };
+
     return (
         <div className="admin-dashboard">
             <Section>
@@ -56,6 +61,9 @@ const AdminStoreCashierStockKartuView = props => {
                                                 <Button theme={copiedTaxiOnline === false ? "success" : "warning"}>{copiedTaxiOnline === false ? "Copy Nomor Kartu" : "Copied"} </Button>
                                             </CopyToClipboard>
                                         </td>
+                                        <td>
+                                            <Button>Modal</Button>
+                                        </td>
                                     </tr>
                                     <tr className="bg-white">
                                         <td>Non Member</td>
@@ -80,6 +88,8 @@ const AdminStoreCashierStockKartuView = props => {
                         </div>
                     </PanelBody>
                 </Panel>
+
+                {renderDetailModal()}
             </Section>
         </div>
     )

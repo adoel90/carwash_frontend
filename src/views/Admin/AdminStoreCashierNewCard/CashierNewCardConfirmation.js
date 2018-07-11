@@ -53,6 +53,7 @@ class CashierNewCardConfirmation extends Component {
 									<Input
 										type="text"
 										value={newCardData.name}
+										// placeholder="Tulis Nama Lengkap"
 										readonly="true"
 									/>
 								</InputGroup>

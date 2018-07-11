@@ -56,8 +56,9 @@ class AdminStoreCashierKartuBaruConfirmationModal extends Component {
                                                     <Input
                                                         name="name"
                                                         type="text"
-                                                        placeholder={selectedMember.name}
-                                                        defaultValue={selectedMember.name ? selectedMember.name : "Tulis Nama Lengkap"}
+                                                        placeholder="Tulis Nama Lengkap"
+                                                        // placeholder={selectedMember.name}
+                                                        // defaultValue={selectedMember.name ? selectedMember.name : "Tulis Nama Lengkap"}
                                                         onChange={(e) => handleInputChangeInModalUpdate('selectedMember', e)}
                                                         required="true"
                                                     />
@@ -98,13 +99,26 @@ class AdminStoreCashierKartuBaruConfirmationModal extends Component {
 
                                         <FormGroup>
                                             <FormField label="Alamat">
-                                                <Textarea
+
+                                                <InputGroup>
+                                                    <InputAddon>
+                                                        <i className="fas fa-map-marker-alt"></i>
+                                                    </InputAddon>
+                                                    <Input
+                                                        name="address"
+                                                        type="textarea"
+                                                        placeholder="Provinsi, Kecamatan, Jalan, Kode Pos"
+                                                        onChange={(e) => handleInputChange(newCardData, e)}
+                                                    // required="false"
+                                                    />
+                                                </InputGroup>
+                                                {/* <Textarea
                                                     name="address"
                                                     type="textarea"
                                                     placeholder="Provinsi, Kecamatan, Jalan, Kode Pos"
                                                     onChange={(e) => handleInputChange(newCardData, e)}
                                                 // required="false"
-                                                />
+                                                /> */}
                                             </FormField>
                                         </FormGroup>
                                     </Column>
@@ -137,7 +151,7 @@ class AdminStoreCashierKartuBaruConfirmationModal extends Component {
                                                 readOnly
                                             />
                                         </InputGroup>
-                                        <small className="clr-dark-light">Merupakan minimal saldo yang harus diisi calon member untuk pembuatan kartu.</small>
+                                        {/* <small className="clr-dark-light">Merupakan minimal saldo yang harus diisi calon member untuk pembuatan kartu.</small> */}
                                     </FormField>
                                 </FormGroup>
                                 <FormGroup>
@@ -153,7 +167,7 @@ class AdminStoreCashierKartuBaruConfirmationModal extends Component {
                                                 })
                                             }
                                         </Select>
-                                        <small className="clr-dark-light">Merupakan metode pembayaran yang dipilih calon member untuk pembuatan kartu.</small>
+                                        {/* <small className="clr-dark-light">Merupakan metode pembayaran yang dipilih calon member untuk pembuatan kartu.</small> */}
                                     </FormField>
                                 </FormGroup>
                             </Column>

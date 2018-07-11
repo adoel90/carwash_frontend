@@ -331,12 +331,8 @@ class AdminPanel extends Component {
                     dataMenu.items.push(buatStaffBaruSuperadmin);
                     dataMenu.items.push(daftarProdukSuperadmin);
                     dataMenu.items.push(buatProdukBaruSuperadmin);
+                    
                 };
-                
-                //SECOND METHOD
-                // if (menu[i].group === "admin") {
-                //     dataMenu.items.push(transactionSuperadmin);
-                // };
 
             }
             //#MANAJEMEN USER ATAU PENGATURAN KASIR/OWNER

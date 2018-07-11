@@ -206,9 +206,8 @@ class AdminReportSellingTotal extends Component {
             render: (row) => (
                 <td className="flex justify-content--center">
                     <Button className="margin-right-small" type="button" onClick={() => this.openAccessDetailStoreModal(row)}>Penjualan</Button>
-                    {/* <Button className="margin-right-small" theme="secondary" type="button" onClick={() => this.openAccessDetailStoreModal(row)}>Menu Favorit</Button>                               */}
+                    {/* <Button className="margin-right-small" theme="secondary" type="button" onClick={() => this.openAccessDetailStoreModal(row)}>Menu Favorit</Button> */}
                 </td>
-
             )
         }
         ];
@@ -228,8 +227,8 @@ class AdminReportSellingTotal extends Component {
                 }
 
                 rows.push(row);
-            })
-        }
+            });
+        };
 
         this.setState({
             ...this.state,
@@ -238,7 +237,7 @@ class AdminReportSellingTotal extends Component {
                 columns: columns,
                 rows: rows
             }
-        })
+        });
     }
 
     getReportMemberList = () => {

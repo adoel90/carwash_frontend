@@ -296,6 +296,7 @@ class AdminUser extends Component {
 
         if (userList.isLoaded) {
             userList.data.data.result.forEach((user, i) => {
+
                 let row = {
                     id: user.id,
                     name: user.name,

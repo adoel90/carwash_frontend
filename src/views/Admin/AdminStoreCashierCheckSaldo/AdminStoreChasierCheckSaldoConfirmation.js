@@ -29,7 +29,7 @@ class AdminStoreChasierCheckSaldoConfirmation extends Component{
 					<ModalBody className="flex flex-column justify-content--center">
 						<Alert theme="secondary" className="flex align-items--center margin-bottom-small">
 							<i className="ion-alert-circled icon icon--base margin-right-small"></i>
-							<p><b>Setelah Cek saldo berhasil, jangan lupa untuk mengambil kartu member.</b></p>
+							<p><b>Setelah Cek saldo berhasil, jangan lupa mengembalikan kartu kepada customer.</b></p>
 						</Alert>
 						<div className="flex flex-column align-items--center justify-content--center ta-center">
 							<img src={CardIcon} style={{ width: '100px' }} />

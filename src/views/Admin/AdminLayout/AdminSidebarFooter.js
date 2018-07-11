@@ -7,7 +7,8 @@ const AdminSidebarFooter = props => {
         <div className="sidebar--footer">
             <div className="flex justify-content--space-between align-items--center">
                 <p style={{color: '#FAFAFA', fontWeight: '900', overflow:'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis', paddingRight: '5px'}}>
-                    { props.user.name }
+                    { props.user.username }
+                    {/* { props.user.name === "Super Admin" || props.user.name === "Kasir" ? props.user.username : props.user.name} */}
                 </p>
                 <div className="flex">
                     <MenuLink to={`/admin/setting`}>

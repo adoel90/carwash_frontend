@@ -182,11 +182,6 @@ class AdminReportMember extends Component {
             align: 'left',
             isCurrency: true
         },
-        // {
-        //     title: 'Tgl Transaksi',
-        //     accessor: 'last',
-        //     align: 'left'
-        // },
         {
             title: 'Status',
             accessor: 'data',
@@ -251,7 +246,7 @@ class AdminReportMember extends Component {
         }
 
         action.getReportMemberSuperAdminPrint(requiredData);
-    }
+    };
     
     handleExportToExcell = (e, period) => {
         e.preventDefault();
@@ -311,13 +306,15 @@ class AdminReportMember extends Component {
             title: 'Tanggal Transaksi',
             accessor: 'date',
             align: 'left' 
-        },{
-            title: 'Total Pembayaran',
-            accessor: 'total',
-            align: 'left' 
-        }, {
+        }, 
+        {
             title: 'Transaksi',
             accessor: 'type',
+            align: 'left' 
+        },
+        {
+            title: 'Jumlah',
+            accessor: 'total',
             align: 'left' 
         }];
 

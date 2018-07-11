@@ -75,9 +75,8 @@ class AdminUser extends Component {
             },
             currentActive: null,
             currentActiveLength: 0,
-
         }
-    }
+    };
 
     componentDidMount = () => {
         this.getUserList();
@@ -87,9 +86,7 @@ class AdminUser extends Component {
     componentDidUpdate = (prevProps) => {
         const { user } = this.props;
 
-        const {
-            userList
-        } = this.state;
+        const { userList } = this.state;
 
         if (prevProps.user.list !== user.list) {
             this.setState({
@@ -128,7 +125,7 @@ class AdminUser extends Component {
                 })
             }
         }
-    }
+    };
 
     toggleModal = (name) => {
         const { isModalOpen } = this.state;
@@ -155,6 +152,7 @@ class AdminUser extends Component {
     }
 
     renderDialog = () => {
+        
         const { dialog, toggleDialog } = this.props;
 
         return (

@@ -200,7 +200,7 @@ export const updateMember = (data) => {
 			.catch((error) => {
 				dispatch(handleError(error));
 			})
-	}
+	};
 
 	function handleRequest() { return { type: UPDATE_MEMBER_REQUESTED}}
 	function handleSuccess(data) { return { type: UPDATE_MEMBER_FULFILLED, payload: data } }

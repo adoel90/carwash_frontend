@@ -13,7 +13,7 @@ import { Input, Label, InputAddon, InputGroup } from '../../../components/Input'
 
 import {Button} from '../../../components/Button';
 
-const AdminStoreCashierStockKartuView = props => {
+const AdminStoreCashierTulisKartuBaruView = props => {
 
     const { 
         card,
@@ -126,4 +126,4 @@ const AdminStoreCashierStockKartuView = props => {
     )
 };
 
-export default AdminStoreCashierStockKartuView;
+export default AdminStoreCashierTulisKartuBaruView;

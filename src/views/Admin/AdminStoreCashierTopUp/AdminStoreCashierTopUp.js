@@ -15,14 +15,14 @@ function mapStateToProps(state) {
         storeState: state.store,
         dialog: state.dialog,
         member: state.member
-    };
-}
+    }
+};
 
 function mapDispatchToProps(dispatch) {
     return {
         action: bindActionCreators({ printMemberTransaction, kasirTopUpLogin, openDialog, closeDialog, memberCustomerTopup, getBonusTaxiOnline }, dispatch)
     }
-}
+};
 
 class AdminStoreCashierTopUp extends Component {
 

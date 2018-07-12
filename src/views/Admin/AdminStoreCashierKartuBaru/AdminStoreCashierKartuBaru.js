@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import { ModalDialog } from '../../../components/Modal';
 
+import { getNominalSaldoNewCustomer }  from '../../../actions/card.action';
 import { openDialog, closeDialog } from '../../../actions/dialog.action';
 import { authenticateMember, updateMember } from '../../../actions/member.action';
 import { AdminStoreCashierKartuBaruWrapper, AdminStoreCashierKartuBaruPaymentReceipt} from '../AdminStoreCashierKartuBaru';
@@ -12,16 +13,18 @@ import { AdminStoreCashierKartuBaruWrapper, AdminStoreCashierKartuBaruPaymentRec
 function mapStateToProps(state) {
     return {
         member: state.member,
-        dialog: state.dialog
+        dialog: state.dialog,
+        card: state.card
     }
-}
+};
 
 function mapDispatchToProps(dispatch) {
     return {
         authenticateMemberDispatch: (data) => dispatch(authenticateMember(data)),
+        getNominalSaldoNewCustomerDispatch : (data) => dispatch(getNominalSaldoNewCustomer(data)),
         action: bindActionCreators({ updateMember, openDialog, closeDialog }, dispatch)
     }
-}
+};
 
 class AdminStoreCashierKartuBaru extends Component {
 
@@ -61,13 +64,18 @@ class AdminStoreCashierKartuBaru extends Component {
             printData: {},
             selectedMember: {},
             dataMemberAfterUpdate: {},
-            typeNumberMember: {}
+            typeNumberMember: {},
+            listNominalNewCustomer: {}
         }
-    }
+    };
+
+    componentDidMount(){
+       
+    };
 
     componentDidUpdate(prevProps) {
 
-        const { member } = this.props;
+        const { member, card} = this.props;
         const { toggleModal, typeNumberMember,selectedMember } = this.state;
 
         if (prevProps.member.item !== member.item) {
@@ -76,6 +84,7 @@ class AdminStoreCashierKartuBaru extends Component {
                 //#
                 this.state.selectedMember = member.item.data;
                 this.state.typeNumberMember = member.item.data.card ? member.item.data.card.type.id : null;
+                
                 //#
                 // if (member.item.data) {
                 // this.setState({
@@ -86,15 +95,38 @@ class AdminStoreCashierKartuBaru extends Component {
 
                 this.forceUpdate();
                 this.handleToggleUpdate();
+            };
+
+            //GET NOMINAL SALDO NEW CUSTOMER
+            if(member.item.isAuthenticated){  
+                const { getNominalSaldoNewCustomerDispatch } = this.props;
+
+                let requiredData = {
+                    limit : null
+                };
+        
+                getNominalSaldoNewCustomerDispatch(requiredData);
+            };
+        };
+        
+        //GET NOMINAL SALDO NEW CUSTOMER
+        if(prevProps.card.nominal !== card.nominal){
+            if(card.nominal.isLoaded){
+                
+                this.setState({
+                    ...this.state,
+                    listNominalNewCustomer : card.nominal.data.result
+                });
             }
         }
+        
 
         if (prevProps.member.item !== member.item) {
             if (member.item.isUpdated) {
                 
             }
-        }
-    }
+        };
+    };
 
     toggleModal = (name) => {
         const { isModalOpen } = this.state;
@@ -223,7 +255,7 @@ class AdminStoreCashierKartuBaru extends Component {
                     message: 'Member telah berhasil di simpan. Klik tombol berikut untuk kembali.',
                     onClose: () => window.location.reload(),
                     closeText: 'Kembali'
-                }
+                };
 
                 //Get this data to set in print
                 this.setState({

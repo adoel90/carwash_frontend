@@ -1,4 +1,5 @@
 import {
+
 	GET_ALL_CARD_TYPE_REQUESTED,
 	GET_ALL_CARD_TYPE_FULFILLED,
 	GET_ALL_CARD_TYPE_REJECTED,
@@ -16,7 +17,11 @@ import {
 
 	REMOVE_MEMBER_REQUESTED, //#REMOVE MEMBER
 	REMOVE_MEMBER_FULFILLED,
-	REMOVE_MEMBER_REJECTED
+	REMOVE_MEMBER_REJECTED,
+
+	GET_NOMINAL_SALDO_NEW_CUSTOMER_REQUESTED, //GET NOMINAL SALDO NEW CUSTOMER
+	GET_NOMINAL_SALDO_NEW_CUSTOMER_FULFILLED,
+	GET_NOMINAL_SALDO_NEW_CUSTOMER_REJECTED
 
 } from '../actions/card.action';
 
@@ -52,7 +57,14 @@ const initialState = {
 		isDeleted: false,
 		isError: false,
 		error: {}
-	}
+	},
+	nominal: {
+		data: {},
+		isFetching: false,
+		isLoaded: false,
+		isError: false,
+		error: {}
+	},
 }
 
 const card = (state = initialState, action) => {
@@ -251,6 +263,49 @@ const card = (state = initialState, action) => {
 					data: {},
 					isDeleting: false,
 					isDeleted: false,
+					isError: true,
+					error: action.payload
+				}
+			}
+		}
+
+		//GET NOMINAL SALDO NEW CUSTOMER
+		case GET_NOMINAL_SALDO_NEW_CUSTOMER_REQUESTED: {
+			return {
+				...state,
+				nominal: {
+					...state.nominal,
+					data: {},
+					isFetching: true,
+					isLoaded: false,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case GET_NOMINAL_SALDO_NEW_CUSTOMER_FULFILLED: {
+			return {
+				...state,
+				nominal: {
+					...state.nominal,
+					data: action.payload,
+					isLoaded: true,
+					isFetching: false,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case GET_NOMINAL_SALDO_NEW_CUSTOMER_REJECTED: {
+			return {
+				...state,
+				nominal: {
+					...state.nominal,
+					data: {},
+					isLoaded: false,
+					isFetching: false,
 					isError: true,
 					error: action.payload
 				}

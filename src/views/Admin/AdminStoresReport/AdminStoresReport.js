@@ -291,7 +291,7 @@ class AdminStoresReport extends Component {
                 end_date : moment(period.to).format('YYYY-MM-DD'),
                 staff: '',
                 print: false
-            }
+            };
             getStoreStaffReportDispatch(requiredDataStoreStaff);
 
         } else {

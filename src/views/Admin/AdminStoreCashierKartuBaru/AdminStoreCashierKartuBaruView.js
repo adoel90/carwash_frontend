@@ -14,8 +14,6 @@ class AdminStoreCashierKartuBaruView extends Component {
 			authentication,
 			handleMemberAuthenticateSubmit,
 			authData,
-			
-			
 			handleInputChange,
 			handleAuthenticateMember,
 			handleToggleUpdate,

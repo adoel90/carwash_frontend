@@ -8,7 +8,7 @@ import { TabContent } from '../../../components/Tab';
 import { Nav, NavItem, NavLink, NavTabLink } from '../../../components/Nav';
 import { Button } from '../../../components/Button';
 
-import { AdminStoreCashierStockKartuView } from '../AdminStoreCashierStockKartu';
+import { AdminStoreCashierTulisKartuBaruView } from '../AdminStoreCashierTulisKartuBaru';
 
 import { getStoreList } from '../../../actions/store.action';
 import { getStockListNewCard } from '../../../actions/card.action';
@@ -29,7 +29,7 @@ function mapDispatchToProps(dispatch) {
     }
 };
 
-class AdminStoreCashierStockKartu extends Component {
+class AdminStoreCashierTulisKartuBaru extends Component {
 
     constructor() {
         super();
@@ -133,7 +133,7 @@ class AdminStoreCashierStockKartu extends Component {
 
         return (
             <div>
-                <AdminStoreCashierStockKartuView
+                <AdminStoreCashierTulisKartuBaruView
                     toggleModal={this.toggleModal}
                     closeModal = {this.closeModal}
                     openModalGenerateNumber = {this.openModalGenerateNumber}
@@ -147,4 +147,4 @@ class AdminStoreCashierStockKartu extends Component {
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(AdminStoreCashierStockKartu);
+export default connect(mapStateToProps, mapDispatchToProps)(AdminStoreCashierTulisKartuBaru);

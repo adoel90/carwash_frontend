@@ -24,7 +24,7 @@ import {
     AdminStoreCashierNewCard,
     AdminStoreCashierKartuBaru,
     AdminStoreCashierRefund,
-    AdminStoreCashierStockKartu,
+    AdminStoreCashierTulisKartuBaru,
     AdminStoreCashierCheckSaldo,
     AdminStoreCashierReport,
     AdminStoresMenu,
@@ -104,7 +104,7 @@ class AdminPanel extends Component {
                 //#Fussion Kasir & Superadmin
                 { name: 'topup', path: `${this.props.match.url}/member/topup`, component: AdminStoreCashierTopUp },
                 { name: 'new-card', path: `${this.props.match.url}/member/new-card`, component: AdminStoreCashierKartuBaru},
-                { name: 'stock-kartu', path: `${this.props.match.url}/member/stock-kartu`, component: AdminStoreCashierStockKartu },
+                { name: 'stock-kartu', path: `${this.props.match.url}/member/stock-kartu`, component: AdminStoreCashierTulisKartuBaru },
                 { name: 'balance', path: `${this.props.match.url}/member/balance`, component: AdminStoreCashierCheckSaldo },
                 { name: 'refund', path: `${this.props.match.url}/member/refund`, component: AdminStoreCashierRefund },
                 { component: NoMatch }
@@ -117,7 +117,7 @@ class AdminPanel extends Component {
                 { name: 'topup', path: `${this.props.match.url}/new-card/topup`, component: AdminStoreCashierTopUp },
                 { name: 'new-card', path: `${this.props.match.url}/new-card`, component: AdminStoreCashierNewCard },
                 { name: 'kartu-baru', path: `${this.props.match.url}/new-card/kartu-baru-new`, component: AdminStoreCashierKartuBaru },
-                { name: 'stock-kartu', path: `${this.props.match.url}/new-card/stock-kartu`, component: AdminStoreCashierStockKartu },
+                { name: 'stock-kartu', path: `${this.props.match.url}/new-card/stock-kartu`, component: AdminStoreCashierTulisKartuBaru },
                 { name: 'refund', path: `${this.props.match.url}/new-card/refund`, component: AdminStoreCashierRefund },
                 { name: 'balance', path: `${this.props.match.url}/new-card/balance`, component: AdminStoreCashierCheckSaldo },
                 { name: 'logout', path: `${this.props.match.url}/logout`, component: AdminLogout },

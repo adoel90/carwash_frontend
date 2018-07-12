@@ -212,6 +212,7 @@ class AdminReportSellingTotal extends Component {
             title: 'Total Laba Kotor',
             accessor: 'price',
             align: 'left',
+            // rowAlign:'left',
             isCurrency: true
         }, {
             title: 'Akses Detail',

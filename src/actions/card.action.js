@@ -21,6 +21,11 @@ export const REMOVE_MEMBER_REQUESTED = 'REMOVE_MEMBER_REQUESTED'; //#REMOVE MEMB
 export const REMOVE_MEMBER_FULFILLED = 'REMOVE_MEMBER_FULFILLED'; 
 export const REMOVE_MEMBER_REJECTED = 'REMOVE_MEMBER_REJECTED';
 
+//GET NOMINAL SALDO NEW CUSTOMER
+export const GET_NOMINAL_SALDO_NEW_CUSTOMER_REQUESTED = 'GET_NOMINAL_SALDO_NEW_CUSTOMER_REQUESTED'; 
+export const GET_NOMINAL_SALDO_NEW_CUSTOMER_FULFILLED = 'GET_NOMINAL_SALDO_NEW_CUSTOMER_FULFILLED';
+export const GET_NOMINAL_SALDO_NEW_CUSTOMER_REJECTED = 'GET_NOMINAL_SALDO_NEW_CUSTOMER_REJECTED';
+
 //#Create Stock List New Card
 export const CREATE_STOCK_LIST_NEW_CARD_FULFILLED = 'CREATE_STOCK_LIST_NEW_CARD_FULFILLED';
 export const CREATE_STOCK_LIST_NEW_CARD_REJECTED = 'CREATE_STOCK_LIST_NEW_CARD_REJECTED';
@@ -54,6 +59,7 @@ export const getAllCardType = (data) => {
 			.then((response) => {
 				// dispatch(handleSuccess(response.data))
 				dispatch(handleSuccess(response))
+			
 			})
 			.catch((error) => {
 				dispatch(handleError(error))
@@ -89,7 +95,10 @@ export const createNewCardType = (data) => {
 export const updateCardType = (data) => {
 	return async dispatch => {
 		return axios
-			.put(`${constant.API_PATH}card/type/update?accessToken=${accessToken}`, {
+			.put(`${constant.API_PATH}card/type/update//GET BONUS TAXI ONLINE
+			export const GET_BONUS_TAXI_ONLINE_REQUESTED = 'GET_BONUS_TAXI_ONLINE_REQUESTED';
+			export const GET_BONUS_TAXI_ONLINE_FULFILLED = 'GET_BONUS_TAXI_ONLINE_FULFILLED';
+			export const GET_BONUS_TAXI_ONLINE_REJECTED = 'GET_BONUS_TAXI_ONLINE_REJECTED';?accessToken=${accessToken}`, {
 				id: data.id,
 				name: data.name,
 				minimum: data.min,
@@ -191,3 +200,26 @@ export const featureRemoveMember = (data) => {
 	function handleSuccess(data) { return { type: REMOVE_MEMBER_FULFILLED, payload: data} }
 	function handleError(data) { return { type: REMOVE_MEMBER_REJECTED, payload: data} }
 };
+
+//GET NOMINAL SALDO NEW CUSTOMER
+export const getNominalSaldoNewCustomer = (data) => {
+
+	return async dispatch => {
+
+		dispatch(getRequest());
+
+		return axios
+		
+			.get(`${constant.API_PATH}saldo/list?accessToken=${accessToken}`)
+			.then((response) => {
+				dispatch(getSuccess(response.data));
+			})
+			.catch((error) => {
+				dispatch(getError(error));
+			})
+	}
+
+	function getRequest() { return { type: GET_NOMINAL_SALDO_NEW_CUSTOMER_REQUESTED } }
+	function getSuccess(data) { return { type: GET_NOMINAL_SALDO_NEW_CUSTOMER_FULFILLED, payload: data } }
+	function getError(data) { return { type: GET_NOMINAL_SALDO_NEW_CUSTOMER_REJECTED, payload: data } }
+}

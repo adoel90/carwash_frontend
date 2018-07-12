@@ -19,9 +19,10 @@ import { BootstrapTable, TableHeaderColumn, SearchField } from 'react-bootstrap-
 const AdminStoresMenuView = props => {
 
     const buttonStyle = {
-        'margin-left': '850px',
-        'margin-bottom': '25px',
-        'left': '0px'
+        // 'margin-left': '850px',
+        // 'margin-bottom': '25px',
+        'left': '0px',
+        'zIndex': 1
     };
 
     const {
@@ -144,27 +145,18 @@ const AdminStoresMenuView = props => {
                         <h4 className="heading-title">Daftar Produk </h4>
                     </PanelHeader>
                     <PanelBody>
-                        {/* ******************FINISH****************** */}
-                        <div className="admin-user__content"><br />
-                            {/* <TableSet
-                                loading={storeMenuList.isFetching}
-                                loaded={storeMenuList.isLoaded}
-                                columns={table.columns}
-                                rows={table.rows}
-                                striped 
-                                fullWidth
-                                pagination
-                                placeholder="Cari user yang terdaftar"
-                                hasSearchBar
-                                searchParams={table.searchParams}
-                                searchBy={search.searchBy}
-                                handleInputChange={handleInputChange}
-                                {...props}
-                            /> */}
-                            <Button  onClick={(e) => printListMenuStore(e)}  style={buttonStyle} type="submit" theme="light">Print</Button>
+                        <Row>
+                            <Column className="flex">
+                                <div className="margin-right-small">
+                                    <FormField>
+                                        <Button  onClick={(e) => printListMenuStore(e)}  style={buttonStyle} type="submit" theme="light">Print</Button>
+                                    </FormField>
+                                </div>
+                            </Column>
+
+                        </Row>
+                        <div className="admin-user__content"><br />      
                             <BootstrapTable data={table.rows} options={optionsPagination} striped={true} hover={true} version='4' bordered={false} dataAlign="center" searchPlaceholder={"Telusuri nama produk..."} pagination search>
-                                
-                                
                                 <TableHeaderColumn dataField="id" headerAlign="left" dataAlign="left" isKey={true} hidden>ID</TableHeaderColumn>
                                 <TableHeaderColumn dataField="name" headerAlign="left" dataAlign="left">Nama Produk</TableHeaderColumn>
                                 <TableHeaderColumn dataField="description" headerAlign="left" dataAlign="left">Deskripsi Produk</TableHeaderColumn>

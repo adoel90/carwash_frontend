@@ -137,9 +137,7 @@ const AdminCardView = props => {
                         <PanelBody>
                               <Column md={12}>
                                     <div className="admin-Card__content">
-                                          <br /><br />   
-                                          <br />
-                                          {/* <TableSet
+                                          <TableSet
                                                 loading={cardList.isFetching}
                                                 loaded={cardList.isLoaded}
                                                 columns={table.columns}
@@ -149,13 +147,13 @@ const AdminCardView = props => {
                                                 pagination
                                                 placeholder="Cari kartu yang terdaftar"
                                                 hasSearchBar
-                                                searchParams={table.searchParams}
+                                                // searchParams={table.searchParams}
                                                 searchBy={search.searchBy}
                                                 handleInputChange={handleInputChange}
                                                 {...props}
-                                          /> */}
+                                          />
 
-                                          {
+                                          {/* {
                                                 table.rows.length > 0 ?
                                                       <BootstrapTable 
                                                             data={table.rows} 
@@ -211,7 +209,7 @@ const AdminCardView = props => {
                                                             </TableHeaderColumn>
                                                       </BootstrapTable>
                                                 : null
-                                          }
+                                          } */}
                                     </div>
                               </Column>
                         </PanelBody>

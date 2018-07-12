@@ -326,11 +326,11 @@ class AdminReportMember extends Component {
                 let baris = {
                     date: moment(value.date).format('DD MMM YYYY'),
                     total: value.total,
-                    type: value.type
+                    type: value.type === "store" ? "Penjualan" : value.type
                 }
                 barisArray.push(baris);
-            })
-        }
+            });
+        };
 
         this.setState({
             ...this.state,

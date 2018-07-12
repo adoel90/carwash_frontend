@@ -160,13 +160,13 @@ class AdminCard extends Component {
                   title: 'Minimum',
                   accessor: 'min',
                   align: 'center',
-                  rowAlign: 'right',
+                  rowAlign: 'center',
                   isCurrency: true
             }, {
                   title: 'Bonus',
                   accessor: 'bonus',
                   align: 'center',
-                  rowAlign: 'right',
+                  rowAlign: 'center',
                   isCurrency: true
             }, {
                   title: 'Status',

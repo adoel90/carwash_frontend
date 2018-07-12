@@ -60,21 +60,37 @@ class AdminStoresReportMenu extends Component {
             idStore: {},
             storeActive: 0,
             activeTab: 0,
+            startDateDidMount: null
         }
     }
 
     componentDidMount(){
-        const { getStoreListDispatch, getStoreListWithIdUserDispatch, store } = this.props;
+
+        const {period, storeIdTab, storeActive} = this.state;
+        const { getStoreListDispatch, getStoreListWithIdUserDispatch, store, getStoreMenuReportOwnerDispatch } = this.props;
         getStoreListDispatch();
         getStoreListWithIdUserDispatch();
+
+        //#
+        let requiredDataMenuStore = {
+            store: store.list.isLoaded ? store.list.data.data.result.store[storeActive].id : null,
+            start_date : moment(period.from).add(-1, 'year').format('YYYY-MM-DD'),
+            end_date : moment(period.to).format('YYYY-MM-DD'),
+            print: false
+            // convert: false
+        };
+
+        this.setState({
+            ...this.state,
+            startDateDidMount: moment(period.from).add(-12, 'month').format('YYYY-MM-DD')
+        });
+        getStoreMenuReportOwnerDispatch(requiredDataMenuStore);
  
     };
 
     componentDidUpdate(prevProps){
         const { store, vendorState, getStoreMenuReportOwnerDispatch} = this.props;
-        const { period, storeActive, idStore} = this.state;
-
-
+        const { period, storeActive, idStore, startDateDidMount} = this.state;
 
         //#Get list store id 
         if(prevProps.store.storelistspecial !== store.storelistspecial){
@@ -83,21 +99,26 @@ class AdminStoresReportMenu extends Component {
                 this.setState({
                     ...this.state,
                     storeList: store.storelistspecial,
-                    storeIdTab: store.storelistspecial.data.data.result.store[0]
+                    storeIdTab: store.storelistspecial.data.data.result.store[0],
+                    
                 }, () => {
 
+                    //THIS FUNCTION IS NOT ACTIVE AGAIN 
                     let requiredDataMenuStore = {
                         store: store.storelistspecial.data.data.result.store[0].id,
                         start_date : moment(period.to).format('YYYY-MM-DD'),
+                        // start_date : startDateDidMount.length != null ? startDateDidMount : moment(period.to).format('YYYY-MM-DD'),
+                        // start_date : moment(period.to).format('YYYY-MM-DD') ? moment(period.to).format('YYYY-MM-DD') : startDateDidMount,
                         end_date : moment(period.to).format('YYYY-MM-DD'),
                         print: false
                         // convert: false
-                    }
+                    };
                   
-                    getStoreMenuReportOwnerDispatch(requiredDataMenuStore);
-                })
+                    // getStoreMenuReportOwnerDispatch(requiredDataMenuStore);
+                });
             }
-        }
+        };
+
         //Get Store List
         if(prevProps.store.list !== store.list) {
             if (store.list.isLoaded) {
@@ -120,7 +141,7 @@ class AdminStoresReportMenu extends Component {
                 }, () => {
                     this.populateTableData();
                 })
-            }   
+            };   
         }
     }
 
@@ -172,12 +193,6 @@ class AdminStoresReportMenu extends Component {
             accessor: 'description',
             align: 'left'
         },
-        // {
-        //     title: 'Harga',
-        //     accessor: 'price',
-        //     align: 'left',
-        //     isCurrency: true
-        // }
         {
             title: 'Item Terjual',
             accessor: 'quantity',
@@ -191,10 +206,9 @@ class AdminStoresReportMenu extends Component {
             vendorState.reportDetailStoreMenuOwner.data.result.store.forEach((value) => {
 
                 let row = {
-                    date:moment(period.to).format('DD MMM YYYY'),
+                    date:moment(value.date).format('DD MMM YYYY'),
                     name: value.menu.name,
                     description: value.menu.description,
-                    // price: value.menu.price
                     quantity:value.quantity
                 }
                 rows.push(row);
@@ -258,8 +272,9 @@ class AdminStoresReportMenu extends Component {
             print: false
             // convert: false
         }
+
         getStoreMenuReportOwnerDispatch(requiredDataMenuStore);
-    }
+    };
 
     render(){
 

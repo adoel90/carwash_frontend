@@ -19,10 +19,17 @@ import { BootstrapTable, TableHeaderColumn, SearchField } from 'react-bootstrap-
 const AdminStoresMenuView = props => {
 
     const buttonStyle = {
-        // 'margin-left': '850px',
-        // 'margin-bottom': '25px',
-        'left': '0px',
-        'zIndex': 1
+        'marginLeft': '840px',
+        'marginTop' : '5px',
+        // 'marginBottom':'30px',
+        // 'marginBottom': '10px',
+        // 'top': '0px',
+        // 'left': '0px',
+        // 'bottom' : '0px',
+        'zIndex': 1,
+        'position': 'absolute',
+        'display': 'inline-block',
+        'box-sizing': 'border-box',
     };
 
     const {
@@ -48,7 +55,8 @@ const AdminStoresMenuView = props => {
         printListMenuStore,
         optionsPagination,
         openMenuVendorModal,
-        changeMenuStatus
+        changeMenuStatus,
+        handleClickChange
     } = props;
 
     const componentButtonUpdate = (datarow) => {
@@ -155,7 +163,7 @@ const AdminStoresMenuView = props => {
                             </Column>
 
                         </Row>
-                        <div className="admin-user__content"><br />      
+                        <div className="admin-user__content"><br /> <br />   
                             <BootstrapTable data={table.rows} options={optionsPagination} striped={true} hover={true} version='4' bordered={false} dataAlign="center" searchPlaceholder={"Telusuri nama produk..."} pagination search>
                                 <TableHeaderColumn dataField="id" headerAlign="left" dataAlign="left" isKey={true} hidden>ID</TableHeaderColumn>
                                 <TableHeaderColumn dataField="name" headerAlign="left" dataAlign="left">Nama Produk</TableHeaderColumn>

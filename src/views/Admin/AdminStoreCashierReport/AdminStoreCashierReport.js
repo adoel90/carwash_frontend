@@ -7,7 +7,6 @@ import moment from 'moment';
 import { AdminStoreCashierReportView, AdminStoreCashierReportPaymentReceipt} from '../AdminStoreCashierReport';
 import { getReportStoreCashierMember, getReportStoreCashierMemberPrint, getReportCashierSuperAdmConvertExcell} from '../../../actions/store.action';
 
-
 function mapStateToProps(state) {
     return {
         store: state.store,
@@ -21,7 +20,7 @@ function mapDispatchToProps(dispatch) {
         getReportCashierSuperAdmConvertExcellDispatch : (data) => dispatch(getReportCashierSuperAdmConvertExcell(data)),
         action: bindActionCreators({ getReportStoreCashierMember }, dispatch)
     }
-}
+};
 
 class AdminStoreCashierReport extends Component {
 

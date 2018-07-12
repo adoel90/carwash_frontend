@@ -62,7 +62,7 @@ class AdminPanel extends Component {
 
     componentWillMount = () => {
         this.renderMenu();
-    }
+    };
 
     renderMenu = () => {
         const { routes, menus } = this.state;
@@ -169,8 +169,9 @@ class AdminPanel extends Component {
 
         } else {
             mainRoute = [];
-        }
+        };
 
+        console.log(menu);
         /* Create Menu Nav */
         let newMenu = [];
 
@@ -324,7 +325,8 @@ class AdminPanel extends Component {
                 };
                 
                 //FIRST METHOD IF SLASH ONLY "/"
-                if (menu[i].id === 11 && menu[i].path === "product") {
+                // if (menu[i].id === 11 && menu[i].path === "product") {
+                if (menu[i].id === 2 && menu[i].path === "product") {
                     dataMenu.items.push(transactionSuperadmin);
                     dataMenu.items.push(daftarStaffSuperadmin);
                     dataMenu.items.push(buatStaffBaruSuperadmin);
@@ -354,7 +356,7 @@ class AdminPanel extends Component {
                     path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}/create-new-user` : 'null'}`
                 };
 
-                if (menu[i].id === 2 && menu[i].path === "user") {
+                if (menu[i].id === 4 && menu[i].path === "user") {
                     dataMenu.items.push(daftarKasirAndOwnerSuperadmin);
                     dataMenu.items.push(buatKasirAndOwnerSuperadmin);
                 };

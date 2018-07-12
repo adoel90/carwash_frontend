@@ -69,7 +69,7 @@ const AdminStoreCashierStockKartuView = props => {
                             <p>5. Gesek kartu magnetic card kosong pada mesin card writer yang ada, tunggu hingga angka pada jendela kecil yang terbuka berubah menjadi angka 2, lalu tutup.</p>
                         </ModalBody>
                         <ModalFooter className="flex justify-content--flex-end">
-                            <Button type="button" className="margin-right-small" onClick={(e) => closeModal(e)}> Kembali </Button>
+                            <Button type="button" className="margin-right-small" onClick={(e) => closeModal(e)}> OK Mengerti </Button>
                             {/* <Button buttonTheme="secondary" onClick={handleNewCardPrintSubmit}>
                                 <small className="fw-semibold tt-uppercase ls-base">Print Data Customer</small>
                             </Button> */}
@@ -92,26 +92,26 @@ const AdminStoreCashierStockKartuView = props => {
                                 <thead className="table__head">
                                     <tr>
                                         <th>Jenis Kartu Member</th>
-                                        <th>Cetak Nomor Kartu</th>
+                                        <th>Seri Nomor Kartu</th>
                                     </tr>
                                 </thead>
                                 <tbody className="table__body">
                                     <tr className="bg-white">
                                         <td>Taxi Online</td>
                                         <td>
-                                            <Button onClick = {(e) => openModalGenerateNumber(e, idTaxiOnline)}>Cetak </Button>
+                                            <Button onClick = {(e) => openModalGenerateNumber(e, idTaxiOnline)}>Generate </Button>
                                         </td>
                                     </tr>
                                     <tr className="bg-white">
                                         <td>Non Member</td>
                                         <td>
-                                            <Button onClick = {(e) => openModalGenerateNumber(e, idNonMember)}>Cetak</Button>
+                                            <Button onClick = {(e) => openModalGenerateNumber(e, idNonMember)}>Generate</Button>
                                         </td>
                                     </tr>
                                     <tr className="bg-white">
                                         <td>Member</td>
                                         <td>
-                                            <Button onClick = {(e) => openModalGenerateNumber(e, idMember)}>Cetak</Button>
+                                            <Button onClick = {(e) => openModalGenerateNumber(e, idMember)}>Generate</Button>
                                         </td>
                                     </tr>
                                 </tbody>

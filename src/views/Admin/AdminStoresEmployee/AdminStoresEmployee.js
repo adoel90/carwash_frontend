@@ -284,7 +284,7 @@ class AdminStoresEmployee extends Component {
                 [name]: !isModalOpen[name]
             }
         })
-    }
+    };
 
     toggleDialog = (data) => {
         const { dialog, action } = this.props;

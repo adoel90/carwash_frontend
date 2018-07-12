@@ -33,17 +33,12 @@ class AdminStoreCashierStockKartu extends Component {
 
     constructor() {
         super();
-        this.populateTableData = this.populateTableData.bind(this);
-        this.handleCopyNumberCard = this.handleCopyNumberCard.bind(this);
-        // this.handleCetakCardNumber = this.handleCetakCardNumber.bind(this);
-        this.handleCopyNumberTaxiOnline = this.handleCopyNumberTaxiOnline.bind(this);
-        this.handleCopyNumberNonMember = this.handleCopyNumberNonMember.bind(this);
-        this.handleCopyNumberMember = this.handleCopyNumberMember.bind(this);
+        this.toggleModal = this.toggleModal.bind(this);
+        this.closeModal = this.closeModal.bind(this);
+        this.openModalGenerateNumber = this.openModalGenerateNumber.bind(this);
+        this.handleCopyDataCard = this.handleCopyDataCard.bind(this);
 
         this.state = {
-            activeTab: 0,
-            storeIdTab: {},
-            storeNameTab: {},
             cardType: [
                 { id: 3, name: "Taxi Online", status: true },
                 { id: 2, name: "Non Member", status: true },
@@ -54,30 +49,20 @@ class AdminStoreCashierStockKartu extends Component {
                 rows: [],
                 limit: 10
             },
+            isModalOpen: {
+                modalGenerateNumber: false
+            },
             selectedRow: {},
-            copiedTaxiOnline: false,
-            copiedNonMember: false,
-            copiedMember: false,
             listStockNewCard: {},
-            cardTaxiOnline: '',
-            cardNonMember: '',
-            cardMember: ''
+            idTaxiOnline:3,
+            idNonMember:2,
+            idMember: 1,
+            dataCard:''
         };
     };
 
     componentDidMount() {
-
-        const { getStoreListDispatch, getStockListNewCardDispatch } = this.props;
-        // getStoreListDispatch();
-
-        let requireDataTaxiOnline = { id: 3 };  //Taxi-Online 3
-        getStockListNewCardDispatch(requireDataTaxiOnline);
-
-        let requireDataNonMember = { id: 2 };  //Non-Member : 2
-        getStockListNewCardDispatch(requireDataNonMember);
-
-        let requireDataMember = { id: 1 }; //Member : 1
-        getStockListNewCardDispatch(requireDataMember);
+       
     };
 
     componentDidUpdate(prevProps) {
@@ -85,112 +70,62 @@ class AdminStoreCashierStockKartu extends Component {
         const { card } = this.props;
         const { cardTaxiOnline, cardMember, cardNonMember } = this.state;
 
-        if (prevProps.card.list != card.list) {
-            if (card.list.isCreated) {
-
-                if (card.list.data.result[0].ct_id === 3) { //Taxi-Online 3
-
-                    this.setState({
-                        ...this.state,
-                        cardTaxiOnline: card.list.data.result[0].c_id
-                    }, () => {
-                        console.log(this.state.cardTaxiOnline);
-                    });
-
-                } else if (card.list.data.result[0].ct_id === 2) { //Non-Member : 2
-
-                    this.setState({
-                        ...this.state,
-                        cardNonMember: card.list.data.result[0].c_id
-                    }, () => {
-                        console.log(this.state.cardNonMember);
-                    });
-                } else { //Member : 1
-
-                    this.setState({
-                        ...this.state,
-                        cardMember: card.list.data.result[0].c_id
-                    }, () => {
-                        console.log(this.state.cardMember);
-                    });
-                };
+        if(prevProps.card.list != card.list){
+            if(card.list.isCreated){
+                this.setState({
+                    ...this.state,
+                    dataCard: card.list.data.result[0].c_id
+                },() => {
+                    console.log(this.state.dataCard);
+                });
             };
         };
     };
 
-    //#
-    handleCopyNumberCard = (row) => {
-        console.log(row.number);
-        console.log("Fire API delete ");
-    };
+    toggleModal = (name) => {
 
-    //#
-    handleCopyNumberTaxiOnline = () => {
-
-        this.setState({
-            copiedTaxiOnline: true
-        });
-    };
-
-    //#
-    handleCopyNumberNonMember = () => {
-        this.setState({
-            copiedNonMember: true
-        });
-    };
-
-    //#
-    handleCopyNumberMember = () => {
-
-        this.setState({
-            copiedMember: true
-        });
-    };
-
-    //#
-    populateTableData = () => {
-
-        const { report, vendorState, card } = this.props;
-        const { copied } = this.state;
-
-        const columns = [{
-            title: 'Nomor Kartu',
-            accessor: 'number',
-            align: 'left'
-        },
-        {
-            title: 'Aksi',
-            accessor: 'action',
-            // // render: (data) => (
-            // render: (row) => (
-            //     <td>
-            //          <CopyToClipboard onCopy={this.onCopy} text={row.number}>
-            //             <Button className="margin-right-small" theme={row.number ? "success" : "danger"} type="button" onClick={() => this.handleCopyNumberCard(row)}>{ row.number ? 'Copy Nomor Kartu' : 'Copied' }</Button>
-            //         </CopyToClipboard>
-            //     </td>
-            // )
-        }];
-
-        const rows = [];
-
-        if (card.list.isCreated) {
-            card.list.data.result.forEach((value) => {
-                let row = {
-                    number: value.c_id
-                };
-                rows.push(row);
-            });
-        };
-
+        const { isModalOpen } = this.state;
         this.setState({
             ...this.state,
-            table: {
-                ...this.state.table,
-                columns: columns,
-                rows: rows
+            isModalOpen: {
+                [name]: !isModalOpen[name]
             }
         });
     };
+
+    closeModal = (e) => {
+        e.preventDefault();
+        this.setState({
+            ...this.state,
+            isModalOpen: {
+                modalGenerateNumber: false
+            }
+        });
+    };
+
+    //#
+    // handleCopyNumberTaxiOnline = () => {
+
+    //     this.setState({
+    //         copiedTaxiOnline: true
+    //     });
+    // };
+
+
+    handleCopyDataCard = () => {
+        console.log("copied");
+    };
+
+    openModalGenerateNumber = (e, data) => {
+        e.preventDefault();
+        const { getStockListNewCardDispatch } = this.props;
+
+        let requireData = { id: data };
+        console.log(requireData);
+        getStockListNewCardDispatch(requireData);
+
+        this.toggleModal('modalGenerateNumber');
+    }
 
     render() {
         const { cardType, activeTab } = this.state;
@@ -199,9 +134,10 @@ class AdminStoreCashierStockKartu extends Component {
         return (
             <div>
                 <AdminStoreCashierStockKartuView
-                    handleCopyNumberTaxiOnline={this.handleCopyNumberTaxiOnline}
-                    handleCopyNumberNonMember = {this.handleCopyNumberNonMember}
-                    handleCopyNumberMember = {this.handleCopyNumberMember}
+                    toggleModal={this.toggleModal}
+                    closeModal = {this.closeModal}
+                    openModalGenerateNumber = {this.openModalGenerateNumber}
+                    handleCopyDataCard = {this.handleCopyDataCard}
                     {...this.state}
                     {...this.props}
                 />

@@ -273,9 +273,13 @@ class AdminUser extends Component {
 
 
         const columns = [
+            // {
+            //     text: 'Nama User',
+            //     dataField: 'name'
+            // },
             {
-                text: 'Nama User',
-                dataField: 'name'
+                text: 'Username',
+                dataField: 'username'
             },
             {
                 text: 'Alamat Email',
@@ -296,9 +300,12 @@ class AdminUser extends Component {
         if (userList.isLoaded) {
             userList.data.data.result.forEach((user, i) => {
 
+                // console.log(user);
+
                 let row = {
                     id: user.id,
-                    name: user.name,
+                    // name: user.name,
+                    username:user.username,
                     email: user.email,
                     accessLevel: user.level.name,
                     data: user

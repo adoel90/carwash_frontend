@@ -141,13 +141,21 @@ const AdminUserView = props => {
                             >
                                 ID
                             </TableHeaderColumn>
-                            <TableHeaderColumn 
+                            {/* <TableHeaderColumn 
                                 dataField="name" 
                                 headerAlign="left" 
                                 width="25%"
                                 dataAlign="left"
                             >
                                 Nama User
+                            </TableHeaderColumn> */}
+                            <TableHeaderColumn 
+                                dataField="username" 
+                                headerAlign="left" 
+                                width="25%"
+                                dataAlign="left"
+                            >
+                                Username
                             </TableHeaderColumn>
                             <TableHeaderColumn 
                                 dataField="email" 
@@ -155,7 +163,7 @@ const AdminUserView = props => {
                                 width="30%"
                                 dataAlign="left"
                             >
-                                Email
+                                Password
                             </TableHeaderColumn>
                             <TableHeaderColumn 
                                 // headerAlign="left" 

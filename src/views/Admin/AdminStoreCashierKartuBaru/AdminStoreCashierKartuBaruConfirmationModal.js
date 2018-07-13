@@ -258,7 +258,7 @@ class AdminStoreCashierKartuBaruConfirmationModal extends Component {
 
                     <ModalFooter className="flex justify-content--flex-end">
                         <Button className="margin-right-small" theme="danger" onClick={(e) => handleCancelModal(e)}> Cancel </Button>
-                        {/* <Button type="Submit" onClick={(e) => handleUpdateCreateMember(e)}>Simpan</Button> */}
+                        <Button type="Submit" onClick={(e) => handleUpdateCreateMember(e)}>Simpan</Button>
                     </ModalFooter>
 
                 </Form>

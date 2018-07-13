@@ -197,7 +197,7 @@ class AdminCard extends Component {
     
                         rows.push(row);
                   })
-            }
+            };
     
             this.setState({
                   ...this.state,
@@ -206,10 +206,8 @@ class AdminCard extends Component {
                         columns: columns,
                         rows: rows
                   }
-            }, () => {
-                  console.log(this.state)
-            })
-      }
+            });
+      };
 
       openCardDetail = (row) => {
             this.setState({

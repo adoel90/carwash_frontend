@@ -133,14 +133,6 @@ const AdminStoreCashierReportView = props => {
                             >
                                 Tanggal Transaksi
                             </TableHeaderColumn>
-                            {/* <TableHeaderColumn 
-                                dataField="kasirName" 
-                                headerAlign="center" 
-                                dataAlign="center"
-                                width="25%"
-                            >
-                                Nama Toko
-                            </TableHeaderColumn> */}
                             <TableHeaderColumn 
                                 dataField="kasirName" 
                                 headerAlign="center" 
@@ -148,6 +140,14 @@ const AdminStoreCashierReportView = props => {
                                 width="25%"
                             >
                                 Nama Kasir
+                            </TableHeaderColumn>
+                            <TableHeaderColumn 
+                                dataField="description" 
+                                headerAlign="center" 
+                                dataAlign="center"
+                                width="25%"
+                            >
+                                Deskripsi
                             </TableHeaderColumn>
                             <TableHeaderColumn 
                                 dataField="total" 

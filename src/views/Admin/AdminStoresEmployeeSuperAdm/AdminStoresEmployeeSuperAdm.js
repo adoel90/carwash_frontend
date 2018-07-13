@@ -392,7 +392,6 @@ class AdminStoresEmployeeSuperAdm extends Component {
                     handleCancelModal= { this.handleCancelModal}
                     handleUpdateSubmitStoreStaff = { this.handleUpdateSubmitStoreStaff}
                     handleInputChange={this.handleInputChange}
-                    // populateTableData = {this.populateTableData}
                     optionsPagination={this.optionsPagination}
                     openVendorEmployeeModal = {this.openVendorEmployeeModal}
                     {...this.state} 

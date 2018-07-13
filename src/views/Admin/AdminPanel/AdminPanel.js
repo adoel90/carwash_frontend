@@ -420,7 +420,7 @@ class AdminPanel extends Component {
 
                 //Laporan Kasir Superadmin
                 let laporanKasirInSuperAdmin = {
-                    name: `${split[0]} Kasir`,
+                    name: `${split[0]} Harian Kasir`,
                     path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}/report-kasir-superadmin` : 'null'}`
                 };
 
@@ -475,6 +475,8 @@ class AdminPanel extends Component {
                     name: `Tulis Kartu Baru`,
                     path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}/stock-kartu` : 'null'}`
                 };
+
+                
                 
                 if (menu[i].group === "kasir") {
                     dataMenu.items.push(kartuBaruNew);
@@ -482,6 +484,24 @@ class AdminPanel extends Component {
                     dataMenu.items.push(refundKasir);
                     dataMenu.items.push(checkSaldoKasir);
                     dataMenu.items.push(stockKartuBaru);
+                };
+            } 
+            //# Features of KASIR - Laporan
+            else if (split[0] === "Laporan" && level.name === "Kasir") {
+
+                dataMenu = {
+                    category: nameCategory,
+                    items: []
+                };
+
+                //#Laporan Harian Kasir
+                let laporanHarianKasir = {
+                    name: `Laporan Harian Kasir`,
+                    path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}` : 'null'}`
+                };
+
+                if (menu[i].group === "all" && menu[i].path === "report") {
+                    dataMenu.items.push(laporanHarianKasir);
                 };
             }
 

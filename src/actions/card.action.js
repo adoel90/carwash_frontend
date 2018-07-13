@@ -95,10 +95,7 @@ export const createNewCardType = (data) => {
 export const updateCardType = (data) => {
 	return async dispatch => {
 		return axios
-			.put(`${constant.API_PATH}card/type/update//GET BONUS TAXI ONLINE
-			export const GET_BONUS_TAXI_ONLINE_REQUESTED = 'GET_BONUS_TAXI_ONLINE_REQUESTED';
-			export const GET_BONUS_TAXI_ONLINE_FULFILLED = 'GET_BONUS_TAXI_ONLINE_FULFILLED';
-			export const GET_BONUS_TAXI_ONLINE_REJECTED = 'GET_BONUS_TAXI_ONLINE_REJECTED';?accessToken=${accessToken}`, {
+			.put(`${constant.API_PATH}card/type/update?accessToken=${accessToken}`, {
 				id: data.id,
 				name: data.name,
 				minimum: data.min,

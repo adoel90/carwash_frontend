@@ -30,6 +30,8 @@ const AdminCardView = props => {
             optionsPagination
       } = props;
 
+
+      //#This function is not ACTIVE until you use <BootstrapTable />
       const componentButtonUpdate = (datarow) => {
             return (
                 <div>
@@ -51,11 +53,13 @@ const AdminCardView = props => {
             );
       };
 
+      //#This function is not ACTIVE until you use <BootstrapTable />
       const priceFormatter = (data) => {
             return <NumberFormat value={data} displayType={'text'} thousandSeparator={true} fixedDecimalScale={true} prefix={'Rp. '} decimalScale={2} />;
-      }
+      };
 
       const renderCardDetailModal = () => {
+
             if(selectedCard) {
                 return (
                     <Modal
@@ -76,6 +80,8 @@ const AdminCardView = props => {
                                                             <Input type="text" name="name" placeholder={selectedCard.name} defaultValue={selectedCard.name} onChange={(e) => handleInputChange('selectedCard', e)} />
                                                       </InputGroup>
                                                 </FormField>
+
+                                                
                                                 <FormField label="Minimum Saldo">
                                                       <InputGroup>
                                                             <InputAddon>
@@ -125,7 +131,7 @@ const AdminCardView = props => {
                     </Modal>
                 )
             }
-      }
+      };
 
       return (
             <div>

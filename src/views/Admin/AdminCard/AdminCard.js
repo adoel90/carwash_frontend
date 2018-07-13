@@ -233,15 +233,11 @@ class AdminCard extends Component {
       }
 
       updateCard = (e) => {
-            const {
-                  action
-            } = this.props;
-      
-            let {
-                  selectedCard
-            } = this.state;
-      
+            
             e.preventDefault();
+            const { action } = this.props;
+      
+            let { selectedCard } = this.state;
 
             let param = {
                   id: selectedCard.id,
@@ -250,12 +246,10 @@ class AdminCard extends Component {
                   bonus: parseInt(selectedCard.bonus.replace(/,/g, '')),
                   refund: selectedCard.refund,
                   charge: selectedCard.charge
-            }
+            };
 
             action.updateCardType(param).then(() => {
-                  const {
-                        card
-                  } = this.props;
+                  const { card } = this.props;
 
                   if (card.type.isUpdated) {
                         let dialogData = {
@@ -267,7 +261,7 @@ class AdminCard extends Component {
                         }
                 
                         this.toggleDialog(dialogData);
-                  }
+                  };
       
                   if (card.type.isError) {
                         let dialogData = {

@@ -39,7 +39,7 @@ const AdminStoreCashierReportView = props => {
         <div className="admin-report">
             <Panel>
                 <PanelHeader>
-                    <h4 className="heading-title">{user.level.name === "Superadmin" ? "Laporan Kasir" : "Kasir"}</h4>
+                    <h4 className="heading-title">{user.level.name === "Superadmin" ? "Laporan Harian Kasir" : "Laporan Harian Kasir"}</h4>
                 </PanelHeader>
                 <PanelBody>
                     <Form onSubmit={showDate}>
@@ -133,21 +133,21 @@ const AdminStoreCashierReportView = props => {
                             >
                                 Tanggal Transaksi
                             </TableHeaderColumn>
-                            <TableHeaderColumn 
+                            {/* <TableHeaderColumn 
                                 dataField="kasirName" 
                                 headerAlign="center" 
                                 dataAlign="center"
                                 width="25%"
                             >
                                 Nama Toko
-                            </TableHeaderColumn>
+                            </TableHeaderColumn> */}
                             <TableHeaderColumn 
                                 dataField="kasirName" 
                                 headerAlign="center" 
                                 dataAlign="center"
                                 width="25%"
                             >
-                                Deskripsi
+                                Nama Kasir
                             </TableHeaderColumn>
                             <TableHeaderColumn 
                                 dataField="total" 

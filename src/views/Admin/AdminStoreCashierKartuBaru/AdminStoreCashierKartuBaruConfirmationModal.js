@@ -246,7 +246,6 @@ class AdminStoreCashierKartuBaruConfirmationModal extends Component {
                                                         )
 
                                                     }) : null
-                    
                                                 }
                                             </div>
                                         </div>

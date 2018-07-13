@@ -15,7 +15,36 @@ const AdminSettingView = props => {
         access
     } = props;
     
-    console.log(props)
+
+    //#Input Name of User IS NOT READONLY
+    const renderCommonInputNameUser = () => {
+        return (
+            <Input name="name" type="text" placeholder="Masukkan nama lengkap user" value={updateUser.name} onChange={(e) => handleInputChange('updateUser', e) }/>
+        )
+    };
+
+    //#Input Name of User IS READONLY
+    const renderInputReadOnlyNameUser = () => {
+        return (
+            <Input name="name" type="text" placeholder="Masukkan nama lengkap user" value={updateUser.name} onChange={(e) => handleInputChange('updateUser', e) } readOnly/>
+        )
+    };
+
+
+    //#
+    const renderCommonInputUsername = () => {
+        return (
+            <Input name="username" type="text" placeholder="Masukkan username" value={updateUser.username} onChange={(e) => handleInputChange('updateUser', e) } />
+        )
+    };
+
+
+    //#Input Username IS READONLY
+    const renderInputReadOnlyUsername = () => {
+        return (
+            <Input name="username" type="text" placeholder="Masukkan username" value={updateUser.username} onChange={(e) => handleInputChange('updateUser', e) } readOnly />
+        )
+    };
     
     return (
         <div className="admin-user-create">
@@ -25,7 +54,6 @@ const AdminSettingView = props => {
                         <Panel>
                             <PanelHeader>
                                 <h4 className="heading-title">Pengaturan Akun</h4>
-                                {/* <h6 className="heading-subtitle">Membuat user baru.</h6> */}
                             </PanelHeader>
                             <PanelBody>
                                 <Form onSubmit={handleFormSubmit}>
@@ -34,9 +62,12 @@ const AdminSettingView = props => {
                                             <InputAddon>
                                                 <i className="far fa-user"></i>
                                             </InputAddon>
-                                            <Input name="name" type="text" placeholder="Masukkan nama lengkap user" value={updateUser.name} onChange={(e) => handleInputChange('updateUser', e) } />
+
+                                            {updateUser.username === "superadmin" ? renderInputReadOnlyNameUser() : renderCommonInputNameUser()}
+                                            
                                         </InputGroup>
                                     </FormField>
+
                                     <FormField label="Alamat Email">
                                         <InputGroup>
                                             <InputAddon>
@@ -45,12 +76,15 @@ const AdminSettingView = props => {
                                             <Input name="email" type="text" placeholder="Masukkan alamat email user (jika ada)" value={updateUser.email} onChange={(e) => handleInputChange('updateUser', e) } />
                                         </InputGroup>
                                     </FormField>
+
                                     <FormField label="Username">
                                         <InputGroup>
                                             <InputAddon>
                                                 <i className="far fa-user"></i>
                                             </InputAddon>
-                                            <Input name="username" type="text" placeholder="Masukkan username" value={updateUser.username} onChange={(e) => handleInputChange('updateUser', e) } />
+
+                                            {updateUser.username === "superadmin" ? renderInputReadOnlyUsername() : renderCommonInputUsername()}
+                                            
                                         </InputGroup>
                                     </FormField>
                                     <FormField label="Password">

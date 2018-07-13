@@ -13,6 +13,7 @@ export * from './AdminStore';
 export * from './AdminReport';
 export * from './AdminLogout';
 export * from './AdminSetting';
+export * from './AdminSettingSuperAdm';
 export * from './AdminStoresEmployeeSuperAdm';
 export * from './AdminStoresMenuSuperAdm';
 export * from './AdminTransactionSuperAdm';

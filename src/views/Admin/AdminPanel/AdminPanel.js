@@ -38,7 +38,8 @@ import {
     AdminStoresCreateEmployeeSuperAdm,
     AdminStoresCreateMenuSuperAdm,
     Documentation,
-    AdminTransactionSuperAdm
+    AdminTransactionSuperAdm,
+    AdminSettingSuperAdm
     // AdminStoresReportSuperAdm
 
 } from '../../Admin';
@@ -92,7 +93,7 @@ class AdminPanel extends Component {
                 { name: 'report', path: `${this.props.match.url}/report`, component: AdminReportSellingTotal },
                 { name: 'report-kasir-superadmin', path: `${this.props.match.url}/report/report-kasir-superadmin`, component: AdminStoreCashierReport },
                 { name: 'logout', path: `${this.props.match.url}/logout`, component: AdminLogout },
-                { name: 'setting', path: `${this.props.match.url}/setting`, component: AdminSetting },
+                { name: 'setting', path: `${this.props.match.url}/setting`, component: AdminSettingSuperAdm },
 
                 //#Fussion Owner & Superadmin
                 { name: 'staff', path: `${this.props.match.url}/product/staff`, component: AdminStoresEmployeeSuperAdm },

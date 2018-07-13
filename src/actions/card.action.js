@@ -58,7 +58,7 @@ export const getAllCardType = (data) => {
 			.get(`${constant.API_PATH}card/type?accessToken=${accessToken}`)
 			.then((response) => {
 				// dispatch(handleSuccess(response.data))
-				dispatch(handleSuccess(response))
+				dispatch(handleSuccess(response.data))
 			
 			})
 			.catch((error) => {

@@ -153,16 +153,34 @@ class AdminCard extends Component {
       populateTableData = () => {
             const { cardList } = this.state;
 
+            const { card } = this.props;
+
             const columns = [{
                   title: 'Nama',
                   accessor: 'name'
-            }, {
-                  title: 'Minimum',
+            }, 
+            {
+                  title: 'Nominal Tipe-1',
                   accessor: 'min',
                   align: 'center',
                   rowAlign: 'center',
                   isCurrency: true
-            }, {
+            }, 
+            {
+                  title: 'Nominal Tipe-2',
+                  accessor: 'min',
+                  align: 'center',
+                  rowAlign: 'center',
+                  isCurrency: true
+            },
+            {
+                  title: 'Nominal Tipe-3',
+                  accessor: 'min',
+                  align: 'center',
+                  rowAlign: 'center',
+                  isCurrency: true
+            },
+            {
                   title: 'Bonus',
                   accessor: 'bonus',
                   align: 'center',
@@ -183,21 +201,34 @@ class AdminCard extends Component {
 
             const rows = [];
 
-            if(cardList.isLoaded) {
-                  cardList.data.data.result.forEach((card, i) => {
+            console.log(card);
+
+            // if(cardList.isLoaded) {
+            if(card.types.isLoaded){
+                  card.types.data.result.forEach((data) => {
+
+                        console.log(data);
+
+                        // console.log(data);
+
+                        //#
+                        let dataPilihanNominalSaldo = data.min.length ? data.min.filter((data, index, self) => {
+                              return index == self.indexOf(data);
+                        }): null; 
+                        // console.log(dataPilihanNominalSaldo);
 
                         let row = {
-                              id: card.id,
-                              name: card.name,
-                              min: card.min,
-                              bonus: card.bonus,
-                              refund: card.refund,
-                              charge: card.charge,
-                              data: card
+                              id: data.id,
+                              name: data.name,
+                              min: data.min ? data.min[0] : "Hubungi Vendor",
+                              bonus: data.bonus,
+                              refund: data.refund,
+                              charge: data.charge,
+                              data: data
                         };
-    
+
                         rows.push(row);
-                  })
+                  });
             };
     
             this.setState({
@@ -274,7 +305,6 @@ class AdminCard extends Component {
                         this.toggleDialog(dialogData);
                   }
                   // this.toggleModal('updateCard');
-                  
                   // window.location.reload();
             })
       }

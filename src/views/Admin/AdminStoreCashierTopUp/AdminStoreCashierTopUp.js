@@ -113,7 +113,6 @@ class AdminStoreCashierTopUp extends Component {
         //Waiting success pay to top-up
         if(prevProps.member.item !== member.item){
             setTimeout(function() {
-
                 if(member.item.isBalanceChanged){
                     let dialogData = {
                         type: 'success',
@@ -126,8 +125,7 @@ class AdminStoreCashierTopUp extends Component {
                     }
                     this.toggleDialog(dialogData)
                     this.handlePrintReceipt();
-                }
-                
+                };
                 
                 if (member.item.isError) {
                     let dialogData = {
@@ -136,10 +134,11 @@ class AdminStoreCashierTopUp extends Component {
                         message: 'Maaf, SALDO gagal di tambahkan. Silahkan panggil Administrator untuk memperbaiki.',
                         onClose: () => this.toggleDialog(),
                         closeText: 'Kembali'
-                    }
+                    };
+
                     this.toggleDialog(dialogData);
                 }
-            }.bind(this), 1000);
+            }.bind(this), 3000);
         }
 
         //#Print this file
@@ -180,7 +179,7 @@ class AdminStoreCashierTopUp extends Component {
     
         let requireData = {
             cardID: finalDataCardId
-        }
+        };
         
         action.kasirTopUpLogin(requireData);
     }

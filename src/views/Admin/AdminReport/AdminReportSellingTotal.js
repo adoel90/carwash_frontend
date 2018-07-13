@@ -428,6 +428,8 @@ class AdminReportSellingTotal extends Component {
         if (vendorState.reportStaff.isLoaded) {
             vendorState.reportStaff.data.data.result.data.map((data) => {
 
+                console.log(data);
+
                 //#
                 let dataItemProduct = data.item.filter((data, index, self) => {
                     return index == self.indexOf(data);

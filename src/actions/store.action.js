@@ -322,7 +322,9 @@ export const kasirTopUpLogin = (data) => {
                 card: data.cardID
             })
             .then((response) => {
-                let result = response.data.result;
+				let result = response.data.result;
+				
+				console.log(result)
                 // localStorage.setItem('accessTokenTopUp', result.accessToken);
                 // localStorage.setItem('userDataTopUp', JSON.stringify(result));
                 

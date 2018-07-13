@@ -133,10 +133,10 @@ class AdminPanel extends Component {
                 let routePage = [
                     { name: 'product', path: `${this.props.match.url}/product`, component: AdminStoresMenu },
                     { name: 'create-new-product', path: `${this.props.match.url}/product/create-new-product`, component: AdminStoresMenuCreate },
-                    { name: 'staff', path: `${this.props.match.url}/staff`, component: AdminStoresEmployee },
-                    { name: 'create-new-staff', path: `${this.props.match.url}/staff/create-new-staff`, component: AdminStoresEmployeeCreate },
+                    { name: 'staff', path: `${this.props.match.url}/product/staff`, component: AdminStoresEmployee },
+                    { name: 'create-new-staff', path: `${this.props.match.url}/product/create-new-staff`, component: AdminStoresEmployeeCreate },
                     { name: 'logout', path: `${this.props.match.url}/logout`, component: AdminLogout },
-                    { name: 'transaction', path: `${this.props.match.url}/transaction`, component: AdminTransaction },
+                    { name: 'transaction', path: `${this.props.match.url}/product/transaction`, component: AdminTransaction },
                     { name: 'report', path: `${this.props.match.url}/report`, component: AdminStoresReport },
                     { name: 'report-menu', path: `${this.props.match.url}/report/report-menu`, component: AdminStoresReportMenu },
                     { name: 'setting', path: `${this.props.match.url}/setting`, component: AdminSetting },
@@ -361,39 +361,6 @@ class AdminPanel extends Component {
                     dataMenu.items.push(buatKasirAndOwnerSuperadmin);
                 };
             }
-            //#MENU LAPORAN PENJUALAN STORE OWNER
-            else if (split.length === 1 && split[0] === "Laporan" && level.name === "Owner") {
-                let linkItem = { name: nameRouteReportStore, path: `${this.props.match.url}${menu[i].path ? '/' + menu[i].path : 'null'}` }
-
-                dataMenu = {
-                    category: nameCategory,
-                    items: []
-                };
-
-                if (menu[i].path !== "report") {
-                    dataMenu.items.push(linkItem)
-                };
-
-                //Laporan Penjualan Owner
-                let itemSeparatorReportSelling = {
-                    name: `${split[0]} Harian`,
-                    path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}` : 'null'}`
-                };
-
-                if (menu[i].group === "all" && menu[i].path === "report") {
-                    dataMenu.items.push(itemSeparatorReportSelling);
-                };
-
-                //Laporan Menu
-                let laporanMenu = {
-                    name: `${split[0]} Menu`,
-                    path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}/report-menu` : 'null'}`
-                }
-
-                if (menu[i].group === "all" && menu[i].path === "report") {
-                    dataMenu.items.push(laporanMenu);
-                }
-            }
             //#MENU LAPORAN PENJUALAN Superadmin
             else if (split.length === 1 && split[0] === "Laporan" && level.name === "Superadmin") {
 
@@ -438,6 +405,40 @@ class AdminPanel extends Component {
                     dataMenu.items.push(laporanMember);
                 };
             }
+            //#MENU LAPORAN PENJUALAN STORE OWNER
+            else if (split.length === 1 && split[0] === "Laporan" && level.name === "Owner") {
+                let linkItem = { name: nameRouteReportStore, path: `${this.props.match.url}${menu[i].path ? '/' + menu[i].path : 'null'}` }
+
+                dataMenu = {
+                    category: nameCategory,
+                    items: []
+                };
+
+                if (menu[i].path !== "report") {
+                    dataMenu.items.push(linkItem)
+                };
+
+                //Laporan Penjualan Owner
+                let itemSeparatorReportSelling = {
+                    name: `${split[0]} Harian`,
+                    path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}` : 'null'}`
+                };
+
+                if (menu[i].group === "all" && menu[i].path === "report") {
+                    dataMenu.items.push(itemSeparatorReportSelling);
+                };
+
+                //Laporan Menu
+                let laporanMenu = {
+                    name: `${split[0]} Menu`,
+                    path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}/report-menu` : 'null'}`
+                }
+
+                if (menu[i].group === "all" && menu[i].path === "report") {
+                    dataMenu.items.push(laporanMenu);
+                }
+            }
+            
             //# Features of KASIR
             else if (split[0] === "Kasir" && level.name === "Kasir") {
 
@@ -502,6 +503,49 @@ class AdminPanel extends Component {
 
                 if (menu[i].group === "all" && menu[i].path === "report") {
                     dataMenu.items.push(laporanHarianKasir);
+                };
+            }
+
+            //#MANAJEMEN STORE OWNER - TRANSAKSI/ PENJUALAN, DAFTAR STAFF, BUAT STAFF BARU, DAFTAR PRODUK, BUAT PRODUK BARU,  
+            else if(split[0] === "Toko" && level.name === "Owner"){ 
+
+                dataMenu = {
+                    category: nameCategory,
+                    items: []
+                };
+
+                let penjualanOwner = {
+                    name: `Penjualan`,
+                    path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}/transaction` : 'null'}`
+                };
+
+                let daftarStaffInOwner = {
+                    name: `Daftar Staff`,
+                    path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}/staff` : 'null'}`
+                };
+
+                let buatStaffBaruInOwner = {
+                    name: `Buat Staff Baru`,
+                    path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}/create-new-staff` : 'null'}`
+                };
+
+                let daftarProductOwner = {
+                    name: `Daftar Produk`,
+                    path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}/` : 'null'}`
+                };
+
+                let buatProductBaruOwner = {
+                    name: `Buat Produk Baru`,
+                    path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}/create-new-product` : 'null'}`
+                };
+
+                if (menu[i].group === "store") {
+                    dataMenu.items.push(penjualanOwner);
+                    dataMenu.items.push(daftarStaffInOwner);
+                    dataMenu.items.push(buatStaffBaruInOwner);
+                    dataMenu.items.push(daftarProductOwner);
+                    dataMenu.items.push(buatProductBaruOwner);
+                   
                 };
             }
 

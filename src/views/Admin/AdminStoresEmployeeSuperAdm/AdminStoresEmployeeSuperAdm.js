@@ -376,7 +376,7 @@ class AdminStoresEmployeeSuperAdm extends Component {
         }
 
         action.changeEmployeeStatus(requiredData);
-    }
+    };
 
 
 
@@ -394,6 +394,7 @@ class AdminStoresEmployeeSuperAdm extends Component {
                     handleInputChange={this.handleInputChange}
                     // populateTableData = {this.populateTableData}
                     optionsPagination={this.optionsPagination}
+                    openVendorEmployeeModal = {this.openVendorEmployeeModal}
                     {...this.state} 
                     {...this.props} />
 

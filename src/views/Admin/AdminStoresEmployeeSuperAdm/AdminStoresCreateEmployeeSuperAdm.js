@@ -140,7 +140,7 @@ class AdminStoresCreateEmployeeSuperAdm extends Component {
     handleFormSubmit = (e) => {
         e.preventDefault();
         const { newStaff, storeList, storeActive, levelId , accessLevel} = this.state;
-        const { action } = this.props;
+        const { action, store } = this.props;
 
         // console.log(newStaff);
 
@@ -158,9 +158,10 @@ class AdminStoresCreateEmployeeSuperAdm extends Component {
             // console.log(requiredData);
     
             action.createStaffStore(requiredData).then(() => {
+
+                console.log(store);
+
                 if(this.props.store.staffemployee.isCreated){
-    
-                    console.log("Created!!!");
                     
                     let dialogData = {
                         type: 'success',
@@ -174,14 +175,14 @@ class AdminStoresCreateEmployeeSuperAdm extends Component {
     
                 }
                 
-                if(this.props.store.staffemployee.isError){
+                if(this.props.store.staffemployee.isCreated === false){
     
                     console.log("Errur!!!");
                     
                     let dialogData = {
                         type: 'danger',
                         title: 'Gagal',
-                        message: 'Gagal menambahkan Staff baru. Klik tombol berikut untuk kembali.',
+                        message: 'Username sudah ada, silahkan pilih username yang lain. Klik tombol berikut untuk kembali.',
                         onClose: () => this.toggleDialog(),
                         closeText: 'Kembali'
                     }

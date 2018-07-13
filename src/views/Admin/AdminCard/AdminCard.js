@@ -179,12 +179,13 @@ class AdminCard extends Component {
                               <Button type="button" theme={row.data.status ? "success" : "danger"} onClick={() => this.changeCardStatus(row)}>{ row.data.status ? 'Aktif' : 'Non Aktif' }</Button>
                         </td>
                   )
-            }]
+            }];
 
             const rows = [];
 
             if(cardList.isLoaded) {
                   cardList.data.data.result.forEach((card, i) => {
+
                         let row = {
                               id: card.id,
                               name: card.name,
@@ -193,7 +194,7 @@ class AdminCard extends Component {
                               refund: card.refund,
                               charge: card.charge,
                               data: card
-                        }
+                        };
     
                         rows.push(row);
                   })

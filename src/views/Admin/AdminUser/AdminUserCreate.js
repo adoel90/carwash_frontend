@@ -24,7 +24,7 @@ class AdminUserCreate extends Component {
                 level: 0
             }
         }
-    }
+    };
 
     componentDidMount = () => {
         this.getAccessList();
@@ -53,16 +53,12 @@ class AdminUserCreate extends Component {
         } else {
             action.closeDialog();
         }
-    }
+    };
 
     renderDialog = () => {
-        const {
-            dialog,
-            toggleDialog
-        } = this.props;
-
-        console.log(this.props)
         
+        const { dialog, toggleDialog } = this.props;
+
         return (
             <ModalDialog
                 isOpen={dialog.isOpened}

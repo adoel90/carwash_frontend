@@ -69,7 +69,7 @@ export const getAllCardType = (data) => {
 	function handleRequest() { return { type: GET_ALL_CARD_TYPE_REQUESTED } }
 	function handleSuccess(data, id) { return { type: GET_ALL_CARD_TYPE_FULFILLED, payload: data} }
 	function handleError(data) { return { type: GET_ALL_CARD_TYPE_REJECTED, payload: data} }
-}
+};
 
 export const createNewCardType = (data) => {
 	return async dispatch => {

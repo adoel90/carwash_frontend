@@ -132,7 +132,7 @@ class AdminStoresEmployeeCreate extends Component {
     handleFormSubmit = (e) => {
         e.preventDefault();
         const { newStaff, storeList, storeActive, levelId , accessLevel} = this.state;
-        const { action } = this.props;
+        const { action, store} = this.props;
 
         // console.log(newStaff);
 
@@ -147,12 +147,12 @@ class AdminStoresEmployeeCreate extends Component {
                 level: newStaff.level ? parseInt(newStaff.level) : "Failed parse INTEGER!!!"
             }
             
-            console.log(requiredData);
+            console.log(store);
     
             action.createStaffStore(requiredData).then(() => {
                 if(this.props.store.staffemployee.isCreated){
     
-                    console.log("Created!!!");
+                    
                     
                     let dialogData = {
                         type: 'success',
@@ -166,14 +166,14 @@ class AdminStoresEmployeeCreate extends Component {
     
                 }
                 
-                if(this.props.store.staffemployee.isError){
+                if(this.props.store.staffemployee.isCreated === false){
     
                     console.log("Errur!!!");
                     
                     let dialogData = {
                         type: 'danger',
                         title: 'Gagal',
-                        message: 'Gagal menambahkan Staff baru. Klik tombol berikut untuk kembali.',
+                        message: 'Username sudah ada, silahkan pilih username yang lain. Klik tombol berikut untuk kembali.',
                         onClose: () => this.toggleDialog(),
                         closeText: 'Kembali'
                     }

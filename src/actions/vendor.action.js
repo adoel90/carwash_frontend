@@ -342,10 +342,11 @@ export const getStoreStaffReportConvertExcell = (data) => {
 	return async dispatch => {
 		dispatch(fetchRequest());
 		return axios
-			// .get(`${constant.API_PATH}store/staff/report?accessToken=${accessToken}&staff=${data.staff}&store=${data.store}&start_date=${data.start_date}&end_date=${data.end_date}&print=${data.print}`)
-			.get(`${constant.API_PATH}store/staff/report?accessToken=${accessToken}&staff=${data.staff}&store=${data.store}&start_date=${data.start_date}&end_date=${data.end_date}&convert=true`)
+			
+			// .get(`${constant.API_PATH}store/staff/report?accessToken=${accessToken}&staff=${data.staff}&store=${data.store}&start_date=${data.start_date}&end_date=${data.end_date}&convert=true`)
+			.get(`${constant.API_PATH}report/owner?accessToken=${accessToken}&start_date=${data.start_date}&end_date=${data.end_date}&convert=true`)
 			.then((response) => {
-				window.open(`${constant.API_PATH}store/staff/report?accessToken=${accessToken}&staff=${data.staff}&store=${data.store}&start_date=${data.start_date}&end_date=${data.end_date}&convert=true`, '_blank');
+				window.open(`${constant.API_PATH}report/owner?accessToken=${accessToken}&start_date=${data.start_date}&end_date=${data.end_date}&convert=true`, '_blank');
 			})
 			.catch((error) => {
 				dispatch(fetchError(error));

@@ -207,15 +207,10 @@ class AdminCard extends Component {
             if(card.types.isLoaded){
                   card.types.data.result.forEach((data) => {
 
-                        console.log(data);
-
-                        // console.log(data);
-
                         //#
-                        let dataPilihanNominalSaldo = data.min.length ? data.min.filter((data, index, self) => {
-                              return index == self.indexOf(data);
-                        }): null; 
-                        // console.log(dataPilihanNominalSaldo);
+                        // let dataPilihanNominalSaldo = data.min.length ? data.min.filter((data, index, self) => {
+                        //       return index == self.indexOf(data);
+                        // }): null; 
 
                         let row = {
                               id: data.id,

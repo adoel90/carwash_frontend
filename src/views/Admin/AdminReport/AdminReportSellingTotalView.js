@@ -196,13 +196,13 @@ const AdminReportSellingTotalView = props => {
                                         </Button>
                                     </FormField>
                                 </div>
-                                {/* <div>
+                                <div>
                                     <FormField>
                                         <Button onClick={(e) => handleExportToExcell(e, period)} theme="danger" className="margin-right-small" type="submit" style={{height: '50px', 'margin-left': '3px'}}>
                                             Export to xls
                                         </Button>
                                     </FormField>
-                                </div> */}
+                                </div>
                             </Column>
                         </Row>
                     </Form>

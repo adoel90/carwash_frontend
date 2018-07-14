@@ -34,7 +34,6 @@ class AdminReportSellingTotal extends Component {
         this.populateTableData = this.populateTableData.bind(this);
         this.showDate = this.showDate.bind(this);
         this.handlePeriodChange = this.handlePeriodChange.bind(this);
-        // this.handleExportToExcell = this.handleExportToExcell.bind(this);
 
         this.handlePeriodChangeAccessDetailStore = this.handlePeriodChangeAccessDetailStore.bind(this);
         this.openAccessDetailStoreModal = this.openAccessDetailStoreModal.bind(this);

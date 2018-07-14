@@ -156,7 +156,7 @@ class AdminStoreCashierReport extends Component {
                     id: value.id,
                     kasirName: value.user.name,
                     transaction_date: moment(value.transaction_date).format('DD MMM YYYY'),
-                    description: value.description,
+                    description: value.description === "Buat Member" ? "Member Baru" : value.description,
                     total: value.total
                 };
 

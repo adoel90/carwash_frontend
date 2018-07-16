@@ -84,6 +84,7 @@ class AdminStoreCashierKartuBaru extends Component {
                 //#
                 this.state.selectedMember = member.item.data;
                 this.state.typeNumberMember = member.item.data.card ? member.item.data.card.type.id : null;
+                console.log(this.state.selectedMember);
                 
                 //#
                 // if (member.item.data) {
@@ -235,14 +236,20 @@ class AdminStoreCashierKartuBaru extends Component {
         const { action } = this.props;
         const { selectedMember, newCardData } = this.state;
 
+        // console.log(selectedMember);
+        // console.log(newCardData);
+
         let requiredData = {
-            id: selectedMember.id,
+            // id: selectedMember.id,
+            id: selectedMember.card ? selectedMember.card.id : null,
             name: selectedMember.name,
             email: newCardData.email,
             phone: newCardData.phone,
             address: newCardData.address
             //   category : selectedStore.type.id ? parseInt(selectedStore.type.id) : parseInt(selectedStore.type)
         };
+
+        console.log(requiredData);
 
         action.updateMember(requiredData).then(() => {
             const { member } = this.props;

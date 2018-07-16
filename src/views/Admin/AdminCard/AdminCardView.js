@@ -85,7 +85,7 @@ const AdminCardView = props => {
                                                 </FormField>
 
                                                 
-                                                <FormField label="Pilihan Nominal Tipe-1">
+                                                <FormField label="Top Up">
                                                       <InputGroup>
                                                             <InputAddon>
                                                                   <small class="fw-semibold tt-uppercase ls-base">Rp</small>
@@ -94,49 +94,14 @@ const AdminCardView = props => {
                                                                   className="input"
                                                                   type="text" 
                                                                   name="min" 
-                                                                  placeholder={selectedCard.min[0]} 
-                                                                  defaultValue={selectedCard.min[0]} 
+                                                                  placeholder={selectedCard.min} 
+                                                                  defaultValue={selectedCard.min} 
                                                                   value={selectedCard.min[0]}
                                                                   onChange={(e) => handleInputChange('selectedCard', e)} 
                                                             />
                                                       </InputGroup>
                                                 </FormField>
-
-                                                <FormField label="Pilihan Nominal Tipe-2">
-                                                      <InputGroup>
-                                                            <InputAddon>
-                                                                  <small class="fw-semibold tt-uppercase ls-base">Rp</small>
-                                                            </InputAddon>
-                                                            <InputCurrency 
-                                                                  className="input"
-                                                                  type="text" 
-                                                                  name="min" 
-                                                                  placeholder={selectedCard.min[1]} 
-                                                                  defaultValue={selectedCard.min[1]} 
-                                                                  value={selectedCard.min[1]}
-                                                                  onChange={(e) => handleInputChange('selectedCard', e)} 
-                                                            />
-                                                      </InputGroup>
-                                                </FormField>
-
-                                                <FormField label="Pilihan Nominal Tipe-3">
-                                                      <InputGroup>
-                                                            <InputAddon>
-                                                                  <small class="fw-semibold tt-uppercase ls-base">Rp</small>
-                                                            </InputAddon>
-                                                            <InputCurrency 
-                                                                  className="input"
-                                                                  type="text" 
-                                                                  name="min" 
-                                                                  placeholder={selectedCard.min[2]} 
-                                                                  defaultValue={selectedCard.min[2]} 
-                                                                  value={selectedCard.min[2]}
-                                                                  onChange={(e) => handleInputChange('selectedCard', e)} 
-                                                            />
-                                                      </InputGroup>
-                                                </FormField>
-
-                                                <FormField label="Bonus Saldo">
+                                                <FormField label="Bonus">
                                                       <InputGroup>
                                                             <InputAddon>
                                                                   <small class="fw-semibold tt-uppercase ls-base">Rp</small>

@@ -213,27 +213,22 @@ class AdminStoreCashierKartuBaruConfirmationModal extends Component {
 
 
                             </Column> 
-                            <Column md={12}>
-                                    {/* <FormGroup>
-                                        <FormField label="Nama Lengkap">
-                                            <InputGroup>
-                                                <InputAddon>
-                                                    <i className="far fa-user"></i>
-                                                </InputAddon>
-                                                <Input
-                                                    name="name"
-                                                    type="text"
-                                                    placeholder="Tulis Nama Lengkap"
-                                                    // placeholder={selectedMember.name}
-                                                    // defaultValue={selectedMember.name ? selectedMember.name : "Tulis Nama Lengkap"}
-                                                    onChange={(e) => handleInputChangeInModalUpdate('selectedMember', e)}
-                                                    required="true"
-                                                />
-                                            </InputGroup>
-                                        </FormField>
-                                    </FormGroup> */}
-                                
+                            <Column md={6}>
                                 <FormGroup>
+                                    <FormField label="Saldo Awal">
+                                        {console.log(selectedMember.card ? selectedMember.card.type.min : null)}
+                                        <Input
+                                            name="name"
+                                            type="text"
+                                            placeholder={selectedMember.card ? selectedMember.card.type.min : null}
+                                            defaultValue={selectedMember.card ? selectedMember.card.type.min : null}
+                                            onChange={(e) => handleInputChangeInModalUpdate('selectedMember', e)}
+                                            readOnly
+                                        />
+                                    </FormField>
+                                </FormGroup>
+                                
+                                {/* <FormGroup>
                                     <FormField label="Pilih Saldo Awal : ">
                                         <div>
                                             <div className="flex justify-content--space-around" >
@@ -250,8 +245,24 @@ class AdminStoreCashierKartuBaruConfirmationModal extends Component {
                                             </div>
                                         </div>
                                     </FormField>
+                                </FormGroup> */}
+                            </Column>
+                            <Column md={6}>
+                                <FormGroup>
+                                    <FormField label="Bonus">
+                                         {console.log(selectedMember.card ? selectedMember.card.type.bonus: null)}
+                                        <Input
+                                            name="name"
+                                            type="text"
+                                            placeholder={selectedMember.card ? selectedMember.card.type.bonus: null}
+                                            defaultValue={selectedMember.card ? selectedMember.card.type.bonus: null}
+                                            onChange={(e) => handleInputChangeInModalUpdate('selectedMember', e)}
+                                            readOnly
+                                        />
+                                    </FormField>
                                 </FormGroup>
                             </Column>
+
                         </Row>
                     </ModalBody>
 

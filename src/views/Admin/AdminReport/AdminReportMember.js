@@ -198,6 +198,7 @@ class AdminReportMember extends Component {
 
         if(report.reportMember.isLoaded){
             report.reportMember.data.result.report.forEach((value, i) => {
+                // console.log(value);
                 let row = {
                     id: value.card.id,
                     kartu: value.card.type ? value.card.type.name : null,
@@ -205,7 +206,7 @@ class AdminReportMember extends Component {
                     created: value.created_at,
                     balance: value.balance,
                     last: value.last_transaction,
-                    id: value.id,
+                    // id: value.id,
                     data:value
                     // cardType: value.card.type.name
                 }

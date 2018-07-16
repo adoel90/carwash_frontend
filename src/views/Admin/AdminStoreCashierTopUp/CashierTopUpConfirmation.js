@@ -133,29 +133,30 @@ class CashierTopUpConfirmation extends Component {
 							{renderMemberInformation()}
 						</div><br />
 						<FormGroup row>
-							<FormField label="Saldo Awal">
+							<FormField label="Jumlah Top Up">
 								{/* <Label className="fw-semibold">Saldo saat ini</Label> */}
 								<InputGroup>
 									<InputAddon>
 										<small className="tt-uppercase fw-semibold ls-base">Rp</small>
 									</InputAddon>
+									{console.log(authenticatedMember)}
 									<InputCurrency
 										className="input"
-										value={authenticatedMember.data.balance}
+										value={authenticatedMember.data.card ? authenticatedMember.data.card.type.min : null}
 										readOnly="true"
 									/>
 								</InputGroup>
 							</FormField>
 						</FormGroup>
 						<FormGroup row>
-							<FormField label="Minimum Top Up">
+							<FormField label="Bonus">
 								<InputGroup>
 									<InputAddon>
 										<small className="tt-uppercase fw-semibold ls-base">Rp</small>
 									</InputAddon>
 									<InputCurrency
 										className="input"
-										value={authenticatedMember.data.card ? authenticatedMember.data.card.type.min : null}
+										value={authenticatedMember.data.card ? authenticatedMember.data.card.type.bonus : null}
 										readOnly="true"
 									/>
 								</InputGroup>
@@ -180,12 +181,14 @@ class CashierTopUpConfirmation extends Component {
 								</InputCashier>
 							</FormField>
 						</FormGroup>
+						
 
-						<FormGroup row>
+						{/* TAMBAH SALDO TAXI ONLINE & UMUM */}
+						{/* <FormGroup row>
 							<FormField label="Tambah Saldo">
 							{ typeMember === "Taxi Online" ? this.renderTambahSaldoForTaxiOnline() : this.renderTambahSaldoCommon()}
 							</FormField>
-						</FormGroup>
+						</FormGroup> */}
 					</ModalBody>
 
 					<ModalFooter className="flex justify-content--center">

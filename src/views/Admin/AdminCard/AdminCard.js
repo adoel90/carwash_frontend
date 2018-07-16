@@ -159,27 +159,27 @@ class AdminCard extends Component {
                   title: 'Nama',
                   accessor: 'name'
             }, 
+            // {
+            //       title: 'Minimum Saldo ',
+            //       accessor: 'min',
+            //       align: 'center',
+            //       rowAlign: 'center',
+            //       isCurrency: true
+            // }, 
             {
-                  title: 'Nominal Tipe-1',
-                  accessor: 'min',
-                  align: 'center',
-                  rowAlign: 'center',
-                  isCurrency: true
-            }, 
-            {
-                  title: 'Nominal Tipe-2',
-                  accessor: 'min',
-                  align: 'center',
-                  rowAlign: 'center',
-                  isCurrency: true
-            },
-            {
-                  title: 'Nominal Tipe-3',
+                  title: 'Top Up',
                   accessor: 'min',
                   align: 'center',
                   rowAlign: 'center',
                   isCurrency: true
             },
+            // {
+            //       title: 'Nominal Tipe-3',
+            //       accessor: 'min',
+            //       align: 'center',
+            //       rowAlign: 'center',
+            //       isCurrency: true
+            // },
             {
                   title: 'Bonus',
                   accessor: 'bonus',
@@ -216,6 +216,7 @@ class AdminCard extends Component {
                               id: data.id,
                               name: data.name,
                               min: data.min ? data.min[0] : "Hubungi Vendor",
+                              mintopup: data.mintopup,
                               bonus: data.bonus,
                               refund: data.refund,
                               charge: data.charge,

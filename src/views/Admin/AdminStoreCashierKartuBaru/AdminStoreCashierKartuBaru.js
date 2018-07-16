@@ -240,8 +240,8 @@ class AdminStoreCashierKartuBaru extends Component {
         // console.log(newCardData);
 
         let requiredData = {
-            // id: selectedMember.id,
-            id: selectedMember.card ? selectedMember.card.id : null,
+            id: selectedMember.id,
+            // id: selectedMember.card ? selectedMember.card.id : null,
             name: selectedMember.name,
             email: newCardData.email,
             phone: newCardData.phone,

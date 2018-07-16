@@ -212,7 +212,7 @@ class AdminReportMember extends Component {
                 }
                 rows.push(row);
             })
-        }
+        };
 
         this.setState({
             ...this.state,
@@ -221,7 +221,7 @@ class AdminReportMember extends Component {
                 columns: columns,
                 rows: rows
             }
-        })
+        });
     }
 
     //#

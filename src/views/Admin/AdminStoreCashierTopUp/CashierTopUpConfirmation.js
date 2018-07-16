@@ -49,6 +49,7 @@ class CashierTopUpConfirmation extends Component {
 		return (
 			<div>
 				<div className="flex justify-content--space-around">
+					{console.log(this.props.bonus)}
 					{
 						this.props.bonus.map((tier) => {
 							return (
@@ -61,7 +62,7 @@ class CashierTopUpConfirmation extends Component {
 				</div>
 			</div>
 		)
-	}
+	};
 
 	renderDialog = () => {
 		const {
@@ -184,11 +185,11 @@ class CashierTopUpConfirmation extends Component {
 						
 
 						{/* TAMBAH SALDO TAXI ONLINE & UMUM */}
-						{/* <FormGroup row>
+						<FormGroup row>
 							<FormField label="Tambah Saldo">
 							{ typeMember === "Taxi Online" ? this.renderTambahSaldoForTaxiOnline() : this.renderTambahSaldoCommon()}
 							</FormField>
-						</FormGroup> */}
+						</FormGroup>
 					</ModalBody>
 
 					<ModalFooter className="flex justify-content--center">

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getAllCardType, updateCardType, changeCardTypeStatus } from '../../../actions/card.action';
+import { getBonusTaxiOnline } from '../../../actions/store.action';//THIS FUNCTION IS NOT OKE
 import { Button } from '../../../components/Button';
 import AdminCardView from './AdminCardView';
 import { openDialog, closeDialog } from '../../../actions/dialog.action';
@@ -9,6 +10,7 @@ import { ModalDialog } from '../../../components/Modal';
 import MySearchField from '../../../components/Input/MySearchField';
 
 class AdminCard extends Component {
+
       constructor() {
             super();
             this.state = {
@@ -28,8 +30,18 @@ class AdminCard extends Component {
                   },
                   isModalOpen: {
                         updateCard: false
-                  }
-            }
+                  },
+                  bonus: {}
+
+                  // saldoOption: [
+                  //       { 
+                  //             topup: {
+                  //                   opsi1 : "Rp. 300.000" 
+                  //             },
+
+                  //       }
+                  // ]
+            };
 
             this.getCardTypeList = this.getCardTypeList.bind(this);
             this.populateTableData = this.populateTableData.bind(this);
@@ -58,6 +70,9 @@ class AdminCard extends Component {
 
       componentDidMount = () => {
             this.getCardTypeList();
+
+            const { action } = this.props;
+            action.getBonusTaxiOnline();
       }
 
       componentDidUpdate = (prevProps) => {
@@ -103,6 +118,16 @@ class AdminCard extends Component {
                         })
                   }
             }
+
+            //THIS FUNCTION IS NOT USE IN PRODUCTION
+            // if(prevProps.storeState.bonus !== storeState.bonus){
+            //       if(storeState.bonus.isLoaded){
+            //           this.setState({
+            //               ...this.state,
+            //               bonus: storeState.bonus.data.result.tier
+            //           })
+            //       }
+            // }
       }
 
       toggleModal = (name) => {
@@ -148,7 +173,7 @@ class AdminCard extends Component {
                     closeText={dialog.data.closeText}
                 />
             )
-      }
+      };
 
       populateTableData = () => {
             const { cardList } = this.state;
@@ -200,8 +225,6 @@ class AdminCard extends Component {
             }];
 
             const rows = [];
-
-            console.log(card);
 
             // if(cardList.isLoaded) {
             if(card.types.isLoaded){
@@ -347,14 +370,15 @@ class AdminCard extends Component {
 const mapStateToProps = (state) => {
       return {
             card: state.card,
-            dialog: state.dialog
+            dialog: state.dialog,
+            storeState: state.store,
       }
 }
 
 const mapDispatchToProps = (dispatch) => {
       return {
             getAllCardType: () => dispatch(getAllCardType()),
-            action: bindActionCreators({ updateCardType, changeCardTypeStatus, openDialog, closeDialog }, dispatch)
+            action: bindActionCreators({ updateCardType, changeCardTypeStatus, openDialog, closeDialog, getBonusTaxiOnline }, dispatch)
       }
 }
 

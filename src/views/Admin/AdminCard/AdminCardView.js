@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 
-import { Form, FormField } from '../../../layouts/Form';
+import { FormGroup } from '../../../components/Form';
+import { Form, FormField} from '../../../layouts/Form';
 import { Row, Column } from '../../../layouts/Grid';
 import { Input, InputGroup, InputAddon, SwitchSquare, Textarea, InputCurrency } from '../../../components/Input';
 import { Panel, PanelHeader, PanelBody } from '../../../components/Panel';
@@ -15,6 +16,7 @@ import NumberFormat from 'react-number-format';
 import { BootstrapTable, TableHeaderColumn, SearchField } from 'react-bootstrap-table';
 
 const AdminCardView = props => {
+
       const {
             isModalOpen,
             table,
@@ -27,8 +29,33 @@ const AdminCardView = props => {
             search,
             openCardDetail,
             changeCardStatus,
-            optionsPagination
+            optionsPagination,
+            bonus,
+            handleTierTopup, //INI FUNCTION IS NOT OKE 
       } = props;
+
+      //#
+	const renderMemberFeature = () => {
+
+		const { bonus} = this.props;
+
+		return (
+			<div>
+            
+				<div className="flex justify-content--space-around">
+					{
+						this.props.bonus.map((tier) => {
+							return (
+								<Button className="padding-large" type="button" theme="primary" key={tier.id} value={tier} onClick={(e) => handleTierTopup(tier, e)}>
+									<h5>Rp. {parseFloat(tier.price).toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 2})}</h5>
+								</Button>
+							);
+						})
+					}
+				</div>
+			</div>
+		)
+	};
 
 
       //#This function is not ACTIVE until you use <BootstrapTable />
@@ -61,8 +88,6 @@ const AdminCardView = props => {
       const renderCardDetailModal = () => {
 
             if(selectedCard) {
-                  
-                  console.log(selectedCard);
 
                 return (
                     <Modal
@@ -123,6 +148,14 @@ const AdminCardView = props => {
                                                 <FormField label="Charge">
                                                       <SwitchSquare name="charge" value={Boolean(selectedCard.charge)} onChange={(e) => handleInputChange('selectedCard', e)} />
                                                 </FormField>
+
+                                                {console.log(selectedCard)}
+                                                {/* { selectedCard.name === "Member" ? } */}
+                                                {/* <FormGroup row>
+                                                      <FormField label="Top Up">
+                                                      { selectedCard.name === "Member" ? renderMemberFeature() : null()}
+                                                      </FormField>
+                                                </FormGroup> */}
                                           </Column>
                                     </Row>
                               </ModalBody>

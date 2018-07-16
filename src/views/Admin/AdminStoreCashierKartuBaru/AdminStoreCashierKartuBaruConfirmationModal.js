@@ -221,7 +221,6 @@ class AdminStoreCashierKartuBaruConfirmationModal extends Component {
                                             placeholder={selectedMember.card ? selectedMember.card.type.min : null}
                                             defaultValue={selectedMember.card ? selectedMember.card.type.min : null}
                                             onChange={(e) => handleInputChangeInModalUpdate('selectedMember', e)}
-                                            
                                         />
                                     </FormField>
                                 </FormGroup>

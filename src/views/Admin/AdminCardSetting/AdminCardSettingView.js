@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 
-import { FormGroup } from '../../../components/Form';
-import { Form, FormField} from '../../../layouts/Form';
+import { Form, FormField } from '../../../layouts/Form';
 import { Row, Column } from '../../../layouts/Grid';
 import { Input, InputGroup, InputAddon, SwitchSquare, Textarea, InputCurrency } from '../../../components/Input';
 import { Panel, PanelHeader, PanelBody } from '../../../components/Panel';
@@ -15,8 +14,7 @@ import NumberFormat from 'react-number-format';
 
 import { BootstrapTable, TableHeaderColumn, SearchField } from 'react-bootstrap-table';
 
-const AdminCardView = props => {
-
+const AdminCardSettingView = props => {
       const {
             isModalOpen,
             table,
@@ -30,35 +28,9 @@ const AdminCardView = props => {
             openCardDetail,
             changeCardStatus,
             optionsPagination,
-            bonus,
-            handleTierTopup, //INI FUNCTION IS NOT OKE 
+            deleteBalance
       } = props;
 
-      //#
-	const renderMemberFeature = () => {
-
-		const { bonus} = this.props;
-
-		return (
-			<div>
-            
-				<div className="flex justify-content--space-around">
-					{
-						this.props.bonus.map((tier) => {
-							return (
-								<Button className="padding-large" type="button" theme="primary" key={tier.id} value={tier} onClick={(e) => handleTierTopup(tier, e)}>
-									<h5>Rp. {parseFloat(tier.price).toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 2})}</h5>
-								</Button>
-							);
-						})
-					}
-				</div>
-			</div>
-		)
-	};
-
-
-      //#This function is not ACTIVE until you use <BootstrapTable />
       const componentButtonUpdate = (datarow) => {
             return (
                 <div>
@@ -71,30 +43,27 @@ const AdminCardView = props => {
                     </Button>
                     <Button 
                         type="button" 
-                        theme={datarow.status ? "success" : "danger"} 
-                        onClick={() => changeCardStatus(datarow)}
+                        theme={"danger"} 
+                        onClick={() => deleteBalance(datarow)}
                     >
-                        { datarow.status ? 'Aktif' : 'Non Aktif' }
+                        Hapus
                     </Button>
                 </div>
             );
       };
 
-      //#This function is not ACTIVE until you use <BootstrapTable />
       const priceFormatter = (data) => {
             return <NumberFormat value={data} displayType={'text'} thousandSeparator={true} fixedDecimalScale={true} prefix={'Rp. '} decimalScale={2} />;
-      };
+      }
 
       const renderCardDetailModal = () => {
-
             if(selectedCard) {
-
                 return (
                     <Modal
                         isOpen={isModalOpen.updateCard}
                         toggle={() => toggleModal('updateCard')}>
                         <ModalHeader>
-                            <h5>Ubah Informasi Card</h5>
+                            <h5>Ubah Nominal Topup</h5>
                         </ModalHeader>
                         <Form onSubmit={updateCard}>
                               <ModalBody>
@@ -105,12 +74,10 @@ const AdminCardView = props => {
                                                             <InputAddon>
                                                                   <i class="far fa-credit-card"></i>
                                                             </InputAddon>
-                                                            <Input type="text" name="name" placeholder={selectedCard.name} defaultValue={selectedCard.name} onChange={(e) => handleInputChange('selectedCard', e)} />
+                                                            <Input type="text" name="name" placeholder={selectedCard.card.name} defaultValue={selectedCard.card.name} onChange={(e) => handleInputChange('selectedCard', e)} readOnly />
                                                       </InputGroup>
                                                 </FormField>
-
-                                                
-                                                <FormField label="Top Up">
+                                                <FormField label="Saldo">
                                                       <InputGroup>
                                                             <InputAddon>
                                                                   <small class="fw-semibold tt-uppercase ls-base">Rp</small>
@@ -118,48 +85,30 @@ const AdminCardView = props => {
                                                             <InputCurrency 
                                                                   className="input"
                                                                   type="text" 
-                                                                  name="min" 
-                                                                  placeholder={selectedCard.min} 
-                                                                  defaultValue={selectedCard.min} 
-                                                                  value={selectedCard.min}
+                                                                  name="balance" 
+                                                                  placeholder={selectedCard.balance} 
+                                                                  defaultValue={selectedCard.balance} 
+                                                                  value={selectedCard.balance}
                                                                   onChange={(e) => handleInputChange('selectedCard', e)} 
                                                             />
                                                       </InputGroup>
                                                 </FormField>
-                                                {
-                                                      selectedCard.id !== 1 ?
-                                                            <FormField label="Bonus Saldo">
-                                                                  <InputGroup>
-                                                                        <InputAddon>
-                                                                              <small class="fw-semibold tt-uppercase ls-base">Rp</small>
-                                                                        </InputAddon>
-                                                                        <InputCurrency 
-                                                                              className="input" 
-                                                                              type="text" 
-                                                                              name="bonus" 
-                                                                              placeholder={selectedCard.bonus} 
-                                                                              defaultValue={selectedCard.bonus} 
-                                                                              value={selectedCard.bonus}
-                                                                              onChange={(e) => handleInputChange('selectedCard', e)} 
-                                                                        />
-                                                                  </InputGroup>
-                                                            </FormField>
-                                                      : null
-                                                }
-                                                <FormField label="Refund">
-                                                      <SwitchSquare name="refund" value={Boolean(selectedCard.refund)} onChange={(e) => handleInputChange('selectedCard', e)} />
-                                                </FormField>
-                                                <FormField label="Charge">
-                                                      <SwitchSquare name="charge" value={Boolean(selectedCard.charge)} onChange={(e) => handleInputChange('selectedCard', e)} />
-                                                </FormField>
-
-                                                {console.log(selectedCard)}
-                                                {/* { selectedCard.name === "Member" ? } */}
-                                                {/* <FormGroup row>
-                                                      <FormField label="Top Up">
-                                                      { selectedCard.name === "Member" ? renderMemberFeature() : null()}
+                                                      <FormField label="Bonus">
+                                                            <InputGroup>
+                                                                  <InputAddon>
+                                                                        <small class="fw-semibold tt-uppercase ls-base">Rp</small>
+                                                                  </InputAddon>
+                                                                  <InputCurrency 
+                                                                        className="input" 
+                                                                        type="text" 
+                                                                        name="bonus" 
+                                                                        placeholder={selectedCard.bonus} 
+                                                                        defaultValue={selectedCard.bonus} 
+                                                                        value={selectedCard.bonus}
+                                                                        onChange={(e) => handleInputChange('selectedCard', e)} 
+                                                                  />
+                                                            </InputGroup>
                                                       </FormField>
-                                                </FormGroup> */}
                                           </Column>
                                     </Row>
                               </ModalBody>
@@ -171,35 +120,22 @@ const AdminCardView = props => {
                     </Modal>
                 )
             }
-      };
+      }
 
       return (
             <div>
                   <Panel>
                         <PanelHeader>
-                              <h4 className="heading-title">Daftar Kartu</h4>
+                              <h4 className="heading-title">Pengaturan Jenis Kartu</h4>
                               {/* <h6 className="heading-subtitle">Tempor nostrud cupidatat officia sit ullamco eu pariatur ullamco quis laborum nulla ipsum.</h6> */}
                         </PanelHeader>
                         <PanelBody>
                               <Column md={12}>
                                     <div className="admin-Card__content">
-                                          <TableSet
-                                                loading={cardList.isFetching}
-                                                loaded={cardList.isLoaded}
-                                                columns={table.columns}
-                                                rows={table.rows}
-                                                striped 
-                                                fullWidth
-                                                pagination
-                                                placeholder="Cari kartu yang terdaftar"
-                                                hasSearchBar
-                                                // searchParams={table.searchParams}
-                                                searchBy={search.searchBy}
-                                                handleInputChange={handleInputChange}
-                                                {...props}
-                                          />
+                                          <br /><br />   
+                                          <br />
 
-                                          {/* {
+                                          {
                                                 table.rows.length > 0 ?
                                                       <BootstrapTable 
                                                             data={table.rows} 
@@ -220,21 +156,21 @@ const AdminCardView = props => {
                                                                   id
                                                             </TableHeaderColumn>
                                                             <TableHeaderColumn 
-                                                                  dataField="name" 
+                                                                  dataField="card" 
                                                                   headerAlign="left" 
                                                                   dataAlign="left"
                                                                   width="30%"
                                                             >
-                                                                  Nama
+                                                                  Jenis Kartu
                                                             </TableHeaderColumn>
                                                             <TableHeaderColumn 
-                                                                  dataField="min" 
+                                                                  dataField="balance" 
                                                                   headerAlign="center" 
                                                                   dataAlign="right"
                                                                   width="20%"
                                                                   dataFormat={priceFormatter}
                                                             >
-                                                                  Minimum
+                                                                  Saldo
                                                             </TableHeaderColumn>
                                                             <TableHeaderColumn 
                                                                   dataField="bonus" 
@@ -256,7 +192,7 @@ const AdminCardView = props => {
                                                             </TableHeaderColumn>
                                                       </BootstrapTable>
                                                 : null
-                                          } */}
+                                          }
                                     </div>
                               </Column>
                         </PanelBody>
@@ -267,4 +203,4 @@ const AdminCardView = props => {
       );
 }
 
-export default AdminCardView;
+export default AdminCardSettingView;

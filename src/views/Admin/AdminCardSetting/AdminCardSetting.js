@@ -1,25 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getAllCardType, updateCardType, changeCardTypeStatus } from '../../../actions/card.action';
-import { getBonusTaxiOnline } from '../../../actions/store.action';//THIS FUNCTION IS NOT OKE
+import { getAllBalanceCard, createNewBalanceCard, updateBalanceCard, changeBalanceCardStatus, deleteBalanceCard } from '../../../actions/balance.action';
 import { Button } from '../../../components/Button';
-import AdminCardView from './AdminCardView';
+import AdminCardSettingView from './AdminCardSettingView';
 import { openDialog, closeDialog } from '../../../actions/dialog.action';
 import { ModalDialog } from '../../../components/Modal';
 import MySearchField from '../../../components/Input/MySearchField';
 
-class AdminCard extends Component {
-
+class AdminCardSetting extends Component {
       constructor() {
             super();
             this.state = {
                   card: {},
-                  cardList: {},
-                  search: {
-                        searchText: '',
-                        searchBy: 'name'
-                  },
+                  balanceList: {},
                   table: {
                         columns: [],
                         rows: [],
@@ -30,20 +24,10 @@ class AdminCard extends Component {
                   },
                   isModalOpen: {
                         updateCard: false
-                  },
-                  bonus: {}
+                  }
+            }
 
-                  // saldoOption: [
-                  //       { 
-                  //             topup: {
-                  //                   opsi1 : "Rp. 300.000" 
-                  //             },
-
-                  //       }
-                  // ]
-            };
-
-            this.getCardTypeList = this.getCardTypeList.bind(this);
+            this.getBalanceCardList = this.getBalanceCardList.bind(this);
             this.populateTableData = this.populateTableData.bind(this);
             this.toggleModal = this.toggleModal.bind(this);
             this.handleInputChange = this.handleInputChange.bind(this);
@@ -51,6 +35,7 @@ class AdminCard extends Component {
             this.changeCardStatus = this.changeCardStatus.bind(this);
             this.updateCard = this.updateCard.bind(this);
             this.renderDialog = this.renderDialog.bind(this);
+            this.deleteBalance = this.deleteBalance.bind(this);
 
             this.optionsPagination = {
                   prePage:'Prev',
@@ -69,41 +54,38 @@ class AdminCard extends Component {
       }
 
       componentDidMount = () => {
-            this.getCardTypeList();
-
-            const { action } = this.props;
-            action.getBonusTaxiOnline();
+            this.getBalanceCardList();
       }
 
       componentDidUpdate = (prevProps) => {
             const {
-                  card
+                  balance
             } = this.props;
 
             const {
                   cardList
             } = this.state;
-
-            if(prevProps.card.types !== card.types) {
+            
+            if(prevProps.balance.list !== balance.list) {
                   this.setState({
                         ...this.state,
-                        cardList: card.types
+                        balanceList: balance.list
                   }, () => {
                         this.populateTableData();
                   })
             }
 
-            if(prevProps.card.type !== card.type) {
-                  if(card.type.isStatusChanging) {
+            if(prevProps.balance.balance !== balance.balance) {
+                  if(balance.balance.isStatusChanging) {
                         cardList.data.data.result.map((type) => {
                               type.statusChanging = true;
                               this.forceUpdate();
                         })
                   }
 
-                  if(card.type.isStatusChanged) {
+                  if(balance.balance.isStatusChanged) {
                         cardList.data.data.result.map((type) => {
-                              if (type.id === card.type.id) {
+                              if (type.id === balance.balance.id) {
                                     type.statusChanging = false;
 
                                     if(type.status) {
@@ -118,16 +100,6 @@ class AdminCard extends Component {
                         })
                   }
             }
-
-            //THIS FUNCTION IS NOT USE IN PRODUCTION
-            // if(prevProps.storeState.bonus !== storeState.bonus){
-            //       if(storeState.bonus.isLoaded){
-            //           this.setState({
-            //               ...this.state,
-            //               bonus: storeState.bonus.data.result.tier
-            //           })
-            //       }
-            // }
       }
 
       toggleModal = (name) => {
@@ -173,43 +145,25 @@ class AdminCard extends Component {
                     closeText={dialog.data.closeText}
                 />
             )
-      };
+      }
 
       populateTableData = () => {
-            const { cardList } = this.state;
-
-            const { card } = this.props;
+            const { balanceList } = this.state;
 
             const columns = [{
                   title: 'Nama',
                   accessor: 'name'
-            }, 
-            // {
-            //       title: 'Minimum Saldo ',
-            //       accessor: 'min',
-            //       align: 'center',
-            //       rowAlign: 'center',
-            //       isCurrency: true
-            // }, 
-            {
-                  title: 'Top Up',
+            }, {
+                  title: 'Minimum',
                   accessor: 'min',
                   align: 'center',
-                  rowAlign: 'center',
+                  rowAlign: 'right',
                   isCurrency: true
-            },
-            // {
-            //       title: 'Nominal Tipe-3',
-            //       accessor: 'min',
-            //       align: 'center',
-            //       rowAlign: 'center',
-            //       isCurrency: true
-            // },
-            {
+            }, {
                   title: 'Bonus',
                   accessor: 'bonus',
                   align: 'center',
-                  rowAlign: 'center',
+                  rowAlign: 'right',
                   isCurrency: true
             }, {
                   title: 'Status',
@@ -222,33 +176,23 @@ class AdminCard extends Component {
                               <Button type="button" theme={row.data.status ? "success" : "danger"} onClick={() => this.changeCardStatus(row)}>{ row.data.status ? 'Aktif' : 'Non Aktif' }</Button>
                         </td>
                   )
-            }];
+            }]
 
             const rows = [];
 
-            // if(cardList.isLoaded) {
-            if(card.types.isLoaded){
-                  card.types.data.result.forEach((data) => {
-
-                        //#
-                        // let dataPilihanNominalSaldo = data.min.length ? data.min.filter((data, index, self) => {
-                        //       return index == self.indexOf(data);
-                        // }): null; 
-
+            if(balanceList.isLoaded) {
+                  balanceList.data.result.forEach((data, i) => {
                         let row = {
                               id: data.id,
-                              name: data.name,
-                              min: data.min,
-                              // mintopup: data.mintopup,
+                              card: data.card.name,
+                              balance: data.balance,
                               bonus: data.bonus,
-                              refund: data.refund,
-                              charge: data.charge,
                               data: data
-                        };
-
+                        }
+    
                         rows.push(row);
-                  });
-            };
+                  })
+            }
     
             this.setState({
                   ...this.state,
@@ -257,8 +201,8 @@ class AdminCard extends Component {
                         columns: columns,
                         rows: rows
                   }
-            });
-      };
+            })
+      }
 
       openCardDetail = (row) => {
             this.setState({
@@ -278,29 +222,33 @@ class AdminCard extends Component {
                   id: row.id
             }
     
-            action.changeCardTypeStatus(requiredData);
+            action.changeBalanceCardStatus(requiredData);
       }
 
       updateCard = (e) => {
-            
-            e.preventDefault();
-            const { action } = this.props;
+            const {
+                  action
+            } = this.props;
       
-            let { selectedCard } = this.state;
+            let {
+                  selectedCard
+            } = this.state;
+      
+            e.preventDefault();
 
             let param = {
                   id: selectedCard.id,
-                  name: selectedCard.name,
-                  minimum: parseInt(selectedCard.min.replace(/,/g, '')),
-                  bonus: selectedCard.bonus ? parseInt(selectedCard.bonus.replace(/,/g, '')) : null,
-                  refund: selectedCard.refund,
-                  charge: selectedCard.charge
-            };
+                  card: selectedCard.card.id,
+                  saldo: parseInt(selectedCard.balance.replace(/,/g, '')),
+                  bonus: parseInt(selectedCard.bonus.replace(/,/g, ''))
+            }
 
-            action.updateCardType(param).then(() => {
-                  const { card } = this.props;
+            action.updateBalanceCard(param).then(() => {
+                  const {
+                        balance
+                  } = this.props;
 
-                  if (card.type.isUpdated) {
+                  if (balance.balance.isUpdated) {
                         let dialogData = {
                             type: 'success',
                             title: 'Berhasil',
@@ -310,9 +258,9 @@ class AdminCard extends Component {
                         }
                 
                         this.toggleDialog(dialogData);
-                  };
+                  }
       
-                  if (card.type.isError) {
+                  if (balance.balance.isError) {
                         let dialogData = {
                             type: 'danger',
                             title: 'Gagal',
@@ -324,6 +272,7 @@ class AdminCard extends Component {
                         this.toggleDialog(dialogData);
                   }
                   // this.toggleModal('updateCard');
+                  
                   // window.location.reload();
             })
       }
@@ -342,18 +291,58 @@ class AdminCard extends Component {
             });
       }
 
-      getCardTypeList = () => {
+      getBalanceCardList = () => {
             const {
-                  getAllCardType
+                  action
             } = this.props;
 
-            getAllCardType();
+            action.getAllBalanceCard();
+      }
+
+      deleteBalance = () => {
+            const {
+                  action
+            } = this.props;
+
+            const {
+                  selectedCard
+            } = this.state
+
+            action.deleteBalanceCard(selectedCard.id).then(() => {
+                  const {
+                        balance
+                  } = this.props;
+
+                  if (balance.delete.isDeleted) {
+                        let dialogData = {
+                            type: 'success',
+                            title: 'Berhasil',
+                            message: 'Card telah berhasil diubah. Klik tombol berikut untuk kembali.',
+                            onClose: () => window.location.reload(),
+                            closeText: 'Kembali'
+                        }
+                
+                        this.toggleDialog(dialogData);
+                  }
+      
+                  if (balance.delete.isError) {
+                        let dialogData = {
+                            type: 'danger',
+                            title: 'Gagal',
+                            message: 'Card gagal diubah. Klik tombol berikut untuk kembali.',
+                            onClose: () => this.toggleDialog(),
+                            closeText: 'Kembali'
+                        }
+                
+                        this.toggleDialog(dialogData);
+                  }
+            });
       }
       
       render() {
             return (
                   <div>
-                        <AdminCardView
+                        <AdminCardSettingView
                               {...this.state}
                               {...this.props}
                               handleInputChange={this.handleInputChange}
@@ -362,6 +351,7 @@ class AdminCard extends Component {
                               optionsPagination={this.optionsPagination}
                               openCardDetail={this.openCardDetail}
                               changeCardStatus={this.changeCardStatus}
+                              deleteBalance={this.deleteBalance}
                         />
                         {this.renderDialog()}
                   </div>
@@ -371,17 +361,15 @@ class AdminCard extends Component {
 
 const mapStateToProps = (state) => {
       return {
-            card: state.card,
-            dialog: state.dialog,
-            storeState: state.store,
+            balance: state.balance,
+            dialog: state.dialog
       }
 }
 
 const mapDispatchToProps = (dispatch) => {
       return {
-            getAllCardType: () => dispatch(getAllCardType()),
-            action: bindActionCreators({ updateCardType, changeCardTypeStatus, openDialog, closeDialog, getBonusTaxiOnline }, dispatch)
+            action: bindActionCreators({ getAllBalanceCard, updateBalanceCard, changeBalanceCardStatus, deleteBalanceCard, openDialog, closeDialog }, dispatch)
       }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AdminCard);
+export default connect(mapStateToProps, mapDispatchToProps)(AdminCardSetting);

@@ -21,7 +21,8 @@ import {
 
 	GET_NOMINAL_SALDO_NEW_CUSTOMER_REQUESTED, //GET NOMINAL SALDO NEW CUSTOMER
 	GET_NOMINAL_SALDO_NEW_CUSTOMER_FULFILLED,
-	GET_NOMINAL_SALDO_NEW_CUSTOMER_REJECTED
+	GET_NOMINAL_SALDO_NEW_CUSTOMER_REJECTED,
+    UPDATE_CARD_TYPE_REQUESTED
 
 } from '../actions/card.action';
 
@@ -130,6 +131,18 @@ const card = (state = initialState, action) => {
 					isCreated: false,
 					isError: true,
 					error: action.payload
+				}
+			}
+		}
+
+		case UPDATE_CARD_TYPE_REQUESTED: {
+			return {
+				...state,
+				type: {
+					...state.type,
+					isUpdated: false,
+					isError: false,
+					error: {}
 				}
 			}
 		}

@@ -12,6 +12,7 @@ import {
     AdminMember,
     AdminCard,
     AdminCardCreate,
+    AdminCardSetting,
     AdminAccess,
     AdminAccessCreate,
     AdminStore,
@@ -84,6 +85,7 @@ class AdminPanel extends Component {
                 { name: 'create-new-vendor', path: `${this.props.match.url}/vendor/create-new-vendor`, component: AdminVendorCreate },
                 { name: 'member', path: `${this.props.match.url}/member`, component: AdminMember },
                 { name: 'card', path: `${this.props.match.url}/card`, component: AdminCard },
+                { name: 'card-setting', path: `${this.props.match.url}/card/card-setting`, component: AdminCardSetting },
                 { name: 'create-new-card', path: `${this.props.match.url}/card/create-new-card`, component: AdminCardCreate },
                 { name: 'access', path: `${this.props.match.url}/access`, component: AdminAccess },
                 { name: 'create-new-access', path: `${this.props.match.url}/access/create-new-access`, component: AdminAccessCreate },
@@ -205,8 +207,15 @@ class AdminPanel extends Component {
                     path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}` : 'null'}`
                 };
 
+                //SETTING JENIS KARTU SUPERADMIN
+                let settingMembership = {
+                    name: `Pengaturan Jenis Kartu`,
+                    path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}/card-setting` : 'null'}`
+                };
+
                 if (menu[i].id === 5 && menu[i].path === "card") {
                     dataMenu.items.push(jenisMemberShipSuperadmin);
+                    dataMenu.items.push(settingMembership);
                 };
             }
             //#Superadmin -- Member

@@ -210,8 +210,6 @@ class AdminStoreCashierKartuBaruConfirmationModal extends Component {
                                         </Select>
                                     </FormField>
                                 </FormGroup>
-
-
                             </Column> 
                             <Column md={6}>
                                 <FormGroup>
@@ -223,7 +221,6 @@ class AdminStoreCashierKartuBaruConfirmationModal extends Component {
                                             placeholder={selectedMember.card ? selectedMember.card.type.min : null}
                                             defaultValue={selectedMember.card ? selectedMember.card.type.min : null}
                                             onChange={(e) => handleInputChangeInModalUpdate('selectedMember', e)}
-                                            readOnly
                                         />
                                     </FormField>
                                 </FormGroup>

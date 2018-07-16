@@ -85,9 +85,11 @@ import {
 
 	GET_MENU_LIST_STORE_WITH_PRINT_REQUESTED, //#GET MENU LIST STORE WITH PRINT
 	GET_MENU_LIST_STORE_WITH_PRINT_FULFILLED,
-	GET_MENU_LIST_STORE_WITH_PRINT_REJECTED
-	
+	GET_MENU_LIST_STORE_WITH_PRINT_REJECTED,
 
+	GET_SALDO_BONUS_REQUESTED, //GET SALDO BONUS
+	GET_SALDO_BONUS_FULFILLED,
+	GET_SALDO_BONUS_REJECTED
 
 } from '../actions/store.action'
 
@@ -246,6 +248,14 @@ const initialState = {
 		data: {},
 		isPrinting: false,
 		isPrinted: false,
+		isError: false,
+		error: {}
+	},
+
+	saldo : {
+		data: {},
+		isFetching: false,
+		isLoaded: false,
 		isError: false,
 		error: {}
 	}
@@ -738,7 +748,49 @@ const store = (state = initialState, action) => {
 				}
 			}
 		}
-	
+		//GET SALDO BONUS
+		case GET_SALDO_BONUS_REQUESTED: {
+			return {
+				...state,
+				saldo: {
+					...state.saldo,
+					data: {},
+					isFetching: true,
+					isLoaded: false,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case GET_SALDO_BONUS_FULFILLED: {
+			return {
+				...state,
+				saldo: {
+					...state.saldo,
+					data: action.payload,
+					isLoaded: true,
+					isFetching: false,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case GET_SALDO_BONUS_REJECTED: {
+			return {
+				...state,
+				saldo: {
+					...state.saldo,
+					data: {},
+					isLoaded: false,
+					isFetching: false,
+					isError: true,
+					error: action.payload
+				}
+			}
+		}
+
 		//#GET PROMO DISCOUNT ALL
 		case GET_PROMO_DISCOUNT_ALL_STORE_REQUESTED: {
 			return {

@@ -37,14 +37,14 @@ const AdminCardView = props => {
       //#
 	const renderMemberFeature = () => {
 
-		const { bonus} = this.props;
+		const { bonus} = props;
 
 		return (
 			<div>
             
 				<div className="flex justify-content--space-around">
 					{
-						this.props.bonus.map((tier) => {
+						bonus.map((tier) => {
 							return (
 								<Button className="padding-large" type="button" theme="primary" key={tier.id} value={tier} onClick={(e) => handleTierTopup(tier, e)}>
 									<h5>Rp. {parseFloat(tier.price).toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 2})}</h5>
@@ -155,11 +155,11 @@ const AdminCardView = props => {
 
                                                 {console.log(selectedCard)}
                                                 {/* { selectedCard.name === "Member" ? } */}
-                                                {/* <FormGroup row>
+                                                <FormGroup row>
                                                       <FormField label="Top Up">
                                                       { selectedCard.name === "Member" ? renderMemberFeature() : null()}
                                                       </FormField>
-                                                </FormGroup> */}
+                                                </FormGroup>
                                           </Column>
                                     </Row>
                               </ModalBody>

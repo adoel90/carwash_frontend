@@ -118,6 +118,10 @@ export const GET_REPORT_CASHIER_SUPERADM_REQUESTED = 'GET_REPORT_CASHIER_SUPERAD
 export const GET_REPORT_CASHIER_SUPERADM_FULFILLED = 'GET_REPORT_CASHIER_SUPERADM_FULFILLED';
 export const GET_REPORT_CASHIER_SUPERADM_REJECTED = 'GET_REPORT_CASHIER_SUPERADM_REJECTED';
 
+//GET SALDO BONUS
+export const GET_SALDO_BONUS_REQUESTED = 'GET_SALDO_BONUS_REQUESTED';
+export const GET_SALDO_BONUS_FULFILLED = 'GET_SALDO_BONUS_FULFILLED';
+export const GET_SALDO_BONUS_REJECTED = 'GET_SALDO_BONUS_REJECTED';
 
 const accessToken = localStorage.getItem('accessToken') ? localStorage.getItem('accessToken') : null;
 const userLogin = localStorage.getItem('userData') ? localStorage.getItem('userData') : null;
@@ -389,6 +393,29 @@ export const getBonusTaxiOnline = () => {
 	function getBonusError(data) { return { type: GET_BONUS_TAXI_ONLINE_REJECTED, payload: data } }
 }
 
+//GET SALDO BONUS
+export const getSaldoBonus = () => {
+
+	// console.log(accessToken);
+	return async dispatch => {
+
+		dispatch(getBonusRequest());
+
+		return axios
+		
+			.get(`${constant.API_PATH}saldo/list?accessToken=${accessToken}`)
+			.then((response) => {
+				dispatch(getBonusSuccess(response));
+			})
+			.catch((err) => {
+				dispatch(getBonusError(err));
+			})
+	}
+
+	function getBonusRequest() { return { type: GET_SALDO_BONUS_REQUESTED } }
+	function getBonusSuccess(data) { return { type: GET_SALDO_BONUS_FULFILLED, payload: data } }
+	function getBonusError(data) { return { type: GET_SALDO_BONUS_REJECTED, payload: data } }
+}
 
 //#GET PROMO DISCOUNT ALL
 export const getPromoDiscountListAllStore = (data) => {

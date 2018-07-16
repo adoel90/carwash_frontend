@@ -70,14 +70,15 @@ class AdminStoreCashierTopUp extends Component {
 				{ id: 3, name: 'Credit' }
             ],
             bonus: {},
-            printData: {}
+            printData: {},
+            taxiOnlineNominal: {}
 		}
-    }
+    };
 
     componentDidMount(){
         const { action } = this.props;
         action.getBonusTaxiOnline();
-    }
+    };
     
     componentDidUpdate = (prevProps) => {
         const { storeState, member } = this.props;
@@ -238,18 +239,26 @@ class AdminStoreCashierTopUp extends Component {
             authenticatedMember,
             toggleDialog,
             closeDialog,
-            accessTokenMember
+            accessTokenMember,
+            taxiOnlineNominal
         } = this.state;
 
         e.preventDefault();
 
         const { action, user } = this.props;          
 
+        console.log(taxiOnlineNominal)
+        
 		let requiredData = {
-			balance: parseInt(topupData.balance.replace(/,/g, '')),
+            // balance: parseInt(topupData.balance.replace(/,/g, '')),
+            // balance: parseInt(taxiOnlineNominal.replace(/,/g, '')),
+            balance:parseInt(taxiOnlineNominal),
             payment: topupData.payment,
             staff: user.level.id
-        }
+        };
+
+        console.log(requiredData);
+
         action.memberCustomerTopup(requiredData, accessTokenMember.accessToken);
         // console.log(topupData);
         // console.log(requiredData);
@@ -277,16 +286,21 @@ class AdminStoreCashierTopUp extends Component {
         let bonusTopUpTaxi = parseInt(tier.bonus.replace(/,/g, ''));
         let totalTopUpTaxi = nominalTopUpTaxi + bonusTopUpTaxi;
         
-        const { topupData, accessTokenMember} = this.state;
-		const { action, user } = this.props;        
+        // const { topupData, accessTokenMember} = this.state;
+		// const { action, user } = this.props;        
 
-		let requiredData = {
-			balance: totalTopUpTaxi,
-            payment: topupData.payment,
-            staff: user.level.id
-        }
-        action.memberCustomerTopup(requiredData, accessTokenMember.accessToken);
-    }
+		// let requiredData = {
+		// 	balance: totalTopUpTaxi,
+        //     payment: topupData.payment,
+        //     staff: user.level.id
+        // }
+        // action.memberCustomerTopup(requiredData, accessTokenMember.accessToken);
+
+        this.setState({
+            ...this.state,
+            taxiOnlineNominal: nominalTopUpTaxi
+        });
+    };
 
     render() {
         return ( 

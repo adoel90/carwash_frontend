@@ -16,7 +16,8 @@ import {
 
 	REMOVE_MEMBER_REQUESTED, //#REMOVE MEMBER
 	REMOVE_MEMBER_FULFILLED,
-	REMOVE_MEMBER_REJECTED
+	REMOVE_MEMBER_REJECTED,
+    UPDATE_CARD_TYPE_REQUESTED
 
 } from '../actions/card.action';
 
@@ -118,6 +119,18 @@ const card = (state = initialState, action) => {
 					isCreated: false,
 					isError: true,
 					error: action.payload
+				}
+			}
+		}
+
+		case UPDATE_CARD_TYPE_REQUESTED: {
+			return {
+				...state,
+				type: {
+					...state.type,
+					isUpdated: false,
+					isError: false,
+					error: {}
 				}
 			}
 		}

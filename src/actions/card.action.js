@@ -9,6 +9,7 @@ export const GET_ALL_CARD_TYPE_FULFILLED = 'GET_ALL_CARD_TYPE_FULFILLED';
 export const GET_ALL_CARD_TYPE_REJECTED = 'GET_ALL_CARD_TYPE_REJECTED';
 export const CREATE_CARD_TYPE_FULFILLED = 'CREATE_CARD_TYPE_FULFILLED';
 export const CREATE_CARD_TYPE_REJECTED = 'CREATE_CARD_TYPE_REJECTED';
+export const UPDATE_CARD_TYPE_REQUESTED = 'UPDATE_CARD_TYPE_REQUESTED';
 export const UPDATE_CARD_TYPE_FULFILLED = 'UPDATE_CARD_TYPE_FULFILLED';
 export const UPDATE_CARD_TYPE_REJECTED = 'UPDATE_CARD_TYPE_REJECTED';
 export const CHANGE_CARD_TYPE_STATUS_REQUESTED = 'CHANGE_CARD_TYPE_STATUS_REQUESTED';
@@ -87,26 +88,39 @@ export const createNewCardType = (data) => {
 }
 
 export const updateCardType = (data) => {
+	// return async dispatch => {
+	// 	return axios
+	// 		.put(`${constant.API_PATH}card/type/update?accessToken=${accessToken}`, {
+	// 			id: data.id,
+	// 			name: data.name,
+	// 			minimum: data.min,
+	// 			bonus: data.bonus,
+	// 			refund: data.refund,
+	// 			charge: data.charge
+	// 		})
+	// 		.then((response) => {
+	// 			dispatch(handleSuccess(response.data))
+	// 		})
+	// 		.catch((error) => {
+	// 			dispatch(handleError(error))
+	// 		})
+	// }
+
 	return async dispatch => {
+		dispatch(updateRequest());
 		return axios
-			.put(`${constant.API_PATH}card/type/update?accessToken=${accessToken}`, {
-				id: data.id,
-				name: data.name,
-				minimum: data.min,
-				bonus: data.bonus,
-				refund: data.refund,
-				charge: data.charge
-			})
+			.put(`${constant.API_PATH}card/type/update?accessToken=${accessToken}`, data)
 			.then((response) => {
-				return Promise.resolve(dispatch(handleSuccess(response.data)))
+				dispatch(updateSuccess(response.data));
 			})
 			.catch((error) => {
-				return Promise.resolve(dispatch(handleError(error)))
+				dispatch(updateError(error))
 			})
 	}
 
-	function handleSuccess(data) { return { type: UPDATE_CARD_TYPE_FULFILLED, payload: data}}
-	function handleError(data) { return { type: UPDATE_CARD_TYPE_REJECTED, payload: data}}
+	function updateRequest() { return { type: UPDATE_CARD_TYPE_REQUESTED } }
+	function updateSuccess(data) { return { type: UPDATE_CARD_TYPE_FULFILLED, payload: data}}
+	function updateError(data) { return { type: UPDATE_CARD_TYPE_REJECTED, payload: data}}
 }
 
 export const changeCardTypeStatus = (data) => {

@@ -238,8 +238,8 @@ class AdminCard extends Component {
                         let row = {
                               id: data.id,
                               name: data.name,
-                              min: data.min ? data.min[0] : "Hubungi Vendor",
-                              mintopup: data.mintopup,
+                              min: data.min,
+                              // mintopup: data.mintopup,
                               bonus: data.bonus,
                               refund: data.refund,
                               charge: data.charge,

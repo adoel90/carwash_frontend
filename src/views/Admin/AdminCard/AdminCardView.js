@@ -121,7 +121,7 @@ const AdminCardView = props => {
                                                                   name="min" 
                                                                   placeholder={selectedCard.min} 
                                                                   defaultValue={selectedCard.min} 
-                                                                  value={selectedCard.min[0]}
+                                                                  value={selectedCard.min}
                                                                   onChange={(e) => handleInputChange('selectedCard', e)} 
                                                             />
                                                       </InputGroup>

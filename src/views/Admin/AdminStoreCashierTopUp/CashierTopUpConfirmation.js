@@ -49,7 +49,6 @@ class CashierTopUpConfirmation extends Component {
 		return (
 			<div>
 				<div className="flex justify-content--space-around">
-					{console.log(this.props.bonus)}
 					{
 						this.props.bonus.map((tier) => {
 							return (

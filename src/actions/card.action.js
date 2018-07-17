@@ -33,13 +33,16 @@ export const CREATE_STOCK_LIST_NEW_CARD_REJECTED = 'CREATE_STOCK_LIST_NEW_CARD_R
 
 const accessToken = localStorage.getItem('accessToken') ? localStorage.getItem('accessToken') : null;
 
-export const getCardTypeList = (data) => {
+export const getAllCardType = (data) => {
+
+	console.log(data);
+
 	return async dispatch => {
 
 		dispatch(handleRequest());
 
 		return axios
-			.get(`${constant.API_PATH}card/type/list?accessToken=${accessToken}`)
+			.get(`${constant.API_PATH}card/type/list?accessToken=${accessToken}&limit=${data.limit}`)
 			.then((response) => {
 				dispatch(handleSuccess(response.data));
 			})
@@ -53,7 +56,9 @@ export const getCardTypeList = (data) => {
 	function handleError(data) { return { type: GET_ALL_CARD_TYPE_REJECTED, payload: data} }
 }
 
-export const getAllCardType = (data) => {
+
+
+export const getCardTypeList = (data) => {
 	return async dispatch => {
 		return axios
 			.get(`${constant.API_PATH}card/type?accessToken=${accessToken}`)

@@ -31,19 +31,11 @@ class AdminCard extends Component {
                   isModalOpen: {
                         updateCard: false
                   },
-                  bonus: {}
-
-                  // saldoOption: [
-                  //       { 
-                  //             topup: {
-                  //                   opsi1 : "Rp. 300.000" 
-                  //             },
-
-                  //       }
-                  // ]
+                  bonus: {},
+                  selectedCard:{}            
             };
 
-            this.getCardTypeList = this.getCardTypeList.bind(this);
+            // this.getCardTypeList = this.getCardTypeList.bind(this);
             this.populateTableData = this.populateTableData.bind(this);
             this.toggleModal = this.toggleModal.bind(this);
             this.handleInputChange = this.handleInputChange.bind(this);
@@ -69,13 +61,17 @@ class AdminCard extends Component {
       }
 
       componentDidMount = () => {
-            this.getCardTypeList();
 
-            const { action, getSaldoBonusDispatch} = this.props;
-            action.getBonusTaxiOnline();
+            const { action, getSaldoBonusDispatch, getAllCardTypeDispatch} = this.props;
+            // action.getBonusTaxiOnline();
 
-            //#GET SALDO BONUS
-            getSaldoBonusDispatch();
+            let requireData = {
+                  limit: 3
+            };
+            getAllCardTypeDispatch(requireData);
+
+            // //#GET SALDO BONUS
+            // getSaldoBonusDispatch();
       }
 
       componentDidUpdate = (prevProps) => {
@@ -157,7 +153,7 @@ class AdminCard extends Component {
             } else {
                 action.closeDialog();
             }
-      }
+      };
 
       renderDialog = () => {
             const {
@@ -216,7 +212,8 @@ class AdminCard extends Component {
                   align: 'center',
                   rowAlign: 'center',
                   isCurrency: true
-            }, {
+            }, 
+            {
                   title: 'Status',
                   accessor: 'action',
                   width: '30%',
@@ -233,7 +230,7 @@ class AdminCard extends Component {
 
             // if(cardList.isLoaded) {
             if(card.types.isLoaded){
-                  card.types.data.result.forEach((data) => {
+                  card.types.data.result.card.forEach((data) => {
 
                         //#
                         // let dataPilihanNominalSaldo = data.min.length ? data.min.filter((data, index, self) => {
@@ -292,45 +289,61 @@ class AdminCard extends Component {
             const { action } = this.props;
       
             let { selectedCard } = this.state;
+           
 
-            let param = {
-                  id: selectedCard.id,
-                  name: selectedCard.name,
-                  minimum: parseInt(selectedCard.min.replace(/,/g, '')),
-                  bonus: selectedCard.bonus ? parseInt(selectedCard.bonus.replace(/,/g, '')) : null,
-                  refund: selectedCard.refund,
-                  charge: selectedCard.charge
-            };
-
-            action.updateCardType(param).then(() => {
-                  const { card } = this.props;
-
-                  if (card.type.isUpdated) {
-                        let dialogData = {
-                            type: 'success',
-                            title: 'Berhasil',
-                            message: 'Card telah berhasil diubah. Klik tombol berikut untuk kembali.',
-                            onClose: () => window.location.reload(),
-                            closeText: 'Kembali'
-                        }
-                
-                        this.toggleDialog(dialogData);
-                  };
+            if(selectedCard.name === "Member"){
+                  let items = [];
+                  items.push(selectedCard.opsi1);
+                  items.push(selectedCard.opsi2);
+                  items.push(selectedCard.opsi3);
       
-                  if (card.type.isError) {
-                        let dialogData = {
-                            type: 'danger',
-                            title: 'Gagal',
-                            message: 'Card gagal diubah. Klik tombol berikut untuk kembali.',
-                            onClose: () => this.toggleDialog(),
-                            closeText: 'Kembali'
-                        }
+                  
+                  let param = {
+                        id: selectedCard.id,
+                        name: selectedCard.name,
+                        minimum: parseInt(selectedCard.min.replace(/,/g, '')),
+                        bonus: selectedCard.bonus ? parseInt(selectedCard.bonus.replace(/,/g, '')) : null,
+                        refund: selectedCard.refund,
+                        charge: selectedCard.charge,
+                        item: items,
+                  };
+
+                  console.log(param);
+            };
+           
+
+           
+
+            // action.updateCardType(param).then(() => {
+
+            //       const { card } = this.props;
+
+            //       if (card.type.isUpdated) {
+            //             let dialogData = {
+            //                 type: 'success',
+            //                 title: 'Berhasil',
+            //                 message: 'Card telah berhasil diubah. Klik tombol berikut untuk kembali.',
+            //                 onClose: () => window.location.reload(),
+            //                 closeText: 'Kembali'
+            //             };
                 
-                        this.toggleDialog(dialogData);
-                  }
-                  // this.toggleModal('updateCard');
-                  // window.location.reload();
-            })
+            //             this.toggleDialog(dialogData);
+            //       };
+      
+            //       if (card.type.isError) {
+            //             let dialogData = {
+            //                 type: 'danger',
+            //                 title: 'Gagal',
+            //                 message: 'Card gagal diubah. Klik tombol berikut untuk kembali.',
+            //                 onClose: () => this.toggleDialog(),
+            //                 closeText: 'Kembali'
+            //             }
+                
+            //             this.toggleDialog(dialogData);
+            //       }
+            //       // this.toggleModal('updateCard');
+            //       // window.location.reload();
+            // })
       }
 
       handleInputChange = (object, e) => {
@@ -347,13 +360,13 @@ class AdminCard extends Component {
             });
       }
 
-      getCardTypeList = () => {
-            const {
-                  getAllCardType
-            } = this.props;
+      // getCardTypeList = () => {
+      //       const {
+      //             getAllCardType
+      //       } = this.props;
 
-            getAllCardType();
-      }
+      //       getAllCardType();
+      // }
       
       render() {
             return (
@@ -384,6 +397,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
       return {
+            getAllCardTypeDispatch : (data) => dispatch(getAllCardType(data)),
             getSaldoBonusDispatch : () => dispatch(getSaldoBonus()),
             getAllCardType: () => dispatch(getAllCardType()),
             action: bindActionCreators({ updateCardType, changeCardTypeStatus, openDialog, closeDialog, getBonusTaxiOnline }, dispatch)

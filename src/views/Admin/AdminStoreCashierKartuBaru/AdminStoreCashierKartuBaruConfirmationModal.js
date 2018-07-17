@@ -30,7 +30,7 @@ class AdminStoreCashierKartuBaruConfirmationModal extends Component {
 						optionTopUpMember.map((newsaldo) => {
 							return (
 								<div>
-									<Button className="padding-large" type="button" theme="primary" key={newsaldo.id} value={newsaldo} onClick={(e) => handleSaldoAwalMember(newsaldo, e)}>
+									<Button type="button" theme="primary" key={newsaldo.id} value={newsaldo} onClick={(e) => handleSaldoAwalMember(newsaldo, e)}>
 										<h5>Rp. {parseFloat(newsaldo.balance).toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 2})}</h5>
 									</Button>
 									<h5><small className="margin-right-small center">Bonus : { newsaldo.bonus }</small></h5>

@@ -32,31 +32,7 @@ const AdminCardView = props => {
             optionsPagination,
             bonus,
             handleTierTopup, //INI FUNCTION IS NOT OKE 
-
       } = props;
-
-      //#
-	const renderMemberFeature = () => {
-
-		const { bonus} = props;
-
-		return (
-			<div>
-            
-				<div className="flex justify-content--space-around">
-					{
-						bonus.map((tier) => {
-							return (
-								<Button className="padding-large" type="button" theme="primary" key={tier.id} value={tier} onClick={(e) => handleTierTopup(tier, e)}>
-									<h5>Rp. {parseFloat(tier.price).toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 2})}</h5>
-								</Button>
-							);
-						})
-					}
-				</div>
-			</div>
-		)
-	};
 
       //#This function is not ACTIVE until you use <BootstrapTable />
       const componentButtonUpdate = (datarow) => {
@@ -87,7 +63,130 @@ const AdminCardView = props => {
 
       const renderCardDetailModal = () => {
 
-            if(selectedCard) {
+            const {selectedCard } = props;
+            let selectedCardJenisMember = selectedCard ? selectedCard.name : "Ga dapet"; 
+            // console.log(selectedCard ? selectedCard.name : "Ga dapet");
+
+            //#MEMBER
+            if(selectedCardJenisMember === "Member"){
+                  return (
+                        <Modal
+                              isOpen={isModalOpen.updateCard}
+                              toggle={() => toggleModal('updateCard')}>
+                              <ModalHeader>
+                                    <h5>Ubah Informasi Card</h5>
+                              </ModalHeader>
+                              <Form onSubmit={updateCard}>
+                                    <ModalBody>
+                                          <Row>
+                                                <Column md={12}>
+                                                      <FormField label="Jenis Member">
+                                                            <InputGroup>
+                                                                  <InputAddon>
+                                                                        <i class="far fa-credit-card"></i>
+                                                                  </InputAddon>
+                                                                  <Input readOnly type="text" name="name" placeholder={selectedCard.name} defaultValue={selectedCard.name} onChange={(e) => handleInputChange('selectedCard', e)} />
+                                                            </InputGroup>
+                                                      </FormField>
+
+                                                        <FormField label="Minimum Saldo">
+                                                            <InputGroup>
+                                                                  <InputAddon>
+                                                                        Rp
+                                                                  </InputAddon>
+                                                                  <Input type="text" name="min" placeholder={selectedCard.min} defaultValue={selectedCard.min} onChange={(e) => handleInputChange('selectedCard', e)} />
+                                                            </InputGroup>
+                                                      </FormField>
+                                                </Column>
+                                          </Row>
+
+                                          {/* OPSI NOMINAL SALDO */}
+                                          <Row>
+                                                <Column md={3}>
+                                                      <FormField label="Top Up" >
+                                                            <InputGroup>
+                                                                  <InputAddon>
+                                                                        Rp
+                                                                  </InputAddon>
+                                                                  <Input type="text" placeholder="Isi Top-up 1" name="opsi1" onChange={(e) => handleInputChange('selectedCard', e)} />
+                                                            </InputGroup>
+                                                      </FormField>
+                                                </Column>
+                                                <Column md={3}>
+                                                      <FormField label="Top Up">
+                                                            <InputGroup>
+                                                                  <InputAddon>
+                                                                        Rp
+                                                                  </InputAddon>
+                                                                  <Input type="text" placeholder="Isi Top-up 2" name="opsi2" onChange={(e) => handleInputChange('selectedCard', e)} />
+                                                            </InputGroup>
+                                                      </FormField>
+                                                </Column>
+
+                                                <Column md={3}>
+                                                      <FormField label="Top Up">
+                                                            <InputGroup>
+                                                                  <InputAddon>
+                                                                        Rp
+                                                                  </InputAddon>
+                                                                  <Input type="text" placeholder="Isi Top-up 3" name="opsi3" onChange={(e) => handleInputChange('selectedCard', e)} />
+                                                            </InputGroup>
+                                                      </FormField>
+                                                </Column>
+                                          </Row>
+
+                                          {/* OPSI BONUS */}
+                                          <Row>
+                                                <Column md={3}>
+                                                      <FormField label="Bonus">
+                                                            <InputGroup>
+                                                                  <InputAddon>
+                                                                        Rp
+                                                                  </InputAddon>
+                                                                  <Input type="text" placeholder="Isi Bonus-1" name="bonus1" onChange={(e) => handleInputChange('selectedCard', e)} />
+                                                            </InputGroup>
+                                                      </FormField>
+                                                </Column>
+                                                <Column md={3}>
+                                                      <FormField label="Bonus">
+                                                            <InputGroup>
+                                                                  <InputAddon>
+                                                                        Rp
+                                                                  </InputAddon>
+                                                                  <Input type="text" placeholder="Isi Bonus-2" name="bonus2" onChange={(e) => handleInputChange('selectedCard', e)} />
+                                                            </InputGroup>
+                                                      </FormField>
+                                                </Column>
+                                                <Column md={3}>
+                                                      <FormField label="Bonus">
+                                                            <InputGroup>
+                                                                  <InputAddon>
+                                                                        Rp
+                                                                  </InputAddon>
+                                                                  <Input type="text" placeholder="Isi Bonus-3" name="bonus3" onChange={(e) => handleInputChange('selectedCard', e)} />
+                                                            </InputGroup>
+                                                      </FormField>
+                                                </Column>
+                                          </Row>
+
+                                          <Row>
+                                                <Column>
+                                                      <FormField label="Refund">
+                                                            <SwitchSquare name="refund" value={Boolean(selectedCard.refund)} onChange={(e) => handleInputChange('selectedCard', e)} />
+                                                      </FormField>
+                                                </Column>
+                                          </Row>
+                                    </ModalBody>
+                                    <ModalFooter className="flex justify-content--flex-end">
+                                          <Button className="margin-right-small" theme="danger" type="button" onClick={() => toggleModal('updateCard')}>Batal</Button>
+                                          <Button type="submit">Simpan</Button>
+                                    </ModalFooter>
+                              </Form>
+                        </Modal>
+                  )
+            };
+
+            if(selectedCardJenisMember === "Non-Member") {
 
                 return (
                     <Modal
@@ -100,17 +199,15 @@ const AdminCardView = props => {
                               <ModalBody>
                                     <Row>
                                           <Column>
-                                                <FormField label="Nama Kartu">
+                                                <FormField label="Jenis Member">
                                                       <InputGroup>
                                                             <InputAddon>
                                                                   <i class="far fa-credit-card"></i>
                                                             </InputAddon>
-                                                            <Input type="text" name="name" placeholder={selectedCard.name} defaultValue={selectedCard.name} onChange={(e) => handleInputChange('selectedCard', e)} />
+                                                            <Input readOnly type="text" name="name" placeholder={selectedCard.name} defaultValue={selectedCard.name} onChange={(e) => handleInputChange('selectedCard', e)} />
                                                       </InputGroup>
-                                                </FormField>
-
-                                                
-                                                <FormField label="Top Up">
+                                                </FormField>                                                
+                                                <FormField label="Minimum Saldo">
                                                       <InputGroup>
                                                             <InputAddon>
                                                                   <small class="fw-semibold tt-uppercase ls-base">Rp</small>
@@ -126,40 +223,54 @@ const AdminCardView = props => {
                                                             />
                                                       </InputGroup>
                                                 </FormField>
-                                                {
-                                                      selectedCard.id !== 1 ?
-                                                            <FormField label="Bonus Saldo">
-                                                                  <InputGroup>
-                                                                        <InputAddon>
-                                                                              <small class="fw-semibold tt-uppercase ls-base">Rp</small>
-                                                                        </InputAddon>
-                                                                        <InputCurrency 
-                                                                              className="input" 
-                                                                              type="text" 
-                                                                              name="bonus" 
-                                                                              placeholder={selectedCard.bonus} 
-                                                                              defaultValue={selectedCard.bonus} 
-                                                                              value={selectedCard.bonus}
-                                                                              onChange={(e) => handleInputChange('selectedCard', e)} 
-                                                                        />
-                                                                  </InputGroup>
-                                                            </FormField>
-                                                      : null
-                                                }
+                                          </Column>
+                                    </Row>
+                                    <Row>
+                                          <Column md={6}>
+                                                <FormField label="Top Up">
+                                                      <InputGroup>
+                                                            <InputAddon>
+                                                                  <small class="fw-semibold tt-uppercase ls-base">Rp</small>
+                                                            </InputAddon>
+                                                            <InputCurrency 
+                                                                  className="input"
+                                                                  type="text" 
+                                                                  name="opsinonmember" 
+                                                                  placeholder="Isi Top-up" 
+                                                                  // defaultValue={selectedCard.min} 
+                                                                  value={selectedCard.opsinonmember}
+                                                                  onChange={(e) => handleInputChange('selectedCard', e)} 
+                                                            />
+                                                      </InputGroup>
+                                                </FormField>
+                                          </Column>
+                                          <Column md={6}>
+                                                <FormField label="Bonus">
+                                                      <InputGroup>
+                                                            <InputAddon>
+                                                                  <small class="fw-semibold tt-uppercase ls-base">Rp</small>
+                                                            </InputAddon>
+                                                            <InputCurrency 
+                                                                  className="input"
+                                                                  type="text" 
+                                                                  name="bonusnonmember" 
+                                                                  placeholder="Isi Bonus Top-up" 
+                                                                  // defaultValue={selectedCard.min} 
+                                                                  value={selectedCard.bonusnonmember}
+                                                                  onChange={(e) => handleInputChange('selectedCard', e)} 
+                                                            />
+                                                      </InputGroup>
+                                                </FormField>
+                                          </Column>
+                                    </Row>
+                                    <Row>
+                                          <Column>
                                                 <FormField label="Refund">
                                                       <SwitchSquare name="refund" value={Boolean(selectedCard.refund)} onChange={(e) => handleInputChange('selectedCard', e)} />
                                                 </FormField>
                                                 <FormField label="Charge">
                                                       <SwitchSquare name="charge" value={Boolean(selectedCard.charge)} onChange={(e) => handleInputChange('selectedCard', e)} />
                                                 </FormField>
-
-                                                {console.log(selectedCard)}
-                                                {/* { selectedCard.name === "Member" ? } */}
-                                                <FormGroup row>
-                                                      <FormField label="Top Up">
-                                                      { selectedCard.name === "Member" ? renderMemberFeature() : null()}
-                                                      </FormField>
-                                                </FormGroup>
                                           </Column>
                                     </Row>
                               </ModalBody>

@@ -42,11 +42,22 @@ class CashierTopUpConfirmation extends Component {
 	//#
 	renderTambahSaldoMember = () => {
 
-		const { bonus, handleInputChange, topupData, handleTopUpMember, optionTopUpMember } = this.props;
+		const { bonus, handleInputChange, topupData, handleTopUpMember, optionTopUpMember, optionTopUpMemberThemeButton} = this.props;
 
 		const center ={
 			'marginLeft' : '5px'
 		};
+
+		//#TO SHOW LOADER WHEN KLIK BUTTON
+		// if(optionTopUpMemberThemeButton === true){
+		// 	return (
+		// 		<div>
+		// 			<div className="flex justify-content--space-around">
+		// 				<i class="fa fa-spinner fa-spin" style="font-size:24px"></i>
+		// 			</div>
+		// 		</div>
+		// 	)
+		// };
 
 		return (
 			<div>
@@ -55,7 +66,7 @@ class CashierTopUpConfirmation extends Component {
 						optionTopUpMember.map((topup) => {
 							return (
 								<div>
-									<Button className="padding-large" type="button" theme="primary" key={topup.id} value={topup} onClick={(e) => handleTopUpMember(topup, e)}>
+									<Button type="button" theme="primary" key={topup.id} value={topup} onClick={(e) => handleTopUpMember(topup, e)}>
 										<h5>Rp. {parseFloat(topup.balance).toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 2})}</h5>
 									</Button>
 									<h5><small className="margin-right-small center">Bonus : { topup.bonus }</small></h5>

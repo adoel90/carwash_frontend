@@ -20,7 +20,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        getSaldoBonusDispatch : () => dispatch(getSaldoBonus()),
+        getSaldoBonusDispatch : (data) => dispatch(getSaldoBonus(data)),
         action: bindActionCreators({ printMemberTransaction, kasirTopUpLogin, openDialog, closeDialog, memberCustomerTopup, getBonusTaxiOnline }, dispatch)
     }
 };
@@ -81,9 +81,6 @@ class AdminStoreCashierTopUp extends Component {
 
     componentDidMount(){
         const { action, getSaldoBonusDispatch } = this.props;
-        // action.getBonusTaxiOnline();
-
-        //GET SALDO BONUS
         getSaldoBonusDispatch();
     };
     
@@ -223,6 +220,10 @@ class AdminStoreCashierTopUp extends Component {
 	}
     
     handleTopUp = () => {
+
+        // const { getSaldoBonusDispatch } = this.props;
+        // getSaldoBonusDispatch(data);
+
         this.toggleModal('topup');
     }
 

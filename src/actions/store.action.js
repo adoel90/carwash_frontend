@@ -404,7 +404,7 @@ export const getSaldoBonus = () => {
 		dispatch(getBonusRequest());
 
 		return axios
-		
+			// .get(`${constant.API_PATH}saldo/list?accessToken=${accessToken}&type=${data.type}`)
 			.get(`${constant.API_PATH}saldo/list?accessToken=${accessToken}`)
 			.then((response) => {
 				dispatch(getBonusSuccess(response.data));
@@ -417,7 +417,7 @@ export const getSaldoBonus = () => {
 	function getBonusRequest() { return { type: GET_SALDO_BONUS_REQUESTED } }
 	function getBonusSuccess(data) { return { type: GET_SALDO_BONUS_FULFILLED, payload: data } }
 	function getBonusError(data) { return { type: GET_SALDO_BONUS_REJECTED, payload: data } }
-}
+};
 
 //#GET PROMO DISCOUNT ALL
 export const getPromoDiscountListAllStore = (data) => {

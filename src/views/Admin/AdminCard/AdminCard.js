@@ -268,7 +268,7 @@ class AdminCard extends Component {
       openCardDetail = (row) => {
             this.setState({
                   ...this.state,
-                  selectedCard: row.data
+                  selectedCard: row
             }, () => {
                   this.toggleModal('updateCard');
             })
@@ -280,7 +280,7 @@ class AdminCard extends Component {
             } = this.props;
     
             let requiredData = {
-                  id: row.data.id
+                  id: row.id
             }
     
             action.changeCardTypeStatus(requiredData);
@@ -296,8 +296,8 @@ class AdminCard extends Component {
             let param = {
                   id: selectedCard.id,
                   name: selectedCard.name,
-                  min: parseInt(selectedCard.min.replace(/,/g, '')),
-                  bonus: parseInt(selectedCard.bonus.replace(/,/g, '')),
+                  minimum: parseInt(selectedCard.min.replace(/,/g, '')),
+                  bonus: selectedCard.bonus ? parseInt(selectedCard.bonus.replace(/,/g, '')) : null,
                   refund: selectedCard.refund,
                   charge: selectedCard.charge
             };
@@ -365,6 +365,8 @@ class AdminCard extends Component {
                               updateCard={this.updateCard}
                               toggleModal={this.toggleModal}
                               optionsPagination={this.optionsPagination}
+                              openCardDetail={this.openCardDetail}
+                              changeCardStatus={this.changeCardStatus}
                         />
                         {this.renderDialog()}
                   </div>

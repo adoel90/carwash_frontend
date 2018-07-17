@@ -13,6 +13,7 @@ import vendorState from './vendor.user.reducer';
 import vendorReportState from './vendor.report.reducer';
 import adminVendorState from './admin.vendor.reducer';
 import store from './store.reducer';
+import balance from './balance.reducer';
 
 
 const rootReducer = combineReducers({
@@ -29,7 +30,8 @@ const rootReducer = combineReducers({
 	vendorState,
 	adminVendorState,
 	vendorReportState,
-	store
+	store,
+	balance
 });
 
 export default rootReducer;

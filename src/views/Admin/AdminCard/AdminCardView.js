@@ -126,22 +126,26 @@ const AdminCardView = props => {
                                                             />
                                                       </InputGroup>
                                                 </FormField>
-                                                <FormField label="Bonus">
-                                                      <InputGroup>
-                                                            <InputAddon>
-                                                                  <small class="fw-semibold tt-uppercase ls-base">Rp</small>
-                                                            </InputAddon>
-                                                            <InputCurrency 
-                                                                  className="input" 
-                                                                  type="text" 
-                                                                  name="bonus" 
-                                                                  placeholder={selectedCard.bonus} 
-                                                                  defaultValue={selectedCard.bonus} 
-                                                                  value={selectedCard.bonus}
-                                                                  onChange={(e) => handleInputChange('selectedCard', e)} 
-                                                            />
-                                                      </InputGroup>
-                                                </FormField>
+                                                {
+                                                      selectedCard.id !== 1 ?
+                                                            <FormField label="Bonus Saldo">
+                                                                  <InputGroup>
+                                                                        <InputAddon>
+                                                                              <small class="fw-semibold tt-uppercase ls-base">Rp</small>
+                                                                        </InputAddon>
+                                                                        <InputCurrency 
+                                                                              className="input" 
+                                                                              type="text" 
+                                                                              name="bonus" 
+                                                                              placeholder={selectedCard.bonus} 
+                                                                              defaultValue={selectedCard.bonus} 
+                                                                              value={selectedCard.bonus}
+                                                                              onChange={(e) => handleInputChange('selectedCard', e)} 
+                                                                        />
+                                                                  </InputGroup>
+                                                            </FormField>
+                                                      : null
+                                                }
                                                 <FormField label="Refund">
                                                       <SwitchSquare name="refund" value={Boolean(selectedCard.refund)} onChange={(e) => handleInputChange('selectedCard', e)} />
                                                 </FormField>
@@ -228,6 +232,7 @@ const AdminCardView = props => {
                                                                   headerAlign="center" 
                                                                   dataAlign="right"
                                                                   width="20%"
+                                                                  dataFormat={priceFormatter}
                                                             >
                                                                   Minimum
                                                             </TableHeaderColumn>

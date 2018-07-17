@@ -247,8 +247,6 @@ class AdminStoreCashierTopUp extends Component {
 
         const { action, user } = this.props;          
 
-        console.log(taxiOnlineNominal)
-        
 		let requiredData = {
             // balance: parseInt(topupData.balance.replace(/,/g, '')),
             // balance: parseInt(taxiOnlineNominal.replace(/,/g, '')),
@@ -257,6 +255,7 @@ class AdminStoreCashierTopUp extends Component {
             staff: user.level.id
         };
 
+        console.log(this.props);
         console.log(requiredData);
 
         action.memberCustomerTopup(requiredData, accessTokenMember.accessToken);
@@ -293,7 +292,7 @@ class AdminStoreCashierTopUp extends Component {
 		// 	balance: totalTopUpTaxi,
         //     payment: topupData.payment,
         //     staff: user.level.id
-        // }
+        // };
         // action.memberCustomerTopup(requiredData, accessTokenMember.accessToken);
 
         this.setState({

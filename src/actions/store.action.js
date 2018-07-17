@@ -407,7 +407,7 @@ export const getSaldoBonus = () => {
 		
 			.get(`${constant.API_PATH}saldo/list?accessToken=${accessToken}`)
 			.then((response) => {
-				dispatch(getBonusSuccess(response));
+				dispatch(getBonusSuccess(response.data));
 			})
 			.catch((err) => {
 				dispatch(getBonusError(err));

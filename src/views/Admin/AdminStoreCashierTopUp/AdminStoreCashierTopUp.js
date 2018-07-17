@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import Currency from '../../../components/Currency';
 import { Dialog } from '../../../components/Dialog';
 import  {CashierTopUp}  from '../AdminStoreCashierTopUp';
-import { kasirTopUpLogin, getBonusTaxiOnline, printMemberTransaction } from '../../../actions/store.action';//Scenario-nya kasir meminta customer untuk GESEK KARTU MEMBER
+import { kasirTopUpLogin, getBonusTaxiOnline, printMemberTransaction, getSaldoBonus} from '../../../actions/store.action';//Scenario-nya kasir meminta customer untuk GESEK KARTU MEMBER
 import { memberCustomerTopup } from '../../../actions/member.action'
 import { openDialog, closeDialog } from '../../../actions/dialog.action';
 import { log } from 'util';
@@ -20,6 +20,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
+        getSaldoBonusDispatch : () => dispatch(getSaldoBonus()),
         action: bindActionCreators({ printMemberTransaction, kasirTopUpLogin, openDialog, closeDialog, memberCustomerTopup, getBonusTaxiOnline }, dispatch)
     }
 };
@@ -38,9 +39,10 @@ class AdminStoreCashierTopUp extends Component {
 
         this.handleTopUpPaymentCheckout = this.handleTopUpPaymentCheckout.bind(this);
         this.handlePrintReceipt = this.handlePrintReceipt.bind(this);
-        this.handleTierTopup = this.handleTierTopup.bind(this);
+        this.handleTopUpMember = this.handleTopUpMember.bind(this);
 
         this.state = {
+
 			authData: {
 				cardID: ''
             },
@@ -71,13 +73,17 @@ class AdminStoreCashierTopUp extends Component {
             ],
             bonus: {},
             printData: {},
-            taxiOnlineNominal: {}
+            memberNominal: {},
+            optionTopUpMember: {}
 		}
     };
 
     componentDidMount(){
-        const { action } = this.props;
-        action.getBonusTaxiOnline();
+        const { action, getSaldoBonusDispatch } = this.props;
+        // action.getBonusTaxiOnline();
+
+        //GET SALDO BONUS
+        getSaldoBonusDispatch();
     };
     
     componentDidUpdate = (prevProps) => {
@@ -151,7 +157,27 @@ class AdminStoreCashierTopUp extends Component {
                 }, () => {
                     window.print();
                 })
-            }
+            };
+        };
+
+        if(prevProps.storeState.saldo !== storeState.saldo){
+
+            if(storeState.saldo.isLoaded){
+                this.setState({
+                    ...this.state,
+                    optionTopUpMember: storeState.saldo.data.result
+                });
+            };
+        };
+
+        if(prevProps.storeState.saldo !== storeState.saldo){
+
+            if(storeState.saldo.isLoaded){
+                this.setState({
+                    ...this.state,
+                    optionTopUpMember: storeState.saldo.data.result
+                });
+            };
         };
     }
    
@@ -240,28 +266,48 @@ class AdminStoreCashierTopUp extends Component {
             toggleDialog,
             closeDialog,
             accessTokenMember,
-            taxiOnlineNominal
+            memberNominal
         } = this.state;
 
         e.preventDefault();
-
+        const typeMember = authenticatedMember.isAuthenticated ? authenticatedMember.data.card.type.name : null;
         const { action, user } = this.props;          
 
-		let requiredData = {
-            // balance: parseInt(topupData.balance.replace(/,/g, '')),
-            // balance: parseInt(taxiOnlineNominal.replace(/,/g, '')),
-            balance:parseInt(taxiOnlineNominal),
-            payment: topupData.payment,
-            staff: user.level.id
+        //Member
+        if(typeMember === "Member"){
+            
+            let requiredData = {
+                balance:parseInt(memberNominal),
+                payment: topupData.payment,
+                staff: user.level.id
+            };
+            
+            console.log("From Member");
+            action.memberCustomerTopup(requiredData, accessTokenMember.accessToken);
+
+        } else if(typeMember === "Non-Member"){
+           
+            let requiredData = {
+                balance: topupData ? parseInt(topupData.balance.replace(/,/g, '')) : null ,
+                payment: topupData.payment,
+                staff: user.level.id
+            };
+
+            console.log("From Non-Member");
+            action.memberCustomerTopup(requiredData, accessTokenMember.accessToken);
+
+        } else {
+
+            let requiredData = {
+                balance: topupData ? parseInt(topupData.balance.replace(/,/g, '')) : null ,
+                payment: topupData.payment,
+                staff: user.level.id
+            };
+
+            console.log("From Taxi Online");
+            action.memberCustomerTopup(requiredData, accessTokenMember.accessToken);
         };
-
-        console.log(this.props);
-        console.log(requiredData);
-
-        action.memberCustomerTopup(requiredData, accessTokenMember.accessToken);
-        // console.log(topupData);
-        // console.log(requiredData);
-    }
+    };
 
     //#
     handleTopUpPaymentCheckout = (e) => {
@@ -279,25 +325,11 @@ class AdminStoreCashierTopUp extends Component {
     }
 
     //#
-    handleTierTopup = (tier) => {
-
-        let nominalTopUpTaxi = parseInt(tier.price.replace(/,/g, ''));
-        let bonusTopUpTaxi = parseInt(tier.bonus.replace(/,/g, ''));
-        let totalTopUpTaxi = nominalTopUpTaxi + bonusTopUpTaxi;
-        
-        // const { topupData, accessTokenMember} = this.state;
-		// const { action, user } = this.props;        
-
-		// let requiredData = {
-		// 	balance: totalTopUpTaxi,
-        //     payment: topupData.payment,
-        //     staff: user.level.id
-        // };
-        // action.memberCustomerTopup(requiredData, accessTokenMember.accessToken);
+    handleTopUpMember = (topup) => {
 
         this.setState({
             ...this.state,
-            taxiOnlineNominal: nominalTopUpTaxi
+            memberNominal: topup.balance
         });
     };
 
@@ -316,7 +348,7 @@ class AdminStoreCashierTopUp extends Component {
                     handlePrintReceipt={this.handlePrintReceipt}
                     openDialog={this.openDialog}
                     closeDialog={this.closeDialog}
-                    handleTierTopup= { this.handleTierTopup}
+                    handleTopUpMember= { this.handleTopUpMember}
                 />
                 
                 {this.renderDialog()}

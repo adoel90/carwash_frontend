@@ -120,7 +120,7 @@ class AdminCard extends Component {
                               }
                         })
                   }
-            }
+            };
 
             // THIS FUNCTION IS NOT USE IN PRODUCTION
             if(prevProps.storeState.bonus !== storeState.bonus){

@@ -15,6 +15,37 @@ import { default as CardIcon } from '../../../assets/icons/Business/credit-card-
 
 class AdminStoreCashierKartuBaruConfirmationModal extends Component {
 
+
+
+
+    //#RENDER SALDO AWAL MEMBER
+    renderSaldoAwalMember = () => {
+        const { topupData, handleSaldoAwalMember, optionTopUpMember } = this.props;
+
+		const center ={
+			'marginLeft' : '5px'
+		};
+
+		return (
+			<div>
+				<div className="flex justify-content--space-around">
+					{
+						optionTopUpMember.map((newsaldo) => {
+							return (
+								<div>
+									<Button className="padding-large" type="button" theme="primary" key={newsaldo.id} value={newsaldo} onClick={(e) => handleSaldoAwalMember(newsaldo, e)}>
+										<h5>Rp. {parseFloat(newsaldo.balance).toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 2})}</h5>
+									</Button>
+									<h5><small className="margin-right-small center">Bonus : { newsaldo.bonus }</small></h5>
+								</div>
+							);
+						})
+					}
+				</div>
+			</div>
+		)
+    };
+
     render() {
 
         const { isModalOpen,
@@ -34,6 +65,9 @@ class AdminStoreCashierKartuBaruConfirmationModal extends Component {
             card,
             handleNominal
         } = this.props;
+
+
+        const cardMember = selectedMember.card ? selectedMember.card.type.name : null;
 
         return (
             <Modal isOpen={isModalOpen.updateMemberNewCardConfirmation}>
@@ -211,17 +245,17 @@ class AdminStoreCashierKartuBaruConfirmationModal extends Component {
                                     </FormField>
                                 </FormGroup>
                             </Column> 
-                            <Column md={6}>
+                            <Column md={12}>
                                 <FormGroup>
                                     <FormField label="Saldo Awal">
-                                        {console.log(selectedMember.card ? selectedMember.card.type.min : null)}
-                                        <Input
+                                        { cardMember === "Member" ? this.renderSaldoAwalMember() : null } 
+                                        {/* <Input
                                             name="name"
                                             type="text"
                                             placeholder={selectedMember.card ? selectedMember.card.type.min : null}
                                             defaultValue={selectedMember.card ? selectedMember.card.type.min : null}
                                             onChange={(e) => handleInputChangeInModalUpdate('selectedMember', e)}
-                                        />
+                                        /> */}
                                     </FormField>
                                 </FormGroup>
                                 
@@ -244,7 +278,7 @@ class AdminStoreCashierKartuBaruConfirmationModal extends Component {
                                     </FormField>
                                 </FormGroup> */}
                             </Column>
-                            <Column md={6}>
+                            {/* <Column md={6}>
                                 <FormGroup>
                                     <FormField label="Bonus">
                                          {console.log(selectedMember.card ? selectedMember.card.type.bonus: null)}
@@ -258,7 +292,7 @@ class AdminStoreCashierKartuBaruConfirmationModal extends Component {
                                         />
                                     </FormField>
                                 </FormGroup>
-                            </Column>
+                            </Column> */}
 
                         </Row>
                     </ModalBody>

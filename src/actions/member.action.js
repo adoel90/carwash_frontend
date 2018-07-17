@@ -69,10 +69,16 @@ export const authenticateMember = (data) => {
 }
 
 export const memberCustomerTopup = (data, accessToken) => {
-	// console.log(data);
+
 	return async dispatch => {
 		axios
-			.post(`${constant.API_PATH}member/topup?accessToken=${accessToken}`, data)
+			// .post(`${constant.API_PATH}member/topup?accessToken=${accessToken}`, data)
+
+			.post(`${constant.API_PATH}member/topup?accessToken=${accessToken}`, {
+				balance: data.balance,
+				payment: data.payment,
+				staff: data.staff
+			})
 			.then((response) => {
 				dispatch(handleSuccess(response));
 			})

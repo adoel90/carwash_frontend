@@ -10,7 +10,10 @@ class CashierTopUpPaymentReceipt extends Component{
 
     render (){
 
-        const { storeState, printData } = this.props
+        const { storeState, printData, authenticatedMember} = this.props
+
+        console.log(printData);
+        console.log(authenticatedMember);
 
         const renderSummary = () => {
 
@@ -51,12 +54,10 @@ class CashierTopUpPaymentReceipt extends Component{
     
 
         if(storeState.printMember.isPrinted){
+
             const { printData, user } = this.props;
 
-            // console.log(printData);
-
             let queueInvoice = printData.status === 200 ? printData.result.queue : null;
-            // let date = printData.status === 200 ? printData.result.date : null;
             let nameCustomer = printData.status === 200 ? printData.result.name : null;
             let nameStoreStaff =  printData.status === 200 ? user.level.name : null;
 

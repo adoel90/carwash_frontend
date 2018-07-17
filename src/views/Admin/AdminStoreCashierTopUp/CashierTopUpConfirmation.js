@@ -4,12 +4,10 @@ import { Column } from '../../../layouts/Grid';
 import { ModalHeader, ModalContent, ModalFooter, Modal, ModalDialog, ModalBody} from '../../../components/Modal';
 import {FormGroup } from '../../../components/Form';
 import { FormField, Form } from '../../../layouts/Form';
-// import { Input, InputGroup, InputAddon, InputCurrency, Label } from '../Input';
 import { Input, InputGroup, InputAddon, InputCurrency, Label, InputCashier } from '../../../components/Input';
 import { PageBlock } from '../../../components/Page';
 import { Button } from '../../../components/Button';
 import { Alert } from '../../../components/Alert';
-// import { Row } from '../Grid';
 import { Container, Row } from '../../../layouts/Grid';
 import { Badge } from '../../../components/Badge';
 import { default as CardIcon } from '../../../assets/icons/Business/credit-card-3.svg';
@@ -21,7 +19,7 @@ class CashierTopUpConfirmation extends Component {
 
 	//#
 	renderTambahSaldoCommon = () => {
-		const { topupData,handleInputChange } = this.props;
+		const { topupData,handleInputChange,  } = this.props;
 
 		return (
 				<InputGroup>
@@ -44,24 +42,52 @@ class CashierTopUpConfirmation extends Component {
 	//#
 	renderTambahSaldoMember = () => {
 
-		const { bonus, handleInputChange, topupData, handleTierTopup } = this.props;
+		const { bonus, handleInputChange, topupData, handleTopUpMember, optionTopUpMember } = this.props;
+
+		const center ={
+			'marginLeft' : '5px'
+		};
 
 		return (
 			<div>
 				<div className="flex justify-content--space-around">
-					{/* {console.log(this.props.bonus)} */}
 					{
-						this.props.bonus.map((tier) => {
+						optionTopUpMember.map((topup) => {
 							return (
-								<Button className="padding-large" type="button" theme="primary" key={tier.id} value={tier} onClick={(e) => handleTierTopup(tier, e)}>
-									<h5>Rp. {parseFloat(tier.price).toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 2})}</h5>
-								</Button>
+								<div>
+									<Button className="padding-large" type="button" theme="primary" key={topup.id} value={topup} onClick={(e) => handleTopUpMember(topup, e)}>
+										<h5>Rp. {parseFloat(topup.balance).toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 2})}</h5>
+									</Button>
+									<h5><small className="margin-right-small center">Bonus : { topup.bonus }</small></h5>
+								</div>
 							);
 						})
 					}
 				</div>
 			</div>
 		)
+	};
+
+	renderTambahSaldoNonMember = () => {
+
+		const { authenticatedMember, handleInputChange, topupData} = this.props;
+
+		return (
+			<InputGroup>
+				<InputAddon>
+					<small className="tt-uppercase fw-semibold ls-base">Rp</small>
+				</InputAddon>
+				<InputCurrency
+						className="input"
+						name="balance"
+						type="text"
+						placeholder="Masukkan jumlah saldo yang diinginkan"
+						onChange={(e) => handleInputChange(topupData, e)}
+						autoFocus="true"
+						required="required"
+					/>
+			</InputGroup>
+		);
 	};
 
 	renderDialog = () => {
@@ -134,34 +160,10 @@ class CashierTopUpConfirmation extends Component {
 							{renderMemberInformation()}
 						</div><br />
 						<FormGroup row>
-							<FormField label="Jumlah Top Up">
-								{/* <Label className="fw-semibold">Saldo saat ini</Label> */}
-								<InputGroup>
-									<InputAddon>
-										<small className="tt-uppercase fw-semibold ls-base">Rp</small>
-									</InputAddon>
-									{console.log(authenticatedMember)}
-									<InputCurrency
-										className="input"
-										value={authenticatedMember.data.card ? authenticatedMember.data.card.type.min : null}
-										readOnly="true"
-									/>
-								</InputGroup>
-							</FormField>
+						
 						</FormGroup>
 						<FormGroup row>
-							<FormField label="Bonus">
-								<InputGroup>
-									<InputAddon>
-										<small className="tt-uppercase fw-semibold ls-base">Rp</small>
-									</InputAddon>
-									<InputCurrency
-										className="input"
-										value={authenticatedMember.data.card ? authenticatedMember.data.card.type.bonus : null}
-										readOnly="true"
-									/>
-								</InputGroup>
-							</FormField>
+							
 						</FormGroup>
 
 						<FormGroup row>
@@ -186,8 +188,10 @@ class CashierTopUpConfirmation extends Component {
 
 						{/* TAMBAH SALDO TAXI ONLINE & UMUM */}
 						<FormGroup row>
-							<FormField label="Tambah Saldo">
-							{ typeMember === "Member" ? this.renderTambahSaldoMember() : this.renderTambahSaldoCommon()}
+							<FormField label="Jumlah Top Up">
+							{/* { console.log(typeMember)} */}
+							{ typeMember === "Non-Member" ? this.renderTambahSaldoNonMember() : null}
+							{ typeMember === "Member" ? this.renderTambahSaldoMember() : null}
 							</FormField>
 						</FormGroup>
 					</ModalBody>

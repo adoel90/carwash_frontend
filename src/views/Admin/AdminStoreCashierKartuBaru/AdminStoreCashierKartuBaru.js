@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 
 import { ModalDialog } from '../../../components/Modal';
 
+
+import { getSaldoBonus } from '../../../actions/store.action';
 import { getNominalSaldoNewCustomer }  from '../../../actions/card.action';
 import { openDialog, closeDialog } from '../../../actions/dialog.action';
 import { authenticateMember, updateMember } from '../../../actions/member.action';
@@ -14,12 +16,14 @@ function mapStateToProps(state) {
     return {
         member: state.member,
         dialog: state.dialog,
-        card: state.card
+        card: state.card,
+        storeState: state.store
     }
 };
 
 function mapDispatchToProps(dispatch) {
     return {
+        getSaldoBonusDispatch : () => dispatch(getSaldoBonus()),
         authenticateMemberDispatch: (data) => dispatch(authenticateMember(data)),
         getNominalSaldoNewCustomerDispatch : (data) => dispatch(getNominalSaldoNewCustomer(data)),
         action: bindActionCreators({ updateMember, openDialog, closeDialog }, dispatch)
@@ -40,6 +44,7 @@ class AdminStoreCashierKartuBaru extends Component {
         this.renderDialog = this.renderDialog.bind(this);
 
         this.handleNewCardPrintSubmit = this.handleNewCardPrintSubmit.bind(this);
+        this.handleSaldoAwalMember = this.handleSaldoAwalMember.bind(this);
 
         this.state = {
             authData: {
@@ -65,17 +70,21 @@ class AdminStoreCashierKartuBaru extends Component {
             selectedMember: {},
             dataMemberAfterUpdate: {},
             typeNumberMember: {},
-            listNominalNewCustomer: {}
+            listNominalNewCustomer: {},
+            optionTopUpMember: {},
+            memberNominal: {}
         }
     };
 
     componentDidMount(){
-       
+       const { getSaldoBonusDispatch } = this.props;
+
+       getSaldoBonusDispatch();
     };
 
     componentDidUpdate(prevProps) {
 
-        const { member, card} = this.props;
+        const { member, card, storeState } = this.props;
         const { toggleModal, typeNumberMember,selectedMember } = this.state;
 
         if (prevProps.member.item !== member.item) {
@@ -119,13 +128,22 @@ class AdminStoreCashierKartuBaru extends Component {
                     listNominalNewCustomer : card.nominal.data.result
                 });
             }
-        }
+        };
         
-
         if (prevProps.member.item !== member.item) {
             if (member.item.isUpdated) {
                 
             }
+        };
+
+        //#GET SALDO BONUS
+        if(prevProps.storeState.saldo !== storeState.saldo){
+            if(storeState.saldo.isLoaded){
+                this.setState({
+                    ...this.state,
+                    optionTopUpMember: storeState.saldo.data.result
+                });
+            };
         };
     };
 
@@ -232,21 +250,18 @@ class AdminStoreCashierKartuBaru extends Component {
 
     //#
     handleUpdateCreateMember = (e) => {
+
         e.preventDefault();
         const { action } = this.props;
-        const { selectedMember, newCardData } = this.state;
-
-        // console.log(selectedMember);
-        // console.log(newCardData);
+        const { selectedMember, newCardData, memberNominal } = this.state;
 
         let requiredData = {
             id: selectedMember.id,
-            // id: selectedMember.card ? selectedMember.card.id : null,
+            balance:parseInt(memberNominal),
             name: selectedMember.name,
             email: newCardData.email,
             phone: newCardData.phone,
             address: newCardData.address
-            //   category : selectedStore.type.id ? parseInt(selectedStore.type.id) : parseInt(selectedStore.type)
         };
 
         console.log(requiredData);
@@ -254,7 +269,6 @@ class AdminStoreCashierKartuBaru extends Component {
         action.updateMember(requiredData).then(() => {
             const { member } = this.props;
 
-            
             if (member.item.isUpdated) {
                 let dialogData = {
                     type: 'success',
@@ -291,9 +305,7 @@ class AdminStoreCashierKartuBaru extends Component {
 
             } else {
                 alert("Hubungi Superadmin untuk memperbaiki !");
-            }
-
-            
+            };      
         });
     }
 
@@ -310,7 +322,16 @@ class AdminStoreCashierKartuBaru extends Component {
 			window.print();
 		})
 		
-	}
+    };
+    
+    //#
+    handleSaldoAwalMember = (saldoawal) => {
+
+        this.setState({
+            ...this.state,
+            memberNominal: saldoawal.balance
+        });
+    };
 
 
     render() {
@@ -325,6 +346,7 @@ class AdminStoreCashierKartuBaru extends Component {
                     handleToggleUpdate={this.handleToggleUpdate}
                     handleUpdateCreateMember={this.handleUpdateCreateMember}
                     handleCancelModal={this.handleCancelModal}
+                    handleSaldoAwalMember={this.handleSaldoAwalMember}
                     {...this.props}
                     {...this.state} 
 

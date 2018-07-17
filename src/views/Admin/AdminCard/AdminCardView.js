@@ -32,6 +32,7 @@ const AdminCardView = props => {
             optionsPagination,
             bonus,
             handleTierTopup, //INI FUNCTION IS NOT OKE 
+
       } = props;
 
       //#
@@ -56,7 +57,6 @@ const AdminCardView = props => {
 			</div>
 		)
 	};
-
 
       //#This function is not ACTIVE until you use <BootstrapTable />
       const componentButtonUpdate = (datarow) => {

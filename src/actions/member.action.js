@@ -83,7 +83,24 @@ export const memberCustomerTopup = (data, accessToken) => {
 
 	function handleSuccess(data) { return { type: MEMBER_TOPUP_FULFILLED, payload: data } }
 	function handleError(data) { return { type: MEMBER_TOPUP_REJECTED, payload: data } }
-}
+};
+
+// export const memberCustomerTopup = (data, accessToken) => {
+// 	// console.log(data);
+// 	return async dispatch => {
+// 		axios
+// 			.put(`${constant.API_PATH}saldo/update?accessToken=${accessToken}`, data)
+// 			.then((response) => {
+// 				dispatch(handleSuccess(response));
+// 			})
+// 			.catch((error) => {
+// 				dispatch(handleError(error));
+// 			})
+// 	}
+
+// 	function handleSuccess(data) { return { type: MEMBER_TOPUP_FULFILLED, payload: data } }
+// 	function handleError(data) { return { type: MEMBER_TOPUP_REJECTED, payload: data } }
+// }
 
 // export const memberRefund = (data, accessToken) => {
 export const memberRefund = (data) => {

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getAllCardType, updateCardType, changeCardTypeStatus } from '../../../actions/card.action';
-import { getBonusTaxiOnline } from '../../../actions/store.action';//THIS FUNCTION IS NOT OKE
+import { getBonusTaxiOnline, getSaldoBonus } from '../../../actions/store.action';//THIS FUNCTION IS NOT OKE
 import { Button } from '../../../components/Button';
 import AdminCardView from './AdminCardView';
 import { openDialog, closeDialog } from '../../../actions/dialog.action';
@@ -71,13 +71,16 @@ class AdminCard extends Component {
       componentDidMount = () => {
             this.getCardTypeList();
 
-            const { action } = this.props;
+            const { action, getSaldoBonusDispatch} = this.props;
             action.getBonusTaxiOnline();
+
+            //#GET SALDO BONUS
+            getSaldoBonusDispatch();
       }
 
       componentDidUpdate = (prevProps) => {
             const {
-                  card
+                  card, storeState
             } = this.props;
 
             const {
@@ -119,15 +122,17 @@ class AdminCard extends Component {
                   }
             }
 
-            //THIS FUNCTION IS NOT USE IN PRODUCTION
-            // if(prevProps.storeState.bonus !== storeState.bonus){
-            //       if(storeState.bonus.isLoaded){
-            //           this.setState({
-            //               ...this.state,
-            //               bonus: storeState.bonus.data.result.tier
-            //           })
-            //       }
-            // }
+            // THIS FUNCTION IS NOT USE IN PRODUCTION
+            if(prevProps.storeState.bonus !== storeState.bonus){
+                  if(storeState.bonus.isLoaded){
+                      this.setState({
+                          ...this.state,
+                          bonus: storeState.bonus.data.result.tier
+                      },() => {
+                            console.log(this.state.bonus)
+                      })
+                  }
+            }
       }
 
       toggleModal = (name) => {
@@ -263,7 +268,7 @@ class AdminCard extends Component {
       openCardDetail = (row) => {
             this.setState({
                   ...this.state,
-                  selectedCard: row.data
+                  selectedCard: row
             }, () => {
                   this.toggleModal('updateCard');
             })
@@ -275,7 +280,7 @@ class AdminCard extends Component {
             } = this.props;
     
             let requiredData = {
-                  id: row.data.id
+                  id: row.id
             }
     
             action.changeCardTypeStatus(requiredData);
@@ -291,8 +296,8 @@ class AdminCard extends Component {
             let param = {
                   id: selectedCard.id,
                   name: selectedCard.name,
-                  min: parseInt(selectedCard.min.replace(/,/g, '')),
-                  bonus: parseInt(selectedCard.bonus.replace(/,/g, '')),
+                  minimum: parseInt(selectedCard.min.replace(/,/g, '')),
+                  bonus: selectedCard.bonus ? parseInt(selectedCard.bonus.replace(/,/g, '')) : null,
                   refund: selectedCard.refund,
                   charge: selectedCard.charge
             };
@@ -360,6 +365,8 @@ class AdminCard extends Component {
                               updateCard={this.updateCard}
                               toggleModal={this.toggleModal}
                               optionsPagination={this.optionsPagination}
+                              openCardDetail={this.openCardDetail}
+                              changeCardStatus={this.changeCardStatus}
                         />
                         {this.renderDialog()}
                   </div>
@@ -377,6 +384,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
       return {
+            getSaldoBonusDispatch : () => dispatch(getSaldoBonus()),
             getAllCardType: () => dispatch(getAllCardType()),
             action: bindActionCreators({ updateCardType, changeCardTypeStatus, openDialog, closeDialog, getBonusTaxiOnline }, dispatch)
       }

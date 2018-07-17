@@ -48,6 +48,7 @@ class AdminTransactionCheckout extends Component {
         
         const renderMemberInfo = () => {
             if(member.item.isAuthenticated) {
+
                 return (
                     <div className="flex flex-column align-items--center">
                         { renderPaymentAvailability() }
@@ -56,6 +57,7 @@ class AdminTransactionCheckout extends Component {
                             <h5 className="fw-semibold">
                                 {
                                     memberInfo.memberData.card ?
+                                    
                                     <NumberFormat
                                         format="#### #### #### ####"
                                         displayType={'text'}

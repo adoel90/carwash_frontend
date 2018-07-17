@@ -306,7 +306,8 @@ class AdminTransaction extends Component{
             staff: user.id
         };
         
-        action.createStoreTransaction(requiredData);
+        console.log();
+        // action.createStoreTransaction(requiredData);
     }
     
     handleMemberAuthentication = (e) => {
@@ -379,7 +380,7 @@ class AdminTransaction extends Component{
 		newObject[index][name] = parseInt(value);
 		this.setState({newObject}, () => {
 			this.calculateGrandTotalPrice();
-		})
+		});
 	};
 
     //#
@@ -405,7 +406,7 @@ class AdminTransaction extends Component{
 		object[name] = value;
         this.forceUpdate();
         this.calculateGrandTotalPrice();
-    }
+    };
     
     //#
     printListMenuStore = (e) => {

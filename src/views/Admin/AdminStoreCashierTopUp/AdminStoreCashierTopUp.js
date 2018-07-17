@@ -100,7 +100,7 @@ class AdminStoreCashierTopUp extends Component {
                     this.handleTopUp();     
                 })         
             }   
-        }
+        };
 
         if(prevProps.storeState.bonus !== storeState.bonus){
             if(storeState.bonus.isLoaded){
@@ -109,7 +109,7 @@ class AdminStoreCashierTopUp extends Component {
                     bonus: storeState.bonus.data.result.tier
                 })
             }
-        }
+        };
 
         //Waiting success pay to top-up
         if(prevProps.member.item !== member.item){
@@ -140,7 +140,7 @@ class AdminStoreCashierTopUp extends Component {
                     this.toggleDialog(dialogData);
                 }
             }.bind(this), 3000);
-        }
+        };
 
         //#Print this file
         if(prevProps.storeState.printMember !== storeState.printMember){

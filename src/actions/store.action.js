@@ -270,7 +270,9 @@ export const createStoreTransaction = (data) => {
 		store : data.store.id ? data.store.id : data.store,
 		token : data.token ? data.token : null,
 		staff: data.staff 
-	}
+	};
+
+	// console.log(requiredData);
 	
 	return async dispatch => {
 		return axios

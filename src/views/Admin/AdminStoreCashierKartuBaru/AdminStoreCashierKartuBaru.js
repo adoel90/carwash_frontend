@@ -72,7 +72,9 @@ class AdminStoreCashierKartuBaru extends Component {
             typeNumberMember: {},
             listNominalNewCustomer: {},
             optionTopUpMember: {},
-            memberNominal: {}
+            optionTopUpMemberThemeButton: false,
+            memberNominal: {},
+
         }
     };
 
@@ -94,14 +96,6 @@ class AdminStoreCashierKartuBaru extends Component {
                 this.state.selectedMember = member.item.data;
                 this.state.typeNumberMember = member.item.data.card ? member.item.data.card.type.id : null;
                 console.log(this.state.selectedMember);
-                
-                //#
-                // if (member.item.data) {
-                // this.setState({
-                //     ...this.state,
-                //     typeNumberMember: member.item.data ? member.item.data.card.type.id : null
-                // });
-                // }
 
                 this.forceUpdate();
                 this.handleToggleUpdate();
@@ -329,7 +323,8 @@ class AdminStoreCashierKartuBaru extends Component {
 
         this.setState({
             ...this.state,
-            memberNominal: saldoawal.balance
+            memberNominal: saldoawal.balance,
+            optionTopUpMemberThemeButton: true
         });
     };
 

@@ -15,12 +15,9 @@ import { default as CardIcon } from '../../../assets/icons/Business/credit-card-
 
 class AdminStoreCashierKartuBaruConfirmationModal extends Component {
 
-
-
-
     //#RENDER SALDO AWAL MEMBER
     renderSaldoAwalMember = () => {
-        const { topupData, handleSaldoAwalMember, optionTopUpMember } = this.props;
+        const { topupData, handleSaldoAwalMember, optionTopUpMember} = this.props;
 
 		const center ={
 			'marginLeft' : '5px'
@@ -63,7 +60,9 @@ class AdminStoreCashierKartuBaruConfirmationModal extends Component {
             member,
             listNominalNewCustomer,
             card,
-            handleNominal
+            handleNominal,
+            optionTopUpMemberThemeButton,
+            memberNominal
         } = this.props;
 
 
@@ -247,7 +246,8 @@ class AdminStoreCashierKartuBaruConfirmationModal extends Component {
                             </Column> 
                             <Column md={12}>
                                 <FormGroup>
-                                    <FormField label="Saldo Awal">
+                                    <FormField label={optionTopUpMemberThemeButton === false ? "Saldo Awal" : "TERPILIH : Rp. " + memberNominal}>
+                                    
                                         { cardMember === "Member" ? this.renderSaldoAwalMember() : null } 
                                         {/* <Input
                                             name="name"

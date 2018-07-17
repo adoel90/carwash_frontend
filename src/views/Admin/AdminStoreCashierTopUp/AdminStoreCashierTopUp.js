@@ -74,7 +74,8 @@ class AdminStoreCashierTopUp extends Component {
             bonus: {},
             printData: {},
             memberNominal: {},
-            optionTopUpMember: {}
+            optionTopUpMember: {},
+            optionTopUpMemberThemeButton: false
 		}
     };
 
@@ -329,7 +330,8 @@ class AdminStoreCashierTopUp extends Component {
 
         this.setState({
             ...this.state,
-            memberNominal: topup.balance
+            memberNominal: topup.balance,
+            optionTopUpMemberThemeButton: true
         });
     };
 

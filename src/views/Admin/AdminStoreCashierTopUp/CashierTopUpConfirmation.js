@@ -124,7 +124,9 @@ class CashierTopUpConfirmation extends Component {
 			topupData,
 			handleTopupSubmit,
 			handleInputChange,
-			handleTopUpPaymentCheckout
+			handleTopUpPaymentCheckout,
+			optionTopUpMemberThemeButton,
+			memberNominal
 		} = this.props;
 
 		const typeMember = authenticatedMember.isAuthenticated ? authenticatedMember.data.card.type.name : null;
@@ -188,7 +190,7 @@ class CashierTopUpConfirmation extends Component {
 
 						{/* TAMBAH SALDO TAXI ONLINE & UMUM */}
 						<FormGroup row>
-							<FormField label="Jumlah Top Up">
+							<FormField label={optionTopUpMemberThemeButton === true ? "Terpilih : Rp. " + memberNominal : "Jumlah Top Up" }>
 							{/* { console.log(typeMember)} */}
 							{ typeMember === "Non-Member" ? this.renderTambahSaldoNonMember() : null}
 							{ typeMember === "Member" ? this.renderTambahSaldoMember() : null}

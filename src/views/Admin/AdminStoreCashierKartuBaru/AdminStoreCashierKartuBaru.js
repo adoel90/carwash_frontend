@@ -269,7 +269,7 @@ class AdminStoreCashierKartuBaru extends Component {
             }, () => {
                 let requiredData = {
                     id: selectedMember.id,
-                    balance:parseInt(this.state.saldoawal),
+                    balance:parseInt(this.state.saldoawal) + customerBonus,
                     name: selectedMember.name,
                     email: newCardData.email,
                     phone: newCardData.phone,
@@ -321,6 +321,9 @@ class AdminStoreCashierKartuBaru extends Component {
                 });
             });
         } else if(selectedMember.card.type.name === "Non-Member"){ // JENIS CUSTOMER : NON-MEMBER
+
+            const {customerBonus } = this.state;
+
             this.setState({
                 ...this.state,
                 saldoawal: newCardData.saldoawalnonmember,
@@ -328,7 +331,7 @@ class AdminStoreCashierKartuBaru extends Component {
             }, () => {
                 let requiredData = {
                     id: selectedMember.id,
-                    balance:parseInt(this.state.saldoawal),
+                    balance:parseInt(this.state.saldoawal) + customerBonus,
                     name: selectedMember.name,
                     email: newCardData.email,
                     phone: newCardData.phone,
@@ -463,6 +466,7 @@ class AdminStoreCashierKartuBaru extends Component {
         this.setState({
             ...this.state,
             memberNominal: saldoawal.balance,
+            customerBonus: parseInt(saldoawal.bonus),
             optionTopUpMemberThemeButton: true
         });
     };

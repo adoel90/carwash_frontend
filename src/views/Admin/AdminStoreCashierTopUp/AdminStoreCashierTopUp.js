@@ -74,6 +74,7 @@ class AdminStoreCashierTopUp extends Component {
             bonus: {},
             printData: {},
             memberNominal: {},
+            customerBonus:{},
             optionTopUpMember: {},
             optionTopUpMemberThemeButton: false
 		}
@@ -119,15 +120,6 @@ class AdminStoreCashierTopUp extends Component {
                 })         
             }   
         };
-
-        // if(prevProps.storeState.bonus !== storeState.bonus){
-        //     if(storeState.bonus.isLoaded){
-        //         this.setState({
-        //             ...this.state,
-        //             bonus: storeState.bonus.data.result.tier
-        //         })
-        //     }
-        // };
 
         //Waiting success pay to top-up
         if(prevProps.member.item !== member.item){
@@ -227,21 +219,8 @@ class AdminStoreCashierTopUp extends Component {
     
     handleTopUp = () => {
 
-        // const { getSaldoBonusDispatch } = this.props;
-        // const { authenticatedMember } = this.state;
-
-        // console.log(authenticatedMember);
-
-        // const jenisMember = authenticatedMember.isAuthenticated ? authenticatedMember.data.card.type.id : null;
-        
-        // let requiredData = {
-        //     type: jenisMember
-        // };
-
-        // getSaldoBonusDispatch(requiredData);
-
         this.toggleModal('topup');
-    }
+    };
 
     toggleDialog = (data) => {
 
@@ -284,18 +263,19 @@ class AdminStoreCashierTopUp extends Component {
             toggleDialog,
             closeDialog,
             accessTokenMember,
-            memberNominal
+            memberNominal,
+            customerBonus
         } = this.state;
 
         e.preventDefault();
         const typeMember = authenticatedMember.isAuthenticated ? authenticatedMember.data.card.type.name : null;
         const { action, user } = this.props;          
 
-        //Member
-        if(typeMember === "Member"){
+        
+        if(typeMember === "Member"){ // MEMBER
             
             let requiredData = {
-                balance:parseInt(memberNominal),
+                balance:parseInt(memberNominal) + parseInt(customerBonus),
                 payment: topupData.payment,
                 staff: user.level.id
             };
@@ -303,10 +283,10 @@ class AdminStoreCashierTopUp extends Component {
             console.log("From Member");
             action.memberCustomerTopup(requiredData, accessTokenMember.accessToken);
 
-        } else if(typeMember === "Non-Member"){
+        } else if(typeMember === "Non-Member"){ // NON MEMBER
            
             let requiredData = {
-                balance: topupData ? parseInt(topupData.balance.replace(/,/g, '')) : null ,
+                balance: topupData ? parseInt(topupData.balance.replace(/,/g, '')) + parseInt(customerBonus): null ,
                 payment: topupData.payment,
                 staff: user.level.id
             };
@@ -314,10 +294,10 @@ class AdminStoreCashierTopUp extends Component {
             console.log("From Non-Member");
             action.memberCustomerTopup(requiredData, accessTokenMember.accessToken);
 
-        } else {
+        } else { // TAXI ONLINE
 
             let requiredData = {
-                balance: topupData ? parseInt(topupData.balance.replace(/,/g, '')) : null ,
+                balance: topupData ? parseInt(topupData.balance.replace(/,/g, '')) + parseInt(customerBonus): null ,
                 payment: topupData.payment,
                 staff: user.level.id
             };
@@ -345,9 +325,12 @@ class AdminStoreCashierTopUp extends Component {
     //#
     handleTopUpMember = (topup) => {
 
+        console.log(topup);
+
         this.setState({
             ...this.state,
             memberNominal: topup.balance,
+            customerBonus: topup.bonus,
             optionTopUpMemberThemeButton: true
         });
     };

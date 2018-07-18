@@ -306,16 +306,16 @@ class AdminCard extends Component {
 
                   let items = [
                         {
-                              saldo: parseInt(selectedCard.opsi1),
-                              bonus: parseInt(selectedCard.bonus1)
+                              saldo: parseInt(selectedCard.opsi1.replace(/,/g, '')),
+                              bonus: parseInt(selectedCard.bonus1.replace(/,/g, ''))
                         },
                         {
-                              saldo: parseInt(selectedCard.opsi2),
-                              bonus: parseInt(selectedCard.bonus2)
+                              saldo: parseInt(selectedCard.opsi2.replace(/,/g, '')),
+                              bonus: parseInt(selectedCard.bonus2.replace(/,/g, ''))
                         },
                         {
-                              saldo: parseInt(selectedCard.opsi3),
-                              bonus: parseInt(selectedCard.bonus3)
+                              saldo: parseInt(selectedCard.opsi3.replace(/,/g, '')),
+                              bonus: parseInt(selectedCard.bonus3.replace(/,/g, ''))
                         }
                   ];
       
@@ -333,58 +333,90 @@ class AdminCard extends Component {
 
                   console.log(param);
 
-                  action.updateCardType(param).then(() => {
+                  // action.updateCardType(param).then(() => {
 
-                        const { card } = this.props;
+                  //       const { card } = this.props;
 
-                        if (card.type.isUpdated) {
-                              let dialogData = {
-                                    type: 'success',
-                                    title: 'Berhasil',
-                                    message: 'Card telah berhasil diubah. Klik tombol berikut untuk kembali.',
-                                    onClose: () => window.location.reload(),
-                                    closeText: 'Kembali'
-                              };
+                  //       if (card.type.isUpdated) {
+                  //             let dialogData = {
+                  //                   type: 'success',
+                  //                   title: 'Berhasil',
+                  //                   message: 'Card telah berhasil diubah. Klik tombol berikut untuk kembali.',
+                  //                   onClose: () => window.location.reload(),
+                  //                   closeText: 'Kembali'
+                  //             };
                   
-                              this.toggleDialog(dialogData);
-                        };
+                  //             this.toggleDialog(dialogData);
+                  //       };
             
-                        if (card.type.isError) {
-                              let dialogData = {
-                                    type: 'danger',
-                                    title: 'Gagal',
-                                    message: 'Card gagal diubah. Klik tombol berikut untuk kembali.',
-                                    onClose: () => this.toggleDialog(),
-                                    closeText: 'Kembali'
-                              };
+                  //       if (card.type.isError) {
+                  //             let dialogData = {
+                  //                   type: 'danger',
+                  //                   title: 'Gagal',
+                  //                   message: 'Card gagal diubah. Klik tombol berikut untuk kembali.',
+                  //                   onClose: () => this.toggleDialog(),
+                  //                   closeText: 'Kembali'
+                  //             };
                   
-                              this.toggleDialog(dialogData);
-                        }
-                        // this.toggleModal('updateCard');
-                        // window.location.reload();
-                  })    
+                  //             this.toggleDialog(dialogData);
+                  //       }
+                  //       // this.toggleModal('updateCard');
+                  //       // window.location.reload();
+                  // })    
             } else if( selectedCard.name === "Non-Member"){
                   console.log("From Non-Member");
 
-                  let items = [];
-                  items.push(parseInt(selectedCard.opsinonmember));
+                  console.log(selectedCard);
 
-                  let bonuz = [];
+                  // let items = [];
+                  // items.push(parseInt(selectedCard.opsinonmember));
 
-                  let param = {
+                  let items = [
+                        {
+                              saldo: parseInt(selectedCard.opsinonmember.replace(/,/g, '')),
+                              bonus: parseInt(selectedCard.bonusnonmember.replace(/,/g, ''))
+                        }
+                  ];
+
+                  let requireData = {
                         id: selectedCard.id,
                         name: selectedCard.name,
                         minimum: parseInt(selectedCard.min.replace(/,/g, '')),
-                        // bonus: selectedCard.bonus ? parseInt(selectedCard.bonus.replace(/,/g, '')) : null,
-                        bonus: bonuz,
+                        bonus: selectedCard.bonus ? parseInt(selectedCard.bonus.replace(/,/g, '')) : null,
+                        // bonus: bonuz,
                         refund: selectedCard.refund,
                         charge: selectedCard.charge,
                         item: items,
                   };
 
-                  console.log(param);
+                  console.log(requireData);
+
             } else {
-                  alert("Taxi Online");
+
+                  console.log("Taxi Online");
+                  console.log(selectedCard);
+
+                  let items = [
+                        {
+                              saldo: parseInt(selectedCard.opsitaxionline.replace(/,/g, '')),
+                              bonus: parseInt(selectedCard.bonustaxionline.replace(/,/g, ''))
+                        }
+                  ];
+
+                  let requireData = {
+                        id: selectedCard.id,
+                        name: selectedCard.name,
+                        minimum: parseInt(selectedCard.min.replace(/,/g, '')),
+                        bonus: selectedCard.bonus ? parseInt(selectedCard.bonus.replace(/,/g, '')) : null,
+                        // bonus: bonuz,
+                        refund: selectedCard.refund,
+                        charge: selectedCard.charge,
+                        item: items,
+                  };
+
+                  console.log(requireData);
+                  
+
             }
            
 

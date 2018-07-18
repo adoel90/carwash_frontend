@@ -45,6 +45,7 @@ class AdminStoreCashierKartuBaru extends Component {
 
         this.handleNewCardPrintSubmit = this.handleNewCardPrintSubmit.bind(this);
         this.handleSaldoAwalMember = this.handleSaldoAwalMember.bind(this);
+        this.handleSaldoAwalTaxiOnline = this.handleSaldoAwalTaxiOnline.bind(this);
 
         this.state = {
             authData: {
@@ -75,6 +76,7 @@ class AdminStoreCashierKartuBaru extends Component {
             optionTopUpMember: {},
             optionTopUpMemberThemeButton: false,
             memberNominal: {},
+            customerBonus:{},
             saldoawal: null
         }
     };
@@ -258,9 +260,7 @@ class AdminStoreCashierKartuBaru extends Component {
 
         e.preventDefault();
         const { action } = this.props;
-        const { selectedMember, newCardData, memberNominal, saldoawal } = this.state;
-
-        console.log();
+        const { selectedMember, newCardData, memberNominal, saldoawal, customerBonus } = this.state;
 
         if(selectedMember.card.type.name === "Member"){ // JENIS CUSTOMER :  MEMBER 
             this.setState({
@@ -375,12 +375,70 @@ class AdminStoreCashierKartuBaru extends Component {
                         this.toggleDialog(dialogData);
 
                     } else {
-                        alert("Hubungi Superadmin untuk memperbaiki !");
+                        
                     };      
                 });
             });
         } else { // JENIS CUSTOMER : TAXI ONLINE 
-            alert("Sedikit lagi TEMPUR Taxi Online !");
+            this.setState({
+                ...this.state,
+                saldoawal: memberNominal
+            },() => {
+
+                const {customerBonus } = this.state;
+
+                let requiredData = {
+                    id: selectedMember.id,
+                    balance:parseInt(this.state.saldoawal) + customerBonus,
+                    name: selectedMember.name,
+                    email: newCardData.email,
+                    phone: newCardData.phone,
+                    address: newCardData.address
+                };
+        
+                console.log(requiredData);
+                action.updateMember(requiredData).then(() => {
+                    const { member } = this.props;
+
+                    if (member.item.isUpdated) {
+                        let dialogData = {
+                            type: 'success',
+                            title: 'Berhasil',
+                            message: 'Member telah berhasil di simpan. Klik tombol berikut untuk kembali.',
+                            onClose: () => window.location.reload(),
+                            closeText: 'Kembali'
+                        };
+
+                        //Get this data to set in print
+                        this.setState({
+                            ...this.state,
+                            dataMemberAfterUpdate: {
+                                name: selectedMember.name,
+                                cardType:  selectedMember.card ? selectedMember.card.type.name : "-",
+                                saldoNow: selectedMember.balance ? selectedMember.balance : "-",
+                                bonus: selectedMember.card.type ? selectedMember.card.type.bonus : ""
+                            }
+                        });
+                        
+                        this.toggleDialog(dialogData);
+                        this.handleNewCardPrintSubmit();
+
+                    } else if (member.item.isError) {
+                        let dialogData = {
+                            type: 'danger',
+                            title: 'Gagal',
+                            message: 'Member gagal di simpan. Klik tombol berikut untuk kembali.',
+                            onClose: () => this.toggleDialog(),
+                            closeText: 'Kembali'
+                        }
+
+                        this.toggleDialog(dialogData);
+
+                    } else {
+                        
+                    };      
+                });
+            })
         }
 
 
@@ -463,6 +521,18 @@ class AdminStoreCashierKartuBaru extends Component {
         });
     };
 
+    //#
+    handleSaldoAwalTaxiOnline = (saldoawaltaxionline) => {
+
+        this.setState({
+            ...this.state,
+            // : parseInt(saldoawaltaxionline.balance),
+            memberNominal: parseInt(saldoawaltaxionline.balance),
+            customerBonus: parseInt(saldoawaltaxionline.bonus),
+            optionTopUpMemberThemeButton: true
+        });
+    };
+
 
     render() {
         return (
@@ -477,6 +547,7 @@ class AdminStoreCashierKartuBaru extends Component {
                     handleUpdateCreateMember={this.handleUpdateCreateMember}
                     handleCancelModal={this.handleCancelModal}
                     handleSaldoAwalMember={this.handleSaldoAwalMember}
+                    handleSaldoAwalTaxiOnline = {this.handleSaldoAwalTaxiOnline}
                     {...this.props}
                     {...this.state} 
 

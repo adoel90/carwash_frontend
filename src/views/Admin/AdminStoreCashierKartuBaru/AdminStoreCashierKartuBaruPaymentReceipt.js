@@ -10,7 +10,7 @@ class AdminStoreCashierKartuBaruPaymentReceipt extends Component{
 
 
     render(){
-        const { printData, statusPrintData, dataMemberAfterUpdate, saldoawal } = this.props;
+        const { printData, statusPrintData, dataMemberAfterUpdate, saldoawal, customerBonus } = this.props;
 
         if(statusPrintData === 200){
 
@@ -54,7 +54,7 @@ class AdminStoreCashierKartuBaruPaymentReceipt extends Component{
                                     <tr className="padding-bottom-small">
                                         <td>Saldo Sekarang : </td>
                                         <td className="ta-right">
-                                            <p>{cardType === "Non-Member" || cardType === "Member"? saldoawal : saldoNow}</p>
+                                            <p>{cardType === "Non-Member" || cardType === "Member" || cardType === "Taxi Online"? saldoawal + customerBonus : saldoNow}</p>
                                         </td>
                                     </tr>
                                 </tbody> 

@@ -17,7 +17,7 @@ class AdminStoreCashierKartuBaruConfirmationModal extends Component {
 
     //#RENDER SALDO AWAL MEMBER
     renderSaldoAwalMember = () => {
-        const { topupData, handleSaldoAwalMember, optionTopUpMember} = this.props;
+        const { topupData, handleSaldoAwalMember, optionTopUpMember } = this.props;
 
 		const center ={
 			'marginLeft' : '5px'
@@ -66,6 +66,33 @@ class AdminStoreCashierKartuBaruConfirmationModal extends Component {
 
               
          
+        )
+    };
+
+    //#RENDER SALDO AWAL TAXI ONLINE
+    renderSaldoAwalTaxiOnline =() => {
+
+        const { optionTopUpMember, handleSaldoAwalTaxiOnline } = this.props;
+
+        console.log(optionTopUpMember.length ? optionTopUpMember[0] : null);
+        let balance = optionTopUpMember.length ? optionTopUpMember[0].balance : null;
+        let bonus = optionTopUpMember.length ? optionTopUpMember[0].bonus : null;
+
+        return (
+            <div>
+                {/* <div className="flex justify-content--space-around">
+                    <Button type="button" theme="primary" key={ optionTopUpMember[0].card ? optionTopUpMember[0].card.id : null} value={optionTopUpMember[0]} onClick={(e) => handleSaldoAwalTaxiOnline(optionTopUpMember[0], e)}>
+                        <h5>Rp. {parseFloat(optionTopUpMember[0].balance).toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 2})}</h5>
+                    </Button>
+                    <h5><small className="margin-right-small center">Bonus : { optionTopUpMember[0].bonus }</small></h5>
+                </div> */}
+                {/* <div className="flex justify-content--space-around"> */}
+                    <Button type="button" theme="primary" onClick={(e) => handleSaldoAwalTaxiOnline(optionTopUpMember[0], e)}>
+                        <h5>Rp. {parseInt(balance)}</h5>
+                    </Button><br />
+                    <h5><small className="margin-right-small left">Bonus : { parseInt(bonus) }</small></h5>
+                {/* </div> */}
+            </div>
         )
     };
 
@@ -291,11 +318,11 @@ class AdminStoreCashierKartuBaruConfirmationModal extends Component {
                         <Row>
                             <Column md={12}>
                                 <FormGroup row>
-                                    <FormField label={optionTopUpMemberThemeButton === false ? "Saldo Awal" : "TERPILIH : Rp. " + memberNominal}>
-                                            
+                                    <FormField label={optionTopUpMemberThemeButton === false ? "Saldo Awal : " : "TERPILIH : Rp. " + memberNominal}>   
                                         {console.log(cardMember)}
                                         { cardMember === "Member" ? this.renderSaldoAwalMember() : null } 
                                         { cardMember === "Non-Member" ? this.renderSaldoAwalNonMember() : null}
+                                        { cardMember === "Taxi Online" ? this.renderSaldoAwalTaxiOnline() : null}
                                     </FormField>
                                 </FormGroup>
                                 

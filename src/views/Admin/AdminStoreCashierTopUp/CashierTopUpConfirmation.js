@@ -82,6 +82,7 @@ class CashierTopUpConfirmation extends Component {
 		};
 	};
 
+	//NON MEMBER
 	renderTambahSaldoNonMember = () => {
 
 		const { authenticatedMember, handleInputChange, topupData} = this.props;
@@ -102,6 +103,25 @@ class CashierTopUpConfirmation extends Component {
 					/>
 			</InputGroup>
 		);
+	};
+
+	//TAXI ONLINE
+	renderTambahSaldoTaxiOnline = () => {
+		
+		const { optionTopUpMember, handleTopUpTaxiOnline } = this.props;
+
+		console.log(optionTopUpMember.length ? optionTopUpMember[0] : null);
+        let balance = optionTopUpMember.length ? optionTopUpMember[0].balance : null;
+        let bonus = optionTopUpMember.length ? optionTopUpMember[0].bonus : null;
+
+		return (
+			<div>
+				<Button type="button" theme="primary" onClick={(e) => handleTopUpTaxiOnline(optionTopUpMember[0], e)}>
+                    <h5>Rp. {parseInt(balance)}</h5>
+                </Button><br />
+                <h5><small className="margin-right-small left">Bonus : { parseInt(bonus) }</small></h5>
+			</div>
+		)
 	};
 
 	renderDialog = () => {
@@ -208,6 +228,7 @@ class CashierTopUpConfirmation extends Component {
 							{/* { console.log(typeMember)} */}
 							{ typeMember === "Non-Member" ? this.renderTambahSaldoNonMember() : null}
 							{ typeMember === "Member" ? this.renderTambahSaldoMember() : null}
+							{ typeMember === "Taxi Online" ? this.renderTambahSaldoTaxiOnline() : null}
 							</FormField>
 						</FormGroup>
 					</ModalBody>
@@ -216,21 +237,18 @@ class CashierTopUpConfirmation extends Component {
 						<Button type="button" theme="danger" className="margin-right-small" onClick={() => toggleModal('topup')}>
 							<small className="tt-uppercase fw-semibold ls-base">Kembali</small>
 						</Button>
-						{/* {
-							typeMember !== "Taxi Online" ?
-								<Button type="submit" theme="primary" className="clr-light margin-left-small">
-									<small className="tt-uppercase fw-semibold ls-base">Isi Saldo</small>
-								</Button>
-							: null
-						} */}
+						<Button theme="primary" className="clr-light margin-left-small">
+							<small className="tt-uppercase fw-semibold ls-base">Isi Saldo</small>
+						</Button>
+		
 
-						{
+						{/* {
 							typeMember !== "Taxi Online" ?
 								<Button theme="primary" className="clr-light margin-left-small">
 									<small className="tt-uppercase fw-semibold ls-base">Isi Saldo</small>
 								</Button>
 							: null
-						}
+						} */}
 
 
 					</ModalFooter>

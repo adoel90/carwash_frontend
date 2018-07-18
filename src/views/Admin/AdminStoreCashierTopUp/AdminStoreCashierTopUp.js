@@ -40,6 +40,7 @@ class AdminStoreCashierTopUp extends Component {
         this.handleTopUpPaymentCheckout = this.handleTopUpPaymentCheckout.bind(this);
         this.handlePrintReceipt = this.handlePrintReceipt.bind(this);
         this.handleTopUpMember = this.handleTopUpMember.bind(this);
+        this.handleTopUpTaxiOnline = this.handleTopUpTaxiOnline.bind(this);
 
         this.state = {
 
@@ -264,7 +265,8 @@ class AdminStoreCashierTopUp extends Component {
             closeDialog,
             accessTokenMember,
             memberNominal,
-            customerBonus
+            customerBonus,
+            optionTopUpMember
         } = this.state;
 
         e.preventDefault();
@@ -296,13 +298,18 @@ class AdminStoreCashierTopUp extends Component {
 
         } else { // TAXI ONLINE
 
+            let balance = optionTopUpMember.length ? optionTopUpMember[0].balance : null;
+            let bonus = optionTopUpMember.length ? optionTopUpMember[0].bonus : null;
+
             let requiredData = {
-                balance: topupData ? parseInt(topupData.balance.replace(/,/g, '')) + parseInt(customerBonus): null ,
+                // balance: topupData ? parseInt(topupData.balance.replace(/,/g, '')) + parseInt(customerBonus): null ,
+                balance: parseInt(balance) + parseInt(bonus),
                 payment: topupData.payment,
                 staff: user.level.id
             };
 
             console.log("From Taxi Online");
+            console.log(requiredData);
             action.memberCustomerTopup(requiredData, accessTokenMember.accessToken);
         };
     };
@@ -335,6 +342,17 @@ class AdminStoreCashierTopUp extends Component {
         });
     };
 
+    //#
+    handleTopUpTaxiOnline = (topuptaxionline) => {
+
+        this.setState({
+            ...this.state,
+            memberNominal: parseInt(topuptaxionline.balance),
+            customerBonus: parseInt(topuptaxionline.bonus),
+            optionTopUpMemberThemeButton: true
+        });
+    };
+
     render() {
         return ( 
             <div>
@@ -351,6 +369,7 @@ class AdminStoreCashierTopUp extends Component {
                     openDialog={this.openDialog}
                     closeDialog={this.closeDialog}
                     handleTopUpMember= { this.handleTopUpMember}
+                    handleTopUpTaxiOnline = { this.handleTopUpTaxiOnline }
                 />
                 
                 {this.renderDialog()}

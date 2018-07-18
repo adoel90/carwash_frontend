@@ -19,7 +19,7 @@ class CashierTopUpConfirmation extends Component {
 
 	//#
 	renderTambahSaldoCommon = () => {
-		const { topupData,handleInputChange,  } = this.props;
+		const { topupData,handleInputChange, storeState } = this.props;
 
 		return (
 				<InputGroup>
@@ -42,7 +42,7 @@ class CashierTopUpConfirmation extends Component {
 	//#
 	renderTambahSaldoMember = () => {
 
-		const { bonus, handleInputChange, topupData, handleTopUpMember, optionTopUpMember, optionTopUpMemberThemeButton} = this.props;
+		const { topupData, handleTopUpMember, optionTopUpMember, optionTopUpMemberThemeButton, storeState} = this.props;
 
 		const center ={
 			'marginLeft' : '5px'
@@ -59,24 +59,27 @@ class CashierTopUpConfirmation extends Component {
 		// 	)
 		// };
 
-		return (
-			<div>
-				<div className="flex justify-content--space-around">
-					{
-						optionTopUpMember.map((topup) => {
-							return (
-								<div>
-									<Button type="button" theme="primary" key={topup.id} value={topup} onClick={(e) => handleTopUpMember(topup, e)}>
-										<h5>Rp. {parseFloat(topup.balance).toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 2})}</h5>
-									</Button>
-									<h5><small className="margin-right-small center">Bonus : { topup.bonus }</small></h5>
-								</div>
-							);
-						})
-					}
+		if(storeState.saldo.isLoaded){
+			return (
+				<div>
+					<div className="flex justify-content--space-around">
+						{
+							optionTopUpMember.length ? 
+							optionTopUpMember.map((topup) => {
+								return (
+									<div>
+										<Button type="button" theme="primary" key={topup.id} value={topup} onClick={(e) => handleTopUpMember(topup, e)}>
+											<h5>Rp. {parseFloat(topup.balance).toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 2})}</h5>
+										</Button>
+										<h5><small className="margin-right-small center">Bonus : { topup.bonus }</small></h5>
+									</div>
+								);
+							}) : null
+						}
+					</div>
 				</div>
-			</div>
-		)
+			)
+		};
 	};
 
 	renderTambahSaldoNonMember = () => {
@@ -123,7 +126,7 @@ class CashierTopUpConfirmation extends Component {
 				closeText={dialog.data.closeText}
 			/>
 		)
-	}
+	};
 
 	render() {
 		

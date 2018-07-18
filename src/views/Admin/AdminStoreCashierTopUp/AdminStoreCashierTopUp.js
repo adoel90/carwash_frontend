@@ -80,8 +80,8 @@ class AdminStoreCashierTopUp extends Component {
     };
 
     componentDidMount(){
-        const { action, getSaldoBonusDispatch } = this.props;
-        getSaldoBonusDispatch();
+        // const { action, getSaldoBonusDispatch } = this.props;
+        // getSaldoBonusDispatch();
     };
     
     componentDidUpdate = (prevProps) => {
@@ -101,19 +101,33 @@ class AdminStoreCashierTopUp extends Component {
                 }, () => {
                     // console.log(this.state);
                     this.forceUpdate();
-                    this.handleTopUp();     
+                    this.handleTopUp();    
+                    
+                    //#GET SALDO BONUS
+                    const { getSaldoBonusDispatch } = this.props;
+                    const { authenticatedMember } = this.state;
+            
+                    console.log(authenticatedMember);
+            
+                    const jenisMember = authenticatedMember.isAuthenticated ? authenticatedMember.data.card.type.id : null;
+                    
+                    let requiredData = {
+                        type: jenisMember
+                    };
+            
+                    getSaldoBonusDispatch(requiredData);
                 })         
             }   
         };
 
-        if(prevProps.storeState.bonus !== storeState.bonus){
-            if(storeState.bonus.isLoaded){
-                this.setState({
-                    ...this.state,
-                    bonus: storeState.bonus.data.result.tier
-                })
-            }
-        };
+        // if(prevProps.storeState.bonus !== storeState.bonus){
+        //     if(storeState.bonus.isLoaded){
+        //         this.setState({
+        //             ...this.state,
+        //             bonus: storeState.bonus.data.result.tier
+        //         })
+        //     }
+        // };
 
         //Waiting success pay to top-up
         if(prevProps.member.item !== member.item){
@@ -143,7 +157,7 @@ class AdminStoreCashierTopUp extends Component {
 
                     this.toggleDialog(dialogData);
                 }
-            }.bind(this), 3000);
+            }.bind(this), 1000);
         };
 
         //#Print this file
@@ -164,16 +178,8 @@ class AdminStoreCashierTopUp extends Component {
                 this.setState({
                     ...this.state,
                     optionTopUpMember: storeState.saldo.data.result
-                });
-            };
-        };
-
-        if(prevProps.storeState.saldo !== storeState.saldo){
-
-            if(storeState.saldo.isLoaded){
-                this.setState({
-                    ...this.state,
-                    optionTopUpMember: storeState.saldo.data.result
+                },() => {
+                    console.log(this.state.optionTopUpMember);
                 });
             };
         };
@@ -222,7 +228,17 @@ class AdminStoreCashierTopUp extends Component {
     handleTopUp = () => {
 
         // const { getSaldoBonusDispatch } = this.props;
-        // getSaldoBonusDispatch(data);
+        // const { authenticatedMember } = this.state;
+
+        // console.log(authenticatedMember);
+
+        // const jenisMember = authenticatedMember.isAuthenticated ? authenticatedMember.data.card.type.id : null;
+        
+        // let requiredData = {
+        //     type: jenisMember
+        // };
+
+        // getSaldoBonusDispatch(requiredData);
 
         this.toggleModal('topup');
     }

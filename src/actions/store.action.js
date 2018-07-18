@@ -396,7 +396,7 @@ export const getBonusTaxiOnline = () => {
 }
 
 //GET SALDO BONUS
-export const getSaldoBonus = () => {
+export const getSaldoBonus = (data) => {
 
 	// console.log(accessToken);
 	return async dispatch => {
@@ -405,7 +405,7 @@ export const getSaldoBonus = () => {
 
 		return axios
 			// .get(`${constant.API_PATH}saldo/list?accessToken=${accessToken}&type=${data.type}`)
-			.get(`${constant.API_PATH}saldo/list?accessToken=${accessToken}`)
+			.get(`${constant.API_PATH}saldo/detail?accessToken=${accessToken}&type=${data.type}`)
 			.then((response) => {
 				dispatch(getBonusSuccess(response.data));
 			})

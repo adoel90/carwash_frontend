@@ -10,7 +10,7 @@ class AdminStoreCashierKartuBaruPaymentReceipt extends Component{
 
 
     render(){
-        const { printData, statusPrintData, dataMemberAfterUpdate } = this.props;
+        const { printData, statusPrintData, dataMemberAfterUpdate, saldoawal } = this.props;
 
         if(statusPrintData === 200){
 
@@ -18,6 +18,9 @@ class AdminStoreCashierKartuBaruPaymentReceipt extends Component{
             let cardType = dataMemberAfterUpdate.cardType;
             let bonusMoney = dataMemberAfterUpdate.bonus;
             let saldoNow = dataMemberAfterUpdate.saldoNow;
+
+            console.log(saldoNow); //UNTUK MEMBER & TAXI ONLINE
+            console.log(saldoawal);// UNTUK NON-MEMBER
 
             return (
                 <Printable>
@@ -51,10 +54,10 @@ class AdminStoreCashierKartuBaruPaymentReceipt extends Component{
                                     <tr className="padding-bottom-small">
                                         <td>Saldo Sekarang : </td>
                                         <td className="ta-right">
-                                            <p>{saldoNow}</p>
+                                            <p>{cardType === "Non-Member" || cardType === "Member"? saldoawal : saldoNow}</p>
                                         </td>
                                     </tr>
-                                </tbody>
+                                </tbody> 
                             </table>
                         </div>
 

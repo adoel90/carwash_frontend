@@ -27,7 +27,7 @@ class AdminStoreCashierKartuBaruConfirmationModal extends Component {
 			<div>
 				<div className="flex justify-content--space-around">
 					{
-						optionTopUpMember.map((newsaldo) => {
+						optionTopUpMember.length ? optionTopUpMember.map((newsaldo) => {
 							return (
 								<div>
 									<Button type="button" theme="primary" key={newsaldo.id} value={newsaldo} onClick={(e) => handleSaldoAwalMember(newsaldo, e)}>
@@ -35,12 +35,38 @@ class AdminStoreCashierKartuBaruConfirmationModal extends Component {
 									</Button>
 									<h5><small className="margin-right-small center">Bonus : { newsaldo.bonus }</small></h5>
 								</div>
-							);
-						})
+							)
+						}) : null 
 					}
 				</div>
 			</div>
 		)
+    };
+
+    //#RENDER SALDO AWAL NON-MEMBER
+    renderSaldoAwalNonMember = () => {
+
+        const {handleInputChange, newCardData} = this.props;
+
+        return (
+            
+                    <InputGroup>
+                        <InputAddon>
+                            <small className="tt-uppercase fw-semibold ls-base">Rp</small>
+                        </InputAddon>
+                        <Input
+                            name="saldoawalnonmember"
+                            type="number"
+                            placeholder="Masukkan jumlah saldo yang diinginkan"
+                            onChange={(e) => handleInputChange(newCardData, e)}
+                            autoFocus="true"
+						    required="required"
+                        />
+                    </InputGroup>
+
+              
+         
+        )
     };
 
     render() {
@@ -244,18 +270,32 @@ class AdminStoreCashierKartuBaruConfirmationModal extends Component {
                                     </FormField>
                                 </FormGroup>
                             </Column> 
-                            <Column md={12}>
+                          
+                            {/* <Column md={6}>
                                 <FormGroup>
-                                    <FormField label={optionTopUpMemberThemeButton === false ? "Saldo Awal" : "TERPILIH : Rp. " + memberNominal}>
-                                    
-                                        { cardMember === "Member" ? this.renderSaldoAwalMember() : null } 
-                                        {/* <Input
+                                    <FormField label="Bonus">
+                                         {console.log(selectedMember.card ? selectedMember.card.type.bonus: null)}
+                                        <Input
                                             name="name"
                                             type="text"
-                                            placeholder={selectedMember.card ? selectedMember.card.type.min : null}
-                                            defaultValue={selectedMember.card ? selectedMember.card.type.min : null}
+                                            placeholder={selectedMember.card ? selectedMember.card.type.bonus: null}
+                                            defaultValue={selectedMember.card ? selectedMember.card.type.bonus: null}
                                             onChange={(e) => handleInputChangeInModalUpdate('selectedMember', e)}
-                                        /> */}
+                                            readOnly
+                                        />
+                                    </FormField>
+                                </FormGroup>
+                            </Column> */}
+
+                        </Row>
+                        <Row>
+                            <Column md={12}>
+                                <FormGroup row>
+                                    <FormField label={optionTopUpMemberThemeButton === false ? "Saldo Awal" : "TERPILIH : Rp. " + memberNominal}>
+                                            
+                                        {console.log(cardMember)}
+                                        { cardMember === "Member" ? this.renderSaldoAwalMember() : null } 
+                                        { cardMember === "Non-Member" ? this.renderSaldoAwalNonMember() : null}
                                     </FormField>
                                 </FormGroup>
                                 
@@ -278,22 +318,6 @@ class AdminStoreCashierKartuBaruConfirmationModal extends Component {
                                     </FormField>
                                 </FormGroup> */}
                             </Column>
-                            {/* <Column md={6}>
-                                <FormGroup>
-                                    <FormField label="Bonus">
-                                         {console.log(selectedMember.card ? selectedMember.card.type.bonus: null)}
-                                        <Input
-                                            name="name"
-                                            type="text"
-                                            placeholder={selectedMember.card ? selectedMember.card.type.bonus: null}
-                                            defaultValue={selectedMember.card ? selectedMember.card.type.bonus: null}
-                                            onChange={(e) => handleInputChangeInModalUpdate('selectedMember', e)}
-                                            readOnly
-                                        />
-                                    </FormField>
-                                </FormGroup>
-                            </Column> */}
-
                         </Row>
                     </ModalBody>
 

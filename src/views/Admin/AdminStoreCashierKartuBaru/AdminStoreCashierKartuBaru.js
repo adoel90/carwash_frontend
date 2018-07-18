@@ -23,7 +23,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        getSaldoBonusDispatch : () => dispatch(getSaldoBonus()),
+        getSaldoBonusDispatch : (data) => dispatch(getSaldoBonus(data)),
         authenticateMemberDispatch: (data) => dispatch(authenticateMember(data)),
         getNominalSaldoNewCustomerDispatch : (data) => dispatch(getNominalSaldoNewCustomer(data)),
         action: bindActionCreators({ updateMember, openDialog, closeDialog }, dispatch)
@@ -59,7 +59,8 @@ class AdminStoreCashierKartuBaru extends Component {
                 // name: '',
                 phone: '',
                 email: null,
-                address: ''
+                address: '',
+                saldoawalnonmember:null
             },
             paymentMethod: [
                 { id: 1, name: 'Cash' },
@@ -74,14 +75,12 @@ class AdminStoreCashierKartuBaru extends Component {
             optionTopUpMember: {},
             optionTopUpMemberThemeButton: false,
             memberNominal: {},
-
+            saldoawal: null
         }
     };
 
     componentDidMount(){
-       const { getSaldoBonusDispatch } = this.props;
-
-       getSaldoBonusDispatch();
+        
     };
 
     componentDidUpdate(prevProps) {
@@ -95,10 +94,20 @@ class AdminStoreCashierKartuBaru extends Component {
                 //#
                 this.state.selectedMember = member.item.data;
                 this.state.typeNumberMember = member.item.data.card ? member.item.data.card.type.id : null;
-                console.log(this.state.selectedMember);
+                console.log(member.item);
 
+                //#
                 this.forceUpdate();
                 this.handleToggleUpdate();
+
+                 //#GET SALDO BONUS
+                 const { getSaldoBonusDispatch } = this.props;
+                
+                 let requiredData = {
+                     type: this.state.typeNumberMember
+                 };
+         
+                 getSaldoBonusDispatch(requiredData);
             };
 
             //GET NOMINAL SALDO NEW CUSTOMER
@@ -139,6 +148,8 @@ class AdminStoreCashierKartuBaru extends Component {
                 });
             };
         };
+
+        
     };
 
     toggleModal = (name) => {
@@ -247,60 +258,184 @@ class AdminStoreCashierKartuBaru extends Component {
 
         e.preventDefault();
         const { action } = this.props;
-        const { selectedMember, newCardData, memberNominal } = this.state;
+        const { selectedMember, newCardData, memberNominal, saldoawal } = this.state;
 
-        let requiredData = {
-            id: selectedMember.id,
-            balance:parseInt(memberNominal),
-            name: selectedMember.name,
-            email: newCardData.email,
-            phone: newCardData.phone,
-            address: newCardData.address
-        };
+        console.log();
 
-        console.log(requiredData);
-
-        action.updateMember(requiredData).then(() => {
-            const { member } = this.props;
-
-            if (member.item.isUpdated) {
-                let dialogData = {
-                    type: 'success',
-                    title: 'Berhasil',
-                    message: 'Member telah berhasil di simpan. Klik tombol berikut untuk kembali.',
-                    onClose: () => window.location.reload(),
-                    closeText: 'Kembali'
+        if(selectedMember.card.type.name === "Member"){ // JENIS CUSTOMER :  MEMBER 
+            this.setState({
+                ...this.state,
+                saldoawal: parseInt(memberNominal)
+            }, () => {
+                let requiredData = {
+                    id: selectedMember.id,
+                    balance:parseInt(this.state.saldoawal),
+                    name: selectedMember.name,
+                    email: newCardData.email,
+                    phone: newCardData.phone,
+                    address: newCardData.address
                 };
+        
+                console.log(requiredData);
 
-                //Get this data to set in print
-                this.setState({
-                    ...this.state,
-                    dataMemberAfterUpdate: {
-                        name: selectedMember.name,
-                        cardType:  selectedMember.card ? selectedMember.card.type.name : "-",
-                        saldoNow: selectedMember.balance ? selectedMember.balance : "-",
-                        bonus: selectedMember.card.type ? selectedMember.card.type.bonus : ""
-                    }
+                action.updateMember(requiredData).then(() => {
+                    const { member } = this.props;
+
+                    if (member.item.isUpdated) {
+                        let dialogData = {
+                            type: 'success',
+                            title: 'Berhasil',
+                            message: 'Member telah berhasil di simpan. Klik tombol berikut untuk kembali.',
+                            onClose: () => window.location.reload(),
+                            closeText: 'Kembali'
+                        };
+
+                        //Get this data to set in print
+                        this.setState({
+                            ...this.state,
+                            dataMemberAfterUpdate: {
+                                name: selectedMember.name,
+                                cardType:  selectedMember.card ? selectedMember.card.type.name : "-",
+                                saldoNow: selectedMember.balance ? selectedMember.balance : "-",
+                                bonus: selectedMember.card.type ? selectedMember.card.type.bonus : ""
+                            }
+                        });
+                        
+                        this.toggleDialog(dialogData);
+                        this.handleNewCardPrintSubmit();
+
+                    } else if (member.item.isError) {
+                        let dialogData = {
+                            type: 'danger',
+                            title: 'Gagal',
+                            message: 'Member gagal di simpan. Klik tombol berikut untuk kembali.',
+                            onClose: () => this.toggleDialog(),
+                            closeText: 'Kembali'
+                        }
+
+                        this.toggleDialog(dialogData);
+
+                    } else {
+                        alert("Hubungi Superadmin untuk memperbaiki !");
+                    };      
                 });
+            });
+        } else if(selectedMember.card.type.name === "Non-Member"){ // JENIS CUSTOMER : NON-MEMBER
+            this.setState({
+                ...this.state,
+                saldoawal: newCardData.saldoawalnonmember,
+     
+            }, () => {
+                let requiredData = {
+                    id: selectedMember.id,
+                    balance:parseInt(this.state.saldoawal),
+                    name: selectedMember.name,
+                    email: newCardData.email,
+                    phone: newCardData.phone,
+                    address: newCardData.address
+                };
+        
+                console.log(requiredData);
+
+                action.updateMember(requiredData).then(() => {
+                    const { member } = this.props;
+
+                    if (member.item.isUpdated) {
+                        let dialogData = {
+                            type: 'success',
+                            title: 'Berhasil',
+                            message: 'Member telah berhasil di simpan. Klik tombol berikut untuk kembali.',
+                            onClose: () => window.location.reload(),
+                            closeText: 'Kembali'
+                        };
+
+                        //Get this data to set in print
+                        this.setState({
+                            ...this.state,
+                            dataMemberAfterUpdate: {
+                                name: selectedMember.name,
+                                cardType:  selectedMember.card ? selectedMember.card.type.name : "-",
+                                saldoNow: selectedMember.balance ? selectedMember.balance : "-",
+                                bonus: selectedMember.card.type ? selectedMember.card.type.bonus : ""
+                            }
+                        });
+                        
+                        this.toggleDialog(dialogData);
+                        this.handleNewCardPrintSubmit();
+
+                    } else if (member.item.isError) {
+                        let dialogData = {
+                            type: 'danger',
+                            title: 'Gagal',
+                            message: 'Member gagal di simpan. Klik tombol berikut untuk kembali.',
+                            onClose: () => this.toggleDialog(),
+                            closeText: 'Kembali'
+                        }
+
+                        this.toggleDialog(dialogData);
+
+                    } else {
+                        alert("Hubungi Superadmin untuk memperbaiki !");
+                    };      
+                });
+            });
+        } else { // JENIS CUSTOMER : TAXI ONLINE 
+            alert("Sedikit lagi TEMPUR Taxi Online !");
+        }
+
+
+        // let requiredData = {
+        //     id: selectedMember.id,
+        //     balance:this.state.saldoawal,
+        //     name: selectedMember.name,
+        //     email: newCardData.email,
+        //     phone: newCardData.phone,
+        //     address: newCardData.address
+        // };
+
+        // console.log(requiredData);
+
+        // action.updateMember(requiredData).then(() => {
+        //     const { member } = this.props;
+
+        //     if (member.item.isUpdated) {
+        //         let dialogData = {
+        //             type: 'success',
+        //             title: 'Berhasil',
+        //             message: 'Member telah berhasil di simpan. Klik tombol berikut untuk kembali.',
+        //             onClose: () => window.location.reload(),
+        //             closeText: 'Kembali'
+        //         };
+
+        //         //Get this data to set in print
+        //         this.setState({
+        //             ...this.state,
+        //             dataMemberAfterUpdate: {
+        //                 name: selectedMember.name,
+        //                 cardType:  selectedMember.card ? selectedMember.card.type.name : "-",
+        //                 saldoNow: selectedMember.balance ? selectedMember.balance : "-",
+        //                 bonus: selectedMember.card.type ? selectedMember.card.type.bonus : ""
+        //             }
+        //         });
                 
-                this.toggleDialog(dialogData);
-                this.handleNewCardPrintSubmit();
+        //         this.toggleDialog(dialogData);
+        //         this.handleNewCardPrintSubmit();
 
-            } else if (member.item.isError) {
-                let dialogData = {
-                    type: 'danger',
-                    title: 'Gagal',
-                    message: 'Member gagal di simpan. Klik tombol berikut untuk kembali.',
-                    onClose: () => this.toggleDialog(),
-                    closeText: 'Kembali'
-                }
+        //     } else if (member.item.isError) {
+        //         let dialogData = {
+        //             type: 'danger',
+        //             title: 'Gagal',
+        //             message: 'Member gagal di simpan. Klik tombol berikut untuk kembali.',
+        //             onClose: () => this.toggleDialog(),
+        //             closeText: 'Kembali'
+        //         }
 
-                this.toggleDialog(dialogData);
+        //         this.toggleDialog(dialogData);
 
-            } else {
-                alert("Hubungi Superadmin untuk memperbaiki !");
-            };      
-        });
+        //     } else {
+        //         alert("Hubungi Superadmin untuk memperbaiki !");
+        //     };      
+        // });
     }
 
     handleNewCardPrintSubmit = () => {

@@ -130,77 +130,6 @@ class AdminStoreCashierKartuBaruConfirmationModal extends Component {
                 <Form>
                     <ModalBody>
                         <Row className="margin-bottom-small">
-    
-                            {/* {typeNumberMember  === 1 ? 
-                                    <Column md={6}>
-                                        <FormGroup>
-                                            <FormField label="Nama Lengkap">
-                                                <InputGroup>
-                                                    <InputAddon>
-                                                        <i className="far fa-user"></i>
-                                                    </InputAddon>
-                                                    <Input
-                                                        name="name"
-                                                        type="text"
-                                                        placeholder="Tulis Nama Lengkap"
-                                                        onChange={(e) => handleInputChangeInModalUpdate('selectedMember', e)}
-                                                        required="true"
-                                                    />
-                                                </InputGroup>
-                                            </FormField>
-                                        </FormGroup>
-                                        <FormGroup>
-                                            <FormField label="Alamat E-mail">
-                                                <InputGroup>
-                                                    <InputAddon>
-                                                        <i className="far fa-envelope"></i>
-                                                    </InputAddon>
-                                                    <Input
-                                                        name="email"
-                                                        type="email"
-                                                        placeholder="Tulis Alamat email"
-                                                        onChange={(e) => handleInputChange(newCardData, e)}
-                                                    />
-                                                </InputGroup>
-                                            </FormField>
-                                        </FormGroup>
-                                        <FormGroup>
-                                            <FormField label="Nomor Telepon">
-                                                <InputGroup>
-                                                    <InputAddon>
-                                                        <i className="fas fa-phone"></i>
-                                                    </InputAddon>
-                                                    <Input
-                                                        name="phone"
-                                                        type="text"
-                                                        placeholder="+62"
-                                                        onChange={(e) => handleInputChange(newCardData, e)}
-                                                    // required="false"
-                                                    />
-                                                </InputGroup>
-                                            </FormField>
-                                        </FormGroup>
-
-                                        <FormGroup>
-                                            <FormField label="Alamat">
-                                                <InputGroup>
-                                                    <InputAddon>
-                                                        <i className="fas fa-map-marker-alt"></i>
-                                                    </InputAddon>
-                                                    <Input
-                                                        name="address"
-                                                        type="textarea"
-                                                        placeholder="Provinsi, Kecamatan, Jalan, Kode Pos"
-                                                        onChange={(e) => handleInputChange(newCardData, e)}
-                                                    // required="false"
-                                                    />
-                                                </InputGroup>
-                                            </FormField>
-                                        </FormGroup>
-                                    </Column>
-                                  : null  
-                            }  */}
-
                              <Column md={6}>
                                 <FormGroup>
                                     <FormField label="Nama Lengkap">
@@ -297,23 +226,6 @@ class AdminStoreCashierKartuBaruConfirmationModal extends Component {
                                     </FormField>
                                 </FormGroup>
                             </Column> 
-                          
-                            {/* <Column md={6}>
-                                <FormGroup>
-                                    <FormField label="Bonus">
-                                         {console.log(selectedMember.card ? selectedMember.card.type.bonus: null)}
-                                        <Input
-                                            name="name"
-                                            type="text"
-                                            placeholder={selectedMember.card ? selectedMember.card.type.bonus: null}
-                                            defaultValue={selectedMember.card ? selectedMember.card.type.bonus: null}
-                                            onChange={(e) => handleInputChangeInModalUpdate('selectedMember', e)}
-                                            readOnly
-                                        />
-                                    </FormField>
-                                </FormGroup>
-                            </Column> */}
-
                         </Row>
                         <Row>
                             <Column md={12}>
@@ -325,25 +237,6 @@ class AdminStoreCashierKartuBaruConfirmationModal extends Component {
                                         { cardMember === "Taxi Online" ? this.renderSaldoAwalTaxiOnline() : null}
                                     </FormField>
                                 </FormGroup>
-                                
-                                {/* <FormGroup>
-                                    <FormField label="Pilih Saldo Awal : ">
-                                        <div>
-                                            <div className="flex justify-content--space-around" >
-                                                {
-                                                    card.nominal.isLoaded ? card.nominal.data.result.map((value) => {
-                                                        return(
-                                                            <Button onClick={handleNominal} className="margin-right-small" type="button" theme="primary" key={value.id} value={value} >
-                                                                <h5>Rp.{value.saldo}</h5>
-                                                            </Button>
-                                                        )
-
-                                                    }) : null
-                                                }
-                                            </div>
-                                        </div>
-                                    </FormField>
-                                </FormGroup> */}
                             </Column>
                         </Row>
                     </ModalBody>

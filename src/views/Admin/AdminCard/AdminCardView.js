@@ -281,6 +281,84 @@ const AdminCardView = props => {
                         </Form>
                     </Modal>
                 )
+            };
+
+            if(selectedCardJenisMember === "Taxi Online"){
+
+                  return (
+
+                        <Modal
+                              isOpen={isModalOpen.updateCard}
+                              toggle={() => toggleModal('updateCard')}>
+
+                              <ModalHeader>
+                                    <h5>Ubah Informasi Card</h5>
+                              </ModalHeader>
+                              <Form onSubmit={updateCard}>
+                                    <ModalBody>
+                                          <Row>
+                                                <Column>
+                                                      <FormField label="Jenis Member">
+                                                            <InputGroup>
+                                                                  <InputAddon>
+                                                                        <i class="far fa-credit-card"></i>
+                                                                  </InputAddon>
+                                                                  <Input readOnly type="text" name="name" placeholder={selectedCard.name} defaultValue={selectedCard.name} onChange={(e) => handleInputChange('selectedCard', e)} />
+                                                            </InputGroup>
+                                                      </FormField>     
+                                                </Column>
+                                          </Row>
+
+                                          <Row>
+                                                <Column md={6}>
+                                                      <FormField label="Top Up">
+                                                            <InputGroup>
+                                                                  <InputAddon>
+                                                                        <small class="fw-semibold tt-uppercase ls-base">Rp</small>
+                                                                  </InputAddon>
+                                                                  <InputCurrency 
+                                                                        className="input"
+                                                                        type="text" 
+                                                                        name="opsinonmember" 
+                                                                        placeholder="Isi Top-up" 
+                                                                        // defaultValue={selectedCard.min} 
+                                                                        value={selectedCard.opsinonmember}
+                                                                        onChange={(e) => handleInputChange('selectedCard', e)} 
+                                                                  />
+                                                            </InputGroup>
+                                                      </FormField>
+                                                </Column>
+                                                <Column md={6}>
+                                                      <FormField label="Bonus">
+                                                            <InputGroup>
+                                                                  <InputAddon>
+                                                                        <small class="fw-semibold tt-uppercase ls-base">Rp</small>
+                                                                  </InputAddon>
+                                                                  <InputCurrency 
+                                                                        className="input"
+                                                                        type="text" 
+                                                                        name="bonusnonmember" 
+                                                                        placeholder="Isi Bonus Top-up" 
+                                                                        // defaultValue={selectedCard.min} 
+                                                                        value={selectedCard.bonusnonmember}
+                                                                        onChange={(e) => handleInputChange('selectedCard', e)} 
+                                                                  />
+                                                            </InputGroup>
+                                                      </FormField>
+                                                </Column>
+                                          </Row>
+                                          <Row>
+                                                <Column>
+                                                      <FormField label="Refund">
+                                                            <SwitchSquare name="refund" value={Boolean(selectedCard.refund)} onChange={(e) => handleInputChange('selectedCard', e)} />
+                                                      </FormField>
+                                                </Column>
+                                          </Row>
+                                    </ModalBody>
+                              </Form>
+
+                        </Modal>
+                  )
             }
       };
 

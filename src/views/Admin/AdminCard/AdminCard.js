@@ -292,10 +292,32 @@ class AdminCard extends Component {
            
 
             if(selectedCard.name === "Member"){
-                  let items = [];
-                  items.push(selectedCard.opsi1);
-                  items.push(selectedCard.opsi2);
-                  items.push(selectedCard.opsi3);
+
+                  // let items = [];
+
+                  // items.push(parseInt(selectedCard.opsi1));
+                  // items.push(parseInt(selectedCard.opsi2));
+                  // items.push(parseInt(selectedCard.opsi3));
+
+                  // let bonuz = [];
+                  // items.push(parseInt(selectedCard.bonus1));
+                  // items.push(parseInt(selectedCard.bonus2));
+                  // items.push(parseInt(selectedCard.bonus3));
+
+                  let items = [
+                        {
+                              "saldo": parseInt(selectedCard.opsi1),
+                              "bonus": parseInt(selectedCard.bonus1)
+                        },
+                        {
+                              "saldo": parseInt(selectedCard.opsi2),
+                              "bonus": parseInt(selectedCard.bonus2)
+                        },
+                        {
+                              "saldo": parseInt(selectedCard.opsi3),
+                              "bonus": parseInt(selectedCard.bonus3)
+                        }
+                  ];
       
                   
                   let param = {
@@ -303,13 +325,67 @@ class AdminCard extends Component {
                         name: selectedCard.name,
                         minimum: parseInt(selectedCard.min.replace(/,/g, '')),
                         bonus: selectedCard.bonus ? parseInt(selectedCard.bonus.replace(/,/g, '')) : null,
+                        // bonus: bonuz,
                         refund: selectedCard.refund,
                         charge: selectedCard.charge,
                         item: items,
                   };
 
                   console.log(param);
-            };
+
+                  action.updateCardType(param).then(() => {
+
+                        const { card } = this.props;
+
+                        if (card.type.isUpdated) {
+                              let dialogData = {
+                                    type: 'success',
+                                    title: 'Berhasil',
+                                    message: 'Card telah berhasil diubah. Klik tombol berikut untuk kembali.',
+                                    onClose: () => window.location.reload(),
+                                    closeText: 'Kembali'
+                              };
+                  
+                              this.toggleDialog(dialogData);
+                        };
+            
+                        if (card.type.isError) {
+                              let dialogData = {
+                                    type: 'danger',
+                                    title: 'Gagal',
+                                    message: 'Card gagal diubah. Klik tombol berikut untuk kembali.',
+                                    onClose: () => this.toggleDialog(),
+                                    closeText: 'Kembali'
+                              };
+                  
+                              this.toggleDialog(dialogData);
+                        }
+                        // this.toggleModal('updateCard');
+                        // window.location.reload();
+                  })    
+            } else if( selectedCard.name === "Non-Member"){
+                  console.log("From Non-Member");
+
+                  let items = [];
+                  items.push(parseInt(selectedCard.opsinonmember));
+
+                  let bonuz = [];
+
+                  let param = {
+                        id: selectedCard.id,
+                        name: selectedCard.name,
+                        minimum: parseInt(selectedCard.min.replace(/,/g, '')),
+                        // bonus: selectedCard.bonus ? parseInt(selectedCard.bonus.replace(/,/g, '')) : null,
+                        bonus: bonuz,
+                        refund: selectedCard.refund,
+                        charge: selectedCard.charge,
+                        item: items,
+                  };
+
+                  console.log(param);
+            } else {
+                  alert("Taxi Online");
+            }
            
 
            

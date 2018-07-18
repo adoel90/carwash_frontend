@@ -306,16 +306,16 @@ class AdminCard extends Component {
 
                   let items = [
                         {
-                              "saldo": parseInt(selectedCard.opsi1),
-                              "bonus": parseInt(selectedCard.bonus1)
+                              saldo: parseInt(selectedCard.opsi1),
+                              bonus: parseInt(selectedCard.bonus1)
                         },
                         {
-                              "saldo": parseInt(selectedCard.opsi2),
-                              "bonus": parseInt(selectedCard.bonus2)
+                              saldo: parseInt(selectedCard.opsi2),
+                              bonus: parseInt(selectedCard.bonus2)
                         },
                         {
-                              "saldo": parseInt(selectedCard.opsi3),
-                              "bonus": parseInt(selectedCard.bonus3)
+                              saldo: parseInt(selectedCard.opsi3),
+                              bonus: parseInt(selectedCard.bonus3)
                         }
                   ];
       

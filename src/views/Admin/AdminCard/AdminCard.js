@@ -192,13 +192,13 @@ class AdminCard extends Component {
             //       rowAlign: 'center',
             //       isCurrency: true
             // }, 
-            {
-                  title: 'Top Up',
-                  accessor: 'min',
-                  align: 'center',
-                  rowAlign: 'center',
-                  isCurrency: true
-            },
+            // {
+            //       title: 'Top Up',
+            //       accessor: 'min',
+            //       align: 'center',
+            //       rowAlign: 'center',
+            //       isCurrency: true
+            // },
             // {
             //       title: 'Nominal Tipe-3',
             //       accessor: 'min',
@@ -206,13 +206,13 @@ class AdminCard extends Component {
             //       rowAlign: 'center',
             //       isCurrency: true
             // },
-            {
-                  title: 'Bonus',
-                  accessor: 'bonus',
-                  align: 'center',
-                  rowAlign: 'center',
-                  isCurrency: true
-            }, 
+            // {
+            //       title: 'Bonus',
+            //       accessor: 'bonus',
+            //       align: 'center',
+            //       rowAlign: 'center',
+            //       isCurrency: true
+            // }, 
             {
                   title: 'Status',
                   accessor: 'action',
@@ -220,7 +220,7 @@ class AdminCard extends Component {
                   align: 'center',
                   render: (row) => (
                         <td className="flex justify-content--center">
-                              <Button className="margin-right-small" type="button" onClick={() => this.openCardDetail(row)}>Ubah</Button>
+                              <Button className="margin-right-small" type="button" onClick={() => this.openCardDetail(row)}>Setting Kartu</Button>
                               <Button type="button" theme={row.data.status ? "success" : "danger"} onClick={() => this.changeCardStatus(row)}>{ row.data.status ? 'Aktif' : 'Non Aktif' }</Button>
                         </td>
                   )
@@ -231,6 +231,8 @@ class AdminCard extends Component {
             // if(cardList.isLoaded) {
             if(card.types.isLoaded){
                   card.types.data.result.card.forEach((data) => {
+
+
 
                         //#
                         // let dataPilihanNominalSaldo = data.min.length ? data.min.filter((data, index, self) => {

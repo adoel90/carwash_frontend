@@ -275,16 +275,24 @@ class AdminStoreCashierTopUp extends Component {
 
         
         if(typeMember === "Member"){ // MEMBER
-            
-            let requiredData = {
-                balance:parseInt(memberNominal) + parseInt(customerBonus),
-                payment: topupData.payment,
-                staff: user.level.id
-            };
-            
-            console.log("From Member");
-            action.memberCustomerTopup(requiredData, accessTokenMember.accessToken);
 
+            console.log(parseInt(memberNominal));
+            console.log(parseInt(customerBonus));
+            
+            if(!isNaN(parseInt(memberNominal)) ){
+                let requiredData = {
+                    balance:parseInt(memberNominal) + parseInt(customerBonus),
+                    payment: topupData.payment,
+                    staff: user.level.id
+                };
+                
+                console.log("From Member");
+                action.memberCustomerTopup(requiredData, accessTokenMember.accessToken);
+            } else {
+                alert("Anda belum isi Jumlah Top Up !");
+            };
+
+            
         } else if(typeMember === "Non-Member"){ // NON MEMBER
 
             console.log(topupData.balance.replace(/,/g, ''));
@@ -343,6 +351,9 @@ class AdminStoreCashierTopUp extends Component {
             memberNominal: topup.balance,
             customerBonus: topup ? topup.bonus : "0",
             optionTopUpMemberThemeButton: true
+        },() => {
+            console.log(this.state.memberNominal);
+            console.log(this.state.customerBonus);
         });
     };
 

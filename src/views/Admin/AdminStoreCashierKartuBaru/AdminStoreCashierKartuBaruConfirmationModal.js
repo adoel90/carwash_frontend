@@ -52,11 +52,11 @@ class AdminStoreCashierKartuBaruConfirmationModal extends Component {
             
                     <InputGroup>
                         <InputAddon>
-                            <small className="tt-uppercase fw-semibold ls-base">Rp</small>
+                           Rp
                         </InputAddon>
-                        <Input
+                        <Input // IN HERE YANG ERROR !!!
                             name="saldoawalnonmember"
-                            type="number"
+                            type="text"
                             placeholder="Masukkan jumlah saldo yang diinginkan"
                             onChange={(e) => handleInputChange(newCardData, e)}
                             autoFocus="true"

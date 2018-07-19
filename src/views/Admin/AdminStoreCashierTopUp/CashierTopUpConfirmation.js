@@ -48,17 +48,6 @@ class CashierTopUpConfirmation extends Component {
 			'marginLeft' : '5px'
 		};
 
-		//#TO SHOW LOADER WHEN KLIK BUTTON
-		// if(optionTopUpMemberThemeButton === true){
-		// 	return (
-		// 		<div>
-		// 			<div className="flex justify-content--space-around">
-		// 				<i class="fa fa-spinner fa-spin" style="font-size:24px"></i>
-		// 			</div>
-		// 		</div>
-		// 	)
-		// };
-
 		if(storeState.saldo.isLoaded){
 			return (
 				<div>
@@ -95,13 +84,14 @@ class CashierTopUpConfirmation extends Component {
 					<small className="tt-uppercase fw-semibold ls-base">Rp</small>
 				</InputAddon>
 				<InputCurrency
+
 						className="input"
 						name="balance"
 						type="text"
 						placeholder="Masukkan jumlah saldo yang diinginkan"
 						onChange={(e) => handleInputChange(topupData, e)}
 						autoFocus="true"
-						required="required"
+						required
 					/>
 			</InputGroup>
 		);
@@ -222,11 +212,10 @@ class CashierTopUpConfirmation extends Component {
 								</InputCashier>
 							</FormField>
 						</FormGroup>
-						
 
 						{/* TAMBAH SALDO TAXI ONLINE & UMUM */}
 						<FormGroup row>
-							<FormField label={optionTopUpMemberThemeButton === true ? "Terpilih : Rp. " + memberNominal : "Jumlah Top Up" }>
+							<FormField label={optionTopUpMemberThemeButton === true ? "Terpilih : Rp. " + memberNominal : "Jumlah Top Up : " }>
 							{/* { console.log(typeMember)} */}
 							{ typeMember === "Non-Member" ? this.renderTambahSaldoNonMember() : null}
 							{ typeMember === "Member" ? this.renderTambahSaldoMember() : null}

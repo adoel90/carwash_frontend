@@ -19,6 +19,10 @@ class AdminStoreCashierKartuBaruPaymentReceipt extends Component{
             let bonusMoney = dataMemberAfterUpdate.bonus;
             let saldoNow = dataMemberAfterUpdate.saldoNow;
 
+            let customerBonusFinal = typeof customerBonus === "object" ? parseInt('0') : customerBonus;
+
+            
+
             console.log(saldoNow); //UNTUK MEMBER & TAXI ONLINE
             console.log(saldoawal);// UNTUK NON-MEMBER
 
@@ -54,7 +58,8 @@ class AdminStoreCashierKartuBaruPaymentReceipt extends Component{
                                     <tr className="padding-bottom-small">
                                         <td>Saldo Sekarang : </td>
                                         <td className="ta-right">
-                                            <p>{cardType === "Non-Member" || cardType === "Member" || cardType === "Taxi Online"? saldoawal + customerBonus : saldoNow}</p>
+                                            {/* <p>{cardType === "Non-Member" || cardType === "Member" || cardType === "Taxi Online"? saldoawal + customerBonusFinal : saldoawal}</p> */}
+                                            <p>{cardType === "Member" || cardType === "Taxi Online" ? saldoawal + customerBonus : saldoawal}</p>
                                         </td>
                                     </tr>
                                 </tbody> 

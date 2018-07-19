@@ -152,13 +152,18 @@ class AdminStoreCashierReport extends Component {
         
         if(store.reportCashierMember.isLoaded){
             store.reportCashierMember.data.result.data.forEach((value, i) => {
+
+                console.log(value);
+
                 let row = {
                     id: value.id,
                     kasirName: value.user.name,
                     transaction_date: moment(value.transaction_date).format('DD MMM YYYY'),
                     description: value.description === "Buat Member" ? "Member Baru" : value.description,
-                    total: value.total
+                    total: value.total != null ? value.total : "Rp. 0"
                 };
+
+                console.log(row);
 
                 rows.push(row);
             })

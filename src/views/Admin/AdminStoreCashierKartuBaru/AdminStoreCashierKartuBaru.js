@@ -262,64 +262,72 @@ class AdminStoreCashierKartuBaru extends Component {
         const { action } = this.props;
         const { selectedMember, newCardData, memberNominal, saldoawal, customerBonus } = this.state;
 
+        console.log(selectedMember);
+
         if(selectedMember.card.type.name === "Member"){ // JENIS CUSTOMER :  MEMBER 
-            this.setState({
-                ...this.state,
-                saldoawal: parseInt(memberNominal)
-            }, () => {
-                let requiredData = {
-                    id: selectedMember.id,
-                    balance:parseInt(this.state.saldoawal) + customerBonus,
-                    name: selectedMember.name,
-                    email: newCardData.email,
-                    phone: newCardData.phone,
-                    address: newCardData.address
-                };
-        
-                console.log(requiredData);
 
-                action.updateMember(requiredData).then(() => {
-                    const { member } = this.props;
+            if(!isNaN(parseInt(memberNominal))){
 
-                    if (member.item.isUpdated) {
-                        let dialogData = {
-                            type: 'success',
-                            title: 'Berhasil',
-                            message: 'Member telah berhasil di simpan. Klik tombol berikut untuk kembali.',
-                            onClose: () => window.location.reload(),
-                            closeText: 'Kembali'
-                        };
-
-                        //Get this data to set in print
-                        this.setState({
-                            ...this.state,
-                            dataMemberAfterUpdate: {
-                                name: selectedMember.name,
-                                cardType:  selectedMember.card ? selectedMember.card.type.name : "-",
-                                saldoNow: selectedMember.balance ? selectedMember.balance : "-",
-                                bonus: selectedMember.card.type ? selectedMember.card.type.bonus : ""
+                this.setState({
+                    ...this.state,
+                    saldoawal: parseInt(memberNominal)
+                }, () => {
+                    let requiredData = {
+                        id: selectedMember.id,
+                        balance:parseInt(this.state.saldoawal) + customerBonus,
+                        name: selectedMember.name,
+                        email: newCardData.email,
+                        phone: newCardData.phone,
+                        address: newCardData.address
+                    };
+            
+                    console.log(requiredData);
+    
+                    action.updateMember(requiredData).then(() => {
+                        const { member } = this.props;
+    
+                        if (member.item.isUpdated) {
+                            let dialogData = {
+                                type: 'success',
+                                title: 'Berhasil',
+                                message: 'Member telah berhasil di simpan. Klik tombol berikut untuk kembali.',
+                                onClose: () => window.location.reload(),
+                                closeText: 'Kembali'
+                            };
+    
+                            //Get this data to set in print
+                            this.setState({
+                                ...this.state,
+                                dataMemberAfterUpdate: {
+                                    name: selectedMember.name,
+                                    cardType:  selectedMember.card ? selectedMember.card.type.name : "-",
+                                    saldoNow: selectedMember.balance ? selectedMember.balance : "-",
+                                    bonus: selectedMember.card.type ? selectedMember.card.type.bonus : ""
+                                }
+                            });
+                            
+                            this.toggleDialog(dialogData);
+                            this.handleNewCardPrintSubmit();
+    
+                        } else if (member.item.isError) {
+                            let dialogData = {
+                                type: 'danger',
+                                title: 'Gagal',
+                                message: 'Member gagal di simpan. Klik tombol berikut untuk kembali.',
+                                onClose: () => this.toggleDialog(),
+                                closeText: 'Kembali'
                             }
-                        });
-                        
-                        this.toggleDialog(dialogData);
-                        this.handleNewCardPrintSubmit();
-
-                    } else if (member.item.isError) {
-                        let dialogData = {
-                            type: 'danger',
-                            title: 'Gagal',
-                            message: 'Member gagal di simpan. Klik tombol berikut untuk kembali.',
-                            onClose: () => this.toggleDialog(),
-                            closeText: 'Kembali'
-                        }
-
-                        this.toggleDialog(dialogData);
-
-                    } else {
-                        alert("Hubungi Superadmin untuk memperbaiki !");
-                    };      
+    
+                            this.toggleDialog(dialogData);
+    
+                        } else {
+                            alert("Hubungi Superadmin untuk memperbaiki !");
+                        };      
+                    });
                 });
-            });
+            } else {
+                alert("Anda belum isi Jumlah Top Up !");
+            }
         } else if(selectedMember.card.type.name === "Non-Member"){ // JENIS CUSTOMER : NON-MEMBER
 
             const {customerBonus } = this.state;
@@ -331,7 +339,8 @@ class AdminStoreCashierKartuBaru extends Component {
             }, () => {
                 let requiredData = {
                     id: selectedMember.id,
-                    balance:parseInt(this.state.saldoawal) + customerBonus,
+                    balance:typeof customerBonus === "object" ? parseInt(this.state.saldoawal) : parseInt(this.state.saldoawal) + customerBonus,
+                    // balance: parseInt(this.state.saldoawal),
                     name: selectedMember.name,
                     email: newCardData.email,
                     phone: newCardData.phone,

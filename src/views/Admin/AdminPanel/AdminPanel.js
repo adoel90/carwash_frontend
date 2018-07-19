@@ -215,7 +215,7 @@ class AdminPanel extends Component {
 
                 if (menu[i].id === 5 && menu[i].path === "card") {
                     dataMenu.items.push(jenisMemberShipSuperadmin);
-                    dataMenu.items.push(settingMembership);
+                    // dataMenu.items.push(settingMembership);
                 };
             }
             //#Superadmin -- Member

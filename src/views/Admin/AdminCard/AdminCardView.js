@@ -237,7 +237,7 @@ const AdminCardView = props => {
                                                                   className="input"
                                                                   type="text" 
                                                                   name="opsinonmember" 
-                                                                  placeholder="Isi Top-up" 
+                                                                  placeholder="Setting Minimum Top-up..." 
                                                                   // defaultValue={selectedCard.min} 
                                                                   value={selectedCard.opsinonmember}
                                                                   onChange={(e) => handleInputChange('selectedCard', e)} 
@@ -256,7 +256,7 @@ const AdminCardView = props => {
                                                                   className="input"
                                                                   type="text" 
                                                                   name="bonusnonmember" 
-                                                                  placeholder="Isi Bonus Top-up" 
+                                                                  placeholder="Isi Bonus Top-up..." 
                                                                   // defaultValue={selectedCard.min} 
                                                                   value={selectedCard.bonusnonmember}
                                                                   onChange={(e) => handleInputChange('selectedCard', e)} 

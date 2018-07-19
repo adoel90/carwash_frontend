@@ -286,14 +286,18 @@ class AdminStoreCashierTopUp extends Component {
             action.memberCustomerTopup(requiredData, accessTokenMember.accessToken);
 
         } else if(typeMember === "Non-Member"){ // NON MEMBER
+
+            console.log(topupData.balance.replace(/,/g, ''));
            
             let requiredData = {
-                balance: topupData ? parseInt(topupData.balance.replace(/,/g, '')) + parseInt(customerBonus): null ,
+                balance: topupData ? parseInt(topupData.balance.replace(/,/g, '')  + parseInt(customerBonus) ): null ,
+                // balance: topupData ? parseInt(topupData.balance.replace(/,/g, '')) : null ,
                 payment: topupData.payment,
                 staff: user.level.id
             };
 
             console.log("From Non-Member");
+            console.log(requiredData);
             action.memberCustomerTopup(requiredData, accessTokenMember.accessToken);
 
         } else { // TAXI ONLINE
@@ -337,7 +341,7 @@ class AdminStoreCashierTopUp extends Component {
         this.setState({
             ...this.state,
             memberNominal: topup.balance,
-            customerBonus: topup.bonus,
+            customerBonus: topup ? topup.bonus : "0",
             optionTopUpMemberThemeButton: true
         });
     };

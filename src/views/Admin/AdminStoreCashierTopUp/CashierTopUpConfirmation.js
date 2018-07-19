@@ -85,7 +85,9 @@ class CashierTopUpConfirmation extends Component {
 	//NON MEMBER
 	renderTambahSaldoNonMember = () => {
 
-		const { authenticatedMember, handleInputChange, topupData} = this.props;
+		const { authenticatedMember, handleInputChange, topupData, optionTopUpMember} = this.props;
+
+		// console.log(optionTopUpMember[0].balance > topupData ? "Masukkan jumlah saldo yang diinginkan" : "Minimum Top up sebeesar Rp. " +  optionTopUpMember[0].balance) + ". Tambahkan saldo Top up";
 
 		return (
 			<InputGroup>

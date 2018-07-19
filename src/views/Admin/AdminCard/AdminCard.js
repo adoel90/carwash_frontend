@@ -293,17 +293,6 @@ class AdminCard extends Component {
 
             if(selectedCard.name === "Member"){
 
-                  // let items = [];
-
-                  // items.push(parseInt(selectedCard.opsi1));
-                  // items.push(parseInt(selectedCard.opsi2));
-                  // items.push(parseInt(selectedCard.opsi3));
-
-                  // let bonuz = [];
-                  // items.push(parseInt(selectedCard.bonus1));
-                  // items.push(parseInt(selectedCard.bonus2));
-                  // items.push(parseInt(selectedCard.bonus3));
-
                   let items = [
                         {
                               saldo: parseInt(selectedCard.opsi1.replace(/,/g, '')),
@@ -333,43 +322,38 @@ class AdminCard extends Component {
 
                   console.log(param);
 
-                  // action.updateCardType(param).then(() => {
+                  action.updateCardType(param).then(() => {
 
-                  //       const { card } = this.props;
+                        const { card } = this.props;
 
-                  //       if (card.type.isUpdated) {
-                  //             let dialogData = {
-                  //                   type: 'success',
-                  //                   title: 'Berhasil',
-                  //                   message: 'Card telah berhasil diubah. Klik tombol berikut untuk kembali.',
-                  //                   onClose: () => window.location.reload(),
-                  //                   closeText: 'Kembali'
-                  //             };
+                        if (card.type.isUpdated) {
+                              let dialogData = {
+                                    type: 'success',
+                                    title: 'Berhasil',
+                                    message: 'Card telah berhasil diubah. Klik tombol berikut untuk kembali.',
+                                    onClose: () => window.location.reload(),
+                                    closeText: 'Kembali'
+                              };
                   
-                  //             this.toggleDialog(dialogData);
-                  //       };
+                              this.toggleDialog(dialogData);
+                        };
             
-                  //       if (card.type.isError) {
-                  //             let dialogData = {
-                  //                   type: 'danger',
-                  //                   title: 'Gagal',
-                  //                   message: 'Card gagal diubah. Klik tombol berikut untuk kembali.',
-                  //                   onClose: () => this.toggleDialog(),
-                  //                   closeText: 'Kembali'
-                  //             };
+                        if (card.type.isError) {
+                              let dialogData = {
+                                    type: 'danger',
+                                    title: 'Gagal',
+                                    message: 'Card gagal diubah. Klik tombol berikut untuk kembali.',
+                                    onClose: () => this.toggleDialog(),
+                                    closeText: 'Kembali'
+                              };
                   
-                  //             this.toggleDialog(dialogData);
-                  //       }
-                  //       // this.toggleModal('updateCard');
-                  //       // window.location.reload();
-                  // })    
+                              this.toggleDialog(dialogData);
+                        }
+                        // this.toggleModal('updateCard');
+                        // window.location.reload();
+                  })    
             } else if( selectedCard.name === "Non-Member"){
                   console.log("From Non-Member");
-
-                  console.log(selectedCard);
-
-                  // let items = [];
-                  // items.push(parseInt(selectedCard.opsinonmember));
 
                   let items = [
                         {
@@ -390,11 +374,40 @@ class AdminCard extends Component {
                   };
 
                   console.log(requireData);
+                  action.updateCardType(requireData).then(() => {
+
+                        const { card } = this.props;
+
+                        if (card.type.isUpdated) {
+                              let dialogData = {
+                                    type: 'success',
+                                    title: 'Berhasil',
+                                    message: 'Card telah berhasil diubah. Klik tombol berikut untuk kembali.',
+                                    onClose: () => window.location.reload(),
+                                    closeText: 'Kembali'
+                              };
+                  
+                              this.toggleDialog(dialogData);
+                        };
+            
+                        if (card.type.isError) {
+                              let dialogData = {
+                                    type: 'danger',
+                                    title: 'Gagal',
+                                    message: 'Card gagal diubah. Klik tombol berikut untuk kembali.',
+                                    onClose: () => this.toggleDialog(),
+                                    closeText: 'Kembali'
+                              };
+                  
+                              this.toggleDialog(dialogData);
+                        }
+                        // this.toggleModal('updateCard');
+                        // window.location.reload();
+                  })   
 
             } else {
 
                   console.log("Taxi Online");
-                  console.log(selectedCard);
 
                   let items = [
                         {
@@ -416,43 +429,39 @@ class AdminCard extends Component {
 
                   console.log(requireData);
                   
+                  action.updateCardType(requireData).then(() => {
+
+                        const { card } = this.props;
+
+                        if (card.type.isUpdated) {
+                              let dialogData = {
+                                    type: 'success',
+                                    title: 'Berhasil',
+                                    message: 'Card telah berhasil diubah. Klik tombol berikut untuk kembali.',
+                                    onClose: () => window.location.reload(),
+                                    closeText: 'Kembali'
+                              };
+                  
+                              this.toggleDialog(dialogData);
+                        };
+            
+                        if (card.type.isError) {
+                              let dialogData = {
+                                    type: 'danger',
+                                    title: 'Gagal',
+                                    message: 'Card gagal diubah. Klik tombol berikut untuk kembali.',
+                                    onClose: () => this.toggleDialog(),
+                                    closeText: 'Kembali'
+                              };
+                  
+                              this.toggleDialog(dialogData);
+                        }
+                        // this.toggleModal('updateCard');
+                        // window.location.reload();
+                  })  
 
             }
-           
-
-           
-
-            // action.updateCardType(param).then(() => {
-
-            //       const { card } = this.props;
-
-            //       if (card.type.isUpdated) {
-            //             let dialogData = {
-            //                 type: 'success',
-            //                 title: 'Berhasil',
-            //                 message: 'Card telah berhasil diubah. Klik tombol berikut untuk kembali.',
-            //                 onClose: () => window.location.reload(),
-            //                 closeText: 'Kembali'
-            //             };
-                
-            //             this.toggleDialog(dialogData);
-            //       };
-      
-            //       if (card.type.isError) {
-            //             let dialogData = {
-            //                 type: 'danger',
-            //                 title: 'Gagal',
-            //                 message: 'Card gagal diubah. Klik tombol berikut untuk kembali.',
-            //                 onClose: () => this.toggleDialog(),
-            //                 closeText: 'Kembali'
-            //             }
-                
-            //             this.toggleDialog(dialogData);
-            //       }
-            //       // this.toggleModal('updateCard');
-            //       // window.location.reload();
-            // })
-      }
+      };
 
       handleInputChange = (object, e) => {
             const target = e.target;
@@ -466,15 +475,7 @@ class AdminCard extends Component {
                         [name]: value
                   }
             });
-      }
-
-      // getCardTypeList = () => {
-      //       const {
-      //             getAllCardType
-      //       } = this.props;
-
-      //       getAllCardType();
-      // }
+      };
       
       render() {
             return (

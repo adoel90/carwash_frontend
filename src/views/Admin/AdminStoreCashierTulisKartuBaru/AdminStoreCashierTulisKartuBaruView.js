@@ -26,8 +26,20 @@ const AdminStoreCashierTulisKartuBaruView = props => {
         idMember,
         dataCard,
         handleCopyDataCard,
-        closeModal
+        closeModal,
+        copied
     } = props;
+
+    const renderShowCopiedPanel = () => {
+
+        return(
+            <Panel theme="success">
+                <PanelHeader >
+                    <h4 className="fw-semibold" > Nomor Seri Kartu telah di copy !</h4>
+                </PanelHeader>
+            </Panel>
+        )
+    };
 
     const renderDetailModal = () => {
         
@@ -43,7 +55,7 @@ const AdminStoreCashierTulisKartuBaruView = props => {
                             <FormGroup>
                                 <InputGroup>
                                     
-                                    <InputAddon>
+                                    <InputAddon >
                                     <CopyToClipboard onCopy={handleCopyDataCard} text={dataCard}>
                                         <i 
                                             className="fas fa-copy" 
@@ -61,7 +73,11 @@ const AdminStoreCashierTulisKartuBaruView = props => {
                                     />
                                 </InputGroup>
                             </FormGroup>
-                            <h6 className="fw-semibold margin-top-large">Ikuti instruksi berikut untuk membuat kartu member baru.</h6>
+                            <br />
+                            { copied === false ? "" : renderShowCopiedPanel() }
+                           
+                            
+                            <h5 className="fw-semibold margin-top-large">Ikuti instruksi berikut untuk membuat kartu member baru.</h5>
                             <p>1. Klik Icon untuk meng-copy/ menyalin ID Member</p>
                             <p>2. Buka software MSR605x yang telah diinstalasi.</p>
                             <p>3. Tempel (Paste) ID Member yang sudah tersalin pada kolom pertama yang tersedia.</p>

@@ -97,7 +97,7 @@ const AdminStoresEmployeeView = props => {
                                             <InputAddon>
                                                 <i className="fas fa-key"></i>
                                             </InputAddon>
-                                            <Input name="password" type="password" placeholder="Password" defaultValue={selectedVendorEmployee.password} onChange={(e) => handleInputChange('selectedVendorEmployee', e)} />
+                                            <Input required name="password" type="password" placeholder="Password" defaultValue={selectedVendorEmployee.password} onChange={(e) => handleInputChange('selectedVendorEmployee', e)} />
                                         </InputGroup>
                                     </FormField>
                                 </Column>
@@ -114,7 +114,7 @@ const AdminStoresEmployeeView = props => {
                                             }
                                         </Select> */}
 
-                                        <Select name="level" defaultValue={selectedVendorEmployee.level} onChange={(e) => handleInputChange('selectedVendorEmployee', e) }>
+                                        <Select required name="level" defaultValue={selectedVendorEmployee.level} onChange={(e) => handleInputChange('selectedVendorEmployee', e) }>
                                             <option value="">Pilih Level</option>
                                             {
                                                access.list.isLoaded ? access.list.data.result.map((item, i) => {
@@ -132,7 +132,7 @@ const AdminStoresEmployeeView = props => {
                                             <InputAddon>
                                                 <i className="fas fa-key"></i>
                                             </InputAddon>
-                                            <Input name="passwordConfirm" type="password" placeholder="Konfirmasi Password" defaultValue={selectedVendorEmployee.passwordConfirm} onChange={(e) => handleInputChange('selectedVendorEmployee', e)} />
+                                            <Input required name="passwordConfirm" type="password" placeholder="Konfirmasi Password" defaultValue={selectedVendorEmployee.passwordConfirm} onChange={(e) => handleInputChange('selectedVendorEmployee', e)} />
                                         </InputGroup>
                                     </FormField>
                                 </Column>
@@ -191,16 +191,24 @@ const AdminStoresEmployeeView = props => {
                                     dataAlign="left"
                                     width="30%"
                                 >
-                                    Nama Staff
+                                    Nama
                                 </TableHeaderColumn>
                                 <TableHeaderColumn 
+                                    dataField="jabatan" 
+                                    headerAlign="left" 
+                                    dataAlign="left"
+                                    width="30%"
+                                >
+                                    Level Akses
+                                </TableHeaderColumn>
+                                {/* <TableHeaderColumn 
                                     dataField="email" 
                                     headerAlign="left" 
                                     dataAlign="left"
                                     width="30%"
                                 >
                                     Alamat Email
-                                </TableHeaderColumn>
+                                </TableHeaderColumn> */}
                                 <TableHeaderColumn 
                                     dataField="data" 
                                     headerAlign="center"

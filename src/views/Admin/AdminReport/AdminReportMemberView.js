@@ -181,16 +181,16 @@ const AdminReportMemberView = props => {
                         <BootstrapTable data={table.rows} options={optionsPagination} striped={true} hover={true} version='4' bordered={false} dataAlign="center" searchPlaceholder={"Ketik nama customer yang terdaftar..."} pagination>
                             <TableHeaderColumn 
                                 dataField="id" 
-                                headerAlign="left" 
-                                dataAlign="center" 
+                                headerAlign="center" 
+                                dataAlign="left" 
                                 isKey={true}
                                 width="10%"
                             >
-                                No. Kartu
+                                 ID Kartu
                             </TableHeaderColumn>
                             <TableHeaderColumn 
                                 dataField="kartu" 
-                                headerAlign="center" 
+                                headerAlign="right" 
                                 dataAlign="center"
                                 width="20%"
                             >
@@ -198,7 +198,7 @@ const AdminReportMemberView = props => {
                             </TableHeaderColumn>
                             <TableHeaderColumn 
                                 dataField="name" 
-                                headerAlign="left" 
+                                headerAlign="center" 
                                 dataAlign="left"
                                 width="20%"
                             >

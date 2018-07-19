@@ -96,7 +96,7 @@ const AdminStoresEmployeeSuperAdmView = props => {
                                             <InputAddon>
                                                 <i className="fas fa-key"></i>
                                             </InputAddon>
-                                            <Input name="password" type="password" placeholder="Password" defaultValue={selectedStaff.password} onChange={(e) => handleInputChange('selectedStaff', e)} />
+                                            <Input required name="password" type="password" placeholder="Password" defaultValue={selectedStaff.password} onChange={(e) => handleInputChange('selectedStaff', e)} />
                                         </InputGroup>
                                     </FormField>
                                 </Column>
@@ -105,7 +105,7 @@ const AdminStoresEmployeeSuperAdmView = props => {
                                 <Column>
                                 <FormField label="Akses Level Staff">
 
-                                        <Select name="level" defaultValue={selectedStaff.level} onChange={(e) => handleInputChange('selectedStaff', e) }>
+                                        <Select required name="level" defaultValue={selectedStaff.level} onChange={(e) => handleInputChange('selectedStaff', e) }>
                                             <option value="">Pilih Level</option>
                                             {
                                                access.list.isLoaded ? access.list.data.result.map((item, i) => {
@@ -121,7 +121,7 @@ const AdminStoresEmployeeSuperAdmView = props => {
                                             <InputAddon>
                                                 <i className="fas fa-key"></i>
                                             </InputAddon>
-                                            <Input name="passwordConfirm" type="password" placeholder="Konfirmasi Password" defaultValue={selectedStaff.passwordConfirm} onChange={(e) => handleInputChange('selectedStaff', e)} />
+                                            <Input required name="passwordConfirm" type="password" placeholder="Konfirmasi Password" defaultValue={selectedStaff.passwordConfirm} onChange={(e) => handleInputChange('selectedStaff', e)} />
                                         </InputGroup>
                                     </FormField>
                                 </Column>
@@ -239,16 +239,24 @@ const AdminStoresEmployeeSuperAdmView = props => {
                                             dataAlign="left"
                                             width="30%"
                                         >
-                                            Nama Staff
+                                            Nama 
                                         </TableHeaderColumn>
                                         <TableHeaderColumn 
+                                            dataField="jabatan" 
+                                            headerAlign="left" 
+                                            dataAlign="left"
+                                            width="30%"
+                                        >
+                                            Level Akses
+                                        </TableHeaderColumn>
+                                        {/* <TableHeaderColumn 
                                             dataField="email" 
                                             headerAlign="left" 
                                             dataAlign="left"
                                             width="30%"
                                         >
                                             Email
-                                        </TableHeaderColumn>
+                                        </TableHeaderColumn> */}
                                         <TableHeaderColumn 
                                             dataField="data" 
                                             headerAlign="center"

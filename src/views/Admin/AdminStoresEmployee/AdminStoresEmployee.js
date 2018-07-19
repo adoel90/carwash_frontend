@@ -215,9 +215,13 @@ class AdminStoresEmployee extends Component {
                 accessor: 'name'
             },
             {
-                title: 'Email ',
-                accessor: 'email'
+                title: 'Keterangan',
+                accessor: 'jabatan'
             },
+            // {
+            //     title: 'Email ',
+            //     accessor: 'email'
+            // },
             {
                 title: 'Aksi',
                 // accessor: 'action',
@@ -240,6 +244,7 @@ class AdminStoresEmployee extends Component {
                     name: employee.name,
                     username: employee.username,
                     email: employee.email,
+                    jabatan: employee.level ? employee.level.name : "-", 
                     level: employee.level.id,
                     status: employee.status,
                     password: employee.password,

@@ -94,14 +94,16 @@ class AdminCard extends Component {
 
             if(prevProps.card.type !== card.type) {
                   if(card.type.isStatusChanging) {
-                        cardList.data.data.result.map((type) => {
+
+                        console.log(cardList);
+                        cardList.data.result.card.map((type) => {
                               type.statusChanging = true;
                               this.forceUpdate();
                         })
                   }
 
                   if(card.type.isStatusChanged) {
-                        cardList.data.data.result.map((type) => {
+                        cardList.data.result.card.map((type) => {
                               if (type.id === card.type.id) {
                                     type.statusChanging = false;
 

@@ -268,13 +268,17 @@ class AdminStoresEmployeeSuperAdm extends Component {
 
         const columns = [
             {
-                title: 'Nama Staff',
+                title: 'Nama',
                 accessor: 'name'
             },
             {
-                title: 'Email ',
-                accessor: 'email'
+                title: 'Keterangan',
+                accessor: 'jabatan'
             },
+            // {
+            //     title: 'Email ',
+            //     accessor: 'email'
+            // },
             {
                 title: 'Aksi',
                 accessor: 'action',
@@ -293,11 +297,15 @@ class AdminStoresEmployeeSuperAdm extends Component {
         if (vendorState.employee.isLoaded) {
 
             vendorState.employee.data.data.result.staff.forEach((employee, i) => {
+
+                // console.log(employee);
+
                 let row = {
                     id: employee.id,
                     name: employee.name,
                     username: employee.username,
                     email: employee.email,
+                    jabatan: employee.level ? employee.level.name : "-", 
                     level: employee.level.id,
                     status: employee.status,
                     password: employee.password,

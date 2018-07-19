@@ -57,7 +57,8 @@ class AdminStoreCashierTulisKartuBaru extends Component {
             idTaxiOnline:3,
             idNonMember:2,
             idMember: 1,
-            dataCard:''
+            dataCard:'',
+            copied: false
         };
     };
 
@@ -114,6 +115,11 @@ class AdminStoreCashierTulisKartuBaru extends Component {
 
     handleCopyDataCard = () => {
         console.log("copied");
+
+        this.setState({
+            ...this.state,
+            copied: true
+        });
     };
 
     openModalGenerateNumber = (e, data) => {

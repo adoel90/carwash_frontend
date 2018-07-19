@@ -84,7 +84,6 @@ class CashierTopUpConfirmation extends Component {
 					<small className="tt-uppercase fw-semibold ls-base">Rp</small>
 				</InputAddon>
 				<InputCurrency
-
 						className="input"
 						name="balance"
 						type="text"

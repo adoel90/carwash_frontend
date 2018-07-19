@@ -103,14 +103,16 @@ const AdminCardView = props => {
                                           {/* OPSI NOMINAL SALDO */}
                                           <Row>
                                                 <Column md={3}>
-                                                      <FormField label="Top Up" >
-                                                            <InputGroup>
-                                                                  <InputAddon>
-                                                                        Rp
-                                                                  </InputAddon>
-                                                                  <Input required type="text" placeholder="Isi Top-up 1" name="opsi1" onChange={(e) => handleInputChange('selectedCard', e)} />
-                                                            </InputGroup>
-                                                      </FormField>
+                                                      <FormGroup>
+                                                            <FormField label="Top Up" >
+                                                                  <InputGroup>
+                                                                        <InputAddon>
+                                                                              <small className="tt-uppercase fw-semibold ls-base">Rp</small>
+                                                                        </InputAddon>
+                                                                        <InputCurrency className="input" required type="text" placeholder="Isi Top-up 1" name="opsi1" onChange={(e) => handleInputChange('selectedCard', e)} />
+                                                                  </InputGroup>
+                                                            </FormField>
+                                                      </FormGroup>
                                                 </Column>
                                                 <Column md={3}>
                                                       <FormField label="Top Up">
@@ -118,7 +120,7 @@ const AdminCardView = props => {
                                                                   <InputAddon>
                                                                         Rp
                                                                   </InputAddon>
-                                                                  <Input required type="text" placeholder="Isi Top-up 2" name="opsi2" onChange={(e) => handleInputChange('selectedCard', e)} />
+                                                                  <InputCurrency className="input" required type="text" placeholder="Isi Top-up 2" name="opsi2" onChange={(e) => handleInputChange('selectedCard', e)} />
                                                             </InputGroup>
                                                       </FormField>
                                                 </Column>
@@ -129,7 +131,7 @@ const AdminCardView = props => {
                                                                   <InputAddon>
                                                                         Rp
                                                                   </InputAddon>
-                                                                  <Input required type="text" placeholder="Isi Top-up 3" name="opsi3" onChange={(e) => handleInputChange('selectedCard', e)} />
+                                                                  <InputCurrency className="input" required type="text" placeholder="Isi Top-up 3" name="opsi3" onChange={(e) => handleInputChange('selectedCard', e)} />
                                                             </InputGroup>
                                                       </FormField>
                                                 </Column>
@@ -143,7 +145,7 @@ const AdminCardView = props => {
                                                                   <InputAddon>
                                                                         Rp
                                                                   </InputAddon>
-                                                                  <Input required type="text" placeholder="Isi Bonus-1" name="bonus1" onChange={(e) => handleInputChange('selectedCard', e)} />
+                                                                  <InputCurrency className="input" required type="text" placeholder="Isi Bonus-1" name="bonus1" onChange={(e) => handleInputChange('selectedCard', e)} />
                                                             </InputGroup>
                                                       </FormField>
                                                 </Column>
@@ -153,7 +155,7 @@ const AdminCardView = props => {
                                                                   <InputAddon>
                                                                         Rp
                                                                   </InputAddon>
-                                                                  <Input required type="text" placeholder="Isi Bonus-2" name="bonus2" onChange={(e) => handleInputChange('selectedCard', e)} />
+                                                                  <InputCurrency className="input" required type="text" placeholder="Isi Bonus-2" name="bonus2" onChange={(e) => handleInputChange('selectedCard', e)} />
                                                             </InputGroup>
                                                       </FormField>
                                                 </Column>
@@ -163,7 +165,7 @@ const AdminCardView = props => {
                                                                   <InputAddon>
                                                                         Rp
                                                                   </InputAddon>
-                                                                  <Input required type="text" placeholder="Isi Bonus-3" name="bonus3" onChange={(e) => handleInputChange('selectedCard', e)} />
+                                                                  <InputCurrency className="input" required type="text" placeholder="Isi Bonus-3" name="bonus3" onChange={(e) => handleInputChange('selectedCard', e)} />
                                                             </InputGroup>
                                                       </FormField>
                                                 </Column>

@@ -68,8 +68,8 @@ class AdminStoreCashierReport extends Component {
         const {getReportStoreCashierMemberDispatch, user} = this.props;
         const { period } = this.state;
 
-        //Scenario superadmin can access route Kasir
-        let dataId = user.id === 1 ? user.id + 2 : user.id;
+        //Scenario superadmin can access route Kasir 
+        let dataId = user.id === 1 ? user.id + 292 : user.id; //KASIR ID SAAT INI ADALAH ==> 293
 
         let data = {
             // start_date : moment(period.from).format('YYYY-MM-DD'),
@@ -105,7 +105,8 @@ class AdminStoreCashierReport extends Component {
         let { period } = this.state;
 
         //Scenario superadmin can access route Kasir
-        let dataId = user.id === 1 ? user.id + 2 : user.id;
+        // let dataId = user.id === 1 ? user.id + 2 : user.id;
+        let dataId = user.id === 1 ? user.id + 292 : user.id; //KASIR ID SAAT INI ADALAH ==> 293
         
         let requiredData = {
             start_date : moment(period.to).format('YYYY-MM-DD'),

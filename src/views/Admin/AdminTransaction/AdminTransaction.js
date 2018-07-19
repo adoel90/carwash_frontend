@@ -306,8 +306,7 @@ class AdminTransaction extends Component{
             staff: user.id
         };
         
-        console.log();
-        // action.createStoreTransaction(requiredData);
+        action.createStoreTransaction(requiredData);
     }
     
     handleMemberAuthentication = (e) => {

@@ -75,6 +75,8 @@ class AdminStoreCashierReportPaymentReceipt extends Component {
 
                                         
                                 </tr>
+
+                                {console.log(store.reportCashierMember)}
                                 { store.reportCashierMember.isLoaded ? store.reportCashierMember.data.result.data.map((value) => {
                                     return (
                                         <tr>

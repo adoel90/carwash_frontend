@@ -40,7 +40,7 @@ const AdminMemberView = props => {
             return (
                 <div>
                     <Button className="margin-right-small" type="button" onClick={() => openMemberDetail(datarow )}>Ubah</Button>
-                    <Button type="button" theme={datarow.status ? "success" : "danger"} onClick={() => changeMemberStatus(datarow)}>{ datarow.status ? 'Aktif' : 'Non Aktif' }</Button>
+                    <Button type="button" theme={datarow.status ? "success" : "danger"} onClick={() => changeMemberStatus(datarow)}>{ datarow.status ? 'Aktif' : 'N/A' }</Button>
                 </div>
             );
       };

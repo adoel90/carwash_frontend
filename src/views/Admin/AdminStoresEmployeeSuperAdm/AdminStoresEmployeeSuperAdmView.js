@@ -30,7 +30,7 @@ const AdminStoresEmployeeSuperAdmView = props => {
         handleCancelModal,
         handleUpdateSubmitStoreStaff,
         openVendorEmployeeModal,
-        changeEmployeeStatus,
+        handleChangeEmployeeStatus,
         optionsPagination
     } = props;
 
@@ -38,7 +38,7 @@ const AdminStoresEmployeeSuperAdmView = props => {
         return (
             <div>
                 <Button className="margin-right-small" type="button" onClick={() => openVendorEmployeeModal(datarow)}>Ubah</Button>
-                <Button type="button" theme={datarow.status ? "success" : "danger"} onClick={() => changeEmployeeStatus(datarow)}>{ datarow.status ? 'Aktif' : 'Non Aktif' }</Button>
+                <Button type="button" theme={datarow.status ? "success" : "danger"} onClick={() => handleChangeEmployeeStatus(datarow)}>{ datarow.status ? 'Aktif' : 'Non Aktif' }</Button>
             </div>
         );
     };

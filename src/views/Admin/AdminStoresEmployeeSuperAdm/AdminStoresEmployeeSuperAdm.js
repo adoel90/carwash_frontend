@@ -279,17 +279,17 @@ class AdminStoresEmployeeSuperAdm extends Component {
             //     title: 'Email ',
             //     accessor: 'email'
             // },
-            {
-                title: 'Aksi',
-                accessor: 'action',
-                // render: (data) => (
-                render: (row) => (
-                    <td>
-                        <Button className="margin-right-small" type="button" onClick={() => this.openVendorEmployeeModal(row)}>Ubah</Button>
-                        <Button type="button" theme={row.data.status ? "success" : "danger"} onClick={() => this.handleChangeEmployeeStatus(row)}>{ row.data.status ? 'Aktif' : 'Non Aktif' }</Button>
-                    </td>
-                )
-            }
+            // {
+            //     title: 'Aksi',
+            //     accessor: 'action',
+            //     // render: (data) => (
+            //     render: (row) => (
+            //         <td>
+            //             <Button className="margin-right-small" type="button" onClick={() => this.openVendorEmployeeModal(row)}>Ubah</Button>
+            //             <Button type="button" theme={row.data.status ? "success" : "danger"} onClick={() => this.handleChangeEmployeeStatus(row)}>{ row.data.status ? 'Aktif' : 'Non Aktif' }</Button>
+            //         </td>
+            //     )
+            // }
         ]
 
         const rows = [];
@@ -402,6 +402,7 @@ class AdminStoresEmployeeSuperAdm extends Component {
                     handleInputChange={this.handleInputChange}
                     optionsPagination={this.optionsPagination}
                     openVendorEmployeeModal = {this.openVendorEmployeeModal}
+                    handleChangeEmployeeStatus= {this.handleChangeEmployeeStatus}
                     {...this.state} 
                     {...this.props} />
 

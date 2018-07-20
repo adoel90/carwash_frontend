@@ -247,7 +247,7 @@ class AdminStoresMenuSuperAdm extends Component {
         } = this.props;
 
         let requiredData = {
-              id: row.data.id
+              id: row.id
         }
 
         action.changeMenuStatus(requiredData);

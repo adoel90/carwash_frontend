@@ -559,6 +559,25 @@ class AdminPanel extends Component {
                 };
             }
 
+            //#STORE STAFF
+            else if(split[0] === "Transaksi" && level.name === "Staff"){
+
+                dataMenu = {
+                    category: nameCategory,
+                    items: []
+                };
+
+                //TRANSAKSI/ PENJUALAN STORE STAFF
+                let transactionPenjualan = {
+                    name: `Penjualan`,
+                    path: `${this.props.match.url}${menu[i].path ? `/${menu[i].path}/` : 'null'}`
+                };
+
+                if (menu[i].name === "Transaksi" && menu[i].path === "transaction") {
+                    dataMenu.items.push(transactionPenjualan);
+                };
+            }
+
             else if (split.length > 1) {
                 dataMenu = {
                     category: nameCategory,

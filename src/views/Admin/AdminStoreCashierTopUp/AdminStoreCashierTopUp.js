@@ -295,18 +295,23 @@ class AdminStoreCashierTopUp extends Component {
             
         } else if(typeMember === "Non-Member"){ // NON MEMBER
 
-            console.log(topupData.balance.replace(/,/g, ''));
-           
-            let requiredData = {
-                balance: topupData ? parseInt(topupData.balance.replace(/,/g, '')  + parseInt(customerBonus) ): null ,
-                // balance: topupData ? parseInt(topupData.balance.replace(/,/g, '')) : null ,
-                payment: topupData.payment,
-                staff: user.level.id
-            };
+            if(parseInt(topupData.balance.replace(/,/g, '')) < optionTopUpMember[0].balance ){
+                alert("Minimal Top Up Rp." + optionTopUpMember[0].balance + "!");
+                
+            } else {
 
-            console.log("From Non-Member");
-            console.log(requiredData);
-            action.memberCustomerTopup(requiredData, accessTokenMember.accessToken);
+                let requiredData = {
+                    balance: topupData ? parseInt(topupData.balance.replace(/,/g, '')  + parseInt(customerBonus) ): null ,
+                    // balance: topupData ? parseInt(topupData.balance.replace(/,/g, '')) : null ,
+                    payment: topupData.payment,
+                    staff: user.level.id
+                };
+    
+                console.log("From Non-Member");
+                console.log(requiredData);
+                action.memberCustomerTopup(requiredData, accessTokenMember.accessToken);
+            };
+           
 
         } else { // TAXI ONLINE
 

@@ -278,12 +278,14 @@ class AdminStoreCashierTopUp extends Component {
 
             console.log(parseInt(memberNominal));
             console.log(parseInt(customerBonus));
+
+            let dataId = user.level.id === 1 ? user.level.id + 292 : user.level.id; 
             
-            if(!isNaN(parseInt(memberNominal)) ){
+            if(!isNaN(parseInt(memberNominal))){
                 let requiredData = {
                     balance:parseInt(memberNominal) + parseInt(customerBonus),
                     payment: topupData.payment,
-                    staff: user.level.id
+                    staff: dataId
                 };
                 
                 console.log("From Member");

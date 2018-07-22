@@ -9,7 +9,7 @@ import { TableSet } from '../../../components/Table';
 import { Table } from '../../../components/Table';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from '../../../components/Modal';
 import { Form, FormGroup } from '../../../components/Form';
-import { Input, Label, InputAddon, InputGroup } from '../../../components/Input';
+import { Input, Label, InputAddon, InputGroup, InputAddonRight } from '../../../components/Input';
 
 import {Button} from '../../../components/Button';
 
@@ -55,15 +55,7 @@ const AdminStoreCashierTulisKartuBaruView = props => {
                             <FormGroup>
                                 <InputGroup>
                                     
-                                    <InputAddon >
-                                    <CopyToClipboard onCopy={handleCopyDataCard} text={dataCard}>
-                                        <i 
-                                            className="fas fa-copy" 
-                                            title="Klik untuk meng-copy nomor kartu ini !" 
-                                            >
-                                        </i>
-                                    </CopyToClipboard>
-                                    </InputAddon>
+                                   
                                     <Input
                                         type="text"
                                         className="form-control--large ta-center fw-semibold"
@@ -71,6 +63,15 @@ const AdminStoreCashierTulisKartuBaruView = props => {
                                         readOnly
                                         selectOnFocus
                                     />
+                                    <InputAddonRight >
+                                        <CopyToClipboard onCopy={handleCopyDataCard} text={dataCard}>
+                                            <i 
+                                                className="fas fa-copy" 
+                                                title="Klik untuk meng-copy nomor kartu ini !" 
+                                                >
+                                            </i>
+                                        </CopyToClipboard>
+                                    </InputAddonRight>
                                 </InputGroup>
                             </FormGroup>
                             <br />

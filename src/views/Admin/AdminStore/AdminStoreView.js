@@ -31,7 +31,7 @@ const AdminStoreView = props => {
         return (
             <div>
                 <Button className="margin-right-small" type="button" onClick={() => openStoreDetail(datarow )}>Ubah</Button>
-                <Button type="button" theme={datarow.status ? "success" : "danger"} onClick={() => changeStatusStore(datarow)}>{ datarow.status ? 'Aktif' : 'Non Aktif' }</Button>
+                <Button type="button" theme={datarow.status ? "success" : "danger"} onClick={() => changeStatusStore(datarow)}>{ datarow.status ? 'Aktif' : 'N/A' }</Button>
             </div>
         );
     };
@@ -54,7 +54,7 @@ const AdminStoreView = props => {
                                             <InputAddon>
                                                 <i className="fas fa-shopping-cart"></i>
                                             </InputAddon>
-                                            <Input name="name" placeholder={selectedStore.name} defaultValue={selectedStore.name} onChange={(e) => handleInputChange('selectedStore', e)} />
+                                            <Input required name="name" placeholder={selectedStore.name} defaultValue={selectedStore.name} onChange={(e) => handleInputChange('selectedStore', e)} />
                                         </InputGroup>
                                     </FormField>
                                     <FormField label="Kategori">

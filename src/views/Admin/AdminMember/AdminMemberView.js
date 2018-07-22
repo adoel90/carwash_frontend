@@ -64,7 +64,7 @@ const AdminMemberView = props => {
                                                                   <InputAddon>
                                                                         <i className="far fa-user"></i>
                                                                   </InputAddon>
-                                                                  <Input type="text" name="name" placeholder={selectedMember.name} defaultValue={selectedMember.name} onChange={(e) => handleInputChange('selectedMember', e)} />
+                                                                  <Input required type="text" name="name" placeholder={selectedMember.name} defaultValue={selectedMember.name} onChange={(e) => handleInputChange('selectedMember', e)} />
                                                             </InputGroup>
                                                       </FormField>
                                                       <FormField label="Alamat Email">
@@ -72,7 +72,7 @@ const AdminMemberView = props => {
                                                                   <InputAddon>
                                                                         <i className="far fa-envelope"></i>
                                                                   </InputAddon>
-                                                                  <Input type="text" name="email" placeholder={selectedMember.email} defaultValue={selectedMember.email} onChange={(e) => handleInputChange('selectedMember', e)} />
+                                                                  <Input type="text" name="email" placeholder="Tulis Alamat Email" defaultValue={selectedMember.email} onChange={(e) => handleInputChange('selectedMember', e)} />
                                                             </InputGroup>
                                                       </FormField>
                                                       <FormField label="No. Telepon">
@@ -80,11 +80,17 @@ const AdminMemberView = props => {
                                                                   <InputAddon>
                                                                         <i className="fas fa-phone"></i>
                                                                   </InputAddon>
-                                                                  <Input type="text" name="phone" placeholder={selectedMember.phone} defaultValue={selectedMember.phone} onChange={(e) => handleInputChange('selectedMember', e)} />
+                                                                  <Input type="text" name="phone" placeholder="Tulis Nomor Telepon" defaultValue={selectedMember.phone} onChange={(e) => handleInputChange('selectedMember', e)} />
                                                             </InputGroup>
                                                       </FormField>
                                                       <FormField label="Alamat">
-                                                            <Textarea name="address" placeholder={selectedMember.address} defaultValue={selectedMember.address} onChange={(e) => handleInputChange('selectedMember', e)} />
+                                                            {/* <Textarea name="address" placeholder={selectedMember.address} defaultValue={selectedMember.address} onChange={(e) => handleInputChange('selectedMember', e)} /> */}
+                                                            <InputGroup>
+                                                                  <InputAddon>
+                                                                        <i className="fas fa-address-book"></i>
+                                                                  </InputAddon>
+                                                                  <Input type="text" name="alamat" placeholder="Tulis Alamat Lengkap " defaultValue={selectedMember.address} onChange={(e) => handleInputChange('selectedMember', e)} />
+                                                            </InputGroup>
                                                       </FormField>
                                                 </Column>
                                           </Row>

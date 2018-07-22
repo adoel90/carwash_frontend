@@ -447,7 +447,7 @@ class AdminStoreCashierKartuBaru extends Component {
                         this.toggleDialog(dialogData);
 
                     } else {
-                        
+                        window.location.reload();
                     };      
                 });
             })

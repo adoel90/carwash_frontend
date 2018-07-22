@@ -89,7 +89,13 @@ const AdminMemberView = props => {
                                                                   <InputAddon>
                                                                         <i className="fas fa-address-book"></i>
                                                                   </InputAddon>
-                                                                  <Input type="text" name="alamat" placeholder="Tulis Alamat Lengkap " defaultValue={selectedMember.address} onChange={(e) => handleInputChange('selectedMember', e)} />
+                                                                  {console.log(selectedMember)}
+                                                                  <Input 
+                                                                        type="text" 
+                                                                        name="address" 
+                                                                        placeholder="Tulis Alamat Lengkap " 
+                                                                        defaultValue={selectedMember.address} 
+                                                                        onChange={(e) => handleInputChange('selectedMember', e)} />
                                                             </InputGroup>
                                                       </FormField>
                                                 </Column>

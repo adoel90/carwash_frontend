@@ -205,6 +205,8 @@ class AdminMember extends Component {
 
             if(memberList.isLoaded) {
                   memberList.data.result.forEach((member, i) => {
+
+                        console.log(member)
                         let row = {
                               id: member.id,
                               name: member.name,
@@ -212,6 +214,7 @@ class AdminMember extends Component {
                               cardType: member.card.type.name,
                               phone: member.phone,
                               cardNumber: member.card.id,
+                              address:member.address,
                               data: member
                         }
     

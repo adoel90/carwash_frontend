@@ -439,6 +439,8 @@ class AdminStoresReport extends Component {
             const {getStoreStaffReportDetailAyoTailDispatch, user} = this.props;
             let { period, selectedRow, idStore} = this.state;
 
+            console.log(selectedRow);
+            
             let requireData = {
                 id: selectedRow.id,
                 // staff: user.name,
@@ -449,7 +451,7 @@ class AdminStoresReport extends Component {
             }
             getStoreStaffReportDetailAyoTailDispatch(requireData);
         });
-    }
+    };
 
     //#
     populateTableDetail = () => {

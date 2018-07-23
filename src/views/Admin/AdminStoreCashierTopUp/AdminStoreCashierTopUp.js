@@ -302,11 +302,13 @@ class AdminStoreCashierTopUp extends Component {
                 
             } else {
 
+                let dataId = user.level.id === 1 ? user.level.id + 292 : user.level.id; 
+
                 let requiredData = {
                     balance: topupData ? parseInt(topupData.balance.replace(/,/g, '')  + parseInt(customerBonus) ): null ,
                     // balance: topupData ? parseInt(topupData.balance.replace(/,/g, '')) : null ,
                     payment: topupData.payment,
-                    staff: user.level.id
+                    staff: dataId
                 };
     
                 console.log("From Non-Member");
@@ -319,12 +321,14 @@ class AdminStoreCashierTopUp extends Component {
 
             let balance = optionTopUpMember.length ? optionTopUpMember[0].balance : null;
             let bonus = optionTopUpMember.length ? optionTopUpMember[0].bonus : null;
+            
+            let dataId = user.level.id === 1 ? user.level.id + 292 : user.level.id; 
 
             let requiredData = {
                 // balance: topupData ? parseInt(topupData.balance.replace(/,/g, '')) + parseInt(customerBonus): null ,
                 balance: parseInt(balance) + parseInt(bonus),
                 payment: topupData.payment,
-                staff: user.level.id
+                staff: dataId
             };
 
             console.log("From Taxi Online");

@@ -184,14 +184,14 @@ const AdminReportMemberView = props => {
                                 headerAlign="center" 
                                 dataAlign="left" 
                                 isKey={true}
-                                width="10%"
+                                width="7%"
                             >
                                  ID Kartu
                             </TableHeaderColumn>
                             <TableHeaderColumn 
                                 dataField="kartu" 
-                                headerAlign="right" 
-                                dataAlign="center"
+                                headerAlign="center" 
+                                dataAlign="left"
                                 width="20%"
                             >
                                 Kartu

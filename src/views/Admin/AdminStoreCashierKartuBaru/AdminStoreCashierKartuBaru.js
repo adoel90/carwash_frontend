@@ -8,7 +8,7 @@ import { ModalDialog } from '../../../components/Modal';
 import { getSaldoBonus } from '../../../actions/store.action';
 import { getNominalSaldoNewCustomer }  from '../../../actions/card.action';
 import { openDialog, closeDialog } from '../../../actions/dialog.action';
-import { authenticateMember, updateMember } from '../../../actions/member.action';
+import { authenticateMember, updateMember, getAllMemberList} from '../../../actions/member.action';
 import { AdminStoreCashierKartuBaruWrapper, AdminStoreCashierKartuBaruPaymentReceipt} from '../AdminStoreCashierKartuBaru';
 
 
@@ -26,6 +26,7 @@ function mapDispatchToProps(dispatch) {
         getSaldoBonusDispatch : (data) => dispatch(getSaldoBonus(data)),
         authenticateMemberDispatch: (data) => dispatch(authenticateMember(data)),
         getNominalSaldoNewCustomerDispatch : (data) => dispatch(getNominalSaldoNewCustomer(data)),
+        getAllMemberListDispatch : () => dispatch(getAllMemberList()),
         action: bindActionCreators({ updateMember, openDialog, closeDialog }, dispatch)
     }
 };
@@ -77,26 +78,45 @@ class AdminStoreCashierKartuBaru extends Component {
             optionTopUpMemberThemeButton: false,
             memberNominal: {},
             customerBonus:{},
-            saldoawal: null
+            saldoawal: null,
+            memberList: {}
         }
     };
 
     componentDidMount(){
-        
+        const { getAllMemberListDispatch } = this.props;
+
+        getAllMemberListDispatch();
     };
 
     componentDidUpdate(prevProps) {
 
         const { member, card, storeState } = this.props;
-        const { toggleModal, typeNumberMember,selectedMember } = this.state;
+        const { toggleModal, typeNumberMember,selectedMember, memberList } = this.state;
+
+        //GET LIST MEMBER ACTIVE
+        if(prevProps.member.list !== member.list) {
+
+            this.setState({
+                ...this.state,
+                memberList: member.list.data.result
+            }, () => {
+                console.log(this.state.memberList);
+            });
+        };
 
         if (prevProps.member.item !== member.item) {
+
+            //Validasi kalau member sudah di daftarkan
+            if(member.item.data.card.id ){
+
+            };
             if (member.item.isAuthenticated) {
 
                 //#
                 this.state.selectedMember = member.item.data;
                 this.state.typeNumberMember = member.item.data.card ? member.item.data.card.type.id : null;
-                console.log(member.item);
+                console.log(member.item.data);
 
                 //#
                 this.forceUpdate();

@@ -198,11 +198,13 @@ class AdminReportMember extends Component {
 
         if(report.reportMember.isLoaded){
             report.reportMember.data.result.report.forEach((value, i) => {
+
                 // console.log(value);
+
                 let row = {
-                    id: value.card.id,
-                    kartu: value.card.type ? value.card.type.name : null,
-                    name: value.name,
+                    id: value.card.status === "Refund" ? "Refunded" : value.card.id ,
+                    kartu: value.card.type ? value.card.type.name : "-",
+                    name: value.name != null ? value.name : "-" ,
                     created: value.created_at,
                     balance: value.balance,
                     last: value.last_transaction,

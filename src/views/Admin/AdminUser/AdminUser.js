@@ -85,7 +85,6 @@ class AdminUser extends Component {
 
     componentDidUpdate = (prevProps) => {
         const { user } = this.props;
-
         const { userList } = this.state;
 
         if (prevProps.user.list !== user.list) {

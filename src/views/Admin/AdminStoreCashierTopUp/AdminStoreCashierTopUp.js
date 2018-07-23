@@ -279,7 +279,7 @@ class AdminStoreCashierTopUp extends Component {
             console.log(parseInt(memberNominal));
             console.log(parseInt(customerBonus));
 
-            let dataId = user.level.id === 1 ? user.level.id + 292 : user.level.id; 
+            let dataId = user.level.id === 1 ? user.level.id + 292 : user.id; 
             
             if(!isNaN(parseInt(memberNominal))){
                 let requiredData = {
@@ -302,7 +302,7 @@ class AdminStoreCashierTopUp extends Component {
                 
             } else {
 
-                let dataId = user.level.id === 1 ? user.level.id + 292 : user.level.id; 
+                let dataId = user.level.id === 1 ? user.level.id + 292 : user.id; 
 
                 let requiredData = {
                     balance: topupData ? parseInt(topupData.balance.replace(/,/g, '')  + parseInt(customerBonus) ): null ,
@@ -322,7 +322,7 @@ class AdminStoreCashierTopUp extends Component {
             let balance = optionTopUpMember.length ? optionTopUpMember[0].balance : null;
             let bonus = optionTopUpMember.length ? optionTopUpMember[0].bonus : null;
             
-            let dataId = user.level.id === 1 ? user.level.id + 292 : user.level.id; 
+            let dataId = user.level.id === 1 ? user.level.id + 292 : user.id; 
 
             let requiredData = {
                 // balance: topupData ? parseInt(topupData.balance.replace(/,/g, '')) + parseInt(customerBonus): null ,

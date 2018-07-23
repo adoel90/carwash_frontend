@@ -19,6 +19,7 @@ class AdminStoreCashierKartuBaruView extends Component {
 			handleToggleUpdate,
 			isModalOpen,
 			toggleModal,
+			doubleCustomer,
 			error
 
 		} = this.props;
@@ -46,6 +47,7 @@ class AdminStoreCashierKartuBaruView extends Component {
 							name="cardID"
 							type="password"
 							placeholder="16-digit nomor kartu member"
+							// placeholder = {doubleCustomer === false ? "16-digit nomor kartu member" : "Nomor Kartu sudah di gunakan !"}
 							// onChange={(e) => handleInputChange(authentication, e)}
 							onChange={(e) => handleInputChange(authData, e)}
 							autoFocus="true"

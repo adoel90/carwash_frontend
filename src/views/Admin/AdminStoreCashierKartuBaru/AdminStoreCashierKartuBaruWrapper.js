@@ -11,7 +11,7 @@ import { default as CardIcon2 } from '../../../assets/icons/Business/credit-card
 import Currency from '../../../components/Currency';
 import NumberFormat from 'react-number-format';
 
-import { AdminStoreCashierKartuBaruConfirmationModal, AdminStoreCashierKartuBaruPaymentReceipt } from '../AdminStoreCashierKartuBaru';
+import { AdminStoreCashierKartuBaruConfirmationModal, AdminStoreCashierKartuBaruPaymentReceipt, AdminStoreCashierKartuBaruDoubleModal } from '../AdminStoreCashierKartuBaru';
 import { AdminStoreCashierKartuBaruView } from '../AdminStoreCashierKartuBaru';
 import { Panel, PanelHeader, PanelBody } from '../../../components/Panel';
 
@@ -30,11 +30,12 @@ class AdminStoreCashierKartuBaruWrapper extends Component {
 						</Row>
 						
 						<AdminStoreCashierKartuBaruView {...this.props}  handleInputChange={this.props.handleInputChange}/>
+						
 					</PanelBody>
 				</Panel>
 
 				<AdminStoreCashierKartuBaruConfirmationModal {...this.props} {...this.state}/>
-				
+				<AdminStoreCashierKartuBaruDoubleModal {...this.props} {...this.state}/>
 				
 			</div>
 		);

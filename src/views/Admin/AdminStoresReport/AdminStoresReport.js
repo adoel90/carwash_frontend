@@ -154,8 +154,8 @@ class AdminStoresReport extends Component {
 
                     let requiredDataStoreStaffReport = {
                         store: idStore.id,
-                        start_date: period.from.format('YYYY-MM-DD'),
-                        end_date: period.to.format('YYYY-MM-DD'),
+                        start_date: '',
+                        end_date: '',
                         // staff: user.id,
                         staff : staffId === null ? '' : user.id,
                         print: false

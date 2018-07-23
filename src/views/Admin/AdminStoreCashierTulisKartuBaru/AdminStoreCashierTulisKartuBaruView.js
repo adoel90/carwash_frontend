@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import {CopyToClipboard} from 'react-copy-to-clipboard';
-
 import { Section } from '../../../layouts/Section';
 import { Panel, PanelHeader, PanelBody } from '../../../components/Panel';
 import { TableSet } from '../../../components/Table';
@@ -10,7 +9,6 @@ import { Table } from '../../../components/Table';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from '../../../components/Modal';
 import { Form, FormGroup } from '../../../components/Form';
 import { Input, Label, InputAddon, InputGroup, InputAddonRight } from '../../../components/Input';
-
 import {Button} from '../../../components/Button';
 
 const AdminStoreCashierTulisKartuBaruView = props => {
@@ -54,8 +52,6 @@ const AdminStoreCashierTulisKartuBaruView = props => {
                 <ModalBody>
                             <FormGroup>
                                 <InputGroup>
-                                    
-                                   
                                     <Input
                                         type="text"
                                         className="form-control--large ta-center fw-semibold"
@@ -76,8 +72,6 @@ const AdminStoreCashierTulisKartuBaruView = props => {
                             </FormGroup>
                             <br />
                             { copied === false ? "" : renderShowCopiedPanel() }
-                           
-                            
                             <h5 className="fw-semibold margin-top-large">Ikuti instruksi berikut untuk membuat kartu member baru.</h5>
                             <p>1. Klik Icon untuk meng-copy/ menyalin ID Member</p>
                             <p>2. Buka software MSR605x yang telah diinstalasi.</p>

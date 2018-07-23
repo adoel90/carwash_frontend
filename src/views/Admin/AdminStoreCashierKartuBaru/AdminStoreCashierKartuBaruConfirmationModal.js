@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from '../../../components/Modal';
 import { Button } from '../../../components/Button';
+
 import { Alert } from '../../../components/Alert/index';
 import { Row, Column } from '../../../layouts/Grid';
 import { Badge } from '../../../components/Badge';
@@ -98,7 +99,8 @@ class AdminStoreCashierKartuBaruConfirmationModal extends Component {
 
     render() {
 
-        const { isModalOpen,
+        const { 
+            isModalOpen,
             updateMemberNewCardConfirmation,
             toggleModal,
             handleToggleUpdate,
@@ -122,11 +124,11 @@ class AdminStoreCashierKartuBaruConfirmationModal extends Component {
         const cardMember = selectedMember.card ? selectedMember.card.type.name : null;
 
         return (
+        
             <Modal isOpen={isModalOpen.updateMemberNewCardConfirmation}>
                 <ModalHeader align="center">
                     <h6 className="fw-semibold">Buat Member Baru</h6>
                 </ModalHeader>
-                {/* <Form onSubmit={handleUpdateCreateMember}> */}
                 <Form>
                     <ModalBody>
                         <Row className="margin-bottom-small">
@@ -240,12 +242,10 @@ class AdminStoreCashierKartuBaruConfirmationModal extends Component {
                             </Column>
                         </Row>
                     </ModalBody>
-
                     <ModalFooter className="flex justify-content--flex-end">
                         <Button className="margin-right-small" theme="danger" onClick={(e) => handleCancelModal(e)}> Cancel </Button>
                         <Button type="Submit" onClick={(e) => handleUpdateCreateMember(e)}>Simpan</Button>
                     </ModalFooter>
-
                 </Form>
             </Modal>
         )

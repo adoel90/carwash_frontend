@@ -39,21 +39,25 @@ class AdminStoreCashierKartuBaru extends Component {
         this.handleInputChangeInModalUpdate = this.handleInputChangeInModalUpdate.bind(this);
         this.handleAuthenticateMember = this.handleAuthenticateMember.bind(this);
         this.toggleModal = this.toggleModal.bind(this);
-        this.handleToggleUpdate = this.handleToggleUpdate.bind(this);
         this.handleUpdateCreateMember = this.handleUpdateCreateMember.bind(this);
         this.handleCancelModal = this.handleCancelModal.bind(this);
         this.renderDialog = this.renderDialog.bind(this);
-
         this.handleNewCardPrintSubmit = this.handleNewCardPrintSubmit.bind(this);
         this.handleSaldoAwalMember = this.handleSaldoAwalMember.bind(this);
         this.handleSaldoAwalTaxiOnline = this.handleSaldoAwalTaxiOnline.bind(this);
+        
+
+        this.handleToggleUpdate = this.handleToggleUpdate.bind(this);
+        this.handleDoubleCustomer = this.handleDoubleCustomer.bind(this);
+
 
         this.state = {
             authData: {
                 cardID: ''
             },
             isModalOpen: {
-                updateMemberNewCardConfirmation: false
+                updateMemberNewCardConfirmation: false,
+                doubleSeriKartuConfirmation: false
             },
             newCardData: {
                 // card: 1,
@@ -79,7 +83,9 @@ class AdminStoreCashierKartuBaru extends Component {
             memberNominal: {},
             customerBonus:{},
             saldoawal: null,
-            memberList: {}
+            memberList: {},
+            doubleCustomer: false,
+            doubleCustomerCardId: {}
         }
     };
 
@@ -101,35 +107,47 @@ class AdminStoreCashierKartuBaru extends Component {
                 ...this.state,
                 memberList: member.list.data.result
             }, () => {
-                console.log(this.state.memberList);
+                // console.log(this.state.memberList);
             });
         };
 
         if (prevProps.member.item !== member.item) {
-
-            //Validasi kalau member sudah di daftarkan
-            if(member.item.data.card.id ){
-
-            };
             if (member.item.isAuthenticated) {
 
                 //#
                 this.state.selectedMember = member.item.data;
                 this.state.typeNumberMember = member.item.data.card ? member.item.data.card.type.id : null;
-                console.log(member.item.data);
-
-                //#
-                this.forceUpdate();
-                this.handleToggleUpdate();
-
-                 //#GET SALDO BONUS
-                 const { getSaldoBonusDispatch } = this.props;
                 
-                 let requiredData = {
-                     type: this.state.typeNumberMember
-                 };
-         
-                 getSaldoBonusDispatch(requiredData);
+                // let dataMember = [];
+                // if(memberList.length > 0 ){
+                //     memberList.map((data) => {
+                //         let isDoubleMember = data.card.id === this.state.selectedMember.card.id ? dataMember.push(data.card.id) : "GA DAPET";
+                //     });
+                // };
+
+                // //#Validasi kalau member sudah di daftarkan
+                // if(dataMember[0] === this.state.selectedMember.card.id){
+                //     this.setState({
+                //         ...this.state,
+                //         doubleCustomer: true,
+                //         doubleCustomerCardId: dataMember[0]
+                //     },() => {
+                //         this.handleDoubleCustomer();
+                //     });
+
+                // } else {//Validasi kalau member tidak ada yang double
+                    
+                    this.forceUpdate();
+                    this.handleToggleUpdate();
+
+                     const { getSaldoBonusDispatch } = this.props;
+                    
+                     let requiredData = {
+                         type: this.state.typeNumberMember
+                     };
+             
+                     getSaldoBonusDispatch(requiredData);
+                // };
             };
 
             //GET NOMINAL SALDO NEW CUSTOMER
@@ -215,7 +233,11 @@ class AdminStoreCashierKartuBaru extends Component {
 
     handleToggleUpdate = () => {
         this.toggleModal('updateMemberNewCardConfirmation');
-    }
+    };
+
+    handleDoubleCustomer = () => {
+        this.toggleModal('doubleSeriKartuConfirmation');
+    };
 
     //#
     handleInputChange = (object, e) => {
@@ -527,6 +549,7 @@ class AdminStoreCashierKartuBaru extends Component {
                     handleCancelModal={this.handleCancelModal}
                     handleSaldoAwalMember={this.handleSaldoAwalMember}
                     handleSaldoAwalTaxiOnline = {this.handleSaldoAwalTaxiOnline}
+                    handleDoubleCustomer = {this.handleDoubleCustomer}
                     {...this.props}
                     {...this.state} 
 

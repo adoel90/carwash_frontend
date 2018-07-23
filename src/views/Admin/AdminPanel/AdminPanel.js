@@ -40,7 +40,8 @@ import {
     AdminStoresCreateMenuSuperAdm,
     Documentation,
     AdminTransactionSuperAdm,
-    AdminSettingSuperAdm
+    AdminSettingSuperAdm,
+    AdminStoreCashierReportSuperAdm
     // AdminStoresReportSuperAdm
 
 } from '../../Admin';
@@ -94,6 +95,7 @@ class AdminPanel extends Component {
                 { name: 'report-member', path: `${this.props.match.url}/report/report-member`, component: AdminReportMember },
                 { name: 'report', path: `${this.props.match.url}/report`, component: AdminReportSellingTotal },
                 { name: 'report-kasir-superadmin', path: `${this.props.match.url}/report/report-kasir-superadmin`, component: AdminStoreCashierReport },
+                { name: 'repot', path: `${this.props.match.url}/report/repot`, component: AdminStoreCashierReportSuperAdm },
                 { name: 'logout', path: `${this.props.match.url}/logout`, component: AdminLogout },
                 { name: 'setting', path: `${this.props.match.url}/setting`, component: AdminSettingSuperAdm },
 

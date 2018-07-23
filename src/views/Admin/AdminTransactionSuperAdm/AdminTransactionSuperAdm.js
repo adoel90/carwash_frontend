@@ -261,20 +261,38 @@ class AdminTransactionSuperAdm extends Component {
     handleSelectMenu = (menu) => {
         const { selectedMenuItem } = this.state;
 
-		if(!menu.selected) {
-			menu.selected = true;
-			this.setState({
-				...this.state,
-				selectedMenuItem: selectedMenuItem.concat([menu])
-			});
-		}
-		else {
-			menu.selected = false;
-			this.setState({
-				...this.state,
-				selectedMenuItem: selectedMenuItem.filter(item => item != menu)
-			});
-		};
+		// if(!menu.selected) {
+		// 	menu.selected = true;
+		// 	this.setState({
+		// 		...this.state,
+		// 		selectedMenuItem: selectedMenuItem.concat([menu])
+		// 	});
+		// }
+		// else {
+		// 	menu.selected = false;
+		// 	this.setState({
+		// 		...this.state,
+		// 		selectedMenuItem: selectedMenuItem.filter(item => item != menu)
+        //     });
+        // };
+        
+        //#
+        if(menu.status === true    ){
+            if(!menu.selected) {
+                menu.selected = true;
+                this.setState({
+                    ...this.state,
+                    selectedMenuItem: selectedMenuItem.concat([menu])
+                })
+            }
+            else {
+                menu.selected = false;
+                this.setState({
+                    ...this.state,
+                    selectedMenuItem: selectedMenuItem.filter(item => item != menu)
+                })
+            }
+        }
     };
 
     //#

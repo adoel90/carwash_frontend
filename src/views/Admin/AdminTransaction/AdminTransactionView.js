@@ -54,7 +54,7 @@ const AdminTransactionView = props => {
                                                             value={item.status === true ? item.price : "-"}
                                                         />
                                                     </td>
-                                                  </tr>
+                                                </tr>
                                             )
                                         }) : null }
                                     </tbody>

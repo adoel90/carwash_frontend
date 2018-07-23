@@ -181,26 +181,26 @@ const AdminReportMemberView = props => {
                         <BootstrapTable data={table.rows} options={optionsPagination} striped={true} hover={true} version='4' bordered={false} dataAlign="center" searchPlaceholder={"Ketik nama customer yang terdaftar..."} pagination>
                             <TableHeaderColumn 
                                 dataField="id" 
-                                headerAlign="center" 
+                                headerAlign="left" 
                                 dataAlign="left" 
                                 isKey={true}
-                                width="7%"
+                                width="16%"
                             >
                                  ID Kartu
                             </TableHeaderColumn>
                             <TableHeaderColumn 
                                 dataField="kartu" 
-                                headerAlign="center" 
+                                headerAlign="left" 
                                 dataAlign="left"
-                                width="20%"
+                                width="16%"
                             >
                                 Kartu
                             </TableHeaderColumn>
                             <TableHeaderColumn 
                                 dataField="name" 
-                                headerAlign="center" 
+                                headerAlign="left" 
                                 dataAlign="left"
-                                width="20%"
+                                width="16%"
                             >
                                 Nama
                             </TableHeaderColumn>
@@ -208,7 +208,7 @@ const AdminReportMemberView = props => {
                                 dataField="created" 
                                 headerAlign="center" 
                                 dataAlign="center"
-                                width="20%"
+                                width="16%"
                             >
                                 Tgl Daftar
                             </TableHeaderColumn>
@@ -216,7 +216,7 @@ const AdminReportMemberView = props => {
                                 dataField="balance" 
                                 headerAlign="center" 
                                 dataAlign="right"
-                                width="15%"
+                                width="16%"
                                 dataFormat={priceFormatter}
                             >
                                 Saldo
@@ -226,7 +226,7 @@ const AdminReportMemberView = props => {
                                 headerAlign="center"
                                 dataAlign="center"
                                 dataFormat={componentButtonHistory}
-                                width="35%"
+                                width="16%"
                             >
                                 Histori
                             </TableHeaderColumn>

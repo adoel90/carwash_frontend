@@ -88,14 +88,14 @@ const AdminTransactionSuperAdmView = props => {
                                         item.totalPrice = item.quantity * item.price;
                                         return (
                                             <tr className={item.selected ? 'bg-secondary' : 'bg-white'} onClick={() => handleSelectMenu(item)} key={item.id}>
-                                                <td>{item.name}</td>
-                                                <td>{item.description}</td>
+                                                <td>{item.status === true ? item.name : item.name + " ( Tidak Tersedia) "}</td>
+                                                <td>{item.status === true ? item.description : "Tidak Tersedia"}</td>
                                                 <td>
                                                     <Currency
-                                                        value={item.price}
+                                                        value={item.status === true ? item.price : "-"}
                                                     />
                                                 </td>
-                                                </tr>
+                                            </tr>
                                         )
                                     }) : null }
                                 </tbody>

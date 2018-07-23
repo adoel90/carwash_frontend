@@ -18,6 +18,8 @@ export * from './AdminStoresEmployeeSuperAdm';
 export * from './AdminStoresMenuSuperAdm';
 export * from './AdminTransactionSuperAdm';
 export * from './AdminCardSetting';
+export * from './AdminStoreCashierReportSuperAdm';
+
 
 
 //Admin Store Cashier

@@ -180,11 +180,11 @@ class AdminStoreCashierRefund extends Component {
         const { selectedMember } = this.state;
         const { dispatch,member, accessToken, user, memberRefundDispatch} = this.props;
         // accessToken: member.item.accessToken
-        
+
         let requiredData = {
             card: selectedMember.card.id,
-            staff: user.level.id
-        }
+            staff: user.level.id === 1 ?  user.level.id + 292 : user.level.id
+        };
 
         console.log(requiredData);
         memberRefundDispatch(requiredData);

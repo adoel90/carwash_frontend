@@ -113,7 +113,7 @@ class AdminStoreCashierReport extends Component {
             end_date : moment(period.to).format('YYYY-MM-DD'),
             user:dataId,
             print: false
-        }
+        };
         getReportStoreCashierMemberDispatch(requiredData);
     }
 
@@ -121,7 +121,7 @@ class AdminStoreCashierReport extends Component {
         const { period } = this.state;
     	period[fromTo] = date;
     	this.forceUpdate();
-    }
+    };
 
     populateTableData = () => {
         const { store } = this.props;
@@ -185,7 +185,7 @@ class AdminStoreCashierReport extends Component {
         const { printData } = this.state;
         
         //Scenario superadmin can access route Kasir
-        let dataId = user.id === 1 ? user.id + 2 : user.id;
+        let dataId = user.id === 1 ? user.id + 292 : user.id;
 
         let requiredData = {
             start_date : moment(period.to).format('YYYY-MM-DD'),
@@ -211,7 +211,8 @@ class AdminStoreCashierReport extends Component {
         const { user, getReportCashierSuperAdmConvertExcellDispatch } = this.props;
 
           //Scenario superadmin can access route Kasir
-          let dataId = user.id === 1 ? user.id + 2 : user.id;
+        //   let dataId = user.id === 1 ? user.id + 2 : user.id;
+          let dataId = user.id === 1 ? user.id + 292 : user.id;
 
         let requiredData = {
             start_date : moment(period.to).format('YYYY-MM-DD'),

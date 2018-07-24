@@ -5,9 +5,9 @@ import { bindActionCreators } from 'redux';
 import moment from 'moment';
 
 import { getUserList } from '../../../actions/user.action';
-import { getReportStoreCashierMember } from '../../../actions/store.action';
+import { getReportStoreCashierMember, getReportStoreCashierMemberPrint, getReportCashierSuperAdmConvertExcell} from '../../../actions/store.action';
 
-import {AdminStoreCashierReportSuperAdmView } from '../AdminStoreCashierReportSuperAdm';
+import {AdminStoreCashierReportSuperAdmView , AdminStoreCashierReportPaymentReceiptSuperAdm} from '../AdminStoreCashierReportSuperAdm';
 
 function mapStateToProps(state) {
     return {
@@ -19,7 +19,10 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {    
         getUserListDispatch: (data) => dispatch(getUserList(data)),
-        getReportStoreCashierMemberDispatch : (data) => dispatch(getReportStoreCashierMember(data))
+        getReportStoreCashierMemberDispatch : (data) => dispatch(getReportStoreCashierMember(data)),
+        getReportStoreCashierMemberPrintDispatch: (data) => dispatch(getReportStoreCashierMemberPrint(data)),
+        getReportCashierSuperAdmConvertExcellDispatch : (data) => dispatch(getReportCashierSuperAdmConvertExcell(data)),
+        // action: bindActionCreators({ getReportStoreCashierMember }, dispatch)
     }
 };
 
@@ -28,10 +31,16 @@ class AdminStoreCashierReportSuperAdm extends Component{
     constructor(){
         super();
         this.handleClickChange = this.handleClickChange.bind(this);
+        this.showDate = this.showDate.bind(this);
+        this.handlePeriodChange = this.handlePeriodChange.bind(this);
+        this.populateTableData= this.populateTableData.bind(this);
+        this.handlePrint = this.handlePrint.bind(this);
+        this.handleConvertExcell = this.handleConvertExcell.bind(this);
 
         this.state = {
             kasirList: {},  
             showHideIntefaceReport: false,
+            kasirId:{},
 
             table: {
                 columns: [],
@@ -46,6 +55,21 @@ class AdminStoreCashierReportSuperAdm extends Component{
             printData: {},
             printDataDetail:{},
             statusPrintData: null
+        };
+
+        this.optionsPagination = {
+            prePage:'Prev',
+            nextPage:'Next',
+            firstPage: '.', // First page button text
+            lastPage: '.', // Last page button text
+            sortIndicator: true,
+            noDataText: 'Nama User tidak di temukan',
+            // searchField: (props) => (<MySearchField { ...props } name="Search users"/>),
+            hideSizePerPage: true,
+            searchPosition: 'left',
+            // onRowDoubleClick: function(row) {
+            //     props.toggle();
+            // }
         };
 
     };
@@ -64,7 +88,7 @@ class AdminStoreCashierReportSuperAdm extends Component{
 
     componentDidUpdate(prevProps){
 
-        const { user } = this.props;
+        const { user, store } = this.props;
         const { kasirList } = this.state;
         
 
@@ -88,14 +112,112 @@ class AdminStoreCashierReportSuperAdm extends Component{
                         // console.log("TAK ADA KASIR ID");
                     };
                 });
-
-              
             };
         };
+
+        if(prevProps.store.reportCashierMember !== store.reportCashierMember){
+            if(store.reportCashierMember.isLoaded){
+
+                this.setState({
+                    ...this.state,
+                    printData: store.reportCashierMember,
+                    statusPrintData: 200
+                }, () => {
+                    this.populateTableData();
+                })
+            }
+        };
+    };
+
+    populateTableData = () => {
+        const { store } = this.props;
+       
+        const columns = [
+        {
+            title: 'Tanggal Transaksi',
+            accessor: 'transaction_date',
+            align: 'left'
+        },
+        {
+            title: 'Nama Kasir ',
+            accessor: 'kasirName',
+            align: 'left'
+        }, 
+        {
+            title: 'Deskripsi',
+            accessor: 'description',
+            align: 'left'
+        }, 
+        {
+            title: 'Total Transaksi',
+            accessor: 'total',
+            align: 'left',
+            isCurrency: true
+        }]
+
+        const rows = [] 
+        
+        if(store.reportCashierMember.isLoaded){
+
+            console.log(store.reportCashierMember);
+            store.reportCashierMember.data.result.data.forEach((value, i) => {
+
+                let row = {
+                    id: value.id,
+                    kasirName: value.user.name,
+                    transaction_date: moment(value.transaction_date).format('DD MMM YYYY'),
+                    description: value.description === "Buat Member" ? "Member Baru" : value.description,
+                    total: value.total != null ? value.total : "Rp. 0"
+                };
+                rows.push(row);
+            })
+        };
+
+        this.setState({
+            ...this.state,
+            table: {
+                ...this.state.table,
+                columns: columns,
+                rows: rows
+            }
+        });
+    };
+
+    handlePrint(period){
+        const { getReportStoreCashierMemberPrintDispatch, user } = this.props;
+        const { printData, kasirId } = this.state;
+        
+        //Scenario superadmin can access route Kasir
+        // let dataId = user.id === 1 ? user.id + 292 : user.id;
+
+        let requiredData = {
+            start_date : moment(period.to).format('YYYY-MM-DD'),
+            end_date : moment(period.to).format('YYYY-MM-DD'),
+            user: kasirId,
+            print: true
+        }
+
+        this.setState({
+            ...this.state,
+            printDataDetail: printData.data.result.data,
+            statusPrintData: 200
+            }, () => {
+                window.print();
+        })
+        // getReportStoreCashierMemberPrintDispatch(requiredData);
+    };
+
+    //#
+    handlePeriodChange = (fromTo, date) => {
+        const { period } = this.state;
+    	period[fromTo] = date;
+    	this.forceUpdate();
     };
 
     //#
     handleClickChange = (e) => {
+
+        e.preventDefault();
 
         const target = e.target;
         const name = target.name;
@@ -114,18 +236,67 @@ class AdminStoreCashierReportSuperAdm extends Component{
         //#
         this.setState({
             ...this.state,
+            kasirId: value,
             showHideIntefaceReport: true
         });
     };
 
+    handleConvertExcell(e){
+        e.preventDefault();
+
+        const { period, kasirId } = this.state;
+        const { user, getReportCashierSuperAdmConvertExcellDispatch } = this.props;
+
+          //Scenario superadmin can access route Kasir
+        //   let dataId = user.id === 1 ? user.id + 2 : user.id;
+        //   let dataId = user.id === 1 ? user.id + 292 : user.id;
+
+        let requiredData = {
+            start_date : moment(period.to).format('YYYY-MM-DD'),
+            end_date : moment(period.to).format('YYYY-MM-DD'),
+            user: kasirId,
+            print: false
+        };
+
+        getReportCashierSuperAdmConvertExcellDispatch(requiredData);
+
+    };
+
+    //#
+    showDate = (e) => {
+        e.preventDefault();
+        const { getReportStoreCashierMemberDispatch, user } = this.props;
+        let { period, kasirId, showHideIntefaceReport } = this.state;
+        
+        if(showHideIntefaceReport === true){
+
+            let requiredData = {
+                start_date : moment(period.to).format('YYYY-MM-DD'),
+                end_date : moment(period.to).format('YYYY-MM-DD'),
+                user:kasirId,
+                print: false
+            };
+            getReportStoreCashierMemberDispatch(requiredData);
+        }
+    }
+
     render (){
 
         return (
-            
-            <AdminStoreCashierReportSuperAdmView 
-                handleClickChange = {this.handleClickChange}
-                {...this.props} 
-                {...this.state}/>
+            <div>
+                <AdminStoreCashierReportSuperAdmView 
+                    showDate={this.showDate}
+                    handlePeriodChange={this.handlePeriodChange}
+                    handlePrint= {this.handlePrint}
+                    handleConvertExcell = {this.handleConvertExcell}
+                    handleClickChange = {this.handleClickChange}
+                    optionsPagination = {this.optionsPagination}
+                    {...this.props} 
+                    {...this.state}/>
+
+                 {/* Want to print mini pos */}
+                 <AdminStoreCashierReportPaymentReceiptSuperAdm {...this.props} {...this.state}/>
+            </div>
         );
 
     };

@@ -11,7 +11,6 @@ import { openDialog, closeDialog } from '../../../actions/dialog.action';
 import { authenticateMember, updateMember, getAllMemberList} from '../../../actions/member.action';
 import { AdminStoreCashierKartuBaruWrapper, AdminStoreCashierKartuBaruPaymentReceipt} from '../AdminStoreCashierKartuBaru';
 
-
 function mapStateToProps(state) {
     return {
         member: state.member,
@@ -34,6 +33,7 @@ function mapDispatchToProps(dispatch) {
 class AdminStoreCashierKartuBaru extends Component {
 
     constructor() {
+
         super();
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleInputChangeInModalUpdate = this.handleInputChangeInModalUpdate.bind(this);
@@ -45,11 +45,9 @@ class AdminStoreCashierKartuBaru extends Component {
         this.handleNewCardPrintSubmit = this.handleNewCardPrintSubmit.bind(this);
         this.handleSaldoAwalMember = this.handleSaldoAwalMember.bind(this);
         this.handleSaldoAwalTaxiOnline = this.handleSaldoAwalTaxiOnline.bind(this);
-        
 
         this.handleToggleUpdate = this.handleToggleUpdate.bind(this);
         this.handleDoubleCustomer = this.handleDoubleCustomer.bind(this);
-
 
         this.state = {
             authData: {
@@ -92,7 +90,6 @@ class AdminStoreCashierKartuBaru extends Component {
 
     componentDidMount(){
         const { getAllMemberListDispatch } = this.props;
-
         getAllMemberListDispatch();
     };
 
@@ -193,8 +190,6 @@ class AdminStoreCashierKartuBaru extends Component {
                 });
             };
         };
-
-        
     };
 
     toggleModal = (name) => {
@@ -206,7 +201,7 @@ class AdminStoreCashierKartuBaru extends Component {
                 [name]: !isModalOpen[name]
             }
         });
-    }
+    };
 
     renderDialog = () => {
         const { dialog, toggleDialog } = this.props;
@@ -224,7 +219,7 @@ class AdminStoreCashierKartuBaru extends Component {
                 closeText={dialog.data.closeText}
             />
         )
-    }
+    };
 
     toggleDialog = (data) => {
         const { dialog, action } = this.props;
@@ -273,7 +268,7 @@ class AdminStoreCashierKartuBaru extends Component {
                 updateMemberNewCardConfirmation: false
             }
         });
-    }
+    };
 
     handleAuthenticateMember = (e) => {
         e.preventDefault();
@@ -285,7 +280,7 @@ class AdminStoreCashierKartuBaru extends Component {
 
         let requiredData = { card: finalDataCardId }
         authenticateMemberDispatch(requiredData);
-    }
+    };
 
     //#
     handleInputChangeInModalUpdate = (object, e) => {
@@ -513,7 +508,6 @@ class AdminStoreCashierKartuBaru extends Component {
 		}, () => {
 			window.print();
 		})
-		
     };
     
     //#
@@ -561,7 +555,6 @@ class AdminStoreCashierKartuBaru extends Component {
                 />
                 <AdminStoreCashierKartuBaruPaymentReceipt {...this.props} {...this.state} /> 
                 {this.renderDialog()}
-               
             </div>
         )
     }

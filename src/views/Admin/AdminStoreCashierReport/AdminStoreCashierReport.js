@@ -81,7 +81,7 @@ class AdminStoreCashierReport extends Component {
 
         console.log(data);
         getReportStoreCashierMemberDispatch(data);
-    }
+    };
 
     componentDidUpdate(prevProps){
         const { store } = this.props;
@@ -115,7 +115,7 @@ class AdminStoreCashierReport extends Component {
             print: false
         };
         getReportStoreCashierMemberDispatch(requiredData);
-    }
+    };
 
     handlePeriodChange = (fromTo, date) => {
         const { period } = this.state;
@@ -154,8 +154,6 @@ class AdminStoreCashierReport extends Component {
         if(store.reportCashierMember.isLoaded){
             store.reportCashierMember.data.result.data.forEach((value, i) => {
 
-                console.log(value);
-
                 let row = {
                     id: value.id,
                     kasirName: value.user.name,
@@ -163,8 +161,6 @@ class AdminStoreCashierReport extends Component {
                     description: value.description === "Buat Member" ? "Member Baru" : value.description,
                     total: value.total != null ? value.total : "Rp. 0"
                 };
-
-                console.log(row);
 
                 rows.push(row);
             })
@@ -223,7 +219,7 @@ class AdminStoreCashierReport extends Component {
 
         getReportCashierSuperAdmConvertExcellDispatch(requiredData);
 
-    }
+    };
 
     render () { 
         return(

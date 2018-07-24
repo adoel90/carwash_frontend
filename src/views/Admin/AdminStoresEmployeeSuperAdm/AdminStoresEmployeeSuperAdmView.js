@@ -128,7 +128,6 @@ const AdminStoresEmployeeSuperAdmView = props => {
                             </Row>
                         </ModalBody>
                         <ModalFooter className="flex justify-content--flex-end">
-
                             <Button className="margin-right-small" theme="danger" onClick={(e) => handleCancelModal(e)}>Cancel</Button>
                             <Button type="submit">Simpan</Button>
                         </ModalFooter>

@@ -75,6 +75,7 @@ class AdminStoreCashierKartuBaru extends Component {
             ],
             printData: {},
             selectedMember: {},
+            selectedCardId:{},
             dataMemberAfterUpdate: {},
             typeNumberMember: {},
             listNominalNewCustomer: {},
@@ -106,52 +107,56 @@ class AdminStoreCashierKartuBaru extends Component {
             this.setState({
                 ...this.state,
                 memberList: member.list.data.result
-            }, () => {
-                // console.log(this.state.memberList);
             });
         };
 
-        if (prevProps.member.item !== member.item) {
+        if(prevProps.member.item !== member.item) {
             if (member.item.isAuthenticated) {
 
                 //#
                 this.state.selectedMember = member.item.data;
                 this.state.typeNumberMember = member.item.data.card ? member.item.data.card.type.id : null;
-                
-                // let dataMember = [];
-                // if(memberList.length > 0 ){
-                //     memberList.map((data) => {
-                //         let isDoubleMember = data.card.id === this.state.selectedMember.card.id ? dataMember.push(data.card.id) : "GA DAPET";
-                //     });
-                // };
 
-                // //#Validasi kalau member sudah di daftarkan
-                // if(dataMember[0] === this.state.selectedMember.card.id){
-                //     this.setState({
-                //         ...this.state,
-                //         doubleCustomer: true,
-                //         doubleCustomerCardId: dataMember[0]
-                //     },() => {
-                //         this.handleDoubleCustomer();
-                //     });
+                //#
+                this.state.selectedCardId = member.item.data.card ? member.item.data.card.id : null;
 
-                // } else {//Validasi kalau member tidak ada yang double
+                let dataMember = [];
+                if(memberList.length > 0 ){
+                    memberList.map((data) => {
+
+                        let dataCard = data.card ? data.card.id : null;
+                        let isDoubleMember = dataCard ===  this.state.selectedCardId ? dataMember.push(dataCard) : "GA DAPET"; //isDoubleMember IS NOT USE BUT IMPORTANT
+                    });
+                };
+
+                //#Validasi kalau member sudah di daftarkan
+                if(dataMember[0] === this.state.selectedCardId){
+
+                    this.setState({
+                        ...this.state,
+                        doubleCustomer: true,
+                        doubleCustomerCardId: dataMember[0]
+                    },() => {
+                        this.handleDoubleCustomer();
+                    });
+
+                } else {//Validasi kalau member tidak ada yang double
                     
                     this.forceUpdate();
                     this.handleToggleUpdate();
 
-                     const { getSaldoBonusDispatch } = this.props;
+                    const { getSaldoBonusDispatch } = this.props;
                     
-                     let requiredData = {
-                         type: this.state.typeNumberMember
-                     };
-             
-                     getSaldoBonusDispatch(requiredData);
-                // };
+                    let requiredData = {
+                        type: this.state.typeNumberMember
+                    };
+                    
+                    getSaldoBonusDispatch(requiredData);
+                };
             };
 
             //GET NOMINAL SALDO NEW CUSTOMER
-            if(member.item.isAuthenticated){  
+            if(member.item.isAuthenticated){
                 const { getNominalSaldoNewCustomerDispatch } = this.props;
 
                 let requiredData = {

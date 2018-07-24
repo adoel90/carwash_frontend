@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import moment from 'moment';
 
 import { getUserList } from '../../../actions/user.action';
+import { getReportStoreCashierMember } from '../../../actions/store.action';
 
 import {AdminStoreCashierReportSuperAdmView } from '../AdminStoreCashierReportSuperAdm';
 
@@ -17,7 +18,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {    
-        getUserListDispatch: (data) => dispatch(getUserList(data))
+        getUserListDispatch: (data) => dispatch(getUserList(data)),
+        getReportStoreCashierMemberDispatch : (data) => dispatch(getReportStoreCashierMember(data))
     }
 };
 
@@ -25,12 +27,27 @@ class AdminStoreCashierReportSuperAdm extends Component{
 
     constructor(){
         super();
+        this.handleClickChange = this.handleClickChange.bind(this);
 
         this.state = {
+            kasirList: {},  
+            showHideIntefaceReport: false,
 
-            kasirList: {}
+            table: {
+                columns: [],
+                rows: [],
+                limit: 10
+            },
+            period: {
+                from: moment(),
+        		to: moment()
+            }, 
+            report: {},
+            printData: {},
+            printDataDetail:{},
+            statusPrintData: null
         };
-        
+
     };
 
 
@@ -51,37 +68,64 @@ class AdminStoreCashierReportSuperAdm extends Component{
         const { kasirList } = this.state;
         
 
-        if(prevProps.user.list !== user.list){
-
-            let levelAksesIdArray = [];
+        if(prevProps.user.list !== user.list){            
             if(user.list.isLoaded){
+                
+                let levelAksesIdArray = [];
+
                 user.list.data.data.result.map((value) => {
-                    console.log(value.level.id);
-                    console.log(value.level.name);
-                    levelAksesIdArray.push(value.level.id);
+                    // console.log(value);
+                    if(value.level.id === 3){
+
+                        levelAksesIdArray.push(value);
+                        this.setState({
+                            ...this.state,
+                            kasirList: levelAksesIdArray
+                        }, () => {
+                            console.log(this.state.kasirList);
+                        });
+                    } else {
+                        // console.log("TAK ADA KASIR ID");
+                    };
                 });
+
+              
             };
-
-
-            if(user.list.isLoaded){
-
-                levelAksesIdArray
-            };
-
-            this.setState({
-                ...this.state,
-                kasirList: user.list
-            }, () => {
-                console.log(kasirList);
-            });
         };
+    };
+
+    //#
+    handleClickChange = (e) => {
+
+        const target = e.target;
+        const name = target.name;
+        const value = target.value;
+
+        let requireData = {
+            start_date : '',
+            end_date : '',
+            user: value,
+            print: null
+        };
+
+        const { getReportStoreCashierMemberDispatch } = this.props;
+        getReportStoreCashierMemberDispatch(requireData);
+
+        //#
+        this.setState({
+            ...this.state,
+            showHideIntefaceReport: true
+        });
     };
 
     render (){
 
         return (
             
-            <AdminStoreCashierReportSuperAdmView {...this.props} {...this.state}/>
+            <AdminStoreCashierReportSuperAdmView 
+                handleClickChange = {this.handleClickChange}
+                {...this.props} 
+                {...this.state}/>
         );
 
     };

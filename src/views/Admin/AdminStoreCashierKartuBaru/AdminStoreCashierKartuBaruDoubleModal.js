@@ -12,7 +12,7 @@ class AdminStoreCashierKartuBaruDoubleModal extends Component {
         return (
             <Modal isOpen={isModalOpen.doubleSeriKartuConfirmation}>
                 <ModalHeader align="center">
-                    {/* <h6 className="fw-semibold">"Nomor Kartu DOUBLE"</h6> */}
+                    <h6 className="fw-semibold">INFO :</h6>
                 </ModalHeader>
                 <ModalBody>
                     <Panel theme="danger">

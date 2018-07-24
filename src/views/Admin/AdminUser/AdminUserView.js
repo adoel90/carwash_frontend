@@ -163,7 +163,7 @@ const AdminUserView = props => {
                                 width="30%"
                                 dataAlign="left"
                             >
-                                Password
+                                Alamat Email
                             </TableHeaderColumn>
                             <TableHeaderColumn 
                                 // headerAlign="left" 

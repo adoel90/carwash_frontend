@@ -14,6 +14,7 @@ import { getStoreList, updateMenuVendor, getMenuStoreList, changeMenuStatus } fr
 import { getMenuListStoreWithPrint } from '../../../actions/store.action';
 import { openDialog, closeDialog } from '../../../actions/dialog.action';
 // import MySearchFieldWithPrint  from '../../../components/Input/MySearchFieldWithPrint';
+// import MyButtonPrint from '../../../components/Button/MyButtonPrint';
 import MySearchField from '../../../components/Input/MySearchField';
 
 function mapStateToProps(state) {
@@ -52,6 +53,8 @@ class AdminStoresMenu extends Component {
         this.toggleTab = this.toggleTab.bind(this);
         this.printListMenuStore = this.printListMenuStore.bind(this);
 
+        this.clearButtonPrint = this.clearButtonPrint.bind(this);
+
         this.optionsPagination = {
             prePage:'Prev',
             nextPage:'Next',
@@ -64,9 +67,9 @@ class AdminStoresMenu extends Component {
             ),
             hideSizePerPage: true,
             searchPosition: 'left',
-            // onRowDoubleClick: function(row) {
-            //     props.toggle();
-            // }
+            clearSearch: true,
+            clearSearchBtn: this.clearButtonPrint //# http://allenfang.github.io/react-bootstrap-table/custom.html#searchfield
+
         };
 
         this.state = {
@@ -166,7 +169,14 @@ class AdminStoresMenu extends Component {
                 })
             }
         }
-    }
+    };
+
+    //# http://allenfang.github.io/react-bootstrap-table/custom.html#searchfield
+    clearButtonPrint = (onClick) => {
+        return (
+            <Button className = "margin-left-small" theme="light" onClick={ (e) => this.printListMenuStore(e) }>Print</Button>
+        );
+    };
 
     //#
 	toggleTab = (tabIndex, type) => {
@@ -245,16 +255,16 @@ class AdminStoresMenu extends Component {
                 accessor: 'price',
                 isCurrency: true
             },
-            {
-                title: 'Aksi',
-                accessor: 'action',
-                render: (row) => (
-                    <td>
-                        <Button className="margin-right-small" type="button" onClick={() => this.openMenuVendorModal(row)}>Ubah</Button>
-                        <Button type="button" theme={row.data.status ? "success" : "danger"} onClick={() => this.changeMenuStatus(row)}>{ row.data.status ? 'Aktif' : 'Non Aktif' }</Button>
-                    </td>
-                )
-            }
+            // {
+            //     title: 'Aksi',
+            //         accessor: 'action',
+            //         render: (row) => (
+            //             <td>
+            //                 <Button className="margin-right-small" type="button" onClick={() => this.openMenuVendorModal(row)}>Ubah</Button>
+            //             <Button type="button" theme={row.data.status ? "success" : "danger"} onClick={() => this.changeMenuStatus(row)}>{ row.data.status ? 'Aktif' : 'N/A' }</Button>
+            //         </td>
+            //     )
+            // }
         ];
 
         const rows = [];
@@ -456,6 +466,7 @@ class AdminStoresMenu extends Component {
                                     optionsPagination={this.optionsPagination}
                                     openMenuVendorModal={this.openMenuVendorModal}
                                     changeMenuStatus={this.changeMenuStatus}
+                                    clearButtonPrint={this.clearButtonPrint}
                                 />
                             </TabContent>
                         )

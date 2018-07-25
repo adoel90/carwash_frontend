@@ -14,7 +14,7 @@ import { Nav, NavItem, NavLink, NavTabLink} from '../../../components/Nav';
 import { TabContent } from '../../../components/Tab';
 import { Button } from '../../../components/Button';
 
-import { BootstrapTable, TableHeaderColumn, SearchField } from 'react-bootstrap-table';
+import { BootstrapTable, TableHeaderColumn, SearchField} from 'react-bootstrap-table';
 
 const AdminStoresMenuView = props => {
 
@@ -63,7 +63,7 @@ const AdminStoresMenuView = props => {
         return (
             <div>
                 <Button className="margin-right-small" type="button" onClick={() => openMenuVendorModal(datarow )}>Ubah</Button>
-                <Button type="button" theme={datarow.status ? "success" : "danger"} onClick={() => changeMenuStatus(datarow)}>{ datarow.status ? 'Aktif' : 'Non Aktif' }</Button>
+                <Button type="button" theme={datarow.status ? "success" : "danger"} onClick={() => changeMenuStatus(datarow)}>{ datarow.status ? 'Aktif' : 'N/A' }</Button>
             </div>
         );
     };
@@ -157,7 +157,7 @@ const AdminStoresMenuView = props => {
                             <Column className="flex">
                                 <div className="margin-right-small">
                                     <FormField>
-                                        <Button  onClick={(e) => printListMenuStore(e)}  style={buttonStyle} type="submit" theme="light">Print</Button>
+                                        {/* <Button  onClick={(e) => printListMenuStore(e)}  style={buttonStyle} type="submit" theme="light">Print</Button> */}
                                     </FormField>
                                 </div>
                             </Column>
@@ -173,13 +173,15 @@ const AdminStoresMenuView = props => {
                                 dataAlign="center" 
                                 searchPlaceholder={"Telusuri nama produk..."} 
                                 pagination 
-                                search>
+                                search
+                                // insertRow
+                                >
 
-                                <TableHeaderColumn dataField="id" headerAlign="left" dataAlign="left" isKey={true} hidden>ID</TableHeaderColumn>
-                                <TableHeaderColumn dataField="name" headerAlign="left" dataAlign="left">Nama Produk</TableHeaderColumn>
-                                <TableHeaderColumn dataField="description" headerAlign="left" dataAlign="left">Deskripsi Produk</TableHeaderColumn>
-                                <TableHeaderColumn dataField="price" headerAlign="left" dataAlign="center">Harga</TableHeaderColumn>
-                                <TableHeaderColumn dataField="data" headerAlign="left" dataAlign="right" dataFormat={componentButtonUpdate}>Status</TableHeaderColumn>
+                                <TableHeaderColumn dataField="id" headerAlign="left" dataAlign="left"  width="20%" isKey={true} hidden>ID</TableHeaderColumn>
+                                <TableHeaderColumn dataField="name" headerAlign="left" dataAlign="left"  width="20%">Nama Produk</TableHeaderColumn>
+                                <TableHeaderColumn dataField="description" headerAlign="left" dataAlign="left" width="20%">Deskripsi Produk</TableHeaderColumn>
+                                <TableHeaderColumn dataField="price" headerAlign="left" dataAlign="left"  width="20%">Harga</TableHeaderColumn>
+                                <TableHeaderColumn dataField="data" headerAlign="center" dataAlign="center" width="20%" dataFormat={componentButtonUpdate}>Status</TableHeaderColumn>
                             </BootstrapTable>
                         </div>
                     </PanelBody>

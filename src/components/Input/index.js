@@ -10,7 +10,7 @@ export { default as Label} from './Label';
 export { default as InputCurrency} from './InputCurrency';
 export { default as InputCashier} from './InputCashier';
 export { default as SwitchSquare } from './SwitchSquare';
-// export { default as MySearchFieldWithPrint } from './MySearchFieldWithPrint';
+
 
 
 

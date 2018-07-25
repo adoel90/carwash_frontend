@@ -18,7 +18,11 @@ import {
 	GET_CATEGORY_LIST_REQUESTED,
 	GET_CATEGORY_LIST_FULFILLED,
 	GET_CATEGORY_LIST_REJECTED,
-	
+
+	GET_STORE_LIST_SUPER_REQUESTED,
+	GET_STORE_LIST_SUPER_FULFILLED,
+	GET_STORE_LIST_SUPER_REJECTED, //#GET STORE SUPER ADMIN
+
 	GET_MENU_LIST_STORE_REQUESTED, //GET MENU LIST STORE
 	GET_MENU_LIST_STORE_FULFILLED,
 	GET_MENU_LIST_STORE_REJECTED,
@@ -305,6 +309,51 @@ const store = (state = initialState, action) => {
 				}
 			}
 		}
+
+		//#GET STORE SUPER ADMIN
+		case GET_STORE_LIST_SUPER_REQUESTED: {
+			return {
+				...state,
+				list: {
+					...state.list,
+					data: {},
+					isFetching: true,
+					isLoaded: false,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case GET_STORE_LIST_SUPER_FULFILLED: {
+			return {
+				...state,
+				list: {
+					...state.list,
+					data: action.payload,
+					isLoaded: true,
+					isFetching: false,
+					isError: false,
+					error: {}
+				}
+			}
+		}
+
+		case GET_STORE_LIST_SUPER_REJECTED: {
+			return {
+				...state,
+				list: {
+					...state.list,
+					data: {},
+					isLoaded: false,
+					isFetching: false,
+					isError: true,
+					error: action.payload
+				}
+			}
+		}
+
+		//************************* */
 
 		case GET_STORE_DETAIL_REQUESTED: {
 			return {

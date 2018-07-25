@@ -32,6 +32,11 @@ export const GET_DISCOUNT_LIST_REQUESTED = 'GET_DISCOUNT_LIST_REQUESTED';
 export const GET_DISCOUNT_LIST_FULFILLED = 'GET_DISCOUNT_LIST_FULFILLED';
 export const GET_DISCOUNT_LIST_REJECTED = 'GET_DISCOUNT_LIST_REJECTED';
 
+//#GET LIST STORE SUPER ADMIN
+export const GET_STORE_LIST_SUPER_REQUESTED = 'GET_STORE_LIST_SUPER_REQUESTED';
+export const GET_STORE_LIST_SUPER_FULFILLED = 'GET_STORE_LIST_SUPER_FULFILLED';
+export const GET_STORE_LIST_SUPER_REJECTED = 'GET_STORE_LIST_SUPER_REJECTED';
+
 //#GET MENU LIST STORE
 export const GET_MENU_LIST_STORE_REQUESTED = 'GET_MENU_LIST_STORE_REQUESTED';
 export const GET_MENU_LIST_STORE_FULFILLED = 'GET_MENU_LIST_STORE_FULFILLED';
@@ -135,7 +140,7 @@ export const getStoreList = (data) => {
 		dispatch(fetchRequest());
 		
 		return axios
-			.get(`${constant.API_PATH}store/list?accessToken=${accessToken}`)
+			.get(`${constant.API_PATH}store/list?accessToken=${accessToken}&active=true`)
 			.then((response) => {
 				dispatch(fetchSuccess(response));
 			})
@@ -147,7 +152,27 @@ export const getStoreList = (data) => {
 	function fetchRequest() { return { type: GET_STORE_LIST_REQUESTED } }
 	function fetchSuccess(data) { return { type: GET_STORE_LIST_FULFILLED, payload: data } }
 	function fetchError(data) { return { type: GET_STORE_LIST_REJECTED, payload: data } }
-}
+};
+
+export const getStoreListSuperAdm = () => {
+	return async dispatch => {
+
+		dispatch(fetchRequest());
+		
+		return axios
+			.get(`${constant.API_PATH}store/list?accessToken=${accessToken}`)
+			.then((response) => {
+				dispatch(fetchSuccess(response));
+			})
+			.catch((error) => {
+				dispatch(fetchError(error));
+			})
+	}
+
+	function fetchRequest() { return { type: GET_STORE_LIST_SUPER_REQUESTED } }
+	function fetchSuccess(data) { return { type: GET_STORE_LIST_SUPER_FULFILLED, payload: data } }
+	function fetchError(data) { return { type: GET_STORE_LIST_SUPER_REJECTED, payload: data } }
+};
 
 export const getStoreDetail = (data) => {
 	return async dispatch => {
@@ -248,7 +273,7 @@ export const getMenuListStore = (data) => {
 		dispatch(fetchRequest());
 		return axios
 			
-			.get(`${constant.API_PATH}store/menu/list?accessToken=${accessToken}&store=${data.id}`)
+			.get(`${constant.API_PATH}store/menu/list?accessToken=${accessToken}&store=${data.id}&active=true`)
 			.then((response) => {
 				dispatch(fetchSuccess(response));
 			})

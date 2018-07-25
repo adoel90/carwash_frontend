@@ -9,9 +9,17 @@ import { TabContent } from '../../../components/Tab';
 import { Button } from '../../../components/Button';
 import { ModalDialog } from '../../../components/Modal';
 import { openDialog, closeDialog } from '../../../actions/dialog.action';
-import { getStoreListWithIdUser, getMenuListStore, createStoreTransaction, printStoreTransaction, getDiscountListById, getMenuListStoreWithPrint  } from '../../../actions/store.action';
-import { authenticateMember } from '../../../actions/member.action';
+import { 
+        getStoreListWithIdUser, 
+        getMenuListStore, 
+        createStoreTransaction, 
+        printStoreTransaction, 
+        getDiscountListById, 
+        getMenuListStoreWithPrint,
+        getStoreList
 
+    } from '../../../actions/store.action';
+import { authenticateMember } from '../../../actions/member.action';
 
 function mapStateToProps(state) {
     return {
@@ -23,6 +31,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
+        // getStoreListDispatch: () => dispatch(getStoreList()),
         getMenuListStoreWithPrintDispatch: (data) => dispatch(getMenuListStoreWithPrint(data)),
         getStoreListWithIdUserDispatch: () => dispatch(getStoreListWithIdUser()),
         action: bindActionCreators({ getMenuListStore, authenticateMember, createStoreTransaction, openDialog, closeDialog, printStoreTransaction }, dispatch)

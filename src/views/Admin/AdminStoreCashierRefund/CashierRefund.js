@@ -38,6 +38,10 @@ class CashierRefund extends Component {
 						<p className="clr-passive">Harap gesek kartu atau masukkan ID kartu member yang ingin direfund pada kolom yang telah tersedia.</p>
 					</PanelHeader>
 					<PanelBody>
+
+						
+
+
 						{ renderAlert() }
 						<Form name="refund" onSubmit={handleAuthenticateMember}>		
 							<FormGroup>

@@ -3,7 +3,10 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { adminLogin } from '../../../actions/authentication.action';
 import { AdminLoginView } from '../AdminLogin';
-import { Map } from 'immutable';
+import { Map, fromJS } from 'immutable';
+
+
+//**************IGNORE THESE CODES, ONLY EXPLORING IMMUTABLE JS ********************* */
 
 //#Wew Immutable
 const map1 = Map({ a: 1, b: 2, c: 3 })
@@ -11,6 +14,16 @@ const map2 = map1.set('b', 50)
 map1.get('b') + " vs. " + map2.get('b') // 2 vs. 50
 
 console.log('Ini b :  ', map1.get('b'));
+
+//#Nested Structure
+const data = fromJS(
+                    { 
+                        my: 
+                            { nested: 
+                                { name: 'Will' } 
+                            } 
+                    }
+                );
 
 //*********************************** */
 

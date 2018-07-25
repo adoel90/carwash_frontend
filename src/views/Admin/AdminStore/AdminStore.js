@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getStoreList, getCategoryList, updateStore, changeStatusStore } from '../../../actions/store.action.js';
+import { getStoreListSuperAdm,getStoreListWithIdUser, getCategoryList, updateStore, changeStatusStore } from '../../../actions/store.action.js';
 import { Button } from '../../../components/Button';
 import { openDialog, closeDialog } from '../../../actions/dialog.action';
 import { ModalDialog } from '../../../components/Modal';
@@ -62,6 +62,10 @@ class AdminStore extends Component {
       }
 
       componentDidMount = () => {
+
+            // const { getStoreListWithIdUserDispatch } = this.props;
+            // getStoreListWithIdUserDispatch();
+
             this.getStoreList();
             this.getCategoryList();
       }
@@ -89,6 +93,7 @@ class AdminStore extends Component {
                                     console.log(item.id);
                                     item.statusChanging = true;
                                     this.forceUpdate();
+                                    // this.populateTableData();
                               }
                         })
                   }
@@ -106,6 +111,7 @@ class AdminStore extends Component {
                                     }
             
                                     this.forceUpdate();
+                                    // this.populateTableData();
                               }
                         })
                   }
@@ -239,6 +245,8 @@ class AdminStore extends Component {
       }
     
       populateTableData = () => {
+
+            const {store } = this.props;
             const { storeList } = this.state;
             
             const columns = [{
@@ -266,9 +274,9 @@ class AdminStore extends Component {
     
             const rows = [] 
             
-            if(storeList.isLoaded) {
-                  storeList.data.data.result.store.forEach((store, i) => {
-                        if(store.owner) {
+            if(store.list.isLoaded) {
+                  store.list.data.data.result.store.forEach((store, i) => {
+                        // if(store.owner) {
                               let row = {
                                     id: store.id,
                                     name: store.name,
@@ -278,7 +286,7 @@ class AdminStore extends Component {
                               }
             
                               rows.push(row);
-                        }
+                        // }
                   })
             }
     
@@ -336,8 +344,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
       return {
-            getStoreList: () => dispatch(getStoreList()),
+            getStoreList: () => dispatch(getStoreListSuperAdm()),
             getCategoryList: () => dispatch(getCategoryList()),
+            getStoreListWithIdUserDispatch: () => dispatch(getStoreListWithIdUser()),
             action: bindActionCreators({ updateStore, changeStatusStore, openDialog, closeDialog }, dispatch)
       }
 }

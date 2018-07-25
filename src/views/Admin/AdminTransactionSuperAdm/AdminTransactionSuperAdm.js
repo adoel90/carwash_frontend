@@ -83,6 +83,10 @@ class AdminTransactionSuperAdm extends Component {
 
     componentDidMount = () => {
         const { getStoreListDispatch } = this.props;
+
+        // let requiredData = {
+        //     active: true
+        // };
         getStoreListDispatch();
     };
 

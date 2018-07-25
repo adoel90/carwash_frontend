@@ -9,7 +9,7 @@ import { TabContent } from '../../../components/Tab';
 
 
 import { getMenuStoreList, updateMenuVendor, changeMenuStatus } from '../../../actions/vendor.action';
-import { getStoreList } from '../../../actions/store.action';
+import { getStoreList, getMenuListStoreWithPrint } from '../../../actions/store.action';
 import { openDialog, closeDialog } from '../../../actions/dialog.action';
 
 import { AdminStoresMenuSuperAdmView } from '../AdminStoresMenuSuperAdm';
@@ -27,6 +27,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         // getVendorEmployeeListDispatch: (data) => dispatch(getVendorEmployeeList(data)),
+        getMenuListStoreWithPrintDispatch: (data) => dispatch(getMenuListStoreWithPrint(data)),
         getStoreListDispatch: () => dispatch(getStoreList()),
         getMenuStoreListDispatch : (data) => dispatch(getMenuStoreList(data)),
         // getAccessListDispatch: (data) => dispatch(getAccessList(data)),
@@ -48,6 +49,8 @@ class AdminStoresMenuSuperAdm extends Component {
         this.handleInputChange = this.handleInputChange.bind(this);
         this.renderDialog = this.renderDialog.bind(this);
         this.handleChangeMenuStatus = this.handleChangeMenuStatus.bind(this);
+        this.clearButtonPrint = this.clearButtonPrint.bind(this);
+        this.printListMenuStore = this.printListMenuStore.bind(this);
 
         this.state = {
 
@@ -65,6 +68,7 @@ class AdminStoresMenuSuperAdm extends Component {
             isModalOpen:{
                 modalUpdateMenuProductStore: false
             },
+            idStore: {}
         };
 
         this.optionsPagination = {
@@ -76,10 +80,10 @@ class AdminStoresMenuSuperAdm extends Component {
             noDataText: 'Nama Staff tidak di temukan',
             searchField: (props) => (<MySearchFieldAccess { ...props } name="Cari berdasarkan nama produk, deskripsi produk atau harga"/>),
             hideSizePerPage: true,
-            searchPosition: 'left'
-            // onRowDoubleClick: function(row) {
-            //     props.toggle();
-            // }
+            searchPosition: 'left',
+            clearSearch: true,
+            clearSearchBtn: this.clearButtonPrint //# http://allenfang.github.io/react-bootstrap-table/custom.html#searchfield
+  
         };
     };
 
@@ -229,6 +233,12 @@ class AdminStoresMenuSuperAdm extends Component {
         // console.log(requireData);
         const { getMenuStoreListDispatch } = this.props;
         getMenuStoreListDispatch(requireData);
+
+        //#
+        this.setState({
+            ...this.state,
+            idStore: value
+        });
     }
 
     openModalMenuProductStore = (row) => {        
@@ -383,8 +393,30 @@ class AdminStoresMenuSuperAdm extends Component {
                 this.toggleDialog(dialogData);
           }
         });
-    }
+    };
 
+    //# http://allenfang.github.io/react-bootstrap-table/custom.html#searchfield
+    clearButtonPrint = (onClick) => {
+
+        return (
+            <Button className = "margin-left-small" theme="light" onClick={ (e) => this.printListMenuStore(e) }>Print</Button>
+        );
+    };
+
+    //#
+    printListMenuStore = (e) => {
+        e.preventDefault();
+        const { getMenuListStoreWithPrintDispatch } = this.props;
+        const { idStore } = this.state;
+
+        let requiredData = {
+            id: idStore,
+            print: true
+        }
+        // console.log(requiredData);
+        getMenuListStoreWithPrintDispatch(requiredData);
+
+    };
 
     render(){
 

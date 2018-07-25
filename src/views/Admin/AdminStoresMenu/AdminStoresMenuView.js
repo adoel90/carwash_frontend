@@ -52,7 +52,6 @@ const AdminStoresMenuView = props => {
         activeTab,
         toggleTab,
         search,
-        printListMenuStore,
         optionsPagination,
         openMenuVendorModal,
         changeMenuStatus,

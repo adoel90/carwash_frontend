@@ -13,8 +13,6 @@ import { Nav, NavItem, NavLink, NavTabLink} from '../../../components/Nav';
 import { getStoreList, updateMenuVendor, getMenuStoreList, changeMenuStatus } from '../../../actions/vendor.action';
 import { getMenuListStoreWithPrint } from '../../../actions/store.action';
 import { openDialog, closeDialog } from '../../../actions/dialog.action';
-// import MySearchFieldWithPrint  from '../../../components/Input/MySearchFieldWithPrint';
-// import MyButtonPrint from '../../../components/Button/MyButtonPrint';
 import MySearchField from '../../../components/Input/MySearchField';
 
 function mapStateToProps(state) {
@@ -434,7 +432,7 @@ class AdminStoresMenu extends Component {
         // console.log(requiredData);
         getMenuListStoreWithPrintDispatch(requiredData);
 
-    }
+    };
 
     render() {
 
@@ -462,11 +460,9 @@ class AdminStoresMenu extends Component {
                                     handleCancelModal={this.handleCancelModal}
                                     handleImageChange = {this.handleImageChange}
                                     toggleTab={this.toggleTab}
-                                    printListMenuStore={this.printListMenuStore}
                                     optionsPagination={this.optionsPagination}
                                     openMenuVendorModal={this.openMenuVendorModal}
                                     changeMenuStatus={this.changeMenuStatus}
-                                    clearButtonPrint={this.clearButtonPrint}
                                 />
                             </TabContent>
                         )

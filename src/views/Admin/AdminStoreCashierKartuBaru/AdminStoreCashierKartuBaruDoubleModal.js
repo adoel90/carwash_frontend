@@ -17,8 +17,9 @@ class AdminStoreCashierKartuBaruDoubleModal extends Component {
                 <ModalBody>
                     <Panel theme="danger">
                         <PanelHeader >
-                            <h4 className="fw-semibold" > Nomor Kartu DOUBLE !</h4>
-                            <p>Nomor kartu ini telah di gunakan, silahkan 'Tulis Kartu Baru' !</p>
+                            {/* <h4 className="fw-semibold" > Nomor Kartu DOUBLE !</h4> */}
+                            <h4 className="fw-semibold" >Nomor kartu telah di gunakan, silahkan 'Tulis Kartu Baru' !</h4>
+                            {/* <p>Nomor kartu ini telah di gunakan, silahkan 'Tulis Kartu Baru' !</p> */}
                         </PanelHeader>
                     </Panel>
                 </ModalBody>

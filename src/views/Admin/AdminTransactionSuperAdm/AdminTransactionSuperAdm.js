@@ -101,7 +101,7 @@ class AdminTransactionSuperAdm extends Component {
                     ...this.state,
                     storeActiveList: store.list.isLoaded ? store.list.data.data.result.store : null
                 });
-            }
+            };
         };
 
         //Get Menu List•••••
@@ -333,7 +333,6 @@ class AdminTransactionSuperAdm extends Component {
         let selectedMenuItemArray = [];
         
         selectedMenuItem.map((item) => {
-
 
             if(item.totalPrice > grandTotal){         
                 //#DISCOUNT       

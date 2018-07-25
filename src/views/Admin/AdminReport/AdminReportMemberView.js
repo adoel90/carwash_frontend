@@ -178,7 +178,17 @@ const AdminReportMemberView = props => {
                             {...props}
                         /> */}
 
-                        <BootstrapTable data={table.rows} options={optionsPagination} striped={true} hover={true} version='4' bordered={false} dataAlign="center" searchPlaceholder={"Ketik nama customer yang terdaftar..."} pagination>
+                        <BootstrapTable 
+                            data={table.rows} 
+                            options={optionsPagination} 
+                            striped={true} 
+                            hover={true} 
+                            version='4' 
+                            bordered={false} 
+                            dataAlign="center" 
+                            searchPlaceholder={"Ketik nama customer yang terdaftar..."} 
+                            pagination>
+                            
                             <TableHeaderColumn 
                                 dataField="id" 
                                 headerAlign="left" 

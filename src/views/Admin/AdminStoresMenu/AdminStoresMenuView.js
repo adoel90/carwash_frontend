@@ -161,10 +161,20 @@ const AdminStoresMenuView = props => {
                                     </FormField>
                                 </div>
                             </Column>
-
                         </Row>
                         <div className="admin-user__content"><br /> <br />   
-                            <BootstrapTable data={table.rows} options={optionsPagination} striped={true} hover={true} version='4' bordered={false} dataAlign="center" searchPlaceholder={"Telusuri nama produk..."} pagination search>
+                            <BootstrapTable 
+                                data={table.rows} 
+                                options={optionsPagination} 
+                                striped={true} 
+                                hover={true} 
+                                version='4' 
+                                bordered={false} 
+                                dataAlign="center" 
+                                searchPlaceholder={"Telusuri nama produk..."} 
+                                pagination 
+                                search>
+
                                 <TableHeaderColumn dataField="id" headerAlign="left" dataAlign="left" isKey={true} hidden>ID</TableHeaderColumn>
                                 <TableHeaderColumn dataField="name" headerAlign="left" dataAlign="left">Nama Produk</TableHeaderColumn>
                                 <TableHeaderColumn dataField="description" headerAlign="left" dataAlign="left">Deskripsi Produk</TableHeaderColumn>

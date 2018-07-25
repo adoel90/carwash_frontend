@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { adminLogin } from '../../../actions/authentication.action';
 import { AdminLoginView } from '../AdminLogin';
-import { Map, fromJS } from 'immutable';
+import { Map, fromJS, assert, List } from 'immutable';
 
 
 //**************IGNORE THESE CODES, ONLY EXPLORING IMMUTABLE JS ********************* */
@@ -24,6 +24,32 @@ const data = fromJS(
                             } 
                     }
                 );
+
+const goodName = data.getIn(['my', 'nested', 'name']);
+console.log(goodName); // prints Will
+
+//#Use .equals() instead ===
+// const map3 = Map( 
+//                     {
+//                         a: 1, 
+//                         b: 2, 
+//                         c: 3 
+//                     }
+//                 )
+// const map4 = map1.set('b', 2);
+// assert.equal(map3, map4);
+
+
+//#Chaining Manipulations
+const pets = List(['cat', 'dog']);
+const finalPets = pets.push('goldfish').push('tortoise');
+console.log(finalPets.toJS());
+console.log(pets.toJS()); // prints ['cat', 'dog'];
+// prints ['cat', 'dog', 'goldfish', 'tortoise'];
+
+
+
+
 
 //*********************************** */
 

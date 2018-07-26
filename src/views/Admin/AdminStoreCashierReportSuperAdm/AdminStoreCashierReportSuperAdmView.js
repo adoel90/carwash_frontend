@@ -139,9 +139,6 @@ const AdminStoreCashierReportSuperAdmView = props => {
         )
     };
 
-
-
-
     //#
     if(user.list.isLoaded){
 

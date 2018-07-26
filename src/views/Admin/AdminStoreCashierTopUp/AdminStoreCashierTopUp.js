@@ -6,20 +6,25 @@ import Currency from '../../../components/Currency';
 import { Dialog } from '../../../components/Dialog';
 import  {CashierTopUp}  from '../AdminStoreCashierTopUp';
 import { kasirTopUpLogin, getBonusTaxiOnline, printMemberTransaction, getSaldoBonus} from '../../../actions/store.action';//Scenario-nya kasir meminta customer untuk GESEK KARTU MEMBER
-import { memberCustomerTopup } from '../../../actions/member.action'
+import { memberCustomerTopup } from '../../../actions/member.action';
+import { getUserList } from '../../../actions/user.action';
 import { openDialog, closeDialog } from '../../../actions/dialog.action';
 import { log } from 'util';
+
 
 function mapStateToProps(state) {
     return {
         storeState: state.store,
         dialog: state.dialog,
-        member: state.member
+        member: state.member,
+        userState: state.user
     }
 };
 
 function mapDispatchToProps(dispatch) {
+
     return {
+        getUserListDispatch: (data) => dispatch(getUserList(data)),
         getSaldoBonusDispatch : (data) => dispatch(getSaldoBonus(data)),
         action: bindActionCreators({ printMemberTransaction, kasirTopUpLogin, openDialog, closeDialog, memberCustomerTopup, getBonusTaxiOnline }, dispatch)
     }
@@ -41,6 +46,7 @@ class AdminStoreCashierTopUp extends Component {
         this.handlePrintReceipt = this.handlePrintReceipt.bind(this);
         this.handleTopUpMember = this.handleTopUpMember.bind(this);
         this.handleTopUpTaxiOnline = this.handleTopUpTaxiOnline.bind(this);
+        this.handleClickChange = this.handleClickChange.bind(this);
 
         this.state = {
 
@@ -77,18 +83,30 @@ class AdminStoreCashierTopUp extends Component {
             memberNominal: {},
             customerBonus:{},
             optionTopUpMember: {},
-            optionTopUpMemberThemeButton: false
+            optionTopUpMemberThemeButton: false,
+            kasirList:{},
+            showHideIntefaceIsiUlang: false,
+            kasirId: {}     
 		}
     };
 
     componentDidMount(){
         // const { action, getSaldoBonusDispatch } = this.props;
         // getSaldoBonusDispatch();
+
+        //#Code Dropdownlist to see list of kasir
+        const { getUserListDispatch } = this.props;
+
+        let requiredData = {
+            access: null,
+            active: false
+        };
+        getUserListDispatch(requiredData);
     };
     
     componentDidUpdate = (prevProps) => {
-        const { storeState, member } = this.props;
-        const { isModalOpen } = this.state;
+        const { storeState, member, userState } = this.props;
+        const { isModalOpen, kasirList } = this.state;
 
         if(prevProps.storeState.userData !== storeState.userData){
             if(storeState.isAuthenticated){
@@ -176,7 +194,50 @@ class AdminStoreCashierTopUp extends Component {
                 });
             };
         };
-    }
+
+        //#Code Dropdownlist to see list of kasir
+        if(prevProps.userState.list !== userState.list){            
+            if(userState.list.isLoaded){
+                
+                let levelAksesIdArray = [];
+
+                userState.list.data.data.result.map((value) => {
+                    // console.log(value);
+                    if(value.level.id === 3){
+
+                        levelAksesIdArray.push(value);
+                        this.setState({
+                            ...this.state,
+                            kasirList: levelAksesIdArray
+                        }, () => {
+                            console.log(this.state.kasirList);
+                        });
+                    } else {
+                        // console.log("TAK ADA KASIR ID");
+                    };
+                });
+            };
+        };
+    };
+
+    //#
+    handleClickChange = (e) => {
+
+        e.preventDefault();
+
+        const target = e.target;
+        const name = target.name;
+        const value = target.value;
+
+        //#
+        this.setState({
+            ...this.state,
+            kasirId: value,
+            showHideIntefaceIsiUlang: true
+        }, () => {
+            console.log(this.state.kasirId);
+        });
+    };
    
     handleInputChange = (object, e) => {
 		const target = e.target;
@@ -396,6 +457,7 @@ class AdminStoreCashierTopUp extends Component {
                     closeDialog={this.closeDialog}
                     handleTopUpMember= { this.handleTopUpMember}
                     handleTopUpTaxiOnline = { this.handleTopUpTaxiOnline }
+                    handleClickChange = {this.handleClickChange}
                 />
                 
                 {this.renderDialog()}

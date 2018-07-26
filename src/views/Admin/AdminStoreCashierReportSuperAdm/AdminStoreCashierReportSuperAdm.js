@@ -71,9 +71,7 @@ class AdminStoreCashierReportSuperAdm extends Component{
             //     props.toggle();
             // }
         };
-
     };
-
 
     componentDidMount(){
 
@@ -126,6 +124,30 @@ class AdminStoreCashierReportSuperAdm extends Component{
                     this.populateTableData();
                 })
             }
+        };
+
+        //#Code Dropdownlist to see list of kasir
+        if(prevProps.user.list !== user.list){            
+            if(user.list.isLoaded){
+                
+                let levelAksesIdArray = [];
+
+                user.list.data.data.result.map((value) => {
+                    // console.log(value);
+                    if(value.level.id === 3){
+
+                        levelAksesIdArray.push(value);
+                        this.setState({
+                            ...this.state,
+                            kasirList: levelAksesIdArray
+                        }, () => {
+                            console.log(this.state.kasirList);
+                        });
+                    } else {
+                        // console.log("TAK ADA KASIR ID");
+                    };
+                });
+            };
         };
     };
 

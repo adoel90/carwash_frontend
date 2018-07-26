@@ -10,6 +10,7 @@ import { CashierRefund, CashierRefundPaymentReceipt } from '../AdminStoreCashier
 class AdminStoreCashierRefund extends Component {
 
     constructor(){
+
         super();
         this.toggleDialog = this.toggleDialog.bind(this);
 		this.openDialog = this.openDialog.bind(this);
@@ -148,7 +149,7 @@ class AdminStoreCashierRefund extends Component {
                 [name]: value
             }
         })
-    }
+    };
 
     handleAuthenticateMember = (e) => {
         e.preventDefault();
@@ -168,7 +169,7 @@ class AdminStoreCashierRefund extends Component {
         // let requiredData = { card: refund.cardID };
         let requiredData = { card: finalDataCardId };
         authenticateMemberDispatch(requiredData);
-    }
+    };
     
     handleRefund = () => {
         this.toggleModal('refundConfirmation');

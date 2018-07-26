@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { DocsCssFramework } from '../../Documentation';
+import { 
+        DocsCssFramework, 
+        ElementButton,
+        ElementTable
+    } from '../../Documentation';
+
 // import NoMatch from '../NoMatch';
 import { DocumentationPanelView } from '../DocumentationPanel';
-
+ 
 class DocumentationPanel extends Component {    
     
     constructor(props) {
@@ -12,8 +17,10 @@ class DocumentationPanel extends Component {
         super(props);
         this.state = {
             routes: [
-                // { name: 'css-framework', path: `${props.match.url}`, component: DocsCssFramework },
-                // { name: 'css-framework', path: `${props.match.url}/framework-css`, component: DocsCssFramework },
+                { name: 'css-framework', path: `${props.match.url}/`, component: DocsCssFramework },
+                { name: 'css-framework', path: `${props.match.url}/css-framework`, component: DocsCssFramework },
+                { name: 'button', path: `${props.match.url}/button`, component: ElementButton },
+                { name: 'table', path: `${props.match.url}/table`, component: ElementTable }, 
             ],
             menus: [
                 {
@@ -22,6 +29,8 @@ class DocumentationPanel extends Component {
                         // { name: 'Framework', path: `${props.match.url}/framework-css` },
                         { name: 'Button', path: `${props.match.url}/button` },
                         { name: 'Table', path: `${props.match.url}/table` },
+                        { name: 'Select', path: `${props.match.url}/selectdropdownlist` },
+                        { name: 'Input', path: `${props.match.url}/input` },
                         { name: 'Panel/Paper', path: `${props.match.url}/panel` },
                         { name: 'Card', path: `${props.match.url}/card` },
                         { name: 'Checkbox', path: `${props.match.url}/checkbox` },
@@ -30,7 +39,6 @@ class DocumentationPanel extends Component {
                         { name: 'Form', path: `${props.match.url}/form` },
                         { name: 'Form', path: `${props.match.url}/form` },
                         { name: 'Icon', path: `${props.match.url}/icon` },
-                        { name: 'Input', path: `${props.match.url}/input` },
                         { name: 'List', path: `${props.match.url}/list` },
                         { name: 'Modal', path: `${props.match.url}/modal` },
                         { name: 'Navigation', path: `${props.match.url}/navigation` },
@@ -42,10 +50,6 @@ class DocumentationPanel extends Component {
                         { name: 'Section', path: `${props.match.url}/section` },
                         { name: 'Layout', path: `${props.match.url}/layout` },
 
-
-
-
-                        
                         // { name: 'Pengaturan User', path: `${props.match.url}/user/settings` },
                     ]    
                 }

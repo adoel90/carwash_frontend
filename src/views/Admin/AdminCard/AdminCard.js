@@ -273,7 +273,7 @@ class AdminCard extends Component {
             }, () => {
                   this.toggleModal('updateCard');
             })
-      }
+      };
 
       changeCardStatus = (row) => {
             const {
@@ -285,7 +285,7 @@ class AdminCard extends Component {
             }
     
             action.changeCardTypeStatus(requiredData);
-      }
+      };
 
       updateCard = (e) => {
             

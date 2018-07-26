@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { DocsCssFrameworkView } from '../DocsCssFramework';
 
 class DocsCssFramework extends Component {
-
-
+    
     render() {
         return (
             <div>

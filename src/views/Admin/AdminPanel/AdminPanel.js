@@ -38,7 +38,6 @@ import {
     AdminStoresMenuSuperAdm,
     AdminStoresCreateEmployeeSuperAdm,
     AdminStoresCreateMenuSuperAdm,
-    Documentation,
     AdminTransactionSuperAdm,
     AdminSettingSuperAdm,
     AdminStoreCashierReportSuperAdm

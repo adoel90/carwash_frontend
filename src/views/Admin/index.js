@@ -40,6 +40,4 @@ export * from './AdminStoresPromo';
 export * from './AdminTransaction';
 
 
-//Documentation Developers 
-export * from './Documentation';
 

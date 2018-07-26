@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import { Section } from '../../../layouts/Section';
 import { Panel, PanelHeader, PanelBody } from '../../../components/Panel';
 
-const DocumentationView = props => {
+const DocsCssFrameworkView = props => {
     return (
         <div className="admin-dashboard">
             <Section>
                 <Panel>
                     <PanelHeader>
-                        <h4 className="heading-title">Documentation</h4>
+                        <h4 className="heading-title">Documentation </h4>
                     </PanelHeader>
                     <PanelBody>
                         
@@ -20,4 +20,4 @@ const DocumentationView = props => {
     )
 };
 
-export default DocumentationView;
+export default DocsCssFrameworkView;

@@ -4,7 +4,10 @@ import { connect } from 'react-redux';
 import { 
         DocsCssFramework, 
         ElementButton,
-        ElementTable
+        ElementTable,
+        ElementSelectDropdownlist,
+        ElementFormInput,
+        ElementFormInputDatePicker
     } from '../../Documentation';
 
 // import NoMatch from '../NoMatch';
@@ -20,7 +23,10 @@ class DocumentationPanel extends Component {
                 { name: 'css-framework', path: `${props.match.url}/`, component: DocsCssFramework },
                 { name: 'css-framework', path: `${props.match.url}/css-framework`, component: DocsCssFramework },
                 { name: 'button', path: `${props.match.url}/button`, component: ElementButton },
-                { name: 'table', path: `${props.match.url}/table`, component: ElementTable }, 
+                { name: 'table', path: `${props.match.url}/table`, component: ElementTable },
+                { name: 'select-dropdownlist', path: `${props.match.url}/selectdropdownlist`, component: ElementSelectDropdownlist },
+                { name: 'form-input', path: `${props.match.url}/form-input`, component: ElementFormInput },
+                { name: 'form-input-datepicker', path: `${props.match.url}/form-input-datepicker`, component: ElementFormInputDatePicker },
             ],
             menus: [
                 {
@@ -30,7 +36,9 @@ class DocumentationPanel extends Component {
                         { name: 'Button', path: `${props.match.url}/button` },
                         { name: 'Table', path: `${props.match.url}/table` },
                         { name: 'Select', path: `${props.match.url}/selectdropdownlist` },
-                        { name: 'Input', path: `${props.match.url}/input` },
+                        { name: 'Form Input', path: `${props.match.url}/form-input` },
+                        { name: 'Input Date Picker', path: `${props.match.url}/form-input-datepicker` },
+                        { name: 'Modal', path: `${props.match.url}/modal` },
                         { name: 'Panel/Paper', path: `${props.match.url}/panel` },
                         { name: 'Card', path: `${props.match.url}/card` },
                         { name: 'Checkbox', path: `${props.match.url}/checkbox` },
@@ -40,7 +48,6 @@ class DocumentationPanel extends Component {
                         { name: 'Form', path: `${props.match.url}/form` },
                         { name: 'Icon', path: `${props.match.url}/icon` },
                         { name: 'List', path: `${props.match.url}/list` },
-                        { name: 'Modal', path: `${props.match.url}/modal` },
                         { name: 'Navigation', path: `${props.match.url}/navigation` },
                         { name: 'PageBlock', path: `${props.match.url}/page` },
                         { name: 'Pagination', path: `${props.match.url}/pagination` },

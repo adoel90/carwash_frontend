@@ -258,7 +258,7 @@ class AdminStoresEmployeeSuperAdm extends Component {
 
         const { getVendorEmployeeListDispatch } = this.props;
         getVendorEmployeeListDispatch(requireData);
-    }
+    };
 
 
     //#

@@ -72,9 +72,11 @@ class AdminStoreCashierReport extends Component {
         let dataId = user.id === 1 ? user.id + 292 : user.id; //KASIR ID SAAT INI ADALAH ==> 293
 
         let data = {
-            // start_date : moment(period.from).format('YYYY-MM-DD'),
-            start_date : moment(period.from).add(-12, 'month').format('YYYY-MM-DD'),
-            end_date : moment(period.to).format('YYYY-MM-DD'),
+            
+            // start_date : moment(period.from).add(-12, 'month').format('YYYY-MM-DD'),
+            // end_date : moment(period.to).format('YYYY-MM-DD'),
+            start_date : '',
+            end_date : '',
             user: dataId,
             print: null
         };
@@ -153,6 +155,8 @@ class AdminStoreCashierReport extends Component {
         
         if(store.reportCashierMember.isLoaded){
             store.reportCashierMember.data.result.data.forEach((value, i) => {
+                
+                console.log(value);
 
                 let row = {
                     id: value.id,

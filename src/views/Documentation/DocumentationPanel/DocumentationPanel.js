@@ -7,7 +7,8 @@ import {
         ElementTable,
         ElementSelectDropdownlist,
         ElementFormInput,
-        ElementFormInputDatePicker
+        ElementFormInputDatePicker,
+        ElementModal
     } from '../../Documentation';
 
 // import NoMatch from '../NoMatch';
@@ -27,6 +28,7 @@ class DocumentationPanel extends Component {
                 { name: 'select-dropdownlist', path: `${props.match.url}/selectdropdownlist`, component: ElementSelectDropdownlist },
                 { name: 'form-input', path: `${props.match.url}/form-input`, component: ElementFormInput },
                 { name: 'form-input-datepicker', path: `${props.match.url}/form-input-datepicker`, component: ElementFormInputDatePicker },
+                { name: 'modal', path: `${props.match.url}/modal`, component: ElementModal },
             ],
             menus: [
                 {
@@ -39,23 +41,18 @@ class DocumentationPanel extends Component {
                         { name: 'Form Input', path: `${props.match.url}/form-input` },
                         { name: 'Input Date Picker', path: `${props.match.url}/form-input-datepicker` },
                         { name: 'Modal', path: `${props.match.url}/modal` },
-                        { name: 'Panel/Paper', path: `${props.match.url}/panel` },
+                        { name: 'PageBlock', path: `${props.match.url}/page` },
                         { name: 'Card', path: `${props.match.url}/card` },
+                        { name: 'Panel/Paper', path: `${props.match.url}/panel` },
                         { name: 'Checkbox', path: `${props.match.url}/checkbox` },
                         { name: 'Dialog', path: `${props.match.url}/dialoog` },
-                        { name: 'Editor', path: `${props.match.url}/editor` },
-                        { name: 'Form', path: `${props.match.url}/form` },
-                        { name: 'Form', path: `${props.match.url}/form` },
-                        { name: 'Icon', path: `${props.match.url}/icon` },
                         { name: 'List', path: `${props.match.url}/list` },
                         { name: 'Navigation', path: `${props.match.url}/navigation` },
-                        { name: 'PageBlock', path: `${props.match.url}/page` },
                         { name: 'Pagination', path: `${props.match.url}/pagination` },
                         { name: 'Search Bar', path: `${props.match.url}/searchbar` },
                         { name: 'Tab', path: `${props.match.url}/tab` },
-                        { name: 'Grid', path: `${props.match.url}/grid` },
                         { name: 'Section', path: `${props.match.url}/section` },
-                        { name: 'Layout', path: `${props.match.url}/layout` },
+                        
 
                         // { name: 'Pengaturan User', path: `${props.match.url}/user/settings` },
                     ]    

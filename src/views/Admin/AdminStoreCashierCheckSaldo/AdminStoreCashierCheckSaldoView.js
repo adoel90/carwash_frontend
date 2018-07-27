@@ -7,8 +7,6 @@ import { Button } from '../../../components/Button';
 import { Alert } from '../../../components/Alert';
 import { AdminStoreChasierCheckSaldoConfirmation } from '../AdminStoreCashierCheckSaldo';
 
-
-
 class AdminStoreCashierCheckSaldoView extends Component{
 
     render(){

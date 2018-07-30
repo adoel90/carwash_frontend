@@ -11,3 +11,4 @@ export * from './ElementFormInput';
 export * from './ElementFormInputDatePicker';
 // export * from './ElementModal';
 export * from './ElementModal';
+export * from './ElementCardCustomer';

@@ -36,6 +36,7 @@ class StoreMenuList extends Component {
 		}
 
 		const renderMenuList = () => {
+			
 			if(storeMenuList.length) {
 				return (
 					<CardList>
@@ -67,10 +68,11 @@ class StoreMenuList extends Component {
 						<p className="clr-passive">Tidak dapat menemukan hasil pencarian untuk <span className="fw-semibold">{searchMenu.searchText}</span>.</p>
 					</div>
 				)
-			}
+			};
 
 			return filteredMenu
 				.map((menu, i) => {
+
 					menu.selected = menu.selected ? true : false;
 					menu.quantity = menu.quantity ? menu.quantity : 1;
 					menu.totalPrice = menu.quantity * menu.price;
@@ -79,7 +81,7 @@ class StoreMenuList extends Component {
 						if(menu.trueDiscount > 0) {
 							return (<h5 className="clr-secondary fw-medium margin-left-small">({menu.trueDiscount}% Off)</h5>)
 						}
-					}
+					};
 
 					const menuTruePrice = () => {
 						if(menu.trueDiscount > 0) {
@@ -89,7 +91,7 @@ class StoreMenuList extends Component {
 								</p>
 							)
 						}
-					}
+					};
 
 					return (
 						<Column md={4} key={i} className="padding-top-base padding-bottom-base">
@@ -130,8 +132,7 @@ class StoreMenuList extends Component {
 						</Column>
 					)
 				})
-
-		}
+		};
 
 		const renderCheckoutButton = () => {
 			return (

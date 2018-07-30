@@ -8,7 +8,8 @@ import {
         ElementSelectDropdownlist,
         ElementFormInput,
         ElementFormInputDatePicker,
-        ElementModal
+        ElementModal,
+        ElementCardCustomer
     } from '../../Documentation';
 
 // import NoMatch from '../NoMatch';
@@ -29,6 +30,9 @@ class DocumentationPanel extends Component {
                 { name: 'form-input', path: `${props.match.url}/form-input`, component: ElementFormInput },
                 { name: 'form-input-datepicker', path: `${props.match.url}/form-input-datepicker`, component: ElementFormInputDatePicker },
                 { name: 'modal', path: `${props.match.url}/modal`, component: ElementModal },
+                { name: 'card', path: `${props.match.url}/card`, component: ElementCardCustomer },
+
+                
             ],
             menus: [
                 {
@@ -41,8 +45,8 @@ class DocumentationPanel extends Component {
                         { name: 'Form Input', path: `${props.match.url}/form-input` },
                         { name: 'Input Date Picker', path: `${props.match.url}/form-input-datepicker` },
                         { name: 'Modal', path: `${props.match.url}/modal` },
-                        { name: 'PageBlock', path: `${props.match.url}/page` },
                         { name: 'Card', path: `${props.match.url}/card` },
+                        { name: 'PageBlock', path: `${props.match.url}/page` },
                         { name: 'Panel/Paper', path: `${props.match.url}/panel` },
                         { name: 'Checkbox', path: `${props.match.url}/checkbox` },
                         { name: 'Dialog', path: `${props.match.url}/dialoog` },

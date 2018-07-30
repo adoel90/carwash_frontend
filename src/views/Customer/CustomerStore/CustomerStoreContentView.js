@@ -17,6 +17,8 @@ import { PageBlock } from '../../../components/Page';
 import Currency from '../../../components/Currency';
 
 class CustomerStoreContentView extends Component {
+
+
 	render() {
 		const {
 			type,

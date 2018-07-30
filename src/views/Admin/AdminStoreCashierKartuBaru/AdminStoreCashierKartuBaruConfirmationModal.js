@@ -129,7 +129,7 @@ class AdminStoreCashierKartuBaruConfirmationModal extends Component {
                 <ModalHeader align="center">
                     <h6 className="fw-semibold">Buat Member Baru</h6>
                 </ModalHeader>
-                <Form>
+                <Form  onSubmit={(e) => handleUpdateCreateMember(e)}>
                     <ModalBody>
                         <Row className="margin-bottom-small">
                              <Column md={6}>
@@ -244,7 +244,8 @@ class AdminStoreCashierKartuBaruConfirmationModal extends Component {
                     </ModalBody>
                     <ModalFooter className="flex justify-content--flex-end">
                         <Button className="margin-right-small" theme="danger" onClick={(e) => handleCancelModal(e)}> Cancel </Button>
-                        <Button type="button" onClick={(e) => handleUpdateCreateMember(e)}>Simpan</Button>
+                        {/* <Button type="button" onClick={(e) => handleUpdateCreateMember(e)}>Simpan</Button> */}
+                        <Button type="submit">Simpan</Button>
                     </ModalFooter>
                 </Form>
             </Modal>

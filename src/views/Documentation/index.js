@@ -6,6 +6,7 @@ export * from './DocumentationLogin';
 export * from './DocsCssFramework';
 export * from './ElementButton';
 export * from './ElementTable';
+export * from './ElementTableReactBootstrap';
 export * from './ElementSelectDropdownlist';
 export * from './ElementFormInput';
 export * from './ElementFormInputDatePicker';

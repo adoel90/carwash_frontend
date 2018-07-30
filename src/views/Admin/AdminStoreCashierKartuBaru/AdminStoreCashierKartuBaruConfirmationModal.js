@@ -140,11 +140,11 @@ class AdminStoreCashierKartuBaruConfirmationModal extends Component {
                                                 <i className="far fa-user"></i>
                                             </InputAddon>
                                             <Input
+                                                required
                                                 name="name"
                                                 type="text"
                                                 placeholder="Tulis Nama Lengkap"
                                                 onChange={(e) => handleInputChangeInModalUpdate('selectedMember', e)}
-                                                required="true"
                                             />
                                         </InputGroup>
                                     </FormField>
@@ -218,7 +218,7 @@ class AdminStoreCashierKartuBaruConfirmationModal extends Component {
                                             name="payment"
                                             type="select"
                                             onChange={(e) => handleInputChange(newCardData, e)}
-                                            deafultValue={newCardData.payment}>
+                                            defaultValue={newCardData.payment}>
                                             {
                                                 paymentMethod.map((method) => {
                                                     return <option value={method.id}>{method.name}</option>
@@ -244,7 +244,7 @@ class AdminStoreCashierKartuBaruConfirmationModal extends Component {
                     </ModalBody>
                     <ModalFooter className="flex justify-content--flex-end">
                         <Button className="margin-right-small" theme="danger" onClick={(e) => handleCancelModal(e)}> Cancel </Button>
-                        <Button type="Submit" onClick={(e) => handleUpdateCreateMember(e)}>Simpan</Button>
+                        <Button type="button" onClick={(e) => handleUpdateCreateMember(e)}>Simpan</Button>
                     </ModalFooter>
                 </Form>
             </Modal>

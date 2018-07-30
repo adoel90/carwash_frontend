@@ -54,9 +54,9 @@ const ElementCardCustomerView = props => {
                                 <h5 className="fw-semibold">{menu.name}</h5>
                                     <p className="currency currency-large flex align-items--center justify-content--center fw-semibold clr-primary">
                                         <Currency value={menu.price} />
-                                        { menuDiscountPercent() }
+                                        {/* { menuDiscountPercent() } */}
                                     </p>
-                                    { menuTruePrice() }
+                                    {/* { menuTruePrice() } */}
                             </CardHeading>
                             <CardImage src={menu.image ? menu.image : NoThumbnail } alt={menu.title} />
                             <CardBody>

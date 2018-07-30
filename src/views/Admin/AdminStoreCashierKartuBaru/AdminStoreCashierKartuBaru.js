@@ -308,6 +308,8 @@ class AdminStoreCashierKartuBaru extends Component {
 
         if(selectedMember.card.type.name === "Member"){ // JENIS CUSTOMER :  MEMBER 
 
+
+            //else if(selectedMember.name === null){} --> This code owe pake pas kalau ingin ada validasi nama === null
             if(!isNaN(parseInt(memberNominal))){
 
                 this.setState({

@@ -207,7 +207,7 @@ class AdminMember extends Component {
                   memberList.data.result.forEach((member, i) => {
                         let row = {
                               id: member.id,
-                              name: member.name,
+                              name: member.name != null ? member.name : "Nama Tidak Terdaftar",
                               email: member.email,
                               cardType: member.card.type.name,
                               phone: member.phone,

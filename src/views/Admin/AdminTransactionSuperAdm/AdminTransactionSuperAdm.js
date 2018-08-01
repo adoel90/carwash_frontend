@@ -77,7 +77,12 @@ class AdminTransactionSuperAdm extends Component {
             },
             labelState: {},
             isChecked: false,
-            statusPrintDataConfirm:null
+            statusPrintDataConfirm:null,
+            dataTransaction: {
+                discount: 0,
+                increase: false,
+                markup: 0
+            },
         };
     };
 
@@ -334,8 +339,8 @@ class AdminTransactionSuperAdm extends Component {
         
         selectedMenuItem.map((item) => {
 
-            // if(parseInt(dataTransaction.discount) > 0){
-            if(item.totalPrice > grandTotal){         
+            if(parseInt(dataTransaction.discount) > 0){
+            // if(item.totalPrice > grandTotal){         
                 //#DISCOUNT       
                 item.totalPrice = grandTotal;
 
@@ -346,8 +351,8 @@ class AdminTransactionSuperAdm extends Component {
                 selectedMenuItemArray.push(item);
             } 
             
-            else if(item.totalPrice < grandTotal){
-            // else if(parseInt(dataTransaction.markup) > 0){
+            // else if(item.totalPrice < grandTotal){
+            else if(parseInt(dataTransaction.markup) > 0){
                 //#MARK-UP
                 item.totalPrice = grandTotal;
 

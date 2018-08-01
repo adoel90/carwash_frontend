@@ -83,6 +83,7 @@ class AdminTransactionSuperAdm extends Component {
                 increase: false,
                 markup: 0
             },
+            isDisabledButton : false
         };
     };
 
@@ -176,13 +177,14 @@ class AdminTransactionSuperAdm extends Component {
 
     //#
     toggleModal = (name) => {
-        const { isModalOpen } = this.state;
+        const { isModalOpen, isDisabledButton } = this.state;
         
 		this.setState({
 			isModalOpen: {
 				...isModalOpen,
 				[name]: !isModalOpen[name]
-			}
+            },
+            isDisabledButton: false
 		});
     };
     
@@ -440,11 +442,12 @@ class AdminTransactionSuperAdm extends Component {
     //Fire in AdminTransactionDetail.js
     handlePrintMenuSelected = (e) => {
         e.preventDefault();
-        const { selectedMenuItem } = this.state;
+        const { selectedMenuItem, isDisabledButton } = this.state;
 
         this.setState({
             ...this.state,
-            statusPrintDataConfirm: 200
+            statusPrintDataConfirm: 200,
+            isDisabledButton: true
         }, () => {
             window.print();
         });

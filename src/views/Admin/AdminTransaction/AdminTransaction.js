@@ -88,7 +88,8 @@ class AdminTransaction extends Component{
                 markup: 0
             },
             isChecked: false,
-            statusPrintDataConfirm:null
+            statusPrintDataConfirm:null,
+            isDisabledButton : false
         }
     };
 
@@ -217,13 +218,14 @@ class AdminTransaction extends Component{
 	};
 
     toggleModal = (name) => {
-		const { isModalOpen } = this.state;
+		const { isModalOpen, isDisabledButton } = this.state;
 
 		this.setState({
 			isModalOpen: {
 				...isModalOpen,
 				[name]: !isModalOpen[name]
-			}
+            },
+            isDisabledButton: false
 		})
 	}
 
@@ -440,11 +442,12 @@ class AdminTransaction extends Component{
     //Fire in AdminTransactionDetail.js
     handlePrintMenuSelected = (e) => {
         e.preventDefault();
-        const { selectedMenuItem } = this.state;
+        const { selectedMenuItem, isDisabledButton } = this.state;
 
         this.setState({
             ...this.state,
-            statusPrintDataConfirm: 200
+            statusPrintDataConfirm: 200,
+            isDisabledButton: true
         }, () => {
             window.print();
         });

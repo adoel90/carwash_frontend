@@ -34,7 +34,8 @@ class AdminTransactionDetail extends Component {
 			handleInputChange,
 			dataTransaction,
 			store,
-			handlePrintMenuSelected
+			handlePrintMenuSelected,
+			isDisabledButton
 		} = this.props;
 
 		const renderPrintMenuList = () => {
@@ -43,6 +44,8 @@ class AdminTransactionDetail extends Component {
 		};
 
 		return (
+
+			
 			<Modal
 				className="modal-dialog--large"
 				isOpen={isModalOpen.paymentConfirmation}
@@ -99,10 +102,10 @@ class AdminTransactionDetail extends Component {
 							<small className="fw-semibold tt-uppercase ls-base">Kembali</small>
 						</Button>
 						{/* <Button onClick={() => toggleModal('paymentConfirmation')} type="submit" theme="warning" className="clr-light"> */}
-						<Button onClick={handlePrintMenuSelected} type="submit" theme="warning" className="clr-light margin-right-small">
+						<Button onClick={handlePrintMenuSelected} type="button" theme="warning" className="clr-light margin-right-small">
 							<small className="fw-semibold tt-uppercase ls-base">Print</small>
 						</Button>
-						<Button type="submit" theme="primary" className="clr-light margin-right-small">
+						<Button disabled={isDisabledButton === true ? true : false} type="submit" theme="primary" className="clr-light margin-right-small">
 							<small className="fw-semibold tt-uppercase ls-base">Bayar Sekarang</small>
 						</Button>
 					</ModalFooter>
@@ -110,7 +113,6 @@ class AdminTransactionDetail extends Component {
 			</Modal>
 		);
 	}
-
 }
 
 export default AdminTransactionDetail;

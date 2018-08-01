@@ -98,12 +98,12 @@ class AdminTransactionDetail extends Component {
 						<Button type="button" theme="danger" className="clr-light margin-right-small" onClick={() => toggleModal('paymentConfirmation')}>
 							<small className="fw-semibold tt-uppercase ls-base">Kembali</small>
 						</Button>
+						{/* <Button onClick={() => toggleModal('paymentConfirmation')} type="submit" theme="warning" className="clr-light"> */}
+						<Button onClick={handlePrintMenuSelected} type="submit" theme="warning" className="clr-light margin-right-small">
+							<small className="fw-semibold tt-uppercase ls-base">Print</small>
+						</Button>
 						<Button type="submit" theme="primary" className="clr-light margin-right-small">
 							<small className="fw-semibold tt-uppercase ls-base">Bayar Sekarang</small>
-						</Button>
-						{/* <Button onClick={() => toggleModal('paymentConfirmation')} type="submit" theme="warning" className="clr-light"> */}
-						<Button onClick={handlePrintMenuSelected} type="submit" theme="warning" className="clr-light">
-							<small className="fw-semibold tt-uppercase ls-base">Print</small>
 						</Button>
 					</ModalFooter>
 				</Form>

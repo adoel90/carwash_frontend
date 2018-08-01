@@ -284,8 +284,8 @@ class AdminTransaction extends Component{
         
         selectedMenuItem.map((item) => {
 
-
-            if(item.totalPrice > grandTotal){         
+            if(parseInt(dataTransaction.discount) > 0){
+            // if(item.totalPrice > grandTotal){         
                 //#DISCOUNT       
                 item.totalPrice = grandTotal;
 
@@ -294,10 +294,10 @@ class AdminTransaction extends Component{
                 let priceAfterDiscount = parseInt(item.price) - discountPerItem;
                 item.price = priceAfterDiscount.toString();
                 selectedMenuItemArray.push(item);
-
-
-            } else if(item.totalPrice < grandTotal){
-
+        
+            } 
+            // else if(item.totalPrice < grandTotal){ 
+            else if(parseInt(dataTransaction.markup) > 0){
                 //#MARK-UP
                 item.totalPrice = grandTotal;
 

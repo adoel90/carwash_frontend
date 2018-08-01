@@ -302,6 +302,8 @@ class AdminTransaction extends Component{
                 //#
                 let markUpPerItem = parseInt(item.price) * parseInt(dataTransaction.markup) / 100;
                 let priceAfterMarkup = parseInt(item.price) + markUpPerItem;
+
+                // console.log(priceAfterMarkup);
                 item.price = priceAfterMarkup.toString();
 
                 selectedMenuItemArray.push(item);

@@ -25,6 +25,8 @@ class AdmintTransactionPrintSecondary extends Component{
         const tdStyle = { 'text-align': 'center' }
 
         const renderItem = (item, i) => {
+            
+            
             let totalPrice = parseFloat(item.totalPrice)+((parseFloat(item.totalPrice)*parseFloat(dataTransaction.markup))/100);
 
             return (

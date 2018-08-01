@@ -294,6 +294,8 @@ class AdminTransaction extends Component{
                 let priceAfterDiscount = parseInt(item.price) - discountPerItem;
                 item.price = priceAfterDiscount.toString();
                 selectedMenuItemArray.push(item);
+
+
             } else if(item.totalPrice < grandTotal){
 
                 //#MARK-UP

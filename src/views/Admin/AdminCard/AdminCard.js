@@ -183,50 +183,45 @@ class AdminCard extends Component {
 
             const { card } = this.props;
 
-            const columns = [{
-                  title: 'Nama',
-                  accessor: 'name'
-            }, 
-            // {
-            //       title: 'Minimum Saldo ',
-            //       accessor: 'min',
-            //       align: 'center',
-            //       rowAlign: 'center',
-            //       isCurrency: true
-            // }, 
-            // {
-            //       title: 'Top Up',
-            //       accessor: 'min',
-            //       align: 'center',
-            //       rowAlign: 'center',
-            //       isCurrency: true
-            // },
-            // {
-            //       title: 'Nominal Tipe-3',
-            //       accessor: 'min',
-            //       align: 'center',
-            //       rowAlign: 'center',
-            //       isCurrency: true
-            // },
-            // {
-            //       title: 'Bonus',
-            //       accessor: 'bonus',
-            //       align: 'center',
-            //       rowAlign: 'center',
-            //       isCurrency: true
-            // }, 
-            {
-                  title: 'Status',
-                  accessor: 'action',
-                  width: '30%',
-                  align: 'center',
-                  render: (row) => (
-                        <td className="flex justify-content--center">
-                              <Button className="margin-right-small" type="button" onClick={() => this.openCardDetail(row)}>Setting Kartu</Button>
-                              <Button type="button" theme={row.data.status ? "success" : "danger"} onClick={() => this.changeCardStatus(row)}>{ row.data.status ? 'Aktif' : 'Non Aktif' }</Button>
-                        </td>
-                  )
-            }];
+            const columns = [
+                  {
+                        title: 'Nama',
+                        accessor: 'name'
+                  }, 
+                  // {
+                  //       title: 'Minimum Saldo ',
+                  //       accessor: 'min',
+                  //       align: 'center',
+                  //       rowAlign: 'center',
+                  //       // isCurrency: true
+                  // }, 
+                  // {
+                  //       title: 'Setting Top Up',
+                  //       accessor: 'mintopup',
+                  //       align: 'center',
+                  //       rowAlign: 'center',
+                  //       // isCurrency: true
+                  // },
+                  // {
+                  //       title: 'Setting Bonus',
+                  //       accessor: 'bonustopup',
+                  //       align: 'center',
+                  //       rowAlign: 'center',
+                  //       // isCurrency: true
+                  // }, 
+                  {
+                        title: 'Status',
+                        accessor: 'action',
+                        width: '30%',
+                        align: 'center',
+                        render: (row) => (
+                              <td className="flex justify-content--center">
+                                    <Button className="margin-right-small" type="button" onClick={() => this.openCardDetail(row)}>Setting Kartu</Button>
+                                    <Button type="button" theme={row.data.status ? "success" : "danger"} onClick={() => this.changeCardStatus(row)}>{ row.data.status ? 'Aktif' : 'N/A' }</Button>
+                              </td>
+                        )
+                  }
+            ];
 
             const rows = [];
 
@@ -234,19 +229,19 @@ class AdminCard extends Component {
             if(card.types.isLoaded){
                   card.types.data.result.card.forEach((data) => {
 
-
-
                         //#
-                        // let dataPilihanNominalSaldo = data.min.length ? data.min.filter((data, index, self) => {
-                        //       return index == self.indexOf(data);
-                        // }): null; 
+                        let dataSettingTopUp = data.balance.length ? data.balance.filter((data, index, self) => {
+                              return index == self.indexOf(data);
+                        }): null; 
+
+                        // console.log("Ini Length : ",dataSettingTopUp.length);
 
                         let row = {
                               id: data.id,
                               name: data.name,
                               min: data.min,
-                              // mintopup: data.mintopup,
-                              bonus: data.bonus,
+                              mintopup: dataSettingTopUp.length === 3 ? dataSettingTopUp[0].saldo + " || " + dataSettingTopUp[1].saldo +  " || " + dataSettingTopUp[2].saldo : dataSettingTopUp[0].saldo,
+                              bonustopup: dataSettingTopUp.length === 3 ? dataSettingTopUp[0].bonus + " || " + dataSettingTopUp[1].bonus +  " || " + dataSettingTopUp[2].bonus : dataSettingTopUp[0].bonus,
                               refund: data.refund,
                               charge: data.charge,
                               data: data
@@ -272,7 +267,7 @@ class AdminCard extends Component {
                   selectedCard: row
             }, () => {
                   this.toggleModal('updateCard');
-            })
+            });
       };
 
       changeCardStatus = (row) => {

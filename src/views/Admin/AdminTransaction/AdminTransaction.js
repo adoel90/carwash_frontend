@@ -59,6 +59,7 @@ class AdminTransaction extends Component{
         this.calculateGrandTotalPrice = this.calculateGrandTotalPrice.bind(this);
         this.printListMenuStore = this.printListMenuStore.bind(this);
         this.handlePrintMenuSelected = this.handlePrintMenuSelected.bind(this);
+        this.handleCancelAndReloadButton = this.handleCancelAndReloadButton.bind(this);
 
         this.state = {
             storeList: {},
@@ -453,6 +454,20 @@ class AdminTransaction extends Component{
         });
     };
 
+    //#
+    handleCancelAndReloadButton = (e) => {
+        e.preventDefault();
+
+        this.setState({
+            ...this.state,
+            isModalOpen:{
+                paymentConfirmation: false
+            }
+        }, () => {
+            window.location.reload();
+        });
+    };
+
     render(){
         const { storeList, activeTab } = this.state;
         const { store, match } = this.props;
@@ -492,6 +507,7 @@ class AdminTransaction extends Component{
                                     toggleTab={this.toggleTab}
                                     printListMenuStore={this.printListMenuStore}
                                     handlePrintMenuSelected={this.handlePrintMenuSelected}
+                                    handleCancelAndReloadButton = {this.handleCancelAndReloadButton}
                                     {...this.props}
                                     {...this.state}
                                 />

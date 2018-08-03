@@ -50,6 +50,7 @@ class AdminTransactionSuperAdm extends Component {
         this.calculateGrandTotalPrice = this.calculateGrandTotalPrice.bind(this);
         this.handlePrintMenuSelected = this.handlePrintMenuSelected.bind(this);
         this.openDialog = this.openDialog.bind(this);
+        this.handleCancelAndReloadButton = this.handleCancelAndReloadButton.bind(this);
 
         this.state = {
             storeActiveList : {},
@@ -453,6 +454,20 @@ class AdminTransactionSuperAdm extends Component {
         });
     };
 
+    //#
+    handleCancelAndReloadButton = (e) => {
+        e.preventDefault();
+
+        this.setState({
+            ...this.state,
+            isModalOpen:{
+                paymentConfirmation: false
+            }
+        }, () => {
+            window.location.reload();
+        });
+    };
+
     render(){
 
         return (
@@ -469,6 +484,7 @@ class AdminTransactionSuperAdm extends Component {
                     calculateGrandTotalPrice = {this.calculateGrandTotalPrice}
                     handleMemberAuthentication={this.handleMemberAuthentication}
                     handlePrintMenuSelected={this.handlePrintMenuSelected}
+                    handleCancelAndReloadButton={this.handleCancelAndReloadButton}
                     {...this.state}
                     {...this.props}
                 />

@@ -35,7 +35,8 @@ class AdminTransactionDetail extends Component {
 			dataTransaction,
 			store,
 			handlePrintMenuSelected,
-			isDisabledButton
+			isDisabledButton,
+			handleCancelAndReloadButton
 		} = this.props;
 
 		const renderPrintMenuList = () => {
@@ -96,7 +97,8 @@ class AdminTransactionDetail extends Component {
 					</div>
 					</ModalBody>
 					<ModalFooter className="flex justify-content--center">
-						<Button type="button" theme="danger" className="clr-light margin-right-small" onClick={() => toggleModal('paymentConfirmation')}>
+						{/* <Button type="button" theme="danger" className="clr-light margin-right-small" onClick={() => toggleModal('paymentConfirmation')}> */}
+						<Button type="button" theme="danger" className="clr-light margin-right-small" onClick={(e) => handleCancelAndReloadButton(e)}>
 							<small className="fw-semibold tt-uppercase ls-base">Kembali</small>
 						</Button>
 						{/* <Button onClick={() => toggleModal('paymentConfirmation')} type="submit" theme="warning" className="clr-light"> */}

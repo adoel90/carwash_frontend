@@ -75,7 +75,6 @@ class AdminPanel extends Component {
 
         if (menu[0].group === 'admin') {
             let routePage = [
-                
                 // { name: 'dashboard', path: `${this.props.match.url}`, component: AdminDashboard },                
                 { name: 'user', path: `${this.props.match.url}`, component: AdminUser },
                 { name: 'user', path: `${this.props.match.url}/user`, component: AdminUser },
@@ -135,12 +134,12 @@ class AdminPanel extends Component {
 
             if (level.name === 'Owner') {
                 let routePage = [
+                    { name: 'transaction', path: `${this.props.match.url}/product/transaction`, component: AdminTransaction },
                     { name: 'product', path: `${this.props.match.url}/product`, component: AdminStoresMenu },
                     { name: 'create-new-product', path: `${this.props.match.url}/product/create-new-product`, component: AdminStoresMenuCreate },
                     { name: 'staff', path: `${this.props.match.url}/product/staff`, component: AdminStoresEmployee },
                     { name: 'create-new-staff', path: `${this.props.match.url}/product/create-new-staff`, component: AdminStoresEmployeeCreate },
                     { name: 'logout', path: `${this.props.match.url}/logout`, component: AdminLogout },
-                    { name: 'transaction', path: `${this.props.match.url}/product/transaction`, component: AdminTransaction },
                     { name: 'report', path: `${this.props.match.url}/report`, component: AdminStoresReport },
                     { name: 'report-menu', path: `${this.props.match.url}/report/report-menu`, component: AdminStoresReportMenu },
                     { name: 'setting', path: `${this.props.match.url}/setting`, component: AdminSetting },

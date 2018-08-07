@@ -22,7 +22,7 @@ const AdminStoresReportMenuView = props => {
         <div className="admin-report">
             <Panel>
                 <PanelHeader>
-                    <h4 className="heading-title">Laporan Menu </h4>
+                    <h4 className="heading-title">Laporan Menu Favorit</h4>
                 </PanelHeader>
                 <PanelBody>
                     <Form inline>

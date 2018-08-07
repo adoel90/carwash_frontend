@@ -84,7 +84,7 @@ const AdminStoresMenuCreateView = props => {
                                             <Input className="input" name="image" type="file"  placeholder="Gambar Produk" onChange={(e) => handleImageChange(newMenuProduct, e) } />
                                         </InputGroup>
                                     </FormField>
-                                    <FormField label="Penawaran Khusus">
+                                    <FormField label="Penawaran Khusus (Discount 50%)">
                                             <SwitchSquare name="category" value={Boolean(newMenuProduct.category)} onChange={(e) => handleInputChange('newMenuProduct', e)} />
                                     </FormField>
                                     <Button type="submit">Simpan</Button>

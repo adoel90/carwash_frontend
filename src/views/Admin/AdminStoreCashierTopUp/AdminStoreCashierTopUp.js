@@ -333,7 +333,6 @@ class AdminStoreCashierTopUp extends Component {
         e.preventDefault();
         const typeMember = authenticatedMember.isAuthenticated ? authenticatedMember.data.card.type.name : null;
         const { action, user } = this.props;          
-
         
         if(typeMember === "Member"){ // MEMBER
 

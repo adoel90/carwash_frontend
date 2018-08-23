@@ -265,7 +265,7 @@ const AdminCardView = props => {
                                                                   <small class="fw-semibold tt-uppercase ls-base">Rp</small>
                                                             </InputAddon>
                                                             <InputCurrency 
-                                                                  required
+                                                                  // required
                                                                   className="input"
                                                                   type="text" 
                                                                   name="bonusnonmember" 

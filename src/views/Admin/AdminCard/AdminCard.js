@@ -352,12 +352,13 @@ class AdminCard extends Component {
                         // window.location.reload();
                   })    
             } else if( selectedCard.name === "Non-Member"){
+                  
                   console.log("From Non-Member");
 
                   let items = [
                         {
                               saldo: parseInt(selectedCard.opsinonmember.replace(/,/g, '')),
-                              bonus: parseInt(selectedCard.bonusnonmember.replace(/,/g, ''))
+                              bonus: selectedCard.bonusnonmember === undefined ? parseInt("0") : parseInt(selectedCard.bonusnonmember.replace(/,/g, '')) 
                         }
                   ];
 

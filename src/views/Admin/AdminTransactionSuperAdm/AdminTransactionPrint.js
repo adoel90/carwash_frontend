@@ -39,7 +39,7 @@ class AdminTransactionPrint extends Component {
                         <NumberFormat
                             thousandSeparator={true}
                             displayType={'text'}
-                            value={totalPrice}
+                            value={totalPrice === 0 ? parseInt(item.totalPrice) : totalPrice }
                         />
                     </td>
                 </tr>

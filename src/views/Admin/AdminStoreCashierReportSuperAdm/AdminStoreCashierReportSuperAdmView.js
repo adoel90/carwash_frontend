@@ -176,8 +176,11 @@ const AdminStoreCashierReportSuperAdmView = props => {
                                     </Column>
                                 </Row>
                                 {/* { showHideIntefaceReport === false ? renderButtonsAndDatePicker() : null}   */}
-                                {renderButtonsAndDatePicker()}
+                                {showHideIntefaceReport === true ? renderButtonsAndDatePicker() : null}
+                                {/* {renderButtonsAndDatePicker()} */}
                             </Form>
+
+                            
 
                             <div className="admin-report__content">
                                {showHideIntefaceReport === true ? renderTableReport() : null}

@@ -13,7 +13,7 @@ const map1 = Map({ a: 1, b: 2, c: 3 })
 const map2 = map1.set('b', 50)
 map1.get('b') + " vs. " + map2.get('b') // 2 vs. 50
 
-console.log('Ini b :  ', map1.get('b'));
+// console.log('Ini b :  ', map1.get('b'));
 
 //#Nested Structure
 const data = fromJS(
@@ -26,7 +26,7 @@ const data = fromJS(
                 );
 
 const goodName = data.getIn(['my', 'nested', 'name']);
-console.log(goodName); // prints Will
+// console.log(goodName); // prints Will    
 
 //#Use .equals() instead ===
 // const map3 = Map( 

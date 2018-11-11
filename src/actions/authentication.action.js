@@ -43,17 +43,15 @@ export const adminLogin = (data) => {
                 password: data.password
             })
             .then((response) => {
-                let result = response.data.result;
-                // if(result.data.module[0].group === 'admin') {
-                // if(result.data.level.id === 1){
-                    localStorage.setItem('accessToken', result.accessToken);
-                    localStorage.setItem('userData', JSON.stringify(result.data));
-                    dispatch(loginSuccess(result));
+                // let result = response.data.result;
+                let result = response.data;
+                    console.log(result);
+
+                    // localStorage.setItem('accessToken', result.accessToken);
+                    // localStorage.setItem('userData', JSON.stringify(result.data));
+                    // dispatch(loginSuccess(result));
     
-                    window.location.reload();
-                // } else {
-                //     dispatch(loginError(result));              
-                // }
+                    // window.location.reload();
             })
             .catch((error) => {
                 dispatch(loginError(error));
